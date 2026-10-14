@@ -1,0 +1,200 @@
+[
+  {
+    "text": "I'm",
+    "start": 0.03,
+    "end": 0.15,
+    "id": "w0"
+  },
+  {
+    "text": "gonna",
+    "start": 0.2,
+    "end": 0.52,
+    "id": "w1"
+  },
+  {
+    "text": "show",
+    "start": 0.52,
+    "end": 0.79,
+    "id": "w2"
+  },
+  {
+    "text": "you",
+    "start": 0.79,
+    "end": 0.99,
+    "id": "w3"
+  },
+  {
+    "text": "why",
+    "start": 0.99,
+    "end": 1.12,
+    "id": "w4"
+  },
+  {
+    "text": "your",
+    "start": 1.2,
+    "end": 1.46,
+    "id": "w5"
+  },
+  {
+    "text": "captions",
+    "start": 1.46,
+    "end": 2,
+    "id": "w6"
+  },
+  {
+    "text": "feel",
+    "start": 2,
+    "end": 2.27,
+    "id": "w7"
+  },
+  {
+    "text": "boring.",
+    "start": 2.27,
+    "end": 2.76,
+    "id": "w8"
+  },
+  {
+    "text": "Nobody",
+    "start": 2.79,
+    "end": 3.23,
+    "id": "w9"
+  },
+  {
+    "text": "reads",
+    "start": 3.23,
+    "end": 3.62,
+    "id": "w10"
+  },
+  {
+    "text": "plain",
+    "start": 3.62,
+    "end": 4.01,
+    "id": "w11"
+  },
+  {
+    "text": "subtitles.",
+    "start": 4.01,
+    "end": 4.96,
+    "id": "w12"
+  },
+  {
+    "text": "They",
+    "start": 4.99,
+    "end": 5.24,
+    "id": "w13"
+  },
+  {
+    "text": "feel",
+    "start": 5.24,
+    "end": 5.52,
+    "id": "w14"
+  },
+  {
+    "text": "the",
+    "start": 5.52,
+    "end": 5.73,
+    "id": "w15"
+  },
+  {
+    "text": "motion.",
+    "start": 5.73,
+    "end": 6.36,
+    "id": "w16"
+  },
+  {
+    "text": "Every",
+    "start": 6.39,
+    "end": 6.68,
+    "id": "w17"
+  },
+  {
+    "text": "word",
+    "start": 6.68,
+    "end": 6.93,
+    "id": "w18"
+  },
+  {
+    "text": "should",
+    "start": 6.93,
+    "end": 7.31,
+    "id": "w19"
+  },
+  {
+    "text": "land",
+    "start": 7.31,
+    "end": 7.48,
+    "id": "w20"
+  },
+  {
+    "text": "right",
+    "start": 7.56,
+    "end": 7.88,
+    "id": "w21"
+  },
+  {
+    "text": "when",
+    "start": 7.88,
+    "end": 8.13,
+    "id": "w22"
+  },
+  {
+    "text": "you",
+    "start": 8.13,
+    "end": 8.32,
+    "id": "w23"
+  },
+  {
+    "text": "say",
+    "start": 8.32,
+    "end": 8.51,
+    "id": "w24"
+  },
+  {
+    "text": "it.",
+    "start": 8.51,
+    "end": 8.66,
+    "id": "w25"
+  },
+  {
+    "text": "That's",
+    "start": 8.91,
+    "end": 9.21,
+    "id": "w26"
+  },
+  {
+    "text": "how",
+    "start": 9.21,
+    "end": 9.36,
+    "id": "w27"
+  },
+  {
+    "text": "you",
+    "start": 9.38,
+    "end": 9.53,
+    "id": "w28"
+  },
+  {
+    "text": "make",
+    "start": 9.53,
+    "end": 9.75,
+    "id": "w29"
+  },
+  {
+    "text": "people",
+    "start": 9.75,
+    "end": 10,
+    "id": "w30"
+  },
+  {
+    "text": "stop",
+    "start": 10.08,
+    "end": 10.3,
+    "id": "w31"
+  },
+  {
+    "text": "scrolling.",
+    "start": 10.3,
+    "end": 10.98,
+    "id": "w32"
+  }
+]
