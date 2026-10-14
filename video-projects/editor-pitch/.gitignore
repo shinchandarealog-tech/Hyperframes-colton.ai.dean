@@ -1,0 +1,6 @@
+renders/
+.matte/
+# your footage stays local (public repo)
+assets/clip.mp4
+assets/voice.wav
+assets/matte.webm

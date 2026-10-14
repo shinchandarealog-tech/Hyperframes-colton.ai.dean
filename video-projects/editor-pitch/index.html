@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Caveat"; src: url("assets/fonts/caveat-700.woff2") format("woff2"); font-weight: 700; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      /* Palette: red + white only (user direction) */
+      :root { --red: #e0182d; --white: #ffffff; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      #vwrap { position: absolute; inset: 0; transform-origin: 50% 40%; z-index: 1; }
+      #vwrap video, #matte { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #matte { z-index: 4; }
+      #shade { position: absolute; left: 0; right: 0; bottom: 0; height: 1000px; z-index: 2;
+        background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%); }
+      .grp { position: absolute; inset: 0; z-index: 5; }
+      .pos { position: absolute; white-space: nowrap; }
+      .w { display: inline-block; line-height: 1; }
+      .c { display: inline-block; }
+      .r-b { font-family: "Poppins", sans-serif; font-weight: 600; color: var(--white);
+        text-shadow: 0 6px 18px rgba(0,0,0,0.85), 0 2px 4px rgba(0,0,0,0.6), 0 0 22px rgba(255,255,255,0.2); }
+      .r-e { font-family: "Poppins", sans-serif; font-weight: 900; color: var(--red); letter-spacing: -0.01em;
+        -webkit-text-stroke: 5px var(--white); paint-order: stroke fill;
+        text-shadow: 0 6px 18px rgba(0,0,0,0.85), 0 2px 4px rgba(0,0,0,0.6); }
+      .r-s { font-family: "Caveat", cursive; font-weight: 700; color: var(--white);
+        text-shadow: 0 4px 14px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.7); }
+      .r-p { font-family: "Anton", sans-serif; font-weight: 400; color: var(--red); letter-spacing: 0.01em;
+        text-shadow: 6px 6px 0 rgba(255,255,255,0.95), 0 14px 30px rgba(0,0,0,0.8); }
+      .r-p.white { color: var(--white); text-shadow: 6px 6px 0 var(--red), 0 14px 30px rgba(0,0,0,0.8); }
+      .bang { position: absolute; overflow: visible; }
+      .bang path { fill: none; stroke: var(--white); stroke-width: 12; stroke-linecap: round;
+        stroke-dasharray: 120; stroke-dashoffset: 120; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.7)); }
+      .bang.red path { stroke: var(--red); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1080" data-height="1920">
+      <div id="vwrap">
+        <video id="v" src="assets/clip.mp4" muted playsinline data-start="0" data-duration="8" data-track-index="0"></video>
+      </div>
+      <div id="shade"></div>
+<div id="g0" class="clip grp" style="z-index:3" data-start="0.0" data-duration="1.57" data-track-index="1">
+  <div class="pos" style="left:250px;top:470px;transform:translate(-50%,-50%) rotate(-10deg)"><span id="w0" class="w r-s" style="font-size:112px"><span class="c">I</span><span class="c">f</span></span></div>
+  <div class="pos" style="left:500px;top:465px;transform:translate(-50%,-50%) rotate(0deg)"><span id="w1" class="w r-b" style="font-size:118px"><span class="c">y</span><span class="c">o</span><span class="c">u</span><span class="c">&#x27;</span><span class="c">r</span><span class="c">e</span></span></div>
+  <div class="pos" style="left:560px;top:640px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w2" class="w r-p white" style="font-size:290px"><span class="c">L</span><span class="c">O</span><span class="c">O</span><span class="c">K</span><span class="c">I</span><span class="c">N</span><span class="c">G</span></span></div>
+  <div class="pos" style="left:250px;top:870px;transform:translate(-50%,-50%) rotate(-8deg)"><span id="w3" class="w r-s" style="font-size:124px"><span class="c">f</span><span class="c">o</span><span class="c">r</span></span></div>
+  <div class="pos" style="left:300px;top:985px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w4" class="w r-s" style="font-size:120px"><span class="c">a</span><span class="c">n</span></span></div>
+  <div class="pos" style="left:880px;top:1000px;transform:translate(-50%,-50%) rotate(90deg)"><span id="w5" class="w r-e" style="font-size:140px"><span class="c">e</span><span class="c">d</span><span class="c">i</span><span class="c">t</span><span class="c">o</span><span class="c">r</span></span></div>
+</div>
+<div id="g1" class="clip grp" data-start="1.57" data-duration="0.63" data-track-index="2">
+  <div class="pos" style="left:360px;top:1290px;transform:translate(-50%,-50%) rotate(-6deg)"><span id="w6" class="w r-b" style="font-size:116px"><span class="c">h</span><span class="c">e</span><span class="c">r</span><span class="c">e</span><span class="c">&#x27;</span><span class="c">s</span></span></div>
+  <div class="pos" style="left:590px;top:1310px;transform:translate(-50%,-50%) rotate(8deg)"><span id="w7" class="w r-s" style="font-size:104px"><span class="c">m</span><span class="c">y</span></span></div>
+  <div class="pos" style="left:560px;top:1540px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w8" class="w r-p" style="font-size:330px"><span class="c">P</span><span class="c">I</span><span class="c">T</span><span class="c">C</span><span class="c">H</span></span></div>
+</div>
+<div id="g2" class="clip grp" data-start="2.36" data-duration="0.87" data-track-index="1">
+  <div class="pos" style="left:185px;top:1160px;transform:translate(-50%,-50%) rotate(-10deg)"><span id="w9" class="w r-s" style="font-size:112px"><span class="c">I</span></span></div>
+  <div class="pos" style="left:430px;top:1165px;transform:translate(-50%,-50%) rotate(-2deg)"><span id="w10" class="w r-b" style="font-size:122px"><span class="c">m</span><span class="c">a</span><span class="c">k</span><span class="c">e</span></span></div>
+  <div class="pos" style="left:540px;top:1365px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w11" class="w r-p" style="font-size:300px"><span class="c">V</span><span class="c">I</span><span class="c">R</span><span class="c">A</span><span class="c">L</span></span></div>
+  <div class="pos" style="left:890px;top:1360px;transform:translate(-50%,-50%) rotate(82deg)"><span id="w12" class="w r-b" style="font-size:116px"><span class="c">c</span><span class="c">o</span><span class="c">n</span><span class="c">t</span><span class="c">e</span><span class="c">n</span><span class="c">t</span></span></div>
+</div>
+<div id="g3" class="clip grp" data-start="3.23" data-duration="1.39" data-track-index="2">
+  <div class="pos" style="left:200px;top:1150px;transform:translate(-50%,-50%) rotate(-8deg)"><span id="w13" class="w r-s" style="font-size:108px"><span class="c">t</span><span class="c">h</span><span class="c">a</span><span class="c">t</span></span></div>
+  <div class="pos" style="left:515px;top:1175px;transform:translate(-50%,-50%) rotate(-2deg)"><span id="w14" class="w r-b" style="font-size:122px"><span class="c">k</span><span class="c">e</span><span class="c">e</span><span class="c">p</span><span class="c">s</span></span></div>
+  <div class="pos" style="left:600px;top:1320px;transform:translate(-50%,-50%) rotate(3deg)"><span id="w15" class="w r-e" style="font-size:134px"><span class="c">v</span><span class="c">i</span><span class="c">e</span><span class="c">w</span><span class="c">e</span><span class="c">r</span><span class="c">s</span></span></div>
+  <div class="pos" style="left:540px;top:1525px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w16" class="w r-p white" style="font-size:280px"><span class="c">H</span><span class="c">O</span><span class="c">O</span><span class="c">K</span><span class="c">E</span><span class="c">D</span></span></div>
+  <svg id="bang" class="bang red" style="left:820px;top:1130px" width="200" height="200" viewBox="0 0 200 200"><path d="M50 40 L80 130"/><path d="M105 25 L112 125"/><path d="M165 45 L138 130"/></svg>
+</div>
+<div id="g4" class="clip grp" data-start="4.62" data-duration="0.63" data-track-index="1">
+  <div class="pos" style="left:300px;top:1260px;transform:translate(-50%,-50%) rotate(-6deg)"><span id="w17" class="w r-b" style="font-size:132px"><span class="c">F</span><span class="c">a</span><span class="c">s</span><span class="c">t</span></span></div>
+  <div class="pos" style="left:560px;top:1455px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w18" class="w r-p" style="font-size:340px"><span class="c">C</span><span class="c">U</span><span class="c">T</span><span class="c">S</span></span></div>
+</div>
+<div id="g5" class="clip grp" data-start="5.25" data-duration="0.9" data-track-index="2">
+  <div class="pos" style="left:320px;top:1250px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w19" class="w r-b" style="font-size:130px"><span class="c">s</span><span class="c">o</span><span class="c">u</span><span class="c">n</span><span class="c">d</span></span></div>
+  <div class="pos" style="left:600px;top:1385px;transform:translate(-50%,-50%) rotate(4deg)"><span id="w20" class="w r-e" style="font-size:150px"><span class="c">d</span><span class="c">e</span><span class="c">s</span><span class="c">i</span><span class="c">g</span><span class="c">n</span></span></div>
+  <div class="pos" style="left:850px;top:1505px;transform:translate(-50%,-50%) rotate(10deg)"><span id="w21" class="w r-s" style="font-size:112px"><span class="c">a</span><span class="c">n</span><span class="c">d</span></span></div>
+</div>
+<div id="g6" class="clip grp" data-start="6.15" data-duration="0.91" data-track-index="1">
+  <div class="pos" style="left:380px;top:1290px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w22" class="w r-b" style="font-size:132px"><span class="c">p</span><span class="c">e</span><span class="c">r</span><span class="c">f</span><span class="c">e</span><span class="c">c</span><span class="c">t</span></span></div>
+  <div class="pos" style="left:560px;top:1490px;transform:translate(-50%,-50%) rotate(-3deg)"><span id="w23" class="w r-p white" style="font-size:300px"><span class="c">P</span><span class="c">A</span><span class="c">C</span><span class="c">I</span><span class="c">N</span><span class="c">G</span></span></div>
+</div>
+<div id="g7" class="clip grp" data-start="7.06" data-duration="0.94" data-track-index="2">
+  <div class="pos" style="left:270px;top:1265px;transform:translate(-50%,-50%) rotate(-8deg)"><span id="w24" class="w r-s" style="font-size:112px"><span class="c">S</span><span class="c">o</span></span></div>
+  <div class="pos" style="left:480px;top:1265px;transform:translate(-50%,-50%) rotate(-2deg)"><span id="w25" class="w r-b" style="font-size:130px"><span class="c">l</span><span class="c">e</span><span class="c">t</span><span class="c">&#x27;</span><span class="c">s</span></span></div>
+  <div class="pos" style="left:560px;top:1470px;transform:translate(-50%,-50%) rotate(-4deg)"><span id="w26" class="w r-p" style="font-size:330px"><span class="c">W</span><span class="c">O</span><span class="c">R</span><span class="c">K</span></span></div>
+  <div class="pos" style="left:575px;top:1680px;transform:translate(-50%,-50%) rotate(3deg)"><span id="w27" class="w r-b" style="font-size:128px"><span class="c">t</span><span class="c">o</span><span class="c">g</span><span class="c">e</span><span class="c">t</span><span class="c">h</span><span class="c">e</span><span class="c">r</span></span></div>
+</div>
+      <video id="matte" src="assets/matte.webm" muted playsinline data-start="0" data-duration="1.57" data-track-index="3"></video>
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="8" data-track-index="4" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const WORDS = [{"id": "w0", "t": 0.02, "role": "s", "g": 0}, {"id": "w1", "t": 0.11, "role": "b", "g": 0}, {"id": "w2", "t": 0.45, "role": "p", "g": 0}, {"id": "w3", "t": 0.84, "role": "s", "g": 0}, {"id": "w4", "t": 1.01, "role": "s", "g": 0}, {"id": "w5", "t": 1.12, "role": "e", "g": 0}, {"id": "w6", "t": 1.57, "role": "b", "g": 1}, {"id": "w7", "t": 1.87, "role": "s", "g": 1}, {"id": "w8", "t": 1.94, "role": "p", "g": 1}, {"id": "w9", "t": 2.36, "role": "s", "g": 2}, {"id": "w10", "t": 2.39, "role": "b", "g": 2}, {"id": "w11", "t": 2.65, "role": "p", "g": 2}, {"id": "w12", "t": 2.86, "role": "b", "g": 2}, {"id": "w13", "t": 3.23, "role": "s", "g": 3}, {"id": "w14", "t": 3.44, "role": "b", "g": 3}, {"id": "w15", "t": 3.83, "role": "e", "g": 3}, {"id": "w16", "t": 4.1, "role": "p", "g": 3}, {"id": "w17", "t": 4.62, "role": "b", "g": 4}, {"id": "w18", "t": 4.91, "role": "p", "g": 4}, {"id": "w19", "t": 5.25, "role": "b", "g": 5}, {"id": "w20", "t": 5.57, "role": "e", "g": 5}, {"id": "w21", "t": 6.09, "role": "s", "g": 5}, {"id": "w22", "t": 6.15, "role": "b", "g": 6}, {"id": "w23", "t": 6.81, "role": "p", "g": 6}, {"id": "w24", "t": 7.06, "role": "s", "g": 7}, {"id": "w25", "t": 7.14, "role": "b", "g": 7}, {"id": "w26", "t": 7.44, "role": "p", "g": 7}, {"id": "w27", "t": 7.61, "role": "b", "g": 7}];
+      const GROUPS = [{"start": 0.0, "end": 1.57, "grade": false, "zoom": false, "doodle": false, "last": false}, {"start": 1.57, "end": 2.2, "grade": false, "zoom": false, "doodle": false, "last": false}, {"start": 2.36, "end": 3.23, "grade": true, "zoom": false, "doodle": false, "last": false}, {"start": 3.23, "end": 4.62, "grade": false, "zoom": false, "doodle": true, "last": false}, {"start": 4.62, "end": 5.25, "grade": false, "zoom": true, "doodle": false, "last": false}, {"start": 5.25, "end": 6.15, "grade": false, "zoom": false, "doodle": false, "last": false}, {"start": 6.15, "end": 7.06, "grade": false, "zoom": false, "doodle": false, "last": false}, {"start": 7.06, "end": 8.0, "grade": false, "zoom": false, "doodle": false, "last": true}];
+      const tl = gsap.timeline({ paused: true });
+
+      WORDS.forEach(function (w) {
+        var chars = document.querySelectorAll("#" + w.id + " .c");
+        if (w.role === "p") {
+          tl.fromTo("#" + w.id, { scale: 1.7, opacity: 0, filter: "blur(14px)" },
+            { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, w.t);
+          var others = WORDS.filter(function (o) { return o.g === w.g && o.id !== w.id && o.t < w.t; })
+            .map(function (o) { return "#" + o.id; });
+          if (others.length) tl.to(others, { opacity: 0.6, duration: 0.2, ease: "power2.out" }, w.t);
+        } else {
+          tl.fromTo(chars, { opacity: 0, y: 12, filter: "blur(8px)" },
+            { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.11, stagger: w.role === "s" ? 0.035 : 0.03,
+              ease: w.role === "e" ? "back.out(2)" : "power2.out" }, w.t);
+        }
+      });
+
+      GROUPS.forEach(function (g, gi) {
+        var el = "#g" + gi;
+        var punch = WORDS.filter(function (w) { return w.g === gi && w.role === "p"; })[0];
+        if (g.grade && punch) {
+          tl.to("#vwrap", { filter: "grayscale(1) contrast(1.25)", duration: 0.04, ease: "none" }, punch.t);
+          tl.to("#vwrap", { filter: "grayscale(0) contrast(1)", duration: 0.2, ease: "power2.out" }, g.end - 0.2);
+        }
+        if (g.zoom && punch) {
+          tl.to("#vwrap", { scale: 1.09, duration: 0.12, ease: "power3.out" }, punch.t);
+          tl.to("#vwrap", { scale: 1, duration: 0.3, ease: "power2.inOut" }, g.end - 0.3);
+        }
+        if (g.doodle) tl.to("#bang path", { strokeDashoffset: 0, duration: 0.14, stagger: 0.06, ease: "power2.out" }, punch.t + 0.08);
+        if (!g.last) {
+          tl.to(el, { opacity: 0, scale: 0.96, filter: "blur(10px)", duration: 0.12, ease: "power2.in" }, g.end - 0.12);
+          tl.set(el, { opacity: 0, visibility: "hidden" }, g.end);
+        }
+      });
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
