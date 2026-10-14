@@ -36,6 +36,32 @@
         text-shadow: 7px 5px 0 rgba(255,255,255,0.95), 0 0 28px rgba(255,30,55,0.85), 0 0 60px rgba(255,20,45,0.55), 0 14px 30px rgba(0,0,0,0.7); }
       .r-p.white { color: var(--white); text-shadow: 7px 5px 0 var(--red), 0 0 28px rgba(255,255,255,0.8), 0 0 60px rgba(255,255,255,0.45), 0 14px 30px rgba(0,0,0,0.7); }
       .r-p .c { transform: skewX(-8deg); }
+      /* ---------- explainer motion graphics ---------- */
+      .mg { position: absolute; z-index: 7; }
+      .card { left: 90px; width: 900px; top: 1515px; height: 310px; border-radius: 40px;
+        background: rgba(12,12,14,0.8); border: 2px solid rgba(255,255,255,0.14);
+        box-shadow: 0 22px 60px rgba(0,0,0,0.55), 0 0 46px rgba(216,22,43,0.3); overflow: hidden; }
+      .lbl { position: absolute; font-family: "Comfortaa", sans-serif; font-weight: 700; color: rgba(255,255,255,0.75); font-size: 30px; letter-spacing: 0.14em; }
+      .big { position: absolute; font-family: "Anton", sans-serif; color: #fff; line-height: 1;
+        text-shadow: 0 0 22px rgba(255,255,255,0.5); }
+      .redtxt { color: var(--red); text-shadow: 0 0 22px rgba(255,30,55,0.7); }
+      #hookq { left: 0; width: 1080px; top: 760px; text-align: center; font-family: "Anton", sans-serif; font-size: 230px; color: #fff; z-index: 8; }
+      #sil { z-index: 6; }
+      /* editor timeline panel, sits BEHIND the speaker */
+      #edpanel { z-index: 2; left: 560px; top: 210px; width: 470px; height: 330px; border-radius: 26px;
+        background: rgba(14,14,16,0.86); border: 2px solid rgba(255,255,255,0.18); box-shadow: 0 0 40px rgba(216,22,43,0.35);
+        transform: perspective(900px) rotateY(-16deg); overflow: hidden; }
+      .trk { position: absolute; left: 24px; right: 24px; height: 44px; }
+      .clp { position: absolute; top: 0; height: 44px; border-radius: 9px; }
+      .clp.r { background: var(--red); box-shadow: 0 0 14px rgba(255,30,55,0.6); }
+      .clp.w { background: #fff; }
+      .clp.g { background: rgba(255,255,255,0.28); }
+      #edhead { position: absolute; top: 56px; bottom: 14px; left: 60px; width: 5px; background: var(--red); box-shadow: 0 0 14px var(--red); }
+      .bar { position: absolute; bottom: 70px; width: 14px; border-radius: 7px; transform-origin: 50% 100%; }
+      .chip { position: absolute; top: 34px; padding: 10px 22px; border-radius: 30px; font-family: "Comfortaa", sans-serif; font-weight: 700; font-size: 26px; }
+      .beat { position: absolute; top: 150px; width: 84px; height: 84px; border-radius: 18px; background: rgba(255,255,255,0.14); border: 2px solid rgba(255,255,255,0.2); }
+      #notif { z-index: 7; left: 70px; width: 940px; top: 90px; height: 190px; border-radius: 40px;
+        background: rgba(250,250,250,0.96); box-shadow: 0 20px 50px rgba(0,0,0,0.45), 0 0 40px rgba(255,255,255,0.35); }
     </style>
   </head>
   <body>
@@ -107,6 +133,73 @@
       <div id="mwrap" class="vw">
         <video id="matte" src="assets/matte.webm" muted playsinline data-start="0" data-duration="8" data-track-index="9"></video>
       </div>
+      <!-- ===== motion graphics ===== -->
+      <video id="sil" class="vwv" src="assets/matte.webm" muted playsinline data-start="0" data-duration="0.3" data-track-index="12"
+        style="position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover"></video>
+      <div id="hookq" class="clip mg" data-start="0" data-duration="0.14" data-track-index="13">???</div>
+
+      <div id="edpanel" class="clip mg" data-start="1.05" data-duration="1.1" data-track-index="14">
+        <div class="lbl" style="left:26px;top:16px;font-size:22px">TIMELINE</div>
+        <div class="trk" style="top:62px"><div class="clp r" style="left:0;width:150px"></div><div class="clp w" style="left:160px;width:90px"></div><div class="clp r" style="left:260px;width:160px"></div></div>
+        <div class="trk" style="top:120px"><div class="clp g" style="left:40px;width:200px"></div><div class="clp w" style="left:250px;width:60px"></div><div class="clp g" style="left:320px;width:100px"></div></div>
+        <div class="trk" style="top:178px"><div class="clp w" style="left:0;width:70px"></div><div class="clp r" style="left:80px;width:110px"></div><div class="clp g" style="left:200px;width:220px"></div></div>
+        <div class="trk" style="top:236px"><div class="clp g" style="left:0;width:420px;height:44px;opacity:.6"></div></div>
+        <div id="edhead"></div>
+      </div>
+
+      <div id="cviral" class="clip mg card" data-start="2.55" data-duration="0.68" data-track-index="15">
+        <svg style="position:absolute;left:50px;top:85px" width="150" height="140" viewBox="0 0 150 140">
+          <path d="M8 70 Q75 0 142 70 Q75 140 8 70 Z" fill="none" stroke="#fff" stroke-width="9" stroke-linejoin="round"/>
+          <circle cx="75" cy="70" r="26" fill="#d8162b"/></svg>
+        <div id="vcount" class="big" style="left:240px;top:58px;font-size:150px">0</div>
+        <div class="lbl" style="left:246px;top:222px">VIEWS</div>
+        <svg style="position:absolute;left:640px;top:60px" width="220" height="190" viewBox="0 0 220 190">
+          <rect class="vb" x="10" y="130" width="38" height="50" rx="8" fill="rgba(255,255,255,.35)"/>
+          <rect class="vb" x="62" y="100" width="38" height="80" rx="8" fill="rgba(255,255,255,.55)"/>
+          <rect class="vb" x="114" y="60" width="38" height="120" rx="8" fill="#fff"/>
+          <rect class="vb" x="166" y="10" width="38" height="170" rx="8" fill="#d8162b"/></svg>
+      </div>
+
+      <div id="cret" class="clip mg card" data-start="3.23" data-duration="1.17" data-track-index="16">
+        <div class="lbl" style="left:44px;top:34px">AVG. RETENTION</div>
+        <div id="rcount" class="big redtxt" style="left:44px;top:84px;font-size:150px">0%</div>
+        <svg style="position:absolute;left:330px;top:40px" width="540" height="230" viewBox="0 0 540 230">
+          <path id="ravg" d="M10 40 C 120 120, 220 170, 530 200" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="5" stroke-dasharray="14 12"/>
+          <path id="rline" d="M10 30 C 120 40, 260 48, 530 58" fill="none" stroke="#d8162b" stroke-width="10" stroke-linecap="round" style="filter:drop-shadow(0 0 10px rgba(255,30,55,.8))"/>
+          <text x="420" y="188" fill="rgba(255,255,255,.6)" font-family="Comfortaa" font-weight="700" font-size="22">avg 40%</text></svg>
+      </div>
+
+      <div id="ccuts" class="clip mg card" data-start="4.5" data-duration="0.75" data-track-index="17">
+        <div class="lbl" style="left:44px;top:34px">EDIT</div>
+        <div class="cutp" style="position:absolute;left:60px;top:120px;width:190px;height:110px;border-radius:16px;background:#fff"></div>
+        <div class="cutp" style="position:absolute;left:250px;top:120px;width:200px;height:110px;background:var(--red)"></div>
+        <div class="cutp" style="position:absolute;left:450px;top:120px;width:190px;height:110px;background:#fff"></div>
+        <div class="cutp" style="position:absolute;left:640px;top:120px;width:200px;height:110px;border-radius:16px;background:var(--red)"></div>
+        <div class="blade" style="position:absolute;left:247px;top:95px;width:6px;height:160px;background:#fff;box-shadow:0 0 18px #fff"></div>
+        <div class="blade" style="position:absolute;left:447px;top:95px;width:6px;height:160px;background:#fff;box-shadow:0 0 18px #fff"></div>
+        <div class="blade" style="position:absolute;left:637px;top:95px;width:6px;height:160px;background:#fff;box-shadow:0 0 18px #fff"></div>
+      </div>
+
+      <div id="csound" class="clip mg card" data-start="5.25" data-duration="0.9" data-track-index="18">
+        <div class="chip" style="left:44px;background:var(--red);color:#fff">SFX</div>
+        <div class="chip" style="left:170px;background:#fff;color:#111">MUSIC</div>
+        <div class="chip" style="left:330px;border:2px solid #fff;color:#fff">VOICE</div>
+        <div id="wave"></div>
+      </div>
+
+      <div id="cpace" class="clip mg card" data-start="6.15" data-duration="0.91" data-track-index="19">
+        <div class="lbl" style="left:44px;top:40px">ON BEAT</div>
+        <div id="beats"></div>
+        <div id="pacehead" style="position:absolute;left:52px;top:132px;width:6px;height:120px;background:#fff;box-shadow:0 0 16px #fff"></div>
+      </div>
+
+      <div id="notif" class="clip mg" data-start="7.06" data-duration="0.94" data-track-index="20">
+        <div style="position:absolute;left:34px;top:40px;width:110px;height:110px;border-radius:28px;background:var(--red);box-shadow:0 0 24px rgba(216,22,43,.6)">
+          <svg width="110" height="110" viewBox="0 0 110 110"><rect x="24" y="34" width="62" height="44" rx="8" fill="none" stroke="#fff" stroke-width="7"/><path d="M26 38 L55 60 L84 38" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round"/></svg></div>
+        <div style="position:absolute;left:172px;top:42px;font-family:'Montserrat Alternates';font-weight:900;font-size:44px;color:#111">New project request</div>
+        <div style="position:absolute;left:172px;top:104px;font-family:'Comfortaa';font-weight:700;font-size:36px;color:#555">"Let's work together!"</div>
+        <div style="position:absolute;right:36px;top:46px;font-family:'Comfortaa';font-weight:700;font-size:28px;color:#999">now</div>
+      </div>
       <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="8" data-track-index="10" data-volume="1"></audio>
       <audio id="sfx" src="assets/sfx-mix.wav" data-start="0" data-duration="8" data-track-index="11" data-volume="1"></audio>
     </div>
@@ -149,6 +242,81 @@
           tl.set(els, { opacity: 0, visibility: "hidden" }, g.end);
         }
       });
+
+      // ===== motion graphics =====
+      (function () {
+        // seeded PRNG (deterministic)
+        var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+        var wave = document.getElementById("wave");
+        for (var i = 0; i < 46; i++) {
+          var b = document.createElement("div"); b.className = "bar";
+          b.style.left = (44 + i * 18) + "px"; b.style.height = (40 + rnd() * 120) + "px";
+          b.style.background = i % 5 === 2 ? "#d8162b" : "#fff";
+          b.style.boxShadow = i % 5 === 2 ? "0 0 10px rgba(255,30,55,.8)" : "0 0 8px rgba(255,255,255,.5)";
+          wave.appendChild(b);
+        }
+        var beats = document.getElementById("beats");
+        for (var j = 0; j < 8; j++) {
+          var bt = document.createElement("div"); bt.className = "beat"; bt.style.left = (52 + j * 102) + "px"; beats.appendChild(bt);
+        }
+      })();
+      function counter(sel, from, to, t, dur, fmt) {
+        var o = { v: from };
+        tl.fromTo(o, { v: from }, { v: to, duration: dur, ease: "power3.out",
+          onUpdate: function () { document.querySelector(sel).textContent = fmt(o.v); } }, t);
+        tl.call(function () { document.querySelector(sel).textContent = fmt(from); }, null, Math.max(0, t - 0.001));
+      }
+      function cardIn(sel, t) {
+        tl.fromTo(sel, { y: 260, opacity: 0, scale: 0.92, filter: "blur(10px)" },
+          { y: 0, opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.22, ease: "back.out(1.6)" }, t);
+      }
+      function cardOut(sel, t) { tl.to(sel, { y: 120, opacity: 0, filter: "blur(10px)", duration: 0.1, ease: "power2.in" }, t - 0.1); }
+
+      // A. hook: red silhouette + ??? -> white flash -> reveal
+      tl.set("#sil", { filter: "brightness(0) saturate(100%) invert(14%) sepia(97%) saturate(7000%) hue-rotate(350deg) brightness(95%)" }, 0);
+      tl.set("#sil", { filter: "brightness(0) invert(1) drop-shadow(0 0 40px #fff)" }, 0.13);
+      tl.to("#sil", { opacity: 0, duration: 0.12, ease: "power2.in" }, 0.17);
+      tl.fromTo("#hookq", { scale: 1.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.06, ease: "power4.out" }, 0);
+
+      // B. editor timeline panel behind the speaker
+      tl.fromTo("#edpanel", { x: 220, opacity: 0, filter: "blur(8px)" }, { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power3.out" }, 1.05);
+      tl.from("#edpanel .clp", { scaleX: 0, transformOrigin: "0% 50%", duration: 0.18, stagger: 0.025, ease: "power2.out" }, 1.12);
+      tl.fromTo("#edhead", { x: 0 }, { x: 360, duration: 1.0, ease: "none" }, 1.12);
+      tl.to("#edpanel", { opacity: 0, x: 120, duration: 0.1, ease: "power2.in" }, 2.04);
+
+      // C. viral views counter
+      cardIn("#cviral", 2.55);
+      counter("#vcount", 0, 2400000, 2.62, 0.5, function (v) { return v >= 1e6 ? (v / 1e6).toFixed(1) + "M" : Math.round(v / 1000) + "K"; });
+      tl.from("#cviral .vb", { scaleY: 0, transformOrigin: "50% 100%", duration: 0.2, stagger: 0.05, ease: "back.out(2)" }, 2.66);
+      cardOut("#cviral", 3.23);
+
+      // D. retention graph
+      cardIn("#cret", 3.23);
+      tl.fromTo("#rline", { strokeDasharray: 560, strokeDashoffset: 560 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 3.32);
+      tl.from("#ravg", { opacity: 0, duration: 0.3 }, 3.4);
+      counter("#rcount", 0, 92, 3.32, 0.6, function (v) { return Math.round(v) + "%"; });
+      cardOut("#cret", 4.4);
+
+      // E. fast cuts: blades slice, pieces split apart on CUTS
+      cardIn("#ccuts", 4.5);
+      tl.fromTo("#ccuts .blade", { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.06, stagger: 0.04, ease: "power4.out" }, 4.86);
+      tl.to("#ccuts .cutp", { x: function (i) { return (i - 1.5) * 26; }, rotation: function (i) { return [-4, 3, -3, 4][i]; }, duration: 0.18, ease: "back.out(2)" }, 4.94);
+      tl.to("#ccuts .blade", { opacity: 0, duration: 0.12 }, 5.02);
+      cardOut("#ccuts", 5.25);
+
+      // F. sound design waveform
+      cardIn("#csound", 5.25);
+      tl.fromTo("#wave .bar", { scaleY: 0.15 }, { scaleY: 1, duration: 0.14, stagger: { each: 0.012, yoyo: true, repeat: 3 }, ease: "sine.inOut" }, 5.3);
+      cardOut("#csound", 6.15);
+
+      // G. pacing beat grid
+      cardIn("#cpace", 6.15);
+      tl.to("#beats .beat", { backgroundColor: "#d8162b", boxShadow: "0 0 24px rgba(255,30,55,.9)", scale: 1.08, duration: 0.05, stagger: 0.085, ease: "none" }, 6.3);
+      tl.fromTo("#pacehead", { x: 0 }, { x: 790, duration: 0.7, ease: "none" }, 6.3);
+      cardOut("#cpace", 7.06);
+
+      // H. notification
+      tl.fromTo("#notif", { y: -260, opacity: 0, scale: 0.95 }, { y: 0, opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.7)" }, 7.08);
 
       window.__timelines["main"] = tl;
       tl.seek(0);

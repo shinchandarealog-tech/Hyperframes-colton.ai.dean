@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "aab0f1d9-7053-4990-b914-39b071ce89ed",
-  "currentRevision": "0b508172-cce3-44e5-9ef0-9d5d495fa722",
+  "currentRevision": "942275fa-0452-42bb-b0c6-7fc57f67f80a",
   "pendingChanges": false,
   "files": {
     "assets/fonts/anton-400.woff2": {
@@ -21,8 +21,8 @@
       "content": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
     },
     "index.html": {
-      "hash": "53ac5a6020cbcf9d30d32126f0726276dc3bf30cde8101cc3475678320a25a4b",
-      "content": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/53/53ac5a6020cbcf9d30d32126f0726276dc3bf30cde8101cc3475678320a25a4b"
+      "hash": "ddf4303df26f32d0acf553ed1fe9a04bd69d850a79261d5f92fbc58453314927",
+      "content": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/dd/ddf4303df26f32d0acf553ed1fe9a04bd69d850a79261d5f92fbc58453314927"
     },
     "meta.json": {
       "hash": "ef9a128a0fd0817428a94714c6bfd0cfc853588c6b4b9890c61a683930a1196b",
@@ -53,8 +53,8 @@
       "content": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/ef/efde7a0e575a756b844082fa5c14d02eca9f910bfe74d2f76ecd9a541cabed35"
     },
     "assets/sfx-mix.wav": {
-      "hash": "a5e290e73b0ba74947f5262ee16ddbfe927afa8ab6eadd97e4372e6fcde84efb",
-      "content": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/a5/a5e290e73b0ba74947f5262ee16ddbfe927afa8ab6eadd97e4372e6fcde84efb"
+      "hash": "784354245e2d965ebd5996aa89ad4a0fc698efc9826b90c4af575804d5159940",
+      "content": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/78/784354245e2d965ebd5996aa89ad4a0fc698efc9826b90c4af575804d5159940"
     }
   },
   "revisions": {
@@ -205,6 +205,40 @@
           "after": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/53/53ac5a6020cbcf9d30d32126f0726276dc3bf30cde8101cc3475678320a25a4b"
         }
       }
+    },
+    "3bd20c06-ebeb-4690-a54b-b363ebd7fd51": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1791982097940,
+      "endedAt": 1791982097963,
+      "files": {
+        "assets/sfx-mix.wav": {
+          "before": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/a5/a5e290e73b0ba74947f5262ee16ddbfe927afa8ab6eadd97e4372e6fcde84efb",
+          "after": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/78/784354245e2d965ebd5996aa89ad4a0fc698efc9826b90c4af575804d5159940"
+        },
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/53/53ac5a6020cbcf9d30d32126f0726276dc3bf30cde8101cc3475678320a25a4b",
+          "after": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/94/94924d7e65b7da38e1cf50ce0ac3e64d0216f18bb9cc70c52b8e28e94bf6f33b"
+        }
+      }
+    },
+    "942275fa-0452-42bb-b0c6-7fc57f67f80a": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1791982333336,
+      "endedAt": 1791982333338,
+      "files": {
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/94/94924d7e65b7da38e1cf50ce0ac3e64d0216f18bb9cc70c52b8e28e94bf6f33b",
+          "after": "/root/.cache/hyperframes/history/aab0f1d9-7053-4990-b914-39b071ce89ed/blobs/dd/ddf4303df26f32d0acf553ed1fe9a04bd69d850a79261d5f92fbc58453314927"
+        }
+      }
     }
   },
   "checks": {
@@ -219,15 +253,15 @@
   },
   "renders": {
     "latest": {
-      "id": "7a1ab397-f98e-4c78-b203-2fe97ad1a8e0",
-      "completedAt": 1791981544979,
+      "id": "4e503105-a9f2-4e6f-9c6f-214a26fb0c1f",
+      "completedAt": 1791982389214,
       "output": "/home/user/hyperframes-colton.ai.dean/video-projects/editor-pitch/renders/draft.mp4",
       "status": "completed",
-      "revision": "0b508172-cce3-44e5-9ef0-9d5d495fa722"
+      "revision": "942275fa-0452-42bb-b0c6-7fc57f67f80a"
     },
     "retainedRevisions": [
-      "0b508172-cce3-44e5-9ef0-9d5d495fa722",
-      "fa67f8a4-6e56-44dd-aecf-fb4195ab5cfd"
+      "942275fa-0452-42bb-b0c6-7fc57f67f80a",
+      "3bd20c06-ebeb-4690-a54b-b363ebd7fd51"
     ]
   },
   "pendingArtifactCleanup": []
