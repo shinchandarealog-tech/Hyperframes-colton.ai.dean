@@ -1,0 +1,470 @@
+[
+  {
+    "text": "I'm",
+    "start": 0,
+    "end": 0.13,
+    "id": "w0"
+  },
+  {
+    "text": "gonna",
+    "start": 0.13,
+    "end": 0.36,
+    "id": "w1"
+  },
+  {
+    "text": "hold",
+    "start": 0.36,
+    "end": 0.54,
+    "id": "w2"
+  },
+  {
+    "text": "your",
+    "start": 0.54,
+    "end": 0.72,
+    "id": "w3"
+  },
+  {
+    "text": "hand",
+    "start": 0.72,
+    "end": 0.9,
+    "id": "w4"
+  },
+  {
+    "text": "while",
+    "start": 0.9,
+    "end": 1.13,
+    "id": "w5"
+  },
+  {
+    "text": "I",
+    "start": 1.13,
+    "end": 1.17,
+    "id": "w6"
+  },
+  {
+    "text": "say",
+    "start": 1.17,
+    "end": 1.31,
+    "id": "w7"
+  },
+  {
+    "text": "this.",
+    "start": 1.31,
+    "end": 1.7,
+    "id": "w8"
+  },
+  {
+    "text": "Nobody",
+    "start": 1.7,
+    "end": 1.98,
+    "id": "w9"
+  },
+  {
+    "text": "cares",
+    "start": 2.01,
+    "end": 2.27,
+    "id": "w10"
+  },
+  {
+    "text": "about",
+    "start": 2.27,
+    "end": 2.53,
+    "id": "w11"
+  },
+  {
+    "text": "your",
+    "start": 2.53,
+    "end": 2.73,
+    "id": "w12"
+  },
+  {
+    "text": "logo.",
+    "start": 2.73,
+    "end": 3.12,
+    "id": "w13"
+  },
+  {
+    "text": "They",
+    "start": 3.12,
+    "end": 3.33,
+    "id": "w14"
+  },
+  {
+    "text": "care",
+    "start": 3.33,
+    "end": 3.54,
+    "id": "w15"
+  },
+  {
+    "text": "about",
+    "start": 3.54,
+    "end": 3.8,
+    "id": "w16"
+  },
+  {
+    "text": "the",
+    "start": 3.8,
+    "end": 3.96,
+    "id": "w17"
+  },
+  {
+    "text": "proof.",
+    "start": 3.96,
+    "end": 4.4,
+    "id": "w18"
+  },
+  {
+    "text": "Companies",
+    "start": 4.4,
+    "end": 5.02,
+    "id": "w19"
+  },
+  {
+    "text": "spend",
+    "start": 5.02,
+    "end": 5.36,
+    "id": "w20"
+  },
+  {
+    "text": "10",
+    "start": 5.36,
+    "end": 5.77,
+    "id": "w21"
+  },
+  {
+    "text": "grand",
+    "start": 5.78,
+    "end": 6.11,
+    "id": "w22"
+  },
+  {
+    "text": "on",
+    "start": 6.11,
+    "end": 6.24,
+    "id": "w23"
+  },
+  {
+    "text": "a",
+    "start": 6.24,
+    "end": 6.28,
+    "id": "w24"
+  },
+  {
+    "text": "rebrand,",
+    "start": 6.29,
+    "end": 6.96,
+    "id": "w25"
+  },
+  {
+    "text": "but",
+    "start": 6.96,
+    "end": 7.12,
+    "id": "w26"
+  },
+  {
+    "text": "not",
+    "start": 7.12,
+    "end": 7.28,
+    "id": "w27"
+  },
+  {
+    "text": "enough",
+    "start": 7.28,
+    "end": 7.61,
+    "id": "w28"
+  },
+  {
+    "text": "showing",
+    "start": 7.61,
+    "end": 7.99,
+    "id": "w29"
+  },
+  {
+    "text": "you",
+    "start": 7.99,
+    "end": 8.2,
+    "id": "w30"
+  },
+  {
+    "text": "what",
+    "start": 8.2,
+    "end": 8.42,
+    "id": "w31"
+  },
+  {
+    "text": "they",
+    "start": 8.44,
+    "end": 8.64,
+    "id": "w32"
+  },
+  {
+    "text": "actually",
+    "start": 8.64,
+    "end": 9.05,
+    "id": "w33"
+  },
+  {
+    "text": "do.",
+    "start": 9.09,
+    "end": 9.4,
+    "id": "w34"
+  },
+  {
+    "text": "Your",
+    "start": 9.4,
+    "end": 9.74,
+    "id": "w35"
+  },
+  {
+    "text": "clients",
+    "start": 9.74,
+    "end": 10.35,
+    "id": "w36"
+  },
+  {
+    "text": "buy",
+    "start": 10.35,
+    "end": 10.6,
+    "id": "w37"
+  },
+  {
+    "text": "evidence",
+    "start": 10.63,
+    "end": 11.32,
+    "id": "w38"
+  },
+  {
+    "text": "that",
+    "start": 11.32,
+    "end": 11.54,
+    "id": "w39"
+  },
+  {
+    "text": "you're",
+    "start": 11.54,
+    "end": 11.86,
+    "id": "w40"
+  },
+  {
+    "text": "real,",
+    "start": 11.86,
+    "end": 12.1,
+    "id": "w41"
+  },
+  {
+    "text": "that",
+    "start": 12.1,
+    "end": 12.33,
+    "id": "w42"
+  },
+  {
+    "text": "you",
+    "start": 12.33,
+    "end": 12.5,
+    "id": "w43"
+  },
+  {
+    "text": "deliver,",
+    "start": 12.5,
+    "end": 13.02,
+    "id": "w44"
+  },
+  {
+    "text": "and",
+    "start": 13.02,
+    "end": 13.21,
+    "id": "w45"
+  },
+  {
+    "text": "that",
+    "start": 13.21,
+    "end": 13.47,
+    "id": "w46"
+  },
+  {
+    "text": "people",
+    "start": 13.48,
+    "end": 13.86,
+    "id": "w47"
+  },
+  {
+    "text": "can",
+    "start": 13.86,
+    "end": 14.05,
+    "id": "w48"
+  },
+  {
+    "text": "trust",
+    "start": 14.05,
+    "end": 14.37,
+    "id": "w49"
+  },
+  {
+    "text": "you.",
+    "start": 14.37,
+    "end": 14.8,
+    "id": "w50"
+  },
+  {
+    "text": "Most",
+    "start": 14.8,
+    "end": 15.05,
+    "id": "w51"
+  },
+  {
+    "text": "brands",
+    "start": 15.05,
+    "end": 15.42,
+    "id": "w52"
+  },
+  {
+    "text": "don't",
+    "start": 15.42,
+    "end": 15.72,
+    "id": "w53"
+  },
+  {
+    "text": "need",
+    "start": 15.72,
+    "end": 15.97,
+    "id": "w54"
+  },
+  {
+    "text": "more",
+    "start": 15.97,
+    "end": 16.22,
+    "id": "w55"
+  },
+  {
+    "text": "posts.",
+    "start": 16.24,
+    "end": 16.76,
+    "id": "w56"
+  },
+  {
+    "text": "They",
+    "start": 16.76,
+    "end": 17.01,
+    "id": "w57"
+  },
+  {
+    "text": "need",
+    "start": 17.01,
+    "end": 17.28,
+    "id": "w58"
+  },
+  {
+    "text": "proof.",
+    "start": 17.28,
+    "end": 17.79,
+    "id": "w59"
+  },
+  {
+    "text": "Filmed",
+    "start": 17.8,
+    "end": 18.22,
+    "id": "w60"
+  },
+  {
+    "text": "properly",
+    "start": 18.22,
+    "end": 18.78,
+    "id": "w61"
+  },
+  {
+    "text": "and",
+    "start": 18.78,
+    "end": 19,
+    "id": "w62"
+  },
+  {
+    "text": "shown",
+    "start": 19,
+    "end": 19.35,
+    "id": "w63"
+  },
+  {
+    "text": "consistently.",
+    "start": 19.41,
+    "end": 20.44,
+    "id": "w64"
+  },
+  {
+    "text": "We",
+    "start": 20.44,
+    "end": 20.59,
+    "id": "w65"
+  },
+  {
+    "text": "turn",
+    "start": 20.59,
+    "end": 20.89,
+    "id": "w66"
+  },
+  {
+    "text": "what",
+    "start": 20.89,
+    "end": 21.19,
+    "id": "w67"
+  },
+  {
+    "text": "you",
+    "start": 21.19,
+    "end": 21.4,
+    "id": "w68"
+  },
+  {
+    "text": "already",
+    "start": 21.4,
+    "end": 21.93,
+    "id": "w69"
+  },
+  {
+    "text": "do",
+    "start": 21.96,
+    "end": 22.09,
+    "id": "w70"
+  },
+  {
+    "text": "into",
+    "start": 22.09,
+    "end": 22.39,
+    "id": "w71"
+  },
+  {
+    "text": "proof.",
+    "start": 22.39,
+    "end": 23.04,
+    "id": "w72"
+  },
+  {
+    "text": "We",
+    "start": 23.04,
+    "end": 23.14,
+    "id": "w73"
+  },
+  {
+    "text": "are",
+    "start": 23.14,
+    "end": 23.32,
+    "id": "w74"
+  },
+  {
+    "text": "Barstool",
+    "start": 23.32,
+    "end": 23.77,
+    "id": "w75"
+  },
+  {
+    "text": "Media.",
+    "start": 23.77,
+    "end": 24.24,
+    "id": "w76"
+  },
+  {
+    "text": "♪♪♪",
+    "start": 24.24,
+    "end": 30.87,
+    "id": "w77"
+  }
+]

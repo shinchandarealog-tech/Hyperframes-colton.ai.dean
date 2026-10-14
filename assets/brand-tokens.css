@@ -1,16 +1,16 @@
+/* Neutral fallback only. Brand is set PER PROJECT (client brand or the video's mood):
+   copy this file into video-projects/<slug>/assets/ and override there. */
 :root {
-  /* TODO: fill in your brand colors */
-  --brand-bg: ;
-  --brand-surface: ;
-  --brand-surface-2: ;
-  --brand-border: ;
-  --brand-accent: ;
-  --brand-accent-glow: ;
-  --brand-warn: ;
-  --brand-text: ;
-  --brand-text-dim: ;
+  --brand-bg: #0a0a0f;
+  --brand-surface: #1a1a23;
+  --brand-surface-2: #24242f;
+  --brand-border: #2e2e3a;
+  --brand-accent: #3b82f6;
+  --brand-accent-glow: rgba(59, 130, 246, 0.45);
+  --brand-warn: #f59e0b;
+  --brand-text: #ffffff;
+  --brand-text-dim: #a1a1aa;
 
-  /* TODO: pick your typography */
   --font-mono: ui-monospace, Menlo, monospace;
   --font-display: system-ui, sans-serif;
 }

@@ -1,22 +1,14 @@
-<!-- HYPERFRAMES_SETUP_INCOMPLETE -->
-<!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
-     and run onboarding before any video work. The setup skill removes it when finished. -->
-
-# Creator Profile — _(your name)_
+# Creator Profile — Video Editor (client work)
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
 
-> 🚧 **This file is a blank template.** Run `/setup` (or just tell Claude "help me get set up") and it will fill these sections in from a short interview. You can also edit it by hand any time.
-
 ## Identity
 
-- **Name on-screen**: _(your display name)_
-- **Instagram**: _(@handle or "—")_
-- **TikTok**: _(handle or "—")_
-- **YouTube**: _(handle or "—")_
-- **X / other**: _(handle or "—")_
+- **Role**: video editor — mostly makes videos **for clients**, may make some personal ones later. Currently experimenting.
+- **Name on-screen**: none. Do **not** put the editor's name or handles on screen.
+- **Handles**: — (none for now)
 
-When putting handles on-screen (lower-thirds, outros, end-cards), use the platform-appropriate handle.
+Each client video uses **that client's** name, handles, logo and CTA. Ask for them at the start of a project; never invent them.
 
 ## Platform priority
 
@@ -42,15 +34,17 @@ When putting handles on-screen (lower-thirds, outros, end-cards), use the platfo
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+**Per project.** Colors, fonts and logo come from the client's brand, or from the mood of that video. Ask at the start of each project and put them in that project's own `assets/brand-tokens.css`. The workspace-level `assets/brand-tokens.css` is only a neutral fallback.
 
 ## Inspiration creators
 
-_(Studied creators live in [`_reference/creator-library/`](_reference/creator-library/). Paste a TikTok / Instagram Reel / YouTube Short URL and run `/study-creator <url>` to add one. At build time, name a creator — "build this like @handle" — to apply their style fingerprint to the visual layer. /setup seeds your first few here.)_
+See [`_reference/creator-library/INDEX.md`](_reference/creator-library/INDEX.md) for the full list. Add new creators via `/study-creator <url>` (or upload a video file).
+
+**Current favorite: @barsolmedia's caption style** — words that type in one by one and pile up along a curving spiral around the speaker. See [their analysis](_reference/creator-library/barsolmedia/videos/nobody-cares-about-your-logo/analysis.md), "Captions" section.
 
 ## Posting cadence & length defaults
 
-- _Cadence_: _(TBD — set during /setup)_
+- _Cadence_: varies by client.
 - _Default length_: 15–45s short-form vertical is a common sweet spot. Adjust per video.
 - _Default fps_: 30 (matches TikTok + Instagram defaults).
 
