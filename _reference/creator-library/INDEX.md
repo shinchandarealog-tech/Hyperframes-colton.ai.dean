@@ -5,3 +5,4 @@ Style references studied with `/study-creator`. Say "build this like @handle" to
 ## Creators studied
 
 - **[@barsolmedia](barsolmedia/)** — agency promo reels; spiral word-pile kinetic captions (white rounded sans + red bold + script fillers + condensed punch words) — 1 video studied
+- **[@gp-multimedia](gp-multimedia/)** — real-estate walk-and-talk; keyword titles + maps/cards/props composited behind the walking speaker, tiny chest-height subtitle — 1 video studied
