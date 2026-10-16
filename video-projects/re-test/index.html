@@ -410,13 +410,6 @@
       tl0.fromTo(".vw", { scale: 1.12 }, { scale: 1, duration: 0.7, ease: "power3.out" }, 0.38);
       tl.fromTo("#stamp span", { scale: 2.4, opacity: 0, rotation: -18 }, { scale: 1, opacity: 1, rotation: -7, duration: 0.22, ease: "power4.out" }, 0.42);
       tl.to("#stamp", { opacity: 0, scale: 0.9, duration: 0.12, ease: "power2.in" }, 0.88);
-      // negative frame hits on punch words
-      [3.23, 10.25, 21.62, 27.1, 39.44, 44.58].forEach(function (p) {
-        tl.set(".vw", { filter: "invert(1) contrast(1.15)" }, p);
-        tl.set(".vw", { filter: "none" }, p + 0.09);
-        tl.set(".vw", { filter: "invert(1) contrast(1.15)" }, p + 0.14);
-        tl.set(".vw", { filter: "none" }, p + 0.2);
-      });
       // STEP INSIDE (negative text)
       tl.fromTo("#si1", { y: -120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.18, ease: "power4.out" }, 9.28);
       tl.fromTo("#si2", { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.18, ease: "power4.out" }, 9.51);
