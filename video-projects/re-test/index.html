@@ -49,25 +49,46 @@
       #glitch div { position: absolute; }
       #cta { position: absolute; z-index: 8; left: 330px; top: 120px; width: 700px; height: 150px; border-radius: 80px; background: rgba(255,255,255,0.97);
         box-shadow: 0 16px 50px rgba(0,0,0,0.35), 0 0 30px rgba(255,255,255,0.5); }
+      /* ---- v2 additions ---- */
+      .neg { mix-blend-mode: difference; }
+      .negt { font-family: "Anton", sans-serif; color: #fff; line-height: 0.88; }
+      #flash0, #cf { position: absolute; inset: 0; background: #fff; z-index: 20; opacity: 0; pointer-events: none; }
+      #stamp { position: absolute; z-index: 8; left: 0; width: 1080px; top: 780px; text-align: center; }
+      #stamp span { display: inline-block; font-family: "Anton", sans-serif; font-size: 150px; color: #fff; padding: 10px 46px; border: 10px solid var(--gold);
+        border-radius: 24px; transform: rotate(-7deg); text-shadow: 0 0 30px rgba(255,255,255,.6); box-shadow: 0 0 40px rgba(232,198,124,.7), inset 0 0 30px rgba(232,198,124,.4); }
+      #hud { position: absolute; z-index: 8; left: 56px; top: 64px; }
+      .ch { position: absolute; left: 0; top: 0; white-space: nowrap; opacity: 0; }
+      .ch b { font-family: "Anton", sans-serif; font-weight: 400; font-size: 66px; color: var(--gold); text-shadow: 0 0 16px rgba(232,198,124,.8); vertical-align: middle; }
+      .ch i { font-style: normal; font-family: "Inter", sans-serif; font-weight: 600; font-size: 28px; letter-spacing: .28em; color: #fff; margin-left: 16px; vertical-align: middle; text-shadow: 0 2px 10px rgba(0,0,0,.6); }
+      #hudbar { position: absolute; left: 0; top: 92px; width: 330px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.3); overflow: hidden; }
+      #hudfill { width: 100%; height: 100%; background: var(--gold); transform-origin: 0 50%; box-shadow: 0 0 10px var(--gold); }
+      .tag { position: absolute; z-index: 7; white-space: nowrap; }
+      .tag .dot { position: absolute; left: -14px; top: 18px; width: 28px; height: 28px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 8px rgba(232,198,124,.35), 0 0 20px var(--gold); }
+      .tag .ln { position: absolute; left: 0; top: 30px; height: 4px; background: #fff; transform-origin: 0 50%; box-shadow: 0 0 8px #fff; }
+      .tag .tx { position: absolute; top: 0; padding: 10px 26px; border-radius: 40px; background: rgba(255,255,255,.96); color: #111; font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 34px; letter-spacing: .06em; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+      .stat { position: absolute; top: 0; width: 300px; height: 150px; border-radius: 28px; background: rgba(15,15,18,.72); border: 2px solid rgba(232,198,124,.7);
+        box-shadow: 0 0 26px rgba(232,198,124,.35); text-align: center; }
+      .stat b { display: block; margin-top: 20px; font-family: "Anton", sans-serif; font-weight: 400; font-size: 64px; color: #fff; }
+      .stat i { display: block; font-style: normal; font-family: "Inter", sans-serif; font-weight: 600; font-size: 24px; letter-spacing: .24em; color: var(--gold); }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="48.4" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="40.84" data-width="1080" data-height="1920">
       <div id="vwrap" class="vw">
-        <video id="v" src="assets/clip.mp4" muted playsinline data-start="0" data-duration="48.4" data-track-index="0"></video>
+        <video id="v" src="assets/clip2.mp4" muted playsinline data-start="0" data-duration="40.84" data-track-index="0"></video>
       </div>
 
       <!-- ===== titles BEHIND the agent ===== -->
-      <div id="t1" class="clip layer behind" data-start="1.0" data-duration="1.6" data-track-index="1">
+      <div id="t1" class="clip layer behind" data-start="1.000" data-duration="1.600" data-track-index="1">
         <div class="t grad" id="t1a" style="left:70px;top:600px;font-size:104px">custom-built</div>
         <div class="t grad" id="t1b" style="left:150px;top:715px;font-size:132px">executive</div>
         <div class="t cond" id="t1c" style="left:300px;top:850px;font-size:250px">HOME</div>
       </div>
-      <div id="t2" class="clip layer front" data-start="2.6" data-duration="1.75" data-track-index="2">
+      <div id="t2" class="clip layer front" data-start="2.600" data-duration="1.750" data-track-index="2">
         <div class="t thin" id="t2a" style="left:0;width:1080px;text-align:center;top:560px;font-size:44px">COMPLETED IN</div>
         <div class="t cond neon" id="t2b" style="left:0;width:1080px;text-align:center;top:640px;font-size:400px">2025</div>
       </div>
-      <div id="t3" class="clip layer behind" data-start="4.4" data-duration="2.81" data-track-index="1">
+      <div id="t3" class="clip layer behind" data-start="4.400" data-duration="2.600" data-track-index="1">
         <svg id="parcel" viewBox="0 0 800 620">
           <defs><pattern id="stripes" width="800" height="14" patternUnits="userSpaceOnUse"><rect width="800" height="6" fill="rgba(255,255,255,0.85)"/></pattern>
           <clipPath id="pclip"><path id="pshape" d="M110 120 L430 60 L700 150 L740 420 L520 560 L170 520 L60 330 Z"/></clipPath></defs>
@@ -77,55 +98,55 @@
         <div class="t cond gold" id="t3a" style="left:0;width:1080px;text-align:center;top:470px;font-size:300px">1.2</div>
         <div class="t thin" id="t3b" style="left:0;width:1080px;text-align:center;top:770px;font-size:46px;font-weight:600">PRIVATE ACRES</div>
       </div>
-      <div id="t3pin" class="clip layer front" data-start="6.0" data-duration="1.21" data-track-index="3">
+      <div id="t3pin" class="clip layer front" data-start="6.000" data-duration="1.000" data-track-index="3">
         <svg id="pin" style="position:absolute;left:770px;top:300px" width="110" height="150" viewBox="0 0 110 150">
           <path d="M55 145 C 55 145 8 80 8 52 A 47 47 0 0 1 102 52 C 102 80 55 145 55 145 Z" fill="#e8c67c" style="filter:drop-shadow(0 0 14px rgba(232,198,124,.9))"/><circle cx="55" cy="52" r="18" fill="#fff"/></svg>
         <div class="pill" id="pinl" style="left:560px;top:460px">just outside the city</div>
       </div>
 
-      <div id="t4" class="clip layer behind" data-start="10.1" data-duration="2.73" data-track-index="1">
+      <div id="t4" class="clip layer behind" data-start="8.780" data-duration="2.730" data-track-index="1">
         <div class="t cond" id="t4a" style="left:0;width:1080px;text-align:center;top:380px;font-size:330px">0</div>
         <div class="t grad" id="t4b" style="left:0;width:1080px;text-align:center;top:700px;font-size:120px">sq ft</div>
       </div>
-      <div id="t5b" class="clip layer behind" data-start="11.85" data-duration="0.98" data-track-index="2">
+      <div id="t5b" class="clip layer behind" data-start="10.530" data-duration="0.980" data-track-index="2">
         <div class="card" id="c1" style="left:40px;top:330px;background-image:url(assets/cards/bedroom.jpg);transform:rotate(-8deg)"></div>
         <div class="card" id="c2" style="left:790px;top:300px;background-image:url(assets/cards/closet.jpg);transform:rotate(7deg)"></div>
         <div class="card" id="c3" style="left:420px;top:180px;background-image:url(assets/cards/stairs.jpg);transform:rotate(-3deg) scale(0.8)"></div>
       </div>
-      <div id="t5f" class="clip layer front" data-start="11.85" data-duration="0.98" data-track-index="3">
+      <div id="t5f" class="clip layer front" data-start="10.530" data-duration="0.980" data-track-index="3">
         <div class="card" id="c4" style="left:30px;top:1180px;background-image:url(assets/cards/bath.jpg);transform:rotate(6deg)"></div>
         <div class="card" id="c5" style="left:800px;top:1120px;background-image:url(assets/cards/gym.jpg);transform:rotate(-7deg)"></div>
         <div class="card" id="c6" style="left:690px;top:760px;background-image:url(assets/cards/basement.jpg);transform:rotate(4deg) scale(0.85)"></div>
       </div>
-      <div id="t5c" class="clip layer front" data-start="12.84" data-duration="1.9" data-track-index="2">
+      <div id="t5c" class="clip layer front" data-start="11.520" data-duration="0.327" data-track-index="2">
         <div class="t soft" id="t5c1" style="left:0;width:1080px;text-align:center;top:560px;font-size:120px">living</div>
         <div class="t soft" id="t5c2" style="left:0;width:1080px;text-align:center;top:680px;font-size:120px">space</div>
       </div>
 
-      <div id="t6" class="clip layer behind" data-start="21.2" data-duration="0.85" data-track-index="1">
+      <div id="t6" class="clip layer behind" data-start="14.980" data-duration="0.850" data-track-index="1">
         <div class="t grad" id="t6a" style="left:0;width:1080px;text-align:center;top:470px;font-size:110px">designer</div>
         <div class="t cond gold" id="t6b" style="left:0;width:1080px;text-align:center;top:575px;font-size:270px">KITCHEN</div>
       </div>
-      <div id="t7" class="clip layer front" data-start="22.0" data-duration="1.85" data-track-index="2">
+      <div id="t7" class="clip layer front neg" data-start="15.780" data-duration="1.850" data-track-index="2">
         <svg id="arrow" style="position:absolute;left:470px;top:180px" width="140" height="500" viewBox="0 0 140 500">
           <path d="M70 490 L70 20 M30 70 L70 20 L110 70" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 12px rgba(255,255,255,.9))"/></svg>
         <div class="t thin" id="t7a" style="left:0;width:1080px;text-align:center;top:720px;font-size:84px;font-weight:600">SOARING</div>
         <div class="t thin" id="t7b" style="left:0;width:1080px;text-align:center;top:820px;font-size:84px">CEILINGS</div>
       </div>
-      <div id="t8" class="clip layer front" data-start="23.85" data-duration="0.94" data-track-index="3">
+      <div id="t8" class="clip layer front" data-start="17.630" data-duration="0.940" data-track-index="3">
         <div class="card" id="c8" style="left:330px;top:520px;width:420px;height:530px;background-image:url(assets/cards/bedroom.jpg)"></div>
         <div class="pill" id="c8l" style="left:380px;top:1080px;font-size:38px">primary suite</div>
       </div>
-      <div id="t9" class="clip layer behind" data-start="24.85" data-duration="3.32" data-track-index="1">
-        <div class="t thin" id="t9a" style="left:0;width:1080px;text-align:center;top:250px;font-size:48px;font-weight:600">EVERY DETAIL</div>
-        <div class="t cond gold" id="t9b" style="left:0;width:1080px;text-align:center;top:320px;font-size:280px">HIGH-END</div>
+      <div id="t9" class="clip layer behind" data-start="18.630" data-duration="3.320" data-track-index="1">
+        
+        <div class="t cond gold" id="t9b" style="left:0;width:1080px;text-align:center;top:340px;font-size:280px">HIGH-END</div>
         <div class="t grad" id="t9c" style="left:0;width:1080px;text-align:center;top:600px;font-size:110px">finishes</div>
       </div>
-      <div id="t10" class="clip layer front" data-start="28.7" data-duration="0.65" data-track-index="2">
+      <div id="t10" class="clip layer front" data-start="22.480" data-duration="0.650" data-track-index="2">
         <div class="t serif" id="t10a" style="left:0;width:1080px;text-align:center;top:780px;font-size:118px">Craftsmanship</div>
       </div>
 
-      <div id="t11" class="clip layer front" data-start="30.1" data-duration="11.32" data-track-index="4">
+      <div id="t11" class="clip layer front" data-start="23.880" data-duration="11.320" data-track-index="4">
         <div class="t thin" id="t11h" style="left:0;width:1080px;text-align:center;top:190px;font-size:40px;font-weight:600">THIS HOME FEATURES</div>
         <svg id="scrib" style="position:absolute;left:0;top:0;z-index:5" width="1080" height="1920" viewBox="0 0 1080 1920">
           <path id="scribp" d="M290 520 C 420 640, 640 520, 790 760 S 520 1180, 300 1290" fill="none" stroke="#e8c67c" stroke-width="8" stroke-linecap="round" style="filter:drop-shadow(0 0 10px rgba(232,198,124,.9))"/></svg>
@@ -136,21 +157,21 @@
         <div class="badge" id="b3" style="left:180px;top:1180px"><svg width="140" height="140" viewBox="0 0 140 140"><path d="M80 8 L28 80 H66 L56 132 L112 56 H74 Z" fill="#e8c67c" stroke="#111" stroke-width="8" stroke-linejoin="round"/></svg></div>
         <div class="blab" id="b3l" style="left:295px;top:1425px">ENERGY<br>EFFICIENT</div>
       </div>
-      <div id="t12" class="clip layer front" data-start="39.35" data-duration="2.07" data-track-index="5">
+      <div id="t12" class="clip layer front" data-start="33.130" data-duration="2.070" data-track-index="5">
         <div class="t cond gold" id="t12a" style="left:0;width:1080px;text-align:center;top:700px;font-size:190px">LUXURY</div>
         <div class="t cond" id="t12b" style="left:0;width:1080px;text-align:center;top:890px;font-size:190px">COMFORT</div>
         <div class="t grad" id="t12c" style="left:0;width:1080px;text-align:center;top:1080px;font-size:104px">convenience</div>
       </div>
 
-      <div id="t13" class="clip layer behind" data-start="43.9" data-duration="1.64" data-track-index="1">
+      <div id="t13" class="clip layer behind" data-start="37.680" data-duration="1.100" data-track-index="1">
         <div class="t grad" id="t13a" style="left:0;width:1080px;text-align:center;top:430px;font-size:120px">private</div>
         <div class="t cond gold" id="t13b" style="left:0;width:1080px;text-align:center;top:545px;font-size:300px">SHOWING</div>
       </div>
-      <div id="t14" class="clip layer front" data-start="45.5" data-duration="2.9" data-track-index="2">
+      <div id="t14" class="clip layer front" data-start="38.780" data-duration="2.060" data-track-index="2">
         <div class="t thin" id="t14a" style="left:0;width:1080px;text-align:center;top:760px;font-size:54px;font-weight:600">SCHEDULE YOUR</div>
         <div class="t serif" id="t14b" style="left:0;width:1080px;text-align:center;top:840px;font-size:130px">Private Showing</div>
       </div>
-      <div id="cta" class="clip" data-start="43.35" data-duration="5.05" data-track-index="6">
+      <div id="cta" class="clip" data-start="37.130" data-duration="3.710" data-track-index="6">
         <div style="position:absolute;left:16px;top:16px;width:118px;height:118px;border-radius:50%;background:url(assets/avatar.jpg) center/cover;border:4px solid #e8c67c"></div>
         <div style="position:absolute;left:156px;top:30px;font-family:'Montserrat';font-weight:800;font-size:40px;color:#111">Your Name</div>
         <div style="position:absolute;left:156px;top:84px;font-family:'Inter';font-weight:600;font-size:32px;color:#666">(555) 123-4567</div>
@@ -158,6 +179,41 @@
           <svg width="100" height="100" viewBox="0 0 100 100"><path d="M34 26 L44 26 L50 40 L43 46 C 47 55 52 60 60 64 L66 57 L80 63 L80 73 C 80 77 77 80 73 80 C 50 79 26 55 25 32 C 25 29 28 26 34 26 Z" fill="#fff"/></svg></div>
       </div>
 
+      <!-- ===== v2 additions ===== -->
+      <div id="stamp" class="clip" data-start="0.120" data-duration="0.880" data-track-index="20"><span>JUST LISTED</span></div>
+      <div id="stepin" class="clip layer behind neg" data-start="7.930" data-duration="0.850" data-track-index="21">
+        <div class="t negt" id="si1" style="left:0;width:1080px;text-align:center;top:300px;font-size:420px">STEP</div>
+        <div class="t negt" id="si2" style="left:0;width:1080px;text-align:center;top:680px;font-size:300px">INSIDE</div>
+      </div>
+      <div id="tagliv" class="clip tag" style="left:560px;top:930px" data-start="7.084" data-duration="0.536" data-track-index="22"><div class="ln" style="width:120px"></div><div class="dot"></div><div class="tx" style="left:120px">LIVING ROOM</div></div>
+      <div id="plan" class="clip layer front" data-start="11.847" data-duration="0.523" data-track-index="22">
+        <svg style="position:absolute;left:140px;top:420px" width="800" height="700" viewBox="0 0 800 700">
+          <g fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" style="filter:drop-shadow(0 0 10px rgba(255,255,255,.9))">
+            <path class="pl" d="M20 20 H780 V680 H20 Z"/><path class="pl" d="M20 300 H360 M480 300 H780"/><path class="pl" d="M360 20 V200 M360 300 V680"/>
+            <path class="pl" d="M560 300 V500 M560 580 V680"/><path class="pl" d="M120 500 h140 v100 h-140 z" stroke="#e8c67c"/><path class="pl" d="M470 120 h200 v80 h-200 z" stroke="#e8c67c"/></g></svg>
+        <div class="t negt" id="oc" style="left:0;width:1080px;text-align:center;top:1180px;font-size:170px;mix-blend-mode:difference">OPEN CONCEPT</div>
+      </div>
+      <div id="tagbeam" class="clip tag" style="left:420px;top:330px" data-start="12.380" data-duration="0.617" data-track-index="23"><div class="ln" style="width:140px"></div><div class="dot"></div><div class="tx" style="left:140px">VAULTED BEAMS</div></div>
+      <div id="isl" class="clip layer front neg" data-start="13.013" data-duration="1.217" data-track-index="22">
+        <div class="t negt" id="isl1" style="left:0;width:1080px;text-align:center;top:250px;font-size:200px">ISLAND</div>
+        <div class="t negt" id="isl2" style="left:0;width:1080px;text-align:center;top:440px;font-size:200px">KITCHEN</div>
+      </div>
+      <div id="t9n" class="clip layer behind neg" data-start="18.630" data-duration="2.200" data-track-index="22">
+        <div class="t negt" id="t9n1" style="left:0;width:1080px;text-align:center;top:250px;font-size:230px">EVERY</div>
+        <div class="t negt" id="t9n2" style="left:0;width:1080px;text-align:center;top:450px;font-size:230px">DETAIL</div>
+      </div>
+      <div id="stats" class="clip layer front" data-start="23.180" data-duration="3.450" data-track-index="23">
+        <div class="stat" id="st1" style="left:60px;top:1520px"><b>3,300</b><i>SQ FT</i></div>
+        <div class="stat" id="st2" style="left:390px;top:1520px"><b>1.2</b><i>ACRES</i></div>
+        <div class="stat" id="st3" style="left:720px;top:1520px"><b>2025</b><i>BUILT</i></div>
+      </div>
+      <div id="hud" class="clip" data-start="1.000" data-duration="36.080" data-track-index="24">
+        <div class="ch" id="ch1"><b>01</b><i>EXTERIOR</i></div><div class="ch" id="ch2"><b>02</b><i>LIVING</i></div>
+        <div class="ch" id="ch3"><b>03</b><i>KITCHEN</i></div><div class="ch" id="ch4"><b>04</b><i>PRIMARY SUITE</i></div>
+        <div class="ch" id="ch5"><b>05</b><i>FEATURES</i></div><div class="ch" id="ch6"><b>06</b><i>BOOK A SHOWING</i></div>
+        <div id="hudbar"><div id="hudfill"></div></div>
+      </div>
+      <div id="flash0"></div><div id="cf"></div>
       <!-- ===== subtitles ===== -->
       <div class="sw" id="sw0" style="left:590px;top:968px">Welcome</div>
       <div class="sw" id="sw1" style="left:586px;top:959px">to</div>
@@ -256,18 +312,31 @@
       <div class="sw" id="sw94" style="left:598px;top:964px">showing</div>
 
       <!-- glitch transition blocks -->
-      <div id="glitch" class="clip layer" style="z-index:9" data-start="41.25" data-duration="0.35" data-track-index="7"></div>
+      <div id="glitch" class="clip layer" style="z-index:9" data-start="35.030" data-duration="0.350" data-track-index="7"></div>
 
       <div id="mwrap" class="vw">
-        <video id="matte" src="assets/matte.webm" muted playsinline data-start="0" data-duration="48.4" data-track-index="9"></video>
+        <video id="matte" src="assets/matte2.webm" muted playsinline data-start="0" data-duration="40.84" data-track-index="9"></video>
       </div>
-      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="48.4" data-track-index="10" data-volume="1"></audio>
-      <audio id="sfx" src="assets/sfx-mix.wav" data-start="0" data-duration="48.4" data-track-index="11" data-volume="1"></audio>
+      <audio id="voice" src="assets/voice2.wav" data-start="0" data-duration="40.84" data-track-index="10" data-volume="1"></audio>
+      <audio id="music" src="assets/music.wav" data-start="0" data-duration="40.84" data-track-index="12" data-volume="1"></audio>
+      <audio id="sfx" src="assets/sfx-mix.wav" data-start="0" data-duration="40.84" data-track-index="11" data-volume="1"></audio>
     </div>
     <script>
       window.__timelines = window.__timelines || {};
       const SUBS = [{"t": 0.11, "e": 0.37}, {"t": 0.37, "e": 0.48}, {"t": 0.48, "e": 0.68}, {"t": 0.68, "e": 1.1}, {"t": 1.1, "e": 1.76}, {"t": 1.76, "e": 2.36}, {"t": 2.36, "e": 2.69}, {"t": 2.69, "e": 3.04}, {"t": 3.04, "e": 3.23}, {"t": 3.23, "e": 3.92}, {"t": 3.92, "e": 4.24}, {"t": 4.24, "e": 4.32}, {"t": 4.32, "e": 4.48}, {"t": 4.48, "e": 5.25}, {"t": 5.25, "e": 5.63}, {"t": 5.63, "e": 5.82}, {"t": 5.82, "e": 6.05}, {"t": 6.05, "e": 6.49}, {"t": 6.49, "e": 6.66}, {"t": 6.66, "e": 7.56}, {"t": 9.28, "e": 9.51}, {"t": 9.51, "e": 9.88}, {"t": 9.88, "e": 10.0}, {"t": 10.0, "e": 10.25}, {"t": 10.25, "e": 11.11}, {"t": 11.11, "e": 11.48}, {"t": 11.48, "e": 11.78}, {"t": 11.78, "e": 11.88}, {"t": 11.88, "e": 12.54}, {"t": 12.54, "e": 12.84}, {"t": 12.84, "e": 13.02}, {"t": 13.02, "e": 13.92}, {"t": 20.62, "e": 20.78}, {"t": 20.78, "e": 20.95}, {"t": 20.95, "e": 21.25}, {"t": 21.25, "e": 21.62}, {"t": 21.62, "e": 22.0}, {"t": 22.0, "e": 22.06}, {"t": 22.06, "e": 22.42}, {"t": 22.42, "e": 23.0}, {"t": 23.0, "e": 23.06}, {"t": 23.06, "e": 23.27}, {"t": 23.27, "e": 23.9}, {"t": 23.9, "e": 24.44}, {"t": 24.44, "e": 24.87}, {"t": 24.87, "e": 25.06}, {"t": 25.06, "e": 25.5}, {"t": 25.5, "e": 25.56}, {"t": 25.56, "e": 25.7}, {"t": 25.7, "e": 26.22}, {"t": 26.22, "e": 26.5}, {"t": 26.5, "e": 27.1}, {"t": 27.1, "e": 27.5}, {"t": 27.5, "e": 28.0}, {"t": 28.0, "e": 28.16}, {"t": 28.16, "e": 28.79}, {"t": 28.79, "e": 29.37}, {"t": 29.37, "e": 29.74}, {"t": 29.74, "e": 30.22}, {"t": 30.22, "e": 31.12}, {"t": 31.19, "e": 31.32}, {"t": 31.32, "e": 31.97}, {"t": 31.97, "e": 32.87}, {"t": 32.93, "e": 33.83}, {"t": 33.84, "e": 34.74}, {"t": 35.1, "e": 35.35}, {"t": 35.35, "e": 35.69}, {"t": 35.69, "e": 36.17}, {"t": 36.17, "e": 36.71}, {"t": 36.71, "e": 36.86}, {"t": 36.86, "e": 37.69}, {"t": 37.69, "e": 37.91}, {"t": 37.91, "e": 38.57}, {"t": 38.57, "e": 39.01}, {"t": 39.01, "e": 39.44}, {"t": 39.44, "e": 39.89}, {"t": 39.89, "e": 40.42}, {"t": 40.42, "e": 40.55}, {"t": 40.55, "e": 41.01}, {"t": 41.01, "e": 41.7}, {"t": 41.7, "e": 42.13}, {"t": 42.13, "e": 42.22}, {"t": 42.22, "e": 42.5}, {"t": 42.5, "e": 42.67}, {"t": 42.67, "e": 42.85}, {"t": 42.85, "e": 42.99}, {"t": 42.99, "e": 43.4}, {"t": 43.4, "e": 43.62}, {"t": 43.62, "e": 43.7}, {"t": 43.7, "e": 43.92}, {"t": 43.92, "e": 43.97}, {"t": 43.97, "e": 44.14}, {"t": 44.14, "e": 44.3}, {"t": 44.3, "e": 44.58}, {"t": 44.58, "e": 45.28}];
-      const tl = gsap.timeline({ paused: true });
+      const tl0 = gsap.timeline({ paused: true });
+      // times below are written in source-clip seconds; M() maps them onto the sped-up cut
+      const SEG = [[0, 7.0, 0, 1], [7.0, 9.2, 7.0, 2.5], [9.2, 13.1, 7.88, 1], [13.1, 20.45, 11.78, 3], [20.45, 45.0, 14.23, 1], [45.54, 47.6, 38.78, 1]];
+      function M(t) {
+        for (var i = 0; i < SEG.length; i++) { var g = SEG[i]; if (t < g[1]) return t < g[0] ? g[2] : g[2] + (t - g[0]) / g[3]; }
+        return 40.84;
+      }
+      const tl = {
+        to: function (a, b, t) { return tl0.to(a, b, M(t)); },
+        from: function (a, b, t) { return tl0.from(a, b, M(t)); },
+        fromTo: function (a, b, c, t) { return tl0.fromTo(a, b, c, M(t)); },
+        set: function (a, b, t) { return tl0.set(a, b, M(t)); }
+      };
 
       function rise(sel, t, d) { tl.fromTo(sel, { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: d || 0.35, ease: "power3.out" }, t); }
       function slam(sel, t) { tl.fromTo(sel, { opacity: 0, scale: 1.35, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, t); }
@@ -295,8 +364,8 @@
       out("#t3pin", 7.21);
 
       // whip into the interior (8.92 cut)
-      tl.to("#vwrap", { x: -260, scale: 1.25, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, 8.78);
-      tl.fromTo("#vwrap", { x: 260 }, { x: 0, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out", immediateRender: false }, 8.92);
+      tl.to("#vwrap", { x: -260, scale: 1.25, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, 9.06);
+      tl.fromTo("#vwrap", { x: 260 }, { x: 0, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out", immediateRender: false }, 9.2);
 
       // S2
       slam("#t4a", 10.25); counter("#t4a", 3300, 10.25, 0.7, function (v) { return Math.round(v).toLocaleString("en-US"); });
@@ -310,7 +379,7 @@
       tl.fromTo("#c8", { opacity: 0, rotationY: -40, x: 200, transformPerspective: 900 }, { opacity: 1, rotationY: -12, x: 0, duration: 0.4, ease: "power3.out" }, 23.9);
       tl.fromTo("#c8l", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: "back.out(2)" }, 24.0);
       out("#t8", 24.79);
-      rise("#t9a", 24.95, 0.3); slam("#t9b", 27.1); rise("#t9c", 27.5); out("#t9", 28.17);
+      slam("#t9b", 27.1); rise("#t9c", 27.5); out("#t9", 28.17);
       slam("#t10a", 28.79);
       // blur-zoom through "Craftsmanship" into the next section (29.21 cut)
       tl.to("#t10a", { scale: 3.2, opacity: 0, filter: "blur(20px)", duration: 0.3, ease: "power2.in" }, 29.02);
@@ -327,6 +396,60 @@
       tl.to("#t11 .badge, #t11 .blab, #t11h", { opacity: 0.22, duration: 0.3 }, 39.3);
       slam("#t12a", 39.44); slam("#t12b", 39.89); rise("#t12c", 41.01, 0.25);
       out("#t11", 41.42); out("#t12", 41.42);
+
+      // ===== v2 additions =====
+      // flash intro: strobe + punch-in
+      tl0.set("#flash0", { opacity: 1 }, 0);
+      tl0.to("#flash0", { opacity: 0, duration: 0.09, ease: "none" }, 0.02);
+      tl0.set("#flash0", { opacity: 0.9 }, 0.15);
+      tl0.to("#flash0", { opacity: 0, duration: 0.35, ease: "power2.out" }, 0.17);
+      tl0.fromTo(".vw", { scale: 1.3 }, { scale: 1, duration: 0.6, ease: "power3.out" }, 0);
+      tl.fromTo("#stamp span", { scale: 2.4, opacity: 0, rotation: -18 }, { scale: 1, opacity: 1, rotation: -7, duration: 0.22, ease: "power4.out" }, 0.15);
+      tl.to("#stamp", { opacity: 0, scale: 0.9, duration: 0.12, ease: "power2.in" }, 0.88);
+      // flash on cuts
+      [2.29, 4.875, 9.2, 20.45, 24.79, 28.17, 31.71, 34.58, 45.54].forEach(function (c) {
+        tl.fromTo("#cf", { opacity: 0.85 }, { opacity: 0, duration: 0.2, ease: "power2.out", immediateRender: false }, c);
+      });
+      // negative frame hits on punch words
+      [3.23, 10.25, 21.62, 27.1, 39.44, 44.58].forEach(function (p) {
+        tl.set(".vw", { filter: "invert(1) contrast(1.15)" }, p);
+        tl.set(".vw", { filter: "none" }, p + 0.09);
+        tl.set(".vw", { filter: "invert(1) contrast(1.15)" }, p + 0.14);
+        tl.set(".vw", { filter: "none" }, p + 0.2);
+      });
+      // STEP INSIDE (negative text)
+      tl.fromTo("#si1", { y: -120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.18, ease: "power4.out" }, 9.28);
+      tl.fromTo("#si2", { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.18, ease: "power4.out" }, 9.51);
+      out("#stepin", 10.1);
+      // room tags
+      function tag(id, t) {
+        tl.fromTo(id + " .dot", { scale: 0 }, { scale: 1, duration: 0.15, ease: "back.out(3)" }, t);
+        tl.fromTo(id + " .ln", { scaleX: 0 }, { scaleX: 1, duration: 0.15, ease: "power3.out" }, t + 0.05);
+        tl.fromTo(id + " .tx", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.15, ease: "power3.out" }, t + 0.12);
+      }
+      tag("#tagliv", 7.25); tag("#tagbeam", 14.95);
+      // floor plan + OPEN CONCEPT
+      tl.fromTo("#plan .pl", { strokeDasharray: 2600, strokeDashoffset: 2600 }, { strokeDashoffset: 0, duration: 0.5, stagger: 0.04, ease: "none" }, 13.3);
+      tl.fromTo("#oc", { scale: 1.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.2, ease: "power4.out" }, 13.4);
+      // ISLAND KITCHEN
+      tl.fromTo("#isl1", { x: -500 }, { x: 0, duration: 0.18, ease: "power4.out" }, 16.85);
+      tl.fromTo("#isl2", { x: 500 }, { x: 0, duration: 0.18, ease: "power4.out" }, 17.4);
+      // EVERY DETAIL (negative, behind)
+      tl.fromTo("#t9n1", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.out" }, 24.87);
+      tl.fromTo("#t9n2", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.out" }, 25.06);
+      out("#t9n", 27.05);
+      // stats row
+      tl.from("#stats .stat", { y: 200, opacity: 0, duration: 0.25, stagger: 0.12, ease: "back.out(1.6)" }, 29.45);
+      counter("#st1 b", 3300, 29.5, 0.6, function (v) { return Math.round(v).toLocaleString("en-US"); });
+      out("#stats", 32.85);
+      // chapter HUD
+      var CH = [[1.0, 7.0], [7.0, 20.45], [20.45, 23.85], [23.85, 29.21], [29.21, 41.42], [41.42, 43.3]];
+      CH.forEach(function (c, i) {
+        var id = "#ch" + (i + 1);
+        tl.fromTo(id, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, c[0]);
+        tl.to(id, { opacity: 0, y: -24, duration: 0.12, ease: "power2.in" }, c[1] - 0.12);
+      });
+      tl0.fromTo("#hudfill", { scaleX: 0 }, { scaleX: 1, duration: M(43.3) - M(1.0), ease: "none" }, M(1.0));
 
       // pixel glitch into the CTA (41.42 cut)
       (function () {
@@ -350,10 +473,10 @@
       tl.fromTo("#cta", { x: 760, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }, 43.4);
       rise("#t13a", 43.97, 0.3); slam("#t13b", 44.58); out("#t13", 45.54);
       rise("#t14a", 45.7); slam("#t14b", 46.0);
-      tl.to("#root", { opacity: 0, duration: 0.5, ease: "power2.in" }, 47.9);
+      tl0.to("#root", { opacity: 0, duration: 0.45, ease: "power2.in" }, 40.35);
 
-      window.__timelines["main"] = tl;
-      tl.seek(0);
+      window.__timelines["main"] = tl0;
+      tl0.seek(0);
     </script>
   </body>
 </html>
