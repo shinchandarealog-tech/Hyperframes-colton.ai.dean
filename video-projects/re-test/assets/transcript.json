@@ -1,0 +1,578 @@
+[
+  {
+    "text": "Welcome",
+    "start": 0.11,
+    "end": 0.37,
+    "id": "w0"
+  },
+  {
+    "text": "to",
+    "start": 0.37,
+    "end": 0.45,
+    "id": "w1"
+  },
+  {
+    "text": "this",
+    "start": 0.48,
+    "end": 0.66,
+    "id": "w2"
+  },
+  {
+    "text": "stunning",
+    "start": 0.68,
+    "end": 1.1,
+    "id": "w3"
+  },
+  {
+    "text": "custom-built",
+    "start": 1.1,
+    "end": 1.69,
+    "id": "w4"
+  },
+  {
+    "text": "executive",
+    "start": 1.76,
+    "end": 2.36,
+    "id": "w5"
+  },
+  {
+    "text": "home",
+    "start": 2.36,
+    "end": 2.58,
+    "id": "w6"
+  },
+  {
+    "text": "completed",
+    "start": 2.69,
+    "end": 3.04,
+    "id": "w7"
+  },
+  {
+    "text": "in",
+    "start": 3.04,
+    "end": 3.14,
+    "id": "w8"
+  },
+  {
+    "text": "2025",
+    "start": 3.23,
+    "end": 3.92,
+    "id": "w9"
+  },
+  {
+    "text": "and",
+    "start": 3.92,
+    "end": 4.12,
+    "id": "w10"
+  },
+  {
+    "text": "set",
+    "start": 4.24,
+    "end": 4.32,
+    "id": "w11"
+  },
+  {
+    "text": "on",
+    "start": 4.32,
+    "end": 4.47,
+    "id": "w12"
+  },
+  {
+    "text": "1.2",
+    "start": 4.48,
+    "end": 5.12,
+    "id": "w13"
+  },
+  {
+    "text": "private",
+    "start": 5.25,
+    "end": 5.52,
+    "id": "w14"
+  },
+  {
+    "text": "acres",
+    "start": 5.63,
+    "end": 5.82,
+    "id": "w15"
+  },
+  {
+    "text": "just",
+    "start": 5.82,
+    "end": 6.05,
+    "id": "w16"
+  },
+  {
+    "text": "outside",
+    "start": 6.05,
+    "end": 6.49,
+    "id": "w17"
+  },
+  {
+    "text": "the",
+    "start": 6.49,
+    "end": 6.65,
+    "id": "w18"
+  },
+  {
+    "text": "city.",
+    "start": 6.66,
+    "end": 7.12,
+    "id": "w19"
+  },
+  {
+    "text": "Step",
+    "start": 7.12,
+    "end": 8.534,
+    "id": "w20"
+  },
+  {
+    "text": "inside",
+    "start": 8.534,
+    "end": 9.948,
+    "id": "w21"
+  },
+  {
+    "text": "to",
+    "start": 9.948,
+    "end": 11.362,
+    "id": "w22"
+  },
+  {
+    "text": "over",
+    "start": 11.362,
+    "end": 12.776,
+    "id": "w23"
+  },
+  {
+    "text": "3,300",
+    "start": 12.776,
+    "end": 14.19,
+    "id": "w24"
+  },
+  {
+    "text": "square",
+    "start": 14.19,
+    "end": 15.42,
+    "id": "w25"
+  },
+  {
+    "text": "feet",
+    "start": 15.46,
+    "end": 16.3,
+    "id": "w26"
+  },
+  {
+    "text": "of",
+    "start": 16.39,
+    "end": 16.86,
+    "id": "w27"
+  },
+  {
+    "text": "beautifully",
+    "start": 16.91,
+    "end": 17.4,
+    "id": "w28"
+  },
+  {
+    "text": "finished",
+    "start": 17.4,
+    "end": 17.78,
+    "id": "w29"
+  },
+  {
+    "text": "living",
+    "start": 17.78,
+    "end": 18.06,
+    "id": "w30"
+  },
+  {
+    "text": "space.",
+    "start": 18.06,
+    "end": 18.32,
+    "id": "w31"
+  },
+  {
+    "text": "From",
+    "start": 18.32,
+    "end": 19.478,
+    "id": "w32"
+  },
+  {
+    "text": "this",
+    "start": 19.478,
+    "end": 20.637,
+    "id": "w33"
+  },
+  {
+    "text": "stunning",
+    "start": 20.637,
+    "end": 21.795,
+    "id": "w34"
+  },
+  {
+    "text": "designer",
+    "start": 21.795,
+    "end": 22.953,
+    "id": "w35"
+  },
+  {
+    "text": "kitchen",
+    "start": 22.953,
+    "end": 24.112,
+    "id": "w36"
+  },
+  {
+    "text": "and",
+    "start": 24.112,
+    "end": 25.27,
+    "id": "w37"
+  },
+  {
+    "text": "soaring",
+    "start": 25.27,
+    "end": 26.23,
+    "id": "w38"
+  },
+  {
+    "text": "ceilings",
+    "start": 26.23,
+    "end": 27.78,
+    "id": "w39"
+  },
+  {
+    "text": "to",
+    "start": 27.87,
+    "end": 27.99,
+    "id": "w40"
+  },
+  {
+    "text": "the",
+    "start": 28.04,
+    "end": 28.24,
+    "id": "w41"
+  },
+  {
+    "text": "luxurious",
+    "start": 28.24,
+    "end": 28.96,
+    "id": "w42"
+  },
+  {
+    "text": "primary",
+    "start": 28.96,
+    "end": 29.32,
+    "id": "w43"
+  },
+  {
+    "text": "suit,",
+    "start": 29.44,
+    "end": 29.76,
+    "id": "w44"
+  },
+  {
+    "text": "every",
+    "start": 29.87,
+    "end": 30.02,
+    "id": "w45"
+  },
+  {
+    "text": "detail",
+    "start": 30.05,
+    "end": 30.35,
+    "id": "w46"
+  },
+  {
+    "text": "of",
+    "start": 30.35,
+    "end": 30.44,
+    "id": "w47"
+  },
+  {
+    "text": "this",
+    "start": 30.45,
+    "end": 30.66,
+    "id": "w48"
+  },
+  {
+    "text": "custom-built",
+    "start": 30.66,
+    "end": 31.3,
+    "id": "w49"
+  },
+  {
+    "text": "home",
+    "start": 31.3,
+    "end": 31.44,
+    "id": "w50"
+  },
+  {
+    "text": "features",
+    "start": 31.52,
+    "end": 31.94,
+    "id": "w51"
+  },
+  {
+    "text": "high-end",
+    "start": 31.94,
+    "end": 32.34,
+    "id": "w52"
+  },
+  {
+    "text": "finishes",
+    "start": 32.45,
+    "end": 32.88,
+    "id": "w53"
+  },
+  {
+    "text": "and",
+    "start": 32.88,
+    "end": 33.08,
+    "id": "w54"
+  },
+  {
+    "text": "exceptional",
+    "start": 33.08,
+    "end": 33.84,
+    "id": "w55"
+  },
+  {
+    "text": "craftsmanship.",
+    "start": 33.84,
+    "end": 35.36,
+    "id": "w56"
+  },
+  {
+    "text": "This",
+    "start": 59.87,
+    "end": 60.21,
+    "id": "w57"
+  },
+  {
+    "text": "home",
+    "start": 60.24,
+    "end": 60.72,
+    "id": "w58"
+  },
+  {
+    "text": "features",
+    "start": 60.72,
+    "end": 61.69,
+    "id": "w59"
+  },
+  {
+    "text": "a",
+    "start": 61.69,
+    "end": 61.75,
+    "id": "w60"
+  },
+  {
+    "text": "fully",
+    "start": 61.82,
+    "end": 62.34,
+    "id": "w61"
+  },
+  {
+    "text": "finished",
+    "start": 62.47,
+    "end": 63.34,
+    "id": "w62"
+  },
+  {
+    "text": "walk-out",
+    "start": 63.43,
+    "end": 64.34,
+    "id": "w63"
+  },
+  {
+    "text": "basement,",
+    "start": 64.34,
+    "end": 65.6,
+    "id": "w64"
+  },
+  {
+    "text": "a",
+    "start": 65.6,
+    "end": 65.67,
+    "id": "w65"
+  },
+  {
+    "text": "heated",
+    "start": 65.85,
+    "end": 66.14,
+    "id": "w66"
+  },
+  {
+    "text": "3-car",
+    "start": 66.19,
+    "end": 66.67,
+    "id": "w67"
+  },
+  {
+    "text": "garage,",
+    "start": 66.67,
+    "end": 67.21,
+    "id": "w68"
+  },
+  {
+    "text": "and",
+    "start": 67.21,
+    "end": 67.35,
+    "id": "w69"
+  },
+  {
+    "text": "exceptional",
+    "start": 67.36,
+    "end": 68.08,
+    "id": "w70"
+  },
+  {
+    "text": "energy",
+    "start": 68.19,
+    "end": 68.41,
+    "id": "w71"
+  },
+  {
+    "text": "efficiency,",
+    "start": 68.41,
+    "end": 69.07,
+    "id": "w72"
+  },
+  {
+    "text": "bringing",
+    "start": 69.07,
+    "end": 69.51,
+    "id": "w73"
+  },
+  {
+    "text": "together",
+    "start": 69.51,
+    "end": 69.94,
+    "id": "w74"
+  },
+  {
+    "text": "luxury,",
+    "start": 69.94,
+    "end": 70.39,
+    "id": "w75"
+  },
+  {
+    "text": "comfort,",
+    "start": 70.39,
+    "end": 70.87,
+    "id": "w76"
+  },
+  {
+    "text": "and",
+    "start": 70.92,
+    "end": 71.05,
+    "id": "w77"
+  },
+  {
+    "text": "everyday",
+    "start": 71.05,
+    "end": 71.45,
+    "id": "w78"
+  },
+  {
+    "text": "convenience.",
+    "start": 71.51,
+    "end": 72.22,
+    "id": "w79"
+  },
+  {
+    "text": "Interested",
+    "start": 72.22,
+    "end": 73.627,
+    "id": "w80"
+  },
+  {
+    "text": "in",
+    "start": 73.627,
+    "end": 75.034,
+    "id": "w81"
+  },
+  {
+    "text": "seeing",
+    "start": 75.034,
+    "end": 76.441,
+    "id": "w82"
+  },
+  {
+    "text": "this",
+    "start": 76.441,
+    "end": 77.848,
+    "id": "w83"
+  },
+  {
+    "text": "home",
+    "start": 77.848,
+    "end": 79.255,
+    "id": "w84"
+  },
+  {
+    "text": "in",
+    "start": 79.255,
+    "end": 80.662,
+    "id": "w85"
+  },
+  {
+    "text": "person?",
+    "start": 80.662,
+    "end": 82.068,
+    "id": "w86"
+  },
+  {
+    "text": "Reach",
+    "start": 82.068,
+    "end": 83.475,
+    "id": "w87"
+  },
+  {
+    "text": "out",
+    "start": 83.475,
+    "end": 84.882,
+    "id": "w88"
+  },
+  {
+    "text": "today",
+    "start": 84.882,
+    "end": 86.289,
+    "id": "w89"
+  },
+  {
+    "text": "to",
+    "start": 86.289,
+    "end": 87.696,
+    "id": "w90"
+  },
+  {
+    "text": "book",
+    "start": 87.696,
+    "end": 89.103,
+    "id": "w91"
+  },
+  {
+    "text": "your",
+    "start": 89.103,
+    "end": 90.51,
+    "id": "w92"
+  },
+  {
+    "text": "private",
+    "start": 90.51,
+    "end": 91.38,
+    "id": "w93"
+  },
+  {
+    "text": "showing.",
+    "start": 91.38,
+    "end": 94.32,
+    "id": "w94"
+  },
+  {
+    "text": "you",
+    "start": 119.87,
+    "end": 121.75,
+    "id": "w95"
+  }
+]

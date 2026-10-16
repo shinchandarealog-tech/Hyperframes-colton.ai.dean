@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      /* Style: @gp-multimedia real-estate walk-and-talk (see _reference/creator-library/gp-multimedia) */
+      @font-face { font-family: "Montserrat"; src: url("assets/fonts/montserrat-800.woff2") format("woff2"); font-weight: 800; }
+      @font-face { font-family: "Playfair Display"; src: url("assets/fonts/playfair-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/inter-600.woff2") format("woff2"); font-weight: 600; }
+      @font-face { font-family: "Inter"; src: url("assets/fonts/inter-300.woff2") format("woff2"); font-weight: 300; }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton-400.woff2") format("woff2"); font-weight: 400; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      /* Palette: white + champagne gold, one cyan neon beat (like the reference's ATTENTION) */
+      :root { --gold: #e8c67c; --cyan: #44e3f7; --white: #ffffff; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .vw { position: absolute; inset: 0; transform-origin: 50% 50%; }
+      #vwrap { z-index: 1; }
+      #mwrap { z-index: 4; }
+      .vw video { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      .layer { position: absolute; inset: 0; }
+      .behind { z-index: 3; }
+      .front { z-index: 6; }
+      .t { position: absolute; white-space: nowrap; line-height: 0.95; }
+      .grad { font-family: "Montserrat", sans-serif; font-weight: 800; letter-spacing: -0.02em;
+        background: linear-gradient(180deg, #ffffff 0%, #ffffff 35%, #b9c8d8 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+        filter: drop-shadow(0 6px 20px rgba(0,0,0,0.35)); }
+      .cond { font-family: "Anton", sans-serif; letter-spacing: 0.01em; color: #fff; text-shadow: 0 0 30px rgba(255,255,255,0.45), 0 10px 30px rgba(0,0,0,0.35); }
+      .gold { color: var(--gold); text-shadow: 0 0 18px rgba(232,198,124,0.85), 0 0 50px rgba(232,198,124,0.5), 0 10px 30px rgba(0,0,0,0.35); }
+      .neon { color: #dffbff; text-shadow: 0 0 10px var(--cyan), 0 0 30px var(--cyan), 0 0 70px var(--cyan), 0 0 120px rgba(68,227,247,0.6); }
+      .thin { font-family: "Inter", sans-serif; font-weight: 300; color: #fff; letter-spacing: 0.32em; text-shadow: 0 2px 16px rgba(0,0,0,0.55); }
+      .soft { font-family: "Montserrat", sans-serif; font-weight: 800; color: rgba(255,255,255,0.78); text-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+      .serif { font-family: "Playfair Display", serif; font-weight: 700; color: #fff; text-shadow: 0 0 40px rgba(255,255,255,0.5), 0 12px 40px rgba(0,0,0,0.4); }
+      /* tiny word-by-word subtitle, follows the agent's chest */
+      .sw { position: absolute; z-index: 7; transform: translate(-50%, -50%); font-family: "Inter", sans-serif; font-weight: 600; font-size: 40px; color: #fff;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.75), 0 0 2px rgba(0,0,0,0.6); opacity: 0; white-space: nowrap; }
+      /* floating proof cards */
+      .card { position: absolute; width: 250px; height: 316px; border-radius: 28px; overflow: hidden; border: 5px solid rgba(255,255,255,0.95);
+        box-shadow: 0 0 30px rgba(255,255,255,0.65), 0 18px 40px rgba(0,0,0,0.35); background-size: cover; background-position: center; }
+      .pill { position: absolute; padding: 12px 26px; border-radius: 40px; background: rgba(255,255,255,0.96); color: #111; font-family: "Inter", sans-serif; font-weight: 600; font-size: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3); white-space: nowrap; }
+      .badge { position: absolute; width: 230px; height: 230px; border-radius: 50%; background: rgba(255,255,255,0.97); box-shadow: 0 0 34px rgba(255,255,255,0.7), 0 14px 40px rgba(0,0,0,0.35); z-index: 6; }
+      .badge svg { position: absolute; left: 45px; top: 45px; }
+      .blab { position: absolute; z-index: 6; transform: translateX(-50%); font-family: "Montserrat", sans-serif; font-weight: 800; font-size: 34px; color: #fff; text-align: center; line-height: 1.05;
+        text-shadow: 0 3px 16px rgba(0,0,0,0.7); }
+      #parcel { position: absolute; left: 140px; top: 330px; width: 800px; height: 620px; }
+      #glitch div { position: absolute; }
+      #cta { position: absolute; z-index: 8; left: 330px; top: 120px; width: 700px; height: 150px; border-radius: 80px; background: rgba(255,255,255,0.97);
+        box-shadow: 0 16px 50px rgba(0,0,0,0.35), 0 0 30px rgba(255,255,255,0.5); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="48.4" data-width="1080" data-height="1920">
+      <div id="vwrap" class="vw">
+        <video id="v" src="assets/clip.mp4" muted playsinline data-start="0" data-duration="48.4" data-track-index="0"></video>
+      </div>
+
+      <!-- ===== titles BEHIND the agent ===== -->
+      <div id="t1" class="clip layer behind" data-start="1.0" data-duration="1.6" data-track-index="1">
+        <div class="t grad" id="t1a" style="left:70px;top:600px;font-size:104px">custom-built</div>
+        <div class="t grad" id="t1b" style="left:150px;top:715px;font-size:132px">executive</div>
+        <div class="t cond" id="t1c" style="left:300px;top:850px;font-size:250px">HOME</div>
+      </div>
+      <div id="t2" class="clip layer front" data-start="2.6" data-duration="1.75" data-track-index="2">
+        <div class="t thin" id="t2a" style="left:0;width:1080px;text-align:center;top:560px;font-size:44px">COMPLETED IN</div>
+        <div class="t cond neon" id="t2b" style="left:0;width:1080px;text-align:center;top:640px;font-size:400px">2025</div>
+      </div>
+      <div id="t3" class="clip layer behind" data-start="4.4" data-duration="2.81" data-track-index="1">
+        <svg id="parcel" viewBox="0 0 800 620">
+          <defs><pattern id="stripes" width="800" height="14" patternUnits="userSpaceOnUse"><rect width="800" height="6" fill="rgba(255,255,255,0.85)"/></pattern>
+          <clipPath id="pclip"><path id="pshape" d="M110 120 L430 60 L700 150 L740 420 L520 560 L170 520 L60 330 Z"/></clipPath></defs>
+          <g clip-path="url(#pclip)"><rect id="pfill" x="0" y="0" width="800" height="620" fill="url(#stripes)"/></g>
+          <path id="pline" d="M110 120 L430 60 L700 150 L740 420 L520 560 L170 520 L60 330 Z" fill="none" stroke="#fff" stroke-width="7" stroke-linejoin="round" style="filter:drop-shadow(0 0 12px rgba(255,255,255,.8))"/>
+        </svg>
+        <div class="t cond gold" id="t3a" style="left:0;width:1080px;text-align:center;top:470px;font-size:300px">1.2</div>
+        <div class="t thin" id="t3b" style="left:0;width:1080px;text-align:center;top:770px;font-size:46px;font-weight:600">PRIVATE ACRES</div>
+      </div>
+      <div id="t3pin" class="clip layer front" data-start="6.0" data-duration="1.21" data-track-index="3">
+        <svg id="pin" style="position:absolute;left:770px;top:300px" width="110" height="150" viewBox="0 0 110 150">
+          <path d="M55 145 C 55 145 8 80 8 52 A 47 47 0 0 1 102 52 C 102 80 55 145 55 145 Z" fill="#e8c67c" style="filter:drop-shadow(0 0 14px rgba(232,198,124,.9))"/><circle cx="55" cy="52" r="18" fill="#fff"/></svg>
+        <div class="pill" id="pinl" style="left:560px;top:460px">just outside the city</div>
+      </div>
+
+      <div id="t4" class="clip layer behind" data-start="10.1" data-duration="2.73" data-track-index="1">
+        <div class="t cond" id="t4a" style="left:0;width:1080px;text-align:center;top:380px;font-size:330px">0</div>
+        <div class="t grad" id="t4b" style="left:0;width:1080px;text-align:center;top:700px;font-size:120px">sq ft</div>
+      </div>
+      <div id="t5b" class="clip layer behind" data-start="11.85" data-duration="0.98" data-track-index="2">
+        <div class="card" id="c1" style="left:40px;top:330px;background-image:url(assets/cards/bedroom.jpg);transform:rotate(-8deg)"></div>
+        <div class="card" id="c2" style="left:790px;top:300px;background-image:url(assets/cards/closet.jpg);transform:rotate(7deg)"></div>
+        <div class="card" id="c3" style="left:420px;top:180px;background-image:url(assets/cards/stairs.jpg);transform:rotate(-3deg) scale(0.8)"></div>
+      </div>
+      <div id="t5f" class="clip layer front" data-start="11.85" data-duration="0.98" data-track-index="3">
+        <div class="card" id="c4" style="left:30px;top:1180px;background-image:url(assets/cards/bath.jpg);transform:rotate(6deg)"></div>
+        <div class="card" id="c5" style="left:800px;top:1120px;background-image:url(assets/cards/gym.jpg);transform:rotate(-7deg)"></div>
+        <div class="card" id="c6" style="left:690px;top:760px;background-image:url(assets/cards/basement.jpg);transform:rotate(4deg) scale(0.85)"></div>
+      </div>
+      <div id="t5c" class="clip layer front" data-start="12.84" data-duration="1.9" data-track-index="2">
+        <div class="t soft" id="t5c1" style="left:0;width:1080px;text-align:center;top:560px;font-size:120px">living</div>
+        <div class="t soft" id="t5c2" style="left:0;width:1080px;text-align:center;top:680px;font-size:120px">space</div>
+      </div>
+
+      <div id="t6" class="clip layer behind" data-start="21.2" data-duration="0.85" data-track-index="1">
+        <div class="t grad" id="t6a" style="left:0;width:1080px;text-align:center;top:470px;font-size:110px">designer</div>
+        <div class="t cond gold" id="t6b" style="left:0;width:1080px;text-align:center;top:575px;font-size:270px">KITCHEN</div>
+      </div>
+      <div id="t7" class="clip layer front" data-start="22.0" data-duration="1.85" data-track-index="2">
+        <svg id="arrow" style="position:absolute;left:470px;top:180px" width="140" height="500" viewBox="0 0 140 500">
+          <path d="M70 490 L70 20 M30 70 L70 20 L110 70" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" style="filter:drop-shadow(0 0 12px rgba(255,255,255,.9))"/></svg>
+        <div class="t thin" id="t7a" style="left:0;width:1080px;text-align:center;top:720px;font-size:84px;font-weight:600">SOARING</div>
+        <div class="t thin" id="t7b" style="left:0;width:1080px;text-align:center;top:820px;font-size:84px">CEILINGS</div>
+      </div>
+      <div id="t8" class="clip layer front" data-start="23.85" data-duration="0.94" data-track-index="3">
+        <div class="card" id="c8" style="left:330px;top:520px;width:420px;height:530px;background-image:url(assets/cards/bedroom.jpg)"></div>
+        <div class="pill" id="c8l" style="left:380px;top:1080px;font-size:38px">primary suite</div>
+      </div>
+      <div id="t9" class="clip layer behind" data-start="24.85" data-duration="3.32" data-track-index="1">
+        <div class="t thin" id="t9a" style="left:0;width:1080px;text-align:center;top:250px;font-size:48px;font-weight:600">EVERY DETAIL</div>
+        <div class="t cond gold" id="t9b" style="left:0;width:1080px;text-align:center;top:320px;font-size:280px">HIGH-END</div>
+        <div class="t grad" id="t9c" style="left:0;width:1080px;text-align:center;top:600px;font-size:110px">finishes</div>
+      </div>
+      <div id="t10" class="clip layer front" data-start="28.7" data-duration="0.65" data-track-index="2">
+        <div class="t serif" id="t10a" style="left:0;width:1080px;text-align:center;top:780px;font-size:118px">Craftsmanship</div>
+      </div>
+
+      <div id="t11" class="clip layer front" data-start="30.1" data-duration="11.32" data-track-index="4">
+        <div class="t thin" id="t11h" style="left:0;width:1080px;text-align:center;top:190px;font-size:40px;font-weight:600">THIS HOME FEATURES</div>
+        <svg id="scrib" style="position:absolute;left:0;top:0;z-index:5" width="1080" height="1920" viewBox="0 0 1080 1920">
+          <path id="scribp" d="M290 520 C 420 640, 640 520, 790 760 S 520 1180, 300 1290" fill="none" stroke="#e8c67c" stroke-width="8" stroke-linecap="round" style="filter:drop-shadow(0 0 10px rgba(232,198,124,.9))"/></svg>
+        <div class="badge" id="b1" style="left:170px;top:300px"><svg width="140" height="140" viewBox="0 0 140 140"><path d="M10 120 H45 V90 H75 V60 H105 V30 H130" fill="none" stroke="#111" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+        <div class="blab" id="b1l" style="left:285px;top:545px">WALK-OUT<br>BASEMENT</div>
+        <div class="badge" id="b2" style="left:690px;top:560px"><svg width="140" height="140" viewBox="0 0 140 140"><path d="M14 92 L28 56 H112 L126 92 Z" fill="none" stroke="#111" stroke-width="11" stroke-linejoin="round"/><path d="M8 92 H132 V112 H8 Z" fill="#111"/><circle cx="36" cy="116" r="12" fill="#fff" stroke="#111" stroke-width="7"/><circle cx="104" cy="116" r="12" fill="#fff" stroke="#111" stroke-width="7"/></svg></div>
+        <div class="blab" id="b2l" style="left:805px;top:805px">HEATED<br>3-CAR GARAGE</div>
+        <div class="badge" id="b3" style="left:180px;top:1180px"><svg width="140" height="140" viewBox="0 0 140 140"><path d="M80 8 L28 80 H66 L56 132 L112 56 H74 Z" fill="#e8c67c" stroke="#111" stroke-width="8" stroke-linejoin="round"/></svg></div>
+        <div class="blab" id="b3l" style="left:295px;top:1425px">ENERGY<br>EFFICIENT</div>
+      </div>
+      <div id="t12" class="clip layer front" data-start="39.35" data-duration="2.07" data-track-index="5">
+        <div class="t cond gold" id="t12a" style="left:0;width:1080px;text-align:center;top:700px;font-size:190px">LUXURY</div>
+        <div class="t cond" id="t12b" style="left:0;width:1080px;text-align:center;top:890px;font-size:190px">COMFORT</div>
+        <div class="t grad" id="t12c" style="left:0;width:1080px;text-align:center;top:1080px;font-size:104px">convenience</div>
+      </div>
+
+      <div id="t13" class="clip layer behind" data-start="43.9" data-duration="1.64" data-track-index="1">
+        <div class="t grad" id="t13a" style="left:0;width:1080px;text-align:center;top:430px;font-size:120px">private</div>
+        <div class="t cond gold" id="t13b" style="left:0;width:1080px;text-align:center;top:545px;font-size:300px">SHOWING</div>
+      </div>
+      <div id="t14" class="clip layer front" data-start="45.5" data-duration="2.9" data-track-index="2">
+        <div class="t thin" id="t14a" style="left:0;width:1080px;text-align:center;top:760px;font-size:54px;font-weight:600">SCHEDULE YOUR</div>
+        <div class="t serif" id="t14b" style="left:0;width:1080px;text-align:center;top:840px;font-size:130px">Private Showing</div>
+      </div>
+      <div id="cta" class="clip" data-start="43.35" data-duration="5.05" data-track-index="6">
+        <div style="position:absolute;left:16px;top:16px;width:118px;height:118px;border-radius:50%;background:url(assets/avatar.jpg) center/cover;border:4px solid #e8c67c"></div>
+        <div style="position:absolute;left:156px;top:30px;font-family:'Montserrat';font-weight:800;font-size:40px;color:#111">Your Name</div>
+        <div style="position:absolute;left:156px;top:84px;font-family:'Inter';font-weight:600;font-size:32px;color:#666">(555) 123-4567</div>
+        <div style="position:absolute;right:20px;top:25px;width:100px;height:100px;border-radius:50%;background:#2fc85a;box-shadow:0 0 24px rgba(47,200,90,.6)">
+          <svg width="100" height="100" viewBox="0 0 100 100"><path d="M34 26 L44 26 L50 40 L43 46 C 47 55 52 60 60 64 L66 57 L80 63 L80 73 C 80 77 77 80 73 80 C 50 79 26 55 25 32 C 25 29 28 26 34 26 Z" fill="#fff"/></svg></div>
+      </div>
+
+      <!-- ===== subtitles ===== -->
+      <div class="sw" id="sw0" style="left:590px;top:968px">Welcome</div>
+      <div class="sw" id="sw1" style="left:586px;top:959px">to</div>
+      <div class="sw" id="sw2" style="left:598px;top:950px">this</div>
+      <div class="sw" id="sw3" style="left:594px;top:960px">stunning</div>
+      <div class="sw" id="sw4" style="left:604px;top:954px">custom-built</div>
+      <div class="sw" id="sw5" style="left:580px;top:950px">executive</div>
+      <div class="sw" id="sw6" style="left:540px;top:1180px">home</div>
+      <div class="sw" id="sw7" style="left:540px;top:1180px">completed</div>
+      <div class="sw" id="sw8" style="left:540px;top:1180px">in</div>
+      <div class="sw" id="sw9" style="left:540px;top:1180px">2025</div>
+      <div class="sw" id="sw10" style="left:540px;top:1180px">and</div>
+      <div class="sw" id="sw11" style="left:540px;top:1180px">set</div>
+      <div class="sw" id="sw12" style="left:540px;top:1180px">on</div>
+      <div class="sw" id="sw13" style="left:540px;top:1180px">1.2</div>
+      <div class="sw" id="sw14" style="left:586px;top:938px">private</div>
+      <div class="sw" id="sw15" style="left:582px;top:989px">acres</div>
+      <div class="sw" id="sw16" style="left:574px;top:978px">just</div>
+      <div class="sw" id="sw17" style="left:568px;top:958px">outside</div>
+      <div class="sw" id="sw18" style="left:578px;top:982px">the</div>
+      <div class="sw" id="sw19" style="left:542px;top:962px">city</div>
+      <div class="sw" id="sw20" style="left:658px;top:1127px">Step</div>
+      <div class="sw" id="sw21" style="left:656px;top:1115px">inside</div>
+      <div class="sw" id="sw22" style="left:596px;top:1121px">to</div>
+      <div class="sw" id="sw23" style="left:594px;top:968px">over</div>
+      <div class="sw" id="sw24" style="left:592px;top:946px">3,300</div>
+      <div class="sw" id="sw25" style="left:540px;top:1027px">square</div>
+      <div class="sw" id="sw26" style="left:524px;top:1019px">feet</div>
+      <div class="sw" id="sw27" style="left:466px;top:1026px">of</div>
+      <div class="sw" id="sw28" style="left:454px;top:1016px">beautifully</div>
+      <div class="sw" id="sw29" style="left:510px;top:1028px">finished</div>
+      <div class="sw" id="sw30" style="left:540px;top:1180px">living</div>
+      <div class="sw" id="sw31" style="left:540px;top:1180px">space</div>
+      <div class="sw" id="sw32" style="left:722px;top:1055px">From</div>
+      <div class="sw" id="sw33" style="left:708px;top:1058px">this</div>
+      <div class="sw" id="sw34" style="left:724px;top:1059px">stunning</div>
+      <div class="sw" id="sw35" style="left:714px;top:1057px">designer</div>
+      <div class="sw" id="sw36" style="left:722px;top:1062px">kitchen</div>
+      <div class="sw" id="sw37" style="left:676px;top:1052px">and</div>
+      <div class="sw" id="sw38" style="left:670px;top:1054px">soaring</div>
+      <div class="sw" id="sw39" style="left:540px;top:1180px">ceilings</div>
+      <div class="sw" id="sw40" style="left:540px;top:1180px">to</div>
+      <div class="sw" id="sw41" style="left:540px;top:1180px">the</div>
+      <div class="sw" id="sw42" style="left:540px;top:1180px">luxurious</div>
+      <div class="sw" id="sw43" style="left:540px;top:1180px">primary</div>
+      <div class="sw" id="sw44" style="left:540px;top:1180px">suite</div>
+      <div class="sw" id="sw45" style="left:652px;top:942px">every</div>
+      <div class="sw" id="sw46" style="left:644px;top:930px">detail</div>
+      <div class="sw" id="sw47" style="left:634px;top:937px">of</div>
+      <div class="sw" id="sw48" style="left:632px;top:934px">this</div>
+      <div class="sw" id="sw49" style="left:624px;top:936px">custom-built</div>
+      <div class="sw" id="sw50" style="left:616px;top:926px">home</div>
+      <div class="sw" id="sw51" style="left:604px;top:988px">features</div>
+      <div class="sw" id="sw52" style="left:566px;top:985px">high-end</div>
+      <div class="sw" id="sw53" style="left:570px;top:1049px">finishes</div>
+      <div class="sw" id="sw54" style="left:632px;top:1058px">and</div>
+      <div class="sw" id="sw55" style="left:540px;top:1180px">exceptional</div>
+      <div class="sw" id="sw56" style="left:540px;top:1180px">craftsmanship</div>
+      <div class="sw" id="sw57" style="left:540px;top:1180px">This</div>
+      <div class="sw" id="sw58" style="left:540px;top:1180px">home</div>
+      <div class="sw" id="sw59" style="left:540px;top:1180px">features</div>
+      <div class="sw" id="sw60" style="left:540px;top:1180px">a</div>
+      <div class="sw" id="sw61" style="left:540px;top:1180px">fully</div>
+      <div class="sw" id="sw62" style="left:540px;top:1180px">finished</div>
+      <div class="sw" id="sw63" style="left:540px;top:1180px">walk-out</div>
+      <div class="sw" id="sw64" style="left:540px;top:1180px">basement</div>
+      <div class="sw" id="sw65" style="left:540px;top:1180px">a</div>
+      <div class="sw" id="sw66" style="left:540px;top:1180px">heated</div>
+      <div class="sw" id="sw67" style="left:540px;top:1180px">3-car</div>
+      <div class="sw" id="sw68" style="left:540px;top:1180px">garage</div>
+      <div class="sw" id="sw69" style="left:540px;top:1180px">and</div>
+      <div class="sw" id="sw70" style="left:540px;top:1180px">exceptional</div>
+      <div class="sw" id="sw71" style="left:540px;top:1180px">energy</div>
+      <div class="sw" id="sw72" style="left:540px;top:1180px">efficiency</div>
+      <div class="sw" id="sw73" style="left:540px;top:1180px">bringing</div>
+      <div class="sw" id="sw74" style="left:540px;top:1180px">together</div>
+      <div class="sw" id="sw75" style="left:540px;top:1180px">luxury</div>
+      <div class="sw" id="sw76" style="left:540px;top:1180px">comfort</div>
+      <div class="sw" id="sw77" style="left:540px;top:1180px">and</div>
+      <div class="sw" id="sw78" style="left:540px;top:1180px">everyday</div>
+      <div class="sw" id="sw79" style="left:540px;top:1180px">convenience</div>
+      <div class="sw" id="sw80" style="left:550px;top:959px">Interested</div>
+      <div class="sw" id="sw81" style="left:550px;top:991px">in</div>
+      <div class="sw" id="sw82" style="left:554px;top:983px">seeing</div>
+      <div class="sw" id="sw83" style="left:554px;top:962px">this</div>
+      <div class="sw" id="sw84" style="left:546px;top:976px">home</div>
+      <div class="sw" id="sw85" style="left:544px;top:999px">in</div>
+      <div class="sw" id="sw86" style="left:544px;top:991px">person</div>
+      <div class="sw" id="sw87" style="left:566px;top:964px">Reach</div>
+      <div class="sw" id="sw88" style="left:582px;top:996px">out</div>
+      <div class="sw" id="sw89" style="left:586px;top:982px">today</div>
+      <div class="sw" id="sw90" style="left:574px;top:965px">to</div>
+      <div class="sw" id="sw91" style="left:588px;top:964px">book</div>
+      <div class="sw" id="sw92" style="left:588px;top:975px">your</div>
+      <div class="sw" id="sw93" style="left:622px;top:992px">private</div>
+      <div class="sw" id="sw94" style="left:598px;top:964px">showing</div>
+
+      <!-- glitch transition blocks -->
+      <div id="glitch" class="clip layer" style="z-index:9" data-start="41.25" data-duration="0.35" data-track-index="7"></div>
+
+      <div id="mwrap" class="vw">
+        <video id="matte" src="assets/matte.webm" muted playsinline data-start="0" data-duration="48.4" data-track-index="9"></video>
+      </div>
+      <audio id="voice" src="assets/voice.wav" data-start="0" data-duration="48.4" data-track-index="10" data-volume="1"></audio>
+      <audio id="sfx" src="assets/sfx-mix.wav" data-start="0" data-duration="48.4" data-track-index="11" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const SUBS = [{"t": 0.11, "e": 0.37}, {"t": 0.37, "e": 0.48}, {"t": 0.48, "e": 0.68}, {"t": 0.68, "e": 1.1}, {"t": 1.1, "e": 1.76}, {"t": 1.76, "e": 2.36}, {"t": 2.36, "e": 2.69}, {"t": 2.69, "e": 3.04}, {"t": 3.04, "e": 3.23}, {"t": 3.23, "e": 3.92}, {"t": 3.92, "e": 4.24}, {"t": 4.24, "e": 4.32}, {"t": 4.32, "e": 4.48}, {"t": 4.48, "e": 5.25}, {"t": 5.25, "e": 5.63}, {"t": 5.63, "e": 5.82}, {"t": 5.82, "e": 6.05}, {"t": 6.05, "e": 6.49}, {"t": 6.49, "e": 6.66}, {"t": 6.66, "e": 7.56}, {"t": 9.28, "e": 9.51}, {"t": 9.51, "e": 9.88}, {"t": 9.88, "e": 10.0}, {"t": 10.0, "e": 10.25}, {"t": 10.25, "e": 11.11}, {"t": 11.11, "e": 11.48}, {"t": 11.48, "e": 11.78}, {"t": 11.78, "e": 11.88}, {"t": 11.88, "e": 12.54}, {"t": 12.54, "e": 12.84}, {"t": 12.84, "e": 13.02}, {"t": 13.02, "e": 13.92}, {"t": 20.62, "e": 20.78}, {"t": 20.78, "e": 20.95}, {"t": 20.95, "e": 21.25}, {"t": 21.25, "e": 21.62}, {"t": 21.62, "e": 22.0}, {"t": 22.0, "e": 22.06}, {"t": 22.06, "e": 22.42}, {"t": 22.42, "e": 23.0}, {"t": 23.0, "e": 23.06}, {"t": 23.06, "e": 23.27}, {"t": 23.27, "e": 23.9}, {"t": 23.9, "e": 24.44}, {"t": 24.44, "e": 24.87}, {"t": 24.87, "e": 25.06}, {"t": 25.06, "e": 25.5}, {"t": 25.5, "e": 25.56}, {"t": 25.56, "e": 25.7}, {"t": 25.7, "e": 26.22}, {"t": 26.22, "e": 26.5}, {"t": 26.5, "e": 27.1}, {"t": 27.1, "e": 27.5}, {"t": 27.5, "e": 28.0}, {"t": 28.0, "e": 28.16}, {"t": 28.16, "e": 28.79}, {"t": 28.79, "e": 29.37}, {"t": 29.37, "e": 29.74}, {"t": 29.74, "e": 30.22}, {"t": 30.22, "e": 31.12}, {"t": 31.19, "e": 31.32}, {"t": 31.32, "e": 31.97}, {"t": 31.97, "e": 32.87}, {"t": 32.93, "e": 33.83}, {"t": 33.84, "e": 34.74}, {"t": 35.1, "e": 35.35}, {"t": 35.35, "e": 35.69}, {"t": 35.69, "e": 36.17}, {"t": 36.17, "e": 36.71}, {"t": 36.71, "e": 36.86}, {"t": 36.86, "e": 37.69}, {"t": 37.69, "e": 37.91}, {"t": 37.91, "e": 38.57}, {"t": 38.57, "e": 39.01}, {"t": 39.01, "e": 39.44}, {"t": 39.44, "e": 39.89}, {"t": 39.89, "e": 40.42}, {"t": 40.42, "e": 40.55}, {"t": 40.55, "e": 41.01}, {"t": 41.01, "e": 41.7}, {"t": 41.7, "e": 42.13}, {"t": 42.13, "e": 42.22}, {"t": 42.22, "e": 42.5}, {"t": 42.5, "e": 42.67}, {"t": 42.67, "e": 42.85}, {"t": 42.85, "e": 42.99}, {"t": 42.99, "e": 43.4}, {"t": 43.4, "e": 43.62}, {"t": 43.62, "e": 43.7}, {"t": 43.7, "e": 43.92}, {"t": 43.92, "e": 43.97}, {"t": 43.97, "e": 44.14}, {"t": 44.14, "e": 44.3}, {"t": 44.3, "e": 44.58}, {"t": 44.58, "e": 45.28}];
+      const tl = gsap.timeline({ paused: true });
+
+      function rise(sel, t, d) { tl.fromTo(sel, { opacity: 0, y: 40, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: d || 0.35, ease: "power3.out" }, t); }
+      function slam(sel, t) { tl.fromTo(sel, { opacity: 0, scale: 1.35, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, t); }
+      function out(sel, t) { tl.to(sel, { opacity: 0, filter: "blur(14px)", duration: 0.18, ease: "power2.in" }, t - 0.18); }
+      function counter(sel, to, t, dur, fmt) {
+        var o = { v: 0 };
+        tl.fromTo(o, { v: 0 }, { v: to, duration: dur, ease: "power3.out", onUpdate: function () { document.querySelector(sel).textContent = fmt(o.v); } }, t);
+      }
+
+      // subtitles: one word visible at a time
+      SUBS.forEach(function (s, i) {
+        tl.set("#sw" + i, { opacity: 1 }, s.t);
+        tl.set("#sw" + i, { opacity: 0 }, s.e);
+      });
+
+      // S1
+      rise("#t1a", 1.1); rise("#t1b", 1.76); slam("#t1c", 2.2); out("#t1", 2.6);
+      rise("#t2a", 2.69, 0.3); slam("#t2b", 3.23);
+      tl.to("#t2b", { x: 18, skewX: 12, opacity: 0.6, duration: 0.04, yoyo: true, repeat: 5, ease: "none" }, 4.1); out("#t2", 4.35);
+      tl.fromTo("#pline", { strokeDasharray: 2200, strokeDashoffset: 2200 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut" }, 4.45);
+      tl.fromTo("#pfill", { attr: { y: -620 } }, { attr: { y: 0 }, duration: 0.6, ease: "power2.out" }, 4.55);
+      slam("#t3a", 4.48); rise("#t3b", 5.25, 0.3); out("#t3", 7.21);
+      tl.fromTo("#pin", { y: -260, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: "bounce.out" }, 6.05);
+      tl.fromTo("#pinl", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 6.2);
+      out("#t3pin", 7.21);
+
+      // whip into the interior (8.92 cut)
+      tl.to("#vwrap", { x: -260, scale: 1.25, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, 8.78);
+      tl.fromTo("#vwrap", { x: 260 }, { x: 0, scale: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out", immediateRender: false }, 8.92);
+
+      // S2
+      slam("#t4a", 10.25); counter("#t4a", 3300, 10.25, 0.7, function (v) { return Math.round(v).toLocaleString("en-US"); });
+      rise("#t4b", 11.11); out("#t4", 11.95);
+      tl.from("#t5b .card, #t5f .card", { opacity: 0, scale: 0.4, y: 80, duration: 0.3, stagger: 0.06, ease: "back.out(1.8)" }, 11.88);
+      out("#t5b", 12.84); out("#t5f", 12.84);
+      rise("#t5c1", 12.84); rise("#t5c2", 13.02); out("#t5c", 14.74);
+      rise("#t6a", 21.25, 0.25); slam("#t6b", 21.62); out("#t6", 22.05);
+      tl.fromTo("#arrow path", { strokeDasharray: 700, strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.5, ease: "power2.out" }, 22.1);
+      rise("#t7a", 22.06); rise("#t7b", 22.42); out("#t7", 23.85);
+      tl.fromTo("#c8", { opacity: 0, rotationY: -40, x: 200, transformPerspective: 900 }, { opacity: 1, rotationY: -12, x: 0, duration: 0.4, ease: "power3.out" }, 23.9);
+      tl.fromTo("#c8l", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, ease: "back.out(2)" }, 24.0);
+      out("#t8", 24.79);
+      rise("#t9a", 24.95, 0.3); slam("#t9b", 27.1); rise("#t9c", 27.5); out("#t9", 28.17);
+      slam("#t10a", 28.79);
+      // blur-zoom through "Craftsmanship" into the next section (29.21 cut)
+      tl.to("#t10a", { scale: 3.2, opacity: 0, filter: "blur(20px)", duration: 0.3, ease: "power2.in" }, 29.02);
+      tl.to("#vwrap", { scale: 1.35, filter: "blur(18px)", duration: 0.18, ease: "power2.in" }, 29.04);
+      tl.fromTo("#vwrap", { scale: 1.35 }, { scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power2.out", immediateRender: false }, 29.22);
+
+      // S3 feature badges
+      rise("#t11h", 30.22, 0.3);
+      [["#b1", "#b1l", 32.93], ["#b2", "#b2l", 35.35], ["#b3", "#b3l", 37.69]].forEach(function (b) {
+        tl.fromTo(b[0], { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.35, ease: "back.out(2.2)" }, b[2]);
+        tl.fromTo(b[1], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, ease: "power3.out" }, b[2] + 0.12);
+      });
+      tl.fromTo("#scribp", { strokeDasharray: 1700, strokeDashoffset: 1700 }, { strokeDashoffset: 0, duration: 4.6, ease: "none" }, 33.05);
+      tl.to("#t11 .badge, #t11 .blab, #t11h", { opacity: 0.22, duration: 0.3 }, 39.3);
+      slam("#t12a", 39.44); slam("#t12b", 39.89); rise("#t12c", 41.01, 0.25);
+      out("#t11", 41.42); out("#t12", 41.42);
+
+      // pixel glitch into the CTA (41.42 cut)
+      (function () {
+        var g = document.getElementById("glitch"), seed = 11;
+        function r() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+        var cols = ["#7b3cff", "#2bff88", "#44e3f7", "#ff3cac", "#ffffff", "#1a1a2e"];
+        for (var i = 0; i < 26; i++) {
+          var d = document.createElement("div");
+          d.style.left = Math.round(r() * 1000) + "px"; d.style.top = Math.round(r() * 1850) + "px";
+          d.style.width = Math.round(80 + r() * 420) + "px"; d.style.height = Math.round(30 + r() * 160) + "px";
+          d.style.background = cols[i % cols.length]; d.style.opacity = 0.85; d.style.mixBlendMode = "screen";
+          g.appendChild(d);
+        }
+      })();
+      tl.fromTo("#glitch div", { opacity: 0 }, { opacity: 0.85, duration: 0.04, stagger: { each: 0.008, from: "random" }, ease: "none" }, 41.27);
+      tl.to("#glitch div", { x: function (i) { return (i % 2 ? 1 : -1) * 120; }, duration: 0.12, ease: "steps(3)" }, 41.33);
+      tl.to("#vwrap", { filter: "hue-rotate(90deg) saturate(2.5) contrast(1.4)", x: 30, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, 41.3);
+      tl.set("#vwrap", { filter: "none", x: 0 }, 41.52);
+
+      // S4 CTA
+      tl.fromTo("#cta", { x: 760, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }, 43.4);
+      rise("#t13a", 43.97, 0.3); slam("#t13b", 44.58); out("#t13", 45.54);
+      rise("#t14a", 45.7); slam("#t14b", 46.0);
+      tl.to("#root", { opacity: 0, duration: 0.5, ease: "power2.in" }, 47.9);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
