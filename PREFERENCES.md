@@ -20,7 +20,9 @@ _(colors, typography, density, placement — populated by /feedback over time)_
 
 _(scene length, cuts vs. transitions, breathing room — populated by /feedback over time)_
 
-- _no rules captured yet_
+- **Long-form talking-head edits need B-roll tied to the spoken words** (place, object, action mentioned → show it). A talking-head-only edit with overlays was rejected by a client as "not engaging". (2026-10-18)
+- **Jump cuts must never be visible.** Cover every cut with B-roll, a full-screen graphic or a transition. (2026-10-18)
+- **Don't open mid-sentence without framing.** A pulled-forward hook must be clearly labelled as a teaser (e.g. B&W "COMING UP"), then a clean start. (2026-10-18)
 
 ## Captions
 
@@ -50,5 +52,5 @@ _(logo treatment, hashtags, handles, brand-tokens overrides — populated by /fe
 
 _(anti-patterns to never repeat — populated by /feedback over time)_
 
-- **Client reference videos are a feel/quality bar, never a template.** Don't copy their layout, graphic shapes, colours, or section order one-to-one — the client must not be able to say "you just copy-pasted our reference". Keep the *level* (premium, clean, same energy) but give it our own design language. (2026-10-18)
+- ~~Client reference videos are a feel/quality bar, never a template.~~ **Superseded (2026-10-18):** when the reference is the client's OWN channel, match their established style closely (their B&W teaser, graphic language, palette). Only avoid copying when the reference is a third party's channel. (2026-10-18)
 - **Content first, style second.** On client samples, transcribe and understand what the speaker is actually saying before designing anything; graphics, structure and hook come from their content, not from the reference. (2026-10-18)
