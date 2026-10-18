@@ -1,0 +1,1160 @@
+[
+  {
+    "text": "What",
+    "start": 0,
+    "end": 0.27,
+    "id": "w0"
+  },
+  {
+    "text": "if",
+    "start": 0.27,
+    "end": 0.4,
+    "id": "w1"
+  },
+  {
+    "text": "I",
+    "start": 0.4,
+    "end": 0.46,
+    "id": "w2"
+  },
+  {
+    "text": "told",
+    "start": 0.46,
+    "end": 0.73,
+    "id": "w3"
+  },
+  {
+    "text": "you",
+    "start": 0.73,
+    "end": 0.85,
+    "id": "w4"
+  },
+  {
+    "text": "that",
+    "start": 0.98,
+    "end": 1.28,
+    "id": "w5"
+  },
+  {
+    "text": "this",
+    "start": 1.28,
+    "end": 1.6,
+    "id": "w6"
+  },
+  {
+    "text": "simple",
+    "start": 1.6,
+    "end": 2.09,
+    "id": "w7"
+  },
+  {
+    "text": "exercise",
+    "start": 2.09,
+    "end": 2.75,
+    "id": "w8"
+  },
+  {
+    "text": "could",
+    "start": 2.76,
+    "end": 3.06,
+    "id": "w9"
+  },
+  {
+    "text": "help",
+    "start": 3.12,
+    "end": 3.32,
+    "id": "w10"
+  },
+  {
+    "text": "fix",
+    "start": 3.32,
+    "end": 3.5,
+    "id": "w11"
+  },
+  {
+    "text": "your",
+    "start": 3.5,
+    "end": 3.75,
+    "id": "w12"
+  },
+  {
+    "text": "collapsing",
+    "start": 3.75,
+    "end": 4.37,
+    "id": "w13"
+  },
+  {
+    "text": "ankles",
+    "start": 4.37,
+    "end": 4.76,
+    "id": "w14"
+  },
+  {
+    "text": "and",
+    "start": 4.76,
+    "end": 5,
+    "id": "w15"
+  },
+  {
+    "text": "flat",
+    "start": 5,
+    "end": 5.24,
+    "id": "w16"
+  },
+  {
+    "text": "feet?",
+    "start": 5.33,
+    "end": 5.88,
+    "id": "w17"
+  },
+  {
+    "text": "Start",
+    "start": 5.88,
+    "end": 6.21,
+    "id": "w18"
+  },
+  {
+    "text": "by",
+    "start": 6.24,
+    "end": 6.35,
+    "id": "w19"
+  },
+  {
+    "text": "anchoring",
+    "start": 6.35,
+    "end": 6.89,
+    "id": "w20"
+  },
+  {
+    "text": "a",
+    "start": 6.89,
+    "end": 7.03,
+    "id": "w21"
+  },
+  {
+    "text": "band",
+    "start": 7.03,
+    "end": 7.28,
+    "id": "w22"
+  },
+  {
+    "text": "at",
+    "start": 7.28,
+    "end": 7.41,
+    "id": "w23"
+  },
+  {
+    "text": "a",
+    "start": 7.41,
+    "end": 7.47,
+    "id": "w24"
+  },
+  {
+    "text": "stable",
+    "start": 7.47,
+    "end": 7.87,
+    "id": "w25"
+  },
+  {
+    "text": "surface,",
+    "start": 7.87,
+    "end": 8.4,
+    "id": "w26"
+  },
+  {
+    "text": "then",
+    "start": 8.4,
+    "end": 8.62,
+    "id": "w27"
+  },
+  {
+    "text": "toss",
+    "start": 8.62,
+    "end": 8.84,
+    "id": "w28"
+  },
+  {
+    "text": "that",
+    "start": 8.84,
+    "end": 9.06,
+    "id": "w29"
+  },
+  {
+    "text": "band",
+    "start": 9.06,
+    "end": 9.25,
+    "id": "w30"
+  },
+  {
+    "text": "under",
+    "start": 9.38,
+    "end": 9.54,
+    "id": "w31"
+  },
+  {
+    "text": "the",
+    "start": 9.55,
+    "end": 9.71,
+    "id": "w32"
+  },
+  {
+    "text": "bumps",
+    "start": 9.71,
+    "end": 9.98,
+    "id": "w33"
+  },
+  {
+    "text": "of",
+    "start": 9.98,
+    "end": 10.09,
+    "id": "w34"
+  },
+  {
+    "text": "your",
+    "start": 10.09,
+    "end": 10.31,
+    "id": "w35"
+  },
+  {
+    "text": "ankle.",
+    "start": 10.31,
+    "end": 10.8,
+    "id": "w36"
+  },
+  {
+    "text": "Step",
+    "start": 10.8,
+    "end": 11,
+    "id": "w37"
+  },
+  {
+    "text": "away",
+    "start": 11,
+    "end": 11.2,
+    "id": "w38"
+  },
+  {
+    "text": "from",
+    "start": 11.2,
+    "end": 11.4,
+    "id": "w39"
+  },
+  {
+    "text": "the",
+    "start": 11.4,
+    "end": 11.55,
+    "id": "w40"
+  },
+  {
+    "text": "anchor",
+    "start": 11.55,
+    "end": 11.81,
+    "id": "w41"
+  },
+  {
+    "text": "point",
+    "start": 11.95,
+    "end": 12.12,
+    "id": "w42"
+  },
+  {
+    "text": "so",
+    "start": 12.12,
+    "end": 12.21,
+    "id": "w43"
+  },
+  {
+    "text": "you",
+    "start": 12.21,
+    "end": 12.35,
+    "id": "w44"
+  },
+  {
+    "text": "feel",
+    "start": 12.35,
+    "end": 12.54,
+    "id": "w45"
+  },
+  {
+    "text": "as",
+    "start": 12.54,
+    "end": 12.62,
+    "id": "w46"
+  },
+  {
+    "text": "though",
+    "start": 12.63,
+    "end": 12.96,
+    "id": "w47"
+  },
+  {
+    "text": "that",
+    "start": 12.96,
+    "end": 13.12,
+    "id": "w48"
+  },
+  {
+    "text": "band",
+    "start": 13.12,
+    "end": 13.28,
+    "id": "w49"
+  },
+  {
+    "text": "is",
+    "start": 13.28,
+    "end": 13.39,
+    "id": "w50"
+  },
+  {
+    "text": "pulling",
+    "start": 13.39,
+    "end": 13.78,
+    "id": "w51"
+  },
+  {
+    "text": "your",
+    "start": 13.81,
+    "end": 14.02,
+    "id": "w52"
+  },
+  {
+    "text": "ankle",
+    "start": 14.02,
+    "end": 14.29,
+    "id": "w53"
+  },
+  {
+    "text": "inward.",
+    "start": 14.29,
+    "end": 14.84,
+    "id": "w54"
+  },
+  {
+    "text": "Then",
+    "start": 14.84,
+    "end": 15.08,
+    "id": "w55"
+  },
+  {
+    "text": "lift",
+    "start": 15.08,
+    "end": 15.32,
+    "id": "w56"
+  },
+  {
+    "text": "your",
+    "start": 15.32,
+    "end": 15.56,
+    "id": "w57"
+  },
+  {
+    "text": "heel",
+    "start": 15.56,
+    "end": 15.69,
+    "id": "w58"
+  },
+  {
+    "text": "up",
+    "start": 15.8,
+    "end": 15.87,
+    "id": "w59"
+  },
+  {
+    "text": "towards",
+    "start": 15.99,
+    "end": 16.33,
+    "id": "w60"
+  },
+  {
+    "text": "the",
+    "start": 16.33,
+    "end": 16.51,
+    "id": "w61"
+  },
+  {
+    "text": "ceiling",
+    "start": 16.51,
+    "end": 16.94,
+    "id": "w62"
+  },
+  {
+    "text": "while",
+    "start": 16.94,
+    "end": 17.21,
+    "id": "w63"
+  },
+  {
+    "text": "pressing",
+    "start": 17.3,
+    "end": 17.68,
+    "id": "w64"
+  },
+  {
+    "text": "your",
+    "start": 17.68,
+    "end": 17.79,
+    "id": "w65"
+  },
+  {
+    "text": "big",
+    "start": 17.91,
+    "end": 18.08,
+    "id": "w66"
+  },
+  {
+    "text": "toe",
+    "start": 18.09,
+    "end": 18.25,
+    "id": "w67"
+  },
+  {
+    "text": "into",
+    "start": 18.25,
+    "end": 18.48,
+    "id": "w68"
+  },
+  {
+    "text": "the",
+    "start": 18.48,
+    "end": 18.65,
+    "id": "w69"
+  },
+  {
+    "text": "ground.",
+    "start": 18.65,
+    "end": 19.2,
+    "id": "w70"
+  },
+  {
+    "text": "Hold",
+    "start": 19.2,
+    "end": 19.42,
+    "id": "w71"
+  },
+  {
+    "text": "for",
+    "start": 19.42,
+    "end": 19.58,
+    "id": "w72"
+  },
+  {
+    "text": "three",
+    "start": 19.58,
+    "end": 19.86,
+    "id": "w73"
+  },
+  {
+    "text": "sets,",
+    "start": 19.86,
+    "end": 20.19,
+    "id": "w74"
+  },
+  {
+    "text": "45",
+    "start": 20.19,
+    "end": 20.52,
+    "id": "w75"
+  },
+  {
+    "text": "seconds,",
+    "start": 20.52,
+    "end": 20.94,
+    "id": "w76"
+  },
+  {
+    "text": "and",
+    "start": 20.94,
+    "end": 21.07,
+    "id": "w77"
+  },
+  {
+    "text": "you'll",
+    "start": 21.08,
+    "end": 21.36,
+    "id": "w78"
+  },
+  {
+    "text": "feel",
+    "start": 21.36,
+    "end": 21.55,
+    "id": "w79"
+  },
+  {
+    "text": "a",
+    "start": 21.55,
+    "end": 21.59,
+    "id": "w80"
+  },
+  {
+    "text": "deep",
+    "start": 21.59,
+    "end": 21.78,
+    "id": "w81"
+  },
+  {
+    "text": "burn",
+    "start": 21.78,
+    "end": 21.96,
+    "id": "w82"
+  },
+  {
+    "text": "in",
+    "start": 22.07,
+    "end": 22.1,
+    "id": "w83"
+  },
+  {
+    "text": "your",
+    "start": 22.1,
+    "end": 22.3,
+    "id": "w84"
+  },
+  {
+    "text": "ankle",
+    "start": 22.3,
+    "end": 22.55,
+    "id": "w85"
+  },
+  {
+    "text": "supinator",
+    "start": 22.56,
+    "end": 23,
+    "id": "w86"
+  },
+  {
+    "text": "muscles",
+    "start": 23,
+    "end": 23.36,
+    "id": "w87"
+  },
+  {
+    "text": "which",
+    "start": 23.36,
+    "end": 23.56,
+    "id": "w88"
+  },
+  {
+    "text": "are",
+    "start": 23.56,
+    "end": 23.66,
+    "id": "w89"
+  },
+  {
+    "text": "in",
+    "start": 23.69,
+    "end": 23.76,
+    "id": "w90"
+  },
+  {
+    "text": "charge",
+    "start": 23.76,
+    "end": 24,
+    "id": "w91"
+  },
+  {
+    "text": "of",
+    "start": 24,
+    "end": 24.08,
+    "id": "w92"
+  },
+  {
+    "text": "keeping",
+    "start": 24.08,
+    "end": 24.36,
+    "id": "w93"
+  },
+  {
+    "text": "your",
+    "start": 24.36,
+    "end": 24.52,
+    "id": "w94"
+  },
+  {
+    "text": "ankle",
+    "start": 24.52,
+    "end": 24.76,
+    "id": "w95"
+  },
+  {
+    "text": "stable",
+    "start": 24.76,
+    "end": 25.28,
+    "id": "w96"
+  },
+  {
+    "text": "and",
+    "start": 25.28,
+    "end": 25.48,
+    "id": "w97"
+  },
+  {
+    "text": "your",
+    "start": 25.48,
+    "end": 25.75,
+    "id": "w98"
+  },
+  {
+    "text": "arch",
+    "start": 25.75,
+    "end": 26.02,
+    "id": "w99"
+  },
+  {
+    "text": "high",
+    "start": 26.02,
+    "end": 26.29,
+    "id": "w100"
+  },
+  {
+    "text": "when",
+    "start": 26.29,
+    "end": 26.56,
+    "id": "w101"
+  },
+  {
+    "text": "you",
+    "start": 26.56,
+    "end": 26.76,
+    "id": "w102"
+  },
+  {
+    "text": "run",
+    "start": 26.76,
+    "end": 26.96,
+    "id": "w103"
+  },
+  {
+    "text": "and",
+    "start": 26.96,
+    "end": 27.13,
+    "id": "w104"
+  },
+  {
+    "text": "walk.",
+    "start": 27.16,
+    "end": 27.68,
+    "id": "w105"
+  },
+  {
+    "text": "After",
+    "start": 27.68,
+    "end": 27.92,
+    "id": "w106"
+  },
+  {
+    "text": "a",
+    "start": 27.92,
+    "end": 27.96,
+    "id": "w107"
+  },
+  {
+    "text": "few",
+    "start": 27.98,
+    "end": 28.12,
+    "id": "w108"
+  },
+  {
+    "text": "weeks,",
+    "start": 28.12,
+    "end": 28.48,
+    "id": "w109"
+  },
+  {
+    "text": "progress",
+    "start": 28.48,
+    "end": 28.7,
+    "id": "w110"
+  },
+  {
+    "text": "to",
+    "start": 28.83,
+    "end": 28.9,
+    "id": "w111"
+  },
+  {
+    "text": "a",
+    "start": 28.9,
+    "end": 28.96,
+    "id": "w112"
+  },
+  {
+    "text": "floating",
+    "start": 28.96,
+    "end": 29.28,
+    "id": "w113"
+  },
+  {
+    "text": "split",
+    "start": 29.28,
+    "end": 29.5,
+    "id": "w114"
+  },
+  {
+    "text": "squat",
+    "start": 29.51,
+    "end": 29.75,
+    "id": "w115"
+  },
+  {
+    "text": "version",
+    "start": 29.76,
+    "end": 30.09,
+    "id": "w116"
+  },
+  {
+    "text": "of",
+    "start": 30.12,
+    "end": 30.22,
+    "id": "w117"
+  },
+  {
+    "text": "this",
+    "start": 30.22,
+    "end": 30.42,
+    "id": "w118"
+  },
+  {
+    "text": "to",
+    "start": 30.42,
+    "end": 30.52,
+    "id": "w119"
+  },
+  {
+    "text": "make",
+    "start": 30.52,
+    "end": 30.61,
+    "id": "w120"
+  },
+  {
+    "text": "it",
+    "start": 30.72,
+    "end": 30.79,
+    "id": "w121"
+  },
+  {
+    "text": "10",
+    "start": 30.91,
+    "end": 31.13,
+    "id": "w122"
+  },
+  {
+    "text": "times",
+    "start": 31.13,
+    "end": 31.39,
+    "id": "w123"
+  },
+  {
+    "text": "more",
+    "start": 31.39,
+    "end": 31.58,
+    "id": "w124"
+  },
+  {
+    "text": "effective.",
+    "start": 31.6,
+    "end": 32.24,
+    "id": "w125"
+  },
+  {
+    "text": "Oh,",
+    "start": 32.26,
+    "end": 32.5,
+    "id": "w126"
+  },
+  {
+    "text": "and",
+    "start": 32.5,
+    "end": 32.68,
+    "id": "w127"
+  },
+  {
+    "text": "by",
+    "start": 32.68,
+    "end": 32.8,
+    "id": "w128"
+  },
+  {
+    "text": "the",
+    "start": 32.8,
+    "end": 32.98,
+    "id": "w129"
+  },
+  {
+    "text": "way,",
+    "start": 32.98,
+    "end": 33.29,
+    "id": "w130"
+  },
+  {
+    "text": "you",
+    "start": 33.4,
+    "end": 33.49,
+    "id": "w131"
+  },
+  {
+    "text": "and",
+    "start": 33.49,
+    "end": 33.66,
+    "id": "w132"
+  },
+  {
+    "text": "I",
+    "start": 33.66,
+    "end": 33.71,
+    "id": "w133"
+  },
+  {
+    "text": "both",
+    "start": 33.71,
+    "end": 33.94,
+    "id": "w134"
+  },
+  {
+    "text": "know",
+    "start": 33.94,
+    "end": 34.2,
+    "id": "w135"
+  },
+  {
+    "text": "you're",
+    "start": 34.2,
+    "end": 34.34,
+    "id": "w136"
+  },
+  {
+    "text": "gonna",
+    "start": 34.39,
+    "end": 34.53,
+    "id": "w137"
+  },
+  {
+    "text": "resonate",
+    "start": 34.56,
+    "end": 34.8,
+    "id": "w138"
+  },
+  {
+    "text": "with",
+    "start": 34.8,
+    "end": 34.93,
+    "id": "w139"
+  },
+  {
+    "text": "this,",
+    "start": 34.93,
+    "end": 35.06,
+    "id": "w140"
+  },
+  {
+    "text": "save",
+    "start": 35.18,
+    "end": 35.53,
+    "id": "w141"
+  },
+  {
+    "text": "it,",
+    "start": 35.53,
+    "end": 35.72,
+    "id": "w142"
+  },
+  {
+    "text": "and",
+    "start": 35.72,
+    "end": 35.86,
+    "id": "w143"
+  },
+  {
+    "text": "then",
+    "start": 35.91,
+    "end": 36.09,
+    "id": "w144"
+  },
+  {
+    "text": "scroll",
+    "start": 36.09,
+    "end": 36.41,
+    "id": "w145"
+  },
+  {
+    "text": "to",
+    "start": 36.41,
+    "end": 36.51,
+    "id": "w146"
+  },
+  {
+    "text": "the",
+    "start": 36.51,
+    "end": 36.58,
+    "id": "w147"
+  },
+  {
+    "text": "next",
+    "start": 36.7,
+    "end": 36.88,
+    "id": "w148"
+  },
+  {
+    "text": "video,",
+    "start": 36.88,
+    "end": 37.3,
+    "id": "w149"
+  },
+  {
+    "text": "and",
+    "start": 37.3,
+    "end": 37.53,
+    "id": "w150"
+  },
+  {
+    "text": "the",
+    "start": 37.53,
+    "end": 37.76,
+    "id": "w151"
+  },
+  {
+    "text": "next,",
+    "start": 37.76,
+    "end": 38.15,
+    "id": "w152"
+  },
+  {
+    "text": "and",
+    "start": 38.28,
+    "end": 38.45,
+    "id": "w153"
+  },
+  {
+    "text": "the",
+    "start": 38.45,
+    "end": 38.68,
+    "id": "w154"
+  },
+  {
+    "text": "next,",
+    "start": 38.68,
+    "end": 39.04,
+    "id": "w155"
+  },
+  {
+    "text": "until",
+    "start": 39.04,
+    "end": 39.31,
+    "id": "w156"
+  },
+  {
+    "text": "your",
+    "start": 39.34,
+    "end": 39.55,
+    "id": "w157"
+  },
+  {
+    "text": "social",
+    "start": 39.57,
+    "end": 39.89,
+    "id": "w158"
+  },
+  {
+    "text": "media",
+    "start": 40.02,
+    "end": 40.2,
+    "id": "w159"
+  },
+  {
+    "text": "onset",
+    "start": 40.2,
+    "end": 40.49,
+    "id": "w160"
+  },
+  {
+    "text": "ADHD",
+    "start": 40.49,
+    "end": 40.72,
+    "id": "w161"
+  },
+  {
+    "text": "kicks",
+    "start": 40.72,
+    "end": 41.01,
+    "id": "w162"
+  },
+  {
+    "text": "in",
+    "start": 41.01,
+    "end": 41.18,
+    "id": "w163"
+  },
+  {
+    "text": "and",
+    "start": 41.18,
+    "end": 41.32,
+    "id": "w164"
+  },
+  {
+    "text": "you",
+    "start": 41.37,
+    "end": 41.51,
+    "id": "w165"
+  },
+  {
+    "text": "forget",
+    "start": 41.54,
+    "end": 41.9,
+    "id": "w166"
+  },
+  {
+    "text": "this",
+    "start": 41.9,
+    "end": 42.03,
+    "id": "w167"
+  },
+  {
+    "text": "video",
+    "start": 42.16,
+    "end": 42.44,
+    "id": "w168"
+  },
+  {
+    "text": "ever",
+    "start": 42.44,
+    "end": 42.68,
+    "id": "w169"
+  },
+  {
+    "text": "existed.",
+    "start": 42.68,
+    "end": 43.32,
+    "id": "w170"
+  },
+  {
+    "text": "So",
+    "start": 43.32,
+    "end": 43.42,
+    "id": "w171"
+  },
+  {
+    "text": "instead,",
+    "start": 43.42,
+    "end": 43.83,
+    "id": "w172"
+  },
+  {
+    "text": "comment",
+    "start": 43.85,
+    "end": 44.17,
+    "id": "w173"
+  },
+  {
+    "text": "longevity",
+    "start": 44.3,
+    "end": 44.63,
+    "id": "w174"
+  },
+  {
+    "text": "below",
+    "start": 44.63,
+    "end": 44.92,
+    "id": "w175"
+  },
+  {
+    "text": "and",
+    "start": 44.92,
+    "end": 45.04,
+    "id": "w176"
+  },
+  {
+    "text": "I'll",
+    "start": 45.04,
+    "end": 45.22,
+    "id": "w177"
+  },
+  {
+    "text": "send",
+    "start": 45.22,
+    "end": 45.4,
+    "id": "w178"
+  },
+  {
+    "text": "you",
+    "start": 45.4,
+    "end": 45.53,
+    "id": "w179"
+  },
+  {
+    "text": "our",
+    "start": 45.53,
+    "end": 45.66,
+    "id": "w180"
+  },
+  {
+    "text": "full",
+    "start": 45.66,
+    "end": 45.77,
+    "id": "w181"
+  },
+  {
+    "text": "12-week",
+    "start": 45.9,
+    "end": 46.28,
+    "id": "w182"
+  },
+  {
+    "text": "ankle",
+    "start": 46.28,
+    "end": 46.5,
+    "id": "w183"
+  },
+  {
+    "text": "strengthening",
+    "start": 46.5,
+    "end": 46.92,
+    "id": "w184"
+  },
+  {
+    "text": "routine",
+    "start": 46.92,
+    "end": 47.4,
+    "id": "w185"
+  },
+  {
+    "text": "free",
+    "start": 47.4,
+    "end": 47.67,
+    "id": "w186"
+  },
+  {
+    "text": "for",
+    "start": 47.67,
+    "end": 47.77,
+    "id": "w187"
+  },
+  {
+    "text": "30",
+    "start": 47.9,
+    "end": 48.28,
+    "id": "w188"
+  },
+  {
+    "text": "days",
+    "start": 48.28,
+    "end": 48.55,
+    "id": "w189"
+  },
+  {
+    "text": "on",
+    "start": 48.55,
+    "end": 48.68,
+    "id": "w190"
+  },
+  {
+    "text": "our",
+    "start": 48.68,
+    "end": 48.88,
+    "id": "w191"
+  },
+  {
+    "text": "app.",
+    "start": 48.88,
+    "end": 49.35,
+    "id": "w192"
+  }
+]

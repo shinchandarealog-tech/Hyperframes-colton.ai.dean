@@ -1,56 +1,59 @@
-<!-- HYPERFRAMES_SETUP_INCOMPLETE -->
-<!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
-     and run onboarding before any video work. The setup skill removes it when finished. -->
+# Creator Profile — Client (workout niche, anonymous for now)
 
-# Creator Profile — _(your name)_
+> **Context:** this workspace is run by a video editor building a *pitch sample* for a fitness client. The client's reference videos (3 @tailoredfit reels, analyzed in `_reference/creator-library/tailoredfit/`) define the target style. Goal: a sample edit the client loves enough to hire us.
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
 
-> 🚧 **This file is a blank template.** Run `/setup` (or just tell Claude "help me get set up") and it will fill these sections in from a short interview. You can also edit it by hand any time.
 
 ## Identity
 
-- **Name on-screen**: _(your display name)_
-- **Instagram**: _(@handle or "—")_
-- **TikTok**: _(handle or "—")_
-- **YouTube**: _(handle or "—")_
-- **X / other**: _(handle or "—")_
+- **Name on-screen**: — (anonymous — no name on screen until the client provides one)
+- **Instagram**: —
+- **TikTok**: —
+- **YouTube**: —
+- **X / other**: —
+
+**Never put a handle or name on screen** in the sample unless the client supplies one.
 
 When putting handles on-screen (lower-thirds, outros, end-cards), use the platform-appropriate handle.
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Cross-post all** (Reels + TikTok + Shorts). Default **9:16 vertical, 1080×1920, 30fps**. Keep text and key action inside the safe zone that works for every platform (avoid the bottom ~20% and right ~12% where UI overlays sit).
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+**Fitness / workout** — exercise demos, gym content, training tips.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Mix / TBD.** It depends on the footage the client sends (raw workout clips, talking-head + B-roll, or both).
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**Mix / not sure yet.** Decide per delivery once the client's footage arrives. Default rule: if the client is **speaking** in the footage, never cut their words or change what they're saying. Raw workout B-roll can be cut and paced freely to match the reference style.
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+Placeholder palette derived from the @tailoredfit references: orange-yellow `#f0a800` accent, red `#fc3c48` cues, green `#60cc30` progress, white/near-black. Heavy geometric sans ALL CAPS captions. See `assets/brand-tokens.css`. **Replace with the client's real brand colors/logo if they have them.**
 
 ## Inspiration creators
 
-_(Studied creators live in [`_reference/creator-library/`](_reference/creator-library/). Paste a TikTok / Instagram Reel / YouTube Short URL and run `/study-creator <url>` to add one. At build time, name a creator — "build this like @handle" — to apply their style fingerprint to the visual layer. /setup seeds your first few here.)_
+**Client reference videos** are the primary style target. Their analyses live in [`_reference/creator-library/`](_reference/creator-library/), and they **override `MOTION_PHILOSOPHY.md` defaults** for this client's builds.
+
+- **[@tailoredfit](_reference/creator-library/tailoredfit/style-distilled.md)** — client's target style (3 reels studied). **Build every client video "like @tailoredfit".**
+
+See [`_reference/creator-library/INDEX.md`](_reference/creator-library/INDEX.md) for the full list. Add new creators via `/study-creator <url>`.
 
 ## Posting cadence & length defaults
 
-- _Cadence_: _(TBD — set during /setup)_
+- _Cadence_: TBD (client project)
 - _Default length_: 15–45s short-form vertical is a common sweet spot. Adjust per video.
 - _Default fps_: 30 (matches TikTok + Instagram defaults).
 
