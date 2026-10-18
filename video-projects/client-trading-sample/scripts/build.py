@@ -28,7 +28,6 @@ BROLL = [
     ("cash-flip",     ("teaser1", 41.90), ("teaser1", 43.50), 0.6),   # "daily mera payout ja raha hai"
     ("dubai-tower",   ("teaser1", 45.98), ("teaser2", 61.20), 0.5),   # covers teaser cut -> "fully sponsored Dubai"
     ("stock-tablet",  ("hello", 3.55),    ("hello", 6.25),    1.0),   # "how you can hit your first reward"
-    ("phone-scroll",  ("dubai", 53.86),   ("dubai", 56.60),   0.8),   # "puri industry ne videos bana rakhi hai"
     ("dubai-night",   ("dubai", 60.30),   ("proof", 73.50),   0.4),   # "fully sponsored Dubai trip" -> covers cut
     ("conference",    ("proof", 74.50),   ("proof", 76.85),   2.0),   # "3 log mere saath Forex Expo gaye"
     ("plane",         ("proof", 76.85),   ("proof", 77.42),   2.6),   # flights
@@ -36,9 +35,6 @@ BROLL = [
     ("breakfast",     ("proof", 77.95),   ("proof", 78.65),   1.0),   # food
     ("trophy",        ("rule", 82.00),    ("rule", 85.75),    1.0),   # "one guy who will hit the highest payout"
     ("dubai-skyline", ("deadline", 96.60), ("deadline", 99.09), 0.5), # "usko fully sponsored Dubai trip milegi"
-    ("pay-online",    ("offer", 107.40),  ("offer", 110.00),  0.5),   # "purchase 5x 9K+ Bolt accounts"
-    ("pay-laptop",    ("offer", 110.00),  ("offer", 113.90),  0.5),   # "or 5x 25K+ Strike account"
-    ("typing",        ("offer", 113.90),  ("offer", 116.05),  1.0),   # "open a ticket in Discord"
     ("stock-ui",      ("close", 173.00),  ("close", 175.60),  2.0),   # "let me show you how to hit your first reward"
 ]
 
@@ -46,8 +42,10 @@ BROLL = [
 CARDS = {
     "fs-shark":  (("hello", 7.70),     ("giveaway", 52.60)),   # Shark Funded title -> GIVEAWAY (covers cut)
     "fs-30":     (("rule", 85.40),     ("deadline", 94.30)),   # 30 DAYS -> 12 OCT..12 NOV (covers cut)
+    "fs-orbit":  (("dubai", 53.86),    ("dubai", 56.70)),      # orbiting badges: 1000+ videos
     "fs-dc":     (("discord", 102.30), ("discord", 104.70)),   # JOIN DISCORD
     "fs-code":   (("offer", 106.30),   ("offer", 107.70)),     # USE CODE MSR
+    "fs-flow":   (("offer", 107.70),   ("offer", 115.70)),     # 3-step claim flowchart
     "fs-111":    (("offer", 115.70),   ("close", 167.40)),     # $111 counter (covers cut)
 }
 
@@ -146,6 +144,18 @@ SFX_DUR = {"pop.mp3": 0.72, "slam.mp3": 1.224, "whoosh.mp3": 0.574, "click.wav":
            "sparkle.mp3": 2.037, "swipe.mp3": 1.056, "riser.mp3": 4.032, "zap.mp3": 0.966,
            "notification.mp3": 0.504, "bass-drop.mp3": 1.149, "boom.mp3": 2.784}
 
+cards = {k: (at(*a), at(*b)) for k, (a, b) in CARDS.items()}
+_pts = sorted([at(*a) for _, a, _, _ in BROLL] + [at(*e) for _, _, e, _ in BROLL]
+              + [v for se in cards.values() for v in se] + [TEASER_END])
+TRANS = []
+for t in _pts:
+    if not TRANS or t - TRANS[-1] > 0.4:
+        TRANS.append(round(t, 3))
+_sfx_t = [at(*t) if isinstance(t, tuple) else t for _, t, _ in SFX]
+for t in TRANS:
+    if t < AROLL and all(abs(t - u) > 0.35 for u in _sfx_t):
+        SFX.append(("whoosh.mp3", t - 0.12, 0.16))
+
 tags = []
 broll_js = []
 for i, (clip, a, b, cin) in enumerate(BROLL):
@@ -163,13 +173,11 @@ for i, (f, t, v) in enumerate(SFX):
     tags.append(f'<audio id="sfx-{i}" src="assets/sfx/{f}" data-start="{t:.3f}" '
                 f'data-duration="{SFX_DUR[f]:.3f}" data-track-index="{60 + i}" data-volume="{v}"></audio>')
 
-cards = {k: (at(*a), at(*b)) for k, (a, b) in CARDS.items()}
-
 tpl = open("scripts/index.template.html", encoding="utf-8").read()
 html = (tpl.replace("/*__DATA__*/",
                     "const A = " + json.dumps(A) + ";\n        const CAPS = " + json.dumps(CAPS, ensure_ascii=False)
                     + ";\n        const CUTS = " + json.dumps(CUTS) + ";\n        const BROLL = " + json.dumps(broll_js)
-                    + ";\n        const CARDS = " + json.dumps(cards) + ";\n        const TEASER_END = " + str(TEASER_END) + ";")
+                    + ";\n        const CARDS = " + json.dumps(cards) + ";\n        const TEASER_END = " + str(TEASER_END) + ";\n        const TRANS = " + json.dumps(TRANS) + ";")
         .replace("<!--__MEDIA__-->", "\n      ".join(tags))
         .replace("__AROLL__", f"{AROLL:.2f}")
         .replace("__END__", f"{END:.2f}")

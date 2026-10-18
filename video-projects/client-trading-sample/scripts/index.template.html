@@ -110,6 +110,35 @@
       #endcard .sub { font-family: var(--sans); font-weight: 700; font-size: 40px; display: flex; gap: 22px; align-items: center; }
       #endcard .sub b { background: #ff0033; color: #fff; padding: 10px 26px; border-radius: 12px; font-weight: 800; letter-spacing: .04em; }
 
+      /* ---------- premium motion layer ---------- */
+      #punch { position: absolute; inset: 0; transform-origin: 1100px 420px; }
+      .glass, .badge { position: relative; overflow: hidden; }
+      .shine { position: absolute; top: -30%; bottom: -30%; left: -70%; width: 40%; pointer-events: none;
+        background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.55) 50%, rgba(255,255,255,0) 100%); transform: skewX(-20deg); }
+      .dots { position: absolute; inset: 0; pointer-events: none; }
+      .dot { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(210,200,255,.35) 35%, rgba(200,190,255,0) 70%); }
+      #streak { position: absolute; top: -10%; bottom: -10%; left: -500px; width: 360px; z-index: 39; pointer-events: none; opacity: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0), rgba(225,220,255,.9) 50%, rgba(255,255,255,0)); filter: blur(22px); transform: skewX(-16deg); }
+      /* orbit */
+      .ob { position: absolute; left: 0; top: 0; width: 200px; height: 200px; margin: -100px 0 0 -100px; }
+      .ob .badge { width: 200px; height: 200px; }
+      .ob .badge span { font-family: var(--sans); font-weight: 800; font-size: 30px; line-height: 1.05; text-align: center; padding: 0 18px; }
+      .ob .badge i { font-style: normal; font-size: 54px; line-height: 1; margin-bottom: 6px; }
+      .ocenter { position: absolute; left: 0; right: 0; top: 330px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+      .onum { font-family: var(--sans); font-weight: 900; font-size: 210px; line-height: .95; text-shadow: 0 0 20px rgba(255,255,255,.8), 0 0 70px rgba(160,140,255,.8); font-variant-numeric: tabular-nums; }
+      .ol { font-family: var(--sans); font-style: italic; font-weight: 700; font-size: 52px; text-shadow: 0 0 14px rgba(255,255,255,.7); }
+      /* flowchart */
+      .fk { position: absolute; left: 0; right: 0; top: 190px; text-align: center; }
+      .fline { position: absolute; left: 0; top: 0; }
+      .node { position: absolute; top: 400px; width: 500px; height: 300px; margin-left: -250px; padding: 26px 34px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+      .node .num { font-family: var(--sans); font-weight: 700; font-size: 26px; letter-spacing: .24em; color: #cfc8ff; }
+      .node .t { font-family: var(--sans); font-weight: 900; font-size: 64px; line-height: 1.02; }
+      .node .s { font-family: var(--sans); font-weight: 700; font-size: 36px; color: #e6e2ff; }
+      .node .tick { position: absolute; right: 24px; top: 22px; width: 54px; height: 54px; border-radius: 50%; background: var(--money); color: #052a1a;
+        display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 900; box-shadow: 0 0 22px rgba(63,242,166,.8); }
+      #pulse { position: absolute; left: 0; top: 550px; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; background: #fff;
+        box-shadow: 0 0 18px #fff, 0 0 50px rgba(190,180,255,1), 0 0 90px rgba(120,100,255,.9); }
+
       /* ---------- captions ---------- */
       #caps { position: absolute; left: 0; right: 0; bottom: 60px; height: 90px; z-index: 25; display: flex; justify-content: center; pointer-events: none; }
       .cap { position: absolute; bottom: 0; padding: 10px 26px 12px; border-radius: 14px; background: rgba(8, 5, 30, .62);
@@ -121,9 +150,9 @@
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="__END__" data-width="1920" data-height="1080">
 
-      <div id="cam" class="gray">
+      <div id="punch"><div id="cam" class="gray">
         <video id="aroll" src="assets/aroll.mp4" data-start="0" data-duration="__AROLL__" data-track-index="0" muted playsinline></video>
-      </div>
+      </div></div>
       <div id="vign" class="clip" data-start="0" data-duration="__AROLL__" data-track-index="1"></div>
 
       <!--__MEDIA__-->
@@ -161,7 +190,6 @@
       <div class="money-layer" id="money-w" style="z-index:11;"><video id="money" src="assets/broll/money-rain.mp4" data-start="__MONEY_S__" data-duration="__MONEY_D__" data-media-start="1" data-track-index="18" muted playsinline></video></div>
 
       <!-- face / B-roll overlays -->
-      <div id="o-vids" class="chip tl"><small>Every channel</small> 1000+ Shark Funded videos</div>
       <div id="o-normal" class="chip tl"><span class="strike">FREE ACCOUNT GIVEAWAY<span class="x" id="o-x"></span></span></div>
       <div id="o-dubai" class="glass card" style="position:absolute; z-index:12; left:0; right:0; margin:0 auto; width:fit-content; top:330px;">
         <div class="l">FULLY SPONSORED</div><div class="n" style="font-size:130px">DUBAI TRIP</div>
@@ -174,9 +202,6 @@
       <div id="o-cov" class="chip tl">ALL COVERED <span class="ok">&#10003;</span></div>
       <div id="o-top" class="chip tlc"><small>#1 wins</small>Highest total combined payout</div>
       <div id="o-win" class="chip bl"><small>Winner</small> &rarr; DUBAI TRIP &#9992;</div>
-      <div id="o-bolt" class="chip bl"><small>Buy</small> 5&times; BOLT 9K+</div>
-      <div id="o-strike" class="chip bl"><small>or</small> 5&times; STRIKE 25K+</div>
-      <div id="o-ticket" class="chip bl"><small>Then</small> OPEN A DISCORD TICKET</div>
 
       <!-- ===== FULL-SCREEN: 30 DAYS -> 12 OCT..12 NOV (covers cut) ===== -->
       <div id="fs-30" class="fs clip" data-start="{{fs-30.s}}" data-duration="{{fs-30.d}}" data-track-index="36">
@@ -192,6 +217,23 @@
             <div class="arrow">&rarr;</div>
             <div class="glass card" id="d-nov"><div class="n" style="font-size:110px">12 NOV</div><div class="l">last day</div></div>
           </div>
+        </div>
+      </div>
+
+      <!-- ===== FULL-SCREEN: orbiting badges (reference signature) ===== -->
+      <div id="fs-orbit" class="fs clip" data-start="{{fs-orbit.s}}" data-duration="{{fs-orbit.d}}" data-track-index="30">
+        <div class="mesh"></div>
+        <div id="orbit">
+          <div class="ob" id="ob0"><div class="badge"><i>&#9654;</i><span>REVIEW</span></div></div>
+          <div class="ob" id="ob1"><div class="badge"><i>&#9888;</i><span>LEGIT?</span></div></div>
+          <div class="ob" id="ob2"><div class="badge"><i>&#9776;</i><span>RULES</span></div></div>
+          <div class="ob" id="ob3"><div class="badge"><i>$</i><span>MY PAYOUT</span></div></div>
+          <div class="ob" id="ob4"><div class="badge"><i>&#8644;</i><span>BOLT vs STRIKE</span></div></div>
+        </div>
+        <div class="ocenter" id="oc">
+          <div class="kicker">Every channel</div>
+          <div class="onum"><span id="vidn">0</span>+</div>
+          <div class="ol">Shark Funded videos</div>
         </div>
       </div>
 
@@ -215,6 +257,21 @@
           <div class="codebar" id="cb-1">Use code</div>
           <div class="glass codepill" id="cb-2">MSR</div>
         </div>
+      </div>
+
+      <!-- ===== FULL-SCREEN: claim flowchart ===== -->
+      <div id="fs-flow" class="fs clip" data-start="{{fs-flow.s}}" data-duration="{{fs-flow.d}}" data-track-index="29">
+        <div class="mesh"></div>
+        <div class="kicker fk" id="fk">How to claim $111</div>
+        <svg class="fline" width="1920" height="1080" viewBox="0 0 1920 1080">
+          <path d="M 330 550 L 1590 550" stroke="rgba(255,255,255,.18)" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path id="fpath" d="M 330 550 L 1590 550" pathLength="1" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"
+            stroke-dasharray="1" stroke-dashoffset="1" style="filter: drop-shadow(0 0 10px #fff) drop-shadow(0 0 26px #a99bff);"/>
+        </svg>
+        <div id="pulse"></div>
+        <div class="glass node" id="nd1" style="left:330px;"><div class="num">STEP 01</div><div class="t">Use code MSR</div><div class="s">at checkout</div><div class="tick">&#10003;</div></div>
+        <div class="glass node" id="nd2" style="left:960px;"><div class="num">STEP 02</div><div class="t">5&times; Bolt 9K+</div><div class="s" id="nd2s">or 5&times; Strike 25K+</div><div class="tick">&#10003;</div></div>
+        <div class="glass node" id="nd3" style="left:1590px;"><div class="num">STEP 03</div><div class="t">Discord ticket</div><div class="s">claim your reward</div><div class="tick">&#10003;</div></div>
       </div>
 
       <!-- ===== FULL-SCREEN: $111 (covers cut) ===== -->
@@ -246,6 +303,7 @@
       </div>
 
       <div id="caps"></div>
+      <div id="streak"></div>
       <div id="flash" class="clip" data-start="0" data-duration="__END__" data-track-index="41"></div>
 
       <audio id="vo" src="assets/aroll-audio.m4a" data-start="0" data-duration="__AROLL__" data-track-index="90" data-volume="1"></audio>
@@ -282,6 +340,50 @@
           tl.to(sel, { autoAlpha: 0, duration: 0.18, ease: "power2.in" }, e - 0.18);
         }
 
+        // ---------- premium helpers ----------
+        function hash(i, k) { const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return x - Math.floor(x); }
+        // drifting light particles in every graphics world
+        document.querySelectorAll(".fs, .br").forEach(function (box, bi) {
+          const d = document.createElement("div"); d.className = "dots";
+          for (let i = 0; i < 16; i++) {
+            const e = document.createElement("div"); e.className = "dot" + (i % 2 ? " tw" : "");
+            const sz = 6 + hash(bi, i) * 22;
+            e.style.cssText = "left:" + (hash(i, bi + 3) * 1880) + "px;top:" + (hash(bi + 7, i) * 1040) + "px;width:" + sz + "px;height:" + sz + "px;opacity:" + (0.25 + hash(i + 9, bi) * 0.6);
+            d.appendChild(e);
+          }
+          const m = box.querySelector(".mesh");
+          if (m) m.after(d); else box.prepend(d);
+        });
+        tl.to(".dot", { y: "-=160", duration: END, ease: "none" }, 0);
+        tl.to(".dot.tw", { opacity: 0.1, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(END / 1.4) - 1) }, 0);
+        // shine strip inside every card / badge
+        document.querySelectorAll(".glass, .badge").forEach(function (c) { const i = document.createElement("i"); i.className = "shine"; c.appendChild(i); });
+        function shine(sel, t) { tl.fromTo(sel + " > .shine", { xPercent: 0 }, { xPercent: 560, duration: 0.85, ease: "power2.inOut" }, t); }
+        // 3D tilt-in for cards
+        function card3d(sel, t, from) {
+          tl.from(sel, Object.assign({ opacity: 0, rotationY: -50, rotationX: 12, transformPerspective: 1100, scale: 0.75, filter: "blur(12px)", duration: 0.7, ease: "expo.out" }, from || {}), t);
+          shine(sel, t + 0.35);
+        }
+        // zoom-blur in/out for full-screen graphics
+        function fsIn(sel, t) { tl.from(sel, { opacity: 0, scale: 1.3, filter: "blur(26px)", duration: 0.42, ease: "expo.out" }, t); }
+        function fsOut(sel, t) { tl.to(sel, { opacity: 0, scale: 1.14, filter: "blur(22px)", duration: 0.3, ease: "power2.in" }, t - 0.3); }
+        // light streak on every transition
+        TRANS.forEach(function (t) {
+          tl.fromTo("#streak", { x: 0, opacity: 0 }, { x: 2800, opacity: 1, duration: 0.42, ease: "power3.inOut" }, t - 0.2);
+          tl.set("#streak", { opacity: 0 }, t + 0.23);
+        });
+        // emphasis punch-ins + shake on the face
+        function punch(t, amt) {
+          tl.to("#punch", { scale: 1 + amt, duration: 0.14, ease: "power3.out" }, t);
+          tl.to("#punch", { scale: 1, duration: 0.6, ease: "power2.inOut" }, t + 0.45);
+        }
+        function shake(t) { tl.to("#punch", { x: 9, y: -6, duration: 0.04, ease: "none", yoyo: true, repeat: 5 }, t); tl.set("#punch", { x: 0, y: 0 }, t + 0.25); }
+        punch(A.t_no, 0.09); shake(A.t_no);
+        punch(A.hello + 0.15, 0.07);
+        punch(A.normal, 0.08); shake(A.normal + 0.2);
+        punch(A.maxdo, 0.07);
+        punch(A.court, 0.06); shake(A.court);
+
         // ---------- camera: drift + alternating punch per segment ----------
         const SEG = [0].concat(CUTS, [AROLL]);
         const SCALE = [1.06, 1.14, 1.0, 1.08, 1.0, 1.1, 1.0, 1.08, 1.0, 1.06, 1.12];
@@ -295,12 +397,18 @@
         // ---------- B-roll: quick scale-in + slow push ----------
         BROLL.forEach(function (b) {
           const w = "#brw-" + b[0];
+          const f = "#brf-" + b[0];
+          const chainIn = BROLL.some(function (o) { return Math.abs(o[2] - b[1]) < 0.06; });
+          const chainOut = BROLL.some(function (o) { return Math.abs(o[1] - b[2]) < 0.06; });
           tl.set(w, { autoAlpha: 0 }, 0);
           tl.set(w, { autoAlpha: 1 }, b[1]);
+          if (!chainIn) tl.fromTo(w, { opacity: 0 }, { opacity: 1, duration: 0.28, ease: "power2.out" }, b[1]);
+          tl.fromTo(f, { x: 460, scale: 0.8, rotationY: -28, transformPerspective: 1400, filter: "blur(18px)" },
+                       { x: 0, scale: 1.0, rotationY: 0, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, b[1]);
+          tl.to(f, { scale: 1.03, duration: Math.max(0.1, b[2] - b[1] - 0.85), ease: "none" }, b[1] + 0.55);
+          tl.to(f, { x: -460, scale: 0.86, rotationY: 22, filter: "blur(18px)", duration: 0.3, ease: "power2.in" }, b[2] - 0.3);
+          if (!chainOut) tl.to(w, { opacity: 0, duration: 0.3, ease: "power2.in" }, b[2] - 0.3);
           tl.set(w, { autoAlpha: 0 }, b[2]);
-          const f = "#brf-" + b[0];
-          tl.fromTo(f, { scale: 0.84, y: 60, rotation: -1.5 }, { scale: 1.0, y: 0, rotation: 0, duration: 0.4, ease: "expo.out" }, b[1]);
-          tl.to(f, { scale: 1.025, duration: Math.max(0.1, b[2] - b[1] - 0.4), ease: "none" }, b[1] + 0.4);
           tl.to(w + " .mesh", { x: -40, y: 20, duration: b[2] - b[1], ease: "none" }, b[1]);
         });
 
@@ -324,21 +432,21 @@
 
         // ---------- FS: Shark Funded -> Giveaway ----------
         const sh = CARDS["fs-shark"];
-        tl.from("#fs-shark", { opacity: 0, scale: 1.15, duration: 0.3, ease: "power3.out" }, sh[0]);
+        fsIn("#fs-shark", sh[0]);
         tl.to("#rays1", { x: -70, y: 40, duration: sh[1] - sh[0], ease: "none" }, sh[0]);
-        tl.from("#sh-card", { opacity: 0, scale: 0.6, duration: 0.5, ease: "back.out(1.6)" }, sh[0] + 0.1);
+        card3d("#sh-card", sh[0] + 0.1, { rotationY: 0, rotationX: 0, rotation: -120, scale: 0.4 });
         tl.from("#sh-scr", { opacity: 0, y: 30, duration: 0.45, ease: "power3.out" }, sh[0] + 0.45);
         tl.set("#sh-b", { autoAlpha: 0 }, sh[0]);
         tl.to("#sh-a", { autoAlpha: 0, scale: 0.9, duration: 0.25, ease: "power2.in" }, A.give - 0.35);
         tl.set("#sh-b", { autoAlpha: 1 }, A.give - 0.1);
-        tl.from("#gv-card", { scale: 0.4, rotation: -6, duration: 0.55, ease: "back.out(2)" }, A.give - 0.1);
-        tl.to("#fs-shark", { opacity: 0, scale: 1.08, duration: 0.25, ease: "power2.in" }, sh[1] - 0.25);
+        card3d("#gv-card", A.give - 0.1);
+        fsOut("#fs-shark", sh[1]);
 
         // ---------- overlays ----------
-        win("#o-vids", A.industry + 0.1, A.normal - 0.4);
         win("#o-normal", A.normal - 0.25, A.fully - 0.05);
         tl.from("#o-x", { scaleX: 0, duration: 0.35, ease: "power4.out" }, A.normal + 0.2);
-        win("#o-dubai", A.fully + 0.05, A.lasttime - 0.15, { opacity: 0, scale: 0.6, y: 40 });
+        win("#o-dubai", A.fully + 0.05, A.lasttime - 0.15, { opacity: 0, rotationY: -50, transformPerspective: 1100, scale: 0.7, filter: "blur(12px)", duration: 0.7, ease: "expo.out" });
+        shine("#o-dubai", A.fully + 0.4);
         win("#o-last", A.lasttime, A.expo - 1.0);
         win("#o-expo", A.expo - 0.9, A.flights - 0.02);
         win("#o-fl", A.flights, A.hotels - 0.02, { opacity: 0, x: -40 });
@@ -347,45 +455,82 @@
         win("#o-cov", A.covered, A.covered + 1.0, { opacity: 0, scale: 1.6 });
         win("#o-top", A.highest - 1.3, CARDS["fs-30"][0]);
         win("#o-win", A.dtrip - 1.1, CUTS[7] - 0.05);
-        win("#o-bolt", A.bolt + 0.1, A.strike - 0.05);
-        win("#o-strike", A.strike, A.ticket - 0.3);
-        win("#o-ticket", A.ticket - 0.15, CARDS["fs-111"][0]);
 
         // ---------- FS: 30 days -> dates ----------
         const d = CARDS["fs-30"];
-        tl.from("#fs-30", { opacity: 0, scale: 1.15, duration: 0.3, ease: "power3.out" }, d[0]);
-        tl.from("#d30", { opacity: 0, scale: 0.6, duration: 0.5, ease: "back.out(1.6)" }, d[0] + 0.1);
+        fsIn("#fs-30", d[0]);
+        card3d("#d30", d[0] + 0.1);
         const dn = { v: 0 };
         tl.to(dn, { v: 30, duration: 0.9, ease: "power2.out", onUpdate: function () { document.getElementById("d30n").textContent = Math.round(dn.v); } }, A.days30 - 0.5);
         tl.set("#d-b", { autoAlpha: 0 }, d[0]);
         tl.to("#d-a", { autoAlpha: 0, y: -40, duration: 0.25, ease: "power2.in" }, A.till - 0.3);
         tl.set("#d-b", { autoAlpha: 1 }, A.till - 0.05);
-        tl.from("#d-oct", { opacity: 0, x: -80, duration: 0.4, ease: "power3.out" }, A.till - 0.05);
+        card3d("#d-oct", A.till - 0.05, { rotationY: 50 });
         tl.from("#d-b .arrow", { opacity: 0, x: -30, duration: 0.3, ease: "power2.out" }, A.till + 0.2);
-        tl.from("#d-nov", { opacity: 0, scale: 0.5, duration: 0.5, ease: "back.out(2)" }, A.nov);
-        tl.to("#fs-30", { opacity: 0, scale: 1.08, duration: 0.25, ease: "power2.in" }, d[1] - 0.25);
+        card3d("#d-nov", A.nov);
+        fsOut("#fs-30", d[1]);
+
+        // ---------- FS: orbit ----------
+        const ob = CARDS["fs-orbit"];
+        fsIn("#fs-orbit", ob[0]);
+        const orb = { a: 0 };
+        function placeOrbit() {
+          for (let i = 0; i < 5; i++) {
+            const ang = orb.a + i * (Math.PI * 2 / 5) - Math.PI / 2;
+            gsap.set("#ob" + i, { x: 960 + Math.cos(ang) * 620, y: 520 + Math.sin(ang) * 330, scale: 0.82 + 0.18 * (Math.sin(ang) + 1) / 2 });
+          }
+        }
+        placeOrbit();
+        tl.to(orb, { a: Math.PI * 0.9, duration: ob[1] - ob[0], ease: "none", onUpdate: placeOrbit }, ob[0]);
+        tl.from("#orbit .ob .badge", { opacity: 0, scale: 0.2, duration: 0.5, ease: "back.out(1.8)", stagger: 0.09 }, ob[0] + 0.1);
+        for (let i = 0; i < 5; i++) shine("#ob" + i + " .badge", ob[0] + 0.5 + i * 0.12);
+        tl.from("#oc", { opacity: 0, scale: 0.7, filter: "blur(10px)", duration: 0.5, ease: "expo.out" }, ob[0] + 0.15);
+        const vn = { v: 0 };
+        tl.to(vn, { v: 1000, duration: 1.3, ease: "power3.out", onUpdate: function () { document.getElementById("vidn").textContent = Math.round(vn.v); } }, ob[0] + 0.3);
+        fsOut("#fs-orbit", ob[1]);
+
+        // ---------- FS: flowchart ----------
+        const fl = CARDS["fs-flow"];
+        fsIn("#fs-flow", fl[0]);
+        tl.from("#fk", { opacity: 0, y: -30, duration: 0.4, ease: "power3.out" }, fl[0] + 0.05);
+        const fx = { p: 0 };
+        function placePulse() { gsap.set("#pulse", { x: 330 + fx.p * 1260 }); document.getElementById("fpath").setAttribute("stroke-dashoffset", String(1 - fx.p)); }
+        placePulse();
+        tl.set("#pulse", { opacity: 0 }, fl[0]);
+        card3d("#nd1", fl[0] + 0.1);
+        tl.set("#pulse", { opacity: 1 }, fl[0] + 0.6);
+        tl.to(fx, { p: 0.5, duration: 0.9, ease: "power2.inOut", onUpdate: placePulse }, fl[0] + 0.6);
+        card3d("#nd2", fl[0] + 1.2);
+        tl.from("#nd2s", { opacity: 0, y: 16, duration: 0.35, ease: "power3.out" }, A.strike);
+        tl.to(fx, { p: 1, duration: 0.9, ease: "power2.inOut", onUpdate: placePulse }, A.ticket - 0.9);
+        card3d("#nd3", A.ticket - 0.1);
+        tl.from("#nd1 .tick", { scale: 0, duration: 0.35, ease: "back.out(3)" }, fl[0] + 0.7);
+        tl.from("#nd2 .tick", { scale: 0, duration: 0.35, ease: "back.out(3)" }, A.strike + 0.4);
+        tl.from("#nd3 .tick", { scale: 0, duration: 0.35, ease: "back.out(3)" }, A.ticket + 0.5);
+        tl.to("#pulse", { scale: 1.8, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3 }, A.ticket);
+        fsOut("#fs-flow", fl[1]);
 
         // ---------- FS: Discord ----------
         const dc = CARDS["fs-dc"];
-        tl.from("#fs-dc", { opacity: 0, scale: 1.15, duration: 0.3, ease: "power3.out" }, dc[0]);
-        tl.from("#dc-card", { opacity: 0, scale: 0.6, duration: 0.5, ease: "back.out(1.6)" }, dc[0] + 0.05);
+        fsIn("#fs-dc", dc[0]);
+        card3d("#dc-card", dc[0] + 0.05);
         tl.from("#dc-link", { opacity: 0, y: -16, duration: 0.3, ease: "power2.out" }, A.link);
-        tl.to("#fs-dc", { opacity: 0, scale: 1.08, duration: 0.22, ease: "power2.in" }, dc[1] - 0.22);
+        fsOut("#fs-dc", dc[1]);
 
         // ---------- FS: code MSR ----------
         const cd = CARDS["fs-code"];
-        tl.from("#fs-code", { opacity: 0, scale: 1.15, duration: 0.25, ease: "power3.out" }, cd[0]);
+        fsIn("#fs-code", cd[0]);
         tl.from("#cb-1", { opacity: 0, y: 40, duration: 0.3, ease: "power3.out" }, cd[0] + 0.05);
-        tl.from("#cb-2", { opacity: 0, scale: 0.4, duration: 0.45, ease: "back.out(2.2)" }, A.code);
-        tl.to("#fs-code", { opacity: 0, scale: 1.08, duration: 0.2, ease: "power2.in" }, cd[1] - 0.2);
+        card3d("#cb-2", A.code, { rotationX: 70, rotationY: 0 });
+        fsOut("#fs-code", cd[1]);
 
         // ---------- FS: $111 ----------
         const c1 = CARDS["fs-111"];
-        tl.from("#fs-111", { opacity: 0, scale: 1.15, duration: 0.3, ease: "power3.out" }, c1[0]);
-        tl.from("#c111", { opacity: 0, scale: 0.6, duration: 0.5, ease: "back.out(1.6)" }, c1[0] + 0.05);
+        fsIn("#fs-111", c1[0]);
+        card3d("#c111", c1[0] + 0.05);
         const amt = { v: 0 };
         tl.to(amt, { v: 111, duration: 1.0, ease: "power2.out", onUpdate: function () { document.getElementById("amt").textContent = Math.round(amt.v); } }, A.usd111 - 0.3);
-        tl.to("#fs-111", { opacity: 0, scale: 1.08, duration: 0.25, ease: "power2.in" }, c1[1] - 0.25);
+        fsOut("#fs-111", c1[1]);
 
         // ---------- CLOSE ----------
         tl.set("#court", { autoAlpha: 0 }, 0);
@@ -398,7 +543,7 @@
         // ---------- END CARD ----------
         tl.from("#endcard", { opacity: 0, duration: 0.4, ease: "power2.out" }, AROLL);
         tl.to("#rays-end", { x: 60, y: -30, duration: END - AROLL, ease: "none" }, AROLL);
-        tl.from("#ec1, #ec2, #ec3", { opacity: 0, y: 60, scale: 0.8, duration: 0.5, ease: "back.out(1.5)", stagger: 0.2 }, AROLL + 0.2);
+        card3d("#ec1", AROLL + 0.2); card3d("#ec2", AROLL + 0.4); card3d("#ec3", AROLL + 0.6);
         tl.from("#ec-sub", { opacity: 0, y: 30, duration: 0.4, ease: "power3.out" }, AROLL + 1.1);
         tl.to("#endcard .grid", { opacity: 0, duration: 0.5, ease: "power2.in" }, END - 0.55);
 
