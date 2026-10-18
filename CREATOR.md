@@ -20,22 +20,22 @@ When putting handles on-screen (lower-thirds, outros, end-cards), use the platfo
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Freelance YouTube editor (client work).** Current job: 16:9 YouTube long-form, **1920×1080, 30fps**. Vertical 9:16 only when a client asks.
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+Varies by client. Current client job: **trading / prop-firm comparison** content (finance niche). On-screen names/handles = the *client's*, never the reference creator's.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+Client footage — mix TBD per client (talking head, screen recordings, or both).
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**TBD per client** — footage may arrive raw (cut pauses + add visual layer) or pre-edited (visual layer only, never touch their audio/pacing). Confirm on each job.
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
