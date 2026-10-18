@@ -8,17 +8,19 @@ OUT = sys.argv[2]          # edl.json path
 # (label, in, out) in SOURCE seconds — approximate word boundaries from the transcripts.
 # A string value is pinned (verified by windowed transcription) and is not snapped.
 SEGMENTS = [
-    ("hook",      38.45, "46.13"),  # "...daily reward, daily payout... but no one shows you how you'll withdraw"
-    ("hello",      0.05,   0.90),  # "What's up everyone"
-    ("intro",      2.33,   9.62),  # "in this video... how you can hit your first reward from Shark Funded accounts"
-    ("giveaway",  50.33,  52.71),  # "and there's gonna be a giveaway for you guys as well"
-    ("dubai",     52.71, "62.44"),  # "whole industry made videos... not a normal giveaway... fully sponsored Dubai trip"
-    ("proof",     72.12,  79.42),  # "when I did the Dubai giveaway, 3 people went to Forex Expo... all covered"
-    ("rule",      79.42, "87.82"),  # "I'm going to do the same thing... highest total combined payout in next 30 days"
-    ("deadline",  90.52,  99.04),  # "you have till 12th of November... fully sponsored Dubai trip"
-    ("discord",   99.04, 104.64),  # "all the support... join discord... link in the description"
-    ("offer",    104.64, "117.94"),  # "code MSR... 5x 9K+ Bolt or 5x 25K+ Strike... claim your 111 USD"
-    ("close",    166.84, 176.45),  # "this is the max I can do... ball is in your court... let me show you how"
+    # --- B&W "COMING UP" teaser ---
+    ("teaser1",   38.45, "46.13"),  # "...daily reward, daily payout... but no one shows you how you'll withdraw"
+    ("teaser2",  "59.37", "62.44"),  # "yahan par tumko main fully sponsored Dubai trip dene wala hoon"
+    # --- main (colour) ---
+    ("hello",      0.05,   9.78),   # "What's up everyone, hope you're doing good... first reward from Shark Funded accounts"
+    ("giveaway", "50.47",  52.83),   # "and there's gonna be a giveaway for you guys as well"
+    ("dubai",     52.83, "62.44"),  # "whole industry made videos... not a normal giveaway... fully sponsored Dubai trip"
+    ("proof",     71.94,  79.56),   # "when I did the Dubai giveaway, 3 people went to Forex Expo... all covered"
+    ("rule",      79.56, "87.82"),  # "I'm going to do the same thing... highest total combined payout in next 30 days"
+    ("deadline",  90.66,  99.09),   # "you have till 12th of November... fully sponsored Dubai trip"
+    ("discord",   99.09, 104.73),   # "all the support... join discord... link in the description"
+    ("offer",    104.73, "117.94"), # "code MSR... 5x 9K+ Bolt or 5x 25K+ Strike... claim your 111 USD"
+    ("close",    166.69, 176.48),   # "this is the max I can do... ball is in your court... let me show you how"
 ]
 SEARCH = 0.18  # seconds either side of each boundary
 
