@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Builds renders/before-after.mp4: 3s "BEFORE" raw pre-roll, then the v5 edit with
+# three slider comparisons (raw left | edit right). Needs renders/draft5.mp4 + assets/clip.mp4.
+# Usage: ./make-before-after.sh <montserrat-800.ttf> <inter-600.ttf>
+set -e; cd "$(dirname "$0")"; M="$1"; I="$2"
+rt(){ echo "clip(min((t-$1)/0.3\,($2-t)/0.3)\,0\,1)"; }
+ST="540*($(rt 3.0 4.3)+$(rt 21.3 23.0)+$(rt 35.5 37.4))"
+WIN="between(t\,3.1\,4.2)+between(t\,21.4\,22.9)+between(t\,35.6\,37.3)"
+ffmpeg -v error -y -i assets/clip.mp4 -filter_complex "[0:v]fps=30,trim=0:3.0,setpts=PTS-STARTPTS,eq=saturation=0.85,drawtext=fontfile=$M:text='BEFORE':x=(w-tw)/2:y=330:fontcolor=white:fontsize=130:shadowcolor=black@0.6:shadowy=6,drawtext=fontfile=$I:text='RAW FOOTAGE':x=(w-tw)/2:y=490:fontcolor=white:fontsize=40:shadowcolor=black@0.6:shadowy=4,fade=t=in:d=0.2[v];[0:a]atrim=0:3.0,asetpts=PTS-STARTPTS,afade=t=out:st=2.85:d=0.15,aresample=48000[au]" -map "[v]" -map "[au]" -c:v libx264 -crf 18 -c:a aac -ar 48000 renders/pre.mp4
+ffmpeg -v error -y -i assets/clip.mp4 -i renders/draft5.mp4 -f lavfi -i "color=black:s=1080x1920:r=30:d=48.4" -f lavfi -i "color=white:s=1080x1920:r=30:d=48.4" -f lavfi -i "color=0xE8C67C:s=8x1920:r=30:d=48.4" -filter_complex "[0:v]fps=30,trim=0:48.4,setpts=PTS-STARTPTS,format=yuva420p[raw];[1:v]trim=0:48.4,setpts=PTS-STARTPTS,format=yuv420p[ed];[2:v]format=gray[blk];[3:v]format=gray[wht];[blk][wht]overlay=x='$ST-1080':y=0:eval=frame,format=gray[mask];[raw][mask]alphamerge[rawm];[ed][rawm]overlay=0:0:eval=frame[c1];[c1][4:v]overlay=x='$ST-4':y=0:eval=frame:enable='gt($ST\,2)*lt($ST\,1078)',drawtext=fontfile=$M:text='BEFORE':x=50:y=120:fontcolor=white:fontsize=38:box=1:boxcolor=black@0.55:boxborderw=22:enable='$WIN',drawtext=fontfile=$M:text='AFTER':x=w-tw-50:y=120:fontcolor=black:fontsize=38:box=1:boxcolor=0xE8C67C@0.95:boxborderw=22:enable='$WIN+between(t\,0.45\,2.6)',format=yuv420p[main]" -map "[main]" -map 1:a -c:v libx264 -crf 18 -c:a aac -ar 48000 renders/main.mp4
+ffmpeg -v error -y -i renders/pre.mp4 -i renders/main.mp4 -filter_complex "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[v][au]" -map "[v]" -map "[au]" -c:v libx264 -crf 19 -c:a aac -movflags +faststart renders/before-after.mp4
