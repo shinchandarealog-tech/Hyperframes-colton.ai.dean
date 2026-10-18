@@ -50,4 +50,5 @@ _(logo treatment, hashtags, handles, brand-tokens overrides — populated by /fe
 
 _(anti-patterns to never repeat — populated by /feedback over time)_
 
-- _no rules captured yet_
+- **Client reference videos are a feel/quality bar, never a template.** Don't copy their layout, graphic shapes, colours, or section order one-to-one — the client must not be able to say "you just copy-pasted our reference". Keep the *level* (premium, clean, same energy) but give it our own design language. (2026-10-18)
+- **Content first, style second.** On client samples, transcribe and understand what the speaker is actually saying before designing anything; graphics, structure and hook come from their content, not from the reference. (2026-10-18)
