@@ -30,7 +30,7 @@
 
       /* ---------- B-roll ---------- */
       .br { position: absolute; inset: 0; z-index: 5; overflow: hidden; transform-origin: 50% 50%; }
-      .br video { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+      .br { background: #2a1bc9; }
 
       /* ---------- teaser ---------- */
       #coming { position: absolute; left: 64px; top: 56px; z-index: 14; padding: 12px 22px; background: #000; color: #fff;
@@ -43,32 +43,45 @@
       #flash { position: absolute; inset: 0; z-index: 40; background: #fff; opacity: 0; pointer-events: none; }
 
       /* ---------- client graphics world ---------- */
-      .fs { position: absolute; inset: 0; z-index: 10; overflow: hidden;
-        background: radial-gradient(ellipse 75% 75% at 50% 45%, #5a3cff 0%, #3a1fd6 38%, #160b7a 70%, #0a0640 100%); }
-      .fs .rays { position: absolute; inset: -20%; background: repeating-conic-gradient(from 0deg at 50% 45%, rgba(255,255,255,.045) 0 6deg, transparent 6deg 18deg); }
+      .fs { position: absolute; inset: 0; z-index: 10; overflow: hidden; background: #2a1bc9; }
+      .mesh { position: absolute; inset: -8%; background:
+          radial-gradient(42% 55% at 6% 12%, #7b74ff 0%, rgba(123,116,255,0) 70%),
+          radial-gradient(48% 60% at 96% 92%, #7b74ff 0%, rgba(123,116,255,0) 70%),
+          radial-gradient(40% 50% at 94% 6%, #080348 0%, rgba(8,3,72,0) 72%),
+          radial-gradient(44% 55% at 8% 94%, #080348 0%, rgba(8,3,72,0) 72%),
+          radial-gradient(60% 70% at 50% 50%, #4a3df6 0%, #3020d4 60%, #2414b8 100%); }
       .fs .stage { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding-bottom: 120px; }
-      .glass { background: linear-gradient(160deg, rgba(255,255,255,.16), rgba(255,255,255,.04)); border: 2.5px solid rgba(255,255,255,.92); border-radius: 30px;
-        box-shadow: 0 0 34px rgba(255,255,255,.55), 0 0 90px rgba(143,123,255,.45), inset 0 0 30px rgba(255,255,255,.12); }
-      .kicker { font-family: var(--sans); font-weight: 600; font-size: 30px; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); }
+      .glass { background: linear-gradient(165deg, #3a22f2 0%, #2410d6 55%, #1a08b4 100%); border: 3px solid #fff; border-radius: 22px;
+        box-shadow: 0 0 14px rgba(255,255,255,.95), 0 0 46px rgba(170,160,255,.85), 0 0 110px rgba(110,90,255,.55), inset 0 0 22px rgba(255,255,255,.10); }
+      .kicker { font-family: var(--sans); font-style: italic; font-weight: 700; font-size: 58px; letter-spacing: -0.01em; text-transform: capitalize; color: #fff;
+        text-shadow: 0 0 10px rgba(255,255,255,.9), 0 0 30px rgba(190,180,255,.85), 0 0 60px rgba(120,100,255,.6); }
       .big { font-family: var(--sans); font-weight: 800; font-size: 120px; line-height: 1; letter-spacing: -0.02em; text-shadow: 0 0 30px rgba(255,255,255,.45); }
       .script { font-family: var(--script); font-size: 150px; line-height: .8; color: #fff; text-shadow: 0 0 34px rgba(255,255,255,.6); }
-      .card { padding: 34px 64px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+      .card { padding: 30px 56px 34px 40px; display: flex; flex-direction: column; align-items: flex-start; gap: 0; }
       .card .n { font-family: var(--sans); font-weight: 800; font-size: 150px; line-height: 1; text-shadow: 0 0 30px rgba(255,255,255,.5); font-variant-numeric: tabular-nums; }
-      .card .l { font-family: var(--sans); font-weight: 600; font-size: 38px; color: var(--muted); }
+      .card .l { font-family: var(--sans); font-weight: 700; font-size: 40px; color: #fff; text-shadow: 0 0 12px rgba(255,255,255,.5); }
+      .badge { width: 400px; height: 400px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+        background: radial-gradient(circle at 50% 38%, #2e2e33 0%, #141417 55%, #0a0a0c 100%); border: 3px solid #fff;
+        box-shadow: 0 0 16px rgba(255,255,255,.95), 0 0 50px rgba(190,180,255,.85), 0 0 110px rgba(110,90,255,.55); }
+      .badge .b1 { font-family: var(--sans); font-weight: 800; font-size: 92px; line-height: .95; letter-spacing: -0.02em; }
+      .badge .b2 { font-family: var(--sans); font-style: italic; font-weight: 600; font-size: 46px; letter-spacing: .22em; color: #d9d4ff; }
+      /* framed B-roll on the brand gradient */
+      .br .frame { position: absolute; left: 230px; top: 64px; width: 1460px; height: 822px; border-radius: 26px; overflow: hidden; border: 3px solid #fff;
+        box-shadow: 0 0 14px rgba(255,255,255,.9), 0 0 50px rgba(170,160,255,.8), 0 0 120px rgba(110,90,255,.5); }
+      .br .frame video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.06) brightness(.94); }
       .row { display: flex; gap: 40px; align-items: center; }
       .arrow { font-family: var(--sans); font-weight: 800; font-size: 80px; color: var(--muted); }
       .swap { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; padding-bottom: 120px; }
       .money-layer { position: absolute; inset: 0; mix-blend-mode: screen; opacity: .9; }
       .money-layer video { width: 1920px; height: 1080px; object-fit: cover; }
-      .codebar { font-family: var(--sans); font-weight: 900; font-size: 128px; letter-spacing: .02em; text-transform: uppercase;
-        background: linear-gradient(180deg, #ffffff 0%, #d9d2ff 45%, #9d8bff 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
-        filter: drop-shadow(0 0 22px rgba(255,255,255,.45)); }
+      .codebar { font-family: var(--sans); font-style: italic; font-weight: 800; font-size: 110px; color: #fff;
+        text-shadow: 0 0 12px rgba(255,255,255,.9), 0 0 36px rgba(190,180,255,.85), 0 0 70px rgba(120,100,255,.6); }
       .codepill { font-family: var(--sans); font-weight: 900; font-size: 170px; letter-spacing: .08em; padding: 6px 70px; }
 
       /* ---------- overlay chips (on face / B-roll) ---------- */
       .chip { position: absolute; z-index: 12; display: flex; align-items: center; gap: 18px; padding: 18px 30px; border-radius: 22px;
-        background: rgba(20, 12, 70, .62); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,.85);
-        box-shadow: 0 0 26px rgba(255,255,255,.35), 0 0 60px rgba(75,43,240,.45);
+        background: linear-gradient(165deg, #3a22f2, #1d0cc4); border: 3px solid #fff;
+        box-shadow: 0 0 12px rgba(255,255,255,.9), 0 0 40px rgba(170,160,255,.8);
         font-family: var(--sans); font-weight: 800; font-size: 54px; letter-spacing: -0.01em; text-shadow: 0 0 16px rgba(255,255,255,.35); }
       .chip small { font-weight: 600; font-size: 26px; letter-spacing: .24em; color: var(--muted); text-transform: uppercase; }
       .chip .ok { width: 52px; height: 52px; border-radius: 14px; background: var(--money); color: #052a1a; display: flex; align-items: center; justify-content: center; font-size: 34px; }
@@ -113,22 +126,22 @@
       </div>
       <div id="vign" class="clip" data-start="0" data-duration="85.39" data-track-index="1"></div>
 
-      <div class="br gray" id="brw-0"><video id="br-0" src="assets/broll/man-celebrate.mp4" data-start="1.320" data-duration="2.050" data-media-start="1.20" data-track-index="20" muted playsinline></video></div>
-      <div class="br gray" id="brw-1"><video id="br-1" src="assets/broll/cash-flip.mp4" data-start="3.370" data-duration="1.600" data-media-start="0.60" data-track-index="21" muted playsinline></video></div>
-      <div class="br gray" id="brw-2"><video id="br-2" src="assets/broll/dubai-tower.mp4" data-start="7.450" data-duration="1.980" data-media-start="0.50" data-track-index="22" muted playsinline></video></div>
-      <div class="br" id="brw-3"><video id="br-3" src="assets/broll/stock-tablet.mp4" data-start="14.200" data-duration="2.700" data-media-start="1.00" data-track-index="23" muted playsinline></video></div>
-      <div class="br" id="brw-4"><video id="br-4" src="assets/broll/phone-scroll.mp4" data-start="23.820" data-duration="2.740" data-media-start="0.80" data-track-index="24" muted playsinline></video></div>
-      <div class="br" id="brw-5"><video id="br-5" src="assets/broll/dubai-night.mp4" data-start="30.260" data-duration="3.700" data-media-start="0.40" data-track-index="25" muted playsinline></video></div>
-      <div class="br" id="brw-6"><video id="br-6" src="assets/broll/conference.mp4" data-start="34.960" data-duration="2.350" data-media-start="2.00" data-track-index="26" muted playsinline></video></div>
-      <div class="br" id="brw-7"><video id="br-7" src="assets/broll/plane.mp4" data-start="37.310" data-duration="0.570" data-media-start="2.60" data-track-index="27" muted playsinline></video></div>
-      <div class="br" id="brw-8"><video id="br-8" src="assets/broll/hotel.mp4" data-start="37.880" data-duration="0.530" data-media-start="3.00" data-track-index="28" muted playsinline></video></div>
-      <div class="br" id="brw-9"><video id="br-9" src="assets/broll/breakfast.mp4" data-start="38.410" data-duration="0.700" data-media-start="1.00" data-track-index="29" muted playsinline></video></div>
-      <div class="br" id="brw-10"><video id="br-10" src="assets/broll/trophy.mp4" data-start="42.460" data-duration="3.750" data-media-start="1.00" data-track-index="30" muted playsinline></video></div>
-      <div class="br" id="brw-11"><video id="br-11" src="assets/broll/dubai-skyline.mp4" data-start="54.110" data-duration="2.490" data-media-start="0.50" data-track-index="31" muted playsinline></video></div>
-      <div class="br" id="brw-12"><video id="br-12" src="assets/broll/pay-online.mp4" data-start="64.910" data-duration="2.600" data-media-start="0.50" data-track-index="32" muted playsinline></video></div>
-      <div class="br" id="brw-13"><video id="br-13" src="assets/broll/pay-laptop.mp4" data-start="67.510" data-duration="3.900" data-media-start="0.50" data-track-index="33" muted playsinline></video></div>
-      <div class="br" id="brw-14"><video id="br-14" src="assets/broll/typing.mp4" data-start="71.410" data-duration="2.150" data-media-start="1.00" data-track-index="34" muted playsinline></video></div>
-      <div class="br" id="brw-15"><video id="br-15" src="assets/broll/stock-ui.mp4" data-start="81.910" data-duration="2.600" data-media-start="2.00" data-track-index="35" muted playsinline></video></div>
+      <div class="br gray" id="brw-0"><div class="mesh"></div><div class="frame" id="brf-0"><video id="br-0" src="assets/broll/man-celebrate.mp4" data-start="1.320" data-duration="2.050" data-media-start="1.20" data-track-index="20" muted playsinline></video></div></div>
+      <div class="br gray" id="brw-1"><div class="mesh"></div><div class="frame" id="brf-1"><video id="br-1" src="assets/broll/cash-flip.mp4" data-start="3.370" data-duration="1.600" data-media-start="0.60" data-track-index="21" muted playsinline></video></div></div>
+      <div class="br gray" id="brw-2"><div class="mesh"></div><div class="frame" id="brf-2"><video id="br-2" src="assets/broll/dubai-tower.mp4" data-start="7.450" data-duration="1.980" data-media-start="0.50" data-track-index="22" muted playsinline></video></div></div>
+      <div class="br" id="brw-3"><div class="mesh"></div><div class="frame" id="brf-3"><video id="br-3" src="assets/broll/stock-tablet.mp4" data-start="14.200" data-duration="2.700" data-media-start="1.00" data-track-index="23" muted playsinline></video></div></div>
+      <div class="br" id="brw-4"><div class="mesh"></div><div class="frame" id="brf-4"><video id="br-4" src="assets/broll/phone-scroll.mp4" data-start="23.820" data-duration="2.740" data-media-start="0.80" data-track-index="24" muted playsinline></video></div></div>
+      <div class="br" id="brw-5"><div class="mesh"></div><div class="frame" id="brf-5"><video id="br-5" src="assets/broll/dubai-night.mp4" data-start="30.260" data-duration="3.700" data-media-start="0.40" data-track-index="25" muted playsinline></video></div></div>
+      <div class="br" id="brw-6"><div class="mesh"></div><div class="frame" id="brf-6"><video id="br-6" src="assets/broll/conference.mp4" data-start="34.960" data-duration="2.350" data-media-start="2.00" data-track-index="26" muted playsinline></video></div></div>
+      <div class="br" id="brw-7"><div class="mesh"></div><div class="frame" id="brf-7"><video id="br-7" src="assets/broll/plane.mp4" data-start="37.310" data-duration="0.570" data-media-start="2.60" data-track-index="27" muted playsinline></video></div></div>
+      <div class="br" id="brw-8"><div class="mesh"></div><div class="frame" id="brf-8"><video id="br-8" src="assets/broll/hotel.mp4" data-start="37.880" data-duration="0.530" data-media-start="3.00" data-track-index="28" muted playsinline></video></div></div>
+      <div class="br" id="brw-9"><div class="mesh"></div><div class="frame" id="brf-9"><video id="br-9" src="assets/broll/breakfast.mp4" data-start="38.410" data-duration="0.700" data-media-start="1.00" data-track-index="29" muted playsinline></video></div></div>
+      <div class="br" id="brw-10"><div class="mesh"></div><div class="frame" id="brf-10"><video id="br-10" src="assets/broll/trophy.mp4" data-start="42.460" data-duration="3.750" data-media-start="1.00" data-track-index="30" muted playsinline></video></div></div>
+      <div class="br" id="brw-11"><div class="mesh"></div><div class="frame" id="brf-11"><video id="br-11" src="assets/broll/dubai-skyline.mp4" data-start="54.110" data-duration="2.490" data-media-start="0.50" data-track-index="31" muted playsinline></video></div></div>
+      <div class="br" id="brw-12"><div class="mesh"></div><div class="frame" id="brf-12"><video id="br-12" src="assets/broll/pay-online.mp4" data-start="64.910" data-duration="2.600" data-media-start="0.50" data-track-index="32" muted playsinline></video></div></div>
+      <div class="br" id="brw-13"><div class="mesh"></div><div class="frame" id="brf-13"><video id="br-13" src="assets/broll/pay-laptop.mp4" data-start="67.510" data-duration="3.900" data-media-start="0.50" data-track-index="33" muted playsinline></video></div></div>
+      <div class="br" id="brw-14"><div class="mesh"></div><div class="frame" id="brf-14"><video id="br-14" src="assets/broll/typing.mp4" data-start="71.410" data-duration="2.150" data-media-start="1.00" data-track-index="34" muted playsinline></video></div></div>
+      <div class="br" id="brw-15"><div class="mesh"></div><div class="frame" id="brf-15"><video id="br-15" src="assets/broll/stock-ui.mp4" data-start="81.910" data-duration="2.600" data-media-start="2.00" data-track-index="35" muted playsinline></video></div></div>
       <audio id="sfx-0" src="assets/sfx/pop.mp3" data-start="1.320" data-duration="0.720" data-track-index="60" data-volume="0.3"></audio>
       <audio id="sfx-1" src="assets/sfx/pop.mp3" data-start="3.370" data-duration="0.720" data-track-index="61" data-volume="0.3"></audio>
       <audio id="sfx-2" src="assets/sfx/slam.mp3" data-start="4.990" data-duration="1.224" data-track-index="62" data-volume="0.36"></audio>
@@ -180,10 +193,10 @@
 
       <!-- ===== FULL-SCREEN: Shark Funded -> GIVEAWAY (covers cut) ===== -->
       <div id="fs-shark" class="fs clip" data-start="18.350" data-duration="4.210" data-track-index="6">
-        <div class="rays" id="rays1"></div>
+        <div class="mesh" id="rays1"></div>
         <div class="swap" id="sh-a">
           <div class="kicker">In this video</div>
-          <div class="glass card" id="sh-card"><div class="n" style="font-size:118px">SHARK FUNDED</div></div>
+          <div class="badge" id="sh-card"><div class="b1">SHARK</div><div class="b2">FUNDED</div></div>
           <div class="script" id="sh-scr">your first reward</div>
         </div>
         <div class="swap" id="sh-b">
@@ -215,7 +228,7 @@
 
       <!-- ===== FULL-SCREEN: 30 DAYS -> 12 OCT..12 NOV (covers cut) ===== -->
       <div id="fs-30" class="fs clip" data-start="45.860" data-duration="5.950" data-track-index="36">
-        <div class="rays"></div>
+        <div class="mesh"></div>
         <div class="swap" id="d-a">
           <div class="kicker">The window</div>
           <div class="glass card" id="d30"><div class="n"><span id="d30n">0</span> DAYS</div><div class="l">highest combined payout wins</div></div>
@@ -232,7 +245,7 @@
 
       <!-- ===== FULL-SCREEN: Discord ===== -->
       <div id="fs-dc" class="fs clip" data-start="59.810" data-duration="2.400" data-track-index="35">
-        <div class="rays"></div>
+        <div class="mesh"></div>
         <div class="stage">
           <div class="kicker">Full support</div>
           <div class="glass card" id="dc-card" style="flex-direction:row; gap:34px;">
@@ -245,7 +258,7 @@
 
       <!-- ===== FULL-SCREEN: USE CODE MSR ===== -->
       <div id="fs-code" class="fs clip" data-start="63.810" data-duration="1.400" data-track-index="34">
-        <div class="rays"></div>
+        <div class="mesh"></div>
         <div class="stage">
           <div class="codebar" id="cb-1">Use code</div>
           <div class="glass codepill" id="cb-2">MSR</div>
@@ -254,7 +267,7 @@
 
       <!-- ===== FULL-SCREEN: $111 (covers cut) ===== -->
       <div id="fs-111" class="fs clip" data-start="73.210" data-duration="3.100" data-track-index="33">
-        <div class="rays"></div>
+        <div class="mesh"></div>
         <div class="stage">
           <div class="kicker">Claim directly in Discord</div>
           <div class="glass card" id="c111"><div class="n" style="font-size:190px">$<span id="amt">0</span></div><div class="l">USD &middot; on every 5 purchases</div></div>
@@ -269,7 +282,7 @@
 
       <!-- ===== END CARD ===== -->
       <div id="endcard" class="fs clip" data-start="85.39" data-duration="5.30" data-track-index="31">
-        <div class="rays" id="rays-end"></div>
+        <div class="mesh" id="rays-end"></div>
         <div class="grid">
           <div class="cards">
             <div class="glass card" id="ec1"><div class="l">USE CODE</div><div class="n">MSR</div></div>
@@ -335,8 +348,13 @@
         // ---------- B-roll: quick scale-in + slow push ----------
         BROLL.forEach(function (b) {
           const w = "#brw-" + b[0];
-          tl.fromTo(w, { scale: 1.14 }, { scale: 1.0, duration: 0.22, ease: "power3.out" }, b[1]);
-          tl.to(w, { scale: 1.06, duration: Math.max(0.1, b[2] - b[1] - 0.22), ease: "none" }, b[1] + 0.22);
+          tl.set(w, { autoAlpha: 0 }, 0);
+          tl.set(w, { autoAlpha: 1 }, b[1]);
+          tl.set(w, { autoAlpha: 0 }, b[2]);
+          const f = "#brf-" + b[0];
+          tl.fromTo(f, { scale: 0.84, y: 60, rotation: -1.5 }, { scale: 1.0, y: 0, rotation: 0, duration: 0.4, ease: "expo.out" }, b[1]);
+          tl.to(f, { scale: 1.025, duration: Math.max(0.1, b[2] - b[1] - 0.4), ease: "none" }, b[1] + 0.4);
+          tl.to(w + " .mesh", { x: -40, y: 20, duration: b[2] - b[1], ease: "none" }, b[1]);
         });
 
         // ---------- TEASER ----------
@@ -360,7 +378,7 @@
         // ---------- FS: Shark Funded -> Giveaway ----------
         const sh = CARDS["fs-shark"];
         tl.from("#fs-shark", { opacity: 0, scale: 1.15, duration: 0.3, ease: "power3.out" }, sh[0]);
-        tl.to("#rays1", { rotation: 25, duration: sh[1] - sh[0], ease: "none" }, sh[0]);
+        tl.to("#rays1", { x: -70, y: 40, duration: sh[1] - sh[0], ease: "none" }, sh[0]);
         tl.from("#sh-card", { opacity: 0, scale: 0.6, duration: 0.5, ease: "back.out(1.6)" }, sh[0] + 0.1);
         tl.from("#sh-scr", { opacity: 0, y: 30, duration: 0.45, ease: "power3.out" }, sh[0] + 0.45);
         tl.set("#sh-b", { autoAlpha: 0 }, sh[0]);
@@ -432,7 +450,7 @@
 
         // ---------- END CARD ----------
         tl.from("#endcard", { opacity: 0, duration: 0.4, ease: "power2.out" }, AROLL);
-        tl.to("#rays-end", { rotation: 20, duration: END - AROLL, ease: "none" }, AROLL);
+        tl.to("#rays-end", { x: 60, y: -30, duration: END - AROLL, ease: "none" }, AROLL);
         tl.from("#ec1, #ec2, #ec3", { opacity: 0, y: 60, scale: 0.8, duration: 0.5, ease: "back.out(1.5)", stagger: 0.2 }, AROLL + 0.2);
         tl.from("#ec-sub", { opacity: 0, y: 30, duration: 0.4, ease: "power3.out" }, AROLL + 1.1);
         tl.to("#endcard .grid", { opacity: 0, duration: 0.5, ease: "power2.in" }, END - 0.55);

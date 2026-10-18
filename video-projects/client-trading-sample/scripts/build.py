@@ -152,9 +152,10 @@ for i, (clip, a, b, cin) in enumerate(BROLL):
     s, e = at(*a), at(*b)
     gray = " gray" if e <= TEASER_END + 0.01 else ""
     tags.append(
-        f'<div class="br{gray}" id="brw-{i}"><video id="br-{i}" src="assets/broll/{clip}.mp4" '
+        f'<div class="br{gray}" id="brw-{i}"><div class="mesh"></div><div class="frame" id="brf-{i}">'
+        f'<video id="br-{i}" src="assets/broll/{clip}.mp4" '
         f'data-start="{s:.3f}" data-duration="{e - s:.3f}" data-media-start="{cin:.2f}" '
-        f'data-track-index="{20 + i}" muted playsinline></video></div>')
+        f'data-track-index="{20 + i}" muted playsinline></video></div></div>')
     broll_js.append([i, s, e])
 
 for i, (f, t, v) in enumerate(SFX):
