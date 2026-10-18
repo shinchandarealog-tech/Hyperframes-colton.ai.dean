@@ -1,16 +1,20 @@
 :root {
-  /* TODO: fill in your brand colors */
-  --brand-bg: ;
-  --brand-surface: ;
-  --brand-surface-2: ;
-  --brand-border: ;
-  --brand-accent: ;
-  --brand-accent-glow: ;
-  --brand-warn: ;
-  --brand-text: ;
-  --brand-text-dim: ;
+  /* Derived from the client's @tailoredfit reference reels (_reference/creator-library/tailoredfit/).
+     Swap for the client's real brand colors once they share them. */
+  --brand-bg: #111111;            /* dark gym neutral / card headlines */
+  --brand-surface: #ffffff;       /* white explainer-card background */
+  --brand-surface-2: #f4f4f2;     /* grid-paper tint */
+  --brand-border: #1a1a1a;        /* dashed tile borders */
+  --brand-accent: #f0a800;        /* primary caption highlight (orange-yellow) */
+  --brand-accent-glow: rgba(240, 168, 0, 0.55);
+  --brand-warn: #fc3c48;          /* pain, neon cues, CTA keyword */
+  --brand-good: #60cc30;          /* healthy / progress / "function up" */
+  --brand-text: #ffffff;          /* caption base */
+  --brand-text-dim: rgba(255, 255, 255, 0.75);
 
-  /* TODO: pick your typography */
+  /* Heavy geometric caption sans + condensed card headline */
   --font-mono: ui-monospace, Menlo, monospace;
-  --font-display: system-ui, sans-serif;
+  --font-display: "Montserrat", "Poppins", system-ui, sans-serif;  /* weight 900, ALL CAPS */
+  --font-headline: "Bebas Neue", "Oswald", Impact, sans-serif;     /* "ONE MOVE." card titles */
+  --font-ui: "Inter", system-ui, sans-serif;                       /* small editorial variant */
 }
