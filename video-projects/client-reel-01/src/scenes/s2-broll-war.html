@@ -1,40 +1,72 @@
 <template id="s2-broll-war-template">
   <div data-composition-id="s2-broll-war" data-width="1080" data-height="1920" id="root">
     <div id="s2-all">
-      <div class="fx-black"></div>
-      <div class="fx-floor" id="s2-floor"></div>
-      <div class="fx-floor fx-ceiling" id="s2-ceil"></div>
-      <div id="s2-warp"></div>
-      <div id="s2-core"></div>
-      <div class="fx-cross" style="left: 90px; top: 300px"></div>
-      <div class="fx-cross" style="right: 90px; top: 300px"></div>
-      <div class="fx-cross" style="left: 90px; bottom: 420px"></div>
-      <div class="fx-cross" style="right: 90px; bottom: 420px"></div>
-      <div class="s2-center">
-        <div class="fx-small fx-chrome s2-a" id="s2-a" data-split>A silent</div>
-        <div class="fx-big fx-chrome s2-war" id="s2-war" data-split>war.</div>
-        <div class="s2-timer fx-glass-dark" id="s2-timer">
-          <span class="dot"></span><span class="num" id="s2-num">0.000</span><span class="unit">s</span>
+      <div class="s2-base"></div>
+      <div class="s2-blob" id="s2-b1"></div>
+      <div class="s2-blob" id="s2-b2"></div>
+      <div class="s2-blob" id="s2-b3"></div>
+      <div id="s2-bloom"></div>
+      <div id="s2-shock"></div>
+      <div id="s2-bids"></div>
+      <div id="s2-content">
+        <div class="s2-title">
+          <div class="fx-small s2-a" id="s2-a" data-split>A silent</div>
+          <div class="fx-big fx-chrome s2-war" id="s2-war" data-split>war.</div>
+        </div>
+        <div class="s2-ringwrap" id="s2-ringwrap">
+          <svg viewBox="0 0 400 400" class="s2-ring">
+            <defs>
+              <linearGradient id="s2-grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#bdf0ff" />
+                <stop offset="50%" stop-color="#4f9dff" />
+                <stop offset="100%" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+            <circle cx="200" cy="200" r="170" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="16" />
+            <circle id="s2-prog" cx="200" cy="200" r="170" fill="none" stroke="url(#s2-grad)" stroke-width="16"
+              stroke-linecap="round" transform="rotate(-90 200 200)" />
+          </svg>
+          <div class="s2-read">
+            <div class="num" id="s2-num">0.000</div>
+            <div class="unit">seconds</div>
+          </div>
         </div>
         <div class="fx-small s2-lbl" id="s2-lbl" data-split>in less than a second</div>
       </div>
     </div>
+    <div id="s2-iris"></div>
     <style>
       /*@FX_CSS*/
-      #s2-all { position: absolute; inset: 0; transform-origin: 50% 46%; }
-      #s2-warp { position: absolute; left: 540px; top: 880px; width: 0; height: 0; }
-      #s2-warp .st { position: absolute; left: -2px; top: -60px; width: 4px; height: 120px; border-radius: 4px;
-        background: linear-gradient(to bottom, rgba(160,225,255,0) 0%, rgba(190,235,255,0.95) 100%); }
-      #s2-core { position: absolute; left: 540px; top: 880px; width: 700px; height: 700px; margin: -350px 0 0 -350px; border-radius: 50%;
-        background: radial-gradient(circle, rgba(96,170,255,0.45) 0%, rgba(59,130,246,0.12) 35%, rgba(59,130,246,0) 65%); }
-      .s2-center { position: absolute; left: 0; right: 0; top: 640px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+      /* iris opens from the s1 tap point (841, 1405) */
+      #s2-all { position: absolute; inset: 0; transform-origin: 50% 50%; clip-path: circle(0px at 841px 1405px); }
+      .s2-base { position: absolute; inset: 0; background: #020309; }
+      .s2-blob { position: absolute; border-radius: 50%; mix-blend-mode: screen; }
+      #s2-b1 { left: -420px; top: 120px; width: 1300px; height: 1300px;
+        background: radial-gradient(circle, rgba(67,56,202,0.55) 0%, rgba(67,56,202,0.18) 40%, rgba(67,56,202,0) 70%); }
+      #s2-b2 { left: 260px; top: 700px; width: 1200px; height: 1200px;
+        background: radial-gradient(circle, rgba(37,99,235,0.5) 0%, rgba(37,99,235,0.16) 40%, rgba(37,99,235,0) 70%); }
+      #s2-b3 { left: 120px; top: -260px; width: 900px; height: 900px;
+        background: radial-gradient(circle, rgba(34,211,238,0.28) 0%, rgba(34,211,238,0.08) 42%, rgba(34,211,238,0) 70%); }
+      #s2-bloom { position: absolute; left: 540px; top: 700px; width: 900px; height: 520px; margin: -260px 0 0 -450px; border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(200,230,255,0.42) 0%, rgba(110,170,255,0.16) 40%, rgba(110,170,255,0) 70%); }
+      #s2-shock { position: absolute; left: 540px; top: 700px; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%;
+        border: 2px solid rgba(200,235,255,0.9); box-shadow: 0 0 30px rgba(125,211,252,0.7), inset 0 0 30px rgba(125,211,252,0.4); opacity: 0; }
+      #s2-bids { position: absolute; left: 540px; top: 1230px; width: 0; height: 0; }
+      #s2-bids .bp { position: absolute; left: -2px; top: -34px; width: 4px; height: 34px; border-radius: 4px;
+        background: linear-gradient(to bottom, rgba(190,235,255,0) 0%, rgba(220,245,255,0.95) 100%);
+        box-shadow: 0 0 10px rgba(125,211,252,0.6); opacity: 0; }
+      #s2-content { position: absolute; inset: 0; }
+      .s2-title { position: absolute; left: 0; right: 0; top: 500px; display: flex; flex-direction: column; align-items: center; }
       .s2-a { font-size: 92px; font-weight: 700; letter-spacing: -0.03em; }
-      .s2-war { font-size: 260px; letter-spacing: -0.06em; line-height: 0.95; }
-      .s2-timer { margin-top: 46px; display: flex; align-items: baseline; gap: 10px; padding: 22px 46px; border-radius: 999px; }
-      .s2-timer .num { font-size: 92px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
-      .s2-timer .unit { font-size: 50px; font-weight: 600; color: rgba(255,255,255,0.7); }
-      .s2-timer .dot { width: 22px; height: 22px; border-radius: 50%; background: #ff5a6a; box-shadow: 0 0 16px #ff5a6a; align-self: center; margin-right: 10px; }
-      .s2-lbl { margin-top: 22px; font-size: 64px; color: rgba(235,242,255,0.9); }
+      .s2-war { font-size: 290px; letter-spacing: -0.06em; line-height: 0.92; }
+      .s2-ringwrap { position: absolute; left: 340px; top: 1030px; width: 400px; height: 400px; }
+      .s2-ring { width: 400px; height: 400px; overflow: visible; filter: drop-shadow(0 0 18px rgba(96,165,250,0.55)); }
+      .s2-read { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      .s2-read .num { font-size: 96px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }
+      .s2-read .unit { margin-top: 8px; font-size: 30px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(200,220,255,0.6); }
+      .s2-lbl { position: absolute; left: 0; right: 0; top: 1470px; font-size: 60px; color: rgba(235,242,255,0.92); }
+      #s2-iris { position: absolute; left: 841px; top: 1405px; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%;
+        border: 3px solid rgba(200,240,255,0.95); box-shadow: 0 0 40px 8px rgba(125,211,252,0.8), inset 0 0 40px rgba(125,211,252,0.6); opacity: 0; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <script>
@@ -44,39 +76,58 @@
         const root = document.querySelector('[data-composition-id="s2-broll-war"]');
         FX.split(root);
         const tl = gsap.timeline({ paused: true });
-        const rnd = FX.rng(7);
+        const rnd = FX.rng(11);
 
-        // warp streaks radiating from the core (seeded, finite repeats)
-        const warp = root.querySelector("#s2-warp");
-        for (let i = 0; i < 34; i++) {
-          const s = document.createElement("div");
-          s.className = "st";
-          warp.appendChild(s);
+        // iris: light ring expands from the tap point and opens the scene behind it
+        tl.fromTo("#s2-all", { clipPath: "circle(0px at 841px 1405px)" }, { clipPath: "circle(2300px at 841px 1405px)", duration: 0.55, ease: "power3.in" }, 0);
+        tl.fromTo("#s2-iris", { opacity: 1, scale: 0.3 }, { opacity: 1, scale: 23, duration: 0.55, ease: "power3.in" }, 0);
+        tl.to("#s2-iris", { opacity: 0, duration: 0.15, ease: "power1.out" }, 0.45);
+
+        // slow aurora drift (camera never sleeps)
+        tl.fromTo("#s2-b1", { x: 0, y: 0 }, { x: 160, y: -90, duration: D, ease: "sine.inOut" }, 0);
+        tl.fromTo("#s2-b2", { x: 0, y: 0 }, { x: -140, y: -120, duration: D, ease: "sine.inOut" }, 0);
+        tl.fromTo("#s2-b3", { x: 0, y: 0, scale: 0.9 }, { x: 60, y: 80, scale: 1.1, duration: D, ease: "sine.inOut" }, 0);
+        tl.fromTo("#s2-content", { scale: 1.04 }, { scale: 1, duration: D, ease: "none" }, 0);
+
+        // "A silent" focuses in letter by letter as the iris passes
+        FX.blurIn(tl, FX.words(root, "#s2-a"), 0.24, { cstagger: 0.05 });
+        tl.set("#s2-bloom", { opacity: 0 }, 0);
+        // "war." — letter cascade + light bloom + shockwave
+        tl.from("#s2-war .fx-c", { scale: 2.2, y: 40, opacity: 0, filter: "blur(30px) brightness(2.6)", duration: 0.5, ease: "expo.out", stagger: 0.05 }, 0.66);
+        tl.fromTo("#s2-bloom", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 0.7);
+        tl.to("#s2-bloom", { opacity: 0.55, duration: 1.2, ease: "sine.inOut" }, 1.2);
+        tl.fromTo("#s2-shock", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 4.2, duration: 0.9, ease: "power2.out" }, 0.72);
+
+        // bids stream into the auction (seeded, finite repeats)
+        const bids = root.querySelector("#s2-bids");
+        for (let i = 0; i < 26; i++) {
+          const b = document.createElement("div");
+          b.className = "bp";
+          bids.appendChild(b);
           const th = rnd() * Math.PI * 2;
-          const dur = 0.45 + rnd() * 0.4;
-          const len = 0.6 + rnd() * 1.4;
           const dx = Math.sin(th), dy = -Math.cos(th);
-          gsap.set(s, { rotation: (th * 180) / Math.PI, scaleY: len, opacity: 0 });
-          tl.fromTo(s, { x: dx * 120, y: dy * 120, opacity: 0 },
-            { x: dx * 1500, y: dy * 1500, opacity: 1, duration: dur, ease: "power2.in", repeat: Math.ceil(D / dur), delay: rnd() * dur }, 0);
+          const r0 = 700 + rnd() * 300;
+          const dur = 0.45 + rnd() * 0.3;
+          const start = 0.9 + rnd() * 0.5;
+          const reps = Math.max(0, Math.floor((2.35 - start) / dur) - 1);
+          gsap.set(b, { rotation: (th * 180) / Math.PI + 180, scaleY: 0.6 + rnd() * 0.8 });
+          tl.fromTo(b, { x: dx * r0, y: dy * r0, opacity: 0 },
+            { keyframes: [{ opacity: 0.9, duration: 0.15 }, { opacity: 0.9, duration: dur - 0.25 }, { opacity: 0, duration: 0.1 }],
+              x: dx * 210, y: dy * 210, duration: dur, ease: "power2.in", repeat: reps }, start);
         }
-        tl.from("#s2-core", { scale: 0.3, opacity: 0, duration: 0.6, ease: "expo.out" }, 0);
-        tl.to("#s2-core", { scale: 1.25, duration: 2.2, ease: "sine.inOut" }, 0.6);
-        tl.from("#s2-floor, #s2-ceil", { opacity: 0, duration: 0.5, ease: "power1.out" }, 0);
-        tl.fromTo("#s2-floor, #s2-ceil", { backgroundPositionY: "0px" }, { backgroundPositionY: "600px", duration: D, ease: "none" }, 0);
-        tl.from(root.querySelectorAll(".fx-cross"), { opacity: 0, scale: 0.4, duration: 0.4, stagger: 0.05, ease: "back.out(2)" }, 0.1);
 
-        FX.blurIn(tl, FX.words(root, "#s2-a"), 0.03, { stagger: 0.12 });
-        // "war." — the slam (camera kick on the whole canvas)
-        tl.from("#s2-war .fx-c", { scale: 2.4, opacity: 0, filter: "blur(30px) brightness(2.6)", duration: 0.45, ease: "expo.out", stagger: 0.04 }, 0.67);
-        tl.fromTo("#s2-all", { scale: 1.06 }, { scale: 1, duration: 0.5, ease: "expo.out" }, 0.69);
-        // timer
-        tl.from("#s2-timer", { opacity: 0, y: 30, scale: 0.85, filter: "blur(12px)", duration: 0.45, ease: "back.out(1.6)" }, 1.42);
-        FX.blurIn(tl, FX.words(root, "#s2-lbl"), 1.58, { stagger: 0.07 });
-        FX.count(tl, root.querySelector("#s2-num"), 0, 0.982, 1.58, 0.85, (v) => v.toFixed(3), "power1.out");
-        tl.to("#s2-timer .dot", { opacity: 0.25, duration: 0.15, repeat: 7, yoyo: true, ease: "steps(1)" }, 1.5);
-        // pull-back exit reveals the speaker
-        tl.to("#s2-all", { scale: 0.82, opacity: 0, filter: "blur(18px)", duration: 0.3, ease: "power2.in" }, 2.5);
+        // Apple-Watch-style timer ring: 0 → 0.982 s
+        const prog = root.querySelector("#s2-prog");
+        const C = 2 * Math.PI * 170;
+        gsap.set(prog, { strokeDasharray: C, strokeDashoffset: C });
+        tl.from("#s2-ringwrap", { opacity: 0, scale: 0.7, duration: 0.5, ease: "back.out(1.6)" }, 1.25);
+        tl.to(prog, { strokeDashoffset: C * (1 - 0.982), duration: 1.0, ease: "power1.out" }, 1.45);
+        FX.count(tl, root.querySelector("#s2-num"), 0, 0.982, 1.45, 1.0, (v) => v.toFixed(3), "power1.out");
+        FX.blurIn(tl, FX.words(root, "#s2-lbl"), 1.55, { cstagger: 0.03 });
+        tl.fromTo(root.querySelector(".s2-ring"), { scale: 1 }, { scale: 1.05, duration: 0.15, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 50%" }, 2.45);
+
+        // zoom-through exit back to the speaker
+        tl.to("#s2-all", { scale: 1.1, opacity: 0, filter: "blur(18px)", duration: 0.3, ease: "power2.in" }, 2.5);
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};
         window.__timelines["s2-broll-war"] = tl;

@@ -1,7 +1,7 @@
 <!-- GENERATED from src/scenes/s1-hook.html by scripts/build-comps.py — edit the source, not this file. -->
 <template id="s1-hook-template">
   <div data-composition-id="s1-hook" data-width="1080" data-height="1920" id="root">
-    <div class="fx-stage">
+    <div class="fx-stage" id="s1-stage">
       <div class="fx-slot">
         <div class="fx-pill fx-glass s1-tease" id="s1-tease"><span class="num">!</span><span>Why your ads cost <b class="x5">5×</b> more</span></div>
         <div class="fx-small" id="s1-l1" data-split>Every time you</div>
@@ -9,21 +9,18 @@
       </div>
     </div>
 
-    <!-- iPhone mockup (zooms into its screen to hand off to the b-roll) -->
-    <div id="s1-phone">
-      <div class="island"></div>
-      <div class="screen">
-        <div class="ad">
-          <div class="sp">Sponsored</div>
-          <div class="hero"><div class="orb"></div><div class="orb o2"></div></div>
-          <div class="t1">Summer Drop</div>
-          <div class="t2">Up to 40% off today</div>
-          <div class="cta" id="s1-cta">Shop now</div>
-        </div>
-        <div class="ripple" id="s1-ripple"></div>
-        <div class="blackout" id="s1-blackout"></div>
+    <!-- iOS-style sponsored banner; the tap point becomes the light source of the next scene (iris in s2) -->
+    <div id="s1-card" class="fx-glass-dark">
+      <div class="icon"><div class="orb"></div></div>
+      <div class="txt">
+        <div class="sp">Sponsored</div>
+        <div class="t1">Summer Drop · 40% off</div>
       </div>
+      <div class="btn" id="s1-btn">Shop</div>
     </div>
+    <div id="s1-touch"></div>
+    <div id="s1-ripple"></div>
+    <div id="s1-core"></div>
 
     <style>
       /* Shared Apple-glass overlay system (from @alihassan-works fingerprint + brand-tokens.css).
@@ -147,31 +144,25 @@
       .s1-tease .num { font-size: 46px; color: #ffd166; }
       .s1-tease .x5 { color: #ff6b7a; font-weight: 900; }
       #s1-l2 { font-size: 160px; margin-top: -4px; }
-      #s1-phone {
-        position: absolute; left: 345px; top: 1350px; width: 390px; height: 800px;
-        border-radius: 70px; background: #0a0a0e; padding: 12px; box-sizing: border-box;
-        border: 2px solid rgba(255,255,255,0.22);
-        box-shadow: 0 0 0 5px #1b1b22, 0 40px 90px rgba(0,0,0,0.6), 0 0 60px rgba(59,130,246,0.35);
-        transform-origin: 50% 50%;
-      }
-      #s1-phone .island { position: absolute; top: 26px; left: 50%; width: 110px; height: 32px; margin-left: -55px; border-radius: 20px; background: #000; z-index: 3; }
-      #s1-phone .screen { position: relative; width: 100%; height: 100%; border-radius: 58px; overflow: hidden;
-        background: radial-gradient(ellipse at 50% 0%, #1d2a5a 0%, #0a0f24 70%); }
-      #s1-phone .ad { position: absolute; left: 22px; right: 22px; top: 86px; padding: 18px; border-radius: 30px;
-        background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
-      #s1-phone .sp { font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 12px; text-align: left; }
-      #s1-phone .hero { position: relative; height: 250px; border-radius: 22px; overflow: hidden;
-        background: linear-gradient(160deg, #3b82f6 0%, #6d4ee8 55%, #1b1f4a 100%); }
-      #s1-phone .orb { position: absolute; width: 190px; height: 190px; border-radius: 50%; left: 30px; top: 30px;
-        background: radial-gradient(circle at 35% 30%, #c9f0ff, #4fc3f7 45%, rgba(79,195,247,0) 70%); }
-      #s1-phone .orb.o2 { width: 130px; height: 130px; left: 170px; top: 110px; background: radial-gradient(circle at 35% 30%, #ffe1f0, #b76bff 45%, rgba(183,107,255,0) 70%); }
-      #s1-phone .t1 { margin-top: 18px; font-size: 32px; font-weight: 800; text-align: left; letter-spacing: -0.02em; }
-      #s1-phone .t2 { margin-top: 4px; font-size: 20px; font-weight: 500; text-align: left; color: rgba(255,255,255,0.7); }
-      #s1-phone .cta { margin-top: 18px; height: 64px; border-radius: 999px; background: #3b82f6; font-size: 24px; font-weight: 700;
-        display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px rgba(59,130,246,0.6); }
-      #s1-phone .ripple { position: absolute; left: 183px; top: 545px; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%;
-        border: 4px solid rgba(255,255,255,0.9); background: rgba(255,255,255,0.25); opacity: 0; }
-      #s1-phone .blackout { position: absolute; inset: 0; background: #010205; opacity: 0; }
+      /* tap point = button centre (841, 1405) */
+      #s1-card { position: absolute; left: 130px; top: 1330px; width: 820px; height: 150px; border-radius: 40px;
+        display: flex; align-items: center; gap: 24px; padding: 0 34px 0 25px; box-sizing: border-box; }
+      #s1-card .icon { position: relative; width: 100px; height: 100px; border-radius: 26px; overflow: hidden; flex: none;
+        background: linear-gradient(150deg, #5b8cff 0%, #7c4dff 55%, #241a5c 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,0.35); }
+      #s1-card .orb { position: absolute; left: 14px; top: 12px; width: 62px; height: 62px; border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #e6f8ff, #6fd0ff 45%, rgba(111,208,255,0) 72%); }
+      #s1-card .txt { flex: 1; text-align: left; }
+      #s1-card .sp { font-size: 26px; font-weight: 600; color: rgba(255,255,255,0.55); letter-spacing: 0.01em; }
+      #s1-card .t1 { margin-top: 2px; font-size: 38px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
+      #s1-card .btn { width: 150px; height: 72px; border-radius: 999px; flex: none; display: flex; align-items: center; justify-content: center;
+        font-size: 32px; font-weight: 700; background: linear-gradient(180deg, #5a9bff, #2f6cf0); box-shadow: 0 0 26px rgba(59,130,246,0.55); }
+      #s1-touch { position: absolute; left: 841px; top: 1405px; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%;
+        background: rgba(255,255,255,0.32); border: 3px solid rgba(255,255,255,0.85); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+      #s1-ripple { position: absolute; left: 841px; top: 1405px; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
+        border: 3px solid rgba(190,235,255,0.95); box-shadow: 0 0 24px rgba(125,211,252,0.8); opacity: 0; }
+      #s1-core { position: absolute; left: 841px; top: 1405px; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%;
+        background: radial-gradient(circle, #ffffff 0%, #c9f0ff 35%, rgba(125,211,252,0) 72%);
+        box-shadow: 0 0 60px 30px rgba(125,211,252,0.55); opacity: 0; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <script>
@@ -287,17 +278,23 @@ window.FX = window.FX || {
         tl.from("#s1-tease .num", { scale: 2.4, rotation: -25, duration: 0.4, ease: "back.out(3)" }, 0.08);
         tl.fromTo("#s1-tease .x5", { scale: 1 }, { scale: 1.25, duration: 0.18, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.35);
         FX.blurIn(tl, FX.words(root, "#s1-l1"), 0.06, { cstagger: 0.045 });
-        tl.from("#s1-phone", { y: 620, rotationX: 28, opacity: 0, transformPerspective: 1400, duration: 0.85, ease: "expo.out" }, 0.22);
+        // banner drops in like an iOS notification
+        tl.from("#s1-card", { y: 70, scale: 0.9, opacity: 0, duration: 0.6, ease: "expo.out" }, 0.3);
+        tl.from("#s1-card .icon, #s1-card .txt, #s1-card .btn", { opacity: 0, x: -16, duration: 0.4, stagger: 0.06, ease: "power3.out" }, 0.42);
         FX.blurIn(tl, FX.words(root, "#s1-l2"), 0.84, { scale: 0.3, y: 50, cstagger: 0.045, ease: "back.out(1.8)" });
-        // the tap: compress → overshoot + ripple
-        tl.to("#s1-cta", { scale: 0.9, duration: 0.07, ease: "power4.in" }, 0.95);
-        tl.to("#s1-cta", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 1.02);
-        tl.fromTo("#s1-ripple", { opacity: 0.9, scale: 0.2 }, { opacity: 0, scale: 2.6, duration: 0.55, ease: "power2.out" }, 0.97);
-        tl.to("#s1-phone", { y: -12, duration: 0.6, ease: "sine.inOut" }, 1.1);
-        // "…on your phone" → push into the screen
-        FX.blurOut(tl, "#s1-tease, #s1-l1, #s1-l2", 1.72, { dur: 0.26 });
-        tl.to("#s1-phone", { y: -790, scale: 6.2, duration: 0.55, ease: "expo.in" }, 1.75);
-        tl.to("#s1-blackout", { opacity: 1, duration: 0.3, ease: "power2.in" }, 1.98);
+        // the tap (on "tap"): finger glides in, presses, ripple
+        tl.from("#s1-touch", { opacity: 0, x: 110, y: 130, scale: 1.3, duration: 0.36, ease: "power3.out" }, 0.55);
+        tl.to("#s1-touch", { scale: 0.78, duration: 0.08, ease: "power4.in" }, 0.93);
+        tl.to("#s1-btn", { scale: 0.9, duration: 0.08, ease: "power4.in" }, 0.93);
+        tl.to("#s1-btn", { scale: 1, duration: 0.32, ease: "back.out(3)" }, 1.01);
+        tl.to("#s1-touch", { scale: 1, opacity: 0, duration: 0.35, ease: "power2.out" }, 1.03);
+        tl.fromTo("#s1-ripple", { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 3, duration: 0.6, ease: "power2.out" }, 0.97);
+        tl.to("#s1-card", { boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.16), 0 0 70px rgba(125,211,252,0.55), 0 16px 48px rgba(0,0,0,0.5)",
+          borderColor: "rgba(160,225,255,0.7)", duration: 0.3, ease: "power2.out" }, 0.97);
+        // "…on your phone": everything clears, the tap point charges up into the light that opens the next scene
+        FX.blurOut(tl, "#s1-stage", 1.78, { dur: 0.26 });
+        tl.to("#s1-card", { opacity: 0, scale: 0.94, y: 20, duration: 0.3, ease: "power2.in" }, 1.84);
+        tl.fromTo("#s1-core", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1.6, duration: 0.45, ease: "power2.in" }, 1.85);
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};
         window.__timelines["s1-hook"] = tl;
