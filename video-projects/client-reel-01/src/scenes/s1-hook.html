@@ -2,12 +2,13 @@
   <div data-composition-id="s1-hook" data-width="1080" data-height="1920" id="root">
     <div class="fx-stage" id="s1-stage">
       <div class="fx-slot">
-        <div class="fx-pill fx-glass s1-tease" id="s1-tease"><span class="num">!</span><span>Why your ads cost <b class="x5">5×</b> more</span></div>
         <div class="fx-small" id="s1-l1" data-split>Every time you</div>
         <div class="fx-big fx-grad" id="s1-l2" data-split>tap an ad</div>
       </div>
     </div>
 
+    <!-- title-style teaser at the top of the frame (above the head) -->
+    <div class="s1-top"><div class="fx-pill fx-glass s1-tease" id="s1-tease"><span class="num">!</span><span>Why your ads cost <b class="x5">5×</b> more</span></div></div>
     <!-- iOS-style sponsored banner; the tap point becomes the light source of the next scene (iris in s2) -->
     <div id="s1-card" class="fx-glass-dark">
       <div class="icon"><div class="orb"></div></div>
@@ -23,12 +24,13 @@
 
     <style>
       /*@FX_CSS*/
-      .s1-tease { height: 100px; font-size: 44px; gap: 22px; padding: 0 40px 0 34px; margin-bottom: 10px; }
+      .s1-top { position: absolute; left: 0; right: 0; top: 250px; display: flex; justify-content: center; }
+      .s1-tease { height: 100px; font-size: 46px; font-weight: 700; gap: 22px; padding: 0 42px 0 36px; }
       .s1-tease .num { font-size: 46px; color: #ffd166; }
       .s1-tease .x5 { color: #ff6b7a; font-weight: 900; }
       #s1-l2 { font-size: 160px; margin-top: -4px; }
-      /* tap point = button centre (841, 1405) */
-      #s1-card { position: absolute; left: 130px; top: 1330px; width: 820px; height: 150px; border-radius: 40px;
+      /* tap point = button centre (841, 1505) */
+      #s1-card { position: absolute; left: 130px; top: 1430px; width: 820px; height: 150px; border-radius: 40px;
         display: flex; align-items: center; gap: 24px; padding: 0 34px 0 25px; box-sizing: border-box; }
       #s1-card .icon { position: relative; width: 100px; height: 100px; border-radius: 26px; overflow: hidden; flex: none;
         background: linear-gradient(150deg, #5b8cff 0%, #7c4dff 55%, #241a5c 100%); box-shadow: inset 0 2px 0 rgba(255,255,255,0.35); }
@@ -39,11 +41,11 @@
       #s1-card .t1 { margin-top: 2px; font-size: 38px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
       #s1-card .btn { width: 150px; height: 72px; border-radius: 999px; flex: none; display: flex; align-items: center; justify-content: center;
         font-size: 32px; font-weight: 700; background: linear-gradient(180deg, #5a9bff, #2f6cf0); box-shadow: 0 0 26px rgba(59,130,246,0.55); }
-      #s1-touch { position: absolute; left: 841px; top: 1405px; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%;
+      #s1-touch { position: absolute; left: 841px; top: 1505px; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%;
         background: rgba(255,255,255,0.32); border: 3px solid rgba(255,255,255,0.85); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
-      #s1-ripple { position: absolute; left: 841px; top: 1405px; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
+      #s1-ripple { position: absolute; left: 841px; top: 1505px; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 50%;
         border: 3px solid rgba(190,235,255,0.95); box-shadow: 0 0 24px rgba(125,211,252,0.8); opacity: 0; }
-      #s1-core { position: absolute; left: 841px; top: 1405px; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%;
+      #s1-core { position: absolute; left: 841px; top: 1505px; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%;
         background: radial-gradient(circle, #ffffff 0%, #c9f0ff 35%, rgba(125,211,252,0) 72%);
         box-shadow: 0 0 60px 30px rgba(125,211,252,0.55); opacity: 0; }
     </style>
@@ -74,7 +76,7 @@
         tl.to("#s1-card", { boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.16), 0 0 70px rgba(125,211,252,0.55), 0 16px 48px rgba(0,0,0,0.5)",
           borderColor: "rgba(160,225,255,0.7)", duration: 0.3, ease: "power2.out" }, 0.97);
         // "…on your phone": everything clears, the tap point charges up into the light that opens the next scene
-        FX.blurOut(tl, "#s1-stage", 1.78, { dur: 0.26 });
+        FX.blurOut(tl, "#s1-stage, .s1-top", 1.78, { dur: 0.26 });
         tl.to("#s1-card", { opacity: 0, scale: 0.94, y: 20, duration: 0.3, ease: "power2.in" }, 1.84);
         tl.fromTo("#s1-core", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 2, duration: 0.45, ease: "power2.in", immediateRender: false }, 1.85);
         tl.to({}, { duration: D }, 0);

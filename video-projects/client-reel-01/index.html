@@ -14,7 +14,7 @@
         filter: contrast(1.06) saturate(1.06) brightness(0.98); }
       /* Legibility scrim for the chest-zone overlays */
       #scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
-        background: linear-gradient(to bottom, rgba(6,10,30,0) 40%, rgba(6,10,30,0.42) 58%, rgba(6,10,30,0.5) 78%, rgba(6,10,30,0.3) 100%); }
+        background: linear-gradient(to bottom, rgba(4,6,16,0) 50%, rgba(4,6,16,0.4) 64%, rgba(4,6,16,0.55) 82%, rgba(4,6,16,0.45) 100%); }
       .scene { position: absolute; inset: 0; z-index: 5; }
       #flash { position: absolute; inset: 0; z-index: 7; pointer-events: none; opacity: 0;
         background: radial-gradient(ellipse 70% 55% at 50% 40%, rgba(220,240,255,0.95) 0%, rgba(140,190,255,0.6) 60%, rgba(80,120,255,0.3) 100%); }
@@ -84,8 +84,8 @@
         tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.4, ease: "power2.out" }, 0);
         tl.to(P, { scale: 1.07, duration: 0.12, ease: "expo.out" }, 0.95);   // "tap"
         // 1.8 → push toward the phone as it zooms in
-        // dive toward the tap point (841,1405): x/y keep it fixed while scaling about the 50%/30% origin
-        tl.to(P, { scale: 1.18, x: -56, y: -151, filter: "blur(6px)", duration: 0.5, ease: "power2.in" }, 1.85);
+        // dive toward the tap point (841,1505): x/y keep it fixed while scaling about the 50%/30% origin
+        tl.to(P, { scale: 1.18, x: -54, y: -167, filter: "blur(6px)", duration: 0.5, ease: "power2.in" }, 1.85);
         // 4.8 → b-roll pulls back, speaker resolves into focus
         tl.fromTo(P, { scale: 1.15, x: 0, y: 0, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out", immediateRender: false }, 4.8);
         // jump-cut punch-ins on stressed words (zoom only; audio untouched)

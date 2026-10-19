@@ -48,14 +48,14 @@
   color: #fff;
   -webkit-font-smoothing: antialiased;
 }
-/* Chest-zone stage: face lives in the top ~900px, platform UI in the bottom ~380px */
+/* Lower-third stage (client: "too high"): text sits below the chest, above the platform UI zone */
 .fx-stage {
   position: absolute;
   inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 930px 70px 0;
+  padding: 1130px 70px 0;
   gap: 14px;
   box-sizing: border-box;
   text-align: center;
@@ -67,38 +67,30 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 30px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35), 0 3px 14px rgba(0, 0, 0, 0.55);
 }
 .fx-big {
   font-size: 170px;
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 0.98;
-  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45), 0 10px 40px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 3px 0 rgba(0, 0, 0, 0.3), 0 4px 22px rgba(0, 0, 0, 0.5);
 }
 .fx-w { display: inline-block; white-space: nowrap; }
 /* Per-letter spans (reference: letters focus in one by one with a cyan light-flash) */
 .fx-c { display: inline-block; filter: blur(0px) brightness(1); will-change: transform, filter, opacity; }
-/* Hero words: heavy light-blue gradient, 3D extrude + halo (reference "5 Fonts" treatment).
-   Extrude/glow live on the parent so per-letter filter tweens don't kill them. */
-.fx-grad { text-shadow: none; font-weight: 900;
-  filter: drop-shadow(0 2px 0 #2b86e0) drop-shadow(0 2px 0 #2270cc) drop-shadow(0 2px 0 #1a5bb0) drop-shadow(0 2px 0 #144896)
-    drop-shadow(0 12px 18px rgba(0, 10, 40, 0.55)) drop-shadow(0 0 26px rgba(110, 200, 255, 0.45)); }
-.fx-grad .fx-c, .fx-grad .solo {
-  background: linear-gradient(180deg, #e3f6ff 0%, #8fd8fd 42%, #3b9cf0 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+/* Hero words: solid bright cyan (client pick C) — crisp, high contrast on the blue backdrop */
+.fx-grad { font-weight: 900; }
+.fx-grad .fx-c, .fx-grad .solo { color: #5ce1ff; text-shadow: 0 3px 0 rgba(0, 20, 60, 0.35), 0 4px 22px rgba(0, 0, 0, 0.5); }
 .fx-dim { color: rgba(235, 240, 255, 0.72); }
 .fx-red { color: #ff5a6a; text-shadow: 0 0 30px rgba(255, 70, 90, 0.45), 0 6px 20px rgba(0, 0, 0, 0.55); }
 
-/* Navy glass */
+/* Dark glass, cyan edge */
 .fx-glass {
-  background: linear-gradient(180deg, rgba(40, 70, 160, 0.84) 0%, rgba(17, 34, 96, 0.88) 100%);
-  border: 1.5px solid rgba(147, 197, 253, 0.38);
+  background: linear-gradient(180deg, rgba(30, 32, 40, 0.92) 0%, rgba(16, 17, 22, 0.94) 100%);
+  border: 1.5px solid rgba(92, 225, 255, 0.4);
   box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.28), inset 0 -10px 30px rgba(10, 20, 60, 0.35),
-    0 14px 44px rgba(0, 0, 0, 0.45), 0 0 34px rgba(59, 130, 246, 0.35);
+    0 14px 44px rgba(0, 0, 0, 0.45);
 }
 /* Dark-grey UI chip glass (iOS) */
 .fx-glass-dark {
@@ -154,8 +146,8 @@
 }
 .fx-chrome { filter: drop-shadow(0 0 30px rgba(170, 210, 255, 0.35)); text-shadow: none; }
 
-      /* iris opens from the s1 tap point (841, 1405) */
-      #s2-all { position: absolute; inset: 0; transform-origin: 50% 50%; clip-path: circle(0px at 841px 1405px); }
+      /* iris opens from the s1 tap point (841, 1505) */
+      #s2-all { position: absolute; inset: 0; transform-origin: 50% 50%; clip-path: circle(0px at 841px 1505px); }
       .s2-base { position: absolute; inset: 0; background: #020309; }
       .s2-blob { position: absolute; border-radius: 50%; mix-blend-mode: screen; }
       #s2-b1 { left: -420px; top: 120px; width: 1300px; height: 1300px;
@@ -182,7 +174,7 @@
       .s2-read .num { font-size: 96px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }
       .s2-read .unit { margin-top: 8px; font-size: 30px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(200,220,255,0.6); }
       .s2-lbl { position: absolute; left: 0; right: 0; top: 1470px; text-align: center; font-size: 60px; color: rgba(235,242,255,0.92); }
-      #s2-iris { position: absolute; left: 841px; top: 1405px; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%;
+      #s2-iris { position: absolute; left: 841px; top: 1505px; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%;
         border: 3px solid rgba(200,240,255,0.95); box-shadow: 0 0 40px 8px rgba(125,211,252,0.8), inset 0 0 40px rgba(125,211,252,0.6); opacity: 0; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -213,7 +205,7 @@ window.FX = window.FX || {
         duration: o.dur ?? 0.5, ease: o.ease ?? "expo.out", stagger: each }, t);
       const grad = list[0].closest(".fx-grad");
       if (!grad) {
-        tl.from(list, { color: "#a6e6ff", textShadow: "0 0 14px rgba(150,225,255,1), 0 0 34px rgba(80,180,255,0.95)",
+        tl.from(list, { color: "#5ce1ff", textShadow: "0 0 12px rgba(92,225,255,0.9), 0 3px 14px rgba(0,0,0,0.55)",
           duration: 0.7, ease: "power2.out", stagger: each }, t);
       }
       return;
@@ -297,7 +289,7 @@ window.FX = window.FX || {
         const rnd = FX.rng(11);
 
         // iris: light ring expands from the tap point and opens the scene behind it
-        tl.fromTo("#s2-all", { clipPath: "circle(0px at 841px 1405px)" }, { clipPath: "circle(2300px at 841px 1405px)", duration: 0.55, ease: "power3.in" }, 0);
+        tl.fromTo("#s2-all", { clipPath: "circle(0px at 841px 1505px)" }, { clipPath: "circle(2300px at 841px 1505px)", duration: 0.55, ease: "power3.in" }, 0);
         tl.fromTo("#s2-iris", { opacity: 1, scale: 0.3 }, { opacity: 1, scale: 23, duration: 0.55, ease: "power3.in" }, 0);
         tl.to("#s2-iris", { opacity: 0, duration: 0.15, ease: "power1.out" }, 0.45);
 

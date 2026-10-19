@@ -37,8 +37,8 @@
     <div id="s2-iris"></div>
     <style>
       /*@FX_CSS*/
-      /* iris opens from the s1 tap point (841, 1405) */
-      #s2-all { position: absolute; inset: 0; transform-origin: 50% 50%; clip-path: circle(0px at 841px 1405px); }
+      /* iris opens from the s1 tap point (841, 1505) */
+      #s2-all { position: absolute; inset: 0; transform-origin: 50% 50%; clip-path: circle(0px at 841px 1505px); }
       .s2-base { position: absolute; inset: 0; background: #020309; }
       .s2-blob { position: absolute; border-radius: 50%; mix-blend-mode: screen; }
       #s2-b1 { left: -420px; top: 120px; width: 1300px; height: 1300px;
@@ -65,7 +65,7 @@
       .s2-read .num { font-size: 96px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1; }
       .s2-read .unit { margin-top: 8px; font-size: 30px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(200,220,255,0.6); }
       .s2-lbl { position: absolute; left: 0; right: 0; top: 1470px; text-align: center; font-size: 60px; color: rgba(235,242,255,0.92); }
-      #s2-iris { position: absolute; left: 841px; top: 1405px; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%;
+      #s2-iris { position: absolute; left: 841px; top: 1505px; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%;
         border: 3px solid rgba(200,240,255,0.95); box-shadow: 0 0 40px 8px rgba(125,211,252,0.8), inset 0 0 40px rgba(125,211,252,0.6); opacity: 0; }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -79,7 +79,7 @@
         const rnd = FX.rng(11);
 
         // iris: light ring expands from the tap point and opens the scene behind it
-        tl.fromTo("#s2-all", { clipPath: "circle(0px at 841px 1405px)" }, { clipPath: "circle(2300px at 841px 1405px)", duration: 0.55, ease: "power3.in" }, 0);
+        tl.fromTo("#s2-all", { clipPath: "circle(0px at 841px 1505px)" }, { clipPath: "circle(2300px at 841px 1505px)", duration: 0.55, ease: "power3.in" }, 0);
         tl.fromTo("#s2-iris", { opacity: 1, scale: 0.3 }, { opacity: 1, scale: 23, duration: 0.55, ease: "power3.in" }, 0);
         tl.to("#s2-iris", { opacity: 0, duration: 0.15, ease: "power1.out" }, 0.45);
 

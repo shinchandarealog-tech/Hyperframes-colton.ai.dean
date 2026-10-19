@@ -24,7 +24,7 @@ window.FX = window.FX || {
         duration: o.dur ?? 0.5, ease: o.ease ?? "expo.out", stagger: each }, t);
       const grad = list[0].closest(".fx-grad");
       if (!grad) {
-        tl.from(list, { color: "#a6e6ff", textShadow: "0 0 14px rgba(150,225,255,1), 0 0 34px rgba(80,180,255,0.95)",
+        tl.from(list, { color: "#5ce1ff", textShadow: "0 0 12px rgba(92,225,255,0.9), 0 3px 14px rgba(0,0,0,0.55)",
           duration: 0.7, ease: "power2.out", stagger: each }, t);
       }
       return;
