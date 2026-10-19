@@ -7,6 +7,7 @@
     <style>
       :root {
         --fjord: #053264;
+        --fjord-hi: #0b4a8f;
         --mint: #ccffbc;
         --white: #ffffff;
       }
@@ -54,6 +55,20 @@
         background:
           radial-gradient(ellipse 90% 45% at 50% 100%, rgba(5, 50, 100, 0.78) 0%, rgba(5, 50, 100, 0.45) 45%, rgba(5, 50, 100, 0) 100%),
           radial-gradient(ellipse 120% 80% at 50% 40%, rgba(5, 50, 100, 0) 60%, rgba(5, 50, 100, 0.45) 100%);
+      }
+
+      /* ---------- grain (pure CSS, deterministic) ---------- */
+      #grain {
+        position: absolute;
+        inset: -20px;
+        z-index: 90;
+        pointer-events: none;
+        background-image:
+          radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          radial-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+          radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 3px 3px, 5px 5px, 7px 7px;
+        background-position: 0 0, 1px 2px, 3px 1px;
       }
 
       /* ---------- shared scene layout ---------- */
@@ -126,51 +141,56 @@
         box-shadow: 0 0 36px rgba(204, 255, 188, 0.35), 0 12px 40px rgba(5, 50, 100, 0.7);
       }
 
-      /* ---------- numbered pills ---------- */
-      .pills {
+      /* ---------- hook title (top of frame, scroll-stopper) ---------- */
+      #hook {
+        position: absolute;
+        inset: 0;
+        z-index: 40;
         display: flex;
         flex-direction: column;
-        gap: 20px;
-        width: 820px;
-        margin-top: 14px;
+        align-items: center;
+        padding-top: 150px;
+        gap: 16px;
       }
-      .pill {
-        position: relative;
+      #hook-chip {
         display: flex;
         align-items: center;
-        height: 118px;
-        padding: 0 40px;
+        gap: 22px;
+        background: var(--fjord);
+        color: var(--mint);
+        border: 4px solid var(--mint);
         border-radius: 30px;
-        background: linear-gradient(180deg, #0a3f7a 0%, #053264 100%);
-        border: 3px solid rgba(204, 255, 188, 0.7);
-        box-shadow: 0 0 30px rgba(204, 255, 188, 0.28), 0 10px 30px rgba(5, 50, 100, 0.6);
-        overflow: hidden;
-      }
-      .pill .num {
-        width: 70px;
-        color: var(--mint);
-        font-size: 58px;
+        padding: 16px 34px 20px;
+        font-size: 66px;
         font-weight: 900;
-        font-style: italic;
-        text-align: left;
+        letter-spacing: -0.035em;
+        line-height: 1;
+        white-space: nowrap;
+        box-shadow: 0 0 50px rgba(204, 255, 188, 0.5), 0 16px 50px rgba(5, 50, 100, 0.6);
       }
-      .pill .lbl {
-        flex: 1;
-        color: var(--mint);
-        font-size: 62px;
+      #hook-chip .x {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: var(--mint);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+      #hook-chip .x svg {
+        width: 40px;
+        height: 40px;
+      }
+      #hook-sub {
+        background: var(--mint);
+        color: var(--fjord);
+        border-radius: 18px;
+        padding: 10px 28px 14px;
+        font-size: 56px;
         font-weight: 800;
         letter-spacing: -0.02em;
-        text-align: center;
-        padding-right: 70px;
-      }
-      .sheen {
-        position: absolute;
-        top: -20px;
-        bottom: -20px;
-        left: -200px;
-        width: 140px;
-        background: linear-gradient(90deg, rgba(204, 255, 188, 0) 0%, rgba(204, 255, 188, 0.55) 50%, rgba(204, 255, 188, 0) 100%);
-        transform: skewX(-20deg);
+        box-shadow: 0 10px 34px rgba(5, 50, 100, 0.45);
       }
 
       /* ---------- checklist ---------- */
@@ -219,87 +239,494 @@
         text-shadow: 0 0 18px rgba(204, 255, 188, 0.3), 0 4px 16px rgba(5, 50, 100, 0.95), 0 0 3px rgba(5, 50, 100, 0.9);
       }
 
-      /* ---------- textbook cards ---------- */
-      .cards {
+      /* ---------- B-roll stage (motion-graphic inserts) ---------- */
+      .broll {
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+        overflow: hidden;
+        background: radial-gradient(ellipse 80% 60% at 50% 45%, #0b4a8f 0%, #053264 55%, #021d3d 100%);
+      }
+      .broll .grid {
+        position: absolute;
+        inset: -200px;
+        background:
+          repeating-linear-gradient(0deg, rgba(204, 255, 188, 0.07) 0 2px, transparent 2px 90px),
+          repeating-linear-gradient(90deg, rgba(204, 255, 188, 0.07) 0 2px, transparent 2px 90px);
+      }
+      .broll .floor {
+        position: absolute;
+        left: -540px;
+        right: -540px;
+        bottom: -300px;
+        height: 1100px;
+        transform: perspective(900px) rotateX(64deg);
+        transform-origin: 50% 100%;
+        background:
+          repeating-linear-gradient(0deg, rgba(204, 255, 188, 0.14) 0 2px, transparent 2px 110px),
+          repeating-linear-gradient(90deg, rgba(204, 255, 188, 0.14) 0 2px, transparent 2px 110px);
+        -webkit-mask-image: linear-gradient(0deg, #000 30%, transparent 100%);
+        mask-image: linear-gradient(0deg, #000 30%, transparent 100%);
+      }
+      .broll .vig {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 75% 65% at 50% 45%, transparent 45%, rgba(2, 18, 40, 0.85) 100%);
+      }
+      .broll .plus {
+        position: absolute;
+        color: rgba(204, 255, 188, 0.5);
+        font-size: 44px;
+        font-weight: 300;
+        line-height: 1;
+      }
+      .beam {
+        position: absolute;
+        left: 50%;
+        top: -200px;
+        width: 1400px;
+        height: 2000px;
+        margin-left: -700px;
+        background: conic-gradient(from 180deg at 50% 0%, transparent 160deg, rgba(204, 255, 188, 0.16) 180deg, transparent 200deg);
+        filter: blur(30px);
+      }
+
+      /* B1 — falling textbooks */
+      #b1 .head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 300px;
+        text-align: center;
+      }
+      #b1 .q1 {
+        color: var(--white);
+        font-size: 84px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      #b1 .q2 {
+        color: var(--mint);
+        font-size: 270px;
+        font-weight: 900;
+        letter-spacing: -0.06em;
+        line-height: 0.9;
+        text-shadow: 0 0 60px rgba(204, 255, 188, 0.55);
+      }
+      #b1 .q3 {
+        color: var(--white);
+        font-size: 96px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-top: 10px;
+      }
+      .stack {
+        position: absolute;
+        left: 50%;
+        bottom: 250px;
+        width: 0;
+        height: 0;
+      }
+      .bk {
+        position: absolute;
+        left: 0;
+        border-radius: 10px;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
         display: flex;
         align-items: center;
-        gap: 14px;
-        margin-top: 12px;
+        padding: 0 34px;
+        gap: 18px;
       }
-      .card {
-        width: 432px;
+      .bk i {
+        display: block;
+        height: 10px;
+        border-radius: 5px;
+      }
+      .bk.n {
+        background: linear-gradient(180deg, #0d559f, #08396f);
+        border: 3px solid rgba(204, 255, 188, 0.7);
+      }
+      .bk.n i {
+        background: rgba(204, 255, 188, 0.75);
+      }
+      .bk.m {
+        background: linear-gradient(180deg, #e2ffd8, #b9f2a6);
+      }
+      .bk.m i {
+        background: rgba(5, 50, 100, 0.75);
+      }
+      .bk.d {
+        background: linear-gradient(180deg, #032449, #021a35);
+        border: 3px solid rgba(204, 255, 188, 0.4);
+      }
+      .bk.d i {
+        background: rgba(204, 255, 188, 0.5);
+      }
+      .qm {
+        position: absolute;
+        color: var(--mint);
+        font-weight: 900;
+        text-shadow: 0 0 30px rgba(204, 255, 188, 0.6);
+      }
+
+      /* B2 — three subjects */
+      #b2 .title {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 250px;
+        text-align: center;
+        color: var(--mint);
+        font-size: 104px;
+        font-weight: 900;
+        letter-spacing: -0.045em;
+        text-shadow: 0 0 40px rgba(204, 255, 188, 0.45);
+      }
+      #b2 .tiles {
+        position: absolute;
+        left: 90px;
+        right: 90px;
+        top: 470px;
+        display: flex;
+        flex-direction: column;
+        gap: 38px;
+      }
+      .tile {
+        position: relative;
         height: 330px;
-        border-radius: 34px;
-        background: linear-gradient(180deg, #0a3f7a 0%, #053264 100%);
-        border: 3px solid rgba(204, 255, 188, 0.75);
-        box-shadow: 0 0 34px rgba(204, 255, 188, 0.3), 0 14px 40px rgba(5, 50, 100, 0.65);
+        border-radius: 44px;
+        background: linear-gradient(135deg, rgba(204, 255, 188, 0.12), rgba(204, 255, 188, 0.03) 60%, rgba(204, 255, 188, 0.08));
+        border: 3px solid rgba(204, 255, 188, 0.55);
+        box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.18), 0 20px 50px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        padding: 0 50px;
+        gap: 46px;
+      }
+      .tile .ic {
+        width: 220px;
+        height: 220px;
+        border-radius: 36px;
+        background: rgba(2, 26, 53, 0.65);
+        border: 2px solid rgba(204, 255, 188, 0.35);
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tile .ic svg {
+        width: 170px;
+        height: 170px;
+        overflow: visible;
+      }
+      .tile .ic path,
+      .tile .ic circle {
+        fill: none;
+        stroke: var(--mint);
+        stroke-width: 3.4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 0;
+        filter: drop-shadow(0 0 6px rgba(204, 255, 188, 0.8));
+      }
+      .tile .no {
+        color: rgba(204, 255, 188, 0.7);
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+      }
+      .tile .nm {
+        color: var(--white);
+        font-size: 80px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+      .tile .glow {
+        position: absolute;
+        inset: -3px;
+        border-radius: 44px;
+        border: 4px solid var(--mint);
+        box-shadow: 0 0 60px rgba(204, 255, 188, 0.55), inset 0 0 40px rgba(204, 255, 188, 0.2);
+        opacity: 0;
+      }
+
+      /* B4 — two kinds of textbooks (3D covers) */
+      #b4 .title {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 230px;
+        text-align: center;
+      }
+      #b4 .t1 {
+        color: var(--white);
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+      #b4 .t2 {
+        color: var(--mint);
+        font-size: 120px;
+        font-weight: 900;
+        letter-spacing: -0.05em;
+        line-height: 1;
+        text-shadow: 0 0 40px rgba(204, 255, 188, 0.45);
+      }
+      .shelf {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 700px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 60px;
+        perspective: 1400px;
+      }
+      .bookwrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+        width: 420px;
+      }
+      .book3d {
+        position: relative;
+        width: 380px;
+        height: 540px;
+        transform-style: preserve-3d;
+      }
+      .book3d .cover {
+        position: absolute;
+        inset: 0;
+        border-radius: 8px 22px 22px 8px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 14px;
-        padding: 20px;
+        gap: 26px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
       }
-      .card svg {
-        width: 78px;
-        height: 78px;
+      .book3d .cover::before {
+        content: "";
+        position: absolute;
+        left: 22px;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        background: rgba(0, 0, 0, 0.18);
       }
-      .card .ttl {
-        color: var(--mint);
-        font-size: 54px;
+      .book3d .pages {
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        right: -26px;
+        width: 30px;
+        border-radius: 0 8px 8px 0;
+        background: repeating-linear-gradient(90deg, #f3f3ea 0 3px, #d8d8cc 3px 5px);
+        transform: rotateY(90deg);
+        transform-origin: 0 50%;
+      }
+      .cv-n {
+        background: linear-gradient(160deg, #0d559f 0%, #053264 60%, #021d3d 100%);
+        border: 4px solid var(--mint);
+      }
+      .cv-m {
+        background: linear-gradient(160deg, #eaffe2 0%, #ccffbc 60%, #a8eb92 100%);
+        border: 4px solid var(--fjord);
+      }
+      .cover svg {
+        width: 130px;
+        height: 130px;
+      }
+      .cover .ct {
+        font-size: 50px;
         font-weight: 900;
         letter-spacing: -0.03em;
-        line-height: 1.05;
+        line-height: 1.02;
       }
-      .card .sub {
-        color: var(--white);
-        opacity: 0.9;
-        font-size: 34px;
+      .cover .cs {
+        font-size: 28px;
         font-weight: 700;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
       }
-      .plus {
+      .cv-n .ct {
         color: var(--mint);
-        font-size: 70px;
-        font-weight: 900;
-        text-shadow: 0 0 20px rgba(204, 255, 188, 0.5), 0 4px 16px rgba(5, 50, 100, 0.95);
       }
-
-      /* ---------- CTA ---------- */
-      .cta-row {
-        display: flex;
-        align-items: center;
-        gap: 26px;
+      .cv-n .cs {
+        color: rgba(255, 255, 255, 0.85);
       }
-      .cta-pill {
-        display: flex;
-        align-items: center;
-        gap: 22px;
-        background: var(--mint);
+      .cv-m .ct,
+      .cv-m .cs {
         color: var(--fjord);
-        border-radius: 40px;
-        padding: 24px 60px 30px 44px;
-        font-size: 138px;
+      }
+      .sheen3d {
+        position: absolute;
+        top: -50%;
+        left: -60%;
+        width: 50%;
+        height: 200%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+        transform: rotate(20deg);
+      }
+      .lbl {
+        color: var(--white);
+        font-size: 50px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        text-align: center;
+        line-height: 1.1;
+      }
+      .lbl b {
+        display: block;
+        color: var(--mint);
+        font-size: 62px;
         font-weight: 900;
-        letter-spacing: -0.03em;
-        line-height: 1;
-        box-shadow: 0 0 60px rgba(204, 255, 188, 0.6), 0 16px 50px rgba(5, 50, 100, 0.7);
       }
-      .cta-pill svg {
-        width: 108px;
-        height: 108px;
-      }
-      .ring-burst {
+      #b4 .amp {
         position: absolute;
         left: 50%;
-        top: 1330px;
-        width: 700px;
-        height: 700px;
-        margin: -350px 0 0 -350px;
+        top: 920px;
+        width: 110px;
+        height: 110px;
+        margin-left: -55px;
         border-radius: 50%;
-        border: 6px solid var(--mint);
+        background: var(--mint);
+        color: var(--fjord);
+        font-size: 80px;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 40px rgba(204, 255, 188, 0.7);
+        z-index: 5;
+      }
+
+      /* ---------- light-streak whip ---------- */
+      .streak {
+        position: absolute;
+        z-index: 60;
+        left: 0;
+        top: 50%;
+        width: 900px;
+        height: 26px;
+        margin-top: -13px;
+        background: linear-gradient(90deg, transparent, rgba(204, 255, 188, 0.95) 50%, transparent);
+        filter: blur(8px);
+        transform-origin: 50% 50%;
+      }
+      .streak::after {
+        content: "";
+        position: absolute;
+        left: 20%;
+        right: 20%;
+        top: 9px;
+        height: 8px;
+        background: linear-gradient(90deg, transparent, #fff, transparent);
+        filter: blur(2px);
+      }
+
+      /* ---------- CTA comment bar ---------- */
+      .cbar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        width: 940px;
+        height: 150px;
+        padding: 0 22px 0 22px;
+        border-radius: 75px;
+        background: rgba(2, 26, 53, 0.92);
+        border: 4px solid var(--mint);
+        box-shadow: 0 0 50px rgba(204, 255, 188, 0.45), 0 18px 50px rgba(0, 0, 0, 0.35);
+        text-align: left;
+      }
+      .cbar .av {
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        background: var(--mint);
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cbar .av svg {
+        width: 64px;
+        height: 64px;
+      }
+      .cbar .field {
+        position: relative;
+        flex: 1;
+        height: 110px;
+        display: flex;
+        align-items: center;
+      }
+      .cbar .ph {
+        position: absolute;
+        left: 0;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 50px;
+        font-weight: 600;
+      }
+      .cbar .typed {
+        color: var(--mint);
+        font-size: 96px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+      }
+      .cbar .caret {
+        width: 6px;
+        height: 84px;
+        margin-left: 8px;
+        background: var(--mint);
+        border-radius: 3px;
+      }
+      .cbar .send {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: var(--mint);
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cbar .send svg {
+        width: 58px;
+        height: 58px;
+      }
+      .heart {
+        position: absolute;
+        right: 30px;
+        top: -40px;
+        width: 90px;
+        height: 90px;
         opacity: 0;
+      }
+      .toast {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        background: var(--mint);
+        color: var(--fjord);
+        border-radius: 22px;
+        padding: 14px 30px 16px;
+        font-size: 44px;
+        font-weight: 800;
+        box-shadow: 0 10px 30px rgba(5, 50, 100, 0.4);
+      }
+      .toast svg {
+        width: 46px;
+        height: 46px;
       }
 
       /* ---------- split color cards (from the palette image) ---------- */
@@ -342,6 +769,14 @@
         font-weight: 800;
         letter-spacing: -0.04em;
       }
+      #flash {
+        position: absolute;
+        inset: 0;
+        z-index: 95;
+        background: var(--mint);
+        opacity: 0;
+        pointer-events: none;
+      }
     </style>
   </head>
   <body>
@@ -367,34 +802,99 @@
           ></video>
         </div>
       </div>
-      <audio
-        id="face-audio"
-        data-start="0"
-        data-duration="27.5"
-        data-track-index="20"
-        src="assets/face.mp4"
-        data-volume="1"
-      ></audio>
+      <audio id="face-audio" data-start="0" data-duration="27.5" data-track-index="20" src="assets/face.mp4" data-volume="1"></audio>
 
       <div id="wash"></div>
 
-      <!-- S1 hook: 0 – 3.62 -->
-      <div id="s1" class="scene clip" data-start="0" data-duration="3.62" data-track-index="1">
+      <!-- HOOK title (0 – 2.75): visible on frame 1 -->
+      <div id="hook" class="clip" data-start="0" data-duration="2.75" data-track-index="5">
+        <div id="hook-chip">
+          <div class="x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#053264" stroke-width="3.6" stroke-linecap="round" /></svg></div>
+          <span>Don't buy MBBS books</span>
+        </div>
+        <div id="hook-sub">until you watch this</div>
+      </div>
+
+      <!-- S1 hook captions: 0 – 2.75 -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="2.75" data-track-index="1">
         <div class="small"><span class="w" data-t="0">Just</span><span class="w" data-t="0.25">entered</span></div>
         <div class="big"><span class="w" data-t="0.69">1st</span><span class="w" data-t="1.01">Year</span><span class="w" data-t="1.26">MBBS</span></div>
         <div class="small" style="margin-top: 26px"><span class="w" data-t="1.70">Confused</span><span class="w" data-t="2.21">about</span><span class="w" data-t="2.52">which</span></div>
-        <div class="navy-chip" id="s1-chip"><span class="w" data-t="2.84">books</span><span class="w" data-t="3.15">to</span><span class="w" data-t="3.28">study?</span></div>
       </div>
 
-      <!-- S2 three subjects: 3.62 – 7.0 -->
-      <div id="s2" class="scene clip" data-start="3.62" data-duration="3.38" data-track-index="1">
+      <!-- B1 B-roll: falling textbooks (2.75 – 3.62) -->
+      <div id="b1" class="broll clip" data-start="2.75" data-duration="0.87" data-track-index="3">
+        <div class="grid"></div>
+        <div class="floor"></div>
+        <div class="beam"></div>
+        <div class="qm" style="left: 90px; top: 1000px; font-size: 150px; transform: rotate(-14deg)">?</div>
+        <div class="qm" style="right: 100px; top: 900px; font-size: 200px; transform: rotate(12deg)">?</div>
+        <div class="qm" style="left: 150px; top: 1350px; font-size: 110px; transform: rotate(8deg)">?</div>
+        <div class="stack">
+          <div class="bk d" style="width: 640px; height: 96px; margin-left: -320px; bottom: 0"><i style="width: 200px"></i><i style="width: 90px"></i></div>
+          <div class="bk m" style="width: 600px; height: 84px; margin-left: -290px; bottom: 100px"><i style="width: 240px"></i><i style="width: 60px"></i></div>
+          <div class="bk n" style="width: 660px; height: 100px; margin-left: -340px; bottom: 188px"><i style="width: 180px"></i><i style="width: 120px"></i></div>
+          <div class="bk m" style="width: 560px; height: 80px; margin-left: -270px; bottom: 292px"><i style="width: 210px"></i></div>
+          <div class="bk d" style="width: 610px; height: 92px; margin-left: -310px; bottom: 376px"><i style="width: 160px"></i><i style="width: 80px"></i></div>
+          <div class="bk n" style="width: 540px; height: 82px; margin-left: -265px; bottom: 472px"><i style="width: 230px"></i></div>
+        </div>
+        <div class="head">
+          <div class="q1">Which</div>
+          <div class="q2" id="b1-books">BOOKS</div>
+          <div class="q3"><span class="w" data-t="3.15">to</span><span class="w" data-t="3.28">study?</span></div>
+        </div>
+        <div class="vig"></div>
+      </div>
+
+      <!-- S2: 3.62 – 4.80 -->
+      <div id="s2" class="scene clip" data-start="3.62" data-duration="1.18" data-track-index="1">
         <div class="small"><span class="w" data-t="3.66">You</span><span class="w" data-t="3.78">have</span></div>
         <div class="big"><span class="w" data-t="3.97">3</span><span class="w" data-t="4.04">Main</span><span class="w" data-t="4.29">Subjects</span></div>
-        <div class="pills">
-          <div class="pill" data-t="4.86"><span class="num">1</span><span class="lbl">Anatomy</span><div class="sheen"></div></div>
-          <div class="pill" data-t="5.36"><span class="num">2</span><span class="lbl">Physiology</span><div class="sheen"></div></div>
-          <div class="pill" data-t="6.18"><span class="num">3</span><span class="lbl">Biochemistry</span><div class="sheen"></div></div>
+      </div>
+
+      <!-- B2 B-roll: three subjects with self-drawing icons (4.80 – 7.10) -->
+      <div id="b2" class="broll clip" data-start="4.8" data-duration="2.3" data-track-index="3">
+        <div class="grid"></div>
+        <div class="plus" style="left: 70px; top: 180px">+</div>
+        <div class="plus" style="right: 70px; top: 180px">+</div>
+        <div class="plus" style="left: 70px; bottom: 120px">+</div>
+        <div class="plus" style="right: 70px; bottom: 120px">+</div>
+        <div class="title">3 Main Subjects</div>
+        <div class="tiles">
+          <div class="tile" data-t="4.86">
+            <div class="ic">
+              <svg viewBox="0 0 100 100">
+                <circle pathLength="1" cx="50" cy="16" r="10" />
+                <path pathLength="1" d="M50 27 V64 M30 36 H70 M30 36 L21 60 M70 36 L79 60 M50 64 L38 92 M50 64 L62 92 M40 44 Q50 50 60 44 M41 52 Q50 58 59 52" />
+              </svg>
+            </div>
+            <div><div class="no">SUBJECT 01</div><div class="nm">Anatomy</div></div>
+            <div class="glow"></div>
+          </div>
+          <div class="tile" data-t="5.36">
+            <div class="ic">
+              <svg viewBox="0 0 100 100">
+                <path pathLength="1" d="M50 84 C20 62 10 44 20 30 C30 16 46 20 50 33 C54 20 70 16 80 30 C90 44 80 62 50 84 Z" />
+                <path pathLength="1" d="M8 52 H32 L39 38 L47 68 L54 44 L59 52 H92" />
+              </svg>
+            </div>
+            <div><div class="no">SUBJECT 02</div><div class="nm">Physiology</div></div>
+            <div class="glow"></div>
+          </div>
+          <div class="tile" data-t="6.18">
+            <div class="ic">
+              <svg viewBox="0 0 100 100">
+                <path pathLength="1" d="M50 22 L74 36 V64 L50 78 L26 64 V36 Z M74 36 L90 27 M26 64 L10 73 M50 78 V94 M50 22 V8" />
+                <circle pathLength="1" cx="90" cy="27" r="5" />
+                <circle pathLength="1" cx="10" cy="73" r="5" />
+                <circle pathLength="1" cx="50" cy="8" r="5" />
+              </svg>
+            </div>
+            <div><div class="no">SUBJECT 03</div><div class="nm">Biochemistry</div></div>
+            <div class="glow"></div>
+          </div>
         </div>
+        <div class="vig"></div>
       </div>
 
       <!-- S3 anatomy checklist: 7.0 – 14.0 -->
@@ -417,39 +917,67 @@
         <div class="navy-chip" id="s4-chip"><span class="w" data-t="16.49">choose?</span></div>
       </div>
 
-      <!-- S5 two kinds: 17.0 – 22.0 -->
-      <div id="s5" class="scene clip" data-start="17" data-duration="5" data-track-index="1">
-        <div class="small"><span class="w" data-t="17.0">There</span><span class="w" data-t="17.26">are</span></div>
-        <div class="cards">
-          <div class="card" data-t="17.41">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#ccffbc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.8 5.8 3.8 9s-1.2 6.2-3.8 9M12 3c-2.6 2.8-3.8 5.8-3.8 9s1.2 6.2 3.8 9"/></svg>
-            <div class="ttl">International</div>
-            <div class="sub">Standard Books</div>
+      <!-- B4 B-roll: two kinds of textbooks, 3D covers (17.0 – 20.2) -->
+      <div id="b4" class="broll clip" data-start="17" data-duration="3.2" data-track-index="3">
+        <div class="grid"></div>
+        <div class="floor"></div>
+        <div class="beam" id="b4-beam"></div>
+        <div class="title">
+          <div class="t1"><span class="w" data-t="17.0">There</span><span class="w" data-t="17.26">are</span></div>
+          <div class="t2">2 Types of Books</div>
+        </div>
+        <div class="shelf">
+          <div class="bookwrap">
+            <div class="book3d" id="bk1">
+              <div class="cover cv-n">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ccffbc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.8 5.8 3.8 9s-1.2 6.2-3.8 9M12 3c-2.6 2.8-3.8 5.8-3.8 9s1.2 6.2 3.8 9"/></svg>
+                <div class="ct">International</div>
+                <div class="cs">Standard Edition</div>
+                <div class="sheen3d"></div>
+              </div>
+              <div class="pages"></div>
+            </div>
+            <div class="lbl" id="lbl1">Standard<b>International</b></div>
           </div>
-          <div class="plus" data-t="18.94">+</div>
-          <div class="card" data-t="19.09">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#ccffbc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v15H5.5c-.8 0-1.5.7-1.5 1.5V5.5zM20 5.5c0-.8-.7-1.5-1.5-1.5H13v15h5.5c.8 0 1.5.7 1.5 1.5V5.5z"/></svg>
-            <div class="ttl">Indian Author</div>
-            <div class="sub">Textbooks</div>
+          <div class="bookwrap">
+            <div class="book3d" id="bk2">
+              <div class="cover cv-m">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#053264" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v15H5.5c-.8 0-1.5.7-1.5 1.5V5.5zM20 5.5c0-.8-.7-1.5-1.5-1.5H13v15h5.5c.8 0 1.5.7 1.5 1.5V5.5z"/></svg>
+                <div class="ct">Indian Author</div>
+                <div class="cs">Textbooks</div>
+                <div class="sheen3d"></div>
+              </div>
+              <div class="pages"></div>
+            </div>
+            <div class="lbl" id="lbl2">Written by<b>Indian Authors</b></div>
           </div>
         </div>
-        <div class="small" style="margin-top: 24px"><span class="w" data-t="20.21">Commonly</span><span class="w" data-t="20.62">used</span><span class="w" data-t="20.83">in</span></div>
-        <div class="mid" style="font-size: 80px"><span class="w" data-t="20.93">Indian</span><span class="w" data-t="21.24">Medical</span><span class="w" data-t="21.59">Colleges</span></div>
+        <div class="amp" id="b4-amp">+</div>
+        <div class="vig"></div>
+      </div>
+
+      <!-- S5: 20.2 – 22.0 -->
+      <div id="s5" class="scene clip" data-start="20.2" data-duration="1.8" data-track-index="1">
+        <div class="small"><span class="w" data-t="20.21">Commonly</span><span class="w" data-t="20.62">used</span><span class="w" data-t="20.83">in</span></div>
+        <div class="big" style="font-size: 112px"><span class="w" data-t="20.93">Indian</span><span class="w" data-t="21.24">Medical</span></div>
+        <div class="navy-chip" id="s5-chip"><span class="w" data-t="21.59">Colleges</span></div>
       </div>
 
       <!-- S6 CTA: 22.0 – 27.5 -->
       <div id="s6" class="scene clip" data-start="22" data-duration="5.5" data-track-index="1">
-        <div class="ring-burst" id="s6-burst"></div>
         <div class="small" style="font-size: 68px"><span class="w" data-t="22.0">Comment</span></div>
-        <div class="cta-row">
-          <div class="cta-pill" id="s6-cta">
-            <svg viewBox="0 0 24 24" fill="#053264"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-            <span>BOOKS</span>
+        <div class="cbar" id="cbar">
+          <div class="av"><svg viewBox="0 0 24 24" fill="#053264"><circle cx="12" cy="8" r="4.2"/><path d="M4 21c0-4.4 3.6-7.4 8-7.4s8 3 8 7.4z"/></svg></div>
+          <div class="field">
+            <div class="ph" id="cbar-ph">Add a comment…</div>
+            <div class="typed"><span class="ch">B</span><span class="ch">O</span><span class="ch">O</span><span class="ch">K</span><span class="ch">S</span><span class="caret" id="caret"></span></div>
           </div>
+          <div class="send" id="send"><svg viewBox="0 0 24 24" fill="#053264"><path d="M3 20.5l18-8.5L3 3.5l2.6 7.1L14 12l-8.4 1.4z"/></svg></div>
+          <svg class="heart" id="heart" viewBox="0 0 24 24" fill="#ccffbc"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.3 3 4.5 6.7 4.5c2.2 0 3.6 1.2 5.3 3.1 1.7-1.9 3.1-3.1 5.3-3.1 3.7 0 5.8 3.8 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>
         </div>
-        <div class="small" style="margin-top: 30px"><span class="w" data-t="22.81">and</span><span class="w" data-t="23.01">I'll</span><span class="w" data-t="23.35">share</span><span class="w" data-t="23.69">the</span></div>
+        <div class="small" style="margin-top: 22px"><span class="w" data-t="22.81">and</span><span class="w" data-t="23.01">I'll</span><span class="w" data-t="23.35">share</span><span class="w" data-t="23.69">the</span></div>
         <div class="mid"><span class="w" data-t="23.89">recommended</span><span class="w" data-t="24.64">textbooks</span></div>
-        <div class="small"><span class="w" data-t="25.78">for</span><span class="w" data-t="25.99">all</span><span class="w" data-t="26.32">3</span><span class="w" data-t="26.39">subjects</span></div>
+        <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="#053264" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg><span><span class="w" data-t="25.78">for</span><span class="w" data-t="25.99">all</span><span class="w" data-t="26.32">3</span><span class="w" data-t="26.39">subjects</span></span></div>
       </div>
 
       <!-- split color cards -->
@@ -461,27 +989,42 @@
         <div class="half top"><div class="word">Which</div><div class="tag">The real question</div></div>
         <div class="half bot"><div class="word">Textbooks?</div><div class="tag">#MBBS</div></div>
       </div>
-      <div id="cc3" class="cc clip" data-start="21.85" data-duration="0.95" data-track-index="4">
-        <div class="half top"><div class="word">Comment</div><div class="tag">Below</div></div>
-        <div class="half bot"><div class="word">BOOKS</div><div class="tag">#MBBS</div></div>
-      </div>
 
-      <!-- SFX -->
+      <!-- light-streak whips at every B-roll cut -->
+      <div id="wh-a" class="streak clip" data-start="2.6" data-duration="0.4" data-track-index="6"></div>
+      <div id="wh-b" class="streak clip" data-start="3.42" data-duration="0.4" data-track-index="7"></div>
+      <div id="wh-c" class="streak clip" data-start="4.62" data-duration="0.4" data-track-index="6"></div>
+      <div id="wh-d" class="streak clip" data-start="16.82" data-duration="0.4" data-track-index="6"></div>
+      <div id="wh-e" class="streak clip" data-start="20.0" data-duration="0.4" data-track-index="6"></div>
+      <div id="wh-f" class="streak clip" data-start="21.82" data-duration="0.4" data-track-index="7"></div>
+
+      <div id="grain"></div>
+      <div id="flash"></div>
+
+      <!-- music + SFX -->
+      <audio id="music" data-start="0" data-duration="27.5" data-track-index="30" src="assets/music-bed.mp3" data-volume="0.09"></audio>
+      <audio id="sfx-sting" data-start="0" data-duration="1.6" data-track-index="26" src="assets/stinger.mp3" data-volume="0.22"></audio>
+      <audio id="sfx-wh-a" data-start="2.62" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.28"></audio>
+      <audio id="sfx-sw-b" data-start="3.44" data-duration="0.6" data-track-index="25" src="assets/swipe.mp3" data-volume="0.2"></audio>
+      <audio id="sfx-wh-c" data-start="4.64" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
       <audio id="sfx-pop1" data-start="4.84" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.3"></audio>
       <audio id="sfx-pop2" data-start="5.34" data-duration="0.72" data-track-index="22" src="assets/pop.mp3" data-volume="0.3"></audio>
       <audio id="sfx-pop3" data-start="6.16" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.3"></audio>
+      <audio id="sfx-wh0" data-start="6.72" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
       <audio id="sfx-ck1" data-start="10.4" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
       <audio id="sfx-ck2" data-start="11.51" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
       <audio id="sfx-ck3" data-start="12.45" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
       <audio id="sfx-ck4" data-start="13.48" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
       <audio id="sfx-wh1" data-start="13.8" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
+      <audio id="sfx-wh3" data-start="14.72" data-duration="0.57" data-track-index="25" src="assets/whoosh.mp3" data-volume="0.2"></audio>
+      <audio id="sfx-wh-d" data-start="16.84" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
       <audio id="sfx-pop4" data-start="17.39" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.28"></audio>
       <audio id="sfx-pop5" data-start="19.07" data-duration="0.72" data-track-index="22" src="assets/pop.mp3" data-volume="0.28"></audio>
-      <audio id="sfx-wh2" data-start="21.8" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
-      <audio id="sfx-pop6" data-start="22.45" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.35"></audio>
-      <audio id="music" data-start="0" data-duration="27.5" data-track-index="30" src="assets/music-bed.mp3" data-volume="0.09"></audio>
-      <audio id="sfx-wh0" data-start="6.72" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
-      <audio id="sfx-wh3" data-start="14.72" data-duration="0.57" data-track-index="25" src="assets/whoosh.mp3" data-volume="0.2"></audio>
+      <audio id="sfx-sw-e" data-start="20.02" data-duration="0.6" data-track-index="25" src="assets/swipe.mp3" data-volume="0.2"></audio>
+      <audio id="sfx-wh-f" data-start="21.84" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.22"></audio>
+      <audio id="sfx-type" data-start="22.45" data-duration="0.42" data-track-index="27" src="assets/keyboard-typing.mp3" data-volume="0.35"></audio>
+      <audio id="sfx-send" data-start="22.95" data-duration="1.0" data-track-index="28" src="assets/send-message.mp3" data-volume="0.3"></audio>
+      <audio id="sfx-noti" data-start="25.75" data-duration="0.5" data-track-index="29" src="assets/notification.mp3" data-volume="0.28"></audio>
     </div>
 
     <script>
@@ -489,8 +1032,12 @@
       const tl = gsap.timeline({ paused: true });
       const T = (el) => parseFloat(el.dataset.t);
 
-      // ---- face: slow Ken Burns + beat punch-ins ----
+      // ---- grain shimmer (stepped, deterministic) ----
+      tl.fromTo("#grain", { x: 0, y: 0 }, { x: 14, y: 9, duration: 27.5, ease: "steps(220)" }, 0);
+
+      // ---- face: hook punch-out, slow Ken Burns, beat punch-ins ----
       tl.fromTo("#face-kb", { scale: 1.03 }, { scale: 1.08, duration: 27.5, ease: "none" }, 0);
+      tl.fromTo("#face-punch", { scale: 1.28 }, { scale: 1.0, duration: 0.6, ease: "expo.out" }, 0);
       [
         { t: 0.69, s: 1.06 },
         { t: 3.62, s: 1.0 },
@@ -498,8 +1045,16 @@
         { t: 10.07, s: 1.0 },
         { t: 15.9, s: 1.1 },
         { t: 17.0, s: 1.0 },
-        { t: 22.0, s: 1.07 },
+        { t: 20.2, s: 1.05 },
+        { t: 22.0, s: 1.0 },
       ].forEach(({ t, s }) => tl.to("#face-punch", { scale: s, duration: 0.45, ease: "expo.out" }, t));
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.3, ease: "power2.out" }, 0);
+
+      // ---- HOOK title: on screen from frame 1 (scale punch, not fade) ----
+      tl.from("#hook-chip", { scale: 1.12, duration: 0.4, ease: "back.out(2)" }, 0);
+      tl.from("#hook-chip .x", { rotation: -180, scale: 0.4, duration: 0.5, ease: "back.out(2.5)" }, 0.05);
+      tl.from("#hook-sub", { y: -30, opacity: 0, duration: 0.3, ease: "power3.out" }, 0.22);
+      tl.to("#hook-chip", { scale: 1.04, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0.9);
 
       // ---- word-by-word blur-in (Ali Hassan signature) ----
       document.querySelectorAll(".w").forEach((el) => {
@@ -510,17 +1065,61 @@
         );
       });
 
-      // ---- S1 ----
-      tl.from("#s1-chip", { scale: 0.7, opacity: 0, duration: 0.42, ease: "back.out(2)" }, 2.78);
-
-      // ---- S2 pills ----
-      document.querySelectorAll("#s2 .pill").forEach((el) => {
-        const t = T(el) - 0.04;
-        tl.from(el, { opacity: 0, scale: 0.6, y: 30, filter: "blur(10px)", duration: 0.42, ease: "back.out(1.8)" }, t);
-        tl.fromTo(el.querySelector(".sheen"), { x: 0 }, { x: 1200, duration: 0.7, ease: "power2.inOut" }, t + 0.15);
+      // ---- light-streak whips ----
+      [
+        { id: "#wh-a", t: 2.6, y: 960, r: -8 },
+        { id: "#wh-b", t: 3.42, y: 700, r: 6 },
+        { id: "#wh-c", t: 4.62, y: 1100, r: -5 },
+        { id: "#wh-d", t: 16.82, y: 900, r: 7 },
+        { id: "#wh-e", t: 20.0, y: 1000, r: -6 },
+        { id: "#wh-f", t: 21.82, y: 1200, r: 5 },
+      ].forEach(({ id, t, y, r }) => {
+        tl.fromTo(id, { x: -1000, y: y - 960, rotation: r, scaleX: 0.6 }, { x: 1300, scaleX: 1.6, duration: 0.36, ease: "power3.in" }, t);
       });
-      // gentle breathing on the finished list
-      tl.to("#s2 .pills", { scale: 1.03, duration: 0.5, ease: "sine.inOut" }, 6.55);
+
+      // ---- B-roll stage entrances / exits (cut-the-curve vertical whip) ----
+      const brollIn = (id, t) => {
+        tl.fromTo(id, { y: 160, filter: "blur(26px)", opacity: 0.4 }, { y: 0, filter: "blur(0px)", opacity: 1, duration: 0.42, ease: "power3.out" }, t);
+        tl.fromTo(id + " .grid", { y: 0 }, { y: 90, duration: 3, ease: "none" }, t);
+      };
+      const brollOut = (id, t) => {
+        tl.to(id, { y: -160, filter: "blur(26px)", opacity: 0, duration: 0.26, ease: "power2.in" }, t);
+      };
+
+      // B1 falling books
+      brollIn("#b1", 2.75);
+      tl.from("#b1 .bk", { y: -1500, rotation: (i) => [8, -10, 6, -7, 9, -5][i], duration: 0.42, ease: "back.out(1.3)", stagger: 0.05 }, 2.76);
+      tl.from("#b1 .q1", { opacity: 0, y: 30, filter: "blur(10px)", duration: 0.2, ease: "power2.out" }, 2.76);
+      tl.from("#b1-books", { scale: 2.6, opacity: 0, duration: 0.3, ease: "expo.out" }, 2.84);
+      tl.from("#b1 .qm", { scale: 0, duration: 0.3, ease: "back.out(3)", stagger: 0.06 }, 2.95);
+      tl.to("#b1 .beam", { rotation: 6, duration: 0.87, ease: "sine.inOut" }, 2.75);
+      brollOut("#b1", 3.36);
+
+      // B2 subject tiles
+      brollIn("#b2", 4.8);
+      tl.from("#b2 .title", { scale: 0.7, opacity: 0, filter: "blur(12px)", duration: 0.35, ease: "expo.out" }, 4.82);
+      document.querySelectorAll("#b2 .tile").forEach((el, i) => {
+        const t = T(el) - 0.06;
+        tl.from(el, { x: i % 2 ? -140 : 140, opacity: 0, filter: "blur(14px)", duration: 0.4, ease: "expo.out" }, t);
+        tl.fromTo(el.querySelectorAll("path, circle"), { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut", stagger: 0.08 }, t + 0.08);
+        tl.fromTo(el.querySelector(".glow"), { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, t + 0.1);
+        tl.to(el.querySelector(".glow"), { opacity: 0.25, duration: 0.5, ease: "sine.inOut" }, t + 0.45);
+        tl.from(el.querySelector(".nm"), { y: 30, opacity: 0, duration: 0.35, ease: "back.out(2)" }, t + 0.12);
+      });
+
+      // B4 two kinds of books
+      brollIn("#b4", 17.0);
+      tl.from("#b4 .t2", { scale: 0.75, opacity: 0, filter: "blur(12px)", duration: 0.4, ease: "expo.out" }, 17.08);
+      tl.fromTo("#bk1", { rotationY: -110, y: 120, opacity: 0 }, { rotationY: 16, y: 0, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 17.37);
+      tl.from("#lbl1", { y: 30, opacity: 0, filter: "blur(10px)", duration: 0.35, ease: "power3.out" }, 17.8);
+      tl.from("#b4-amp", { scale: 0, rotation: -90, duration: 0.35, ease: "back.out(3)" }, 18.9);
+      tl.fromTo("#bk2", { rotationY: 110, y: 120, opacity: 0 }, { rotationY: -16, y: 0, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 19.05);
+      tl.from("#lbl2", { y: 30, opacity: 0, filter: "blur(10px)", duration: 0.35, ease: "power3.out" }, 19.45);
+      tl.fromTo("#bk1 .sheen3d", { x: 0 }, { x: 800, duration: 0.8, ease: "power2.inOut" }, 18.0);
+      tl.fromTo("#bk2 .sheen3d", { x: 0 }, { x: 800, duration: 0.8, ease: "power2.inOut" }, 19.6);
+      tl.to("#bk1", { y: -14, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 }, 18.2);
+      tl.to("#b4-beam", { rotation: -8, duration: 3.2, ease: "sine.inOut" }, 17.0);
+      brollOut("#b4", 19.94);
 
       // ---- S3 checklist ----
       tl.from("#s3-head", { x: -40, duration: 0.5, ease: "expo.out" }, 7.0);
@@ -541,35 +1140,28 @@
       tl.to("#s4-slam", { textShadow: "0 0 28px rgba(204,255,188,0.45), 0 6px 22px rgba(5,50,100,0.95), 0 0 3px rgba(5,50,100,0.9)", duration: 0.4, ease: "sine.inOut" }, 16.35);
       tl.from("#s4-chip", { scale: 0.6, opacity: 0, rotation: -4, duration: 0.45, ease: "back.out(2.2)" }, 16.45);
 
-      // ---- S5 cards ----
-      document.querySelectorAll("#s5 .card").forEach((el) => {
-        tl.from(el, { opacity: 0, y: 60, rotationX: 40, scale: 0.85, filter: "blur(10px)", duration: 0.55, ease: "expo.out" }, T(el) - 0.04);
-        tl.from(el.querySelector("svg"), { scale: 0, rotation: -30, duration: 0.45, ease: "back.out(2.5)" }, T(el) + 0.15);
-      });
-      tl.from("#s5 .plus", { scale: 0, opacity: 0, duration: 0.3, ease: "back.out(3)" }, 18.9);
-      tl.to("#s5 .cards", { y: -8, duration: 1.6, ease: "sine.inOut" }, 20.2);
+      tl.from("#s5-chip", { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2.2)" }, 21.5);
 
-      // ---- S6 CTA (inverted palette) ----
-      tl.from("#s6-cta", { scale: 0.3, opacity: 0, duration: 0.5, ease: "back.out(2.4)" }, 22.43);
-      tl.fromTo("#s6-burst", { scale: 0.3, opacity: 0.9 }, { scale: 1.4, opacity: 0, duration: 0.8, ease: "power2.out", immediateRender: false }, 22.78);
-      tl.to("#s6-cta", { scale: 1.05, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 3 }, 24.7);
-
-      // ---- blur-dissolve transitions between text blocks ----
-      [
-        { id: "#s1", end: 3.62 },
-        { id: "#s2", end: 7.0 },
-        { id: "#s3", end: 14.0 },
-        { id: "#s4", end: 17.0 },
-        { id: "#s5", end: 22.0 },
-      ].forEach(({ id, end }) => {
-        tl.to(id, { opacity: 0, scale: 0.96, filter: "blur(16px)", duration: 0.26, ease: "power2.in" }, end - 0.27);
+      // ---- S6 CTA: typed comment ----
+      tl.from("#cbar", { y: 80, scale: 0.85, opacity: 0, filter: "blur(12px)", duration: 0.45, ease: "expo.out" }, 22.05);
+      tl.to("#cbar-ph", { opacity: 0, duration: 0.1, ease: "none" }, 22.43);
+      document.querySelectorAll("#cbar .ch").forEach((el, i) => {
+        tl.from(el, { opacity: 0, scale: 0.4, y: 20, duration: 0.12, ease: "back.out(3)" }, 22.47 + i * 0.075);
       });
+      tl.set("#caret", { opacity: 0 }, 22.0);
+      tl.set("#caret", { opacity: 1 }, 22.85);
+      tl.to("#caret", { opacity: 0, duration: 0.25, ease: "steps(1)", yoyo: true, repeat: 7 }, 22.9);
+      tl.to("#send", { scale: 0.82, duration: 0.08, ease: "power4.in" }, 22.95);
+      tl.to("#send", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 23.03);
+      tl.fromTo("#heart", { opacity: 0, scale: 0.3, y: 0 }, { opacity: 1, scale: 1.2, y: -70, duration: 0.45, ease: "back.out(2)", immediateRender: false }, 23.1);
+      tl.to("#heart", { opacity: 0, y: -160, duration: 0.5, ease: "power2.in" }, 23.7);
+      tl.from("#toast", { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2.2)" }, 25.72);
+      tl.to("#cbar", { scale: 1.03, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 3 }, 24.6);
 
       // ---- split color cards: halves slam in, hold, part like doors ----
       [
         { id: "#cc1", t: 6.82, d: 0.98 },
         { id: "#cc2", t: 13.92, d: 0.98 },
-        { id: "#cc3", t: 21.85, d: 0.95 },
       ].forEach(({ id, t, d }) => {
         tl.from(id + " .top", { yPercent: -100, duration: 0.26, ease: "expo.out" }, t);
         tl.from(id + " .bot", { yPercent: 100, duration: 0.26, ease: "expo.out" }, t);
@@ -578,6 +1170,17 @@
         tl.from(id + " .tag", { opacity: 0, x: -30, duration: 0.25, ease: "power2.out", stagger: 0.06 }, t + 0.2);
         tl.to(id + " .top", { yPercent: -100, duration: 0.28, ease: "expo.in" }, t + d - 0.28);
         tl.to(id + " .bot", { yPercent: 100, duration: 0.28, ease: "expo.in" }, t + d - 0.28);
+      });
+
+      // ---- blur-dissolve exits for face-caption blocks ----
+      [
+        { id: "#s1", end: 2.75 },
+        { id: "#hook", end: 2.75 },
+        { id: "#s3", end: 14.0 },
+        { id: "#s4", end: 17.0 },
+        { id: "#s5", end: 22.0 },
+      ].forEach(({ id, end }) => {
+        tl.to(id, { opacity: 0, scale: 0.96, filter: "blur(16px)", duration: 0.24, ease: "power2.in" }, end - 0.25);
       });
 
       tl.set({}, {}, 27.5);
