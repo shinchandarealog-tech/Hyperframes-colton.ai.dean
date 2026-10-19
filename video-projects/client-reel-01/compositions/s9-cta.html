@@ -1,0 +1,293 @@
+<!-- GENERATED from src/scenes/s9-cta.html by scripts/build-comps.py — edit the source, not this file. -->
+<template id="s9-cta-template">
+  <div data-composition-id="s9-cta" data-width="1080" data-height="1920" id="root">
+    <div class="fx-stage">
+      <div class="fx-small" id="s9-a" data-split>Comment</div>
+      <div class="fx-big fx-grad" id="s9-b"><span class="fx-w">AUCTION</span></div>
+      <div class="s9-zone">
+        <div class="s9-input fx-glass-dark" id="s9-input">
+          <div class="av"></div>
+          <div class="txt"><span id="s9-typed"></span><i class="caret" id="s9-caret"></i></div>
+          <div class="send" id="s9-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="s9-dm fx-glass-dark" id="s9-dm">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11.5 21 3l-8.5 18-2-7.5z" fill="#fff"/></svg></div>
+          <div class="body">
+            <div class="top"><span class="t">New message</span><span class="now">now</span></div>
+            <div class="msg">Here are your 5 winning ad hook templates</div>
+          </div>
+        </div>
+      </div>
+      <div class="s9-files" id="s9-files"></div>
+    </div>
+    <style>
+      /* Shared Apple-glass overlay system (from @alihassan-works fingerprint + brand-tokens.css).
+   Inlined into every composition by scripts/build-comps.py — edit here, then rebuild. */
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  font-family: "Inter", "SF Pro Display", -apple-system, system-ui, sans-serif;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+/* Chest-zone stage: face lives in the top ~900px, platform UI in the bottom ~380px */
+.fx-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 930px 70px 0;
+  gap: 14px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.fx-slot { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.fx-layer { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.fx-small {
+  font-size: 54px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 30px rgba(0, 0, 0, 0.6);
+}
+.fx-big {
+  font-size: 150px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45), 0 10px 40px rgba(0, 0, 0, 0.55);
+}
+.fx-w { display: inline-block; will-change: transform, filter, opacity; }
+/* Light-blue → cyan gradient emphasis (glow lives on the parent so word blur tweens don't kill it) */
+.fx-grad { text-shadow: none; filter: drop-shadow(0 0 26px rgba(125, 211, 252, 0.45)) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.55)); }
+.fx-grad .fx-w {
+  background: linear-gradient(180deg, #e3f6ff 0%, #8fd8fd 42%, #3b9cf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 0 0.04em;
+}
+.fx-dim { color: rgba(235, 240, 255, 0.72); }
+.fx-red { color: #ff5a6a; text-shadow: 0 0 30px rgba(255, 70, 90, 0.45), 0 6px 20px rgba(0, 0, 0, 0.55); }
+
+/* Navy glass */
+.fx-glass {
+  background: linear-gradient(180deg, rgba(40, 70, 160, 0.84) 0%, rgba(17, 34, 96, 0.88) 100%);
+  border: 1.5px solid rgba(147, 197, 253, 0.38);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.28), inset 0 -10px 30px rgba(10, 20, 60, 0.35),
+    0 14px 44px rgba(0, 0, 0, 0.45), 0 0 34px rgba(59, 130, 246, 0.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  backdrop-filter: blur(22px) saturate(1.4);
+}
+/* Dark-grey UI chip glass (iOS) */
+.fx-glass-dark {
+  background: linear-gradient(180deg, rgba(48, 48, 56, 0.86) 0%, rgba(28, 28, 34, 0.9) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.16), 0 16px 48px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+.fx-pill {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 116px;
+  padding: 0 46px 0 40px;
+  border-radius: 999px;
+  font-size: 50px;
+  font-weight: 600;
+}
+.fx-pill .num { font-size: 50px; font-weight: 800; font-style: italic; opacity: 0.95; }
+
+/* Animated checklist row */
+.fx-checks { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.fx-check { display: flex; align-items: center; gap: 22px; font-size: 54px; font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 26px rgba(0, 0, 0, 0.6); }
+.fx-check svg { width: 62px; height: 62px; overflow: visible; filter: drop-shadow(0 0 14px rgba(59, 130, 246, 0.6)); }
+
+/* B-roll canvas: black + perspective grid + crosshairs */
+.fx-black { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, #0b1430 0%, #04060f 55%, #010205 100%); }
+.fx-floor {
+  position: absolute;
+  left: -900px;
+  width: 2880px;
+  height: 1500px;
+  top: 1080px;
+  transform-origin: 50% 0%;
+  transform: perspective(700px) rotateX(74deg);
+  background-image: linear-gradient(rgba(125, 211, 252, 0.22) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(125, 211, 252, 0.22) 2px, transparent 2px);
+  background-size: 120px 120px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+}
+.fx-ceiling { top: auto; bottom: 1080px; transform-origin: 50% 100%; transform: perspective(700px) rotateX(-74deg);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 30%, #000 100%); mask-image: linear-gradient(to top, transparent 0%, #000 30%, #000 100%); opacity: 0.5; }
+.fx-cross { position: absolute; width: 34px; height: 34px; opacity: 0.55; }
+.fx-cross::before, .fx-cross::after { content: ""; position: absolute; background: rgba(200, 230, 255, 0.8); }
+.fx-cross::before { left: 16px; top: 0; width: 2px; height: 34px; }
+.fx-cross::after { top: 16px; left: 0; height: 2px; width: 34px; }
+.fx-chrome .fx-w {
+  background: linear-gradient(180deg, #ffffff 0%, #dfe8f5 38%, #8fa3bf 62%, #f4f8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.fx-chrome { filter: drop-shadow(0 0 30px rgba(170, 210, 255, 0.35)); text-shadow: none; }
+
+      #s9-b { font-size: 156px; letter-spacing: -0.03em; }
+      .s9-zone { position: relative; width: 900px; height: 170px; margin-top: 18px; }
+      .s9-input { position: absolute; left: 30px; right: 30px; top: 20px; height: 124px; border-radius: 999px;
+        display: flex; align-items: center; gap: 20px; padding: 0 16px 0 18px; box-sizing: border-box; }
+      .s9-input .av { width: 84px; height: 84px; border-radius: 50%; flex: none;
+        background: radial-gradient(circle at 35% 30%, #c9f0ff, #4fc3f7 45%, #2457c8 100%); }
+      .s9-input .txt { flex: 1; text-align: left; font-size: 50px; font-weight: 600; letter-spacing: 0.02em; display: flex; align-items: center; }
+      .s9-input .caret { display: inline-block; width: 4px; height: 56px; margin-left: 4px; background: #7dd3fc; border-radius: 2px; }
+      .s9-input .send { width: 88px; height: 88px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 0 26px rgba(59,130,246,0.7); flex: none; }
+      .s9-input .send svg { width: 46px; height: 46px; }
+      .s9-dm { position: absolute; left: 0; right: 0; top: 0; height: 170px; border-radius: 44px; display: flex; align-items: center; gap: 26px;
+        padding: 0 34px; box-sizing: border-box; text-align: left; }
+      .s9-dm .ic { width: 100px; height: 100px; border-radius: 26px; flex: none; display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(180deg, #5aa9ff, #2563eb); box-shadow: inset 0 2px 0 rgba(255,255,255,0.35); }
+      .s9-dm .ic svg { width: 54px; height: 54px; }
+      .s9-dm .body { flex: 1; }
+      .s9-dm .top { display: flex; justify-content: space-between; font-size: 32px; font-weight: 700; }
+      .s9-dm .now { font-weight: 500; color: rgba(255,255,255,0.55); }
+      .s9-dm .msg { margin-top: 6px; font-size: 34px; font-weight: 500; color: rgba(255,255,255,0.88); line-height: 1.2; }
+      .s9-files { display: flex; gap: 14px; margin-top: 4px; }
+      .s9-file { width: 158px; height: 96px; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+        font-size: 24px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      .s9-file b { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /* Shared motion helpers (Apple-keynote blur-focus language). Inlined by scripts/build-comps.py. */
+window.FX = window.FX || {
+  // Wrap each word of every [data-split] element in a .fx-w span.
+  split(root) {
+    root.querySelectorAll("[data-split]").forEach((el) => {
+      const words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map((w) => `<span class="fx-w">${w}</span>`).join(" ");
+    });
+  },
+  words(root, sel) {
+    const el = root.querySelector(sel);
+    const ws = el.querySelectorAll(".fx-w");
+    return ws.length ? ws : el;
+  },
+  // Blur → sharp focus-in, per word.
+  blurIn(tl, targets, t, o = {}) {
+    tl.from(
+      targets,
+      {
+        opacity: 0,
+        filter: `blur(${o.blur ?? 16}px)`,
+        y: o.y ?? 24,
+        scale: o.scale ?? 0.9,
+        duration: o.dur ?? 0.5,
+        ease: o.ease ?? "expo.out",
+        stagger: o.stagger ?? 0.06,
+      },
+      t,
+    );
+  },
+  // Whole-block defocus exit.
+  blurOut(tl, targets, t, o = {}) {
+    tl.to(
+      targets,
+      {
+        opacity: 0,
+        filter: `blur(${o.blur ?? 14}px)`,
+        y: o.y ?? -12,
+        scale: o.scale ?? 1.03,
+        duration: o.dur ?? 0.3,
+        ease: o.ease ?? "power2.in",
+      },
+      t,
+    );
+  },
+  // Glow-flash entry for glass chips: over-bright cyan → settle.
+  glowIn(tl, target, t, o = {}) {
+    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, filter: "brightness(2.6) blur(10px)", duration: o.dur ?? 0.55, ease: "expo.out" }, t);
+  },
+  // Dashed ring spins → filled blue badge + drawn tick; label focuses in alongside.
+  check(tl, row, t) {
+    const ring = row.querySelector(".ring");
+    const fill = row.querySelector(".fill");
+    const tick = row.querySelector(".tick");
+    const label = row.querySelector(".lbl");
+    tl.from(ring, { opacity: 0, scale: 0.5, svgOrigin: "30 30", duration: 0.25, ease: "power2.out" }, t);
+    tl.to(ring, { rotation: 200, svgOrigin: "30 30", duration: 0.55, ease: "none" }, t);
+    FX.blurIn(tl, label.querySelectorAll(".fx-w").length ? label.querySelectorAll(".fx-w") : label, t + 0.02, { y: 0, scale: 0.96, stagger: 0.05 });
+    tl.from(fill, { scale: 0, svgOrigin: "30 30", duration: 0.32, ease: "back.out(2.2)" }, t + 0.38);
+    tl.fromTo(tick, { strokeDashoffset: 44 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, t + 0.48);
+    tl.to(ring, { opacity: 0, duration: 0.2, ease: "power1.out" }, t + 0.5);
+  },
+  checkSvg() {
+    return `<svg viewBox="0 0 60 60"><circle class="ring" cx="30" cy="30" r="27" fill="none" stroke="#9bdcff" stroke-width="3.5" stroke-dasharray="7 6"/><circle class="fill" cx="30" cy="30" r="28" fill="#3b82f6"/><path class="tick" d="M17 31 L26 40 L43 21" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="44"/></svg>`;
+  },
+  // mulberry32 seeded PRNG (determinism)
+  rng(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6d2b79f5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  },
+  // Count a number into an element (seek-safe: driven by a tweened proxy).
+  count(tl, el, from, to, t, dur, fmt, ease = "power2.out") {
+    const p = { v: from };
+    el.textContent = fmt(from);
+    tl.to(p, { v: to, duration: dur, ease, onUpdate: () => (el.textContent = fmt(p.v)) }, t);
+  },
+};
+
+      (() => {
+        const D = 3.72;
+        const root = document.querySelector('[data-composition-id="s9-cta"]');
+        const files = root.querySelector("#s9-files");
+        const fileEls = [1, 2, 3, 4, 5].map((n) => {
+          const f = document.createElement("div");
+          f.className = "s9-file fx-glass";
+          f.innerHTML = `Hook<b>0${n}</b>`;
+          files.appendChild(f);
+          return f;
+        });
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+        FX.blurIn(tl, FX.words(root, "#s9-a"), 0.0, { stagger: 0.06 });
+        tl.from("#s9-b .fx-w", { opacity: 0, scale: 0.75, filter: "blur(20px)", duration: 0.6, ease: "expo.out" }, 0.06);
+        // comment box types the keyword
+        tl.from("#s9-input", { opacity: 0, y: 40, scale: 0.92, filter: "blur(12px)", duration: 0.4, ease: "back.out(1.6)" }, 0.04);
+        const typed = root.querySelector("#s9-typed");
+        const word = "AUCTION";
+        const p = { v: 0 };
+        typed.textContent = "";
+        tl.to(p, { v: word.length, duration: 0.42, ease: "none", onUpdate: () => (typed.textContent = word.slice(0, Math.round(p.v))) }, 0.14);
+        tl.to("#s9-caret", { opacity: 0, duration: 0.14, repeat: 5, yoyo: true, ease: "steps(1)" }, 0.0);
+        // send
+        tl.to("#s9-send", { scale: 0.82, duration: 0.07, ease: "power4.in" }, 0.72);
+        tl.to("#s9-send", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 0.79);
+        tl.to("#s9-input", { y: -50, opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 0.88);
+        // DM notification lands on "send"
+        tl.from("#s9-dm", { opacity: 0, y: -70, scale: 0.9, filter: "blur(14px)", duration: 0.55, ease: "elastic.out(1, 0.6)" }, 1.15);
+        tl.from("#s9-dm .ic", { scale: 0.4, rotation: -20, duration: 0.5, ease: "back.out(2.4)" }, 1.25);
+        // five templates fan in on "five"
+        tl.from(fileEls, { opacity: 0, y: 50, scale: 0.6, rotation: (i) => (i - 2) * 8, filter: "blur(10px) brightness(2.2)", duration: 0.5,
+          ease: "back.out(1.7)", stagger: 0.08 }, 1.8);
+        tl.to(fileEls, { y: -8, duration: 0.6, ease: "sine.inOut", stagger: 0.08, yoyo: true, repeat: 1 }, 2.5);
+        tl.to("#s9-b", { scale: 1.03, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.0);
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s9-cta"] = tl;
+      })();
+    </script>
+  </div>
+</template>

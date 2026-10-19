@@ -1,0 +1,16 @@
+:root {
+  /* Client palette, derived from the @alihassan-works reference (Apple-style glass UI) */
+  --brand-bg: #0a0d1a;
+  --brand-surface: rgba(21, 43, 107, 0.78);   /* navy glass pill */
+  --brand-surface-2: rgba(42, 42, 46, 0.82);  /* dark-grey UI chip (Following / DM card) */
+  --brand-border: rgba(147, 197, 253, 0.35);  /* inner highlight */
+  --brand-accent: #3b82f6;                    /* check badges, send button */
+  --brand-accent-glow: #7dd3fc;               /* cyan glow + gradient end */
+  --brand-accent-grad: linear-gradient(180deg, #a5e4ff 0%, #4fc3f7 55%, #2b8fe0 100%);
+  --brand-warn: #4f46e5;                      /* follow-button indigo */
+  --brand-text: #ffffff;
+  --brand-text-dim: rgba(255, 255, 255, 0.78);
+
+  --font-mono: ui-monospace, Menlo, monospace;
+  --font-display: "Inter", "SF Pro Display", -apple-system, system-ui, sans-serif;
+}

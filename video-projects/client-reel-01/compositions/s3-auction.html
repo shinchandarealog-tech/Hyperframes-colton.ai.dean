@@ -1,0 +1,282 @@
+<!-- GENERATED from src/scenes/s3-auction.html by scripts/build-comps.py — edit the source, not this file. -->
+<template id="s3-auction-template">
+  <div data-composition-id="s3-auction" data-width="1080" data-height="1920" id="root">
+    <div class="fx-stage" id="s3-stage">
+      <div class="fx-slot" style="height: 66px">
+        <div class="fx-layer"><div class="fx-small" id="s3-a" data-split>When you click,</div></div>
+        <div class="fx-layer"><div class="fx-small" id="s3-b" data-split>they bid against each other</div></div>
+      </div>
+      <div class="s3-big">
+        <span class="fx-big fx-grad s3-num"><span class="fx-w" id="s3-n">50</span></span>
+        <span class="fx-small s3-co" id="s3-co" data-split>companies</span>
+      </div>
+      <div class="s3-grid" id="s3-grid"></div>
+    </div>
+    <style>
+      /* Shared Apple-glass overlay system (from @alihassan-works fingerprint + brand-tokens.css).
+   Inlined into every composition by scripts/build-comps.py — edit here, then rebuild. */
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  font-family: "Inter", "SF Pro Display", -apple-system, system-ui, sans-serif;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+/* Chest-zone stage: face lives in the top ~900px, platform UI in the bottom ~380px */
+.fx-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 930px 70px 0;
+  gap: 14px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.fx-slot { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.fx-layer { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.fx-small {
+  font-size: 54px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 30px rgba(0, 0, 0, 0.6);
+}
+.fx-big {
+  font-size: 150px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45), 0 10px 40px rgba(0, 0, 0, 0.55);
+}
+.fx-w { display: inline-block; will-change: transform, filter, opacity; }
+/* Light-blue → cyan gradient emphasis (glow lives on the parent so word blur tweens don't kill it) */
+.fx-grad { text-shadow: none; filter: drop-shadow(0 0 26px rgba(125, 211, 252, 0.45)) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.55)); }
+.fx-grad .fx-w {
+  background: linear-gradient(180deg, #e3f6ff 0%, #8fd8fd 42%, #3b9cf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 0 0.04em;
+}
+.fx-dim { color: rgba(235, 240, 255, 0.72); }
+.fx-red { color: #ff5a6a; text-shadow: 0 0 30px rgba(255, 70, 90, 0.45), 0 6px 20px rgba(0, 0, 0, 0.55); }
+
+/* Navy glass */
+.fx-glass {
+  background: linear-gradient(180deg, rgba(40, 70, 160, 0.84) 0%, rgba(17, 34, 96, 0.88) 100%);
+  border: 1.5px solid rgba(147, 197, 253, 0.38);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.28), inset 0 -10px 30px rgba(10, 20, 60, 0.35),
+    0 14px 44px rgba(0, 0, 0, 0.45), 0 0 34px rgba(59, 130, 246, 0.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  backdrop-filter: blur(22px) saturate(1.4);
+}
+/* Dark-grey UI chip glass (iOS) */
+.fx-glass-dark {
+  background: linear-gradient(180deg, rgba(48, 48, 56, 0.86) 0%, rgba(28, 28, 34, 0.9) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.16), 0 16px 48px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+.fx-pill {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 116px;
+  padding: 0 46px 0 40px;
+  border-radius: 999px;
+  font-size: 50px;
+  font-weight: 600;
+}
+.fx-pill .num { font-size: 50px; font-weight: 800; font-style: italic; opacity: 0.95; }
+
+/* Animated checklist row */
+.fx-checks { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.fx-check { display: flex; align-items: center; gap: 22px; font-size: 54px; font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 26px rgba(0, 0, 0, 0.6); }
+.fx-check svg { width: 62px; height: 62px; overflow: visible; filter: drop-shadow(0 0 14px rgba(59, 130, 246, 0.6)); }
+
+/* B-roll canvas: black + perspective grid + crosshairs */
+.fx-black { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, #0b1430 0%, #04060f 55%, #010205 100%); }
+.fx-floor {
+  position: absolute;
+  left: -900px;
+  width: 2880px;
+  height: 1500px;
+  top: 1080px;
+  transform-origin: 50% 0%;
+  transform: perspective(700px) rotateX(74deg);
+  background-image: linear-gradient(rgba(125, 211, 252, 0.22) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(125, 211, 252, 0.22) 2px, transparent 2px);
+  background-size: 120px 120px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+}
+.fx-ceiling { top: auto; bottom: 1080px; transform-origin: 50% 100%; transform: perspective(700px) rotateX(-74deg);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 30%, #000 100%); mask-image: linear-gradient(to top, transparent 0%, #000 30%, #000 100%); opacity: 0.5; }
+.fx-cross { position: absolute; width: 34px; height: 34px; opacity: 0.55; }
+.fx-cross::before, .fx-cross::after { content: ""; position: absolute; background: rgba(200, 230, 255, 0.8); }
+.fx-cross::before { left: 16px; top: 0; width: 2px; height: 34px; }
+.fx-cross::after { top: 16px; left: 0; height: 2px; width: 34px; }
+.fx-chrome .fx-w {
+  background: linear-gradient(180deg, #ffffff 0%, #dfe8f5 38%, #8fa3bf 62%, #f4f8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.fx-chrome { filter: drop-shadow(0 0 30px rgba(170, 210, 255, 0.35)); text-shadow: none; }
+
+      .s3-big { display: flex; align-items: baseline; gap: 24px; margin-top: -6px; }
+      .s3-num { font-size: 190px; font-variant-numeric: tabular-nums; }
+      .s3-co { font-size: 70px; font-weight: 700; }
+      .s3-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(4, 214px); gap: 16px; }
+      .s3-chip { height: 104px; border-radius: 28px; display: flex; align-items: center; gap: 14px; padding: 0 18px; box-sizing: border-box; }
+      .s3-chip .m { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center;
+        font-size: 28px; font-weight: 800; color: #0b1840; background: linear-gradient(180deg, #e9f7ff, #8fd3ff); flex: none; }
+      .s3-chip .v { font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+      .s3-chip.hot { border-color: rgba(160, 230, 255, 0.95); box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.35), 0 0 40px rgba(125, 211, 252, 0.75); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /* Shared motion helpers (Apple-keynote blur-focus language). Inlined by scripts/build-comps.py. */
+window.FX = window.FX || {
+  // Wrap each word of every [data-split] element in a .fx-w span.
+  split(root) {
+    root.querySelectorAll("[data-split]").forEach((el) => {
+      const words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map((w) => `<span class="fx-w">${w}</span>`).join(" ");
+    });
+  },
+  words(root, sel) {
+    const el = root.querySelector(sel);
+    const ws = el.querySelectorAll(".fx-w");
+    return ws.length ? ws : el;
+  },
+  // Blur → sharp focus-in, per word.
+  blurIn(tl, targets, t, o = {}) {
+    tl.from(
+      targets,
+      {
+        opacity: 0,
+        filter: `blur(${o.blur ?? 16}px)`,
+        y: o.y ?? 24,
+        scale: o.scale ?? 0.9,
+        duration: o.dur ?? 0.5,
+        ease: o.ease ?? "expo.out",
+        stagger: o.stagger ?? 0.06,
+      },
+      t,
+    );
+  },
+  // Whole-block defocus exit.
+  blurOut(tl, targets, t, o = {}) {
+    tl.to(
+      targets,
+      {
+        opacity: 0,
+        filter: `blur(${o.blur ?? 14}px)`,
+        y: o.y ?? -12,
+        scale: o.scale ?? 1.03,
+        duration: o.dur ?? 0.3,
+        ease: o.ease ?? "power2.in",
+      },
+      t,
+    );
+  },
+  // Glow-flash entry for glass chips: over-bright cyan → settle.
+  glowIn(tl, target, t, o = {}) {
+    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, filter: "brightness(2.6) blur(10px)", duration: o.dur ?? 0.55, ease: "expo.out" }, t);
+  },
+  // Dashed ring spins → filled blue badge + drawn tick; label focuses in alongside.
+  check(tl, row, t) {
+    const ring = row.querySelector(".ring");
+    const fill = row.querySelector(".fill");
+    const tick = row.querySelector(".tick");
+    const label = row.querySelector(".lbl");
+    tl.from(ring, { opacity: 0, scale: 0.5, svgOrigin: "30 30", duration: 0.25, ease: "power2.out" }, t);
+    tl.to(ring, { rotation: 200, svgOrigin: "30 30", duration: 0.55, ease: "none" }, t);
+    FX.blurIn(tl, label.querySelectorAll(".fx-w").length ? label.querySelectorAll(".fx-w") : label, t + 0.02, { y: 0, scale: 0.96, stagger: 0.05 });
+    tl.from(fill, { scale: 0, svgOrigin: "30 30", duration: 0.32, ease: "back.out(2.2)" }, t + 0.38);
+    tl.fromTo(tick, { strokeDashoffset: 44 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, t + 0.48);
+    tl.to(ring, { opacity: 0, duration: 0.2, ease: "power1.out" }, t + 0.5);
+  },
+  checkSvg() {
+    return `<svg viewBox="0 0 60 60"><circle class="ring" cx="30" cy="30" r="27" fill="none" stroke="#9bdcff" stroke-width="3.5" stroke-dasharray="7 6"/><circle class="fill" cx="30" cy="30" r="28" fill="#3b82f6"/><path class="tick" d="M17 31 L26 40 L43 21" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="44"/></svg>`;
+  },
+  // mulberry32 seeded PRNG (determinism)
+  rng(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6d2b79f5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  },
+  // Count a number into an element (seek-safe: driven by a tweened proxy).
+  count(tl, el, from, to, t, dur, fmt, ease = "power2.out") {
+    const p = { v: from };
+    el.textContent = fmt(from);
+    tl.to(p, { v: to, duration: dur, ease, onUpdate: () => (el.textContent = fmt(p.v)) }, t);
+  },
+};
+
+      (() => {
+        const D = 4.35;
+        const root = document.querySelector('[data-composition-id="s3-auction"]');
+        const grid = root.querySelector("#s3-grid");
+        const letters = ["N", "A", "K", "Z", "M", "S", "P", "L"];
+        const rnd = FX.rng(50);
+        const chips = letters.map((l) => {
+          const c = document.createElement("div");
+          c.className = "s3-chip fx-glass";
+          c.innerHTML = `<div class="m">${l}</div><div class="v">$0.00</div>`;
+          grid.appendChild(c);
+          return c;
+        });
+        // pre-computed bid sequence per chip (seeded) — climbing bids
+        const STEPS = 16;
+        const bids = chips.map(() => {
+          let b = 0.2 + rnd() * 0.5;
+          return Array.from({ length: STEPS + 1 }, () => (b += rnd() * 0.22));
+        });
+        chips.forEach((c, i) => (c.querySelector(".v").textContent = "$" + bids[i][0].toFixed(2)));
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+
+        FX.blurIn(tl, FX.words(root, "#s3-a"), 0.05, { stagger: 0.1 });
+        tl.from("#s3-n", { opacity: 0, scale: 0.6, filter: "blur(20px)", duration: 0.5, ease: "expo.out" }, 0.55);
+        FX.count(tl, root.querySelector("#s3-n"), 0, 50, 0.57, 0.6, (v) => String(Math.round(v)), "power3.out");
+        FX.blurIn(tl, FX.words(root, "#s3-co"), 0.9, { stagger: 0.05, ease: "power3.out" });
+        // grid cascades from the centre outward
+        tl.from(chips, { opacity: 0, y: 40, scale: 0.7, filter: "blur(12px) brightness(2.4)", duration: 0.55, ease: "back.out(1.5)",
+          stagger: { each: 0.05, from: "center", grid: [2, 4] } }, 1.0);
+        // "bid against each other" — swap the top line, bids start climbing
+        FX.blurOut(tl, "#s3-a", 1.86, { dur: 0.22 });
+        FX.blurIn(tl, FX.words(root, "#s3-b"), 1.95, { stagger: 0.06 });
+        const p = { v: 0 };
+        let last = -1;
+        tl.to(p, { v: STEPS, duration: 2.0, ease: "none", onUpdate: () => {
+          const s = Math.floor(p.v);
+          if (s === last) return;
+          last = s;
+          chips.forEach((c, i) => {
+            c.querySelector(".v").textContent = "$" + bids[i][s].toFixed(2);
+            c.classList.toggle("hot", (s + i * 3) % 5 === 0);
+          });
+        } }, 1.98);
+        tl.to("#s3-n", { scale: 1.04, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.6);
+        // exit: whole block defocuses
+        FX.blurOut(tl, "#s3-stage", 4.06, { dur: 0.28 });
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s3-auction"] = tl;
+      })();
+    </script>
+  </div>
+</template>

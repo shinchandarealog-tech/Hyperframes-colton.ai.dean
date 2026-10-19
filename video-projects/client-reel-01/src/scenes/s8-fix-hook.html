@@ -1,0 +1,63 @@
+<template id="s8-fix-hook-template">
+  <div data-composition-id="s8-fix-hook" data-width="1080" data-height="1920" id="root">
+    <div class="fx-stage">
+      <div class="fx-slot" style="height: 420px">
+        <div class="fx-layer" id="s8-A">
+          <div class="fx-big s8-stop" id="s8-a1" data-split>Stop blaming</div>
+          <div class="s8-algo">
+            <div class="fx-small fx-dim s8-algot" id="s8-a2" data-split>the algorithm.</div>
+            <div class="s8-strike" id="s8-strike"></div>
+          </div>
+        </div>
+        <div class="fx-layer" id="s8-B">
+          <div class="fx-small s8-fix" id="s8-b1" data-split>Fix your creative</div>
+          <div class="s8-hookwrap" id="s8-hookwrap">
+            <span class="s8-hook s8-hook-back">hook.</span>
+            <span class="s8-hook s8-hook-front">hook.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      /*@FX_CSS*/
+      .s8-stop { font-size: 128px; }
+      .s8-algo { position: relative; margin-top: 8px; }
+      .s8-algot { font-size: 76px; font-weight: 700; }
+      .s8-strike { position: absolute; left: -14px; right: -14px; top: 50%; height: 9px; margin-top: -2px; border-radius: 6px;
+        background: #ff5a6a; box-shadow: 0 0 18px rgba(255,90,106,0.8); transform-origin: 0 50%; }
+      .s8-fix { font-size: 64px; font-weight: 700; }
+      .s8-hookwrap { position: relative; height: 270px; margin-top: -6px; }
+      .s8-hook { position: absolute; left: 50%; top: 0; transform: translateX(-50%); font-size: 270px; font-weight: 900;
+        letter-spacing: -0.055em; line-height: 1; white-space: nowrap; }
+      .s8-hook-back { color: #1d4ed8;
+        text-shadow: 0 2px 0 #1c46c4, 0 4px 0 #1a3fb0, 0 6px 0 #18389d, 0 8px 0 #16328b, 0 10px 0 #142c7a,
+          0 12px 0 #12266a, 0 14px 0 #10205a, 0 30px 50px rgba(0,0,0,0.6); }
+      .s8-hook-front { background: linear-gradient(180deg, #f0faff 0%, #9fdfff 40%, #3b9cf0 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        filter: drop-shadow(0 0 30px rgba(125,211,252,0.55)); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /*@FX_JS*/
+      (() => {
+        const D = 2.7;
+        const root = document.querySelector('[data-composition-id="s8-fix-hook"]');
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+        tl.from("#s8-a1 .fx-w", { opacity: 0, x: (i) => (i ? 80 : -80), filter: "blur(18px)", duration: 0.4, ease: "expo.out", stagger: 0.08 }, 0.02);
+        FX.blurIn(tl, FX.words(root, "#s8-a2"), 0.44, { stagger: 0.08, ease: "power3.out" });
+        tl.fromTo("#s8-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.25, ease: "power3.inOut" }, 0.84);
+        tl.to("#s8-a2", { opacity: 0.45, duration: 0.25 }, 0.95);
+        // swap: compress out, then the fix
+        tl.to("#s8-A", { scale: 0.85, opacity: 0, filter: "blur(16px)", duration: 0.2, ease: "power2.in" }, 1.0);
+        FX.blurIn(tl, FX.words(root, "#s8-b1"), 1.1, { stagger: 0.12 });
+        tl.from("#s8-hookwrap", { scale: 2.6, opacity: 0, filter: "blur(30px)", duration: 0.5, ease: "expo.out" }, 1.86);
+        tl.fromTo("#s8-hookwrap", { rotationX: 0 }, { rotationX: 8, transformPerspective: 900, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 1 }, 2.0);
+        FX.blurOut(tl, "#s8-B", 2.5, { dur: 0.2 });
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s8-fix-hook"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,289 @@
+<!-- GENERATED from src/scenes/s6-boring.html by scripts/build-comps.py — edit the source, not this file. -->
+<template id="s6-boring-template">
+  <div data-composition-id="s6-boring" data-width="1080" data-height="1920" id="root">
+    <div class="fx-stage">
+      <div class="fx-slot" id="s6-A">
+        <div class="fx-small" id="s6-a1" data-split>If your ad is</div>
+        <div class="fx-big s6-boring" id="s6-a2" data-split>boring,</div>
+      </div>
+    </div>
+    <div class="fx-stage" id="s6-B">
+      <div class="fx-small" id="s6-b1" data-split>the AI taxes you</div>
+      <div class="s6-cardwrap" id="s6-cardwrap">
+        <div class="s6-card fx-glass-dark" id="s6-card">
+          <div class="row">
+            <span class="lbl">Cost per click</span>
+            <span class="tax" id="s6-tax">AI tax</span>
+          </div>
+          <div class="price"><span id="s6-price">$1.00</span></div>
+          <svg class="spark" viewBox="0 0 700 110" preserveAspectRatio="none">
+            <polyline id="s6-line" points="0,100 120,96 240,92 330,84 420,70 510,52 600,28 700,6" fill="none"
+              stroke="#ff5a6a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div class="s6-badge" id="s6-badge">5×</div>
+        <svg class="s6-cursor" id="s6-cursor" viewBox="0 0 40 52"><path d="M4 2 L4 42 L14 32 L21 49 L28 46 L21 30 L35 30 Z" fill="#fff" stroke="#111" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <div class="s6-ripple" id="s6-ripple"></div>
+      </div>
+    </div>
+    <style>
+      /* Shared Apple-glass overlay system (from @alihassan-works fingerprint + brand-tokens.css).
+   Inlined into every composition by scripts/build-comps.py — edit here, then rebuild. */
+#root {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  font-family: "Inter", "SF Pro Display", -apple-system, system-ui, sans-serif;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+/* Chest-zone stage: face lives in the top ~900px, platform UI in the bottom ~380px */
+.fx-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 930px 70px 0;
+  gap: 14px;
+  box-sizing: border-box;
+  text-align: center;
+}
+.fx-slot { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.fx-layer { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.fx-small {
+  font-size: 54px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 30px rgba(0, 0, 0, 0.6);
+}
+.fx-big {
+  font-size: 150px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45), 0 10px 40px rgba(0, 0, 0, 0.55);
+}
+.fx-w { display: inline-block; will-change: transform, filter, opacity; }
+/* Light-blue → cyan gradient emphasis (glow lives on the parent so word blur tweens don't kill it) */
+.fx-grad { text-shadow: none; filter: drop-shadow(0 0 26px rgba(125, 211, 252, 0.45)) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.55)); }
+.fx-grad .fx-w {
+  background: linear-gradient(180deg, #e3f6ff 0%, #8fd8fd 42%, #3b9cf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding: 0 0.04em;
+}
+.fx-dim { color: rgba(235, 240, 255, 0.72); }
+.fx-red { color: #ff5a6a; text-shadow: 0 0 30px rgba(255, 70, 90, 0.45), 0 6px 20px rgba(0, 0, 0, 0.55); }
+
+/* Navy glass */
+.fx-glass {
+  background: linear-gradient(180deg, rgba(40, 70, 160, 0.84) 0%, rgba(17, 34, 96, 0.88) 100%);
+  border: 1.5px solid rgba(147, 197, 253, 0.38);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.28), inset 0 -10px 30px rgba(10, 20, 60, 0.35),
+    0 14px 44px rgba(0, 0, 0, 0.45), 0 0 34px rgba(59, 130, 246, 0.35);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  backdrop-filter: blur(22px) saturate(1.4);
+}
+/* Dark-grey UI chip glass (iOS) */
+.fx-glass-dark {
+  background: linear-gradient(180deg, rgba(48, 48, 56, 0.86) 0%, rgba(28, 28, 34, 0.9) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.16), 0 16px 48px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  backdrop-filter: blur(24px) saturate(1.3);
+}
+.fx-pill {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 116px;
+  padding: 0 46px 0 40px;
+  border-radius: 999px;
+  font-size: 50px;
+  font-weight: 600;
+}
+.fx-pill .num { font-size: 50px; font-weight: 800; font-style: italic; opacity: 0.95; }
+
+/* Animated checklist row */
+.fx-checks { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.fx-check { display: flex; align-items: center; gap: 22px; font-size: 54px; font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 26px rgba(0, 0, 0, 0.6); }
+.fx-check svg { width: 62px; height: 62px; overflow: visible; filter: drop-shadow(0 0 14px rgba(59, 130, 246, 0.6)); }
+
+/* B-roll canvas: black + perspective grid + crosshairs */
+.fx-black { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, #0b1430 0%, #04060f 55%, #010205 100%); }
+.fx-floor {
+  position: absolute;
+  left: -900px;
+  width: 2880px;
+  height: 1500px;
+  top: 1080px;
+  transform-origin: 50% 0%;
+  transform: perspective(700px) rotateX(74deg);
+  background-image: linear-gradient(rgba(125, 211, 252, 0.22) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(125, 211, 252, 0.22) 2px, transparent 2px);
+  background-size: 120px 120px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 100%);
+}
+.fx-ceiling { top: auto; bottom: 1080px; transform-origin: 50% 100%; transform: perspective(700px) rotateX(-74deg);
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 30%, #000 100%); mask-image: linear-gradient(to top, transparent 0%, #000 30%, #000 100%); opacity: 0.5; }
+.fx-cross { position: absolute; width: 34px; height: 34px; opacity: 0.55; }
+.fx-cross::before, .fx-cross::after { content: ""; position: absolute; background: rgba(200, 230, 255, 0.8); }
+.fx-cross::before { left: 16px; top: 0; width: 2px; height: 34px; }
+.fx-cross::after { top: 16px; left: 0; height: 2px; width: 34px; }
+.fx-chrome .fx-w {
+  background: linear-gradient(180deg, #ffffff 0%, #dfe8f5 38%, #8fa3bf 62%, #f4f8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.fx-chrome { filter: drop-shadow(0 0 30px rgba(170, 210, 255, 0.35)); text-shadow: none; }
+
+      .s6-boring { color: #aab2c4; font-size: 170px; }
+      .s6-cardwrap { position: relative; margin-top: 20px; }
+      .s6-card { position: relative; width: 820px; height: 380px; border-radius: 44px; padding: 34px 44px; box-sizing: border-box; text-align: left; }
+      .s6-card .row { display: flex; justify-content: space-between; align-items: center; }
+      .s6-card .lbl { font-size: 38px; font-weight: 600; color: rgba(255,255,255,0.72); }
+      .s6-card .tax { font-size: 30px; font-weight: 700; color: #ff7b88; padding: 10px 24px; border-radius: 999px;
+        background: rgba(255,90,106,0.16); border: 1.5px solid rgba(255,90,106,0.55); }
+      .s6-card .price { margin-top: 6px; font-size: 150px; font-weight: 800; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; line-height: 1; }
+      .s6-card .spark { position: absolute; left: 44px; right: 44px; bottom: 26px; width: 732px; height: 70px; overflow: visible; }
+      .s6-badge { position: absolute; right: -26px; top: -46px; width: 170px; height: 170px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; font-size: 84px; font-weight: 900; letter-spacing: -0.04em;
+        background: radial-gradient(circle at 35% 30%, #ff9aa5, #ff4258 55%, #b3122a 100%);
+        box-shadow: 0 0 50px rgba(255,66,88,0.7), inset 0 3px 0 rgba(255,255,255,0.4); }
+      .s6-cursor { position: absolute; left: 600px; top: 250px; width: 56px; height: 72px; filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5)); }
+      .s6-ripple { position: absolute; left: 596px; top: 238px; width: 80px; height: 80px; margin: -40px 0 0 -40px; border-radius: 50%;
+        border: 4px solid rgba(255,255,255,0.9); opacity: 0; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /* Shared motion helpers (Apple-keynote blur-focus language). Inlined by scripts/build-comps.py. */
+window.FX = window.FX || {
+  // Wrap each word of every [data-split] element in a .fx-w span.
+  split(root) {
+    root.querySelectorAll("[data-split]").forEach((el) => {
+      const words = el.textContent.trim().split(/\s+/);
+      el.innerHTML = words.map((w) => `<span class="fx-w">${w}</span>`).join(" ");
+    });
+  },
+  words(root, sel) {
+    const el = root.querySelector(sel);
+    const ws = el.querySelectorAll(".fx-w");
+    return ws.length ? ws : el;
+  },
+  // Blur → sharp focus-in, per word.
+  blurIn(tl, targets, t, o = {}) {
+    tl.from(
+      targets,
+      {
+        opacity: 0,
+        filter: `blur(${o.blur ?? 16}px)`,
+        y: o.y ?? 24,
+        scale: o.scale ?? 0.9,
+        duration: o.dur ?? 0.5,
+        ease: o.ease ?? "expo.out",
+        stagger: o.stagger ?? 0.06,
+      },
+      t,
+    );
+  },
+  // Whole-block defocus exit.
+  blurOut(tl, targets, t, o = {}) {
+    tl.to(
+      targets,
+      {
+        opacity: 0,
+        filter: `blur(${o.blur ?? 14}px)`,
+        y: o.y ?? -12,
+        scale: o.scale ?? 1.03,
+        duration: o.dur ?? 0.3,
+        ease: o.ease ?? "power2.in",
+      },
+      t,
+    );
+  },
+  // Glow-flash entry for glass chips: over-bright cyan → settle.
+  glowIn(tl, target, t, o = {}) {
+    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, filter: "brightness(2.6) blur(10px)", duration: o.dur ?? 0.55, ease: "expo.out" }, t);
+  },
+  // Dashed ring spins → filled blue badge + drawn tick; label focuses in alongside.
+  check(tl, row, t) {
+    const ring = row.querySelector(".ring");
+    const fill = row.querySelector(".fill");
+    const tick = row.querySelector(".tick");
+    const label = row.querySelector(".lbl");
+    tl.from(ring, { opacity: 0, scale: 0.5, svgOrigin: "30 30", duration: 0.25, ease: "power2.out" }, t);
+    tl.to(ring, { rotation: 200, svgOrigin: "30 30", duration: 0.55, ease: "none" }, t);
+    FX.blurIn(tl, label.querySelectorAll(".fx-w").length ? label.querySelectorAll(".fx-w") : label, t + 0.02, { y: 0, scale: 0.96, stagger: 0.05 });
+    tl.from(fill, { scale: 0, svgOrigin: "30 30", duration: 0.32, ease: "back.out(2.2)" }, t + 0.38);
+    tl.fromTo(tick, { strokeDashoffset: 44 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, t + 0.48);
+    tl.to(ring, { opacity: 0, duration: 0.2, ease: "power1.out" }, t + 0.5);
+  },
+  checkSvg() {
+    return `<svg viewBox="0 0 60 60"><circle class="ring" cx="30" cy="30" r="27" fill="none" stroke="#9bdcff" stroke-width="3.5" stroke-dasharray="7 6"/><circle class="fill" cx="30" cy="30" r="28" fill="#3b82f6"/><path class="tick" d="M17 31 L26 40 L43 21" fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="44"/></svg>`;
+  },
+  // mulberry32 seeded PRNG (determinism)
+  rng(seed) {
+    let a = seed >>> 0;
+    return () => {
+      a = (a + 0x6d2b79f5) >>> 0;
+      let t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  },
+  // Count a number into an element (seek-safe: driven by a tweened proxy).
+  count(tl, el, from, to, t, dur, fmt, ease = "power2.out") {
+    const p = { v: from };
+    el.textContent = fmt(from);
+    tl.to(p, { v: to, duration: dur, ease, onUpdate: () => (el.textContent = fmt(p.v)) }, t);
+  },
+};
+
+      (() => {
+        const D = 5.5;
+        const root = document.querySelector('[data-composition-id="s6-boring"]');
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+        const line = root.querySelector("#s6-line");
+        const L = 760;
+        gsap.set(line, { strokeDasharray: L, strokeDashoffset: L });
+
+        FX.blurIn(tl, FX.words(root, "#s6-a1"), 0.04, { stagger: 0.08 });
+        // "boring" — deflated, sinks in slowly
+        tl.from("#s6-a2 .fx-w", { opacity: 0, y: -30, scaleY: 1.3, filter: "blur(18px)", duration: 0.7, ease: "power3.out" }, 0.58);
+        tl.to("#s6-a2", { y: 18, opacity: 0.85, duration: 0.6, ease: "sine.inOut" }, 1.0);
+        FX.blurOut(tl, "#s6-A", 1.36, { dur: 0.22 });
+
+        FX.blurIn(tl, FX.words(root, "#s6-b1"), 1.45, { stagger: 0.08 });
+        tl.from("#s6-card", { opacity: 0, y: 60, scale: 0.9, filter: "blur(16px)", duration: 0.6, ease: "expo.out" }, 1.55);
+        tl.from("#s6-tax", { opacity: 0, scale: 0.4, duration: 0.35, ease: "back.out(2.5)" }, 1.75);
+        // the click
+        tl.from("#s6-cursor", { opacity: 0, x: 140, y: 120, duration: 0.5, ease: "power3.out" }, 2.9);
+        tl.to("#s6-cursor", { scale: 0.82, duration: 0.07, ease: "power4.in", transformOrigin: "10% 5%" }, 3.42);
+        tl.to("#s6-cursor", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 3.49);
+        tl.fromTo("#s6-ripple", { opacity: 0.9, scale: 0.2 }, { opacity: 0, scale: 2.2, duration: 0.5, ease: "power2.out" }, 3.44);
+        tl.to("#s6-cursor", { opacity: 0, x: 60, y: 60, duration: 0.3, ease: "power2.in" }, 3.8);
+        // five times more expensive
+        FX.count(tl, root.querySelector("#s6-price"), 1, 5, 3.85, 0.9, (v) => "$" + v.toFixed(2), "power2.in");
+        tl.to(line, { strokeDashoffset: 0, duration: 0.9, ease: "power2.in" }, 3.85);
+        tl.to("#s6-price", { color: "#ff6b7a", textShadow: "0 0 40px rgba(255,90,106,0.55)", duration: 0.5 }, 4.1);
+        tl.to("#s6-card", { borderColor: "rgba(255,90,106,0.7)", boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.16), 0 0 50px rgba(255,90,106,0.45), 0 16px 48px rgba(0,0,0,0.5)", duration: 0.5 }, 4.1);
+        tl.from("#s6-badge", { opacity: 0, scale: 2.6, rotation: -30, filter: "blur(16px)", duration: 0.4, ease: "expo.out" }, 4.2);
+        tl.fromTo("#s6-cardwrap", { x: 0 }, { keyframes: [{ x: -16 }, { x: 14 }, { x: -9 }, { x: 5 }, { x: 0 }], duration: 0.32, ease: "none" }, 4.3);
+        tl.to("#s6-badge", { scale: 1.08, duration: 0.45, yoyo: true, repeat: 1, ease: "sine.inOut" }, 4.62);
+        FX.blurOut(tl, "#s6-B", 5.24, { dur: 0.26 });
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s6-boring"] = tl;
+      })();
+    </script>
+  </div>
+</template>

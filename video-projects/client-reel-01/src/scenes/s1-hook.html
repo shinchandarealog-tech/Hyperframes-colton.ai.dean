@@ -1,0 +1,80 @@
+<template id="s1-hook-template">
+  <div data-composition-id="s1-hook" data-width="1080" data-height="1920" id="root">
+    <div class="fx-stage">
+      <div class="fx-slot">
+        <div class="fx-small" id="s1-l1" data-split>Every time you</div>
+        <div class="fx-big fx-grad" id="s1-l2" data-split>tap an ad</div>
+      </div>
+    </div>
+
+    <!-- iPhone mockup (zooms into its screen to hand off to the b-roll) -->
+    <div id="s1-phone">
+      <div class="island"></div>
+      <div class="screen">
+        <div class="ad">
+          <div class="sp">Sponsored</div>
+          <div class="hero"><div class="orb"></div><div class="orb o2"></div></div>
+          <div class="t1">Summer Drop</div>
+          <div class="t2">Up to 40% off today</div>
+          <div class="cta" id="s1-cta">Shop now</div>
+        </div>
+        <div class="ripple" id="s1-ripple"></div>
+        <div class="blackout" id="s1-blackout"></div>
+      </div>
+    </div>
+
+    <style>
+      /*@FX_CSS*/
+      #s1-phone {
+        position: absolute; left: 345px; top: 1235px; width: 390px; height: 800px;
+        border-radius: 70px; background: #0a0a0e; padding: 12px; box-sizing: border-box;
+        border: 2px solid rgba(255,255,255,0.22);
+        box-shadow: 0 0 0 5px #1b1b22, 0 40px 90px rgba(0,0,0,0.6), 0 0 60px rgba(59,130,246,0.35);
+        transform-origin: 50% 50%;
+      }
+      #s1-phone .island { position: absolute; top: 26px; left: 50%; width: 110px; height: 32px; margin-left: -55px; border-radius: 20px; background: #000; z-index: 3; }
+      #s1-phone .screen { position: relative; width: 100%; height: 100%; border-radius: 58px; overflow: hidden;
+        background: radial-gradient(ellipse at 50% 0%, #1d2a5a 0%, #0a0f24 70%); }
+      #s1-phone .ad { position: absolute; left: 22px; right: 22px; top: 86px; padding: 18px; border-radius: 30px;
+        background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); }
+      #s1-phone .sp { font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 12px; text-align: left; }
+      #s1-phone .hero { position: relative; height: 250px; border-radius: 22px; overflow: hidden;
+        background: linear-gradient(160deg, #3b82f6 0%, #6d4ee8 55%, #1b1f4a 100%); }
+      #s1-phone .orb { position: absolute; width: 190px; height: 190px; border-radius: 50%; left: 30px; top: 30px;
+        background: radial-gradient(circle at 35% 30%, #c9f0ff, #4fc3f7 45%, rgba(79,195,247,0) 70%); }
+      #s1-phone .orb.o2 { width: 130px; height: 130px; left: 170px; top: 110px; background: radial-gradient(circle at 35% 30%, #ffe1f0, #b76bff 45%, rgba(183,107,255,0) 70%); }
+      #s1-phone .t1 { margin-top: 18px; font-size: 32px; font-weight: 800; text-align: left; letter-spacing: -0.02em; }
+      #s1-phone .t2 { margin-top: 4px; font-size: 20px; font-weight: 500; text-align: left; color: rgba(255,255,255,0.7); }
+      #s1-phone .cta { margin-top: 18px; height: 64px; border-radius: 999px; background: #3b82f6; font-size: 24px; font-weight: 700;
+        display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px rgba(59,130,246,0.6); }
+      #s1-phone .ripple { position: absolute; left: 183px; top: 545px; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%;
+        border: 4px solid rgba(255,255,255,0.9); background: rgba(255,255,255,0.25); opacity: 0; }
+      #s1-phone .blackout { position: absolute; inset: 0; background: #010205; opacity: 0; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /*@FX_JS*/
+      (() => {
+        const D = 2.3;
+        const root = document.querySelector('[data-composition-id="s1-hook"]');
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+        FX.blurIn(tl, FX.words(root, "#s1-l1"), 0.08, { stagger: 0.09 });
+        tl.from("#s1-phone", { y: 620, rotationX: 28, opacity: 0, transformPerspective: 1400, duration: 0.85, ease: "expo.out" }, 0.22);
+        FX.blurIn(tl, FX.words(root, "#s1-l2"), 0.86, { scale: 0.8, y: 30, stagger: 0.08, ease: "back.out(1.6)" });
+        // the tap: compress → overshoot + ripple
+        tl.to("#s1-cta", { scale: 0.9, duration: 0.07, ease: "power4.in" }, 0.95);
+        tl.to("#s1-cta", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 1.02);
+        tl.fromTo("#s1-ripple", { opacity: 0.9, scale: 0.2 }, { opacity: 0, scale: 2.6, duration: 0.55, ease: "power2.out" }, 0.97);
+        tl.to("#s1-phone", { y: -12, duration: 0.6, ease: "sine.inOut" }, 1.1);
+        // "…on your phone" → push into the screen
+        FX.blurOut(tl, "#s1-l1, #s1-l2", 1.72, { dur: 0.26 });
+        tl.to("#s1-phone", { y: -675, scale: 6.2, duration: 0.55, ease: "expo.in" }, 1.75);
+        tl.to("#s1-blackout", { opacity: 1, duration: 0.3, ease: "power2.in" }, 1.98);
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s1-hook"] = tl;
+      })();
+    </script>
+  </div>
+</template>

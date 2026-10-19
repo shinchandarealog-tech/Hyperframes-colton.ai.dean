@@ -1,0 +1,86 @@
+<template id="s2-broll-war-template">
+  <div data-composition-id="s2-broll-war" data-width="1080" data-height="1920" id="root">
+    <div id="s2-all">
+      <div class="fx-black"></div>
+      <div class="fx-floor" id="s2-floor"></div>
+      <div class="fx-floor fx-ceiling" id="s2-ceil"></div>
+      <div id="s2-warp"></div>
+      <div id="s2-core"></div>
+      <div class="fx-cross" style="left: 90px; top: 300px"></div>
+      <div class="fx-cross" style="right: 90px; top: 300px"></div>
+      <div class="fx-cross" style="left: 90px; bottom: 420px"></div>
+      <div class="fx-cross" style="right: 90px; bottom: 420px"></div>
+      <div class="s2-center">
+        <div class="fx-small fx-chrome s2-a" id="s2-a" data-split>A silent</div>
+        <div class="fx-big fx-chrome s2-war" id="s2-war" data-split>war.</div>
+        <div class="s2-timer fx-glass-dark" id="s2-timer">
+          <span class="dot"></span><span class="num" id="s2-num">0.000</span><span class="unit">s</span>
+        </div>
+        <div class="fx-small s2-lbl" id="s2-lbl" data-split>in less than a second</div>
+      </div>
+    </div>
+    <style>
+      /*@FX_CSS*/
+      #s2-all { position: absolute; inset: 0; transform-origin: 50% 46%; }
+      #s2-warp { position: absolute; left: 540px; top: 880px; width: 0; height: 0; }
+      #s2-warp .st { position: absolute; left: -2px; top: -60px; width: 4px; height: 120px; border-radius: 4px;
+        background: linear-gradient(to bottom, rgba(160,225,255,0) 0%, rgba(190,235,255,0.95) 100%); }
+      #s2-core { position: absolute; left: 540px; top: 880px; width: 700px; height: 700px; margin: -350px 0 0 -350px; border-radius: 50%;
+        background: radial-gradient(circle, rgba(96,170,255,0.45) 0%, rgba(59,130,246,0.12) 35%, rgba(59,130,246,0) 65%); }
+      .s2-center { position: absolute; left: 0; right: 0; top: 640px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+      .s2-a { font-size: 76px; font-weight: 700; letter-spacing: -0.03em; }
+      .s2-war { font-size: 260px; letter-spacing: -0.06em; line-height: 0.95; }
+      .s2-timer { margin-top: 46px; display: flex; align-items: baseline; gap: 10px; padding: 22px 46px; border-radius: 999px; }
+      .s2-timer .num { font-size: 92px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+      .s2-timer .unit { font-size: 50px; font-weight: 600; color: rgba(255,255,255,0.7); }
+      .s2-timer .dot { width: 22px; height: 22px; border-radius: 50%; background: #ff5a6a; box-shadow: 0 0 16px #ff5a6a; align-self: center; margin-right: 10px; }
+      .s2-lbl { margin-top: 22px; font-size: 48px; color: rgba(235,242,255,0.85); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /*@FX_JS*/
+      (() => {
+        const D = 2.8;
+        const root = document.querySelector('[data-composition-id="s2-broll-war"]');
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+        const rnd = FX.rng(7);
+
+        // warp streaks radiating from the core (seeded, finite repeats)
+        const warp = root.querySelector("#s2-warp");
+        for (let i = 0; i < 34; i++) {
+          const s = document.createElement("div");
+          s.className = "st";
+          warp.appendChild(s);
+          const th = rnd() * Math.PI * 2;
+          const dur = 0.45 + rnd() * 0.4;
+          const len = 0.6 + rnd() * 1.4;
+          const dx = Math.sin(th), dy = -Math.cos(th);
+          gsap.set(s, { rotation: (th * 180) / Math.PI, scaleY: len, opacity: 0 });
+          tl.fromTo(s, { x: dx * 120, y: dy * 120, opacity: 0 },
+            { x: dx * 1500, y: dy * 1500, opacity: 1, duration: dur, ease: "power2.in", repeat: Math.ceil(D / dur), delay: rnd() * dur }, 0);
+        }
+        tl.from("#s2-core", { scale: 0.3, opacity: 0, duration: 0.6, ease: "expo.out" }, 0);
+        tl.to("#s2-core", { scale: 1.25, duration: 2.2, ease: "sine.inOut" }, 0.6);
+        tl.from("#s2-floor, #s2-ceil", { opacity: 0, duration: 0.5, ease: "power1.out" }, 0);
+        tl.fromTo("#s2-floor, #s2-ceil", { backgroundPositionY: "0px" }, { backgroundPositionY: "600px", duration: D, ease: "none" }, 0);
+        tl.from(root.querySelectorAll(".fx-cross"), { opacity: 0, scale: 0.4, duration: 0.4, stagger: 0.05, ease: "back.out(2)" }, 0.1);
+
+        FX.blurIn(tl, FX.words(root, "#s2-a"), 0.03, { stagger: 0.12 });
+        // "war." — the slam (camera kick on the whole canvas)
+        tl.from("#s2-war .fx-w", { scale: 2.4, opacity: 0, filter: "blur(30px)", duration: 0.45, ease: "expo.out" }, 0.67);
+        tl.fromTo("#s2-all", { scale: 1.06 }, { scale: 1, duration: 0.5, ease: "expo.out" }, 0.69);
+        // timer
+        tl.from("#s2-timer", { opacity: 0, y: 30, scale: 0.85, filter: "blur(12px)", duration: 0.45, ease: "back.out(1.6)" }, 1.42);
+        FX.blurIn(tl, FX.words(root, "#s2-lbl"), 1.58, { stagger: 0.07 });
+        FX.count(tl, root.querySelector("#s2-num"), 0, 0.982, 1.58, 0.85, (v) => v.toFixed(3), "power1.out");
+        tl.to("#s2-timer .dot", { opacity: 0.25, duration: 0.15, repeat: 7, yoyo: true, ease: "steps(1)" }, 1.5);
+        // pull-back exit reveals the speaker
+        tl.to("#s2-all", { scale: 0.82, opacity: 0, filter: "blur(18px)", duration: 0.3, ease: "power2.in" }, 2.5);
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s2-broll-war"] = tl;
+      })();
+    </script>
+  </div>
+</template>

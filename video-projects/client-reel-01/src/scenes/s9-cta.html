@@ -1,0 +1,93 @@
+<template id="s9-cta-template">
+  <div data-composition-id="s9-cta" data-width="1080" data-height="1920" id="root">
+    <div class="fx-stage">
+      <div class="fx-small" id="s9-a" data-split>Comment</div>
+      <div class="fx-big fx-grad" id="s9-b"><span class="fx-w">AUCTION</span></div>
+      <div class="s9-zone">
+        <div class="s9-input fx-glass-dark" id="s9-input">
+          <div class="av"></div>
+          <div class="txt"><span id="s9-typed"></span><i class="caret" id="s9-caret"></i></div>
+          <div class="send" id="s9-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="s9-dm fx-glass-dark" id="s9-dm">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11.5 21 3l-8.5 18-2-7.5z" fill="#fff"/></svg></div>
+          <div class="body">
+            <div class="top"><span class="t">New message</span><span class="now">now</span></div>
+            <div class="msg">Here are your 5 winning ad hook templates</div>
+          </div>
+        </div>
+      </div>
+      <div class="s9-files" id="s9-files"></div>
+    </div>
+    <style>
+      /*@FX_CSS*/
+      #s9-b { font-size: 156px; letter-spacing: -0.03em; }
+      .s9-zone { position: relative; width: 900px; height: 170px; margin-top: 18px; }
+      .s9-input { position: absolute; left: 30px; right: 30px; top: 20px; height: 124px; border-radius: 999px;
+        display: flex; align-items: center; gap: 20px; padding: 0 16px 0 18px; box-sizing: border-box; }
+      .s9-input .av { width: 84px; height: 84px; border-radius: 50%; flex: none;
+        background: radial-gradient(circle at 35% 30%, #c9f0ff, #4fc3f7 45%, #2457c8 100%); }
+      .s9-input .txt { flex: 1; text-align: left; font-size: 50px; font-weight: 600; letter-spacing: 0.02em; display: flex; align-items: center; }
+      .s9-input .caret { display: inline-block; width: 4px; height: 56px; margin-left: 4px; background: #7dd3fc; border-radius: 2px; }
+      .s9-input .send { width: 88px; height: 88px; border-radius: 50%; background: #3b82f6; display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 0 26px rgba(59,130,246,0.7); flex: none; }
+      .s9-input .send svg { width: 46px; height: 46px; }
+      .s9-dm { position: absolute; left: 0; right: 0; top: 0; height: 170px; border-radius: 44px; display: flex; align-items: center; gap: 26px;
+        padding: 0 34px; box-sizing: border-box; text-align: left; }
+      .s9-dm .ic { width: 100px; height: 100px; border-radius: 26px; flex: none; display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(180deg, #5aa9ff, #2563eb); box-shadow: inset 0 2px 0 rgba(255,255,255,0.35); }
+      .s9-dm .ic svg { width: 54px; height: 54px; }
+      .s9-dm .body { flex: 1; }
+      .s9-dm .top { display: flex; justify-content: space-between; font-size: 32px; font-weight: 700; }
+      .s9-dm .now { font-weight: 500; color: rgba(255,255,255,0.55); }
+      .s9-dm .msg { margin-top: 6px; font-size: 34px; font-weight: 500; color: rgba(255,255,255,0.88); line-height: 1.2; }
+      .s9-files { display: flex; gap: 14px; margin-top: 4px; }
+      .s9-file { width: 158px; height: 96px; border-radius: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+        font-size: 24px; font-weight: 600; color: rgba(255,255,255,0.8); }
+      .s9-file b { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /*@FX_JS*/
+      (() => {
+        const D = 3.72;
+        const root = document.querySelector('[data-composition-id="s9-cta"]');
+        const files = root.querySelector("#s9-files");
+        const fileEls = [1, 2, 3, 4, 5].map((n) => {
+          const f = document.createElement("div");
+          f.className = "s9-file fx-glass";
+          f.innerHTML = `Hook<b>0${n}</b>`;
+          files.appendChild(f);
+          return f;
+        });
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+        FX.blurIn(tl, FX.words(root, "#s9-a"), 0.0, { stagger: 0.06 });
+        tl.from("#s9-b .fx-w", { opacity: 0, scale: 0.75, filter: "blur(20px)", duration: 0.6, ease: "expo.out" }, 0.06);
+        // comment box types the keyword
+        tl.from("#s9-input", { opacity: 0, y: 40, scale: 0.92, filter: "blur(12px)", duration: 0.4, ease: "back.out(1.6)" }, 0.04);
+        const typed = root.querySelector("#s9-typed");
+        const word = "AUCTION";
+        const p = { v: 0 };
+        typed.textContent = "";
+        tl.to(p, { v: word.length, duration: 0.42, ease: "none", onUpdate: () => (typed.textContent = word.slice(0, Math.round(p.v))) }, 0.14);
+        tl.to("#s9-caret", { opacity: 0, duration: 0.14, repeat: 5, yoyo: true, ease: "steps(1)" }, 0.0);
+        // send
+        tl.to("#s9-send", { scale: 0.82, duration: 0.07, ease: "power4.in" }, 0.72);
+        tl.to("#s9-send", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 0.79);
+        tl.to("#s9-input", { y: -50, opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, 0.88);
+        // DM notification lands on "send"
+        tl.from("#s9-dm", { opacity: 0, y: -70, scale: 0.9, filter: "blur(14px)", duration: 0.55, ease: "elastic.out(1, 0.6)" }, 1.15);
+        tl.from("#s9-dm .ic", { scale: 0.4, rotation: -20, duration: 0.5, ease: "back.out(2.4)" }, 1.25);
+        // five templates fan in on "five"
+        tl.from(fileEls, { opacity: 0, y: 50, scale: 0.6, rotation: (i) => (i - 2) * 8, filter: "blur(10px) brightness(2.2)", duration: 0.5,
+          ease: "back.out(1.7)", stagger: 0.08 }, 1.8);
+        tl.to(fileEls, { y: -8, duration: 0.6, ease: "sine.inOut", stagger: 0.08, yoyo: true, repeat: 1 }, 2.5);
+        tl.to("#s9-b", { scale: 1.03, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.0);
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s9-cta"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,96 @@
+<template id="s5-broll-ai-template">
+  <div data-composition-id="s5-broll-ai" data-width="1080" data-height="1920" id="root">
+    <div id="s5-all">
+      <div class="fx-black"></div>
+      <div class="fx-floor" id="s5-floor" style="top: 1260px"></div>
+      <div class="fx-cross" style="left: 90px; top: 260px"></div>
+      <div class="fx-cross" style="right: 90px; top: 260px"></div>
+      <div class="fx-cross" style="left: 90px; bottom: 380px"></div>
+      <div class="fx-cross" style="right: 90px; bottom: 380px"></div>
+      <div class="s5-title">
+        <div class="fx-big fx-chrome" id="s5-t1" data-split>The AI picks</div>
+        <div class="fx-small" id="s5-t2" data-split>the ad people actually watch</div>
+      </div>
+      <div class="s5-chip fx-glass-dark" id="s5-chip"><span class="dot"></span>Ranking ads</div>
+      <div class="s5-cards" id="s5-cards">
+        <div class="s5-card fx-glass-dark" id="s5-c1"><div class="th th1"><div class="play"></div></div>
+          <div class="meta">Watch time</div><div class="bar"><i id="s5-b1"></i></div></div>
+        <div class="s5-card fx-glass-dark" id="s5-c2"><div class="th th2"><div class="play"></div></div>
+          <div class="meta">Watch time</div><div class="bar"><i id="s5-b2"></i></div></div>
+        <div class="s5-card fx-glass-dark" id="s5-c3"><div class="th th3"><div class="play"></div></div>
+          <div class="meta">Watch time</div><div class="bar"><i id="s5-b3"></i></div></div>
+        <div class="s5-beam" id="s5-beam"></div>
+      </div>
+      <div class="s5-checks fx-checks" id="s5-checks">
+        <div class="fx-check" id="s5-k1"><span class="ic"></span><span class="lbl" data-split>Watched</span></div>
+        <div class="fx-check" id="s5-k2"><span class="ic"></span><span class="lbl" data-split>Shared</span></div>
+      </div>
+    </div>
+    <style>
+      /*@FX_CSS*/
+      #s5-all { position: absolute; inset: 0; transform-origin: 50% 50%; }
+      .s5-title { position: absolute; left: 0; right: 0; top: 300px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+      #s5-t1 { font-size: 128px; }
+      #s5-t2 { font-size: 50px; color: rgba(235,242,255,0.88); }
+      .s5-chip { position: absolute; left: 50%; top: 600px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px;
+        padding: 14px 30px; border-radius: 999px; font-size: 32px; font-weight: 600; white-space: nowrap; }
+      .s5-chip .dot { width: 16px; height: 16px; border-radius: 50%; background: #7dd3fc; box-shadow: 0 0 14px #7dd3fc; }
+      .s5-cards { position: absolute; left: 0; right: 0; top: 720px; height: 520px; perspective: 1600px; }
+      .s5-card { position: absolute; top: 0; width: 280px; height: 500px; border-radius: 34px; padding: 16px; box-sizing: border-box; }
+      #s5-c1 { left: 90px; } #s5-c2 { left: 400px; } #s5-c3 { left: 710px; }
+      .s5-card .th { position: relative; height: 370px; border-radius: 22px; overflow: hidden; }
+      .th1 { background: linear-gradient(160deg, #3a4256, #1a1e2a); }
+      .th2 { background: radial-gradient(circle at 30% 25%, #9be0ff 0%, #3b82f6 38%, #2a1f6e 75%, #0d1030 100%); }
+      .th3 { background: linear-gradient(200deg, #4a3a52, #1d1724); }
+      .s5-card .play { position: absolute; left: 50%; top: 50%; width: 0; height: 0; margin: -26px 0 0 -16px;
+        border-left: 46px solid rgba(255,255,255,0.9); border-top: 28px solid transparent; border-bottom: 28px solid transparent; }
+      .s5-card .meta { margin-top: 18px; font-size: 24px; font-weight: 600; color: rgba(255,255,255,0.7); text-align: left; }
+      .s5-card .bar { margin-top: 12px; height: 12px; border-radius: 8px; background: rgba(255,255,255,0.14); overflow: hidden; }
+      .s5-card .bar i { display: block; height: 100%; width: 100%; border-radius: 8px; background: linear-gradient(90deg, #3b82f6, #7dd3fc); transform-origin: 0 50%; }
+      #s5-c2.win { border-color: rgba(160,230,255,0.95); box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.3), 0 0 60px rgba(125,211,252,0.7), 0 30px 70px rgba(0,0,0,0.6); }
+      .s5-beam { position: absolute; top: -30px; bottom: -10px; left: 0; width: 10px; border-radius: 6px;
+        background: linear-gradient(to bottom, rgba(125,211,252,0), #bdf0ff 50%, rgba(125,211,252,0));
+        box-shadow: 0 0 40px 12px rgba(125,211,252,0.55); opacity: 0; }
+      .s5-checks { position: absolute; left: 0; right: 0; top: 1290px; align-items: center; flex-direction: row; justify-content: center; gap: 60px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      /*@FX_JS*/
+      (() => {
+        const D = 3.3;
+        const root = document.querySelector('[data-composition-id="s5-broll-ai"]');
+        root.querySelectorAll(".fx-check .ic").forEach((el) => (el.outerHTML = FX.checkSvg()));
+        FX.split(root);
+        const tl = gsap.timeline({ paused: true });
+        // whip-in from the right
+        tl.from("#s5-all", { x: 1080, filter: "blur(26px)", duration: 0.36, ease: "expo.out" }, 0);
+        tl.fromTo("#s5-floor", { backgroundPositionY: "0px" }, { backgroundPositionY: "360px", duration: D, ease: "none" }, 0);
+        FX.blurIn(tl, FX.words(root, "#s5-t1"), 0.1, { stagger: 0.09 });
+        FX.blurIn(tl, FX.words(root, "#s5-t2"), 0.62, { stagger: 0.05, scale: 0.96 });
+        tl.from("#s5-chip", { opacity: 0, y: -16, scale: 0.8, duration: 0.4, ease: "back.out(2)" }, 0.3);
+        tl.to("#s5-chip .dot", { opacity: 0.2, duration: 0.18, repeat: 7, yoyo: true, ease: "steps(1)" }, 0.5);
+        tl.from(".s5-card", { opacity: 0, y: 80, rotationX: 20, duration: 0.6, stagger: 0.08, ease: "power3.out" }, 0.18);
+        // watch-time bars grow while the beam scans
+        tl.fromTo("#s5-b1", { scaleX: 0 }, { scaleX: 0.22, duration: 1.0, ease: "power2.out" }, 0.45);
+        tl.fromTo("#s5-b2", { scaleX: 0 }, { scaleX: 0.94, duration: 1.1, ease: "power2.out" }, 0.45);
+        tl.fromTo("#s5-b3", { scaleX: 0 }, { scaleX: 0.31, duration: 1.0, ease: "power2.out" }, 0.45);
+        tl.fromTo("#s5-beam", { x: 70, opacity: 0 }, { x: 1010, opacity: 1, duration: 0.7, ease: "power1.inOut" }, 0.45);
+        tl.to("#s5-beam", { opacity: 0, duration: 0.12 }, 1.16);
+        // the pick
+        tl.to("#s5-c2", { borderColor: "rgba(160,230,255,0.95)",
+          boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.3), 0 0 60px rgba(125,211,252,0.7), 0 30px 70px rgba(0,0,0,0.6)", duration: 0.3, ease: "power2.out" }, 1.16);
+        tl.to("#s5-c2", { scale: 1.13, y: -14, duration: 0.5, ease: "back.out(1.8)" }, 1.16);
+        tl.to("#s5-c1", { rotationY: 28, x: -30, opacity: 0.35, filter: "grayscale(1) blur(2px)", duration: 0.5, ease: "power3.out" }, 1.16);
+        tl.to("#s5-c3", { rotationY: -28, x: 30, opacity: 0.35, filter: "grayscale(1) blur(2px)", duration: 0.5, ease: "power3.out" }, 1.16);
+        tl.to("#s5-c2", { y: -24, duration: 1.4, ease: "sine.inOut" }, 1.7);
+        FX.check(tl, root.querySelector("#s5-k1"), 2.14);
+        FX.check(tl, root.querySelector("#s5-k2"), 2.76);
+        // zoom-through exit back to the speaker
+        tl.to("#s5-all", { scale: 1.4, opacity: 0, filter: "blur(20px)", duration: 0.26, ease: "power2.in" }, 3.04);
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["s5-broll-ai"] = tl;
+      })();
+    </script>
+  </div>
+</template>
