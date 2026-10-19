@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --fjord: #053264;
+        --mint: #ccffbc;
+        --white: #ffffff;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--fjord);
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+
+      /* ---------- face ---------- */
+      #face-kb,
+      #face-punch {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 32%;
+      }
+      #face-video {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        filter: contrast(1.08) saturate(1.06) brightness(0.98);
+      }
+
+      /* ---------- palette wash (Midnight Fjord background layer) ---------- */
+      #wash {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse 90% 45% at 50% 100%, rgba(5, 50, 100, 0.78) 0%, rgba(5, 50, 100, 0.45) 45%, rgba(5, 50, 100, 0) 100%),
+          radial-gradient(ellipse 120% 80% at 50% 40%, rgba(5, 50, 100, 0) 60%, rgba(5, 50, 100, 0.45) 100%);
+      }
+
+      /* ---------- shared scene layout ---------- */
+      .scene {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 1090px 70px 120px;
+        gap: 18px;
+        text-align: center;
+      }
+      .scene.left {
+        align-items: flex-start;
+        text-align: left;
+        padding-left: 90px;
+      }
+      .w {
+        display: inline-block;
+        margin-right: 0.24em;
+      }
+      .w:last-child {
+        margin-right: 0;
+      }
+      .small {
+        color: var(--white);
+        opacity: 0.94;
+        font-size: 50px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.12;
+        text-shadow: 0 3px 16px rgba(5, 50, 100, 0.95), 0 0 2px rgba(5, 50, 100, 0.9);
+      }
+      .big {
+        color: var(--mint);
+        font-size: 124px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        text-shadow:
+          0 0 28px rgba(204, 255, 188, 0.45),
+          0 6px 22px rgba(5, 50, 100, 0.95),
+          0 0 3px rgba(5, 50, 100, 0.9);
+      }
+      .mid {
+        color: var(--mint);
+        font-size: 84px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.04;
+        text-shadow:
+          0 0 22px rgba(204, 255, 188, 0.35),
+          0 5px 18px rgba(5, 50, 100, 0.95),
+          0 0 3px rgba(5, 50, 100, 0.9);
+      }
+      .navy-chip {
+        display: inline-block;
+        background: var(--fjord);
+        color: var(--mint);
+        border: 3px solid rgba(204, 255, 188, 0.75);
+        border-radius: 26px;
+        padding: 14px 36px 20px;
+        font-size: 84px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        box-shadow: 0 0 36px rgba(204, 255, 188, 0.35), 0 12px 40px rgba(5, 50, 100, 0.7);
+      }
+
+      /* ---------- numbered pills ---------- */
+      .pills {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 760px;
+        margin-top: 14px;
+      }
+      .pill {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 104px;
+        padding: 0 40px;
+        border-radius: 30px;
+        background: linear-gradient(180deg, #0a3f7a 0%, #053264 100%);
+        border: 3px solid rgba(204, 255, 188, 0.7);
+        box-shadow: 0 0 30px rgba(204, 255, 188, 0.28), 0 10px 30px rgba(5, 50, 100, 0.6);
+        overflow: hidden;
+      }
+      .pill .num {
+        width: 70px;
+        color: var(--mint);
+        font-size: 52px;
+        font-weight: 900;
+        font-style: italic;
+        text-align: left;
+      }
+      .pill .lbl {
+        flex: 1;
+        color: var(--mint);
+        font-size: 54px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-align: center;
+        padding-right: 70px;
+      }
+      .sheen {
+        position: absolute;
+        top: -20px;
+        bottom: -20px;
+        left: -200px;
+        width: 140px;
+        background: linear-gradient(90deg, rgba(204, 255, 188, 0) 0%, rgba(204, 255, 188, 0.55) 50%, rgba(204, 255, 188, 0) 100%);
+        transform: skewX(-20deg);
+      }
+
+      /* ---------- checklist ---------- */
+      .checks {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        margin-top: 18px;
+      }
+      .ck {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .ck .icon {
+        position: relative;
+        width: 62px;
+        height: 62px;
+        flex: none;
+      }
+      .ck .ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 4px dashed var(--mint);
+      }
+      .ck .tick {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--mint);
+        box-shadow: 0 0 22px rgba(204, 255, 188, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ck .tick svg {
+        width: 38px;
+        height: 38px;
+      }
+      .ck .txt {
+        color: var(--mint);
+        font-size: 64px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        text-shadow: 0 0 18px rgba(204, 255, 188, 0.3), 0 4px 16px rgba(5, 50, 100, 0.95), 0 0 3px rgba(5, 50, 100, 0.9);
+      }
+
+      /* ---------- textbook cards ---------- */
+      .cards {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        margin-top: 12px;
+      }
+      .card {
+        width: 420px;
+        height: 300px;
+        border-radius: 34px;
+        background: linear-gradient(180deg, #0a3f7a 0%, #053264 100%);
+        border: 3px solid rgba(204, 255, 188, 0.75);
+        box-shadow: 0 0 34px rgba(204, 255, 188, 0.3), 0 14px 40px rgba(5, 50, 100, 0.65);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 20px;
+      }
+      .card svg {
+        width: 78px;
+        height: 78px;
+      }
+      .card .ttl {
+        color: var(--mint);
+        font-size: 48px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+      .card .sub {
+        color: var(--white);
+        opacity: 0.9;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .plus {
+        color: var(--mint);
+        font-size: 80px;
+        font-weight: 900;
+        text-shadow: 0 0 20px rgba(204, 255, 188, 0.5), 0 4px 16px rgba(5, 50, 100, 0.95);
+      }
+
+      /* ---------- CTA ---------- */
+      .cta-row {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+      }
+      .cta-pill {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        background: var(--mint);
+        color: var(--fjord);
+        border-radius: 40px;
+        padding: 22px 54px 28px 40px;
+        font-size: 120px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        box-shadow: 0 0 60px rgba(204, 255, 188, 0.6), 0 16px 50px rgba(5, 50, 100, 0.7);
+      }
+      .cta-pill svg {
+        width: 96px;
+        height: 96px;
+      }
+      .ring-burst {
+        position: absolute;
+        left: 50%;
+        top: 1330px;
+        width: 700px;
+        height: 700px;
+        margin: -350px 0 0 -350px;
+        border-radius: 50%;
+        border: 6px solid var(--mint);
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="27.5"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- face (full-screen, like the reference) -->
+      <div id="face-kb">
+        <div id="face-punch">
+          <video
+            id="face-video"
+            data-start="0"
+            data-duration="27.5"
+            data-track-index="0"
+            src="assets/face.mp4"
+            muted
+            playsinline
+          ></video>
+        </div>
+      </div>
+      <audio
+        id="face-audio"
+        data-start="0"
+        data-duration="27.5"
+        data-track-index="20"
+        src="assets/face.mp4"
+        data-volume="1"
+      ></audio>
+
+      <div id="wash"></div>
+
+      <!-- S1 hook: 0 – 3.62 -->
+      <div id="s1" class="scene clip" data-start="0" data-duration="3.62" data-track-index="1">
+        <div class="small"><span class="w" data-t="0">Just</span><span class="w" data-t="0.25">entered</span></div>
+        <div class="big"><span class="w" data-t="0.69">1st</span><span class="w" data-t="1.01">Year</span><span class="w" data-t="1.26">MBBS</span></div>
+        <div class="small" style="margin-top: 26px"><span class="w" data-t="1.70">Confused</span><span class="w" data-t="2.21">about</span><span class="w" data-t="2.52">which</span></div>
+        <div class="navy-chip" id="s1-chip"><span class="w" data-t="2.84">books</span><span class="w" data-t="3.15">to</span><span class="w" data-t="3.28">study?</span></div>
+      </div>
+
+      <!-- S2 three subjects: 3.62 – 7.0 -->
+      <div id="s2" class="scene clip" data-start="3.62" data-duration="3.38" data-track-index="1">
+        <div class="big"><span class="w" data-t="3.97">3</span><span class="w" data-t="4.04">Main</span><span class="w" data-t="4.29">Subjects</span></div>
+        <div class="pills">
+          <div class="pill" data-t="4.86"><span class="num">1</span><span class="lbl">Anatomy</span><div class="sheen"></div></div>
+          <div class="pill" data-t="5.36"><span class="num">2</span><span class="lbl">Physiology</span><div class="sheen"></div></div>
+          <div class="pill" data-t="6.18"><span class="num">3</span><span class="lbl">Biochemistry</span><div class="sheen"></div></div>
+        </div>
+      </div>
+
+      <!-- S3 anatomy checklist: 7.0 – 14.0 -->
+      <div id="s3" class="scene left clip" data-start="7" data-duration="7" data-track-index="1">
+        <div class="big" id="s3-head"><span class="w" data-t="7.02">Anatomy</span></div>
+        <div class="small"><span class="w" data-t="8.11">has</span><span class="w" data-t="8.37">4</span><span class="w" data-t="8.45">major</span><span class="w" data-t="8.88">components:</span></div>
+        <div class="checks">
+          <div class="ck" data-t="10.07"><div class="icon"><div class="ring"></div><div class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#053264" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><span class="txt">Gross Anatomy</span></div>
+          <div class="ck" data-t="11.18"><div class="icon"><div class="ring"></div><div class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#053264" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><span class="txt">Embryology</span></div>
+          <div class="ck" data-t="12.12"><div class="icon"><div class="ring"></div><div class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#053264" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><span class="txt">Histology</span></div>
+          <div class="ck" data-t="13.15"><div class="icon"><div class="ring"></div><div class="tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="#053264" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><span class="txt">Osteology</span></div>
+        </div>
+      </div>
+
+      <!-- S4 the question: 14.0 – 17.0 -->
+      <div id="s4" class="scene clip" data-start="14" data-duration="3" data-track-index="1">
+        <div class="small"><span class="w" data-t="14.0">But</span><span class="w" data-t="14.22">which</span><span class="w" data-t="14.59" style="color: var(--mint); font-weight: 800">textbooks</span></div>
+        <div class="small"><span class="w" data-t="15.24">should</span><span class="w" data-t="15.68">you</span></div>
+        <div class="big" id="s4-slam" style="font-size: 132px"><span class="w" data-t="15.90">actually</span></div>
+        <div class="navy-chip" id="s4-chip"><span class="w" data-t="16.49">choose?</span></div>
+      </div>
+
+      <!-- S5 two kinds: 17.0 – 22.0 -->
+      <div id="s5" class="scene clip" data-start="17" data-duration="5" data-track-index="1">
+        <div class="small"><span class="w" data-t="17.0">There</span><span class="w" data-t="17.26">are</span></div>
+        <div class="cards">
+          <div class="card" data-t="17.41">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ccffbc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.8 3.8 5.8 3.8 9s-1.2 6.2-3.8 9M12 3c-2.6 2.8-3.8 5.8-3.8 9s1.2 6.2 3.8 9"/></svg>
+            <div class="ttl">International</div>
+            <div class="sub">Standard Books</div>
+          </div>
+          <div class="plus" data-t="18.94">+</div>
+          <div class="card" data-t="19.09">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ccffbc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v15H5.5c-.8 0-1.5.7-1.5 1.5V5.5zM20 5.5c0-.8-.7-1.5-1.5-1.5H13v15h5.5c.8 0 1.5.7 1.5 1.5V5.5z"/></svg>
+            <div class="ttl">Indian Author</div>
+            <div class="sub">Textbooks</div>
+          </div>
+        </div>
+        <div class="small" style="margin-top: 24px"><span class="w" data-t="20.21">Commonly</span><span class="w" data-t="20.62">used</span><span class="w" data-t="20.83">in</span></div>
+        <div class="mid" style="font-size: 72px"><span class="w" data-t="20.93">Indian</span><span class="w" data-t="21.24">Medical</span><span class="w" data-t="21.59">Colleges</span></div>
+      </div>
+
+      <!-- S6 CTA: 22.0 – 27.5 -->
+      <div id="s6" class="scene clip" data-start="22" data-duration="5.5" data-track-index="1">
+        <div class="ring-burst" id="s6-burst"></div>
+        <div class="small" style="font-size: 58px"><span class="w" data-t="22.0">Comment</span></div>
+        <div class="cta-row">
+          <div class="cta-pill" id="s6-cta">
+            <svg viewBox="0 0 24 24" fill="#053264"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+            <span>BOOKS</span>
+          </div>
+        </div>
+        <div class="small" style="margin-top: 30px"><span class="w" data-t="22.81">and</span><span class="w" data-t="23.01">I'll</span><span class="w" data-t="23.35">share</span><span class="w" data-t="23.69">the</span></div>
+        <div class="mid"><span class="w" data-t="23.89">recommended</span><span class="w" data-t="24.64">textbooks</span></div>
+        <div class="small"><span class="w" data-t="25.78">for</span><span class="w" data-t="25.99">all</span><span class="w" data-t="26.32">3</span><span class="w" data-t="26.39">subjects</span></div>
+      </div>
+
+      <!-- SFX -->
+      <audio id="sfx-pop1" data-start="4.84" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.3"></audio>
+      <audio id="sfx-pop2" data-start="5.34" data-duration="0.72" data-track-index="22" src="assets/pop.mp3" data-volume="0.3"></audio>
+      <audio id="sfx-pop3" data-start="6.16" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.3"></audio>
+      <audio id="sfx-ck1" data-start="10.4" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
+      <audio id="sfx-ck2" data-start="11.51" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
+      <audio id="sfx-ck3" data-start="12.45" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
+      <audio id="sfx-ck4" data-start="13.48" data-duration="0.46" data-track-index="23" src="assets/click.wav" data-volume="0.35"></audio>
+      <audio id="sfx-wh1" data-start="13.8" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
+      <audio id="sfx-pop4" data-start="17.39" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.28"></audio>
+      <audio id="sfx-pop5" data-start="19.07" data-duration="0.72" data-track-index="22" src="assets/pop.mp3" data-volume="0.28"></audio>
+      <audio id="sfx-wh2" data-start="21.8" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
+      <audio id="sfx-pop6" data-start="22.45" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.35"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const T = (el) => parseFloat(el.dataset.t);
+
+      // ---- face: slow Ken Burns + beat punch-ins ----
+      tl.fromTo("#face-kb", { scale: 1.03 }, { scale: 1.08, duration: 27.5, ease: "none" }, 0);
+      [
+        { t: 0.69, s: 1.06 },
+        { t: 3.62, s: 1.0 },
+        { t: 7.0, s: 1.05 },
+        { t: 10.07, s: 1.0 },
+        { t: 15.9, s: 1.1 },
+        { t: 17.0, s: 1.0 },
+        { t: 22.0, s: 1.07 },
+      ].forEach(({ t, s }) => tl.to("#face-punch", { scale: s, duration: 0.45, ease: "expo.out" }, t));
+
+      // ---- word-by-word blur-in (Ali Hassan signature) ----
+      document.querySelectorAll(".w").forEach((el) => {
+        tl.from(
+          el,
+          { opacity: 0, y: 26, filter: "blur(14px)", duration: 0.34, ease: "power3.out" },
+          Math.max(0.08, T(el) - 0.04),
+        );
+      });
+
+      // ---- S1 ----
+      tl.from("#s1-chip", { scale: 0.7, opacity: 0, duration: 0.42, ease: "back.out(2)" }, 2.78);
+
+      // ---- S2 pills ----
+      document.querySelectorAll("#s2 .pill").forEach((el) => {
+        const t = T(el) - 0.04;
+        tl.from(el, { opacity: 0, scale: 0.6, y: 30, filter: "blur(10px)", duration: 0.42, ease: "back.out(1.8)" }, t);
+        tl.fromTo(el.querySelector(".sheen"), { x: 0 }, { x: 1200, duration: 0.7, ease: "power2.inOut" }, t + 0.15);
+      });
+      // gentle breathing on the finished list
+      tl.to("#s2 .pills", { scale: 1.03, duration: 0.5, ease: "sine.inOut" }, 6.55);
+
+      // ---- S3 checklist ----
+      tl.from("#s3-head", { x: -40, duration: 0.5, ease: "expo.out" }, 7.0);
+      document.querySelectorAll("#s3 .ck").forEach((el) => {
+        const t = T(el) - 0.04;
+        const ring = el.querySelector(".ring");
+        const tick = el.querySelector(".tick");
+        tl.from(el.querySelector(".icon"), { scale: 0, opacity: 0, duration: 0.25, ease: "power2.out" }, t);
+        tl.fromTo(ring, { rotation: 0 }, { rotation: 200, duration: 0.6, ease: "power1.inOut" }, t);
+        tl.from(el.querySelector(".txt"), { opacity: 0, x: 40, filter: "blur(12px)", duration: 0.4, ease: "power3.out" }, t + 0.04);
+        tl.from(tick, { scale: 0, opacity: 0, duration: 0.32, ease: "back.out(3)" }, t + 0.36);
+        tl.to(ring, { opacity: 0, duration: 0.15, ease: "none" }, t + 0.5);
+      });
+
+      // ---- S4 slam on "actually" ----
+      tl.from("#s4-slam", { scale: 1.9, duration: 0.42, ease: "expo.out" }, 15.86);
+      tl.to("#s4-slam", { textShadow: "0 0 60px rgba(204,255,188,0.9), 0 6px 22px rgba(5,50,100,0.95), 0 0 3px rgba(5,50,100,0.9)", duration: 0.25, ease: "power2.out" }, 16.1);
+      tl.to("#s4-slam", { textShadow: "0 0 28px rgba(204,255,188,0.45), 0 6px 22px rgba(5,50,100,0.95), 0 0 3px rgba(5,50,100,0.9)", duration: 0.4, ease: "sine.inOut" }, 16.35);
+      tl.from("#s4-chip", { scale: 0.6, opacity: 0, rotation: -4, duration: 0.45, ease: "back.out(2.2)" }, 16.45);
+
+      // ---- S5 cards ----
+      document.querySelectorAll("#s5 .card").forEach((el) => {
+        tl.from(el, { opacity: 0, y: 60, rotationX: 40, scale: 0.85, filter: "blur(10px)", duration: 0.55, ease: "expo.out" }, T(el) - 0.04);
+        tl.from(el.querySelector("svg"), { scale: 0, rotation: -30, duration: 0.45, ease: "back.out(2.5)" }, T(el) + 0.15);
+      });
+      tl.from("#s5 .plus", { scale: 0, opacity: 0, duration: 0.3, ease: "back.out(3)" }, 18.9);
+      tl.to("#s5 .cards", { y: -8, duration: 1.6, ease: "sine.inOut" }, 20.2);
+
+      // ---- S6 CTA (inverted palette) ----
+      tl.from("#s6-cta", { scale: 0.3, opacity: 0, duration: 0.5, ease: "back.out(2.4)" }, 22.43);
+      tl.fromTo("#s6-burst", { scale: 0.3, opacity: 0.9 }, { scale: 1.4, opacity: 0, duration: 0.8, ease: "power2.out", immediateRender: false }, 22.45);
+      tl.to("#s6-cta", { scale: 1.05, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 3 }, 24.7);
+
+      // ---- blur-dissolve transitions between text blocks ----
+      [
+        { id: "#s1", end: 3.62 },
+        { id: "#s2", end: 7.0 },
+        { id: "#s3", end: 14.0 },
+        { id: "#s4", end: 17.0 },
+        { id: "#s5", end: 22.0 },
+      ].forEach(({ id, end }) => {
+        tl.to(id, { opacity: 0, scale: 0.96, filter: "blur(16px)", duration: 0.26, ease: "power2.in" }, end - 0.27);
+      });
+
+      tl.set({}, {}, 27.5);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
