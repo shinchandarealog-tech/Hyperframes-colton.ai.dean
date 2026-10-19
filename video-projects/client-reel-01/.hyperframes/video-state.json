@@ -317,13 +317,14 @@
   },
   "renders": {
     "latest": {
-      "id": "2cd00f4c-488a-4985-a95b-987d2520daa6",
-      "completedAt": 1792383727006,
-      "output": "/home/user/Hyperframes-colton.ai.dean/video-projects/client-reel-01/renders/client-reel-01-v2-draft.mp4",
+      "id": "599927c8-81f7-4568-9a53-50d441f9514b",
+      "completedAt": 1792384091116,
+      "output": "/home/user/Hyperframes-colton.ai.dean/video-projects/client-reel-01/renders/client-reel-01-v3-draft.mp4",
       "status": "completed",
-      "revision": "4c4acf74-ab1b-44c4-9617-d84656993364"
+      "revision": "7eff007d-2cf6-4558-a9e7-f73217d8d197"
     },
     "retainedRevisions": [
+      "7eff007d-2cf6-4558-a9e7-f73217d8d197",
       "4c4acf74-ab1b-44c4-9617-d84656993364"
     ]
   },
