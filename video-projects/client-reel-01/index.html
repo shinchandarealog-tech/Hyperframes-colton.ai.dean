@@ -78,7 +78,7 @@
         // 1.8 → push toward the phone as it zooms in
         tl.to(P, { scale: 1.18, filter: "blur(6px)", duration: 0.5, ease: "power2.in" }, 1.8);
         // 4.8 → b-roll pulls back, speaker resolves into focus
-        tl.fromTo(P, { scale: 1.15, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 4.8);
+        tl.fromTo(P, { scale: 1.15, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out", immediateRender: false }, 4.8);
         // 12.41 → whip left into the AI b-roll
         tl.to(P, { x: -320, filter: "blur(18px)", duration: 0.24, ease: "expo.in" }, 12.41);
         // 15.69 → zoom-through back to the speaker
