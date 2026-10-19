@@ -64,7 +64,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        padding: 1090px 70px 120px;
+        padding: 1080px 60px 100px;
         gap: 18px;
         text-align: center;
       }
@@ -83,16 +83,17 @@
       .small {
         color: var(--white);
         opacity: 0.94;
-        font-size: 50px;
-        font-weight: 600;
+        font-size: 60px;
+        font-weight: 700;
         letter-spacing: -0.01em;
         line-height: 1.12;
         text-shadow: 0 3px 16px rgba(5, 50, 100, 0.95), 0 0 2px rgba(5, 50, 100, 0.9);
       }
       .big {
         color: var(--mint);
-        font-size: 124px;
+        font-size: 128px;
         font-weight: 900;
+        white-space: nowrap;
         letter-spacing: -0.04em;
         line-height: 1;
         text-shadow:
@@ -102,7 +103,7 @@
       }
       .mid {
         color: var(--mint);
-        font-size: 84px;
+        font-size: 96px;
         font-weight: 800;
         letter-spacing: -0.03em;
         line-height: 1.04;
@@ -117,8 +118,8 @@
         color: var(--mint);
         border: 3px solid rgba(204, 255, 188, 0.75);
         border-radius: 26px;
-        padding: 14px 36px 20px;
-        font-size: 84px;
+        padding: 14px 40px 22px;
+        font-size: 96px;
         font-weight: 900;
         letter-spacing: -0.03em;
         line-height: 1;
@@ -130,14 +131,14 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        width: 760px;
+        width: 820px;
         margin-top: 14px;
       }
       .pill {
         position: relative;
         display: flex;
         align-items: center;
-        height: 104px;
+        height: 118px;
         padding: 0 40px;
         border-radius: 30px;
         background: linear-gradient(180deg, #0a3f7a 0%, #053264 100%);
@@ -148,7 +149,7 @@
       .pill .num {
         width: 70px;
         color: var(--mint);
-        font-size: 52px;
+        font-size: 58px;
         font-weight: 900;
         font-style: italic;
         text-align: left;
@@ -156,8 +157,8 @@
       .pill .lbl {
         flex: 1;
         color: var(--mint);
-        font-size: 54px;
-        font-weight: 700;
+        font-size: 62px;
+        font-weight: 800;
         letter-spacing: -0.02em;
         text-align: center;
         padding-right: 70px;
@@ -186,8 +187,8 @@
       }
       .ck .icon {
         position: relative;
-        width: 62px;
-        height: 62px;
+        width: 70px;
+        height: 70px;
         flex: none;
       }
       .ck .ring {
@@ -207,12 +208,12 @@
         justify-content: center;
       }
       .ck .tick svg {
-        width: 38px;
-        height: 38px;
+        width: 44px;
+        height: 44px;
       }
       .ck .txt {
         color: var(--mint);
-        font-size: 64px;
+        font-size: 76px;
         font-weight: 800;
         letter-spacing: -0.02em;
         text-shadow: 0 0 18px rgba(204, 255, 188, 0.3), 0 4px 16px rgba(5, 50, 100, 0.95), 0 0 3px rgba(5, 50, 100, 0.9);
@@ -222,12 +223,12 @@
       .cards {
         display: flex;
         align-items: center;
-        gap: 22px;
+        gap: 14px;
         margin-top: 12px;
       }
       .card {
-        width: 420px;
-        height: 300px;
+        width: 432px;
+        height: 330px;
         border-radius: 34px;
         background: linear-gradient(180deg, #0a3f7a 0%, #053264 100%);
         border: 3px solid rgba(204, 255, 188, 0.75);
@@ -245,22 +246,22 @@
       }
       .card .ttl {
         color: var(--mint);
-        font-size: 48px;
+        font-size: 54px;
         font-weight: 900;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.03em;
         line-height: 1.05;
       }
       .card .sub {
         color: var(--white);
         opacity: 0.9;
-        font-size: 30px;
-        font-weight: 600;
-        letter-spacing: 0.06em;
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
       }
       .plus {
         color: var(--mint);
-        font-size: 80px;
+        font-size: 70px;
         font-weight: 900;
         text-shadow: 0 0 20px rgba(204, 255, 188, 0.5), 0 4px 16px rgba(5, 50, 100, 0.95);
       }
@@ -278,16 +279,16 @@
         background: var(--mint);
         color: var(--fjord);
         border-radius: 40px;
-        padding: 22px 54px 28px 40px;
-        font-size: 120px;
+        padding: 24px 60px 30px 44px;
+        font-size: 138px;
         font-weight: 900;
         letter-spacing: -0.03em;
         line-height: 1;
         box-shadow: 0 0 60px rgba(204, 255, 188, 0.6), 0 16px 50px rgba(5, 50, 100, 0.7);
       }
       .cta-pill svg {
-        width: 96px;
-        height: 96px;
+        width: 108px;
+        height: 108px;
       }
       .ring-burst {
         position: absolute;
@@ -299,6 +300,47 @@
         border-radius: 50%;
         border: 6px solid var(--mint);
         opacity: 0;
+      }
+
+      /* ---------- split color cards (from the palette image) ---------- */
+      .cc {
+        position: absolute;
+        inset: 0;
+        z-index: 50;
+        overflow: hidden;
+      }
+      .cc .half {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        height: 960px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cc .top {
+        top: 0;
+        background: var(--fjord);
+        color: var(--mint);
+      }
+      .cc .bot {
+        top: 960px;
+        background: var(--mint);
+        color: var(--fjord);
+      }
+      .cc .word {
+        font-size: 170px;
+        font-weight: 900;
+        letter-spacing: -0.06em;
+        line-height: 1;
+      }
+      .cc .tag {
+        position: absolute;
+        left: 56px;
+        bottom: 56px;
+        font-size: 56px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
       }
     </style>
   </head>
@@ -346,6 +388,7 @@
 
       <!-- S2 three subjects: 3.62 – 7.0 -->
       <div id="s2" class="scene clip" data-start="3.62" data-duration="3.38" data-track-index="1">
+        <div class="small"><span class="w" data-t="3.66">You</span><span class="w" data-t="3.78">have</span></div>
         <div class="big"><span class="w" data-t="3.97">3</span><span class="w" data-t="4.04">Main</span><span class="w" data-t="4.29">Subjects</span></div>
         <div class="pills">
           <div class="pill" data-t="4.86"><span class="num">1</span><span class="lbl">Anatomy</span><div class="sheen"></div></div>
@@ -370,7 +413,7 @@
       <div id="s4" class="scene clip" data-start="14" data-duration="3" data-track-index="1">
         <div class="small"><span class="w" data-t="14.0">But</span><span class="w" data-t="14.22">which</span><span class="w" data-t="14.59" style="color: var(--mint); font-weight: 800">textbooks</span></div>
         <div class="small"><span class="w" data-t="15.24">should</span><span class="w" data-t="15.68">you</span></div>
-        <div class="big" id="s4-slam" style="font-size: 132px"><span class="w" data-t="15.90">actually</span></div>
+        <div class="big" id="s4-slam" style="font-size: 156px"><span class="w" data-t="15.90">actually</span></div>
         <div class="navy-chip" id="s4-chip"><span class="w" data-t="16.49">choose?</span></div>
       </div>
 
@@ -391,13 +434,13 @@
           </div>
         </div>
         <div class="small" style="margin-top: 24px"><span class="w" data-t="20.21">Commonly</span><span class="w" data-t="20.62">used</span><span class="w" data-t="20.83">in</span></div>
-        <div class="mid" style="font-size: 72px"><span class="w" data-t="20.93">Indian</span><span class="w" data-t="21.24">Medical</span><span class="w" data-t="21.59">Colleges</span></div>
+        <div class="mid" style="font-size: 80px"><span class="w" data-t="20.93">Indian</span><span class="w" data-t="21.24">Medical</span><span class="w" data-t="21.59">Colleges</span></div>
       </div>
 
       <!-- S6 CTA: 22.0 – 27.5 -->
       <div id="s6" class="scene clip" data-start="22" data-duration="5.5" data-track-index="1">
         <div class="ring-burst" id="s6-burst"></div>
-        <div class="small" style="font-size: 58px"><span class="w" data-t="22.0">Comment</span></div>
+        <div class="small" style="font-size: 68px"><span class="w" data-t="22.0">Comment</span></div>
         <div class="cta-row">
           <div class="cta-pill" id="s6-cta">
             <svg viewBox="0 0 24 24" fill="#053264"><path d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
@@ -407,6 +450,20 @@
         <div class="small" style="margin-top: 30px"><span class="w" data-t="22.81">and</span><span class="w" data-t="23.01">I'll</span><span class="w" data-t="23.35">share</span><span class="w" data-t="23.69">the</span></div>
         <div class="mid"><span class="w" data-t="23.89">recommended</span><span class="w" data-t="24.64">textbooks</span></div>
         <div class="small"><span class="w" data-t="25.78">for</span><span class="w" data-t="25.99">all</span><span class="w" data-t="26.32">3</span><span class="w" data-t="26.39">subjects</span></div>
+      </div>
+
+      <!-- split color cards -->
+      <div id="cc1" class="cc clip" data-start="6.82" data-duration="0.98" data-track-index="4">
+        <div class="half top"><div class="word">Anatomy</div><div class="tag">Subject 01</div></div>
+        <div class="half bot"><div class="word">4 Parts</div><div class="tag">#MBBS</div></div>
+      </div>
+      <div id="cc2" class="cc clip" data-start="13.92" data-duration="0.98" data-track-index="4">
+        <div class="half top"><div class="word">Which</div><div class="tag">The real question</div></div>
+        <div class="half bot"><div class="word">Textbooks?</div><div class="tag">#MBBS</div></div>
+      </div>
+      <div id="cc3" class="cc clip" data-start="21.85" data-duration="0.95" data-track-index="4">
+        <div class="half top"><div class="word">Comment</div><div class="tag">Below</div></div>
+        <div class="half bot"><div class="word">BOOKS</div><div class="tag">#MBBS</div></div>
       </div>
 
       <!-- SFX -->
@@ -422,6 +479,9 @@
       <audio id="sfx-pop5" data-start="19.07" data-duration="0.72" data-track-index="22" src="assets/pop.mp3" data-volume="0.28"></audio>
       <audio id="sfx-wh2" data-start="21.8" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
       <audio id="sfx-pop6" data-start="22.45" data-duration="0.72" data-track-index="21" src="assets/pop.mp3" data-volume="0.35"></audio>
+      <audio id="music" data-start="0" data-duration="27.5" data-track-index="30" src="assets/music-bed.mp3" data-volume="0.09"></audio>
+      <audio id="sfx-wh0" data-start="6.72" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.25"></audio>
+      <audio id="sfx-wh3" data-start="14.72" data-duration="0.57" data-track-index="25" src="assets/whoosh.mp3" data-volume="0.2"></audio>
     </div>
 
     <script>
@@ -491,7 +551,7 @@
 
       // ---- S6 CTA (inverted palette) ----
       tl.from("#s6-cta", { scale: 0.3, opacity: 0, duration: 0.5, ease: "back.out(2.4)" }, 22.43);
-      tl.fromTo("#s6-burst", { scale: 0.3, opacity: 0.9 }, { scale: 1.4, opacity: 0, duration: 0.8, ease: "power2.out", immediateRender: false }, 22.45);
+      tl.fromTo("#s6-burst", { scale: 0.3, opacity: 0.9 }, { scale: 1.4, opacity: 0, duration: 0.8, ease: "power2.out", immediateRender: false }, 22.78);
       tl.to("#s6-cta", { scale: 1.05, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 3 }, 24.7);
 
       // ---- blur-dissolve transitions between text blocks ----
@@ -503,6 +563,21 @@
         { id: "#s5", end: 22.0 },
       ].forEach(({ id, end }) => {
         tl.to(id, { opacity: 0, scale: 0.96, filter: "blur(16px)", duration: 0.26, ease: "power2.in" }, end - 0.27);
+      });
+
+      // ---- split color cards: halves slam in, hold, part like doors ----
+      [
+        { id: "#cc1", t: 6.82, d: 0.98 },
+        { id: "#cc2", t: 13.92, d: 0.98 },
+        { id: "#cc3", t: 21.85, d: 0.95 },
+      ].forEach(({ id, t, d }) => {
+        tl.from(id + " .top", { yPercent: -100, duration: 0.26, ease: "expo.out" }, t);
+        tl.from(id + " .bot", { yPercent: 100, duration: 0.26, ease: "expo.out" }, t);
+        tl.from(id + " .top .word", { opacity: 0, scale: 1.25, filter: "blur(14px)", duration: 0.3, ease: "power3.out" }, t + 0.08);
+        tl.from(id + " .bot .word", { opacity: 0, scale: 0.8, filter: "blur(14px)", duration: 0.3, ease: "back.out(2)" }, t + 0.16);
+        tl.from(id + " .tag", { opacity: 0, x: -30, duration: 0.25, ease: "power2.out", stagger: 0.06 }, t + 0.2);
+        tl.to(id + " .top", { yPercent: -100, duration: 0.28, ease: "expo.in" }, t + d - 0.28);
+        tl.to(id + " .bot", { yPercent: 100, duration: 0.28, ease: "expo.in" }, t + d - 0.28);
       });
 
       tl.set({}, {}, 27.5);
