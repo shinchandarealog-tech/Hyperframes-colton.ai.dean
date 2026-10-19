@@ -1,0 +1,506 @@
+[
+  {
+    "text": "is",
+    "start": 0.16,
+    "end": 0.49,
+    "id": "w0"
+  },
+  {
+    "text": "anatomy",
+    "start": 0.49,
+    "end": 0.74,
+    "id": "w1"
+  },
+  {
+    "text": "just",
+    "start": 0.74,
+    "end": 1.07,
+    "id": "w2"
+  },
+  {
+    "text": "about",
+    "start": 1.07,
+    "end": 1.38,
+    "id": "w3"
+  },
+  {
+    "text": "the",
+    "start": 1.53,
+    "end": 1.73,
+    "id": "w4"
+  },
+  {
+    "text": "names",
+    "start": 1.73,
+    "end": 2.14,
+    "id": "w5"
+  },
+  {
+    "text": "of",
+    "start": 2.14,
+    "end": 2.34,
+    "id": "w6"
+  },
+  {
+    "text": "bones",
+    "start": 2.34,
+    "end": 2.6,
+    "id": "w7"
+  },
+  {
+    "text": "and",
+    "start": 2.6,
+    "end": 2.85,
+    "id": "w8"
+  },
+  {
+    "text": "muscles",
+    "start": 2.85,
+    "end": 3.22,
+    "id": "w9"
+  },
+  {
+    "text": "not",
+    "start": 3.5,
+    "end": 3.72,
+    "id": "w10"
+  },
+  {
+    "text": "exactly",
+    "start": 3.72,
+    "end": 4.35,
+    "id": "w11"
+  },
+  {
+    "text": "in",
+    "start": 4.51,
+    "end": 4.52,
+    "id": "w12"
+  },
+  {
+    "text": "first",
+    "start": 4.52,
+    "end": 4.84,
+    "id": "w13"
+  },
+  {
+    "text": "year",
+    "start": 4.98,
+    "end": 5.08,
+    "id": "w14"
+  },
+  {
+    "text": "mpbs",
+    "start": 5.21,
+    "end": 5.34,
+    "id": "w15"
+  },
+  {
+    "text": "anatomy",
+    "start": 5.6,
+    "end": 5.79,
+    "id": "w16"
+  },
+  {
+    "text": "has",
+    "start": 5.79,
+    "end": 5.98,
+    "id": "w17"
+  },
+  {
+    "text": "four",
+    "start": 5.98,
+    "end": 6.24,
+    "id": "w18"
+  },
+  {
+    "text": "major",
+    "start": 6.24,
+    "end": 6.46,
+    "id": "w19"
+  },
+  {
+    "text": "components",
+    "start": 6.61,
+    "end": 7.21,
+    "id": "w20"
+  },
+  {
+    "text": "you",
+    "start": 7.21,
+    "end": 7.4,
+    "id": "w21"
+  },
+  {
+    "text": "should",
+    "start": 7.4,
+    "end": 7.79,
+    "id": "w22"
+  },
+  {
+    "text": "know",
+    "start": 7.79,
+    "end": 8.06,
+    "id": "w23"
+  },
+  {
+    "text": "first",
+    "start": 8.13,
+    "end": 8.59,
+    "id": "w24"
+  },
+  {
+    "text": "is",
+    "start": 8.59,
+    "end": 8.8,
+    "id": "w25"
+  },
+  {
+    "text": "gross",
+    "start": 8.8,
+    "end": 9.3,
+    "id": "w26"
+  },
+  {
+    "text": "anatomy",
+    "start": 9.43,
+    "end": 9.84,
+    "id": "w27"
+  },
+  {
+    "text": "that",
+    "start": 9.84,
+    "end": 10.07,
+    "id": "w28"
+  },
+  {
+    "text": "is",
+    "start": 10.07,
+    "end": 10.17,
+    "id": "w29"
+  },
+  {
+    "text": "the",
+    "start": 10.17,
+    "end": 10.37,
+    "id": "w30"
+  },
+  {
+    "text": "structure",
+    "start": 10.37,
+    "end": 10.83,
+    "id": "w31"
+  },
+  {
+    "text": "of",
+    "start": 10.83,
+    "end": 10.94,
+    "id": "w32"
+  },
+  {
+    "text": "the",
+    "start": 10.94,
+    "end": 11.04,
+    "id": "w33"
+  },
+  {
+    "text": "body",
+    "start": 11.13,
+    "end": 11.22,
+    "id": "w34"
+  },
+  {
+    "text": "you",
+    "start": 11.37,
+    "end": 11.48,
+    "id": "w35"
+  },
+  {
+    "text": "can",
+    "start": 11.48,
+    "end": 11.62,
+    "id": "w36"
+  },
+  {
+    "text": "study",
+    "start": 11.7,
+    "end": 11.92,
+    "id": "w37"
+  },
+  {
+    "text": "with",
+    "start": 11.92,
+    "end": 12.14,
+    "id": "w38"
+  },
+  {
+    "text": "the",
+    "start": 12.14,
+    "end": 12.3,
+    "id": "w39"
+  },
+  {
+    "text": "naked",
+    "start": 12.3,
+    "end": 12.58,
+    "id": "w40"
+  },
+  {
+    "text": "eye",
+    "start": 12.58,
+    "end": 12.82,
+    "id": "w41"
+  },
+  {
+    "text": "second",
+    "start": 12.89,
+    "end": 13.44,
+    "id": "w42"
+  },
+  {
+    "text": "is",
+    "start": 13.44,
+    "end": 13.56,
+    "id": "w43"
+  },
+  {
+    "text": "embryology",
+    "start": 13.79,
+    "end": 14.2,
+    "id": "w44"
+  },
+  {
+    "text": "how",
+    "start": 14.2,
+    "end": 14.39,
+    "id": "w45"
+  },
+  {
+    "text": "the",
+    "start": 14.39,
+    "end": 14.58,
+    "id": "w46"
+  },
+  {
+    "text": "human",
+    "start": 14.58,
+    "end": 14.9,
+    "id": "w47"
+  },
+  {
+    "text": "body",
+    "start": 14.9,
+    "end": 15.15,
+    "id": "w48"
+  },
+  {
+    "text": "develops",
+    "start": 15.19,
+    "end": 15.68,
+    "id": "w49"
+  },
+  {
+    "text": "before",
+    "start": 15.68,
+    "end": 16.07,
+    "id": "w50"
+  },
+  {
+    "text": "birth",
+    "start": 16.07,
+    "end": 16.39,
+    "id": "w51"
+  },
+  {
+    "text": "and",
+    "start": 16.39,
+    "end": 16.54,
+    "id": "w52"
+  },
+  {
+    "text": "the",
+    "start": 16.61,
+    "end": 16.75,
+    "id": "w53"
+  },
+  {
+    "text": "third",
+    "start": 17.06,
+    "end": 17.09,
+    "id": "w54"
+  },
+  {
+    "text": "is",
+    "start": 17.09,
+    "end": 17.28,
+    "id": "w55"
+  },
+  {
+    "text": "osteology",
+    "start": 17.28,
+    "end": 18.12,
+    "id": "w56"
+  },
+  {
+    "text": "the",
+    "start": 18.12,
+    "end": 18.65,
+    "id": "w57"
+  },
+  {
+    "text": "study",
+    "start": 18.65,
+    "end": 18.68,
+    "id": "w58"
+  },
+  {
+    "text": "of",
+    "start": 18.68,
+    "end": 18.82,
+    "id": "w59"
+  },
+  {
+    "text": "bones",
+    "start": 18.82,
+    "end": 19.17,
+    "id": "w60"
+  },
+  {
+    "text": "and",
+    "start": 19.17,
+    "end": 19.32,
+    "id": "w61"
+  },
+  {
+    "text": "the",
+    "start": 19.41,
+    "end": 19.5,
+    "id": "w62"
+  },
+  {
+    "text": "fourth",
+    "start": 19.65,
+    "end": 20.01,
+    "id": "w63"
+  },
+  {
+    "text": "is",
+    "start": 20.01,
+    "end": 20.15,
+    "id": "w64"
+  },
+  {
+    "text": "histology",
+    "start": 20.15,
+    "end": 20.76,
+    "id": "w65"
+  },
+  {
+    "text": "the",
+    "start": 20.82,
+    "end": 20.99,
+    "id": "w66"
+  },
+  {
+    "text": "study",
+    "start": 20.99,
+    "end": 21.31,
+    "id": "w67"
+  },
+  {
+    "text": "of",
+    "start": 21.33,
+    "end": 21.34,
+    "id": "w68"
+  },
+  {
+    "text": "tissue",
+    "start": 21.62,
+    "end": 21.95,
+    "id": "w69"
+  },
+  {
+    "text": "under",
+    "start": 21.97,
+    "end": 22.31,
+    "id": "w70"
+  },
+  {
+    "text": "a",
+    "start": 22.31,
+    "end": 22.37,
+    "id": "w71"
+  },
+  {
+    "text": "microscope",
+    "start": 22.93,
+    "end": 23.2,
+    "id": "w72"
+  },
+  {
+    "text": "sounds",
+    "start": 23.2,
+    "end": 23.6,
+    "id": "w73"
+  },
+  {
+    "text": "manageable",
+    "start": 23.69,
+    "end": 24.48,
+    "id": "w74"
+  },
+  {
+    "text": "right",
+    "start": 24.48,
+    "end": 24.88,
+    "id": "w75"
+  },
+  {
+    "text": "just",
+    "start": 24.88,
+    "end": 25.2,
+    "id": "w76"
+  },
+  {
+    "text": "wait",
+    "start": 25.2,
+    "end": 25.56,
+    "id": "w77"
+  },
+  {
+    "text": "until",
+    "start": 25.56,
+    "end": 25.62,
+    "id": "w78"
+  },
+  {
+    "text": "you",
+    "start": 25.9,
+    "end": 25.98,
+    "id": "w79"
+  },
+  {
+    "text": "see",
+    "start": 25.98,
+    "end": 26.42,
+    "id": "w80"
+  },
+  {
+    "text": "the",
+    "start": 26.51,
+    "end": 26.92,
+    "id": "w81"
+  },
+  {
+    "text": "whole",
+    "start": 26.92,
+    "end": 27.71,
+    "id": "w82"
+  },
+  {
+    "text": "syllabus",
+    "start": 27.71,
+    "end": 29,
+    "id": "w83"
+  }
+]
