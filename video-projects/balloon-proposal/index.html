@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Cormorant Garamond";
+        font-style: italic;
+        font-weight: 500;
+        src: url("assets/fonts/cormorant-garamond-latin-500-italic.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        font-style: italic;
+        font-weight: 600;
+        src: url("assets/fonts/cormorant-garamond-latin-600-italic.woff2") format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #3b2a5a;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      /* ---------- sky (fixed to screen) ---------- */
+      .sky {
+        position: absolute;
+        inset: 0;
+      }
+      #sky-a {
+        background:
+          radial-gradient(ellipse 80% 40% at 62% 62%, rgba(255, 214, 160, 0.55), transparent 70%),
+          linear-gradient(180deg, #3b2a5a 0%, #6c5aa8 30%, #c98bb0 58%, #ffc58f 82%, #ffd9a8 100%);
+      }
+      #sky-b {
+        opacity: 0;
+        background:
+          radial-gradient(ellipse 90% 45% at 60% 35%, rgba(255, 220, 170, 0.45), transparent 70%),
+          linear-gradient(180deg, #4a3a86 0%, #7e6cbc 30%, #d99ab8 62%, #ffcf9e 100%);
+      }
+
+      /* ---------- camera rig ---------- */
+      /* Each .layer sits at screen centre and carries the camera zoom (scaled by its parallax factor);
+         each .pan carries the camera pan. Content inside .pan uses world coords (screen coords at zoom 1). */
+      #stage {
+        position: absolute;
+        inset: 0;
+      }
+      .layer {
+        position: absolute;
+        left: 540px;
+        top: 960px;
+        width: 0;
+        height: 0;
+        transform-origin: 0 0;
+      }
+      .pan {
+        position: absolute;
+        left: -540px;
+        top: -960px;
+        width: 1080px;
+        height: 1920px;
+      }
+      .pan > * {
+        position: absolute;
+      }
+
+      /* sun */
+      #sun-glow {
+        left: 150px;
+        top: 550px;
+        width: 1100px;
+        height: 1100px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 214, 150, 0.55) 0%, rgba(255, 197, 143, 0.18) 40%, transparent 68%);
+      }
+      #sun {
+        left: 580px;
+        top: 980px;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #fff4d6 0%, #ffe3a6 55%, #ffd27a 72%, rgba(255, 210, 122, 0) 74%);
+        box-shadow: 0 0 120px 40px rgba(255, 210, 122, 0.45);
+      }
+
+      .cloud svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        display: block;
+      }
+      #L-fg {
+        opacity: 0;
+      }
+      #L-fg .cloud {
+        filter: blur(10px);
+      }
+      #L-far .cloud {
+        filter: blur(2px);
+      }
+
+      /* balloon */
+      #bal-back,
+      #bal-front {
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1200px;
+      }
+      #bal-back {
+        z-index: 3;
+      }
+      #bal-front {
+        z-index: 5;
+      }
+      #bal-back > *,
+      #bal-front > * {
+        position: absolute;
+      }
+      #envelope {
+        left: 280px;
+        top: 240px;
+        width: 520px;
+        height: 600px;
+      }
+      #ropes {
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1200px;
+        overflow: visible;
+      }
+      #burner {
+        left: 522px;
+        top: 852px;
+        width: 36px;
+        height: 18px;
+        border-radius: 4px;
+        background: #3d2530;
+      }
+      #flame {
+        left: 524px;
+        top: 812px;
+        width: 32px;
+        height: 46px;
+        border-radius: 50% 50% 45% 45%;
+        background: radial-gradient(ellipse at 50% 70%, #fff4d6 0%, #ffd27a 40%, rgba(255, 160, 90, 0) 75%);
+        filter: blur(2px);
+      }
+      #rim-back {
+        left: 444px;
+        top: 990px;
+        width: 192px;
+        height: 16px;
+        border-radius: 6px;
+        background: #3d2530;
+      }
+      #basket {
+        left: 440px;
+        top: 998px;
+        width: 200px;
+        height: 112px;
+        overflow: visible;
+      }
+
+      .char {
+        width: 102px;
+        height: 187px;
+        transform-origin: 50% 100%;
+        filter: drop-shadow(0 0 5px rgba(255, 200, 130, 0.8));
+      }
+      .char svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        display: block;
+      }
+      #her {
+        left: 539px;
+        top: 913px;
+      }
+      #himBob {
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        z-index: 4;
+      }
+      #him {
+        position: absolute;
+        left: 449px;
+        top: 913px;
+      }
+      #hearts {
+        left: 0;
+        top: 0;
+        z-index: 7;
+      }
+      .heart {
+        position: absolute;
+        width: 34px;
+        height: 30px;
+        opacity: 0;
+      }
+
+      /* ---------- screen-space overlays ---------- */
+      #motes {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .mote {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 243, 226, 0.95), rgba(255, 210, 122, 0) 70%);
+      }
+      .txt {
+        position: absolute;
+        left: 0;
+        width: 1080px;
+        text-align: center;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 500;
+        color: #fff3e2;
+        line-height: 1.1;
+        text-shadow:
+          0 0 18px rgba(255, 210, 122, 0.55),
+          0 0 36px rgba(42, 27, 61, 0.85),
+          0 2px 10px rgba(42, 27, 61, 0.7);
+      }
+      #t-ask {
+        top: 300px;
+        font-size: 92px;
+      }
+      #t-yes {
+        top: 220px;
+        font-size: 240px;
+        font-weight: 600;
+      }
+      #t-end {
+        top: 220px;
+        font-size: 108px;
+      }
+      #t-sub {
+        top: 360px;
+        font-size: 52px;
+      }
+      .scrim {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        background: radial-gradient(ellipse 560px 230px at 50% 345px, rgba(42, 27, 61, 0.55), rgba(42, 27, 61, 0) 72%);
+      }
+      #vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(ellipse 75% 60% at 50% 50%, transparent 45%, rgba(42, 27, 61, 0.6) 100%);
+      }
+      #grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+          radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+          radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size:
+          3px 3px,
+          5px 5px,
+          7px 7px;
+        background-position:
+          0 0,
+          1px 2px,
+          3px 1px;
+      }
+      #fadeout {
+        position: absolute;
+        inset: 0;
+        background: #fff1e0;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- shared cloud gradient -->
+    <svg width="0" height="0" style="position: absolute">
+      <defs>
+        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff6ee" />
+          <stop offset="0.55" stop-color="#ffe4d6" />
+          <stop offset="1" stop-color="#e8b3c4" />
+        </linearGradient>
+        <linearGradient id="cgFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffe9e0" />
+          <stop offset="1" stop-color="#c79ac0" />
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="25"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="sky-a" class="sky clip" data-start="0" data-duration="25" data-track-index="0"></div>
+      <div id="sky-b" class="sky clip" data-start="0" data-duration="25" data-track-index="1"></div>
+
+      <div id="stage" class="clip" data-start="0" data-duration="25" data-track-index="2">
+        <!-- parallax 0.15: sun -->
+        <div class="layer" id="L-sun">
+          <div class="pan" id="P-sun">
+            <div id="sun-glow"></div>
+            <div id="sun"></div>
+          </div>
+        </div>
+
+        <!-- parallax 0.5: far clouds -->
+        <div class="layer" id="L-far"><div class="pan" id="P-far"></div></div>
+
+        <!-- parallax 1: the world -->
+        <div class="layer" id="L-world">
+          <div class="pan" id="P-world">
+            <div id="bal-back">
+              <svg id="envelope" viewBox="0 0 520 600">
+                <defs>
+                  <clipPath id="envClip">
+                    <path
+                      d="M260,0 C430,0 520,110 520,250 C520,360 440,440 340,560 L330,600 L190,600 L180,560 C80,440 0,360 0,250 C0,110 90,0 260,0Z"
+                    />
+                  </clipPath>
+                  <radialGradient id="envShade" cx="72%" cy="70%" r="80%">
+                    <stop offset="0" stop-color="#fff0c8" stop-opacity="0.45" />
+                    <stop offset="0.45" stop-color="#fff0c8" stop-opacity="0" />
+                    <stop offset="1" stop-color="#2a1b3d" stop-opacity="0.7" />
+                  </radialGradient>
+                </defs>
+                <g clip-path="url(#envClip)">
+                  <ellipse cx="260" cy="280" rx="270" ry="430" fill="#e0607e" />
+                  <ellipse cx="260" cy="280" rx="215" ry="430" fill="#ffc58f" />
+                  <ellipse cx="260" cy="280" rx="165" ry="430" fill="#ffd27a" />
+                  <ellipse cx="260" cy="280" rx="115" ry="430" fill="#e0607e" />
+                  <ellipse cx="260" cy="280" rx="64" ry="430" fill="#ffc58f" />
+                  <ellipse cx="260" cy="280" rx="20" ry="430" fill="#ffd27a" />
+                  <rect x="0" y="0" width="520" height="600" fill="url(#envShade)" />
+                </g>
+                <rect x="184" y="584" width="152" height="16" rx="5" fill="#3d2530" />
+              </svg>
+              <svg id="ropes" viewBox="0 0 1080 1200">
+                <g stroke="#3d2530" stroke-width="3" stroke-linecap="round">
+                  <line x1="470" y1="840" x2="448" y2="996" />
+                  <line x1="610" y1="840" x2="632" y2="996" />
+                  <line x1="505" y1="840" x2="500" y2="994" />
+                  <line x1="575" y1="840" x2="580" y2="994" />
+                </g>
+              </svg>
+              <div id="flame"></div>
+              <div id="burner"></div>
+              <div id="rim-back"></div>
+
+              <!-- HER: silhouette, rose ribbon -->
+              <div id="her" class="char">
+                <svg viewBox="0 0 120 220">
+                  <g fill="#2a1b3d">
+                    <path d="M42,22 Q36,70 28,104 Q46,94 60,98 Q74,94 92,102 Q84,62 78,22 Z" />
+                    <circle cx="60" cy="30" r="18" />
+                    <rect x="55" y="44" width="10" height="12" />
+                    <path d="M44,54 Q60,49 76,54 L80,95 L100,198 Q60,207 20,198 L40,95 Z" />
+                    <rect x="48" y="196" width="9" height="22" rx="3" />
+                    <rect x="63" y="196" width="9" height="22" rx="3" />
+                  </g>
+                  <g fill="#e0607e">
+                    <path d="M72,14 L82,8 L80,20 Z" />
+                    <path d="M72,14 L84,18 L76,24 Z" />
+                    <circle cx="73" cy="16" r="3" />
+                  </g>
+                  <g stroke="#2a1b3d" stroke-width="13" stroke-linecap="round">
+                    <line id="her-armL" x1="44" y1="60" x2="40" y2="126" />
+                    <line id="her-armR" x1="76" y1="60" x2="80" y2="126" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <!-- HIM: silhouette, holds the ring box -->
+            <div id="himBob">
+              <div id="him" class="char">
+                <svg viewBox="0 0 120 220">
+                  <g fill="#2a1b3d">
+                    <circle cx="60" cy="28" r="19" />
+                    <path d="M41,24 Q44,6 62,7 Q80,8 80,26 Q70,16 58,18 Q48,18 41,24 Z" />
+                    <rect x="54" y="42" width="12" height="12" />
+                    <path d="M36,52 Q60,44 84,52 L88,128 L32,128 Z" />
+                    <path d="M34,126 L86,126 L82,218 L64,218 L60,152 L56,218 L38,218 Z" />
+                  </g>
+                  <line id="him-armB" x1="38" y1="58" x2="32" y2="124" stroke="#2a1b3d" stroke-width="14" stroke-linecap="round" />
+                  <g id="him-armF">
+                    <line x1="82" y1="58" x2="86" y2="124" stroke="#2a1b3d" stroke-width="14" stroke-linecap="round" />
+                    <g id="rbox">
+                      <rect x="78" y="128" width="16" height="10" rx="2" fill="#b8466a" />
+                      <g id="ring" opacity="0">
+                        <circle cx="86" cy="125" r="4.5" fill="none" stroke="#ffd27a" stroke-width="2.2" />
+                        <circle cx="86" cy="120" r="2.2" fill="#fff4d6" />
+                      </g>
+                      <rect id="rlid" x="78" y="122" width="16" height="6" rx="2" fill="#c9557a" />
+                    </g>
+                    <path
+                      id="glint"
+                      d="M86,108 L89,121 L102,124 L89,127 L86,140 L83,127 L70,124 L83,121 Z"
+                      fill="#fff4d6"
+                      opacity="0"
+                    />
+                    <path
+                      id="star"
+                      d="M86,108 L89,121 L102,124 L89,127 L86,140 L83,127 L70,124 L83,121 Z"
+                      fill="#fff4d6"
+                      opacity="0"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <div id="bal-front">
+              <svg id="basket" viewBox="0 0 200 112">
+                <path d="M0,8 L200,8 L192,104 Q190,112 180,112 L20,112 Q10,112 8,104 Z" fill="#5b3a3f" />
+                <g stroke="#3d2530" stroke-width="3" opacity="0.8">
+                  <line x1="4" y1="36" x2="196" y2="36" />
+                  <line x1="6" y1="60" x2="194" y2="60" />
+                  <line x1="8" y1="84" x2="192" y2="84" />
+                </g>
+                <g stroke="#3d2530" stroke-width="2" opacity="0.5">
+                  <line x1="40" y1="14" x2="42" y2="110" />
+                  <line x1="80" y1="14" x2="81" y2="110" />
+                  <line x1="120" y1="14" x2="119" y2="110" />
+                  <line x1="160" y1="14" x2="158" y2="110" />
+                </g>
+                <rect x="-4" y="0" width="208" height="16" rx="7" fill="#6e4848" />
+                <path d="M196,16 L188,108" stroke="#ffd27a" stroke-width="3" opacity="0.35" />
+              </svg>
+            </div>
+
+            <div id="hearts"></div>
+          </div>
+        </div>
+
+        <!-- parallax 1.4: soft foreground clouds -->
+        <div class="layer" id="L-fg"><div class="pan" id="P-fg"></div></div>
+      </div>
+
+      <div id="motes" class="clip" data-start="0" data-duration="25" data-track-index="3"></div>
+
+      <div id="scrim-a" class="scrim clip" data-start="5.6" data-duration="5.4" data-track-index="11"></div>
+      <div id="scrim-b" class="scrim clip" data-start="19.8" data-duration="5.2" data-track-index="12"></div>
+      <div id="t-ask" class="txt clip" data-start="5.6" data-duration="2.8" data-track-index="4">will you marry me?</div>
+      <div id="t-yes" class="txt clip" data-start="8.35" data-duration="2.6" data-track-index="5">yes.</div>
+      <div id="t-end" class="txt clip" data-start="19.8" data-duration="5.2" data-track-index="6">she said yes.</div>
+      <div id="t-sub" class="txt clip" data-start="20.5" data-duration="4.5" data-track-index="7">and i'm still falling.</div>
+
+      <div id="vignette" class="clip" data-start="0" data-duration="25" data-track-index="8"></div>
+      <div id="grain" class="clip" data-start="0" data-duration="25" data-track-index="9"></div>
+      <div id="fadeout" class="clip" data-start="0" data-duration="25" data-track-index="10"></div>
+
+      <audio id="a-pad" src="assets/dawn-pad.mp3" data-start="0" data-duration="25" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="a-glint1" src="assets/sparkle.mp3" data-start="5.85" data-duration="2" data-track-index="21" data-volume="0.25"></audio>
+      <audio id="a-whoosh" src="assets/whoosh.mp3" data-start="11.7" data-duration="0.57" data-track-index="22" data-volume="0.35"></audio>
+      <audio id="a-glint2" src="assets/sparkle.mp3" data-start="15.3" data-duration="2" data-track-index="21" data-volume="0.2"></audio>
+      <audio id="a-glint3" src="assets/sparkle.mp3" data-start="20.6" data-duration="2" data-track-index="23" data-volume="0.25"></audio>
+    </div>
+
+    <script>
+      (() => {
+        // Deterministic pseudo-random (no Math.random)
+        const hash = (i, k) => Math.abs(Math.sin(i * 12.9898 + k * 78.233) * 43758.5453) % 1;
+        const NS = "http://www.w3.org/2000/svg";
+
+        const SHAPES = [
+          `<circle cx="70" cy="92" r="44"/><circle cx="128" cy="66" r="58"/><circle cx="198" cy="78" r="50"/>` +
+            `<circle cx="250" cy="98" r="34"/><rect x="34" y="88" width="234" height="50" rx="25"/>`,
+          `<circle cx="60" cy="100" r="38"/><circle cx="118" cy="80" r="48"/><circle cx="186" cy="62" r="60"/>` +
+            `<circle cx="248" cy="96" r="40"/><rect x="26" y="96" width="250" height="42" rx="21"/>`,
+          `<circle cx="78" cy="104" r="34"/><circle cx="122" cy="78" r="40"/><circle cx="176" cy="88" r="46"/>` +
+            `<circle cx="232" cy="104" r="32"/><rect x="44" y="100" width="216" height="38" rx="19"/>`,
+        ];
+        let cloudN = 0;
+        const CLOUD_SVG = (grad) => {
+          const n = cloudN++;
+          const flip = hash(n, 9) > 0.5 ? ' style="transform:scaleX(-1)"' : "";
+          return `<svg viewBox="0 0 300 140"${flip}><g fill="url(#${grad})">${SHAPES[n % 3]}</g></svg>`;
+        };
+
+        function cloud(parentId, x, y, w, opacity, z, id, grad = "cg") {
+          const el = document.createElement("div");
+          el.className = "cloud";
+          if (id) el.id = id;
+          const h = w * 0.47;
+          Object.assign(el.style, {
+            left: `${x - w / 2}px`,
+            top: `${y - h / 2}px`,
+            width: `${w}px`,
+            height: `${h}px`,
+            opacity,
+            zIndex: z,
+            transformOrigin: "50% 100%",
+          });
+          el.innerHTML = CLOUD_SVG(grad);
+          document.getElementById(parentId).appendChild(el);
+          return el;
+        }
+
+        // far clouds (parallax 0.5)
+        [
+          [60, 640, 260, 0.55], [960, 780, 300, 0.6], [120, 1150, 380, 0.7], [860, 1300, 420, 0.7],
+          [300, 1500, 520, 0.7], [900, 1700, 400, 0.55], [100, 1850, 500, 0.5], [650, 2000, 560, 0.45],
+          [250, 2200, 600, 0.45], [900, 2350, 500, 0.5], [500, 2450, 700, 0.5],
+        ].forEach(([x, y, w, o]) => cloud("P-far", x, y, w, o, 1, null, "cgFar"));
+
+        // world clouds: scattered puffs, then the cloud sea he falls into
+        [
+          // puffs he drifts past on the way down
+          [220, 1400, 320, 0.85, 2], [860, 1650, 360, 0.85, 2], [200, 1950, 400, 0.9, 2], [880, 2200, 420, 0.9, 2],
+          [180, 2500, 440, 0.9, 2], [900, 2750, 460, 0.9, 2], [70, 3020, 300, 0.85, 2], [1010, 3230, 320, 0.85, 2],
+          // translucent wisps he falls through
+          [470, 2300, 520, 0.5, 8], [600, 2700, 560, 0.5, 8],
+          // the cloud sea he lands on
+          [90, 3640, 620, 1, 2], [800, 3640, 640, 1, 2], [1100, 3700, 560, 1, 2], [-120, 3760, 600, 1, 2],
+          [300, 3820, 720, 1, 2], [700, 3860, 760, 1, 2], [60, 4000, 760, 1, 2], [1000, 4020, 760, 1, 2],
+          [500, 4120, 800, 1, 8], [200, 4300, 800, 1, 8], [880, 4320, 800, 1, 8], [500, 4500, 900, 1, 8],
+        ].forEach(([x, y, w, o, z]) => cloud("P-world", x, y, w, o, z));
+        cloud("P-world", 450, 3600, 640, 1, 4, "land-cloud");
+        // solid cloud floor so no sky peeks through gaps in the sea
+        const floor = document.createElement("div");
+        Object.assign(floor.style, {
+          left: "-700px", top: "3690px", width: "2480px", height: "1700px", zIndex: 1,
+          borderRadius: "200px 200px 0 0", background: "linear-gradient(180deg, #f6dcdc 0%, #e8b3c4 100%)",
+        });
+        document.getElementById("P-world").appendChild(floor);
+
+        // foreground clouds (parallax 1.4, blurred)
+        [
+          [-60, 1900, 700], [1120, 2500, 800], [-20, 3200, 800], [1180, 3800, 900], [-160, 4800, 1000],
+        ].forEach(([x, y, w]) => cloud("P-fg", x, y, w, 0.7, 1));
+
+        // hearts above her
+        const hearts = document.getElementById("hearts");
+        [[650, 905], [682, 882], [628, 872], [700, 912], [664, 850]].forEach(([x, y], i) => {
+          const s = document.createElementNS(NS, "svg");
+          s.setAttribute("viewBox", "0 0 34 30");
+          s.setAttribute("class", "heart");
+          s.style.left = `${x - 17}px`;
+          s.style.top = `${y - 15}px`;
+          s.innerHTML = `<path d="M17,29 C2,18 0,10 4,5 C8,0 14,1 17,6 C20,1 26,0 30,5 C34,10 32,18 17,29Z" fill="#e0607e"/>`;
+          hearts.appendChild(s);
+        });
+
+        // drifting light motes (screen space)
+        const motes = document.getElementById("motes");
+        const moteEls = [];
+        for (let i = 0; i < 28; i++) {
+          const m = document.createElement("div");
+          m.className = "mote";
+          const sz = 6 + hash(i, 1) * 10;
+          Object.assign(m.style, {
+            left: `${hash(i, 2) * 1080}px`,
+            top: `${hash(i, 3) * 1920}px`,
+            width: `${sz}px`,
+            height: `${sz}px`,
+            opacity: 0.25 + hash(i, 4) * 0.5,
+          });
+          motes.appendChild(m);
+          moteEls.push(m);
+        }
+
+        // ---------------- timeline ----------------
+        const tl = gsap.timeline({ paused: true });
+
+        // Camera: zoom on .layer, pan on .pan, both scaled by parallax factor
+        const LAYERS = [["sun", 0.15], ["far", 0.5], ["world", 1], ["fg", 1.4]];
+        const camS = (s, d, ease, at) =>
+          LAYERS.forEach(([id, f]) => tl.to(`#L-${id}`, { scale: 1 + (s - 1) * f, duration: d, ease }, at));
+        const camX = (cx, d, ease, at) =>
+          LAYERS.forEach(([id, f]) => tl.to(`#P-${id}`, { x: -(cx - 540) * f, duration: d, ease }, at));
+        const camY = (cy, d, ease, at) =>
+          LAYERS.forEach(([id, f]) => tl.to(`#P-${id}`, { y: -(cy - 960) * f, duration: d, ease }, at));
+
+        // opening camera: wide, low in the cloud sea
+        LAYERS.forEach(([id, f]) => {
+          gsap.set(`#L-${id}`, { scale: 1 + (0.62 - 1) * f });
+          gsap.set(`#P-${id}`, { x: 0, y: -(2900 - 960) * f });
+        });
+
+        // 1. Rise out of the cloud sea to the balloon
+        camY(1150, 3.0, "power2.inOut", 0.2);
+        camS(0.8, 3.0, "power2.inOut", 0.2);
+        // 2. Push in on the basket
+        camX(545, 2.2, "power3.inOut", 3.2);
+        camY(975, 2.2, "power3.inOut", 3.2);
+        camS(3.1, 2.2, "power3.inOut", 3.2);
+        // 3. Slow creep through proposal / yes / hug (camera never sleeps)
+        camY(985, 6.1, "sine.inOut", 5.4);
+        camS(3.35, 6.1, "sine.inOut", 5.4);
+        // 4. The shove: tiny camera jolt, then pull back and follow the fall
+        tl.to("#stage", { keyframes: { x: [0, -10, 8, -5, 3, 0], y: [0, 4, -3, 2, -1, 0] }, duration: 0.33, ease: "none" }, 11.5);
+        camS(2.0, 1.4, "power2.out", 11.6);
+        camX(400, 0.9, "power2.out", 11.6);
+        camX(470, 4.7, "sine.inOut", 12.9);
+        camY(900, 1.0, "power2.out", 11.6);
+        camY(3350, 7.0, "sine.inOut", 12.6);
+        tl.to("#L-fg", { opacity: 1, duration: 1.0, ease: "power1.out" }, 12.2);
+        // 5. Settle on him in the clouds
+        camS(2.1, 5.0, "sine.out", 19.9);
+        camY(3330, 5.4, "sine.inOut", 19.6);
+
+        // Sky warms into the dream as he falls
+        tl.to("#sky-b", { opacity: 1, duration: 7, ease: "sine.inOut" }, 12);
+        tl.to("#sun", { scale: 1.12, duration: 25, ease: "none" }, 0);
+
+        // Ambient: balloon bob, flame flicker, motes, vignette breath
+        tl.to(["#bal-back", "#himBob", "#bal-front"], { y: -10, duration: 2.3, ease: "sine.inOut", yoyo: true, repeat: 4 }, 0);
+        tl.to(["#bal-back", "#bal-front"], { y: -90, duration: 6, ease: "sine.inOut" }, 11.5);
+        tl.to("#flame", { opacity: 0.55, scaleY: 0.85, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 69 }, 0);
+        moteEls.forEach((m, i) => {
+          tl.to(m, { y: -(200 + hash(i, 5) * 300), x: (hash(i, 6) - 0.5) * 80, duration: 25, ease: "none" }, 0);
+        });
+        tl.to("#vignette", { opacity: 0.8, duration: 3, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+
+        // ---- The proposal ----
+        tl.to("#him-armF", { rotation: -100, svgOrigin: "82 58", duration: 0.6, ease: "power2.out" }, 4.4);
+        tl.to("#rbox", { rotation: 100, svgOrigin: "86 130", duration: 0.6, ease: "power2.out" }, 4.4);
+        tl.to("#rlid", { rotation: -120, svgOrigin: "78 127", duration: 0.35, ease: "back.out(2)" }, 5.3);
+        tl.to("#ring", { opacity: 1, duration: 0.2, ease: "power1.out" }, 5.35);
+        // glint #1
+        tl.fromTo("#glint", { opacity: 1, scale: 0, rotation: 0, transformOrigin: "50% 50%" },
+          { scale: 1.6, rotation: 45, duration: 0.35, ease: "power3.out" }, 5.85);
+        tl.to("#glint", { scale: 0, rotation: 90, duration: 0.45, ease: "power2.in" }, 6.2);
+        // her: hands to face
+        tl.to("#her-armL", { rotation: 160, svgOrigin: "44 60", duration: 0.5, ease: "power2.out" }, 5.9);
+        tl.to("#her-armR", { rotation: -160, svgOrigin: "76 60", duration: 0.5, ease: "power2.out" }, 5.9);
+        tl.to("#her", { rotation: 4, duration: 0.6, ease: "sine.out" }, 5.9);
+
+        tl.fromTo("#t-ask", { y: 30, opacity: 0, filter: "blur(12px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "expo.out" }, 5.7);
+        tl.to("#t-ask", { y: -20, opacity: 0, filter: "blur(10px)", duration: 0.4, ease: "power2.in" }, 7.95);
+        tl.to("#scrim-a", { opacity: 1, duration: 0.6, ease: "power1.out" }, 5.6);
+        tl.to("#scrim-a", { opacity: 0, duration: 0.5, ease: "power1.in" }, 10.45);
+        tl.to("#scrim-b", { opacity: 1, duration: 0.8, ease: "power1.out" }, 19.8);
+
+        // ---- Yes ----
+        tl.to("#her", { y: -26, rotation: 0, duration: 0.22, ease: "power2.out" }, 8.3);
+        tl.to("#her", { y: 0, duration: 0.3, ease: "power2.in" }, 8.52);
+        tl.to("#her-armL", { rotation: 175, svgOrigin: "44 60", duration: 0.25, ease: "back.out(2)" }, 8.3);
+        tl.to("#her-armR", { rotation: -175, svgOrigin: "76 60", duration: 0.25, ease: "back.out(2)" }, 8.3);
+        tl.fromTo("#t-yes", { scale: 0.6, opacity: 0, filter: "blur(16px)" },
+          { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "back.out(1.6)" }, 8.4);
+        tl.to("#t-yes", { scale: 1.08, opacity: 0, filter: "blur(12px)", duration: 0.45, ease: "power2.in" }, 10.45);
+        gsap.utils.toArray(".heart").forEach((h, i) => {
+          const at = 8.5 + i * 0.15;
+          tl.fromTo(h, { y: 0, scale: 0.3, opacity: 0 }, { y: -60, scale: 1, opacity: 1, duration: 0.7, ease: "power2.out" }, at);
+          tl.to(h, { y: -110, opacity: 0, duration: 0.8, ease: "power1.in" }, at + 1.1);
+        });
+
+        // ---- The hug ----
+        tl.to("#him", { x: 14, rotation: 8, duration: 0.6, ease: "power2.inOut" }, 9.4);
+        tl.to("#her", { x: -14, rotation: -8, duration: 0.6, ease: "power2.inOut" }, 9.4);
+        tl.to("#him-armF", { rotation: -40, svgOrigin: "82 58", duration: 0.6, ease: "power2.inOut" }, 9.4);
+        tl.to("#rbox", { rotation: 40, svgOrigin: "86 130", duration: 0.6, ease: "power2.inOut" }, 9.4);
+        tl.to("#her-armL", { rotation: 70, svgOrigin: "44 60", duration: 0.6, ease: "power2.inOut" }, 9.4);
+        tl.to("#her-armR", { rotation: 105, svgOrigin: "76 60", duration: 0.6, ease: "power2.inOut" }, 9.4);
+
+        // ---- She steps back... and shoves ----
+        tl.to("#her", { x: 0, rotation: 6, duration: 0.35, ease: "power2.out" }, 11.0);
+        tl.to("#her-armL", { rotation: 25, svgOrigin: "44 60", duration: 0.3, ease: "power2.out" }, 11.0);
+        tl.to("#her-armR", { rotation: 10, svgOrigin: "76 60", duration: 0.3, ease: "power2.out" }, 11.0);
+        tl.to("#him", { rotation: 0, duration: 0.35, ease: "power2.out" }, 11.0);
+        tl.to("#him-armF", { rotation: -15, svgOrigin: "82 58", duration: 0.35, ease: "power2.out" }, 11.0);
+        tl.to("#rbox", { rotation: 15, svgOrigin: "86 130", duration: 0.35, ease: "power2.out" }, 11.0);
+
+        tl.to("#her-armL", { rotation: 92, svgOrigin: "44 60", duration: 0.14, ease: "power4.out" }, 11.42);
+        tl.to("#her-armR", { rotation: 98, svgOrigin: "76 60", duration: 0.14, ease: "power4.out" }, 11.42);
+        tl.to("#her", { x: -16, rotation: -8, duration: 0.16, ease: "power3.out" }, 11.42);
+        tl.to("#him", { x: 8, rotation: -22, duration: 0.22, ease: "power3.out" }, 11.48);
+
+        // ---- Over the edge, into slow motion ----
+        tl.to("#him", { x: -90, y: -150, rotation: -70, duration: 0.9, ease: "power2.out" }, 11.7);
+        tl.set("#himBob", { zIndex: 6 }, 12.05);
+        tl.to("#him-armF", { rotation: -180, svgOrigin: "82 58", duration: 0.9, ease: "power2.inOut" }, 12.4);
+        tl.to("#rbox", { rotation: 180, svgOrigin: "86 130", duration: 0.9, ease: "power2.inOut" }, 12.4);
+        tl.to("#him-armB", { rotation: -150, svgOrigin: "38 58", duration: 0.9, ease: "power2.inOut" }, 12.4);
+        tl.to("#her", { x: 0, rotation: 0, duration: 0.8, ease: "sine.inOut" }, 11.8);
+        tl.to("#her-armL", { rotation: 60, svgOrigin: "44 60", duration: 0.8, ease: "sine.inOut" }, 11.8);
+        tl.to("#her-armR", { rotation: 40, svgOrigin: "76 60", duration: 0.8, ease: "sine.inOut" }, 11.8);
+
+        // the slow-motion fall: one lazy spin, all the way down to a cloud
+        tl.to("#him", { y: 2360, duration: 7.0, ease: "sine.inOut" }, 12.6);
+        tl.to("#him", { x: 40, duration: 7.0, ease: "sine.inOut" }, 12.6);
+        tl.to("#him", { rotation: -450, duration: 7.0, ease: "sine.inOut" }, 12.6);
+        // glint #2 mid-fall
+        tl.fromTo("#glint", { opacity: 1, scale: 0, rotation: 0 },
+          { scale: 2.0, rotation: 45, duration: 0.4, ease: "power3.out", immediateRender: false }, 15.3);
+        tl.to("#glint", { scale: 0, rotation: 90, duration: 0.5, ease: "power2.in" }, 15.7);
+        // arms settle: ring held up to the sky
+        tl.to("#him-armF", { rotation: -90, svgOrigin: "82 58", duration: 1.0, ease: "sine.inOut" }, 18.6);
+        tl.to("#rbox", { rotation: 90, svgOrigin: "86 130", duration: 1.0, ease: "sine.inOut" }, 18.6);
+        tl.to("#him-armB", { rotation: -10, svgOrigin: "38 58", duration: 1.0, ease: "sine.inOut" }, 18.6);
+
+        // ---- Landing on the cloud ----
+        tl.to("#land-cloud", { scaleY: 0.9, scaleX: 1.03, duration: 0.35, ease: "power2.out", yoyo: true, repeat: 1 }, 19.5);
+        tl.to("#himBob", { y: 2, duration: 0.35, ease: "power2.out", yoyo: true, repeat: 1 }, 19.5);
+        tl.to("#himBob", { y: -4, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 2 }, 20.4);
+
+        // glint #3 -> becomes a star
+        tl.fromTo("#glint", { opacity: 1, scale: 0, rotation: 0 },
+          { scale: 2.2, rotation: 45, duration: 0.4, ease: "power3.out", immediateRender: false }, 20.6);
+        tl.to("#glint", { scale: 0, rotation: 90, duration: 0.4, ease: "power2.in" }, 21.0);
+        tl.fromTo("#star", { opacity: 1, scale: 0.6, x: 0, y: 0, transformOrigin: "50% 50%" },
+          { x: 103, y: 242, scale: 1.3, rotation: 180, duration: 1.4, ease: "power2.out" }, 21.0);
+        tl.to("#star", { scale: 0.9, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 2 }, 22.4);
+
+        tl.fromTo("#t-end", { y: 30, opacity: 0, filter: "blur(14px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 1.0, ease: "expo.out" }, 19.9);
+        tl.fromTo("#t-sub", { y: 20, opacity: 0, filter: "blur(10px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.9, ease: "power2.out" }, 20.6);
+
+        // final fade to dawn-white
+        tl.to("#fadeout", { opacity: 1, duration: 0.8, ease: "power1.in" }, 24.2);
+
+        tl.to({}, { duration: 25 }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,16 +1,15 @@
 :root {
-  /* TODO: fill in your brand colors */
-  --brand-bg: ;
-  --brand-surface: ;
-  --brand-surface-2: ;
-  --brand-border: ;
-  --brand-accent: ;
-  --brand-accent-glow: ;
-  --brand-warn: ;
-  --brand-text: ;
-  --brand-text-dim: ;
+  /* Neutral defaults set during /setup — "let each video decide". Evolves via /feedback. */
+  --brand-bg: #0a0a0f;
+  --brand-surface: #1a1a23;
+  --brand-surface-2: #24242f;
+  --brand-border: #2e2e3a;
+  --brand-accent: #f5b85a;
+  --brand-accent-glow: rgba(245, 184, 90, 0.45);
+  --brand-warn: #ff6b6b;
+  --brand-text: #ffffff;
+  --brand-text-dim: #a8a8b8;
 
-  /* TODO: pick your typography */
   --font-mono: ui-monospace, Menlo, monospace;
   --font-display: system-ui, sans-serif;
 }
