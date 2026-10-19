@@ -13,7 +13,7 @@
         <div class="s7-card fx-glass" id="s7-card">
           <div class="row">
             <span class="lbl">Cost per click</span>
-            <span class="bonus" id="s7-bonus">✓ Attention bonus</span>
+            <span class="bonus" id="s7-bonus">✓ Rewarded</span>
           </div>
           <div class="prices">
             <span class="old" id="s7-old">$5.00<i id="s7-oldstrike"></i></span>
@@ -89,7 +89,7 @@
 }
 /* Dark-grey UI chip glass (iOS) */
 .fx-glass-dark {
-  background: linear-gradient(180deg, rgba(48, 48, 56, 0.86) 0%, rgba(28, 28, 34, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(46, 46, 54, 0.95) 0%, rgba(24, 24, 30, 0.96) 100%);
   border: 1.5px solid rgba(255, 255, 255, 0.14);
   box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.16), 0 16px 48px rgba(0, 0, 0, 0.5);
 }
@@ -155,7 +155,7 @@
       .s7-card .old i { position: absolute; left: -6px; right: -6px; top: 50%; height: 10px; margin-top: -5px; border-radius: 6px;
         background: #ff5a6a; transform-origin: 0 50%; box-shadow: 0 0 16px rgba(255,90,106,0.7); }
       .s7-card .spark { position: absolute; left: 44px; bottom: 26px; width: 732px; height: 70px; overflow: visible; }
-      .s7-badge { position: absolute; right: -30px; top: -56px; padding: 22px 28px; border-radius: 999px;
+      .s7-badge { position: absolute; right: 26px; top: 22px; padding: 22px 28px; border-radius: 999px;
         font-size: 58px; font-weight: 900; letter-spacing: -0.03em; color: #06132f;
         background: linear-gradient(180deg, #e3f6ff 0%, #8fd8fd 50%, #3b9cf0 100%);
         box-shadow: 0 0 50px rgba(125,211,252,0.75), inset 0 3px 0 rgba(255,255,255,0.6); }
@@ -209,7 +209,10 @@ window.FX = window.FX || {
   },
   // Glow-flash entry for glass chips: over-bright cyan → settle.
   glowIn(tl, target, t, o = {}) {
-    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, filter: "brightness(2.6) blur(10px)", duration: o.dur ?? 0.55, ease: "expo.out" }, t);
+    // (no CSS filter here — filtered glass renders black in the capture engine)
+    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, duration: o.dur ?? 0.45, ease: "expo.out" }, t);
+    tl.from(target, { boxShadow: "inset 0 0 60px rgba(190,240,255,1), 0 0 90px 24px rgba(125,211,252,0.95)", borderColor: "rgba(220,248,255,1)",
+      duration: (o.dur ?? 0.45) + 0.35, ease: "power2.out" }, t);
   },
   // Dashed ring spins → filled blue badge + drawn tick; label focuses in alongside.
   check(tl, row, t) {
@@ -264,7 +267,7 @@ window.FX = window.FX || {
         tl.set("#s7-new", { opacity: 0 }, 0);
         // massive discount: old price strikes + shrinks away, new price focuses in
         tl.fromTo("#s7-oldstrike", { scaleX: 0 }, { scaleX: 1, duration: 0.22, ease: "power3.out" }, 2.86);
-        tl.to("#s7-old", { scale: 0.34, x: 520, y: -14, opacity: 0.55, color: "#c8cfdc", duration: 0.45, ease: "power3.inOut" }, 3.02);
+        tl.to("#s7-old", { scale: 0.34, x: 500, y: 14, opacity: 0.55, color: "#c8cfdc", duration: 0.45, ease: "power3.inOut" }, 3.02);
         tl.fromTo("#s7-new", { opacity: 0, filter: "blur(20px)", scale: 1.25 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.5, ease: "expo.out" }, 3.1);
         tl.to(line, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 2.95);
         tl.from("#s7-badge", { opacity: 0, scale: 2.4, rotation: 18, filter: "blur(16px)", duration: 0.42, ease: "expo.out" }, 3.27);

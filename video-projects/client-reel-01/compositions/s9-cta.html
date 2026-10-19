@@ -82,7 +82,7 @@
 }
 /* Dark-grey UI chip glass (iOS) */
 .fx-glass-dark {
-  background: linear-gradient(180deg, rgba(48, 48, 56, 0.86) 0%, rgba(28, 28, 34, 0.9) 100%);
+  background: linear-gradient(180deg, rgba(46, 46, 54, 0.95) 0%, rgba(24, 24, 30, 0.96) 100%);
   border: 1.5px solid rgba(255, 255, 255, 0.14);
   box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.16), 0 16px 48px rgba(0, 0, 0, 0.5);
 }
@@ -208,7 +208,10 @@ window.FX = window.FX || {
   },
   // Glow-flash entry for glass chips: over-bright cyan → settle.
   glowIn(tl, target, t, o = {}) {
-    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, filter: "brightness(2.6) blur(10px)", duration: o.dur ?? 0.55, ease: "expo.out" }, t);
+    // (no CSS filter here — filtered glass renders black in the capture engine)
+    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, duration: o.dur ?? 0.45, ease: "expo.out" }, t);
+    tl.from(target, { boxShadow: "inset 0 0 60px rgba(190,240,255,1), 0 0 90px 24px rgba(125,211,252,0.95)", borderColor: "rgba(220,248,255,1)",
+      duration: (o.dur ?? 0.45) + 0.35, ease: "power2.out" }, t);
   },
   // Dashed ring spins → filled blue badge + drawn tick; label focuses in alongside.
   check(tl, row, t) {
@@ -276,7 +279,7 @@ window.FX = window.FX || {
         tl.from("#s9-dm", { opacity: 0, y: -70, scale: 0.9, filter: "blur(14px)", duration: 0.55, ease: "elastic.out(1, 0.6)" }, 1.15);
         tl.from("#s9-dm .ic", { scale: 0.4, rotation: -20, duration: 0.5, ease: "back.out(2.4)" }, 1.25);
         // five templates fan in on "five"
-        tl.from(fileEls, { opacity: 0, y: 50, scale: 0.6, rotation: (i) => (i - 2) * 8, filter: "blur(10px) brightness(2.2)", duration: 0.5,
+        tl.from(fileEls, { opacity: 0, y: 50, scale: 0.6, rotation: (i) => (i - 2) * 8, duration: 0.42,
           ease: "back.out(1.7)", stagger: 0.08 }, 1.8);
         tl.to(fileEls, { y: -8, duration: 0.6, ease: "sine.inOut", stagger: 0.08, yoyo: true, repeat: 1 }, 2.5);
         tl.to("#s9-b", { scale: 1.03, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.0);

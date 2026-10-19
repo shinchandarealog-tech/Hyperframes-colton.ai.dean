@@ -80,7 +80,7 @@
         tl.from("#s9-dm", { opacity: 0, y: -70, scale: 0.9, filter: "blur(14px)", duration: 0.55, ease: "elastic.out(1, 0.6)" }, 1.15);
         tl.from("#s9-dm .ic", { scale: 0.4, rotation: -20, duration: 0.5, ease: "back.out(2.4)" }, 1.25);
         // five templates fan in on "five"
-        tl.from(fileEls, { opacity: 0, y: 50, scale: 0.6, rotation: (i) => (i - 2) * 8, filter: "blur(10px) brightness(2.2)", duration: 0.5,
+        tl.from(fileEls, { opacity: 0, y: 50, scale: 0.6, rotation: (i) => (i - 2) * 8, duration: 0.42,
           ease: "back.out(1.7)", stagger: 0.08 }, 1.8);
         tl.to(fileEls, { y: -8, duration: 0.6, ease: "sine.inOut", stagger: 0.08, yoyo: true, repeat: 1 }, 2.5);
         tl.to("#s9-b", { scale: 1.03, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.0);

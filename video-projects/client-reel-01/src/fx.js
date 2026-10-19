@@ -45,7 +45,10 @@ window.FX = window.FX || {
   },
   // Glow-flash entry for glass chips: over-bright cyan → settle.
   glowIn(tl, target, t, o = {}) {
-    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, filter: "brightness(2.6) blur(10px)", duration: o.dur ?? 0.55, ease: "expo.out" }, t);
+    // (no CSS filter here — filtered glass renders black in the capture engine)
+    tl.from(target, { opacity: 0, scaleX: 0.6, scaleY: 0.4, duration: o.dur ?? 0.45, ease: "expo.out" }, t);
+    tl.from(target, { boxShadow: "inset 0 0 60px rgba(190,240,255,1), 0 0 90px 24px rgba(125,211,252,0.95)", borderColor: "rgba(220,248,255,1)",
+      duration: (o.dur ?? 0.45) + 0.35, ease: "power2.out" }, t);
   },
   // Dashed ring spins → filled blue badge + drawn tick; label focuses in alongside.
   check(tl, row, t) {

@@ -54,7 +54,7 @@
         FX.count(tl, root.querySelector("#s3-n"), 0, 50, 0.57, 0.6, (v) => String(Math.round(v)), "power3.out");
         FX.blurIn(tl, FX.words(root, "#s3-co"), 0.9, { stagger: 0.05, ease: "power3.out" });
         // grid cascades from the centre outward
-        tl.from(chips, { opacity: 0, y: 40, scale: 0.7, filter: "blur(12px) brightness(2.4)", duration: 0.55, ease: "back.out(1.5)",
+        tl.from(chips, { opacity: 0, y: 40, scale: 0.7, duration: 0.42, ease: "back.out(1.5)",
           stagger: { each: 0.05, from: "center", grid: [2, 4] } }, 1.0);
         // "bid against each other" — swap the top line, bids start climbing
         FX.blurOut(tl, "#s3-a", 1.86, { dur: 0.22 });

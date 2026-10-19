@@ -12,7 +12,7 @@
         <div class="s7-card fx-glass" id="s7-card">
           <div class="row">
             <span class="lbl">Cost per click</span>
-            <span class="bonus" id="s7-bonus">✓ Attention bonus</span>
+            <span class="bonus" id="s7-bonus">✓ Rewarded</span>
           </div>
           <div class="prices">
             <span class="old" id="s7-old">$5.00<i id="s7-oldstrike"></i></span>
@@ -42,7 +42,7 @@
       .s7-card .old i { position: absolute; left: -6px; right: -6px; top: 50%; height: 10px; margin-top: -5px; border-radius: 6px;
         background: #ff5a6a; transform-origin: 0 50%; box-shadow: 0 0 16px rgba(255,90,106,0.7); }
       .s7-card .spark { position: absolute; left: 44px; bottom: 26px; width: 732px; height: 70px; overflow: visible; }
-      .s7-badge { position: absolute; right: -30px; top: -56px; padding: 22px 28px; border-radius: 999px;
+      .s7-badge { position: absolute; right: 26px; top: 22px; padding: 22px 28px; border-radius: 999px;
         font-size: 58px; font-weight: 900; letter-spacing: -0.03em; color: #06132f;
         background: linear-gradient(180deg, #e3f6ff 0%, #8fd8fd 50%, #3b9cf0 100%);
         box-shadow: 0 0 50px rgba(125,211,252,0.75), inset 0 3px 0 rgba(255,255,255,0.6); }
@@ -68,7 +68,7 @@
         tl.set("#s7-new", { opacity: 0 }, 0);
         // massive discount: old price strikes + shrinks away, new price focuses in
         tl.fromTo("#s7-oldstrike", { scaleX: 0 }, { scaleX: 1, duration: 0.22, ease: "power3.out" }, 2.86);
-        tl.to("#s7-old", { scale: 0.34, x: 520, y: -14, opacity: 0.55, color: "#c8cfdc", duration: 0.45, ease: "power3.inOut" }, 3.02);
+        tl.to("#s7-old", { scale: 0.34, x: 500, y: 14, opacity: 0.55, color: "#c8cfdc", duration: 0.45, ease: "power3.inOut" }, 3.02);
         tl.fromTo("#s7-new", { opacity: 0, filter: "blur(20px)", scale: 1.25 }, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.5, ease: "expo.out" }, 3.1);
         tl.to(line, { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" }, 2.95);
         tl.from("#s7-badge", { opacity: 0, scale: 2.4, rotation: 18, filter: "blur(16px)", duration: 0.42, ease: "expo.out" }, 3.27);
