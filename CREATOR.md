@@ -20,25 +20,32 @@ When putting handles on-screen (lower-thirds, outros, end-cards), use the platfo
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Cross-post all** — TikTok, Instagram Reels, and YouTube Shorts equally. Default canvas: **9:16 vertical, 1080×1920, 30fps**. Keep captions and key text inside the safe zone that works on all three platforms (avoid the bottom ~20% and the right-edge button rail).
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+**Mix of everything** — no single niche. Ask about the topic for each video and don't assume one.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Both** — depends on the video. Ask (or infer from the footage) which mode each video uses.
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**The assistant edits everything.** The user hands over raw footage (or a URL) and the assistant is the full short-form editor: cuts, crop, mix, captions, titles, and render. Unlike the "pre-edited" mode, the assistant **may** cut audio, remove silences/filler, tighten pacing, and restructure for the hook.
 
-- **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
-- **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
+Editing toolchain (pipeline the user specified):
+
+- **FFmpeg** — every cut, crop, mix, mute, and render ([FFmpeg/FFmpeg](https://github.com/FFmpeg/FFmpeg))
+- **faster-whisper** (runs OpenAI's [Whisper](https://github.com/openai/whisper) models) — word-level transcription; every cut is placed against these timestamps ([SYSTRAN/faster-whisper](https://github.com/SYSTRAN/faster-whisper))
+- **yt-dlp** — downloads source videos from URLs ([yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp))
+- **OpenCV + contrib** — follows whoever is talking when cropping landscape footage to vertical ([opencv/opencv](https://github.com/opencv/opencv), [opencv/opencv_contrib](https://github.com/opencv/opencv_contrib))
+- **Headless Chrome (Puppeteer-style)** — renders captions and titles to video; in this workspace that's the Hyperframes renderer ([puppeteer/puppeteer](https://github.com/puppeteer/puppeteer))
+
+Cut rule: cut on word boundaries from the transcript, never mid-word. Keep a little padding (~0.1s) around speech so cuts don't clip breaths into pops.
 
 ## Brand identity
 
