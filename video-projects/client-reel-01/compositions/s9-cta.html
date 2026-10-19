@@ -292,8 +292,6 @@ window.FX = window.FX || {
         // five templates fan in on "five"
         tl.from(fileEls, { opacity: 0, y: 50, scale: 0.6, rotation: (i) => (i - 2) * 8, duration: 0.42,
           ease: "back.out(1.7)", stagger: 0.08 }, 1.8);
-        tl.to(fileEls, { y: -8, duration: 0.6, ease: "sine.inOut", stagger: 0.08, yoyo: true, repeat: 1 }, 2.5);
-        tl.to("#s9-b", { scale: 1.03, duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.0);
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};
         window.__timelines["s9-cta"] = tl;

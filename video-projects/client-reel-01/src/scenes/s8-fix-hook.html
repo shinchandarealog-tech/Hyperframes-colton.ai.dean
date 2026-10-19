@@ -48,7 +48,6 @@
         tl.to("#s8-A", { scale: 0.85, opacity: 0, filter: "blur(16px)", duration: 0.2, ease: "power2.in" }, 1.0);
         FX.blurIn(tl, FX.words(root, "#s8-b1"), 1.1, { stagger: 0.12 });
         tl.from("#s8-hookwrap", { scale: 2.6, opacity: 0, filter: "blur(30px)", duration: 0.5, ease: "expo.out" }, 1.86);
-        tl.fromTo("#s8-hookwrap", { rotationX: 0 }, { rotationX: 8, transformPerspective: 900, duration: 0.8, ease: "sine.inOut", yoyo: true, repeat: 1 }, 2.0);
         FX.blurOut(tl, "#s8-B", 2.5, { dur: 0.2 });
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};

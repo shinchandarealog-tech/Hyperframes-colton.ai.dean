@@ -7,8 +7,6 @@
       <div class="s2-blob" id="s2-b2"></div>
       <div class="s2-blob" id="s2-b3"></div>
       <div id="s2-bloom"></div>
-      <div id="s2-shock"></div>
-      <div id="s2-bids"></div>
       <div id="s2-content">
         <div class="s2-title">
           <div class="fx-small s2-a" id="s2-a" data-split>A silent</div>
@@ -306,25 +304,6 @@ window.FX = window.FX || {
         tl.from("#s2-war .fx-c", { scale: 2.2, y: 40, opacity: 0, filter: "blur(30px) brightness(2.6)", duration: 0.5, ease: "expo.out", stagger: 0.05 }, 0.66);
         tl.fromTo("#s2-bloom", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, 0.7);
         tl.to("#s2-bloom", { opacity: 0.55, duration: 1.2, ease: "sine.inOut" }, 1.2);
-        tl.fromTo("#s2-shock", { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 6, duration: 0.7, ease: "power2.out", immediateRender: false }, 0.72);
-
-        // bids stream into the auction (seeded, finite repeats)
-        const bids = root.querySelector("#s2-bids");
-        for (let i = 0; i < 26; i++) {
-          const b = document.createElement("div");
-          b.className = "bp";
-          bids.appendChild(b);
-          const th = rnd() * Math.PI * 2;
-          const dx = Math.sin(th), dy = -Math.cos(th);
-          const r0 = 700 + rnd() * 300;
-          const dur = 0.45 + rnd() * 0.3;
-          const start = 0.9 + rnd() * 0.5;
-          const reps = Math.max(0, Math.floor((2.35 - start) / dur) - 1);
-          gsap.set(b, { rotation: (th * 180) / Math.PI + 180, scaleY: 0.6 + rnd() * 0.8 });
-          tl.fromTo(b, { x: dx * r0, y: dy * r0, opacity: 0 },
-            { keyframes: [{ opacity: 0.9, duration: 0.15 }, { opacity: 0.9, duration: dur - 0.25 }, { opacity: 0, duration: 0.1 }],
-              x: dx * 210, y: dy * 210, duration: dur, ease: "power2.in", repeat: reps }, start);
-        }
 
         // Apple-Watch-style timer ring: 0 → 0.982 s
         const prog = root.querySelector("#s2-prog");

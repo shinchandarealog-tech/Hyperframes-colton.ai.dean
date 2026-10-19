@@ -35,7 +35,6 @@
         // strike lands once the pill is fully readable
         tl.fromTo("#s4-strike", { scaleX: 0 }, { scaleX: 1, duration: 0.28, ease: "power3.inOut" }, 2.0);
         tl.to("#s4-pill", { opacity: 0.5, filter: "grayscale(1)", duration: 0.35, ease: "power1.out" }, 2.22);
-        tl.fromTo("#s4-pillwrap", { x: 0 }, { keyframes: [{ x: -14 }, { x: 12 }, { x: -8 }, { x: 5 }, { x: 0 }], duration: 0.3, ease: "none" }, 2.22);
         tl.to("#s4-not", { color: "#ff5a6a", textShadow: "0 0 34px rgba(255,90,106,0.5), 0 8px 30px rgba(0,0,0,0.5)", duration: 0.3 }, 2.2);
         // whip out to the left (hands off to the AI b-roll)
         tl.to("#s4-stage", { x: -420, opacity: 0, filter: "blur(22px)", duration: 0.24, ease: "expo.in" }, 2.96);

@@ -9,7 +9,6 @@
         <span class="fx-big fx-grad s3-num"><span class="fx-w solo" id="s3-n">50</span></span>
         <span class="fx-small s3-co" id="s3-co" data-split>companies</span>
       </div>
-      <div class="s3-grid" id="s3-grid"></div>
     </div>
     <style>
       /*@FX_CSS*/
@@ -29,23 +28,6 @@
       (() => {
         const D = 4.35;
         const root = document.querySelector('[data-composition-id="s3-auction"]');
-        const grid = root.querySelector("#s3-grid");
-        const letters = ["N", "A", "K", "Z", "M", "S", "P", "L"];
-        const rnd = FX.rng(50);
-        const chips = letters.map((l) => {
-          const c = document.createElement("div");
-          c.className = "s3-chip fx-glass";
-          c.innerHTML = `<div class="m">${l}</div><div class="v">$0.00</div>`;
-          grid.appendChild(c);
-          return c;
-        });
-        // pre-computed bid sequence per chip (seeded) — climbing bids
-        const STEPS = 16;
-        const bids = chips.map(() => {
-          let b = 0.2 + rnd() * 0.5;
-          return Array.from({ length: STEPS + 1 }, () => (b += rnd() * 0.22));
-        });
-        chips.forEach((c, i) => (c.querySelector(".v").textContent = "$" + bids[i][0].toFixed(2)));
         FX.split(root);
         const tl = gsap.timeline({ paused: true });
 
@@ -53,23 +35,9 @@
         tl.from("#s3-n", { opacity: 0, scale: 0.6, filter: "blur(20px)", duration: 0.5, ease: "expo.out" }, 0.55);
         FX.count(tl, root.querySelector("#s3-n"), 0, 50, 0.57, 0.6, (v) => String(Math.round(v)), "power3.out");
         FX.blurIn(tl, FX.words(root, "#s3-co"), 0.9, { stagger: 0.05, ease: "power3.out" });
-        // grid cascades from the centre outward
-        tl.from(chips, { opacity: 0, y: 40, scale: 0.7, duration: 0.42, ease: "back.out(1.5)",
-          stagger: { each: 0.05, from: "center", grid: [2, 4] } }, 1.0);
         // "bid against each other" — swap the top line, bids start climbing
         FX.blurOut(tl, "#s3-a", 1.86, { dur: 0.22 });
         FX.blurIn(tl, FX.words(root, "#s3-b"), 1.95, { stagger: 0.06 });
-        const p = { v: 0 };
-        let last = -1;
-        tl.to(p, { v: STEPS, duration: 2.0, ease: "none", onUpdate: () => {
-          const s = Math.floor(p.v);
-          if (s === last) return;
-          last = s;
-          chips.forEach((c, i) => {
-            c.querySelector(".v").textContent = "$" + bids[i][s].toFixed(2);
-            c.classList.toggle("hot", (s + i * 3) % 5 === 0);
-          });
-        } }, 1.98);
         tl.to("#s3-n", { scale: 1.04, duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.6);
         // exit: whole block defocuses
         FX.blurOut(tl, "#s3-stage", 4.06, { dur: 0.28 });

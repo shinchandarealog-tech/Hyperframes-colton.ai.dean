@@ -276,19 +276,12 @@ window.FX = window.FX || {
         tl.from("#s6-card", { opacity: 0, y: 60, scale: 0.9, filter: "blur(16px)", duration: 0.6, ease: "expo.out" }, 1.55);
         tl.from("#s6-tax", { opacity: 0, scale: 0.4, duration: 0.35, ease: "back.out(2.5)" }, 1.75);
         // the click
-        tl.from("#s6-cursor", { opacity: 0, x: 140, y: 120, duration: 0.5, ease: "power3.out" }, 2.9);
-        tl.to("#s6-cursor", { scale: 0.82, duration: 0.07, ease: "power4.in", transformOrigin: "10% 5%" }, 3.42);
-        tl.to("#s6-cursor", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 3.49);
-        tl.fromTo("#s6-ripple", { opacity: 0.9, scale: 0.2 }, { opacity: 0, scale: 2.2, duration: 0.5, ease: "power2.out" }, 3.44);
-        tl.to("#s6-cursor", { opacity: 0, x: 60, y: 60, duration: 0.3, ease: "power2.in" }, 3.8);
         // five times more expensive
         FX.count(tl, root.querySelector("#s6-price"), 1, 5, 3.85, 0.9, (v) => "$" + v.toFixed(2), "power2.in");
         tl.to(line, { strokeDashoffset: 0, duration: 0.9, ease: "power2.in" }, 3.85);
         tl.to("#s6-price", { color: "#ff6b7a", textShadow: "0 0 40px rgba(255,90,106,0.55)", duration: 0.5 }, 4.1);
         tl.to("#s6-card", { borderColor: "rgba(255,90,106,0.7)", boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.16), 0 0 50px rgba(255,90,106,0.45), 0 16px 48px rgba(0,0,0,0.5)", duration: 0.5 }, 4.1);
         tl.from("#s6-badge", { opacity: 0, scale: 2.6, rotation: -30, filter: "blur(16px)", duration: 0.4, ease: "expo.out" }, 4.2);
-        tl.fromTo("#s6-cardwrap", { x: 0 }, { keyframes: [{ x: -16 }, { x: 14 }, { x: -9 }, { x: 5 }, { x: 0 }], duration: 0.32, ease: "none" }, 4.3);
-        tl.to("#s6-badge", { scale: 1.08, duration: 0.45, yoyo: true, repeat: 1, ease: "sine.inOut" }, 4.62);
         FX.blurOut(tl, "#s6-B", 5.24, { dur: 0.26 });
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};
