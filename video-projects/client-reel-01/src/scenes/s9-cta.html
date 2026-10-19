@@ -2,7 +2,7 @@
   <div data-composition-id="s9-cta" data-width="1080" data-height="1920" id="root">
     <div class="fx-stage">
       <div class="fx-small" id="s9-a" data-split>Comment</div>
-      <div class="fx-big fx-grad" id="s9-b"><span class="fx-w">AUCTION</span></div>
+      <div class="fx-big fx-grad" id="s9-b" data-split>AUCTION</div>
       <div class="s9-zone">
         <div class="s9-input fx-glass-dark" id="s9-input">
           <div class="av"></div>
@@ -63,7 +63,7 @@
         FX.split(root);
         const tl = gsap.timeline({ paused: true });
         FX.blurIn(tl, FX.words(root, "#s9-a"), 0.0, { stagger: 0.06 });
-        tl.from("#s9-b .fx-w", { opacity: 0, scale: 0.75, filter: "blur(20px)", duration: 0.6, ease: "expo.out" }, 0.06);
+        FX.blurIn(tl, FX.words(root, "#s9-b"), 0.06, { scale: 0.4, y: 40, cstagger: 0.045 });
         // comment box types the keyword
         tl.from("#s9-input", { opacity: 0, y: 40, scale: 0.92, filter: "blur(12px)", duration: 0.4, ease: "back.out(1.6)" }, 0.04);
         const typed = root.querySelector("#s9-typed");

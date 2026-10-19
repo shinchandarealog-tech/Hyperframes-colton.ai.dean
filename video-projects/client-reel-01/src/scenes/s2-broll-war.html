@@ -28,13 +28,13 @@
       #s2-core { position: absolute; left: 540px; top: 880px; width: 700px; height: 700px; margin: -350px 0 0 -350px; border-radius: 50%;
         background: radial-gradient(circle, rgba(96,170,255,0.45) 0%, rgba(59,130,246,0.12) 35%, rgba(59,130,246,0) 65%); }
       .s2-center { position: absolute; left: 0; right: 0; top: 640px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
-      .s2-a { font-size: 76px; font-weight: 700; letter-spacing: -0.03em; }
+      .s2-a { font-size: 92px; font-weight: 700; letter-spacing: -0.03em; }
       .s2-war { font-size: 260px; letter-spacing: -0.06em; line-height: 0.95; }
       .s2-timer { margin-top: 46px; display: flex; align-items: baseline; gap: 10px; padding: 22px 46px; border-radius: 999px; }
       .s2-timer .num { font-size: 92px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
       .s2-timer .unit { font-size: 50px; font-weight: 600; color: rgba(255,255,255,0.7); }
       .s2-timer .dot { width: 22px; height: 22px; border-radius: 50%; background: #ff5a6a; box-shadow: 0 0 16px #ff5a6a; align-self: center; margin-right: 10px; }
-      .s2-lbl { margin-top: 22px; font-size: 48px; color: rgba(235,242,255,0.85); }
+      .s2-lbl { margin-top: 22px; font-size: 64px; color: rgba(235,242,255,0.9); }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <script>
@@ -68,7 +68,7 @@
 
         FX.blurIn(tl, FX.words(root, "#s2-a"), 0.03, { stagger: 0.12 });
         // "war." — the slam (camera kick on the whole canvas)
-        tl.from("#s2-war .fx-w", { scale: 2.4, opacity: 0, filter: "blur(30px)", duration: 0.45, ease: "expo.out" }, 0.67);
+        tl.from("#s2-war .fx-c", { scale: 2.4, opacity: 0, filter: "blur(30px) brightness(2.6)", duration: 0.45, ease: "expo.out", stagger: 0.04 }, 0.67);
         tl.fromTo("#s2-all", { scale: 1.06 }, { scale: 1, duration: 0.5, ease: "expo.out" }, 0.69);
         // timer
         tl.from("#s2-timer", { opacity: 0, y: 30, scale: 0.85, filter: "blur(12px)", duration: 0.45, ease: "back.out(1.6)" }, 1.42);

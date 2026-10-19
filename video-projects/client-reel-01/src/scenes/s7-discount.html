@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="fx-stage" id="s7-B">
-      <div class="fx-small" id="s7-b1" data-split>the platform gives you a discount</div>
+      <div class="fx-small" id="s7-b1" data-split>the platform gives you</div>
       <div class="s7-cardwrap" id="s7-cardwrap">
         <div class="s7-card fx-glass" id="s7-card">
           <div class="row">
@@ -16,7 +16,7 @@
           </div>
           <div class="prices">
             <span class="old" id="s7-old">$5.00<i id="s7-oldstrike"></i></span>
-            <span class="new fx-grad"><span class="fx-w" id="s7-new">$0.80</span></span>
+            <span class="new fx-grad"><span class="fx-w solo" id="s7-new">$0.80</span></span>
           </div>
           <svg class="spark" viewBox="0 0 700 110" preserveAspectRatio="none">
             <polyline id="s7-line" points="0,6 100,10 200,18 300,34 400,58 500,80 600,94 700,102" fill="none"
@@ -28,7 +28,7 @@
     </div>
     <style>
       /*@FX_CSS*/
-      #s7-a2 { font-size: 160px; }
+      #s7-a2 { font-size: 140px; }
       .s7-cardwrap { position: relative; margin-top: 20px; }
       .s7-card { position: relative; width: 820px; height: 380px; border-radius: 44px; padding: 34px 44px; box-sizing: border-box; text-align: left; }
       .s7-card .row { display: flex; justify-content: flex-start; gap: 22px; align-items: center; }
@@ -59,7 +59,7 @@
         gsap.set(line, { strokeDasharray: 760, strokeDashoffset: 760 });
 
         FX.blurIn(tl, FX.words(root, "#s7-a1"), 0.04, { stagger: 0.09 });
-        tl.from("#s7-a2 .fx-w", { opacity: 0, scale: 0.7, filter: "blur(22px)", duration: 0.6, ease: "expo.out" }, 0.84);
+        FX.blurIn(tl, FX.words(root, "#s7-a2"), 0.84, { scale: 0.4, y: 40, cstagger: 0.04 });
         FX.blurOut(tl, "#s7-A", 1.6, { dur: 0.22 });
 
         FX.blurIn(tl, FX.words(root, "#s7-b1"), 1.7, { stagger: 0.06 });

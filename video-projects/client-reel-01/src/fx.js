@@ -1,19 +1,34 @@
 /* Shared motion helpers (Apple-keynote blur-focus language). Inlined by scripts/build-comps.py. */
 window.FX = window.FX || {
-  // Wrap each word of every [data-split] element in a .fx-w span.
+  // Wrap every [data-split] element: words → .fx-w, letters → .fx-c.
   split(root) {
     root.querySelectorAll("[data-split]").forEach((el) => {
       const words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = words.map((w) => `<span class="fx-w">${w}</span>`).join(" ");
+      el.innerHTML = words
+        .map((w) => `<span class="fx-w">${[...w].map((c) => `<span class="fx-c">${c}</span>`).join("")}</span>`)
+        .join(" ");
     });
   },
+  // Letters of an element (falls back to the element itself).
   words(root, sel) {
     const el = root.querySelector(sel);
-    const ws = el.querySelectorAll(".fx-w");
-    return ws.length ? ws : el;
+    const cs = el.querySelectorAll(".fx-c");
+    return cs.length ? cs : el;
   },
-  // Blur → sharp focus-in, per word.
+  // Letter-by-letter focus-in with a cyan light-flash (reference signature); per-word blur for other targets.
   blurIn(tl, targets, t, o = {}) {
+    const list = targets.length !== undefined ? [...targets] : [targets];
+    if (list.length && list[0].classList && list[0].classList.contains("fx-c")) {
+      const each = o.cstagger ?? Math.min(0.035, 0.9 / list.length);
+      tl.from(list, { opacity: 0, y: o.y ?? 22, scale: o.scale ?? 0.55, filter: "blur(12px) brightness(2.6)",
+        duration: o.dur ?? 0.5, ease: o.ease ?? "expo.out", stagger: each }, t);
+      const grad = list[0].closest(".fx-grad");
+      if (!grad) {
+        tl.from(list, { color: "#a6e6ff", textShadow: "0 0 14px rgba(150,225,255,1), 0 0 34px rgba(80,180,255,0.95)",
+          duration: 0.7, ease: "power2.out", stagger: each }, t);
+      }
+      return;
+    }
     tl.from(
       targets,
       {
@@ -58,7 +73,7 @@ window.FX = window.FX || {
     const label = row.querySelector(".lbl");
     tl.from(ring, { opacity: 0, scale: 0.5, svgOrigin: "30 30", duration: 0.25, ease: "power2.out" }, t);
     tl.to(ring, { rotation: 200, svgOrigin: "30 30", duration: 0.55, ease: "none" }, t);
-    FX.blurIn(tl, label.querySelectorAll(".fx-w").length ? label.querySelectorAll(".fx-w") : label, t + 0.02, { y: 0, scale: 0.96, stagger: 0.05 });
+    FX.blurIn(tl, label.querySelectorAll(".fx-c").length ? label.querySelectorAll(".fx-c") : label, t + 0.02, { y: 0 });
     tl.from(fill, { scale: 0, svgOrigin: "30 30", duration: 0.32, ease: "back.out(2.2)" }, t + 0.38);
     tl.fromTo(tick, { strokeDashoffset: 44 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, t + 0.48);
     tl.to(ring, { opacity: 0, duration: 0.2, ease: "power1.out" }, t + 0.5);

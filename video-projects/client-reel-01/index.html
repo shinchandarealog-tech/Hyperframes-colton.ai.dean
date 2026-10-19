@@ -16,6 +16,8 @@
       #scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
         background: linear-gradient(to bottom, rgba(6,10,30,0) 40%, rgba(6,10,30,0.42) 58%, rgba(6,10,30,0.5) 78%, rgba(6,10,30,0.3) 100%); }
       .scene { position: absolute; inset: 0; z-index: 5; }
+      #flash { position: absolute; inset: 0; z-index: 7; pointer-events: none; opacity: 0;
+        background: radial-gradient(ellipse 70% 55% at 50% 40%, rgba(220,240,255,0.95) 0%, rgba(140,190,255,0.6) 60%, rgba(80,120,255,0.3) 100%); }
       #vignette { position: absolute; inset: 0; z-index: 8; pointer-events: none;
         background: radial-gradient(ellipse 85% 75% at 50% 42%, rgba(0,0,0,0) 58%, rgba(0,0,0,0.5) 100%); }
       #grain { position: absolute; left: -200px; top: -200px; width: 1480px; height: 2320px; z-index: 9; pointer-events: none; opacity: 0.075;
@@ -44,11 +46,13 @@
       <div id="s8" class="scene" data-composition-id="s8-fix-hook" data-composition-src="compositions/s8-fix-hook.html" data-start="25.75" data-duration="2.7" data-track-index="1"></div>
       <div id="s9" class="scene" data-composition-id="s9-cta" data-composition-src="compositions/s9-cta.html" data-start="28.45" data-duration="3.72" data-track-index="1"></div>
 
+      <div id="flash" class="clip" data-start="0" data-duration="0.6" data-track-index="23"></div>
       <div id="vignette" class="clip" data-start="0" data-duration="32.17" data-track-index="21"></div>
       <div id="grain" class="clip" data-start="0" data-duration="32.17" data-track-index="22"></div>
 
       <!-- sound design: voice is loudest; SFX -12..-18 dB under, bed ~-24 dB -->
       <audio id="bed" src="assets/sfx/music-bed.mp3" data-start="0" data-duration="32.17" data-track-index="11" data-volume="0.07"></audio>
+      <audio id="sx-open" src="assets/sfx/boom.mp3" data-start="0" data-duration="1.6" data-track-index="33" data-volume="0.35"></audio>
       <audio id="sx-tap" src="assets/sfx/click.wav" data-start="0.95" data-duration="0.46" data-track-index="12" data-volume="0.45"></audio>
       <audio id="sx-zoom" src="assets/sfx/whoosh.mp3" data-start="1.85" data-duration="0.57" data-track-index="13" data-volume="0.4"></audio>
       <audio id="sx-war" src="assets/sfx/bass-drop.mp3" data-start="2.97" data-duration="1.1" data-track-index="14" data-volume="0.4"></audio>
@@ -75,20 +79,30 @@
         // face is a character: slow Ken Burns across the whole piece
         tl.fromTo("#face-kb", { scale: 1 }, { scale: 1.04, duration: D, ease: "none" }, 0);
         const P = "#face-punch";
+        // HOOK: frame 0 opens punched-in behind a light flash, snaps out to the speaker
+        tl.fromTo(P, { scale: 1.32 }, { scale: 1, duration: 0.5, ease: "expo.out" }, 0);
+        tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.4, ease: "power2.out" }, 0);
+        tl.to(P, { scale: 1.07, duration: 0.12, ease: "expo.out" }, 0.95);   // "tap"
         // 1.8 → push toward the phone as it zooms in
         tl.to(P, { scale: 1.18, filter: "blur(6px)", duration: 0.5, ease: "power2.in" }, 1.8);
         // 4.8 → b-roll pulls back, speaker resolves into focus
         tl.fromTo(P, { scale: 1.15, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out", immediateRender: false }, 4.8);
+        // jump-cut punch-ins on stressed words (zoom only; audio untouched)
+        tl.to(P, { scale: 1.09, duration: 0.12, ease: "expo.out" }, 7.03);   // "bid"
+        tl.to(P, { scale: 1, duration: 0.12, ease: "expo.out" }, 9.46);      // "But"
+        tl.to(P, { scale: 1.12, duration: 0.12, ease: "expo.out" }, 10.33);  // "not"
         // 12.41 → whip left into the AI b-roll
         tl.to(P, { x: -320, filter: "blur(18px)", duration: 0.24, ease: "expo.in" }, 12.41);
         // 15.69 → zoom-through back to the speaker
         tl.fromTo(P, { x: 0, scale: 0.88, filter: "blur(12px)" }, { scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out", immediateRender: false }, 15.69);
         // "boring … the AI taxes you": slow tension push
         tl.to(P, { scale: 1.06, duration: 1.2, ease: "power2.inOut" }, 16.5);
+        tl.to(P, { scale: 1.14, duration: 0.15, ease: "expo.out" }, 19.8);   // "five times"
         tl.to(P, { scale: 1, duration: 0.45, ease: "power3.out" }, 21.45);
+        tl.to(P, { scale: 1.09, duration: 0.15, ease: "expo.out" }, 24.39);  // "massive"
         // "Stop blaming" punch, "hook." micro-kick, settle for the CTA
-        tl.to(P, { scale: 1.1, duration: 0.3, ease: "expo.out" }, 25.46);
-        tl.to(P, { scale: 1.13, duration: 0.18, ease: "expo.out" }, 27.62);
+        tl.to(P, { scale: 1.16, duration: 0.2, ease: "expo.out" }, 25.46);
+        tl.to(P, { scale: 1.2, duration: 0.18, ease: "expo.out" }, 27.62);
         tl.to(P, { scale: 1, duration: 0.55, ease: "power3.inOut" }, 28.4);
         // film grain: seeded jitter at 15 fps (deterministic)
         let a = 1337;

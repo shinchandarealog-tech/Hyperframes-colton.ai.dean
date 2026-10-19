@@ -29,7 +29,7 @@
         FX.split(root);
         const tl = gsap.timeline({ paused: true });
         FX.blurIn(tl, FX.words(root, "#s4-a"), 0.04, { stagger: 0.1 });
-        tl.from("#s4-not .fx-w", { opacity: 0, scale: 1.9, filter: "blur(26px)", duration: 0.42, ease: "expo.out" }, 0.86);
+        tl.from("#s4-not .fx-c", { opacity: 0, scale: 2.2, y: 30, filter: "blur(26px) brightness(2.6)", duration: 0.42, ease: "expo.out", stagger: 0.06 }, 0.86);
         FX.glowIn(tl, "#s4-pill", 1.3);
         tl.from("#s4-pill .num, #s4-pill .lbl, #s4-pill .cash", { opacity: 0, x: -20, duration: 0.4, stagger: 0.06, ease: "power3.out" }, 1.42);
         // strike lands once the pill is fully readable

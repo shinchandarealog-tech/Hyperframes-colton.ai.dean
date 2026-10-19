@@ -38,28 +38,32 @@
 .fx-slot { position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .fx-layer { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .fx-small {
-  font-size: 54px;
+  font-size: 80px;
   font-weight: 600;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   line-height: 1.1;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 30px rgba(0, 0, 0, 0.6);
 }
 .fx-big {
-  font-size: 150px;
+  font-size: 170px;
   font-weight: 800;
   letter-spacing: -0.045em;
   line-height: 0.98;
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.45), 0 10px 40px rgba(0, 0, 0, 0.55);
 }
-.fx-w { display: inline-block; will-change: transform, filter, opacity; }
-/* Light-blue → cyan gradient emphasis (glow lives on the parent so word blur tweens don't kill it) */
-.fx-grad { text-shadow: none; filter: drop-shadow(0 0 26px rgba(125, 211, 252, 0.45)) drop-shadow(0 6px 16px rgba(0, 0, 0, 0.55)); }
-.fx-grad .fx-w {
+.fx-w { display: inline-block; white-space: nowrap; }
+/* Per-letter spans (reference: letters focus in one by one with a cyan light-flash) */
+.fx-c { display: inline-block; filter: blur(0px) brightness(1); will-change: transform, filter, opacity; }
+/* Hero words: heavy light-blue gradient, 3D extrude + halo (reference "5 Fonts" treatment).
+   Extrude/glow live on the parent so per-letter filter tweens don't kill them. */
+.fx-grad { text-shadow: none; font-weight: 900;
+  filter: drop-shadow(0 2px 0 #2b86e0) drop-shadow(0 2px 0 #2270cc) drop-shadow(0 2px 0 #1a5bb0) drop-shadow(0 2px 0 #144896)
+    drop-shadow(0 12px 18px rgba(0, 10, 40, 0.55)) drop-shadow(0 0 26px rgba(110, 200, 255, 0.45)); }
+.fx-grad .fx-c, .fx-grad .solo {
   background: linear-gradient(180deg, #e3f6ff 0%, #8fd8fd 42%, #3b9cf0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  padding: 0 0.04em;
 }
 .fx-dim { color: rgba(235, 240, 255, 0.72); }
 .fx-red { color: #ff5a6a; text-shadow: 0 0 30px rgba(255, 70, 90, 0.45), 0 6px 20px rgba(0, 0, 0, 0.55); }
@@ -91,9 +95,9 @@
 
 /* Animated checklist row */
 .fx-checks { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
-.fx-check { display: flex; align-items: center; gap: 22px; font-size: 54px; font-weight: 600;
+.fx-check { display: flex; align-items: center; gap: 24px; font-size: 72px; font-weight: 600;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.55), 0 6px 26px rgba(0, 0, 0, 0.6); }
-.fx-check svg { width: 62px; height: 62px; overflow: visible; filter: drop-shadow(0 0 14px rgba(59, 130, 246, 0.6)); }
+.fx-check svg { width: 76px; height: 76px; overflow: visible; filter: drop-shadow(0 0 14px rgba(59, 130, 246, 0.6)); }
 
 /* B-roll canvas: black + perspective grid + crosshairs */
 .fx-black { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 45%, #0b1430 0%, #04060f 55%, #010205 100%); }
@@ -117,7 +121,7 @@
 .fx-cross::before, .fx-cross::after { content: ""; position: absolute; background: rgba(200, 230, 255, 0.8); }
 .fx-cross::before { left: 16px; top: 0; width: 2px; height: 34px; }
 .fx-cross::after { top: 16px; left: 0; height: 2px; width: 34px; }
-.fx-chrome .fx-w {
+.fx-chrome .fx-c {
   background: linear-gradient(180deg, #ffffff 0%, #dfe8f5 38%, #8fa3bf 62%, #f4f8ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -137,20 +141,35 @@
     <script>
       /* Shared motion helpers (Apple-keynote blur-focus language). Inlined by scripts/build-comps.py. */
 window.FX = window.FX || {
-  // Wrap each word of every [data-split] element in a .fx-w span.
+  // Wrap every [data-split] element: words → .fx-w, letters → .fx-c.
   split(root) {
     root.querySelectorAll("[data-split]").forEach((el) => {
       const words = el.textContent.trim().split(/\s+/);
-      el.innerHTML = words.map((w) => `<span class="fx-w">${w}</span>`).join(" ");
+      el.innerHTML = words
+        .map((w) => `<span class="fx-w">${[...w].map((c) => `<span class="fx-c">${c}</span>`).join("")}</span>`)
+        .join(" ");
     });
   },
+  // Letters of an element (falls back to the element itself).
   words(root, sel) {
     const el = root.querySelector(sel);
-    const ws = el.querySelectorAll(".fx-w");
-    return ws.length ? ws : el;
+    const cs = el.querySelectorAll(".fx-c");
+    return cs.length ? cs : el;
   },
-  // Blur → sharp focus-in, per word.
+  // Letter-by-letter focus-in with a cyan light-flash (reference signature); per-word blur for other targets.
   blurIn(tl, targets, t, o = {}) {
+    const list = targets.length !== undefined ? [...targets] : [targets];
+    if (list.length && list[0].classList && list[0].classList.contains("fx-c")) {
+      const each = o.cstagger ?? Math.min(0.035, 0.9 / list.length);
+      tl.from(list, { opacity: 0, y: o.y ?? 22, scale: o.scale ?? 0.55, filter: "blur(12px) brightness(2.6)",
+        duration: o.dur ?? 0.5, ease: o.ease ?? "expo.out", stagger: each }, t);
+      const grad = list[0].closest(".fx-grad");
+      if (!grad) {
+        tl.from(list, { color: "#a6e6ff", textShadow: "0 0 14px rgba(150,225,255,1), 0 0 34px rgba(80,180,255,0.95)",
+          duration: 0.7, ease: "power2.out", stagger: each }, t);
+      }
+      return;
+    }
     tl.from(
       targets,
       {
@@ -195,7 +214,7 @@ window.FX = window.FX || {
     const label = row.querySelector(".lbl");
     tl.from(ring, { opacity: 0, scale: 0.5, svgOrigin: "30 30", duration: 0.25, ease: "power2.out" }, t);
     tl.to(ring, { rotation: 200, svgOrigin: "30 30", duration: 0.55, ease: "none" }, t);
-    FX.blurIn(tl, label.querySelectorAll(".fx-w").length ? label.querySelectorAll(".fx-w") : label, t + 0.02, { y: 0, scale: 0.96, stagger: 0.05 });
+    FX.blurIn(tl, label.querySelectorAll(".fx-c").length ? label.querySelectorAll(".fx-c") : label, t + 0.02, { y: 0 });
     tl.from(fill, { scale: 0, svgOrigin: "30 30", duration: 0.32, ease: "back.out(2.2)" }, t + 0.38);
     tl.fromTo(tick, { strokeDashoffset: 44 }, { strokeDashoffset: 0, duration: 0.22, ease: "power2.out" }, t + 0.48);
     tl.to(ring, { opacity: 0, duration: 0.2, ease: "power1.out" }, t + 0.5);
@@ -228,7 +247,7 @@ window.FX = window.FX || {
         FX.split(root);
         const tl = gsap.timeline({ paused: true });
         FX.blurIn(tl, FX.words(root, "#s4-a"), 0.04, { stagger: 0.1 });
-        tl.from("#s4-not .fx-w", { opacity: 0, scale: 1.9, filter: "blur(26px)", duration: 0.42, ease: "expo.out" }, 0.86);
+        tl.from("#s4-not .fx-c", { opacity: 0, scale: 2.2, y: 30, filter: "blur(26px) brightness(2.6)", duration: 0.42, ease: "expo.out", stagger: 0.06 }, 0.86);
         FX.glowIn(tl, "#s4-pill", 1.3);
         tl.from("#s4-pill .num, #s4-pill .lbl, #s4-pill .cash", { opacity: 0, x: -20, duration: 0.4, stagger: 0.06, ease: "power3.out" }, 1.42);
         // strike lands once the pill is fully readable

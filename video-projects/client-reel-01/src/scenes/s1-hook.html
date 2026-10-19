@@ -2,6 +2,7 @@
   <div data-composition-id="s1-hook" data-width="1080" data-height="1920" id="root">
     <div class="fx-stage">
       <div class="fx-slot">
+        <div class="fx-pill fx-glass s1-tease" id="s1-tease"><span class="num">!</span><span>Why your ads cost <b class="x5">5×</b> more</span></div>
         <div class="fx-small" id="s1-l1" data-split>Every time you</div>
         <div class="fx-big fx-grad" id="s1-l2" data-split>tap an ad</div>
       </div>
@@ -25,8 +26,12 @@
 
     <style>
       /*@FX_CSS*/
+      .s1-tease { height: 100px; font-size: 44px; gap: 22px; padding: 0 40px 0 34px; margin-bottom: 10px; }
+      .s1-tease .num { font-size: 46px; color: #ffd166; }
+      .s1-tease .x5 { color: #ff6b7a; font-weight: 900; }
+      #s1-l2 { font-size: 160px; margin-top: -4px; }
       #s1-phone {
-        position: absolute; left: 345px; top: 1235px; width: 390px; height: 800px;
+        position: absolute; left: 345px; top: 1350px; width: 390px; height: 800px;
         border-radius: 70px; background: #0a0a0e; padding: 12px; box-sizing: border-box;
         border: 2px solid rgba(255,255,255,0.22);
         box-shadow: 0 0 0 5px #1b1b22, 0 40px 90px rgba(0,0,0,0.6), 0 0 60px rgba(59,130,246,0.35);
@@ -59,17 +64,21 @@
         const root = document.querySelector('[data-composition-id="s1-hook"]');
         FX.split(root);
         const tl = gsap.timeline({ paused: true });
-        FX.blurIn(tl, FX.words(root, "#s1-l1"), 0.08, { stagger: 0.09 });
+        // frame-0 hook: teaser pill flashes in immediately (curiosity gap), lead-in letters start on the first word
+        FX.glowIn(tl, "#s1-tease", 0, { dur: 0.3 });
+        tl.from("#s1-tease .num", { scale: 2.4, rotation: -25, duration: 0.4, ease: "back.out(3)" }, 0.08);
+        tl.fromTo("#s1-tease .x5", { scale: 1 }, { scale: 1.25, duration: 0.18, yoyo: true, repeat: 3, ease: "sine.inOut" }, 0.35);
+        FX.blurIn(tl, FX.words(root, "#s1-l1"), 0.06, { cstagger: 0.045 });
         tl.from("#s1-phone", { y: 620, rotationX: 28, opacity: 0, transformPerspective: 1400, duration: 0.85, ease: "expo.out" }, 0.22);
-        FX.blurIn(tl, FX.words(root, "#s1-l2"), 0.86, { scale: 0.8, y: 30, stagger: 0.08, ease: "back.out(1.6)" });
+        FX.blurIn(tl, FX.words(root, "#s1-l2"), 0.84, { scale: 0.3, y: 50, cstagger: 0.045, ease: "back.out(1.8)" });
         // the tap: compress → overshoot + ripple
         tl.to("#s1-cta", { scale: 0.9, duration: 0.07, ease: "power4.in" }, 0.95);
         tl.to("#s1-cta", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 1.02);
         tl.fromTo("#s1-ripple", { opacity: 0.9, scale: 0.2 }, { opacity: 0, scale: 2.6, duration: 0.55, ease: "power2.out" }, 0.97);
         tl.to("#s1-phone", { y: -12, duration: 0.6, ease: "sine.inOut" }, 1.1);
         // "…on your phone" → push into the screen
-        FX.blurOut(tl, "#s1-l1, #s1-l2", 1.72, { dur: 0.26 });
-        tl.to("#s1-phone", { y: -675, scale: 6.2, duration: 0.55, ease: "expo.in" }, 1.75);
+        FX.blurOut(tl, "#s1-tease, #s1-l1, #s1-l2", 1.72, { dur: 0.26 });
+        tl.to("#s1-phone", { y: -790, scale: 6.2, duration: 0.55, ease: "expo.in" }, 1.75);
         tl.to("#s1-blackout", { opacity: 1, duration: 0.3, ease: "power2.in" }, 1.98);
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};
