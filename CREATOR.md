@@ -1,52 +1,48 @@
-<!-- HYPERFRAMES_SETUP_INCOMPLETE -->
-<!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
-     and run onboarding before any video work. The setup skill removes it when finished. -->
-
-# Creator Profile — _(your name)_
+# Creator Profile — Client (no on-screen name)
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
 
-> 🚧 **This file is a blank template.** Run `/setup` (or just tell Claude "help me get set up") and it will fill these sections in from a short interview. You can also edit it by hand any time.
-
 ## Identity
 
-- **Name on-screen**: _(your display name)_
-- **Instagram**: _(@handle or "—")_
-- **TikTok**: _(handle or "—")_
-- **YouTube**: _(handle or "—")_
-- **X / other**: _(handle or "—")_
+- **Name on-screen**: none: do not put a name or handle on screen
+- **Instagram**: —
+- **TikTok**: —
+- **YouTube**: —
+- **X / other**: —
 
 When putting handles on-screen (lower-thirds, outros, end-cards), use the platform-appropriate handle.
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Cross-post all** (Instagram Reels + TikTok + YouTube Shorts). Default: **9:16 vertical, 1080×1920, 30fps**; keep text inside the shared safe zone (avoid top ~220px and bottom ~380px platform UI).
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+**AI / tech**: AI tools, automation, tech explainers.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Face-cam.** The client records talking-head clips; premium b-roll + Apple-style motion graphics are layered on top.
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**Client records + pre-edits their own speaking video. Keep their audio exactly as-is.** Never cut their speech, remove pauses, or change pacing; sync b-roll, captions and animations to their timing.
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+Navy-glass + light-blue/cyan accent palette derived from the @alihassan-works reference, set in `assets/brand-tokens.css`. Display font: Inter / SF Pro Display. Premium, clean, Apple-style.
 
 ## Inspiration creators
 
-_(Studied creators live in [`_reference/creator-library/`](_reference/creator-library/). Paste a TikTok / Instagram Reel / YouTube Short URL and run `/study-creator <url>` to add one. At build time, name a creator — "build this like @handle" — to apply their style fingerprint to the visual layer. /setup seeds your first few here.)_
+See [`_reference/creator-library/INDEX.md`](_reference/creator-library/INDEX.md) for the full list. Add new creators via `/study-creator <url>`.
+
+- **Client's primary style reference: @alihassan-works**: Apple-style blur-focus text + glass UI chips + checklist ticks, plus premium b-roll per the client brief.
 
 ## Posting cadence & length defaults
 
