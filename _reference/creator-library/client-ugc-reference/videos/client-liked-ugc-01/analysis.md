@@ -15,7 +15,7 @@ It doesn't look like an ad. It's a cat owner at her kitchen table venting about 
 ## Hook (0–2s)
 - **0.00–2.04:** Fullscreen talking head, wide-medium shot. She sits at a round white marble table in a sunny kitchen, wearing a navy long-sleeve top, with a pink marble laptop and a vase with flowers. She is mid-gesture with open hands and leans in.
 - **First words:** *"I'm telling you, I swear my cats would…"* She opens mid-thought and emphatic, with no greeting and no "hey guys".
-- **Captions:** These are **pale yellow** (~#F2E27A) only in the hook, then switch to white for the rest of the video. They sit slightly lower than later captions (~56% down the frame vs ~50%).
+- **Captions:** These are **pale yellow** (~#F2E27A) only in the hook, then switch to white for the rest of the video. They sit slightly lower than later captions (~56% down the frame vs ~50%). *(Don't copy the color switch: per `PREFERENCES.md`, use one caption color for the whole video.)*
 - **2.04:** She hard-cuts to B-roll of an orange cat with its face in a food bowl on a black-and-white checkered mat while saying *"…rather starve than try a new food."* The line pays off visually in the second second.
 - **Formula:** an emphatic, relatable claim on camera, then a cut to literal B-roll proof of that claim within about 2s.
 
@@ -103,7 +103,7 @@ A relatable "I've tried everything" rant that dismisses the obvious advice, then
 ## What to steal (actionable for Hyperframes builds)
 - **Problem-first, product at about one third in.** Don't show the product until after the agitation and "dismissed advice" beats. Map this into the storyboard: Hook → Agitate → Dismiss → "However" pivot → Reveal → How-to → Benefit → Credibility → Stat → Audience callouts → CTA + guarantee.
 - **The hook pays off visually by 2s.** Cut from the claim to literal proof B-roll on the second half of the hook sentence.
-- **Native captions, not motion-graphic captions.** Small (~40px on 1080w), white sans with a soft shadow, 1–4 word chunks, centered around 50% height, hard swaps. Optional pale-yellow tint for the hook lines only. In Hyperframes: a plain caption track with no karaoke scale-pops or highlight colors. This overrides the chrome/glow aesthetic in `MOTION_PHILOSOPHY.md` for UGC builds.
+- **Native captions, not motion-graphic captions.** Small (~40px on 1080w), white sans with a soft shadow, 1–4 word chunks, centered around 50% height, hard swaps. **One color for the whole video, with no yellow hook tint**, and always inside the Meta safe area (x 65–1015, y 270–1250 on 1080×1920; see `PREFERENCES.md`). In Hyperframes: a plain caption track with no karaoke scale-pops or highlight colors. This overrides the chrome/glow aesthetic in `MOTION_PHILOSOPHY.md` for UGC builds.
 - **Hard cuts plus jump cuts only.** Skip whip/shader transitions for UGC. Real camera motion (handheld peeks, a bump) provides the energy.
 - **B-roll on every claim.** Use a cutaway for "picky", "prescription", "sprinkle", "doesn't change what they eat", "98%" and "three cats". About a 55/45 talking-head-to-B-roll ratio.
 - **Product stays in frame after the reveal.** In her hands or on the table through the CTA.
