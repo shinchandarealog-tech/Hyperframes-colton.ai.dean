@@ -43,3 +43,6 @@ _reference/creator-library/**/frames/
 
 # remove-background in-progress temp files
 **/assets/.tmp-*
+
+# Hyperframes local state, snapshots, check reports
+**/.hyperframes/
