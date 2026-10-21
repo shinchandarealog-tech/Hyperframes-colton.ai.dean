@@ -21,6 +21,8 @@ _(colors, typography, density, placement — populated by /feedback over time)_
 _(scene length, cuts vs. transitions, breathing room — populated by /feedback over time)_
 
 - **UGC ads = simple, light editing.** Talking head plus real B-roll, jump cuts to trim pauses, ~2–3s per shot, with B-roll on each claim. No motion graphics, overlays, zoom punch-ins, stickers, logos or end cards. Don't apply the `MOTION_PHILOSOPHY.md` motion-graphics look to UGC work. (2026-10-21)
+- **Raw UGC footage: the creator's speech is the script, and I do the cleanup edit.** Cut every dead space, flub, stumble, false start and repeated take, keeping only the best clean take of each line. The result must flow smoothly with no awkward pauses, while keeping natural breaths so it doesn't sound robotic. (Overrides the "don't cut their audio" rule in `CLAUDE.md` for raw footage the user hands over to edit.) (2026-10-21)
+- **B-roll must match the line it covers.** Each clip should show what's being said at that moment; never use a random filler shot. (2026-10-21)
 
 ## Captions
 
