@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "cc235ef2-0201-4ce5-862b-e45e54d7fbf4",
-  "currentRevision": "2ca2b04e-888a-493b-9069-42d241b35166",
+  "currentRevision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
   "pendingChanges": false,
   "files": {
     "DESIGN.md": {
@@ -91,6 +91,10 @@
     "assets/talk.mp4": {
       "hash": "3a548da5bad6f39db571a86a9ebaf4e8885f17ceaca05709781b01a47370a0a4",
       "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/3a/3a548da5bad6f39db571a86a9ebaf4e8885f17ceaca05709781b01a47370a0a4"
+    },
+    "assets/talk-cutout.webm": {
+      "hash": "5e51eb16898534d634bb2a229a83525b36ccba53a7a5eaae585d81c335cc44e8",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/5e/5e51eb16898534d634bb2a229a83525b36ccba53a7a5eaae585d81c335cc44e8"
     }
   },
   "revisions": {
@@ -192,6 +196,21 @@
           "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/f4/f4b923fa3737beba60185f7a2ee4cdedb89e48f90c8aa0c52602ee12be55b0b6"
         }
       }
+    },
+    "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792591177295,
+      "endedAt": 1792591179296,
+      "files": {
+        "assets/talk-cutout.webm": {
+          "before": null,
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/5e/5e51eb16898534d634bb2a229a83525b36ccba53a7a5eaae585d81c335cc44e8"
+        }
+      }
     }
   },
   "checks": {
@@ -234,8 +253,8 @@
   },
   "snapshots": {
     "latest": {
-      "revision": "55770451-6417-4277-8eff-8a90774de58c",
-      "id": "e81c81d2-6ba7-449d-8262-bfff6817d9dd-3"
+      "revision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
+      "id": "904d47ad-723d-4428-8596-3e86d9905fc4-5"
     },
     "revisions": {
       "5592886d-5f87-4ab5-b566-4131d0cb5df9": [
@@ -1214,6 +1233,128 @@
           "contentHash": "e6b7feb44a66bfabea5737dbb6ae5d307da9ffbffd7c4cd59f474beffcdd22ae",
           "revision": "55770451-6417-4277-8eff-8a90774de58c",
           "inputFingerprint": "189d87f7729a55e70b787da08ae179d233263d08058976c039179a641c73d19e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f": [
+        {
+          "scope": "full",
+          "id": "904d47ad-723d-4428-8596-3e86d9905fc4-0",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap5/frame-00-at-1.2s.png",
+          "time": 1.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792591206297,
+          "contentHash": "e9b8d8ea77ca0029a94c6d7d2166c4e6d4e2ae2556578cc569004eed6b20189f",
+          "revision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
+          "inputFingerprint": "42f99dcfcdaa00a26edb13857e7cc88a6271f3bca577c3c154a2f977814e9e62",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "904d47ad-723d-4428-8596-3e86d9905fc4-1",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap5/frame-01-at-6.9s.png",
+          "time": 6.9,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792591206298,
+          "contentHash": "126643ba7f26db855dfda13212dc7cbdf49f85d07d46ddc08e5459d84707aa28",
+          "revision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
+          "inputFingerprint": "42f99dcfcdaa00a26edb13857e7cc88a6271f3bca577c3c154a2f977814e9e62",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "904d47ad-723d-4428-8596-3e86d9905fc4-2",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap5/frame-02-at-26.2s.png",
+          "time": 26.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792591206298,
+          "contentHash": "197a36cf4358af84d89adc15ae1a305be83f93e949a68932a536e7d585d3369f",
+          "revision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
+          "inputFingerprint": "42f99dcfcdaa00a26edb13857e7cc88a6271f3bca577c3c154a2f977814e9e62",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "904d47ad-723d-4428-8596-3e86d9905fc4-3",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap5/frame-03-at-28.5s.png",
+          "time": 28.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792591206298,
+          "contentHash": "d7a7368ec72ab97fdc1fcd5e3709bdb31bce49c8c4c09adc9f48fd2c8d3b8e8d",
+          "revision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
+          "inputFingerprint": "42f99dcfcdaa00a26edb13857e7cc88a6271f3bca577c3c154a2f977814e9e62",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "904d47ad-723d-4428-8596-3e86d9905fc4-4",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap5/frame-04-at-39.2s.png",
+          "time": 39.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792591206298,
+          "contentHash": "3afb584278caf1c64aff65ae43c869d947d4c681996d61bc9b7c76dd0ed1079b",
+          "revision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
+          "inputFingerprint": "42f99dcfcdaa00a26edb13857e7cc88a6271f3bca577c3c154a2f977814e9e62",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "904d47ad-723d-4428-8596-3e86d9905fc4-5",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap5/frame-05-at-43.5s.png",
+          "time": 43.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [],
+            "partial": false
+          },
+          "createdAt": 1792591206298,
+          "contentHash": "cd712c8cd30a2c92e4b4ec8734d8513985c11850c305533ff6db1c3427be9a52",
+          "revision": "64ce93ec-b2e8-4fcf-8a6a-9c1fc4e23c4f",
+          "inputFingerprint": "42f99dcfcdaa00a26edb13857e7cc88a6271f3bca577c3c154a2f977814e9e62",
           "inputScope": "local-project-files",
           "attribution": "recorded-revision"
         }
