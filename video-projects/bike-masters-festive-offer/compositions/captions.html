@@ -34,7 +34,7 @@
         flex-wrap: wrap;
         align-content: center;
         justify-content: center;
-        column-gap: 22px;
+        column-gap: 40px;
         row-gap: 0;
         opacity: 0;
         visibility: hidden;
@@ -111,7 +111,7 @@
           g.forEach((w, wi) => {
             const s = spans[wi];
             const isKey = !!w[3];
-            tl.to(s, { scale: 1.1, color: "#ffb703", duration: 0.1, ease: "power2.out" }, w[1]);
+            tl.to(s, { scale: 1.05, color: "#ffb703", duration: 0.1, ease: "power2.out" }, w[1]);
             tl.to(s, { scale: 1, color: isKey ? "#ffb703" : "#ffffff", duration: 0.16, ease: "power1.out" }, Math.max(w[1] + 0.12, w[2] - 0.04));
           });
           // exit guarantee
