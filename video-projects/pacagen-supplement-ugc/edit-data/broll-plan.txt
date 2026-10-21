@@ -1,0 +1,10 @@
+b01|[new folder] allergy pills|0.2|5.07|7.367
+b02|[new folder] annoyed taking pills|0.3|7.367|9.30
+b03|[new folder] 3pm fog_confused|1.0|9.30|12.20
+b04|[new folder] dry mouth_drinking water|1.0|12.20|13.30
+b05|[new folder] allergy sprays|2.5|13.30|16.867
+b06|✅ALL SUPPLEMENT B-ROLL/supplement in front of cat|1.0|16.867|20.00
+b08|✅ALL SUPPLEMENT B-ROLL/putting supplement in food|16.0|24.133|28.267
+b09|✅ALL SUPPLEMENT B-ROLL/eating + supplement|1.0|28.267|31.067
+b10|[new folder] 3pm fog_confused|14.5|40.77|42.60
+b11|✅ALL SUPPLEMENT B-ROLL/supplement in front of bed|3.0|49.83|51.133
