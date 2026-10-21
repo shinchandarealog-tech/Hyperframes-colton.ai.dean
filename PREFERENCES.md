@@ -31,6 +31,7 @@ _(style, color, sync tightness, word-by-word vs. phrase chunks — populated by 
 - **One caption color for the whole video.** Never switch color between sections (e.g. no yellow hook lines then white body) and never color-highlight individual words. Default: white `#FFFFFF` with a soft dark drop shadow. (2026-10-21)
 - **Meta ad style captions:** small native-looking sans (≈40px cap height at 1080w), medium–semibold, sentence case, 1–4 word chunks, hard swaps. No pill background, heavy stroke, karaoke pop or emoji. This overrides the karaoke/"pop, don't polite-caption" defaults in `/short-form-video` and `MOTION_PHILOSOPHY.md`. (2026-10-21)
 - **Captions always stay inside the Meta Reels/Stories safe area** (1080×1920): keep the top 14% (0–270px), bottom 35% (1250–1920px) and 6% each side (65px) clear. Every caption line must fit inside **x 65–1015, y 270–1250**, and long chunks must wrap inside that box, never past it. Default anchor: centered, ~50% height (y≈960). Check this on every frame during the every-frame review. (2026-10-21)
+- **Caption position stays fixed around the middle of the frame for the whole video**, including over product close-ups. Never move captions to the top or bottom per shot. (2026-10-21)
 
 ## Transitions
 

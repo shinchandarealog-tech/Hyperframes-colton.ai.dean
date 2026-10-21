@@ -12,7 +12,7 @@ Native, unpolished UGC. A real creator talking to camera at home, cut against ph
 
 ## Layout
 - Meta Reels/Stories safe area on 1080×1920: text only inside x 65–1015, y 270–1250
-- Captions are centered horizontally; the line sits at y≈910–975 (mid-frame, on the torso). Over bottle close-ups they move to y≈330 so the label stays clear
+- Captions are centered horizontally; the line sits at y≈910–975 (mid-frame, on the torso). Same position for the whole video, including product shots
 
 ## What NOT to Do
 - No transition effects, zoom punch-ins, shaders, stickers, logos or end card
