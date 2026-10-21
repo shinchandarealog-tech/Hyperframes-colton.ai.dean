@@ -20,7 +20,7 @@ _(colors, typography, density, placement — populated by /feedback over time)_
 
 _(scene length, cuts vs. transitions, breathing room — populated by /feedback over time)_
 
-- _no rules captured yet_
+- **UGC ads = simple, light editing.** Talking head plus real B-roll, jump cuts to trim pauses, ~2–3s per shot, with B-roll on each claim. No motion graphics, overlays, zoom punch-ins, stickers, logos or end cards. Don't apply the `MOTION_PHILOSOPHY.md` motion-graphics look to UGC work. (2026-10-21)
 
 ## Captions
 
@@ -34,13 +34,13 @@ _(style, color, sync tightness, word-by-word vs. phrase chunks — populated by 
 
 _(preferred / avoid — populated by /feedback over time)_
 
-- _no rules captured yet_
+- **UGC: plain straight cuts only.** No transition effects (whip, zoom, glitch, flash, shader, slide, crossfade). (2026-10-21)
 
 ## Audio
 
 _(music vibe, voiceover style, SFX, mix — populated by /feedback over time)_
 
-- _no rules captured yet_
+- **UGC: creator's original voice only, with no BGM and no SFX.** Keep the natural room tone and don't add whooshes, pops or a music bed. (2026-10-21)
 
 ## Brand
 

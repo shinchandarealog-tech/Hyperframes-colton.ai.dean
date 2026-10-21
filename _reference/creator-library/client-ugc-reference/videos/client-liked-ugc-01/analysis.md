@@ -87,7 +87,7 @@ It doesn't look like an ad. It's a cat owner at her kitchen table venting about 
 
 ## Audio
 - Voice-led throughout, with the original phone mic and room tone. Overall loudness is low (mean −33.7 dB, peak −12.5 dB in this compressed copy).
-- No beat-synced cuts or SFX visible in the edit. I couldn't confirm by ear whether there's a faint music bed underneath.
+- **Voice only: no BGM and no SFX.** A spectrogram check confirmed it: there are only speech harmonics, with no tonal music bands, beat pattern or SFX transients, and the pauses drop to plain room tone.
 
 ## Palette (observed)
 - `#F4F1EA`: cream walls and white marble table (dominant)
