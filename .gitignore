@@ -40,3 +40,6 @@ _reference/creator-library/**/source.webm
 _reference/creator-library/**/source.info.json
 _reference/creator-library/**/frames/
 
+
+# remove-background in-progress temp files
+**/assets/.tmp-*
