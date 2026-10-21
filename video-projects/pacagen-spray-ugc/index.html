@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #face,
+      .broll {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+      }
+      #face {
+        z-index: 1;
+      }
+      .broll {
+        z-index: 2;
+      }
+      /* Captions: single color, Meta safe area (x 65–1015, y 270–1250) */
+      .cap {
+        position: absolute;
+        z-index: 3;
+        left: 65px;
+        width: 950px;
+        top: 910px;
+        text-align: center;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 54px;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        text-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.7),
+          0 0 12px rgba(0, 0, 0, 0.45),
+          0 0 2px rgba(0, 0, 0, 0.6);
+      }
+      /* Over bottle close-ups: lift into the top of the safe area so the label stays clear */
+      .cap-top {
+        top: 330px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="56.067"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- Talking head: cleaned edit (dead air, retakes and flubs removed), 1.15x static crop -->
+      <video id="face" data-start="0" data-duration="56.067" data-track-index="0" src="assets/talking-head.mp4" muted playsinline></video>
+      <audio id="voice" data-start="0" data-duration="56.067" data-track-index="3" src="assets/talking-head.mp4" data-volume="1"></audio>
+
+      <!-- B-roll: straight cuts, each clip matches the line it covers -->
+      <video id="b01" class="broll" data-start="1.7" data-duration="2.633" data-track-index="1" src="assets/broll/b01.mp4" muted playsinline></video>
+      <video id="b02" class="broll" data-start="15.867" data-duration="2.0" data-track-index="1" src="assets/broll/b02.mp4" muted playsinline></video>
+      <video id="b03" class="broll" data-start="17.867" data-duration="2.1" data-track-index="1" src="assets/broll/b03.mp4" muted playsinline></video>
+      <video id="b04" class="broll" data-start="21.4" data-duration="2.0" data-track-index="1" src="assets/broll/b04.mp4" muted playsinline></video>
+      <video id="b05" class="broll" data-start="32.2" data-duration="2.9" data-track-index="1" src="assets/broll/b05.mp4" muted playsinline></video>
+      <video id="b06" class="broll" data-start="35.1" data-duration="1.733" data-track-index="1" src="assets/broll/b06.mp4" muted playsinline></video>
+      <video id="b07" class="broll" data-start="36.833" data-duration="2.767" data-track-index="1" src="assets/broll/b07.mp4" muted playsinline></video>
+      <video id="b08" class="broll" data-start="39.6" data-duration="2.9" data-track-index="1" src="assets/broll/b08.mp4" muted playsinline></video>
+      <video id="b09" class="broll" data-start="42.5" data-duration="0.867" data-track-index="1" src="assets/broll/b09.mp4" muted playsinline></video>
+      <video id="b10" class="broll" data-start="43.367" data-duration="1.533" data-track-index="1" src="assets/broll/b10.mp4" muted playsinline></video>
+      <video id="b11" class="broll" data-start="46.933" data-duration="1.267" data-track-index="1" src="assets/broll/b11.mp4" muted playsinline></video>
+      <video id="b12" class="broll" data-start="48.2" data-duration="1.267" data-track-index="1" src="assets/broll/b12.mp4" muted playsinline></video>
+      <video id="b13" class="broll" data-start="49.467" data-duration="1.267" data-track-index="1" src="assets/broll/b13.mp4" muted playsinline></video>
+
+      <!-- Captions -->
+      <div id="cap-01" class="clip cap" data-start="0.067" data-duration="1.033" data-track-index="2">Just rehome them,</div>
+      <div id="cap-02" class="clip cap" data-start="1.1" data-duration="0.567" data-track-index="2">he said,</div>
+      <div id="cap-03" class="clip cap" data-start="1.667" data-duration="0.6" data-track-index="2">and I go,</div>
+      <div id="cap-04" class="clip cap" data-start="2.267" data-duration="1.133" data-track-index="2">absolutely not.</div>
+      <div id="cap-05" class="clip cap" data-start="3.4" data-duration="0.967" data-track-index="2">Next suggestion.</div>
+      <div id="cap-06" class="clip cap" data-start="4.367" data-duration="1.033" data-track-index="2">My allergist actually</div>
+      <div id="cap-07" class="clip cap" data-start="5.4" data-duration="0.633" data-track-index="2">said that to me</div>
+      <div id="cap-08" class="clip cap" data-start="6.033" data-duration="0.9" data-track-index="2">in the exam room,</div>
+      <div id="cap-09" class="clip cap" data-start="6.933" data-duration="1.2" data-track-index="2">and I remember thinking</div>
+      <div id="cap-10" class="clip cap" data-start="8.133" data-duration="1.267" data-track-index="2">afterwards in my car,</div>
+      <div id="cap-11" class="clip cap" data-start="9.4" data-duration="0.7" data-track-index="2">there has to be</div>
+      <div id="cap-12" class="clip cap" data-start="10.1" data-duration="0.967" data-track-index="2">another option.</div>
+      <div id="cap-13" class="clip cap" data-start="11.067" data-duration="0.666" data-track-index="2">And I already</div>
+      <div id="cap-14" class="clip cap" data-start="11.733" data-duration="1.1" data-track-index="2">tried everything.</div>
+      <div id="cap-15" class="clip cap" data-start="12.833" data-duration="0.8" data-track-index="2">I mean, I tried</div>
+      <div id="cap-16" class="clip cap" data-start="13.633" data-duration="0.867" data-track-index="2">allergy pills,</div>
+      <div id="cap-17" class="clip cap" data-start="14.5" data-duration="1.533" data-track-index="2">I tried vacuuming,</div>
+      <div id="cap-18" class="clip cap" data-start="16.033" data-duration="0.8" data-track-index="2">actually I have</div>
+      <div id="cap-19" class="clip cap" data-start="16.833" data-duration="1.134" data-track-index="2">two air purifiers.</div>
+      <div id="cap-20" class="clip cap" data-start="17.967" data-duration="1.066" data-track-index="2">Constantly washing</div>
+      <div id="cap-21" class="clip cap" data-start="19.033" data-duration="0.734" data-track-index="2">my bedding,</div>
+      <div id="cap-22" class="clip cap" data-start="19.767" data-duration="0.9" data-track-index="2">keeping my cats</div>
+      <div id="cap-23" class="clip cap" data-start="20.667" data-duration="0.733" data-track-index="2">off the bed,</div>
+      <div id="cap-24" class="clip cap" data-start="21.4" data-duration="0.967" data-track-index="2">I mean, you name it,</div>
+      <div id="cap-25" class="clip cap" data-start="22.367" data-duration="0.766" data-track-index="2">I have tried it.</div>
+      <div id="cap-26" class="clip cap" data-start="23.133" data-duration="0.867" data-track-index="2">Then I learned that</div>
+      <div id="cap-27" class="clip cap" data-start="24.0" data-duration="1.0" data-track-index="2">what I was actually</div>
+      <div id="cap-28" class="clip cap" data-start="25.0" data-duration="1.233" data-track-index="2">reacting to</div>
+      <div id="cap-29" class="clip cap" data-start="26.233" data-duration="1.2" data-track-index="2">was not their fur.</div>
+      <div id="cap-30" class="clip cap" data-start="27.433" data-duration="1.0" data-track-index="2">It is Fel d 1,</div>
+      <div id="cap-31" class="clip cap" data-start="28.433" data-duration="1.1" data-track-index="2">which is a protein</div>
+      <div id="cap-32" class="clip cap" data-start="29.533" data-duration="1.434" data-track-index="2">found in their saliva</div>
+      <div id="cap-33" class="clip cap" data-start="30.967" data-duration="1.133" data-track-index="2">and skin oil,</div>
+      <div id="cap-34" class="clip cap" data-start="32.1" data-duration="0.967" data-track-index="2">and it pretty much</div>
+      <div id="cap-35" class="clip cap" data-start="33.067" data-duration="1.066" data-track-index="2">gets on everything</div>
+      <div id="cap-36" class="clip cap" data-start="34.133" data-duration="0.767" data-track-index="2">they touch.</div>
+      <div id="cap-37" class="clip cap" data-start="34.9" data-duration="0.9" data-track-index="2">And that is where</div>
+      <div id="cap-38" class="clip cap" data-start="35.8" data-duration="0.867" data-track-index="2">Pacagen came in.</div>
+      <div id="cap-39" class="clip cap cap-top" data-start="36.667" data-duration="0.633" data-track-index="2">Their allergen</div>
+      <div id="cap-40" class="clip cap cap-top" data-start="37.3" data-duration="1.4" data-track-index="2">neutralizing spray</div>
+      <div id="cap-41" class="clip cap cap-top" data-start="38.7" data-duration="1.2" data-track-index="2">neutralizes up to</div>
+      <div id="cap-42" class="clip cap cap-top" data-start="39.9" data-duration="1.167" data-track-index="2">98% of active</div>
+      <div id="cap-43" class="clip cap cap-top" data-start="41.067" data-duration="0.966" data-track-index="2">cat allergens</div>
+      <div id="cap-44" class="clip cap" data-start="42.033" data-duration="1.267" data-track-index="2">inside my home.</div>
+      <div id="cap-45" class="clip cap cap-top" data-start="43.3" data-duration="0.633" data-track-index="2">It does not</div>
+      <div id="cap-46" class="clip cap cap-top" data-start="43.933" data-duration="0.967" data-track-index="2">change my cats.</div>
+      <div id="cap-47" class="clip cap" data-start="44.9" data-duration="0.567" data-track-index="2">It does not</div>
+      <div id="cap-48" class="clip cap" data-start="45.467" data-duration="0.866" data-track-index="2">medicate me.</div>
+      <div id="cap-49" class="clip cap cap-top" data-start="46.333" data-duration="1.034" data-track-index="2">I just pretty much</div>
+      <div id="cap-50" class="clip cap cap-top" data-start="47.367" data-duration="1.3" data-track-index="2">spray it on the places</div>
+      <div id="cap-51" class="clip cap" data-start="48.667" data-duration="1.166" data-track-index="2">where they spend</div>
+      <div id="cap-52" class="clip cap" data-start="49.833" data-duration="1.0" data-track-index="2">most time in.</div>
+      <div id="cap-53" class="clip cap" data-start="50.833" data-duration="0.667" data-track-index="2">I am so glad</div>
+      <div id="cap-54" class="clip cap" data-start="51.5" data-duration="1.567" data-track-index="2">I found another option</div>
+      <div id="cap-55" class="clip cap" data-start="53.067" data-duration="1.066" data-track-index="2">because my cats</div>
+      <div id="cap-56" class="clip cap" data-start="54.133" data-duration="1.934" data-track-index="2">are not going anywhere.</div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // UGC edit: straight cuts and hard caption swaps only, no tweens.
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

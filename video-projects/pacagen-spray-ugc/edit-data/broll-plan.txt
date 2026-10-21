@@ -1,0 +1,13 @@
+b01|✅ALL SPRAY B-ROLL/bottle in front of cat|10.0|1.70|4.333
+b02|✅CLEANING_AIR PURIFIERS B-ROLL/2 air purifiers|0.5|15.867|17.867
+b03|✅CLEANING_AIR PURIFIERS B-ROLL/laundry|6.8|17.867|19.967
+b04|✅CLEANING_AIR PURIFIERS B-ROLL/sweeping|2.0|21.40|23.40
+b05|✅ALL SPRAY B-ROLL/spraying couch|0.0|32.20|35.10
+b06|✅ALL SPRAY B-ROLL/boxes|0.5|35.10|36.833
+b07|✅ALL SPRAY B-ROLL/bottle|1.5|36.833|39.60
+b08|✅ALL SPRAY B-ROLL/spraying sunlight|3.2|39.60|42.50
+b09|✅ALL SPRAY B-ROLL/spraying couch|7.6|42.50|43.367
+b10|✅ALL SPRAY B-ROLL/bottle in front of cat|1.0|43.367|44.90
+b11|✅ALL SPRAY B-ROLL/spraying cat tree 2|2.4|46.933|48.20
+b12|✅ALL SPRAY B-ROLL/spraying sheets|6.0|48.20|49.45
+b13|✅ALL SPRAY B-ROLL/spraying scratcher|2.4|49.45|50.70
