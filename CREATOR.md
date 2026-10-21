@@ -1,20 +1,15 @@
-<!-- HYPERFRAMES_SETUP_INCOMPLETE -->
-<!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
-     and run onboarding before any video work. The setup skill removes it when finished. -->
 
-# Creator Profile — _(your name)_
+# Creator Profile
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
 
-> 🚧 **This file is a blank template.** Run `/setup` (or just tell Claude "help me get set up") and it will fill these sections in from a short interview. You can also edit it by hand any time.
-
 ## Identity
 
-- **Name on-screen**: _(your display name)_
-- **Instagram**: _(@handle or "—")_
-- **TikTok**: _(handle or "—")_
-- **YouTube**: _(handle or "—")_
-- **X / other**: _(handle or "—")_
+- **Name on-screen**: _(not set — ask before putting a name on screen)_
+- **Instagram**: _(not set — ask before putting on screen)_
+- **TikTok**: _(not set — ask before putting on screen)_
+- **YouTube**: _(not set — ask before putting on screen)_
+- **X / other**: _(not set — ask before putting on screen)_
 
 When putting handles on-screen (lower-thirds, outros, end-cards), use the platform-appropriate handle.
 
@@ -42,11 +37,13 @@ When putting handles on-screen (lower-thirds, outros, end-cards), use the platfo
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+**Apple-style defaults** (see `assets/brand-tokens.css`): pure black background, `#1c1c1e`/`#2c2c2e` surfaces, `#f5f5f7` text with `#86868b` secondary, a single `#0a84ff` blue accent, SF Pro / system display font. Clean, minimal, glassy UI cards, generous whitespace. Evolves via `/feedback`.
 
 ## Inspiration creators
 
 _(Studied creators live in [`_reference/creator-library/`](_reference/creator-library/). Paste a TikTok / Instagram Reel / YouTube Short URL and run `/study-creator <url>` to add one. At build time, name a creator — "build this like @handle" — to apply their style fingerprint to the visual layer. /setup seeds your first few here.)_
+
+None studied yet (skipped during setup). Lean on `MOTION_PHILOSOPHY.md` + Apple-style brand defaults until references are added.
 
 ## Posting cadence & length defaults
 

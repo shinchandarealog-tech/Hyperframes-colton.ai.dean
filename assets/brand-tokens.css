@@ -1,16 +1,15 @@
 :root {
-  /* TODO: fill in your brand colors */
-  --brand-bg: ;
-  --brand-surface: ;
-  --brand-surface-2: ;
-  --brand-border: ;
-  --brand-accent: ;
-  --brand-accent-glow: ;
-  --brand-warn: ;
-  --brand-text: ;
-  --brand-text-dim: ;
+  /* Apple-style defaults — set during /setup; evolves via /feedback */
+  --brand-bg: #000000;
+  --brand-surface: #1c1c1e;
+  --brand-surface-2: #2c2c2e;
+  --brand-border: rgba(255, 255, 255, 0.12);
+  --brand-accent: #0a84ff;
+  --brand-accent-glow: rgba(10, 132, 255, 0.45);
+  --brand-warn: #ff9f0a;
+  --brand-text: #f5f5f7;
+  --brand-text-dim: #86868b;
 
-  /* TODO: pick your typography */
-  --font-mono: ui-monospace, Menlo, monospace;
-  --font-display: system-ui, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, monospace;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", system-ui, sans-serif;
 }
