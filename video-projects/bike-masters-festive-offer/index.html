@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0b0b0f;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #0b0b0f;
+      }
+      /* Camera rig: video + behind-words + cutout move together so the depth sandwich never drifts */
+      #cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 42%;
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      #talk-video,
+      #talk-cutout {
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        display: block;
+      }
+      #talk-video {
+        filter: contrast(1.07) saturate(1.12) brightness(0.98);
+      }
+      #talk-cutout {
+        filter: contrast(1.07) saturate(1.12) brightness(0.98);
+      }
+      #face-wrap {
+        z-index: 1;
+      }
+      #behind-host {
+        z-index: 2;
+      }
+      #cut-wrap {
+        z-index: 3;
+        opacity: 0;
+      }
+      #overlays-host {
+        z-index: 4;
+      }
+      #captions-host {
+        z-index: 5;
+      }
+      #fx-host {
+        z-index: 6;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-morr"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="45.73"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div data-hf-id="hf-ftaq" id="cam">
+        <div data-hf-id="hf-pkcv" id="face-wrap" class="layer">
+          <video data-hf-id="hf-6cfx"
+            id="talk-video"
+            src="assets/talk.mp4"
+            data-start="0"
+            data-duration="45.73"
+            data-track-index="0"
+            muted
+            playsinline
+          ></video>
+        </div>
+
+        <div data-hf-id="hf-mr4b"
+          id="behind-host"
+          class="layer"
+          data-composition-id="hero-behind"
+          data-composition-src="compositions/hero-behind.html"
+          data-start="0"
+          data-duration="45.73"
+          data-track-index="2"
+          data-width="1080"
+          data-height="1920"
+        ></div>
+
+        <div data-hf-id="hf-93ao" id="cut-wrap" class="layer">
+          <video data-hf-id="hf-bz5c"
+            id="talk-cutout"
+            src="assets/talk-cutout.webm"
+            data-start="0"
+            data-duration="45.73"
+            data-track-index="1"
+            muted
+            playsinline
+          ></video>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-dwzx"
+        id="overlays-host"
+        class="layer"
+        data-composition-id="overlays"
+        data-composition-src="compositions/overlays.html"
+        data-start="0"
+        data-duration="45.73"
+        data-track-index="3"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <div data-hf-id="hf-3uh5"
+        id="captions-host"
+        class="layer"
+        data-track-kind="captions"
+        data-composition-id="captions"
+        data-composition-src="compositions/captions.html"
+        data-start="0"
+        data-duration="45.73"
+        data-track-index="4"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <div data-hf-id="hf-zgmu"
+        id="fx-host"
+        class="layer"
+        data-composition-id="fx"
+        data-composition-src="compositions/fx.html"
+        data-start="0"
+        data-duration="45.73"
+        data-track-index="5"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <!-- Audio: her voice is the source of truth; everything else sits well under it -->
+      <audio data-hf-id="hf-j6sv" id="voice" src="assets/talk.mp4" data-start="0" data-duration="45.73" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-k91g" id="music" src="assets/music-bed-cinematic-tech.mp3" data-start="0" data-duration="45.73" data-track-index="11" data-volume="0.1"></audio>
+
+      <audio data-hf-id="hf-1j42" id="sfx-slam-1" src="assets/slam.mp3" data-start="0.15" data-duration="1.2" data-track-index="20" data-volume="0.22"></audio>
+      <audio data-hf-id="hf-til6" id="sfx-sparkle-1" src="assets/sparkle.mp3" data-start="0.7" data-duration="2" data-track-index="21" data-volume="0.14"></audio>
+      <audio data-hf-id="hf-atd7" id="sfx-whoosh-1" src="assets/whoosh.mp3" data-start="2.75" data-duration="0.57" data-track-index="22" data-volume="0.2"></audio>
+      <audio data-hf-id="hf-19hi" id="sfx-pop-1" src="assets/pop.mp3" data-start="6.35" data-duration="0.7" data-track-index="23" data-volume="0.16"></audio>
+      <audio data-hf-id="hf-i2ns" id="sfx-slam-2" src="assets/slam.mp3" data-start="8.2" data-duration="1.2" data-track-index="24" data-volume="0.18"></audio>
+      <audio data-hf-id="hf-st74" id="sfx-swipe-1" src="assets/swipe.mp3" data-start="11.95" data-duration="1.06" data-track-index="25" data-volume="0.16"></audio>
+      <audio data-hf-id="hf-4g1p" id="sfx-paper-1" src="assets/paper-flip.mp3" data-start="12.2" data-duration="2.6" data-track-index="26" data-volume="0.14"></audio>
+      <audio data-hf-id="hf-7ehi" id="sfx-bass-1" src="assets/bass-drop.mp3" data-start="16.7" data-duration="1.1" data-track-index="27" data-volume="0.24"></audio>
+      <audio data-hf-id="hf-k02i" id="sfx-whoosh-2" src="assets/whoosh.mp3" data-start="18.35" data-duration="0.57" data-track-index="28" data-volume="0.18"></audio>
+      <audio data-hf-id="hf-92we" id="sfx-swipe-2" src="assets/swipe.mp3" data-start="22.85" data-duration="1.06" data-track-index="29" data-volume="0.16"></audio>
+      <audio data-hf-id="hf-niq3" id="sfx-sparkle-2" src="assets/sparkle.mp3" data-start="25.4" data-duration="2" data-track-index="30" data-volume="0.16"></audio>
+      <audio data-hf-id="hf-axo9" id="sfx-slam-3" src="assets/slam.mp3" data-start="27.3" data-duration="1.2" data-track-index="31" data-volume="0.18"></audio>
+      <audio data-hf-id="hf-n5ma" id="sfx-pop-2" src="assets/pop.mp3" data-start="29.75" data-duration="0.7" data-track-index="32" data-volume="0.16"></audio>
+      <audio data-hf-id="hf-61yr" id="sfx-click-1" src="assets/click.wav" data-start="34.1" data-duration="0.46" data-track-index="33" data-volume="0.2"></audio>
+      <audio data-hf-id="hf-cck5" id="sfx-whoosh-3" src="assets/whoosh.mp3" data-start="36.85" data-duration="0.57" data-track-index="34" data-volume="0.18"></audio>
+      <audio data-hf-id="hf-6fpd" id="sfx-slam-4" src="assets/slam.mp3" data-start="40.75" data-duration="1.2" data-track-index="35" data-volume="0.22"></audio>
+      <audio data-hf-id="hf-uut3" id="sfx-sparkle-3" src="assets/sparkle.mp3" data-start="41.3" data-duration="2" data-track-index="36" data-volume="0.14"></audio>
+    </div>
+
+    <script>
+      (() => {
+        const D = 45.73;
+        const tl = gsap.timeline({ paused: true });
+
+        // Face is a character: slow Ken Burns across the whole piece
+        tl.fromTo("#cam", { scale: 1.0 }, { scale: 1.04, duration: D, ease: "none" }, 0);
+
+        // Punch-ins on the hero beats (scale is additive on top of the Ken Burns via a nested wrapper)
+        const PUNCH = [
+          { t: 8.15, s: 1.1, hold: 2.0 },
+          { t: 16.65, s: 1.08, hold: 1.6 },
+          { t: 27.2, s: 1.1, hold: 2.0 },
+          { t: 37.0, s: 1.07, hold: 3.3 },
+        ];
+        PUNCH.forEach(({ t, s, hold }) => {
+          tl.to("#face-wrap, #behind-host, #cut-wrap", { scale: s, duration: 0.3, ease: "expo.out", transformOrigin: "50% 42%" }, t);
+          tl.to("#face-wrap, #behind-host, #cut-wrap", { scale: 1, duration: 0.45, ease: "power2.inOut", transformOrigin: "50% 42%" }, t + hold);
+        });
+
+        // Cutout is only shown while a word sits behind her (keeps edge halos off-screen the rest of the time)
+        const BEHIND_WINDOWS = window.__BEHIND_WINDOWS || [
+          [0.1, 2.95],
+          [4.9, 7.75],
+          [25.2, 27.15],
+          [27.2, 29.45],
+          [37.0, 40.65],
+          [40.7, 45.73],
+        ];
+        BEHIND_WINDOWS.forEach(([a, b]) => {
+          tl.set("#cut-wrap", { opacity: 1 }, a);
+          tl.set("#cut-wrap", { opacity: 0 }, b);
+        });
+
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

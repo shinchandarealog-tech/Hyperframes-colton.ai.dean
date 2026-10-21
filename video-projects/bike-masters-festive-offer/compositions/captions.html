@@ -1,0 +1,128 @@
+<template id="captions-template">
+  <div data-hf-id="hf-wo1y" data-composition-id="captions" data-width="1080" data-height="1920">
+    <!-- Karaoke phrase captions over her dark trousers (y≈1600–1780). Active word turns gold and pops. -->
+    <div data-hf-id="hf-jjxa" class="cap-zone" id="cap-zone"></div>
+
+    <style>
+      @font-face {
+        font-family: "Anton";
+        src: url("../assets/fonts/anton-latin-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      [data-composition-id="captions"] {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      [data-composition-id="captions"] .cap-zone {
+        position: absolute;
+        left: 0;
+        top: 1600px;
+        width: 1080px;
+        height: 200px;
+      }
+      [data-composition-id="captions"] .cg {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 0;
+        height: 200px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        column-gap: 22px;
+        row-gap: 0;
+        opacity: 0;
+        visibility: hidden;
+      }
+      [data-composition-id="captions"] .w {
+        display: inline-block;
+        font-family: "Poppins", sans-serif;
+        font-weight: 800;
+        font-size: 74px;
+        line-height: 1.12;
+        color: #ffffff;
+        text-shadow: 0 0 2px #0b0b0f, 3px 3px 0 #0b0b0f, -3px 3px 0 #0b0b0f, 3px -3px 0 #0b0b0f, -3px -3px 0 #0b0b0f,
+          0 6px 18px rgba(0, 0, 0, 0.55);
+        transform-origin: 50% 70%;
+      }
+      [data-composition-id="captions"] .w.kw {
+        color: #ffb703;
+      }
+      [data-composition-id="captions"] .w.num {
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        font-size: 92px;
+        line-height: 1;
+        color: #ffb703;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (() => {
+        const D = 45.73;
+        // [text, start, end, flag]  flag: "kw" keyword (stays gold), "num" number, "" normal
+        const WORDS = /*WORDS*/ [];
+        const MAX_WORDS = 3;
+        const GAP_BREAK = 0.32;
+
+        const root = document.querySelector('[data-composition-id="captions"]');
+        const zone = root.querySelector("#cap-zone");
+        const tl = gsap.timeline({ paused: true });
+
+        // Group into 2–3 word phrases, breaking on pauses and sentence ends
+        const groups = [];
+        let cur = [];
+        WORDS.forEach((w, i) => {
+          const prev = WORDS[i - 1];
+          const brk =
+            cur.length >= MAX_WORDS ||
+            (prev && w[1] - prev[2] > GAP_BREAK) ||
+            (prev && /[.!?,]$/.test(prev[0]));
+          if (cur.length && brk) {
+            groups.push(cur);
+            cur = [];
+          }
+          cur.push(w);
+        });
+        if (cur.length) groups.push(cur);
+
+        groups.forEach((g, gi) => {
+          const el = document.createElement("div");
+          el.className = "cg";
+          el.id = "cg-" + gi;
+          zone.appendChild(el);
+          const start = g[0][1];
+          const next = groups[gi + 1];
+          const end = Math.min(next ? next[0][1] : D, g[g.length - 1][2] + 0.6);
+          g.forEach((w) => {
+            const s = document.createElement("span");
+            s.className = "w" + (w[3] ? " " + w[3] : "");
+            s.textContent = w[0].replace(/[,.!?]$/, "");
+            el.appendChild(s);
+          });
+          const spans = el.querySelectorAll(".w");
+          tl.set(el, { visibility: "visible" }, start - 0.06);
+          tl.fromTo(el, { opacity: 0, y: 26, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2)" }, start - 0.06);
+          g.forEach((w, wi) => {
+            const s = spans[wi];
+            const isKey = !!w[3];
+            tl.to(s, { scale: 1.1, color: "#ffb703", duration: 0.1, ease: "power2.out" }, w[1]);
+            tl.to(s, { scale: 1, color: isKey ? "#ffb703" : "#ffffff", duration: 0.16, ease: "power1.out" }, Math.max(w[1] + 0.12, w[2] - 0.04));
+          });
+          // exit guarantee
+          tl.to(el, { opacity: 0, scale: 0.96, duration: 0.1, ease: "power2.in" }, end - 0.1);
+          tl.set(el, { opacity: 0, visibility: "hidden" }, end);
+        });
+
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["captions"] = tl;
+      })();
+    </script>
+  </div>
+</template>

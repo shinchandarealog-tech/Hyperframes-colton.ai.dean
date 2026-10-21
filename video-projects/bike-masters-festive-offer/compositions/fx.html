@@ -1,0 +1,151 @@
+<template id="fx-template">
+  <div data-hf-id="hf-0sov" data-composition-id="fx" data-width="1080" data-height="1920">
+    <!-- Transitions (rotating flavors), festive sparkles, vignette + grain texture. -->
+    <div data-hf-id="hf-crlc" class="fx-vignette" id="fx-vignette"></div>
+    <div data-hf-id="hf-b08e" class="fx-grain" id="fx-grain"></div>
+    <div data-hf-id="hf-ryki" class="fx-sparkles" id="fx-sparkles"></div>
+    <div data-hf-id="hf-d56o" class="fx-streak" id="fx-streak"></div>
+    <div data-hf-id="hf-slkg" class="fx-flash red" id="fx-red"></div>
+    <div data-hf-id="hf-wx3m" class="fx-flash gold" id="fx-gold"></div>
+    <div data-hf-id="hf-rxmc" class="fx-flash white" id="fx-white"></div>
+
+    <style>
+      [data-composition-id="fx"] {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        pointer-events: none;
+      }
+      [data-composition-id="fx"] .fx-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 75% 60% at 50% 45%, transparent 55%, rgba(20, 4, 4, 0.42) 100%);
+      }
+      [data-composition-id="fx"] .fx-grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.55;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+          radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+          radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 3px 3px, 5px 5px, 7px 7px;
+        background-position: 0 0, 1px 2px, 3px 1px;
+      }
+      [data-composition-id="fx"] .fx-sparkles {
+        position: absolute;
+        inset: 0;
+      }
+      [data-composition-id="fx"] .spk {
+        position: absolute;
+        width: 46px;
+        height: 46px;
+        margin: -23px 0 0 -23px;
+        opacity: 0;
+        background: radial-gradient(circle, #fff6d6 0 10%, rgba(255, 183, 3, 0.9) 18%, transparent 60%);
+      }
+      [data-composition-id="fx"] .spk::before,
+      [data-composition-id="fx"] .spk::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 4px;
+        height: 46px;
+        margin-left: -2px;
+        background: linear-gradient(180deg, transparent, #ffe08a, transparent);
+      }
+      [data-composition-id="fx"] .spk::after {
+        transform: rotate(90deg);
+      }
+      [data-composition-id="fx"] .fx-streak {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 520px;
+        height: 1920px;
+        opacity: 0;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95) 50%, transparent);
+        filter: blur(18px);
+        transform: skewX(-14deg);
+      }
+      [data-composition-id="fx"] .fx-flash {
+        position: absolute;
+        inset: -10%;
+        opacity: 0;
+      }
+      [data-composition-id="fx"] .fx-flash.red {
+        background: radial-gradient(circle at 50% 40%, rgba(255, 70, 50, 0.95), rgba(227, 18, 27, 0.9) 45%, rgba(120, 0, 8, 0.9));
+      }
+      [data-composition-id="fx"] .fx-flash.gold {
+        background: radial-gradient(ellipse at 15% 20%, rgba(255, 236, 170, 0.95), rgba(255, 183, 3, 0.75) 35%, rgba(227, 18, 27, 0.25) 70%, transparent 90%);
+      }
+      [data-composition-id="fx"] .fx-flash.white {
+        background: radial-gradient(circle at 50% 45%, #ffffff, rgba(255, 246, 225, 0.95) 60%, rgba(255, 230, 190, 0.9));
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (() => {
+        const D = 45.73;
+        const root = document.querySelector('[data-composition-id="fx"]');
+        const $ = (s) => root.querySelector(s);
+        const tl = gsap.timeline({ paused: true });
+        const h = (i, a, b) => Math.abs(Math.sin(i * 12.9898 + a) * Math.cos(i * 4.1414 + b));
+
+        // Vignette breathes so "still" moments stay alive
+        tl.fromTo($("#fx-vignette"), { opacity: 0.8 }, { opacity: 1, duration: 3.5, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(D / 3.5) - 1) }, 0);
+        // Grain jitter (deterministic steps)
+        tl.to($("#fx-grain"), { backgroundPosition: "2px 1px, 3px 4px, 1px 5px", duration: 0.1, ease: "steps(1)", yoyo: true, repeat: Math.max(0, Math.floor(D / 0.1) - 1) }, 0);
+
+        // ── Transition flavors (rotated; each peaks AT the cut) ───────
+        const streak = (t) => {
+          tl.fromTo($("#fx-streak"), { opacity: 1, x: -700 }, { x: 1400, duration: 0.36, ease: "power3.in", immediateRender: false }, t - 0.2);
+          tl.set($("#fx-streak"), { opacity: 0 }, t + 0.17);
+        };
+        const flash = (sel, t, peak = 0.85, inDur = 0.12, outDur = 0.3) => {
+          tl.fromTo($(sel), { opacity: 0 }, { opacity: peak, duration: inDur, ease: "power2.in" }, t - inDur);
+          tl.to($(sel), { opacity: 0, duration: outDur, ease: "power2.out" }, t);
+        };
+        streak(2.9); // hook → brand
+        flash("#fx-red", 7.75, 0.75); // brand → special offer
+        flash("#fx-gold", 12.15, 0.85, 0.15, 0.4); // all india → notebook (light-leak)
+        flash("#fx-white", 16.55, 0.7, 0.08, 0.25); // notebook → 25% punch
+        streak(18.5); // 25% → service cards
+        flash("#fx-red", 22.95, 0.7); // cards → scratches
+        flash("#fx-gold", 25.2, 0.9, 0.12, 0.45); // scratches → new look (festive glint)
+        flash("#fx-white", 27.2, 0.6, 0.1, 0.3); // new look → festive season
+        streak(29.5); // festive → store
+        flash("#fx-gold", 33.0, 0.85, 0.15, 0.4); // store → book
+        flash("#fx-red", 37.0, 0.75); // book → fresh start
+        flash("#fx-white", 40.7, 0.85, 0.1, 0.45); // fresh start → end card
+
+        // ── Festive sparkles (gold) on the warm beats ────────────────
+        const field = $("#fx-sparkles");
+        let n = 0;
+        const sparkle = (t0, t1, count, yMin = 120, yMax = 860) => {
+          for (let k = 0; k < count; k++, n++) {
+            const s = document.createElement("div");
+            s.className = "spk";
+            s.style.left = 60 + 960 * h(n, 0.4, 1.7) + "px";
+            s.style.top = yMin + (yMax - yMin) * h(n, 2.2, 0.9) + "px";
+            field.appendChild(s);
+            const t = t0 + (t1 - t0 - 0.6) * h(n, 4.4, 3.1);
+            const sc = 0.6 + 1.2 * h(n, 6.1, 2.5);
+            tl.fromTo(s, { opacity: 0, scale: 0, rotation: 0 }, { opacity: 1, scale: sc, rotation: 45, duration: 0.3, ease: "back.out(2)" }, t);
+            tl.to(s, { opacity: 0, scale: 0, rotation: 90, duration: 0.35, ease: "power2.in" }, t + 0.35);
+          }
+        };
+        sparkle(0.4, 2.8, 14);
+        sparkle(25.25, 27.1, 12);
+        sparkle(27.3, 29.4, 14);
+        sparkle(41.0, 45.6, 22, 80, 820);
+
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["fx"] = tl;
+      })();
+    </script>
+  </div>
+</template>

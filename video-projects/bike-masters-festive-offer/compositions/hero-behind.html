@@ -1,0 +1,215 @@
+<template id="hero-behind-template">
+  <div data-hf-id="hf-cako" data-composition-id="hero-behind" data-width="1080" data-height="1920">
+    <!-- Giant red words that sit BEHIND the presenter cutout (escapemedia depth-sandwich).
+         Bottom edge of each word lands on her hairline (y≈615–780) so her head occludes it. -->
+    <div data-hf-id="hf-n5up" class="hb-word hb-25" id="hb-25">25%</div>
+    <div data-hf-id="hf-28fp" class="hb-word hb-upto" id="hb-upto">UP TO</div>
+
+    <div data-hf-id="hf-fo4i" class="hb-word hb-bike" id="hb-bike">BIKE</div>
+    <div data-hf-id="hf-cjg6" class="hb-word hb-masters" id="hb-masters">MASTERS</div>
+
+    <div data-hf-id="hf-90oe" class="hb-word hb-newlook" id="hb-newlook">NEW LOOK</div>
+
+    <div data-hf-id="hf-agh9" class="hb-word hb-festive" id="hb-festive">FESTIVE</div>
+    <div data-hf-id="hf-sds2" class="hb-word hb-season gold" id="hb-season">SEASON</div>
+
+    <div data-hf-id="hf-eqrd" class="hb-word hb-fresh" id="hb-fresh">FRESH</div>
+    <div data-hf-id="hf-imbl" class="hb-word hb-start" id="hb-start">START</div>
+
+    <div data-hf-id="hf-5fde" class="hb-word hb-end-bike" id="hb-end-bike">BIKE</div>
+    <div data-hf-id="hf-i9n6" class="hb-word hb-end-masters" id="hb-end-masters">MASTERS</div>
+
+    <style>
+      @font-face {
+        font-family: "Anton";
+        src: url("../assets/fonts/anton-latin-400.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      [data-composition-id="hero-behind"] {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: visible;
+      }
+      [data-composition-id="hero-behind"] .hb-word {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Anton", sans-serif;
+        font-weight: 400;
+        line-height: 0.86;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        background: linear-gradient(180deg, #ff4a3d 0%, #e3121b 48%, #a80a12 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 10px 24px rgba(110, 0, 6, 0.35));
+        opacity: 0;
+        will-change: transform, opacity, filter;
+      }
+      [data-composition-id="hero-behind"] .gold {
+        background: linear-gradient(180deg, #ffe08a 0%, #ffb703 45%, #c97a00 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        filter: drop-shadow(0 6px 0 #7a1208) drop-shadow(0 12px 24px rgba(90, 10, 0, 0.45));
+      }
+      [data-composition-id="hero-behind"] .hb-25 {
+        top: 330px;
+        font-size: 450px;
+      }
+      [data-composition-id="hero-behind"] .hb-upto {
+        top: 205px;
+        font-size: 96px;
+        letter-spacing: 0.18em;
+      }
+      [data-composition-id="hero-behind"] .hb-end-bike {
+        top: 196px;
+        font-size: 316px;
+      }
+      [data-composition-id="hero-behind"] .hb-bike {
+        top: 168px;
+        font-size: 340px;
+      }
+      [data-composition-id="hero-behind"] .hb-masters,
+      [data-composition-id="hero-behind"] .hb-end-masters {
+        top: 472px;
+        font-size: 282px;
+      }
+      [data-composition-id="hero-behind"] .hb-end-masters {
+        font-size: 266px;
+        top: 486px;
+      }
+      [data-composition-id="hero-behind"] .hb-newlook {
+        top: 500px;
+        font-size: 262px;
+      }
+      [data-composition-id="hero-behind"] .hb-festive {
+        top: 196px;
+        font-size: 300px;
+      }
+      [data-composition-id="hero-behind"] .hb-season {
+        top: 468px;
+        font-size: 300px;
+      }
+      [data-composition-id="hero-behind"] .hb-fresh {
+        top: 176px;
+        font-size: 330px;
+      }
+      [data-composition-id="hero-behind"] .hb-start {
+        top: 468px;
+        font-size: 330px;
+      }
+      [data-composition-id="hero-behind"] .hb-word.split {
+        background: none;
+        -webkit-text-fill-color: initial;
+      }
+      [data-composition-id="hero-behind"] .ch {
+        display: inline-block;
+        background: linear-gradient(180deg, #ff4a3d 0%, #e3121b 48%, #a80a12 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (() => {
+        const D = 45.73;
+        const root = document.querySelector('[data-composition-id="hero-behind"]');
+        const $ = (s) => root.querySelector(s);
+
+        // Split letter-build words into per-char spans (synchronous, deterministic)
+        ["#hb-bike", "#hb-masters", "#hb-end-bike", "#hb-end-masters"].forEach((sel) => {
+          const el = $(sel);
+          el.classList.add("split");
+          el.innerHTML = el.textContent
+            .split("")
+            .map((c) => `<span class="ch">${c}</span>`)
+            .join("");
+        });
+
+        const tl = gsap.timeline({ paused: true });
+
+        // Generic slam-in for a whole word: scale down from big + blur clears (expo.out)
+        const slam = (sel, t, from = 1.5) => {
+          tl.fromTo(
+            $(sel),
+            { opacity: 0, scale: from, filter: "blur(18px)" },
+            { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" },
+            t,
+          );
+        };
+        // Exit rides the whip transition in fx (same 0.25s window, blur matches fx streak)
+        const whipOut = (sels, t, dir = -1) => {
+          tl.to(
+            sels.map($),
+            { opacity: 0, y: dir * 140, filter: "blur(26px)", duration: 0.25, ease: "power2.in" },
+            t,
+          );
+        };
+        // Letter-by-letter build (escapemedia "S-C-H-O-O-L")
+        const letters = (sel, t, each = 0.06) => {
+          tl.set($(sel), { opacity: 1 }, t);
+          tl.from(
+            $(sel).querySelectorAll(".ch"),
+            { opacity: 0, y: 90, scale: 0.4, rotation: -8, duration: 0.32, ease: "back.out(2.2)", stagger: each },
+            t,
+          );
+        };
+
+        // ── H1 HOOK 0.15–2.95 · "UP TO 25%" ─────────────────────────
+        slam("#hb-25", 0.15, 1.8);
+        tl.fromTo($("#hb-upto"), { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.45);
+        tl.to($("#hb-25"), { scale: 1.06, duration: 2.2, ease: "none" }, 0.55);
+        whipOut(["#hb-25", "#hb-upto"], 2.72);
+
+        // ── H2 BRAND 4.95–7.75 · "BIKE MASTERS" letter build ───────────
+        letters("#hb-bike", 4.95, 0.07);
+        letters("#hb-masters", 6.3, 0.05);
+        tl.to([$("#hb-bike"), $("#hb-masters")], { scale: 1.04, duration: 1.4, ease: "none" }, 6.35);
+        whipOut(["#hb-bike", "#hb-masters"], 7.5);
+
+        // ── H3 "NEW LOOK" 25.25–27.15 ───────────────────────────────
+        slam("#hb-newlook", 25.3, 1.4);
+        tl.to($("#hb-newlook"), { scale: 1.05, duration: 1.5, ease: "none" }, 25.7);
+        whipOut(["#hb-newlook"], 26.95, 1);
+
+        // ── H4 "FESTIVE SEASON" 27.25–29.45 ─────────────────────────
+        slam("#hb-festive", 27.3, 1.6);
+        tl.fromTo(
+          $("#hb-season"),
+          { opacity: 0, x: 260, skewX: -12 },
+          { opacity: 1, x: 0, skewX: 0, duration: 0.42, ease: "power4.out" },
+          27.75,
+        );
+        tl.to([$("#hb-festive"), $("#hb-season")], { scale: 1.04, duration: 1.4, ease: "none" }, 28.0);
+        whipOut(["#hb-festive", "#hb-season"], 29.25);
+
+        // ── H5 "FRESH START" 37.05–40.65 ────────────────────────────
+        slam("#hb-fresh", 37.1, 1.5);
+        tl.fromTo(
+          $("#hb-start"),
+          { opacity: 0, scale: 0.6, filter: "blur(14px)" },
+          { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "back.out(1.6)" },
+          38.6,
+        );
+        tl.to([$("#hb-fresh"), $("#hb-start")], { scale: 1.04, duration: 1.8, ease: "none" }, 38.9);
+        whipOut(["#hb-fresh", "#hb-start"], 40.45, 1);
+
+        // ── H6 END CARD 40.75–45.73 · "BIKE MASTERS" callback, held ────
+        letters("#hb-end-bike", 40.75, 0.06);
+        letters("#hb-end-masters", 41.05, 0.045);
+        tl.to([$("#hb-end-bike"), $("#hb-end-masters")], { scale: 1.035, duration: 4.4, ease: "sine.inOut" }, 41.4);
+
+        tl.to({}, { duration: D }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["hero-behind"] = tl;
+      })();
+    </script>
+  </div>
+</template>

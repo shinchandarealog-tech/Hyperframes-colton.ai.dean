@@ -1,0 +1,1765 @@
+{
+  "version": 1,
+  "historyId": "cc235ef2-0201-4ce5-862b-e45e54d7fbf4",
+  "currentRevision": "2ca2b04e-888a-493b-9069-42d241b35166",
+  "pendingChanges": false,
+  "files": {
+    "DESIGN.md": {
+      "hash": "39e9b1d1cd6236f84f3a295626d86d548cc885bf3d7001bd96646104e448083d",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/39/39e9b1d1cd6236f84f3a295626d86d548cc885bf3d7001bd96646104e448083d"
+    },
+    "assets/bass-drop.mp3": {
+      "hash": "8bd0c7fd63fbb8a4442ffe1176aa41b260d1fafbcf728e3c63648eb5bcd4e16b",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/8b/8bd0c7fd63fbb8a4442ffe1176aa41b260d1fafbcf728e3c63648eb5bcd4e16b"
+    },
+    "assets/brand-tokens.css": {
+      "hash": "03030f479d51eef1239d89c68551b68dfcc1288396b779e5808157d3f20f80cf",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/03/03030f479d51eef1239d89c68551b68dfcc1288396b779e5808157d3f20f80cf"
+    },
+    "assets/click.wav": {
+      "hash": "47dea6aa6e244f2e902736b0efc1f7abed9069fe5c2a666842bf119a91a4d9ab",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/47/47dea6aa6e244f2e902736b0efc1f7abed9069fe5c2a666842bf119a91a4d9ab"
+    },
+    "assets/fonts/anton-latin-400.woff2": {
+      "hash": "feb9617bd3fcda1a52cbf8539985fddac2aaab0e6df8dbdac21ec3e9a179a4be",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/fe/feb9617bd3fcda1a52cbf8539985fddac2aaab0e6df8dbdac21ec3e9a179a4be"
+    },
+    "assets/paper-flip.mp3": {
+      "hash": "543118ab2c6c9268b0ab0070ebdb1ec29d5cabd12bceeee67af184ccb3c39c51",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/54/543118ab2c6c9268b0ab0070ebdb1ec29d5cabd12bceeee67af184ccb3c39c51"
+    },
+    "assets/pop.mp3": {
+      "hash": "bb343a49535045ee3350f30fe01848ce8f933b1394710a71069c96435116af54",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/bb/bb343a49535045ee3350f30fe01848ce8f933b1394710a71069c96435116af54"
+    },
+    "assets/slam.mp3": {
+      "hash": "ee2c5c74158dd95bbcc6275181d846293cdfcc69596563e563a5f438ff407135",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/ee/ee2c5c74158dd95bbcc6275181d846293cdfcc69596563e563a5f438ff407135"
+    },
+    "assets/sparkle.mp3": {
+      "hash": "7ef89d2e8bbc02e558b0bdbad3e0ae67b171ff8759e59a24bcd69ba0124f71e8",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/7e/7ef89d2e8bbc02e558b0bdbad3e0ae67b171ff8759e59a24bcd69ba0124f71e8"
+    },
+    "assets/swipe.mp3": {
+      "hash": "6d86a334b13f162c592af68ff75e5597b45e4fc552890a3ec3e79052e6b8c2f6",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/6d/6d86a334b13f162c592af68ff75e5597b45e4fc552890a3ec3e79052e6b8c2f6"
+    },
+    "assets/transcript.json": {
+      "hash": "c442c7dc1b962f2105d3538613002371335492ac72b9a574e35801b34bb08a6c",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/c4/c442c7dc1b962f2105d3538613002371335492ac72b9a574e35801b34bb08a6c"
+    },
+    "assets/whoosh.mp3": {
+      "hash": "c2efd9d902a59bf9ec5019035d7deadd17762136896b6e3cb6dd99ea50997a30",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/c2/c2efd9d902a59bf9ec5019035d7deadd17762136896b6e3cb6dd99ea50997a30"
+    },
+    "compositions/captions.html": {
+      "hash": "85874efbbf7472367da9f36fe2c11d9c3c38708f7b3400eb78d57bae6f7cc246",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/85/85874efbbf7472367da9f36fe2c11d9c3c38708f7b3400eb78d57bae6f7cc246"
+    },
+    "compositions/fx.html": {
+      "hash": "e9039c356a40559eab737aee8263dc403345e20ea198fbdaf79a6a784ad9d0cf",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/e9/e9039c356a40559eab737aee8263dc403345e20ea198fbdaf79a6a784ad9d0cf"
+    },
+    "compositions/hero-behind.html": {
+      "hash": "f4b923fa3737beba60185f7a2ee4cdedb89e48f90c8aa0c52602ee12be55b0b6",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/f4/f4b923fa3737beba60185f7a2ee4cdedb89e48f90c8aa0c52602ee12be55b0b6"
+    },
+    "compositions/overlays.html": {
+      "hash": "f8f8d9c6b1db03baa0186d0921165b5f367997ee617656bd7a3b51f60f163d14",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/f8/f8f8d9c6b1db03baa0186d0921165b5f367997ee617656bd7a3b51f60f163d14"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "281999ef0006d11a4f70ad023c53ffc39d43aa9622784534cb689334b2ec1809",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/28/281999ef0006d11a4f70ad023c53ffc39d43aa9622784534cb689334b2ec1809"
+    },
+    "meta.json": {
+      "hash": "1dea15b7764c16b50756373936382ac98a09d768b2ca92a78da5e1022609337b",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/1d/1dea15b7764c16b50756373936382ac98a09d768b2ca92a78da5e1022609337b"
+    },
+    "package.json": {
+      "hash": "e22e038efd7bb40976258cac84eb74822c0afb82368d0e20fba28714d1af2bc3",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/e2/e22e038efd7bb40976258cac84eb74822c0afb82368d0e20fba28714d1af2bc3"
+    },
+    "assets/music-bed-cinematic-tech.mp3": {
+      "hash": "feb24a76ae454c219a9f58540bc8b3b890364c93d75075cc2a66ed6f1a22fa66",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/fe/feb24a76ae454c219a9f58540bc8b3b890364c93d75075cc2a66ed6f1a22fa66"
+    },
+    "assets/talk.mp4": {
+      "hash": "3a548da5bad6f39db571a86a9ebaf4e8885f17ceaca05709781b01a47370a0a4",
+      "content": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/3a/3a548da5bad6f39db571a86a9ebaf4e8885f17ceaca05709781b01a47370a0a4"
+    }
+  },
+  "revisions": {
+    "5592886d-5f87-4ab5-b566-4131d0cb5df9": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792589976504,
+      "endedAt": 1792589976515,
+      "files": {
+        "compositions/hero-behind.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/7a/7a96f92b1b85e079c2b4582a33708af1f41beeabd649491216f19c78acf3390d",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/55/550a56a2880629a4996932951c5290e0b36c25ee6d8953a465206ca16086b76f"
+        },
+        "compositions/overlays.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/79/79e6c3a1290de3a46203ec8edc05cf1b817a7d98daeabf82fefe8c96dacc7a23",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/c8/c8cc534ce880faac35f364aea0d37a51a7549fecc4936bf59a3d7631d2e9b9b3"
+        }
+      }
+    },
+    "4463bae4-c27b-4308-8e22-af21ee75e884": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792590126331,
+      "endedAt": 1792590126348,
+      "files": {
+        "compositions/captions.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/47/4727c0086da0b9b1391d11e8857e98ea4bc07f64d9fb601482736fc186a3a632",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/85/85874efbbf7472367da9f36fe2c11d9c3c38708f7b3400eb78d57bae6f7cc246"
+        },
+        "compositions/fx.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/b9/b9a665a75eb77eddabf5052e2f7ca17493c4ac3fba7f64948f0d67fb3e09c520",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/e9/e9039c356a40559eab737aee8263dc403345e20ea198fbdaf79a6a784ad9d0cf"
+        },
+        "compositions/hero-behind.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/55/550a56a2880629a4996932951c5290e0b36c25ee6d8953a465206ca16086b76f",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/1b/1ba8e76457e3c02688417e7f50fc4eeef44f62c6dc4c9f1560292b4e624b8190"
+        },
+        "compositions/overlays.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/c8/c8cc534ce880faac35f364aea0d37a51a7549fecc4936bf59a3d7631d2e9b9b3",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/46/46f5354f18ba3fae663d2fc07c3c3bb359a1a204750c1b0a2ebd1317888bed15"
+        },
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/ef/ef5b03ec9c5c7a448f4f8d88fb7731744158c85e76daf2e6add6e366ebb42b7e",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/28/281999ef0006d11a4f70ad023c53ffc39d43aa9622784534cb689334b2ec1809"
+        }
+      }
+    },
+    "76d12771-854d-4b17-a752-5bcfdbb115d5": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792590177615,
+      "endedAt": 1792590179617,
+      "files": {
+        "compositions/hero-behind.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/1b/1ba8e76457e3c02688417e7f50fc4eeef44f62c6dc4c9f1560292b4e624b8190",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/7d/7d5b2329ec40a90e79489c22c9ef1b9e417e047bd80f58dc7e2b47697170ebdb"
+        },
+        "compositions/overlays.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/46/46f5354f18ba3fae663d2fc07c3c3bb359a1a204750c1b0a2ebd1317888bed15",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/1a/1a01f935a302580397172dc8e67583e3a46e936d5554dc2727e915e62a0fa47e"
+        }
+      }
+    },
+    "55770451-6417-4277-8eff-8a90774de58c": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792590181012,
+      "endedAt": 1792590183013,
+      "files": {
+        "compositions/overlays.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/1a/1a01f935a302580397172dc8e67583e3a46e936d5554dc2727e915e62a0fa47e",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/f8/f8f8d9c6b1db03baa0186d0921165b5f367997ee617656bd7a3b51f60f163d14"
+        }
+      }
+    },
+    "2ca2b04e-888a-493b-9069-42d241b35166": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792590215171,
+      "endedAt": 1792590217172,
+      "files": {
+        "compositions/hero-behind.html": {
+          "before": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/7d/7d5b2329ec40a90e79489c22c9ef1b9e417e047bd80f58dc7e2b47697170ebdb",
+          "after": "/root/.cache/hyperframes/history/cc235ef2-0201-4ce5-862b-e45e54d7fbf4/blobs/f4/f4b923fa3737beba60185f7a2ee4cdedb89e48f90c8aa0c52602ee12be55b0b6"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+      "id": "eeee2cad-24e0-4ac5-96b0-fc065c65a397"
+    },
+    "revisions": {
+      "5592886d-5f87-4ab5-b566-4131d0cb5df9": [
+        {
+          "id": "eeee2cad-24e0-4ac5-96b0-fc065c65a397",
+          "scope": "project",
+          "report": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/artifacts/checks/eeee2cad-24e0-4ac5-96b0-fc065c65a397.json",
+          "metadata": {
+            "ok": false,
+            "browserSkipped": true,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1792590026160,
+          "contentHash": "b9f2fbc9861337a48066dbe2c78ef1afd0c4db45a7cfc394e8800d6a6395fcac",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": {
+      "revision": "55770451-6417-4277-8eff-8a90774de58c",
+      "id": "e81c81d2-6ba7-449d-8262-bfff6817d9dd-3"
+    },
+    "revisions": {
+      "5592886d-5f87-4ab5-b566-4131d0cb5df9": [
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-0",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-00-at-1.2s.png",
+          "time": 1.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "33866d7438b4a338641068e6d2b34ac695771c7b1fb99be110864a5d6feac086",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-1",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-01-at-6.9s.png",
+          "time": 6.9,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "94741d455c1dfee9dd4d17b8d92da3c2c828b96d8c18802abc192e77c085980a",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-2",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-02-at-8.8s.png",
+          "time": 8.8,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "f06c069d018c706339b614e39d732ae1733fd2ddc06cd402049fa6de6087985f",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-3",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-03-at-11.2s.png",
+          "time": 11.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "8237824929d920d5c7eca1a5a4ae66b652e5a4c0a21d8fd272cffe3871f9d395",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-4",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-04-at-15.6s.png",
+          "time": 15.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "86b4fbbe4d2d34283b113a16eaaee93bb5dab0a55b9ad4b355783e837caa957b",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-5",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-05-at-17.6s.png",
+          "time": 17.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "4d4e104086e4645d64e0c9773536fa27b2d9852ec6081b617fa040aa6e539cf2",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-6",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-06-at-19.9s.png",
+          "time": 19.9,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "1695de396d5de0bce8129176e8f06ea9e2de03484f519d1532aaed78db55306a",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-7",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-07-at-22.3s.png",
+          "time": 22.3,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "65a15daa7f8d8b42a7293c793a3fcc2c11fcf97ae0b968ba5c9871763e0ea244",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-8",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-08-at-24.3s.png",
+          "time": 24.3,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "6bf5d92a28b27e5e4c29931a337f626bd7535a78e1a64c05cd5427531bcb0e15",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-9",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-09-at-26.2s.png",
+          "time": 26.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "993bfd0a8c2a74622b8734a3d07293e88ee89caf9a107a8633b74570d63bfadd",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-10",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-10-at-31.2s.png",
+          "time": 31.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "2fe99c312cc47319b3290f737e6fb29cf9ae333ed8a05c97f8a111cce5a020d4",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-11",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-11-at-35s.png",
+          "time": 35,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "5fb5ffd0dc53c963edd7182b6d5d5cffbf7e6940c50153a90fb6126026d296ec",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-12",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-12-at-39.2s.png",
+          "time": 39.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "354707164a816a67bec5740eabaaffde7e66497169b2ed11f81a069d6358a833",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "a4d6b441-587b-478f-9cbe-971e0d9b3006-13",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap2/frame-13-at-43.5s.png",
+          "time": 43.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 6.9s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 26.2s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 39.2s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590008634,
+          "contentHash": "29faddad0be9cfa3fce10041ee0507774195a5e7a741424ea84b90d83639b2df",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "crop",
+          "id": "beecef65-2c0c-4620-9abd-d0390ec5248d-0",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snapz/frame-00-at-1.2s.png",
+          "time": 1.2,
+          "metadata": {
+            "width": 1524,
+            "height": 396,
+            "crop": {
+              "x": 286,
+              "y": 68,
+              "width": 508,
+              "height": 132
+            },
+            "zoom": {
+              "kind": "selector",
+              "selector": "#o1-chip"
+            },
+            "zoomScale": 3,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590037778,
+          "contentHash": "1f47a1338acd1b01820a08775ea356da71896c29323b871f087caee4bb996009",
+          "revision": "5592886d-5f87-4ab5-b566-4131d0cb5df9",
+          "inputFingerprint": "156fd2e2d6543bfec50c58ad8f2bc3d1131af36ea97811df189ec7a107ce20cf",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "4463bae4-c27b-4308-8e22-af21ee75e884": [
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-0",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-00-at-1.2s.png",
+          "time": 1.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156953,
+          "contentHash": "543d3d9f97beeb7704f28544ca8bdd293c499900072626fce03c069c4f0d67fa",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-1",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-01-at-8.8s.png",
+          "time": 8.8,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156953,
+          "contentHash": "f97a4a653d5e04958fd99befc87bb47e7c4d1112c0bad4429719e7404801590a",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-2",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-02-at-11.2s.png",
+          "time": 11.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156953,
+          "contentHash": "5d05985070ca14fe60e15bf5ff33a14897d083f6fa467169b90426250a9265f3",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-3",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-03-at-15.6s.png",
+          "time": 15.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156953,
+          "contentHash": "572b1f95e293b646c89470ace85de32adf1ab656977cc772c99a0db31e13d4b6",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-4",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-04-at-17.6s.png",
+          "time": 17.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156953,
+          "contentHash": "bc2ef77cb980e41ce110463a71a01b0586818318c5e9541af17bc67c11b79f8b",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-5",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-05-at-19.9s.png",
+          "time": 19.9,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156953,
+          "contentHash": "d46870b765a5ba54ce129d1703ed2b49d0eca027838b113d200e9b8a763cdd2d",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-6",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-06-at-22.3s.png",
+          "time": 22.3,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156953,
+          "contentHash": "e64fa17998372da64793cd47db9485fd6d08f215c9e564fc6616be6199700882",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-7",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-07-at-24.3s.png",
+          "time": 24.3,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156954,
+          "contentHash": "07d1794f8f3b9a4ae7a59ca24b2405c93337dd6ad9640de2b07cbf1f2aaccd13",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-8",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-08-at-31.2s.png",
+          "time": 31.2,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156954,
+          "contentHash": "ee13334dd6959489ca9401a22e6389e24beafb163effbca2193e60173cd55534",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-9",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-09-at-35s.png",
+          "time": 35,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156954,
+          "contentHash": "0fe574672329497aca41c47b2e040d62eaac77e36d7dd39ef90b6bb2acb3e81b",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e3dfc7c6-763e-495a-af9a-2246fc048c23-10",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap3/frame-10-at-43.5s.png",
+          "time": 43.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 1.2s",
+              "1 video frames missing at 8.8s",
+              "1 video frames missing at 11.2s",
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.6s",
+              "1 video frames missing at 19.9s",
+              "1 video frames missing at 22.3s",
+              "1 video frames missing at 24.3s",
+              "1 video frames missing at 31.2s",
+              "1 video frames missing at 35s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590156954,
+          "contentHash": "a59a0d4edee7ce70c6b98896290bfd907423cc3eeac31a033c97529d6caafad4",
+          "revision": "4463bae4-c27b-4308-8e22-af21ee75e884",
+          "inputFingerprint": "f9ab9b0197cccd6669e058dfb8c63c5665db552df0ec07222b5b7b2d41e5fbb3",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ],
+      "55770451-6417-4277-8eff-8a90774de58c": [
+        {
+          "scope": "full",
+          "id": "e81c81d2-6ba7-449d-8262-bfff6817d9dd-0",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap4/frame-00-at-15.6s.png",
+          "time": 15.6,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.9s",
+              "1 video frames missing at 31.4s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590205229,
+          "contentHash": "70b6021d595c29439784a667c1051263efa3224879632921ee4144130391704f",
+          "revision": "55770451-6417-4277-8eff-8a90774de58c",
+          "inputFingerprint": "189d87f7729a55e70b787da08ae179d233263d08058976c039179a641c73d19e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e81c81d2-6ba7-449d-8262-bfff6817d9dd-1",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap4/frame-01-at-17.9s.png",
+          "time": 17.9,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.9s",
+              "1 video frames missing at 31.4s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590205230,
+          "contentHash": "e260974132d85be30c397e68af76845f5fe79a80283e0ab49da310fc65a95ffe",
+          "revision": "55770451-6417-4277-8eff-8a90774de58c",
+          "inputFingerprint": "189d87f7729a55e70b787da08ae179d233263d08058976c039179a641c73d19e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e81c81d2-6ba7-449d-8262-bfff6817d9dd-2",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap4/frame-02-at-31.4s.png",
+          "time": 31.4,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.9s",
+              "1 video frames missing at 31.4s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590205230,
+          "contentHash": "b7fca02e8a8bc6c18986955d0fe73919f920f644270cb7b5249b4e97a561e55d",
+          "revision": "55770451-6417-4277-8eff-8a90774de58c",
+          "inputFingerprint": "189d87f7729a55e70b787da08ae179d233263d08058976c039179a641c73d19e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        },
+        {
+          "scope": "full",
+          "id": "e81c81d2-6ba7-449d-8262-bfff6817d9dd-3",
+          "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap4/frame-03-at-43.5s.png",
+          "time": 43.5,
+          "metadata": {
+            "width": 1080,
+            "height": 1920,
+            "zoomScale": 1,
+            "browserGpuMode": "auto",
+            "warnings": [
+              "1 video frames missing at 15.6s",
+              "1 video frames missing at 17.9s",
+              "1 video frames missing at 31.4s",
+              "1 video frames missing at 43.5s"
+            ],
+            "partial": true
+          },
+          "createdAt": 1792590205230,
+          "contentHash": "e6b7feb44a66bfabea5737dbb6ae5d307da9ffbffd7c4cd59f474beffcdd22ae",
+          "revision": "55770451-6417-4277-8eff-8a90774de58c",
+          "inputFingerprint": "189d87f7729a55e70b787da08ae179d233263d08058976c039179a641c73d19e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-0",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-00-at-1.2s.png",
+        "time": 1.2,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "a0f018cbd55aba284074f66dc0ac13e1258c7322b8c1bf5dafe29567628f3bf3",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-1",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-01-at-6.9s.png",
+        "time": 6.9,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "ae65a0fde1e8e543cbb6038dc63d828fcd1eb88a3805571c06a0f34a844a8cf9",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-2",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-02-at-8.8s.png",
+        "time": 8.8,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "f06c069d018c706339b614e39d732ae1733fd2ddc06cd402049fa6de6087985f",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-3",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-03-at-11.2s.png",
+        "time": 11.2,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "8237824929d920d5c7eca1a5a4ae66b652e5a4c0a21d8fd272cffe3871f9d395",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-4",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-04-at-15.6s.png",
+        "time": 15.6,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "86b4fbbe4d2d34283b113a16eaaee93bb5dab0a55b9ad4b355783e837caa957b",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-5",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-05-at-17.6s.png",
+        "time": 17.6,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "4d4e104086e4645d64e0c9773536fa27b2d9852ec6081b617fa040aa6e539cf2",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-6",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-06-at-19.9s.png",
+        "time": 19.9,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "1695de396d5de0bce8129176e8f06ea9e2de03484f519d1532aaed78db55306a",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-7",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-07-at-22.3s.png",
+        "time": 22.3,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "65a15daa7f8d8b42a7293c793a3fcc2c11fcf97ae0b968ba5c9871763e0ea244",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-8",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-08-at-24.3s.png",
+        "time": 24.3,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "6bf5d92a28b27e5e4c29931a337f626bd7535a78e1a64c05cd5427531bcb0e15",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-9",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-09-at-26.2s.png",
+        "time": 26.2,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "5a32ffc1242b3e21040afad9fea468b4d706e3e74d6c831aefcf3b8063b883d1",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-10",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-10-at-28.5s.png",
+        "time": 28.5,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "531b9e67845b416e47a17f4387b3038f1109127f1e35b98af30a5ba989a64b7b",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-11",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-11-at-31.2s.png",
+        "time": 31.2,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "2fe99c312cc47319b3290f737e6fb29cf9ae333ed8a05c97f8a111cce5a020d4",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-12",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-12-at-35s.png",
+        "time": 35,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "5fb5ffd0dc53c963edd7182b6d5d5cffbf7e6940c50153a90fb6126026d296ec",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-13",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-13-at-39.2s.png",
+        "time": 39.2,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "354707164a816a67bec5740eabaaffde7e66497169b2ed11f81a069d6358a833",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      },
+      {
+        "scope": "full",
+        "id": "606c63eb-c754-49bb-85a6-57e8a023996c-14",
+        "image": "/home/user/Hyperframes-colton.ai.dean/video-projects/bike-masters-festive-offer/.hyperframes/snap1/frame-14-at-43.5s.png",
+        "time": 43.5,
+        "metadata": {
+          "width": 1080,
+          "height": 1920,
+          "zoomScale": 1,
+          "browserGpuMode": "auto",
+          "warnings": [
+            "1 video frames missing at 1.2s",
+            "1 video frames missing at 6.9s",
+            "1 video frames missing at 8.8s",
+            "1 video frames missing at 11.2s",
+            "1 video frames missing at 15.6s",
+            "1 video frames missing at 17.6s",
+            "1 video frames missing at 19.9s",
+            "1 video frames missing at 22.3s",
+            "1 video frames missing at 24.3s",
+            "1 video frames missing at 26.2s",
+            "1 video frames missing at 28.5s",
+            "1 video frames missing at 31.2s",
+            "1 video frames missing at 35s",
+            "1 video frames missing at 39.2s",
+            "1 video frames missing at 43.5s"
+          ],
+          "partial": true
+        },
+        "createdAt": 1792589929973,
+        "contentHash": "a373a4a31feb06897b7069543c18c53c1bf5fa9a15935f97b6ecde32675b7874",
+        "revision": null,
+        "inputFingerprint": "554c8d885dd4cf8afb30843055f0e8af6143c40bcc85009e0de83592008f597e",
+        "inputScope": "local-project-files",
+        "attribution": "inputs-changed"
+      }
+    ]
+  }
+}
