@@ -7,7 +7,6 @@
     <div class="ovi ov-chip" id="o1-chip"><span class="dot"></span>FESTIVE OFFER</div>
     <div class="ovi ov-tag" id="o1-t1">GHAR <span class="tk">&#10003;</span></div>
     <div class="ovi ov-tag" id="o1-t2">NAYE KAPDE <span class="tk">&#10003;</span></div>
-    <div class="ovi ov-stamp" id="o1-off">AUR BIKE?</div>
 
     <!-- O1b FESTIVAL WALA MAKEOVER -->
     <div class="ovi ov-lock" id="o1b-lock">
@@ -606,13 +605,6 @@
         tl.from($("#o1-t1 .tk"), { scale: 0, rotation: -90, duration: 0.3, ease: "back.out(3)" }, 1.25);
         tl.fromTo($("#o1-t2"), { opacity: 0, x: -340 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 1.63);
         tl.from($("#o1-t2 .tk"), { scale: 0, rotation: -90, duration: 0.3, ease: "back.out(3)" }, 1.8);
-        tl.fromTo(
-          $("#o1-off"),
-          { opacity: 0, scale: 2.6, rotation: -24 },
-          { opacity: 1, scale: 1, rotation: -9, duration: 0.3, ease: "power4.out" },
-          2.12,
-        );
-        tl.to($("#o1-off"), { rotation: -6, scale: 1.05, duration: 0.6, ease: "sine.inOut" }, 2.42);
         // Burst toward camera: coins + %-tags + tools fly out (escapemedia forms burst)
         const burst = $("#o1-burst");
         const kinds = ["coin", "tag", "tool", "coin", "tool", "tag", "coin", "coin", "tool", "tag", "coin", "tool"];
@@ -636,7 +628,7 @@
           );
           tl.to(b, { opacity: 0, duration: 0.3, ease: "power1.in" }, t0 + 0.6 + 0.2 * h(i, 7, 1));
         });
-        tl.to([$("#o1-chip"), $("#o1-t1"), $("#o1-t2"), $("#o1-off")], { opacity: 0, y: -120, filter: "blur(24px)", duration: 0.25, ease: "power2.in" }, 2.78);
+        tl.to([$("#o1-chip"), $("#o1-t1"), $("#o1-t2")], { opacity: 0, y: -120, filter: "blur(24px)", duration: 0.25, ease: "power2.in" }, 2.78);
 
         // ── O1b "FESTIVAL WALA MAKEOVER" 3.1–6.3 ──────────────────────
         tl.set($("#o1b-lock"), { opacity: 1 }, 3.05);
