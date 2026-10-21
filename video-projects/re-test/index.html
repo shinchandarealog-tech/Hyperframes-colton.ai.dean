@@ -227,13 +227,6 @@
         <div class="oc" style="background-image:url(assets/cards/stairs.jpg)"></div>
         <div class="oc" style="background-image:url(assets/cards/gym.jpg)"></div>
       </div>
-      <!-- ===== frame break (~6s) ===== -->
-      <div id="fbbg" style="position:absolute;inset:0;z-index:0;opacity:0">
-        <video id="bgv" src="assets/clip.mp4" muted playsinline data-start="0" data-duration="48.4" data-track-index="27"
-          style="position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover;filter:blur(26px) brightness(0.45) saturate(1.2);transform:scale(1.15)"></video>
-      </div>
-      <div id="fbframe" class="clip" style="position:absolute;left:150px;top:830px;width:780px;height:720px;z-index:3;border:14px solid #fff;border-radius:6px;
-        box-shadow:0 0 0 3px rgba(232,198,124,.9), 0 30px 80px rgba(0,0,0,.6), 0 0 50px rgba(255,255,255,.35)" data-start="6.150" data-duration="1.060" data-track-index="28"></div>
 
       <div class="sw" id="sw0" style="left:590px;top:968px">Welcome</div>
       <div class="sw" id="sw1" style="left:586px;top:959px">to</div>
@@ -480,14 +473,6 @@
         tl.fromTo("#oring", { opacity: 0, scale: 0.4, transformOrigin: "585px 1010px" }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(1.8)" }, 4.95);
         tl.to("#orbit", { opacity: 0, duration: 0.12, ease: "power2.in" }, 6.03);
       })();
-      // ===== frame break: shot shrinks into a frame, agent steps out of it =====
-      tl.fromTo("#vwrap", { clipPath: "inset(0px 0px 0px 0px round 0px)" }, { clipPath: "inset(844px 164px 384px 164px round 4px)", duration: 0.28, ease: "power3.inOut" }, 6.15);
-      tl.set("#fbbg", { opacity: 1 }, 6.15);
-      tl.set("#fbbg", { opacity: 0 }, 7.21);
-      tl.fromTo("#fbframe", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power3.inOut" }, 6.15);
-      tl.fromTo("#fbframe", { rotation: 0 }, { rotation: -3, duration: 0.9, ease: "sine.inOut" }, 6.3);
-      tl.to("#vwrap", { clipPath: "inset(0px 0px 0px 0px round 0px)", duration: 0.2, ease: "power3.in" }, 7.0);
-      tl.to("#fbframe", { opacity: 0, scale: 1.35, duration: 0.2, ease: "power3.in" }, 7.0);
 
       // pixel glitch into the CTA (41.42 cut)
       (function () {
