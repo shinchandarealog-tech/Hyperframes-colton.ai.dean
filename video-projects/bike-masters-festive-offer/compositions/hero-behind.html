@@ -1,23 +1,23 @@
 <template id="hero-behind-template">
-  <div data-hf-id="hf-cako" data-composition-id="hero-behind" data-width="1080" data-height="1920">
+  <div data-composition-id="hero-behind" data-width="1080" data-height="1920">
     <!-- Giant red words that sit BEHIND the presenter cutout (escapemedia depth-sandwich).
          Bottom edge of each word lands on her hairline (y≈615–780) so her head occludes it. -->
-    <div data-hf-id="hf-n5up" class="hb-word hb-25" id="hb-25">25%</div>
-    <div data-hf-id="hf-28fp" class="hb-word hb-upto" id="hb-upto">UP TO</div>
+    <div class="hb-word hb-dussehra" id="hb-dussehra">DUSSEHRA</div>
+    <div class="hb-word hb-dussehra" id="hb-dussehra2">DUSSEHRA</div>
 
-    <div data-hf-id="hf-fo4i" class="hb-word hb-bike" id="hb-bike">BIKE</div>
-    <div data-hf-id="hf-cjg6" class="hb-word hb-masters" id="hb-masters">MASTERS</div>
+    <div class="hb-word hb-bike" id="hb-bike">BIKE</div>
+    <div class="hb-word hb-masters" id="hb-masters">MASTERS</div>
 
-    <div data-hf-id="hf-90oe" class="hb-word hb-newlook" id="hb-newlook">NEW LOOK</div>
+    <div class="hb-word hb-newlook" id="hb-newlook">NEW LOOK</div>
 
-    <div data-hf-id="hf-agh9" class="hb-word hb-festive" id="hb-festive">FESTIVE</div>
-    <div data-hf-id="hf-sds2" class="hb-word hb-season gold" id="hb-season">SEASON</div>
+    <div class="hb-word hb-festive" id="hb-festive">FESTIVE</div>
+    <div class="hb-word hb-season gold" id="hb-season">SEASON</div>
 
-    <div data-hf-id="hf-eqrd" class="hb-word hb-fresh" id="hb-fresh">FRESH</div>
-    <div data-hf-id="hf-imbl" class="hb-word hb-start" id="hb-start">START</div>
+    <div class="hb-word hb-fresh" id="hb-fresh">FRESH</div>
+    <div class="hb-word hb-start" id="hb-start">START</div>
 
-    <div data-hf-id="hf-5fde" class="hb-word hb-end-bike" id="hb-end-bike">BIKE</div>
-    <div data-hf-id="hf-i9n6" class="hb-word hb-end-masters" id="hb-end-masters">MASTERS</div>
+    <div class="hb-word hb-end-bike" id="hb-end-bike">BIKE</div>
+    <div class="hb-word hb-end-masters" id="hb-end-masters">MASTERS</div>
 
     <style>
       @font-face {
@@ -58,14 +58,9 @@
         background-clip: text;
         filter: drop-shadow(0 6px 0 #7a1208) drop-shadow(0 12px 24px rgba(90, 10, 0, 0.45));
       }
-      [data-composition-id="hero-behind"] .hb-25 {
-        top: 330px;
-        font-size: 450px;
-      }
-      [data-composition-id="hero-behind"] .hb-upto {
-        top: 205px;
-        font-size: 96px;
-        letter-spacing: 0.18em;
+      [data-composition-id="hero-behind"] .hb-dussehra {
+        top: 452px;
+        font-size: 252px;
       }
       [data-composition-id="hero-behind"] .hb-end-bike {
         top: 196px;
@@ -162,49 +157,50 @@
           );
         };
 
-        // ── H1 HOOK 0.15–2.95 · "UP TO 25%" ─────────────────────────
-        slam("#hb-25", 0.15, 1.8);
-        tl.fromTo($("#hb-upto"), { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.45);
-        tl.to($("#hb-25"), { scale: 1.06, duration: 2.2, ease: "none" }, 0.55);
-        whipOut(["#hb-25", "#hb-upto"], 2.72);
+        // ── H1 HOOK 0.05–2.95 · "DUSSEHRA par sirf ghar aur naye kapde kyun?" ──
+        slam("#hb-dussehra", 0.05, 1.8);
+        tl.to($("#hb-dussehra"), { scale: 1.06, duration: 2.6, ease: "none" }, 0.45);
+        whipOut(["#hb-dussehra"], 2.78);
 
-        // ── H2 BRAND 4.95–7.75 · "BIKE MASTERS" letter build ───────────
-        letters("#hb-bike", 4.95, 0.07);
-        letters("#hb-masters", 6.3, 0.05);
-        tl.to([$("#hb-bike"), $("#hb-masters")], { scale: 1.04, duration: 1.4, ease: "none" }, 6.35);
-        whipOut(["#hb-bike", "#hb-masters"], 7.5);
+        // ── H2 BRAND 6.44–8.1 · "BIKE MASTERS lekar aaya hai" letter build ──
+        letters("#hb-bike", 6.4, 0.05);
+        letters("#hb-masters", 6.78, 0.045);
+        tl.to([$("#hb-bike"), $("#hb-masters")], { scale: 1.04, duration: 1.0, ease: "none" }, 7.1);
+        whipOut(["#hb-bike", "#hb-masters"], 7.92);
 
-        // ── H3 "NEW LOOK" 25.25–27.15 ───────────────────────────────
-        slam("#hb-newlook", 25.3, 1.4);
-        tl.to($("#hb-newlook"), { scale: 1.05, duration: 1.5, ease: "none" }, 25.7);
-        whipOut(["#hb-newlook"], 26.95, 1);
+        // ── H3 "fresh NEW LOOK" 26.05–27.05 ─────────────────────────
+        slam("#hb-newlook", 26.1, 1.5);
+        tl.to($("#hb-newlook"), { scale: 1.05, duration: 0.7, ease: "none" }, 26.5);
+        whipOut(["#hb-newlook"], 26.92, 1);
 
-        // ── H4 "FESTIVE SEASON" 27.25–29.45 ─────────────────────────
-        slam("#hb-festive", 27.3, 1.6);
+        // ── H4 "FESTIVE SEASON hai sahi mauka" 27.25–29.3 ───────────
+        slam("#hb-festive", 27.25, 1.6);
         tl.fromTo(
           $("#hb-season"),
           { opacity: 0, x: 260, skewX: -12 },
           { opacity: 1, x: 0, skewX: 0, duration: 0.42, ease: "power4.out" },
-          27.75,
+          27.88,
         );
-        tl.to([$("#hb-festive"), $("#hb-season")], { scale: 1.04, duration: 1.4, ease: "none" }, 28.0);
-        whipOut(["#hb-festive", "#hb-season"], 29.25);
+        tl.to([$("#hb-festive"), $("#hb-season")], { scale: 1.04, duration: 1.1, ease: "none" }, 28.1);
+        whipOut(["#hb-festive", "#hb-season"], 29.12);
 
-        // ── H5 "FRESH START" 37.05–40.65 ────────────────────────────
-        slam("#hb-fresh", 37.1, 1.5);
+        // ── H5 "Is DUSSEHRA … ek FRESH START" 36.85–40.1 (callback to the hook) ──
+        slam("#hb-dussehra2", 36.85, 1.4);
+        tl.to($("#hb-dussehra2"), { scale: 1.05, duration: 2.1, ease: "none" }, 37.25);
+        tl.to($("#hb-dussehra2"), { opacity: 0, scale: 1.25, filter: "blur(20px)", duration: 0.22, ease: "power2.in" }, 39.0);
+        slam("#hb-fresh", 39.2, 1.5);
         tl.fromTo(
           $("#hb-start"),
           { opacity: 0, scale: 0.6, filter: "blur(14px)" },
-          { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "back.out(1.6)" },
-          38.6,
+          { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "back.out(1.6)" },
+          39.7,
         );
-        tl.to([$("#hb-fresh"), $("#hb-start")], { scale: 1.04, duration: 1.8, ease: "none" }, 38.9);
-        whipOut(["#hb-fresh", "#hb-start"], 40.45, 1);
+        whipOut(["#hb-fresh", "#hb-start"], 40.0, 1);
 
-        // ── H6 END CARD 40.75–45.73 · "BIKE MASTERS" callback, held ────
-        letters("#hb-end-bike", 40.75, 0.06);
-        letters("#hb-end-masters", 41.05, 0.045);
-        tl.to([$("#hb-end-bike"), $("#hb-end-masters")], { scale: 1.035, duration: 4.4, ease: "sine.inOut" }, 41.4);
+        // ── H6 END CARD 40.24–45.73 · "BIKE MASTERS" letter build, held ────
+        letters("#hb-end-bike", 40.24, 0.05);
+        letters("#hb-end-masters", 40.62, 0.04);
+        tl.to([$("#hb-end-bike"), $("#hb-end-masters")], { scale: 1.035, duration: 4.6, ease: "sine.inOut" }, 41.0);
 
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};

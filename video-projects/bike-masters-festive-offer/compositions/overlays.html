@@ -1,83 +1,92 @@
 <template id="overlays-template">
-  <div class="ov-root" data-hf-id="hf-wnvc" data-composition-id="overlays" data-width="1080" data-height="1920">
+  <div data-composition-id="overlays" data-width="1080" data-height="1920">
     <!-- Front-of-presenter graphics. All live in the top wall band (y 60–600) so her face (y≈615–1000)
          stays clear; captions own y≈1600–1780. -->
 
     <!-- O1 HOOK -->
-    <div data-hf-id="hf-xpzn" class="ov-chip" id="o1-chip"><span data-hf-id="hf-9gry" class="dot"></span>FESTIVE OFFER</div>
-    <div data-hf-id="hf-sdbk" class="ov-stamp" id="o1-off">OFF</div>
-    <div data-hf-id="hf-a3u1" class="ov-burst" id="o1-burst"></div>
+    <div class="ovi ov-chip" id="o1-chip"><span class="dot"></span>FESTIVE OFFER</div>
+    <div class="ovi ov-tag" id="o1-t1">GHAR <span class="tk">&#10003;</span></div>
+    <div class="ovi ov-tag" id="o1-t2">NAYE KAPDE <span class="tk">&#10003;</span></div>
+    <div class="ovi ov-stamp" id="o1-off">AUR BIKE?</div>
+
+    <!-- O1b FESTIVAL WALA MAKEOVER -->
+    <div class="ovi ov-lock" id="o1b-lock">
+      <div class="ov-small">FESTIVAL WALA</div>
+      <div class="ov-big red">MAKEOVER</div>
+    </div>
+    <div class="ovi ov-burst" id="o1-burst"></div>
 
     <!-- O2 SPECIAL OFFER → ACROSS INDIA -->
-    <div data-hf-id="hf-sxvk" class="ov-lock" id="o2-lock">
-      <div data-hf-id="hf-95v8" class="ov-small">SPECIAL</div>
-      <div data-hf-id="hf-xti3" class="ov-big red">OFFER</div>
+    <div class="ovi ov-lock" id="o2-lock">
+      <div class="ov-small">DUSSEHRA SPECIAL</div>
+      <div class="ov-big red">OFFER</div>
     </div>
-    <div data-hf-id="hf-ip96" class="ov-lock" id="o2b-lock">
-      <div data-hf-id="hf-5b5u" class="ov-small">PARTICIPATING STORES</div>
-      <div data-hf-id="hf-ni55" class="ov-big red">ALL INDIA</div>
-      <div data-hf-id="hf-cds8" class="ov-pins">
-        <span data-hf-id="hf-2y4a" class="pin"></span><span data-hf-id="hf-0y5a" class="pin"></span><span data-hf-id="hf-1cgb" class="pin"></span><span data-hf-id="hf-1qrc" class="pin"></span
-        ><span data-hf-id="hf-yym5" class="pin"></span>
+    <div class="ovi ov-lock" id="o2b-lock">
+      <div class="ov-small">PARTICIPATING STORES</div>
+      <div class="ov-big red">ALL INDIA</div>
+      <div class="ov-pins">
+        <span class="pin"></span><span class="pin"></span><span class="pin"></span><span class="pin"></span
+        ><span class="pin"></span>
       </div>
     </div>
 
     <!-- O3 NOTEBOOK LIST + 25% callback -->
-    <div data-hf-id="hf-zgkh" class="ov-note" id="o3-note">
-      <div data-hf-id="hf-31sx" class="note-title"><span data-hf-id="hf-z42v">What's covered</span>
-        <svg data-hf-id="hf-dhcb" class="note-ring" viewBox="0 0 520 140" preserveAspectRatio="none">
-          <path data-hf-id="hf-i6vy" id="o3-ring" d="M30 92 C 40 30, 470 14, 500 66 C 520 110, 120 132, 40 104 C 12 92, 30 60, 70 46" />
+    <div class="ovi ov-note" id="o3-note">
+      <div class="note-title"><span>What's covered</span>
+        <svg class="note-ring" viewBox="0 0 520 140" preserveAspectRatio="none">
+          <path id="o3-ring" d="M30 92 C 40 30, 470 14, 500 66 C 520 110, 120 132, 40 104 C 12 92, 30 60, 70 46" />
         </svg>
       </div>
-      <div data-hf-id="hf-j7nx" class="note-grid">
-        <div data-hf-id="hf-ekd0" class="note-item" id="o3-i1"><span data-hf-id="hf-uokr" class="tick">&#10003;</span>Spare Parts</div>
-        <div data-hf-id="hf-vhb5" class="note-item" id="o3-i2"><span data-hf-id="hf-xfwr" class="tick">&#10003;</span>Bodywork</div>
-        <div data-hf-id="hf-3lye" class="note-item" id="o3-i3"><span data-hf-id="hf-x1lq" class="tick">&#10003;</span>Colour Work</div>
-        <div data-hf-id="hf-zfc0" class="note-item" id="o3-i4"><span data-hf-id="hf-wnap" class="tick">&#10003;</span>Labour Charges</div>
+      <div class="note-grid">
+        <div class="note-item" id="o3-i1"><span class="tick">&#10003;</span>Spare Parts</div>
+        <div class="note-item" id="o3-i2"><span class="tick">&#10003;</span>Bodywork</div>
+        <div class="note-item" id="o3-i3"><span class="tick">&#10003;</span>Colour Work</div>
+        <div class="note-item" id="o3-i4"><span class="tick">&#10003;</span>Labour Charges</div>
       </div>
     </div>
-    <div data-hf-id="hf-edd7" class="ov-glass ov-price" id="o3-price">
-      <div data-hf-id="hf-ecw5" class="ov-small">UP TO</div>
-      <div data-hf-id="hf-q2bj" class="price-num"><span data-hf-id="hf-guxt" id="o3-num">0</span>% <span data-hf-id="hf-g0gh" class="price-off">OFF</span></div>
-      <svg data-hf-id="hf-f7b6" class="price-ring" viewBox="0 0 600 260" preserveAspectRatio="none">
-        <path data-hf-id="hf-bgpm" id="o3-pring" d="M40 150 C 40 50, 560 30, 570 120 C 580 220, 120 240, 50 180 C 20 150, 60 90, 120 70" />
+    <div class="ovi ov-glass ov-price" id="o3-price">
+      <div class="ov-small">UP TO</div>
+      <div class="price-num"><span id="o3-num">0</span>% <span class="price-off">OFF</span></div>
+      <svg class="price-ring" viewBox="0 0 600 260" preserveAspectRatio="none">
+        <path id="o3-pring" d="M40 150 C 40 50, 560 30, 570 120 C 580 220, 120 240, 50 180 C 20 150, 60 90, 120 70" />
       </svg>
     </div>
 
     <!-- O4 SERVICE CARDS -->
-    <div data-hf-id="hf-9nfq" class="ov-card" id="o4-c1"><span data-hf-id="hf-gm9w" class="ico"><svg data-hf-id="hf-wtmq" viewBox="0 0 64 64" width="100%" height="100%"><path data-hf-id="hf-2kyz" fill="#FFB703" stroke="#0b0b0f" stroke-width="3" d="M44 6a14 14 0 0 0-13 19L8 48a5 5 0 0 0 0 7l1 1a5 5 0 0 0 7 0l23-23A14 14 0 0 0 58 20l-8 8-8-2-2-8 8-8a14 14 0 0 0-4-4z"/></svg></span><div data-hf-id="hf-yeow"><div data-hf-id="hf-wle6" class="card-k">REGULAR</div><div data-hf-id="hf-fn4q" class="card-v">SERVICE</div></div><span data-hf-id="hf-nd5k" class="ok">&#10003;</span></div>
-    <div data-hf-id="hf-5pbp" class="ov-card" id="o4-c2"><span data-hf-id="hf-qj98" class="ico"><svg data-hf-id="hf-34h2" viewBox="0 0 64 64" width="100%" height="100%"><path data-hf-id="hf-jq5g" fill="#E3121B" stroke="#0b0b0f" stroke-width="3" d="M28 4h8l2 8 6 3 7-4 6 6-4 7 3 6 8 2v8l-8 2-3 6 4 7-6 6-7-4-6 3-2 8h-8l-2-8-6-3-7 4-6-6 4-7-3-6-8-2v-8l8-2 3-6-4-7 6-6 7 4 6-3z"/><circle data-hf-id="hf-i673" cx="32" cy="32" r="9" fill="#FFB703" stroke="#0b0b0f" stroke-width="3"/></svg></span><div data-hf-id="hf-y7yw"><div data-hf-id="hf-yv8d" class="card-k">PENDING</div><div data-hf-id="hf-rzpz" class="card-v">REPAIRS</div></div><span data-hf-id="hf-2bhs" class="ok">&#10003;</span></div>
+    <div class="ovi ov-card" id="o4-c1"><span class="ico"><svg viewBox="0 0 64 64" width="100%" height="100%"><path fill="#FFB703" stroke="#0b0b0f" stroke-width="3" d="M44 6a14 14 0 0 0-13 19L8 48a5 5 0 0 0 0 7l1 1a5 5 0 0 0 7 0l23-23A14 14 0 0 0 58 20l-8 8-8-2-2-8 8-8a14 14 0 0 0-4-4z"/></svg></span><div><div class="card-k">REGULAR</div><div class="card-v">SERVICE</div></div><span class="ok">&#10003;</span></div>
+    <div class="ovi ov-card" id="o4-c2"><span class="ico"><svg viewBox="0 0 64 64" width="100%" height="100%"><path fill="#E3121B" stroke="#0b0b0f" stroke-width="3" d="M28 4h8l2 8 6 3 7-4 6 6-4 7 3 6 8 2v8l-8 2-3 6 4 7-6 6-7-4-6 3-2 8h-8l-2-8-6-3-7 4-6-6 4-7-3-6-8-2v-8l8-2 3-6-4-7 6-6 7 4 6-3z"/><circle cx="32" cy="32" r="9" fill="#FFB703" stroke="#0b0b0f" stroke-width="3"/></svg></span><div><div class="card-k">PENDING</div><div class="card-v">REPAIRS</div></div><span class="ok">&#10003;</span></div>
 
     <!-- O5 SCRATCHES? -->
-    <div data-hf-id="hf-wqih" class="ov-glass ov-scratch" id="o5-scratch">
-      <div data-hf-id="hf-4dj8" class="scratch-word">SCRATCHES?</div>
-      <svg data-hf-id="hf-nwnw" class="scratch-svg" viewBox="0 0 700 200" preserveAspectRatio="none">
-        <path data-hf-id="hf-my61" id="o5-s1" d="M20 60 L 240 120 L 120 40 L 420 150 L 300 50 L 680 140" />
-        <path data-hf-id="hf-2yrj" id="o5-s2" d="M60 170 L 330 70 L 260 160 L 640 60" />
+    <div class="ovi ov-glass ov-scratch" id="o5-scratch">
+      <div class="scratch-word">SCRATCHES?</div>
+      <svg class="scratch-svg" viewBox="0 0 700 200" preserveAspectRatio="none">
+        <path id="o5-s1" d="M20 60 L 240 120 L 120 40 L 420 150 L 300 50 L 680 140" />
+        <path id="o5-s2" d="M60 170 L 330 70 L 260 160 L 640 60" />
       </svg>
     </div>
 
     <!-- O6 STORE LOCATOR -->
-    <div data-hf-id="hf-jys6" class="ov-locator" id="o6-loc">
-      <div data-hf-id="hf-4bff" class="loc-pin" id="o6-pin">
-        <svg data-hf-id="hf-ks11" viewBox="0 0 80 110"><path data-hf-id="hf-1p7k" d="M40 4 C 18 4 4 21 4 42 C 4 70 40 106 40 106 C 40 106 76 70 76 42 C 76 21 62 4 40 4 Z" /><circle data-hf-id="hf-mhyn" cx="40" cy="41" r="15" /></svg>
-        <span data-hf-id="hf-daoi" class="ring r1"></span><span data-hf-id="hf-9ckh" class="ring r2"></span>
+    <div class="ovi ov-locator" id="o6-loc">
+      <div class="loc-pin" id="o6-pin">
+        <svg viewBox="0 0 80 110"><path d="M40 4 C 18 4 4 21 4 42 C 4 70 40 106 40 106 C 40 106 76 70 76 42 C 76 21 62 4 40 4 Z" /><circle cx="40" cy="41" r="15" /></svg>
+        <span class="ring r1"></span><span class="ring r2"></span>
       </div>
-      <div data-hf-id="hf-h6om" class="loc-text">
-        <div data-hf-id="hf-llub" class="ov-small dark">VISIT YOUR NEAREST</div>
+      <div class="loc-text">
+        <div class="ov-small dark">VISIT YOUR NEAREST</div>
         <div class="loc-big">BIKE MASTERS</div><div class="loc-big">STORE</div>
       </div>
     </div>
 
     <!-- O7 BOOK SERVICE CTA -->
-    <div data-hf-id="hf-ivl3" class="ov-cta" id="o7-cta">
-      <div data-hf-id="hf-quhh" class="cta-btn" id="o7-btn">BOOK YOUR SERVICE</div>
-      <div data-hf-id="hf-we96" class="cta-tag" id="o7-tag">+ SPECIAL OFFER</div>
-      <div data-hf-id="hf-3qlq" class="cta-tap" id="o7-tap"></div>
+    <div class="ovi ov-cta" id="o7-cta">
+      <div class="cta-btn" id="o7-btn">BOOK YOUR SERVICE</div>
+      <div class="cta-tag" id="o7-tag">+ SPECIAL OFFER</div>
+      <div class="cta-tap" id="o7-tap"></div>
     </div>
 
     <!-- O8 END CARD -->
-    <div data-hf-id="hf-xktz" class="ov-endpill" id="o8-pill">FESTIVE OFFER <b data-hf-id="hf-cufq">·</b> UP TO <span data-hf-id="hf-gm15" class="g">25% OFF</span></div>
+    <div class="ovi ov-endpill" id="o8-pill">BIKE AAPKI <b>·</b> <span class="g">CARE HAMARI</span></div>
+    <div class="ovi ov-tnc" id="o8-tnc">DUSSEHRA SPECIAL · UP TO 25% OFF · *T&amp;C APPLY</div>
 
     <style>
       @font-face {
@@ -95,7 +104,7 @@
         font-family: "Poppins", sans-serif;
         color: #fff;
       }
-      .ov-root > div {
+      [data-composition-id="overlays"] .ovi {
         opacity: 0;
       }
       [data-composition-id="overlays"] .red {
@@ -122,6 +131,7 @@
         width: 460px;
         height: 84px;
         border-radius: 42px;
+        top: 70px !important;
         background: rgba(11, 11, 15, 0.72);
         border: 2px solid rgba(255, 183, 3, 0.85);
         box-shadow: 0 0 28px rgba(255, 183, 3, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
@@ -143,11 +153,12 @@
       }
       [data-composition-id="overlays"] .ov-stamp {
         position: absolute;
-        top: 690px;
-        left: 742px;
-        padding: 6px 34px 0;
+        top: 830px;
+        left: 590px;
+        padding: 6px 28px 0;
         font-family: "Anton", sans-serif;
-        font-size: 150px;
+        font-size: 94px;
+        white-space: nowrap;
         line-height: 1.05;
         color: #ffb703;
         background: #e3121b;
@@ -187,6 +198,44 @@
         color: #fff;
         font-family: "Anton", sans-serif;
         font-size: 44px;
+      }
+      [data-composition-id="overlays"] .ov-tag {
+        position: absolute;
+        padding: 14px 28px;
+        border-radius: 18px;
+        background: rgba(11, 11, 15, 0.8);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        font-weight: 800;
+        font-size: 44px;
+        letter-spacing: 0.05em;
+        color: #fff;
+        white-space: nowrap;
+      }
+      [data-composition-id="overlays"] .ov-tag .tk {
+        color: #ffb703;
+      }
+      [data-composition-id="overlays"] #o1-t1 {
+        top: 760px;
+        left: 40px;
+      }
+      [data-composition-id="overlays"] #o1-t2 {
+        top: 880px;
+        left: 40px;
+      }
+      [data-composition-id="overlays"] #o1b-lock .ov-big {
+        font-size: 236px;
+      }
+      [data-composition-id="overlays"] .ov-tnc {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1846px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 26px;
+        letter-spacing: 0.14em;
+        color: rgba(255, 255, 255, 0.92);
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
       }
       /* O2 lockups */
       [data-composition-id="overlays"] .ov-lock {
@@ -551,16 +600,20 @@
           tl.to(path, { strokeDashoffset: 0, duration: dur, ease }, t);
         };
 
-        // ── O1 HOOK ─────────────────────────────────────────────────
+        // ── O1 HOOK 0–2.95 · "Dussehra par sirf GHAR aur NAYE KAPDE kyun?" ──
         tl.fromTo($("#o1-chip"), { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.45, ease: "back.out(1.8)" }, 0.25);
+        tl.fromTo($("#o1-t1"), { opacity: 0, x: -340 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 1.08);
+        tl.from($("#o1-t1 .tk"), { scale: 0, rotation: -90, duration: 0.3, ease: "back.out(3)" }, 1.25);
+        tl.fromTo($("#o1-t2"), { opacity: 0, x: -340 }, { opacity: 1, x: 0, duration: 0.3, ease: "power4.out" }, 1.63);
+        tl.from($("#o1-t2 .tk"), { scale: 0, rotation: -90, duration: 0.3, ease: "back.out(3)" }, 1.8);
         tl.fromTo(
           $("#o1-off"),
           { opacity: 0, scale: 2.6, rotation: -24 },
-          { opacity: 1, scale: 1, rotation: -9, duration: 0.32, ease: "power4.out" },
-          0.72,
+          { opacity: 1, scale: 1, rotation: -9, duration: 0.3, ease: "power4.out" },
+          2.12,
         );
-        tl.to($("#o1-off"), { rotation: -6, scale: 1.04, duration: 1.8, ease: "sine.inOut" }, 1.05);
-        // Burst toward camera: coins + "%"-tags + tools fly out from behind her (escapemedia forms burst)
+        tl.to($("#o1-off"), { rotation: -6, scale: 1.05, duration: 0.6, ease: "sine.inOut" }, 2.42);
+        // Burst toward camera: coins + %-tags + tools fly out (escapemedia forms burst)
         const burst = $("#o1-burst");
         const kinds = ["coin", "tag", "tool", "coin", "tool", "tag", "coin", "coin", "tool", "tag", "coin", "tool"];
         const tools = [root.querySelector("#o4-c1 .ico").innerHTML, root.querySelector("#o4-c2 .ico").innerHTML];
@@ -571,98 +624,102 @@
           if (k === "tool") b.innerHTML = tools[i % 2];
           burst.appendChild(b);
           const ang = (i / kinds.length) * Math.PI * 2 + 0.3;
-          const dist = 520 + 380 * h(i, 1.1, 2.3);
+          const dist = 560 + 380 * h(i, 1.1, 2.3);
           const x = Math.cos(ang) * dist;
           const y = Math.sin(ang) * dist * 1.25 - 120;
-          const t0 = 0.3 + (i % 4) * 0.035;
+          const t0 = 0.12 + (i % 4) * 0.035;
           tl.fromTo(
             b,
             { opacity: 0, x: 0, y: 0, scale: 0.2, rotation: 0 },
-            { opacity: 1, x, y, scale: 1.4 + 1.4 * h(i, 3.3, 0.7), rotation: (h(i, 5, 9) - 0.5) * 540, duration: 0.95, ease: "expo.out" },
+            { opacity: 1, x, y, scale: 1.4 + 1.4 * h(i, 3.3, 0.7), rotation: (h(i, 5, 9) - 0.5) * 540, duration: 0.85, ease: "expo.out" },
             t0,
           );
-          tl.to(b, { opacity: 0, duration: 0.35, ease: "power1.in" }, t0 + 0.9 + 0.3 * h(i, 7, 1));
+          tl.to(b, { opacity: 0, duration: 0.3, ease: "power1.in" }, t0 + 0.6 + 0.2 * h(i, 7, 1));
         });
-        whipOut("#o1-chip", 2.72);
-        whipOut("#o1-off", 2.72, -60);
+        tl.to([$("#o1-chip"), $("#o1-t1"), $("#o1-t2"), $("#o1-off")], { opacity: 0, y: -120, filter: "blur(24px)", duration: 0.25, ease: "power2.in" }, 2.78);
 
-        // ── O2 SPECIAL OFFER (8.1) → ALL INDIA (9.85) ─────────────────
-        tl.fromTo($("#o2-lock .ov-small"), { opacity: 0, scaleX: 1.6 }, { opacity: 1, scaleX: 1, duration: 0.4, ease: "power3.out" }, 7.95);
-        tl.set($("#o2-lock"), { opacity: 1 }, 7.95);
-        tl.fromTo($("#o2-lock .ov-big"), { opacity: 0, scale: 1.7, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, 8.2);
-        tl.to($("#o2-lock .ov-big"), { scale: 1.05, duration: 1.4, ease: "none" }, 8.6);
-        // push-left handoff into ALL INDIA
-        tl.to($("#o2-lock"), { x: -1080, filter: "blur(20px)", duration: 0.3, ease: "power3.in" }, 9.7);
-        tl.set($("#o2b-lock"), { opacity: 1 }, 9.85);
-        tl.from($("#o2b-lock .ov-big"), { x: 1080, filter: "blur(20px)", duration: 0.45, ease: "power3.out" }, 9.85);
-        tl.from($("#o2b-lock .ov-small"), { opacity: 0, y: -30, duration: 0.35, ease: "power2.out" }, 10.45);
-        tl.from($$("#o2b-lock .pin"), { opacity: 0, y: -80, scale: 0.3, duration: 0.4, ease: "bounce.out", stagger: 0.12 }, 10.75);
+        // ── O1b "FESTIVAL WALA MAKEOVER" 3.1–6.3 ──────────────────────
+        tl.set($("#o1b-lock"), { opacity: 1 }, 3.05);
+        tl.fromTo($("#o1b-lock .ov-small"), { opacity: 0, scaleX: 1.6 }, { opacity: 1, scaleX: 1, duration: 0.4, ease: "power3.out" }, 4.9);
+        tl.fromTo($("#o1b-lock .ov-big"), { opacity: 0, scale: 1.7, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.36, ease: "expo.out" }, 5.9);
+        tl.to($("#o1b-lock .ov-big"), { scale: 1.05, duration: 0.5, ease: "none" }, 6.26);
+        whipOut("#o1b-lock", 6.2);
+
+        // ── O2 "DUSSEHRA SPECIAL OFFER" (8.14) → ALL INDIA (9.4) ──────
+        tl.set($("#o2-lock"), { opacity: 1 }, 8.1);
+        tl.fromTo($("#o2-lock .ov-small"), { opacity: 0, scaleX: 1.6 }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power3.out" }, 8.1);
+        tl.fromTo($("#o2-lock .ov-big"), { opacity: 0, scale: 1.7, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 8.62);
+        tl.to($("#o2-lock .ov-big"), { scale: 1.05, duration: 0.5, ease: "none" }, 8.92);
+        tl.to($("#o2-lock"), { x: -1080, filter: "blur(20px)", duration: 0.28, ease: "power3.in" }, 9.3);
+        tl.set($("#o2b-lock"), { opacity: 1 }, 9.5);
+        tl.from($("#o2b-lock .ov-big"), { x: 1080, filter: "blur(20px)", duration: 0.4, ease: "power3.out" }, 9.5);
+        tl.from($("#o2b-lock .ov-small"), { opacity: 0, y: -30, duration: 0.35, ease: "power2.out" }, 10.3);
+        tl.from($$("#o2b-lock .pin"), { opacity: 0, y: -80, scale: 0.3, duration: 0.4, ease: "bounce.out", stagger: 0.12 }, 11.3);
         whipOut("#o2b-lock", 11.95, 120);
 
-        // ── O3 NOTEBOOK 12.2 → 25% CALLBACK 16.6 ─────────────────────
-        tl.fromTo($("#o3-note"), { opacity: 0, y: -520, rotation: -4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.5, ease: "power4.out" }, 12.15);
-        tl.from($("#o3-note .note-title span"), { opacity: 0, y: 20, duration: 0.3, ease: "power2.out" }, 12.4);
-        strokeDraw($("#o3-ring"), 12.55, 0.55);
+        // ── O3 NOTEBOOK 12.16 → 25% CALLBACK 17.38 ───────────────────
+        tl.fromTo($("#o3-note"), { opacity: 0, y: -520, rotation: -4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.45, ease: "power4.out" }, 12.1);
+        tl.from($("#o3-note .note-title span"), { opacity: 0, y: 20, duration: 0.3, ease: "power2.out" }, 12.3);
+        strokeDraw($("#o3-ring"), 12.5, 0.55);
         [
-          ["#o3-i1", 12.65],
-          ["#o3-i2", 13.25],
-          ["#o3-i3", 14.15],
-          ["#o3-i4", 15.25],
+          ["#o3-i1", 12.37],
+          ["#o3-i2", 13.49],
+          ["#o3-i3", 14.41],
+          ["#o3-i4", 15.54],
         ].forEach(([sel, t]) => {
           tl.from($(sel), { opacity: 0, x: -60, duration: 0.3, ease: "power3.out" }, t);
           tl.from($(sel + " .tick"), { scale: 0, rotation: -90, duration: 0.35, ease: "back.out(3)" }, t + 0.12);
         });
-        tl.to($("#o3-note"), { y: 8, rotation: 0.6, duration: 1.2, ease: "sine.inOut" }, 15.3);
-        // 25% glass box slams over the notebook (callback to the hook)
-        tl.to($("#o3-note"), { scale: 0.86, opacity: 0, filter: "blur(10px)", duration: 0.28, ease: "power2.in" }, 16.45);
-        tl.fromTo($("#o3-price"), { opacity: 0, scale: 1.6, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.34, ease: "expo.out" }, 16.6);
+        tl.to($("#o3-note"), { y: 8, rotation: 0.6, duration: 1.2, ease: "sine.inOut" }, 15.9);
+        tl.to($("#o3-note"), { scale: 0.86, opacity: 0, filter: "blur(10px)", duration: 0.22, ease: "power2.in" }, 17.08);
+        tl.fromTo($("#o3-price"), { opacity: 0, scale: 1.6, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, 17.3);
         const counter = { v: 0 };
-        tl.to(counter, { v: 25, duration: 0.7, ease: "power3.out", onUpdate: () => ($("#o3-num").textContent = Math.round(counter.v)) }, 16.62);
-        strokeDraw($("#o3-pring"), 17.35, 0.5);
-        tl.to($("#o3-price"), { scale: 1.04, duration: 1.0, ease: "sine.inOut" }, 17.3);
-        whipOut("#o3-price", 18.3);
+        tl.to(counter, { v: 25, duration: 0.5, ease: "power3.out", onUpdate: () => ($("#o3-num").textContent = Math.round(counter.v)) }, 17.32);
+        strokeDraw($("#o3-pring"), 17.9, 0.4);
+        tl.to($("#o3-price"), { scale: 1.04, duration: 0.6, ease: "sine.inOut" }, 17.82);
+        whipOut("#o3-price", 18.42);
 
-        // ── O4 SERVICE CARDS 18.6 / 20.9 ────────────────────────────
-        tl.fromTo($("#o4-c1"), { opacity: 0, x: -1000 }, { opacity: 1, x: 0, duration: 0.45, ease: "expo.out" }, 18.6);
-        tl.from($("#o4-c1 .ok"), { scale: 0, duration: 0.35, ease: "back.out(3)" }, 19.4);
-        tl.fromTo($("#o4-c2"), { opacity: 0, x: 1000 }, { opacity: 1, x: 0, duration: 0.45, ease: "power4.out" }, 20.9);
-        tl.from($("#o4-c2 .ok"), { scale: 0, duration: 0.35, ease: "back.out(3)" }, 21.6);
-        tl.to([$("#o4-c1"), $("#o4-c2")], { y: "+=10", duration: 1.0, ease: "sine.inOut", stagger: 0.2 }, 21.9);
-        tl.to([$("#o4-c1"), $("#o4-c2")], { opacity: 0, x: (i) => (i ? 1000 : -1000), filter: "blur(16px)", duration: 0.28, ease: "power2.in" }, 22.75);
+        // ── O4 SERVICE CARDS 19.55 / 21.44 ──────────────────────────
+        tl.fromTo($("#o4-c1"), { opacity: 0, x: -1000 }, { opacity: 1, x: 0, duration: 0.42, ease: "expo.out" }, 19.4);
+        tl.from($("#o4-c1 .ok"), { scale: 0, duration: 0.35, ease: "back.out(3)" }, 20.12);
+        tl.fromTo($("#o4-c2"), { opacity: 0, x: 1000 }, { opacity: 1, x: 0, duration: 0.42, ease: "power4.out" }, 21.3);
+        tl.from($("#o4-c2 .ok"), { scale: 0, duration: 0.35, ease: "back.out(3)" }, 21.93);
+        tl.to([$("#o4-c1"), $("#o4-c2")], { y: "+=10", duration: 0.5, ease: "sine.inOut", stagger: 0.15 }, 22.0);
+        tl.to([$("#o4-c1"), $("#o4-c2")], { opacity: 0, x: (i) => (i ? 1000 : -1000), filter: "blur(16px)", duration: 0.25, ease: "power2.in" }, 22.55);
 
-        // ── O5 SCRATCHES? 23.05–25.15 ───────────────────────────────
-        tl.fromTo($("#o5-scratch"), { opacity: 0, scale: 0.7, rotation: 3 }, { opacity: 1, scale: 1, rotation: -1.5, duration: 0.4, ease: "back.out(1.7)" }, 23.05);
-        strokeDraw($("#o5-s1"), 23.6, 0.35, "power1.in");
-        strokeDraw($("#o5-s2"), 23.95, 0.3, "power1.in");
-        // shake on the scratch
-        tl.to($("#o5-scratch"), { x: 14, duration: 0.05, ease: "none", yoyo: true, repeat: 5 }, 24.0);
-        tl.to($("#o5-scratch"), { opacity: 0, scale: 1.25, filter: "blur(20px)", duration: 0.25, ease: "power2.in" }, 25.0);
+        // ── O5 SCRATCHES? 22.75–25.95 ───────────────────────────────
+        tl.fromTo($("#o5-scratch"), { opacity: 0, scale: 0.7, rotation: 3 }, { opacity: 1, scale: 1, rotation: -1.5, duration: 0.38, ease: "back.out(1.7)" }, 22.8);
+        strokeDraw($("#o5-s1"), 23.32, 0.35, "power1.in");
+        strokeDraw($("#o5-s2"), 23.67, 0.3, "power1.in");
+        tl.to($("#o5-scratch"), { x: 14, duration: 0.05, ease: "none", yoyo: true, repeat: 5 }, 23.72);
+        tl.to($("#o5-scratch"), { rotation: 1.5, scale: 1.03, duration: 1.6, ease: "sine.inOut" }, 24.1);
+        tl.to($("#o5-scratch"), { opacity: 0, scale: 1.25, filter: "blur(20px)", duration: 0.22, ease: "power2.in" }, 25.8);
 
-        // ── O6 STORE LOCATOR 29.6–32.85 ─────────────────────────────
-        tl.fromTo($("#o6-loc"), { opacity: 0, y: -420 }, { opacity: 1, y: 0, duration: 0.5, ease: "power4.out" }, 29.6);
-        tl.from($("#o6-pin"), { y: -260, duration: 0.6, ease: "bounce.out" }, 29.9);
-        tl.from($("#o6-loc .loc-text .ov-small"), { opacity: 0, x: 40, duration: 0.3, ease: "power2.out" }, 30.2);
-        tl.from(root.querySelectorAll("#o6-loc .loc-big"), { stagger: 0.12, opacity: 0, x: 60, duration: 0.4, ease: "expo.out" }, 30.55);
+        // ── O6 STORE LOCATOR 29.3–32.6 ──────────────────────────────
+        tl.fromTo($("#o6-loc"), { opacity: 0, y: -420 }, { opacity: 1, y: 0, duration: 0.45, ease: "power4.out" }, 29.32);
+        tl.from($("#o6-pin"), { y: -260, duration: 0.6, ease: "bounce.out" }, 29.55);
+        tl.from($("#o6-loc .loc-text .ov-small"), { opacity: 0, x: 40, duration: 0.3, ease: "power2.out" }, 29.9);
+        tl.from(root.querySelectorAll("#o6-loc .loc-big"), { stagger: 0.5, opacity: 0, x: 60, duration: 0.4, ease: "expo.out" }, 30.46);
         [$("#o6-loc .r1"), $("#o6-loc .r2")].forEach((r, i) => {
-          tl.fromTo(r, { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.8, duration: 0.9, ease: "power2.out", repeat: 2, repeatDelay: 0.15 }, 30.5 + i * 0.45);
+          tl.fromTo(r, { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.8, duration: 0.8, ease: "power2.out", repeat: 2, repeatDelay: 0.1 }, 30.2 + i * 0.4);
         });
-        whipOut("#o6-loc", 32.8);
+        whipOut("#o6-loc", 32.45);
 
-        // ── O7 BOOK SERVICE CTA 33.1–36.85 ──────────────────────────
-        tl.set($("#o7-cta"), { opacity: 1 }, 33.1);
-        tl.from($("#o7-btn"), { opacity: 0, y: 120, scale: 0.8, duration: 0.45, ease: "back.out(1.6)" }, 33.1);
-        // faux tap (compress → ripple → overshoot → settle)
-        tl.fromTo($("#o7-tap"), { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 33.8);
-        tl.to($("#o7-btn"), { scale: 0.95, duration: 0.07, ease: "power4.in" }, 34.08);
-        tl.to($("#o7-tap"), { scale: 2.6, opacity: 0, duration: 0.35, ease: "power2.out" }, 34.15);
-        tl.to($("#o7-btn"), { scale: 1.03, duration: 0.2, ease: "elastic.out(1, 0.4)" }, 34.15);
-        tl.to($("#o7-btn"), { scale: 1, duration: 0.2, ease: "power2.out" }, 34.35);
-        tl.from($("#o7-tag"), { opacity: 0, y: -30, scale: 0.7, duration: 0.35, ease: "back.out(2.5)" }, 34.6);
-        tl.to($("#o7-tag"), { scale: 1.05, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 2 }, 35.0);
-        whipOut("#o7-cta", 36.8);
+        // ── O7 BOOK SERVICE CTA 32.66–36.5 ──────────────────────────
+        tl.set($("#o7-cta"), { opacity: 1 }, 32.68);
+        tl.from($("#o7-btn"), { opacity: 0, y: 120, scale: 0.8, duration: 0.42, ease: "back.out(1.6)" }, 32.68);
+        tl.fromTo($("#o7-tap"), { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 33.45);
+        tl.to($("#o7-btn"), { scale: 0.95, duration: 0.07, ease: "power4.in" }, 33.76);
+        tl.to($("#o7-tap"), { scale: 2.6, opacity: 0, duration: 0.35, ease: "power2.out" }, 33.83);
+        tl.to($("#o7-btn"), { scale: 1.03, duration: 0.2, ease: "elastic.out(1, 0.4)" }, 33.83);
+        tl.to($("#o7-btn"), { scale: 1, duration: 0.2, ease: "power2.out" }, 34.03);
+        tl.from($("#o7-tag"), { opacity: 0, y: -30, scale: 0.7, duration: 0.35, ease: "back.out(2.5)" }, 34.75);
+        tl.to($("#o7-tag"), { scale: 1.05, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 2 }, 35.15);
+        whipOut("#o7-cta", 36.45);
 
-        // ── O8 END PILL 41.6–45.73 (held) ───────────────────────────
+        // ── O8 END · "bike aapki, care hamari" 41.64 + T&C 43.74 (held) ──
         tl.fromTo($("#o8-pill"), { opacity: 0, y: -40, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 41.6);
+        tl.fromTo($("#o8-tnc"), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 43.7);
 
         tl.to({}, { duration: D }, 0);
         window.__timelines = window.__timelines || {};
