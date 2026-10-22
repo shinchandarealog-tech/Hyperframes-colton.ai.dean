@@ -31,7 +31,7 @@ The source is a bright, real-room talking head (pre-edited, source of truth), so
 
 ## What NOT to Do
 
-- No overlays covering the face (eyes/mouth zone ≈ y 420–900 at 1080×1920).
+- No overlays covering the face (head ≈ y 600–1000 at 1080×1920; overlays live in y 130–570 and below 1100).
 - No neon, chromatic glitch or heavy shaders — this is Apple-calm.
 - No more than one accent color per beat; orange only for the offer beat.
 - Never cut, trim or re-time the speaker's audio.
