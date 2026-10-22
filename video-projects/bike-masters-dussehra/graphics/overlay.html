@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --sky: #2EA6F2;
+    --sky-deep: #0A4F96;
+    --ink: #071A33;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  body { font-family: 'Inter', sans-serif; color: #fff; position: relative; }
+  #base { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+
+  /* Every animated element is absolutely placed; only transform/opacity change over time. */
+  .a { will-change: transform, opacity; opacity: 0; }
+  #polaroid, #tag, .pill, #store, .br, #deal, #tc { position: absolute; }
+
+  /* ---------- captions ---------- */
+  .cap { position: absolute; left: 40px; right: 40px; bottom: 230px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .small-slot { position: relative; height: 56px; width: 100%; }
+  .small {
+    position: absolute; left: 0; right: 0; text-align: center;
+    font-weight: 600; font-style: italic; font-size: 42px; line-height: 56px; letter-spacing: -0.2px;
+    color: #fff; text-shadow: 0 2px 10px rgba(0, 10, 30, .75), 0 0 2px rgba(0, 10, 30, .6);
+    white-space: nowrap;
+  }
+  .key-row { display: flex; align-items: center; justify-content: center; gap: 22px; height: 124px; }
+  .key {
+    font-weight: 900; font-style: italic; font-size: 108px; line-height: 1; letter-spacing: -2px;
+    text-transform: uppercase; color: var(--sky); white-space: nowrap;
+    -webkit-text-stroke: 3px #06305C; paint-order: stroke fill;
+    text-shadow: 0 0 18px rgba(46, 166, 242, .95), 0 0 46px rgba(46, 166, 242, .6), 0 6px 0 rgba(3, 25, 55, .55);
+    padding: 0 10px;
+  }
+  .chip {
+    width: 112px; height: 112px; border-radius: 30px; flex: none; position: relative;
+    display: flex; align-items: center; justify-content: center; font-size: 62px;
+    background: rgba(46, 166, 242, .25); border: 2px solid rgba(255, 255, 255, .55);
+    backdrop-filter: blur(18px) saturate(1.4);
+    box-shadow: 0 0 26px rgba(46, 166, 242, .55), inset 0 1px 0 rgba(255, 255, 255, .6);
+  }
+  .chip span { position: absolute; right: -10px; top: -12px; font-size: 22px; font-weight: 800; font-style: italic;
+    background: var(--sky); color: #fff; border-radius: 12px; padding: 2px 10px; box-shadow: 0 0 12px rgba(46,166,242,.9); }
+
+  /* ---------- glass UI ---------- */
+  .glass {
+    background: linear-gradient(160deg, rgba(120, 200, 255, .34), rgba(46, 166, 242, .18));
+    border: 2px solid rgba(255, 255, 255, .5);
+    backdrop-filter: blur(24px) saturate(1.5);
+    box-shadow: 0 18px 50px rgba(0, 30, 70, .35), 0 0 34px rgba(46, 166, 242, .45), inset 0 1px 0 rgba(255, 255, 255, .65);
+  }
+  .pill {
+    height: 84px; border-radius: 42px; padding: 0 34px 0 14px; display: flex; align-items: center; gap: 16px;
+    font-weight: 800; font-style: italic; font-size: 38px; white-space: nowrap; letter-spacing: -0.3px;
+  }
+  .pill .ic { width: 58px; height: 58px; border-radius: 29px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+  .pill-white { background: rgba(255, 255, 255, .94); color: #0B2540; box-shadow: 0 12px 34px rgba(0, 30, 70, .35), 0 0 28px rgba(46,166,242,.5); }
+  .pill-white .ic { background: #E6F4FE; }
+  .pill-dark { background: rgba(8, 16, 30, .74); color: #fff; border: 1.5px solid rgba(255, 255, 255, .18);
+    backdrop-filter: blur(18px); box-shadow: 0 12px 34px rgba(0, 0, 0, .35); }
+  .pill-dark .ic { background: #22C55E; color: #fff; font-size: 34px; font-weight: 900; font-style: normal; box-shadow: 0 0 16px rgba(34,197,94,.7); }
+  .pill-glass .ic { background: rgba(255, 255, 255, .25); }
+
+  /* ---------- polaroid ---------- */
+  #polaroid { width: 380px; height: 456px; left: 350px; top: 1040px; background: #FBFBF8; border-radius: 10px; padding: 20px 20px 0;
+    box-shadow: 0 24px 50px rgba(0, 0, 0, .45), 0 0 0 1px rgba(0,0,0,.05); }
+  #polaroid .photo { width: 340px; height: 330px; border-radius: 4px; overflow: hidden; position: relative;
+    background: linear-gradient(180deg, #7CCBFF 0%, #2EA6F2 55%, #0F6FC4 100%); }
+  #polaroid .photo .sun { position: absolute; width: 120px; height: 120px; border-radius: 60px; right: 34px; top: 30px;
+    background: radial-gradient(circle, #FFE7A3 0%, #FFC75A 60%, rgba(255, 199, 90, 0) 72%); }
+  #polaroid .photo .road { position: absolute; left: 0; right: 0; bottom: 0; height: 74px; background: #0A3B6E; }
+  #polaroid .photo svg { position: absolute; left: 18px; bottom: 30px; }
+  #polaroid .pcap { text-align: center; color: #1B2B44; font-style: italic; font-weight: 700; font-size: 30px; line-height: 84px; letter-spacing: -0.3px; }
+  #tag { left: 610px; top: 1010px; background: #E5242B; color: #fff; font-weight: 900; font-style: italic; font-size: 34px;
+    padding: 10px 22px 10px 30px; border-radius: 8px; letter-spacing: .5px; white-space: nowrap;
+    box-shadow: 0 10px 24px rgba(120, 0, 0, .4); }
+  #tag::before { content: ''; position: absolute; left: 10px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 5px; background: #fff; }
+
+  /* ---------- store + brackets ---------- */
+  #store { width: 520px; height: 320px; left: 280px; top: 1055px; border-radius: 22px; overflow: hidden;
+    background: linear-gradient(180deg, #9ED8FF, #5BB8F5); box-shadow: 0 20px 50px rgba(0, 25, 60, .45); }
+  #store .bld { position: absolute; left: 40px; right: 40px; top: 46px; bottom: 0; background: #F4F7FB; border-radius: 6px 6px 0 0; }
+  #store .sign { position: absolute; left: 70px; right: 70px; top: 62px; height: 56px; border-radius: 8px; background: #0A2F5C;
+    display: flex; align-items: center; justify-content: center; font-weight: 900; font-style: italic; font-size: 30px; letter-spacing: 1px; color: #fff;
+    box-shadow: 0 0 18px rgba(46, 166, 242, .7), inset 0 0 0 2px var(--sky); }
+  #store .sign b { color: var(--sky); margin-left: 8px; }
+  #store .awning { position: absolute; left: 30px; right: 30px; top: 128px; height: 46px; border-radius: 0 0 14px 14px;
+    background: repeating-linear-gradient(90deg, #2EA6F2 0 38px, #FFFFFF 38px 76px); box-shadow: 0 6px 10px rgba(0,0,0,.18); }
+  #store .shutter { position: absolute; left: 70px; width: 210px; top: 188px; bottom: 0;
+    background: repeating-linear-gradient(180deg, #C9D4E2 0 9px, #AEBBCC 9px 12px); }
+  #store .win { position: absolute; right: 70px; width: 140px; top: 192px; height: 96px; border-radius: 6px;
+    background: linear-gradient(135deg, #CFEFFF, #7DC8F7); border: 4px solid #0A2F5C; }
+  #store .ground { position: absolute; left: 0; right: 0; bottom: 0; height: 16px; background: #0A3B6E; }
+  .br { width: 74px; height: 74px; border: 0 solid #fff; filter: drop-shadow(0 0 10px rgba(46,166,242,.95)) drop-shadow(0 0 3px rgba(255,255,255,.8)); }
+  #br-tl { left: 258px; top: 1033px; border-top-width: 9px; border-left-width: 9px; border-top-left-radius: 18px; }
+  #br-tr { left: 748px; top: 1033px; border-top-width: 9px; border-right-width: 9px; border-top-right-radius: 18px; }
+  #br-bl { left: 258px; top: 1323px; border-bottom-width: 9px; border-left-width: 9px; border-bottom-left-radius: 18px; }
+  #br-br { left: 748px; top: 1323px; border-bottom-width: 9px; border-right-width: 9px; border-bottom-right-radius: 18px; }
+
+  /* ---------- discount card ---------- */
+  #deal { width: 760px; height: 300px; left: 160px; top: 1078px; border-radius: 38px; padding: 26px 34px; }
+  #deal .hd { display: flex; justify-content: space-between; align-items: center; font-weight: 800; font-style: italic; font-size: 28px; letter-spacing: .5px; text-transform: uppercase; color: #E9F6FF; }
+  #deal .hd i { font-style: italic; color: #fff; background: rgba(255,255,255,.2); padding: 4px 14px; border-radius: 14px; font-size: 24px; }
+  #deal .items { display: flex; gap: 14px; margin-top: 20px; height: 76px; }
+  #deal .it { flex: 1; position: relative; }
+  #deal .it div { position: absolute; inset: 0; border-radius: 22px; background: rgba(255, 255, 255, .92); color: #0B2540;
+    display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 800; font-style: italic; font-size: 27px; white-space: nowrap; }
+  #deal .bar-row { margin-top: 22px; display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; font-style: italic; font-size: 27px; color: #E9F6FF; }
+  #deal .bar-row b { font-weight: 900; font-size: 44px; color: #fff; text-shadow: 0 0 16px rgba(46,166,242,1); }
+  #deal .track { margin-top: 10px; height: 22px; border-radius: 11px; background: rgba(4, 30, 64, .45); position: relative; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,.3); }
+  #deal .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 11px; transform-origin: 0 50%;
+    background: linear-gradient(90deg, #7FD0FF, #2EA6F2); box-shadow: 0 0 16px rgba(46,166,242,1); }
+  #deal .ticks { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 69px, rgba(255,255,255,.25) 69px 71px); }
+
+  #tc { right: 44px; bottom: 34px; font-size: 26px; font-weight: 600; font-style: italic; color: rgba(255,255,255,.9); text-shadow: 0 2px 6px rgba(0,20,50,.7); }
+</style>
+</head>
+<body>
+<img id="base" alt="">
+
+<!-- Beat 2: polaroid -->
+<div class="a" id="polaroid">
+  <div class="photo">
+    <div class="sun"></div>
+    <div class="road"></div>
+    <svg width="304" height="190" viewBox="0 0 304 190">
+      <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="62" cy="138" r="44" stroke="#0B1B2E" stroke-width="16"/>
+        <circle cx="62" cy="138" r="15" fill="#C7D3E0"/>
+        <circle cx="244" cy="138" r="44" stroke="#0B1B2E" stroke-width="16"/>
+        <circle cx="244" cy="138" r="15" fill="#C7D3E0"/>
+        <path d="M62 138 L112 92 L168 112 L244 138" stroke="#3B4A5C" stroke-width="10"/>
+        <path d="M206 60 L244 138" stroke="#3B4A5C" stroke-width="10"/>
+        <path d="M196 52 L222 46" stroke="#0B1B2E" stroke-width="10"/>
+      </g>
+      <path d="M100 84 Q126 52 176 58 L196 64 Q190 96 160 100 L112 100 Z" fill="#E5242B"/>
+      <path d="M58 82 Q80 70 112 80 L104 94 L60 96 Z" fill="#0B1B2E"/>
+      <path d="M126 104 L176 104 L170 126 L132 126 Z" fill="#8795A6"/>
+      <circle cx="214" cy="70" r="9" fill="#FFE7A3"/>
+    </svg>
+  </div>
+  <div class="pcap a" id="pcap" style="position:relative">Festival wala makeover</div>
+</div>
+<div class="a" id="tag">NEW LOOK</div>
+
+<!-- Beat 3: pills -->
+<div class="a pill pill-white" id="pill-hand" style="left:0;top:1088px"><div class="ic">👉</div>Bike Masters</div>
+<div class="a pill pill-glass glass" id="pill-diya" style="left:0;top:1196px"><div class="ic">🪔</div>Dussehra Special</div>
+
+<!-- Beat 4: store + brackets + shield -->
+<div class="a" id="store">
+  <div class="bld"></div><div class="sign">BIKE<b>MASTERS</b></div><div class="awning"></div>
+  <div class="shutter"></div><div class="win"></div><div class="ground"></div>
+</div>
+<div class="a br" id="br-tl"></div><div class="a br" id="br-tr"></div>
+<div class="a br" id="br-bl"></div><div class="a br" id="br-br"></div>
+<div class="a pill pill-dark" id="pill-shield" style="left:0;top:1400px"><div class="ic" style="background:rgba(46,166,242,.3);box-shadow:none">🛡️</div>All India</div>
+
+<!-- Beat 5: discount card -->
+<div class="a glass" id="deal">
+  <div class="hd"><span>Dussehra Offer</span><i>Bike Masters</i></div>
+  <div class="items">
+    <div class="it"><div class="a" id="it1">⚙️ Spare Parts</div></div>
+    <div class="it"><div class="a" id="it2">🛠️ Body Work</div></div>
+    <div class="it"><div class="a" id="it3">🎨 Colour Work</div></div>
+  </div>
+  <div class="bar-row"><span>Discount</span><span>Up to <b id="pct">0%</b></span></div>
+  <div class="track"><div class="fill" id="fill"></div><div class="ticks"></div></div>
+</div>
+<div class="a pill pill-dark" id="pill-check" style="left:0;top:1398px"><div class="ic">✓</div>Labour Charges Bhi</div>
+
+<!-- Beat 6: emoji pill under the shrunk card -->
+<div class="a pill pill-white" id="pill-store" style="left:0;top:1350px"><div class="ic">🏍️</div>Bike Masters Store</div>
+
+<!-- Captions -->
+<div class="cap" id="g1"><div class="small-slot"><div class="small a" id="g1s">Dussehra par sab</div></div>
+  <div class="key-row"><div class="chip a" id="g1c1">🏠</div><div class="key a" id="g1k" data-maxw="700">Ghar &amp; Kapde?</div><div class="chip a" id="g1c2">👕</div></div></div>
+<div class="cap" id="g2"><div class="small-slot"><div class="small a" id="g2s">Is baar apni</div></div>
+  <div class="key-row"><div class="key a" id="g2k">Bike ko bhi!</div></div></div>
+<div class="cap" id="g3"><div class="small-slot"><div class="small a" id="g3s">Bike Masters lekar aaye hain Dussehra</div></div>
+  <div class="key-row"><div class="key a" id="g3k">Special Offer</div></div></div>
+<div class="cap" id="g4"><div class="small-slot"><div class="small a" id="g4s">Poore India ke</div></div>
+  <div class="key-row"><div class="key a" id="g4k">Participating Stores</div></div></div>
+<div class="cap" id="g5"><div class="small-slot"><div class="small a" id="g5s1">Spare parts, body work, colour work</div><div class="small a" id="g5s2">aur labour charges par paaiye</div></div>
+  <div class="key-row"><div class="key a" id="g5k">Up to 25% off</div></div></div>
+<div class="cap" id="g6"><div class="small-slot"><div class="small a" id="g6s">Bike aapki,</div></div>
+  <div class="key-row"><div class="key a" id="g6k">Care Humari</div></div></div>
+<div class="a" id="tc">*T&amp;C apply</div>
+
+<script>
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+// Spring-ish settle: easeOutBack with a small overshoot (~4%), then a long hold.
+const backOut = (p, s = 1.2) => { p -= 1; return p * p * ((s + 1) * p + s) + 1; };
+const easeIn = p => p * p * p;
+const easeOut = p => 1 - Math.pow(1 - p, 3);
+
+// Center pills horizontally once fonts are in.
+function centerX(el) { el.style.left = ((1080 - el.offsetWidth) / 2) + 'px'; }
+
+// Track definitions. tin/tout in reel seconds. from = offsets the element enters from;
+// exit = offsets it leaves toward. dIn/dOut are the move durations.
+const T = [];
+function track(id, tin, tout, from, exit, opt = {}) {
+  T.push({ id, el: document.getElementById(id), tin, tout, from, exit,
+    dIn: opt.dIn ?? 0.42, dOut: opt.dOut ?? 0.2, rot: opt.rot ?? 0, s: opt.s ?? 1.2, fade: opt.fade ?? 0.3 });
+}
+const UP = { y: 46, sc: 0.92 }, POP = { sc: 0.6, y: 20 }, OUT = { y: -26, sc: 0.96 }, WHIP = { x: -900 };
+
+// --- captions ---
+track('g1s', 0.10, 2.92, UP, WHIP, { dOut: 0.16 });
+track('g1k', 1.24, 2.92, POP, WHIP, { dOut: 0.16 });
+track('g1c1', 1.30, 2.92, { sc: 0.4, x: 60 }, WHIP, { dOut: 0.16 });
+track('g1c2', 2.08, 2.92, { sc: 0.4, x: -60 }, WHIP, { dOut: 0.16 });
+track('g2s', 3.26, 6.30, UP, WHIP, { dOut: 0.16 });
+track('g2k', 4.00, 6.30, POP, WHIP, { dOut: 0.16 });
+track('g3s', 6.76, 9.62, UP, OUT);
+track('g3k', 8.70, 9.62, POP, OUT);
+track('g4s', 9.86, 12.20, UP, WHIP, { dOut: 0.16 });
+track('g4k', 10.76, 12.20, POP, WHIP, { dOut: 0.16 });
+track('g5s1', 12.56, 15.20, UP, OUT);
+track('g5s2', 15.36, 18.30, UP, WHIP, { dOut: 0.16 });
+track('g5k', 17.10, 18.30, POP, WHIP, { dOut: 0.16 });
+track('g6s', 19.85, 99, UP, OUT);
+track('g6k', 21.12, 99, POP, OUT);
+track('tc', 22.25, 99, { y: 14 }, OUT);
+
+// --- beat 2: polaroid drops toward camera onto the chest ---
+track('polaroid', 3.30, 6.30, { sc: 1.45, y: -110, r: -12 }, { x: -1000, r: -8 }, { dIn: 0.55, rot: -3, s: 1.1, fade: 0.25, dOut: 0.18 });
+track('tag', 4.28, 6.30, { sc: 0.3, r: 10 }, { x: -1000 }, { rot: 6, dOut: 0.18 });
+track('pcap', 5.02, 99, { y: 12 }, {}, { dIn: 0.35 });
+
+// --- beat 3 ---
+track('pill-hand', 7.05, 9.62, { x: 120, sc: 0.85 }, OUT);
+track('pill-diya', 8.14, 9.62, { x: -120, sc: 0.85 }, OUT);
+
+// --- beat 4 ---
+track('store', 9.90, 12.20, { sc: 0.86, y: 30 }, WHIP, { dIn: 0.48, dOut: 0.16 });
+track('pill-shield', 10.14, 12.20, POP, WHIP, { dOut: 0.16 });
+const LOCK = 11.62, BR = 70;
+track('br-tl', LOCK, 12.20, { x: -BR, y: -BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
+track('br-tr', LOCK, 12.20, { x: BR, y: -BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
+track('br-bl', LOCK, 12.20, { x: -BR, y: BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
+track('br-br', LOCK, 12.20, { x: BR, y: BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
+
+// --- beat 5 ---
+track('deal', 12.52, 18.30, { sc: 0.88, y: 40 }, WHIP, { dIn: 0.5, dOut: 0.16 });
+track('it1', 12.70, 99, POP, {}, { dIn: 0.36 });
+track('it2', 13.66, 99, POP, {}, { dIn: 0.36 });
+track('it3', 14.44, 99, POP, {}, { dIn: 0.36 });
+track('pill-check', 15.80, 18.30, POP, WHIP, { dOut: 0.16 });
+const BAR_IN = 16.70, BAR_D = 0.9;
+
+// --- beat 6 ---
+track('pill-store', 19.42, 99, POP, OUT);
+
+function pose(k, t) {
+  if (t < k.tin || t > k.tout + k.dOut) return null;
+  const p = clamp((t - k.tin) / k.dIn), e = backOut(p, k.s);
+  const f = k.from, x = k.exit;
+  let tx = (f.x || 0) * (1 - e), ty = (f.y || 0) * (1 - e);
+  let sc = 1 + ((f.sc ?? 1) - 1) * (1 - e);
+  let r = (f.r ?? k.rot) + (k.rot - (f.r ?? k.rot)) * e;
+  let op = clamp(p / k.fade);
+  const q = clamp((t - k.tout) / k.dOut);
+  if (q > 0) {
+    const eq = easeIn(q);
+    tx += (x.x || 0) * eq; ty += (x.y || 0) * eq;
+    sc *= 1 + ((x.sc ?? 1) - 1) * eq; r += (x.r || 0) * eq;
+    op *= 1 - easeOut(q) * (x.x ? 0.6 : 1); // whipped elements stay visible while moving off
+    if (q >= 1) op = 0;
+  }
+  return { tx, ty, sc, r, op };
+}
+
+function apply(t) {
+  for (const k of T) {
+    const P = pose(k, t);
+    if (!P) { k.el.style.opacity = 0; continue; }
+    k.el.style.opacity = P.op.toFixed(4);
+    k.el.style.transform = `translate(${P.tx.toFixed(2)}px, ${P.ty.toFixed(2)}px) scale(${P.sc.toFixed(4)}) rotate(${P.r.toFixed(3)}deg)`;
+  }
+  // progress bar: fills to 25% with a slight overshoot, counter follows the bar
+  const pb = clamp((t - BAR_IN) / BAR_D), eb = t < BAR_IN ? 0 : backOut(pb, 1.0);
+  document.getElementById('fill').style.transform = `scaleX(${(0.25 * eb).toFixed(4)})`;
+  document.getElementById('pct').textContent = Math.round(25 * clamp(eb)) + '%';
+}
+
+// Max on-screen displacement (px) of any visible element between t0 and t1; drives sub-frame count.
+function motion(t0, t1) {
+  let m = 0;
+  for (const k of T) {
+    const a = pose(k, t0), b = pose(k, t1);
+    if (!a && !b) continue;
+    if (!a || !b) { m = Math.max(m, 4); continue; }
+    const w = k.el.offsetWidth, h = k.el.offsetHeight, R = Math.max(w, h) / 2;
+    const d = Math.hypot(b.tx - a.tx, b.ty - a.ty) + Math.abs(b.sc - a.sc) * R + Math.abs(b.r - a.r) * Math.PI / 180 * R;
+    m = Math.max(m, d, Math.abs(b.op - a.op) * 40);
+  }
+  const ba = clamp((t0 - BAR_IN) / BAR_D), bb = clamp((t1 - BAR_IN) / BAR_D);
+  if (t1 >= BAR_IN && t0 <= BAR_IN + BAR_D) m = Math.max(m, Math.abs(backOut(bb, 1) - backOut(ba, 1)) * 0.25 * 690);
+  return m;
+}
+
+// Positions for QC: element center offsets + opacity per time.
+function poses(t) { const o = {}; for (const k of T) { const P = pose(k, t); if (P) o[k.id] = P; } return o; }
+
+async function setBase(src) { const img = document.getElementById('base'); img.src = src; await img.decode(); }
+
+window.ready = (async () => {
+  await document.fonts.ready;
+  // Fit key lines to their max width once (layout never changes after this).
+  document.querySelectorAll('.key').forEach(k => {
+    const maxw = +(k.dataset.maxw || 980); let fs = 108;
+    k.style.fontSize = fs + 'px';
+    while (k.scrollWidth > maxw && fs > 40) { fs -= 2; k.style.fontSize = fs + 'px'; }
+  });
+  ['pill-hand', 'pill-diya', 'pill-shield', 'pill-check', 'pill-store'].forEach(id => centerX(document.getElementById(id)));
+  apply(0);
+  return true;
+})();
+window.apply = apply; window.motion = motion; window.poses = poses; window.setBase = setBase;
+</script>
+</body>
+</html>
