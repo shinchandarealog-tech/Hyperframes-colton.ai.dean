@@ -37,7 +37,7 @@
   .chip {
     width: 112px; height: 112px; border-radius: 30px; flex: none; position: relative;
     display: flex; align-items: center; justify-content: center; font-size: 62px;
-    background: rgba(46, 166, 242, .25); border: 2px solid rgba(255, 255, 255, .55);
+    background: rgba(20, 110, 205, .55); border: 2px solid rgba(255, 255, 255, .55);
     backdrop-filter: blur(18px) saturate(1.4);
     box-shadow: 0 0 26px rgba(46, 166, 242, .55), inset 0 1px 0 rgba(255, 255, 255, .6);
   }
@@ -46,7 +46,7 @@
 
   /* ---------- glass UI ---------- */
   .glass {
-    background: linear-gradient(160deg, rgba(120, 200, 255, .34), rgba(46, 166, 242, .18));
+    background: linear-gradient(160deg, rgba(30, 130, 220, .66), rgba(8, 62, 140, .58));
     border: 2px solid rgba(255, 255, 255, .5);
     backdrop-filter: blur(24px) saturate(1.5);
     box-shadow: 0 18px 50px rgba(0, 30, 70, .35), 0 0 34px rgba(46, 166, 242, .45), inset 0 1px 0 rgba(255, 255, 255, .65);
@@ -147,7 +147,7 @@
 
 <!-- Beat 3: pills -->
 <div class="a pill pill-white" id="pill-hand" style="left:0;top:1088px"><div class="ic">👉</div>Bike Masters</div>
-<div class="a pill pill-glass glass" id="pill-diya" style="left:0;top:1196px"><div class="ic">🪔</div>Dussehra Special</div>
+<div class="a pill pill-glass glass" id="pill-diya" style="left:0;top:1196px"><div class="ic">🪔</div>Festive Offer</div>
 
 <!-- Beat 4: store + brackets + shield -->
 <div class="a" id="store">
@@ -179,8 +179,8 @@
   <div class="key-row"><div class="chip a" id="g1c1">🏠</div><div class="key a" id="g1k" data-maxw="700">Ghar &amp; Kapde?</div><div class="chip a" id="g1c2">👕</div></div></div>
 <div class="cap" id="g2"><div class="small-slot"><div class="small a" id="g2s">Is baar apni</div></div>
   <div class="key-row"><div class="key a" id="g2k">Bike ko bhi!</div></div></div>
-<div class="cap" id="g3"><div class="small-slot"><div class="small a" id="g3s">Bike Masters lekar aaye hain Dussehra</div></div>
-  <div class="key-row"><div class="key a" id="g3k">Special Offer</div></div></div>
+<div class="cap" id="g3"><div class="small-slot"><div class="small a" id="g3s">Bike Masters lekar aaye hain</div></div>
+  <div class="key-row"><div class="key a" id="g3k">Dussehra Special Offer</div></div></div>
 <div class="cap" id="g4"><div class="small-slot"><div class="small a" id="g4s">Poore India ke</div></div>
   <div class="key-row"><div class="key a" id="g4k">Participating Stores</div></div></div>
 <div class="cap" id="g5"><div class="small-slot"><div class="small a" id="g5s1">Spare parts, body work, colour work</div><div class="small a" id="g5s2">aur labour charges par paaiye</div></div>
@@ -192,8 +192,13 @@
 <script>
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
 // Spring-ish settle: easeOutBack with a small overshoot (~4%), then a long hold.
-const backOut = (p, s = 1.2) => { p -= 1; return p * p * ((s + 1) * p + s) + 1; };
 const easeIn = p => p * p * p;
+// Damped spring from rest (zero start velocity, ~4-5% overshoot), settled within d seconds.
+const springT = (t, d, z = 0.7) => {
+  if (t <= 0) return 0;  // no clamp at d: the tail decays continuously (no end snap)
+  const wn = 5.2 / (z * d), wd = wn * Math.sqrt(1 - z * z);
+  return 1 - Math.exp(-z * wn * t) * (Math.cos(wd * t) + z * wn / wd * Math.sin(wd * t));
+};
 const easeOut = p => 1 - Math.pow(1 - p, 3);
 
 // Center pills horizontally once fonts are in.
@@ -204,52 +209,52 @@ function centerX(el) { el.style.left = ((1080 - el.offsetWidth) / 2) + 'px'; }
 const T = [];
 function track(id, tin, tout, from, exit, opt = {}) {
   T.push({ id, el: document.getElementById(id), tin, tout, from, exit,
-    dIn: opt.dIn ?? 0.42, dOut: opt.dOut ?? 0.2, rot: opt.rot ?? 0, s: opt.s ?? 1.2, fade: opt.fade ?? 0.3 });
+    dIn: opt.dIn ?? 0.42, dOut: opt.dOut ?? 0.2, rot: opt.rot ?? 0, fade: opt.fade ?? 0.3 });
 }
-const UP = { y: 46, sc: 0.92 }, POP = { sc: 0.6, y: 20 }, OUT = { y: -26, sc: 0.96 }, WHIP = { x: -900 };
+const UP = { y: 46, sc: 0.92 }, POP = { sc: 0.6, y: 20 }, OUT = { y: -26, sc: 0.96 }, WHIP = { x: -1300 };
 
 // --- captions ---
-track('g1s', 0.10, 2.92, UP, WHIP, { dOut: 0.16 });
-track('g1k', 1.24, 2.92, POP, WHIP, { dOut: 0.16 });
-track('g1c1', 1.30, 2.92, { sc: 0.4, x: 60 }, WHIP, { dOut: 0.16 });
-track('g1c2', 2.08, 2.92, { sc: 0.4, x: -60 }, WHIP, { dOut: 0.16 });
-track('g2s', 3.26, 6.30, UP, WHIP, { dOut: 0.16 });
-track('g2k', 4.00, 6.30, POP, WHIP, { dOut: 0.16 });
+track('g1s', 0.10, 2.96, UP, WHIP, { dOut: 0.2 });
+track('g1k', 1.24, 2.96, POP, WHIP, { dOut: 0.2 });
+track('g1c1', 1.30, 2.96, { sc: 0.4, x: 60 }, WHIP, { dOut: 0.2 });
+track('g1c2', 2.08, 2.96, { sc: 0.4, x: -60 }, WHIP, { dOut: 0.2 });
+track('g2s', 3.26, 6.46, UP, WHIP, { dOut: 0.2 });
+track('g2k', 4.00, 6.46, POP, WHIP, { dOut: 0.2 });
 track('g3s', 6.76, 9.62, UP, OUT);
-track('g3k', 8.70, 9.62, POP, OUT);
-track('g4s', 9.86, 12.20, UP, WHIP, { dOut: 0.16 });
-track('g4k', 10.76, 12.20, POP, WHIP, { dOut: 0.16 });
+track('g3k', 8.14, 9.62, POP, OUT);
+track('g4s', 9.86, 12.26, UP, WHIP, { dOut: 0.2 });
+track('g4k', 10.76, 12.26, POP, WHIP, { dOut: 0.2 });
 track('g5s1', 12.56, 15.20, UP, OUT);
-track('g5s2', 15.36, 18.30, UP, WHIP, { dOut: 0.16 });
-track('g5k', 17.10, 18.30, POP, WHIP, { dOut: 0.16 });
+track('g5s2', 15.36, 18.46, UP, WHIP, { dOut: 0.2 });
+track('g5k', 17.10, 18.46, POP, WHIP, { dOut: 0.2 });
 track('g6s', 19.85, 99, UP, OUT);
 track('g6k', 21.12, 99, POP, OUT);
 track('tc', 22.25, 99, { y: 14 }, OUT);
 
 // --- beat 2: polaroid drops toward camera onto the chest ---
-track('polaroid', 3.30, 6.30, { sc: 1.45, y: -110, r: -12 }, { x: -1000, r: -8 }, { dIn: 0.55, rot: -3, s: 1.1, fade: 0.25, dOut: 0.18 });
-track('tag', 4.28, 6.30, { sc: 0.3, r: 10 }, { x: -1000 }, { rot: 6, dOut: 0.18 });
+track('polaroid', 3.30, 6.46, { sc: 1.45, y: -110, r: -12 }, { x: -1000, r: -8 }, { dIn: 0.55, rot: -3, fade: 0.25, dOut: 0.2 });
+track('tag', 4.28, 6.46, { sc: 0.3, r: 10 }, { x: -1000 }, { rot: 6, dOut: 0.2 });
 track('pcap', 5.02, 99, { y: 12 }, {}, { dIn: 0.35 });
 
 // --- beat 3 ---
 track('pill-hand', 7.05, 9.62, { x: 120, sc: 0.85 }, OUT);
-track('pill-diya', 8.14, 9.62, { x: -120, sc: 0.85 }, OUT);
+track('pill-diya', 8.40, 9.62, { x: -120, sc: 0.85 }, OUT);
 
 // --- beat 4 ---
-track('store', 9.90, 12.20, { sc: 0.86, y: 30 }, WHIP, { dIn: 0.48, dOut: 0.16 });
-track('pill-shield', 10.14, 12.20, POP, WHIP, { dOut: 0.16 });
+track('store', 9.90, 12.26, { sc: 0.86, y: 30 }, WHIP, { dIn: 0.48, dOut: 0.2 });
+track('pill-shield', 10.14, 12.26, POP, WHIP, { dOut: 0.2 });
 const LOCK = 11.62, BR = 70;
-track('br-tl', LOCK, 12.20, { x: -BR, y: -BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
-track('br-tr', LOCK, 12.20, { x: BR, y: -BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
-track('br-bl', LOCK, 12.20, { x: -BR, y: BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
-track('br-br', LOCK, 12.20, { x: BR, y: BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.16 });
+track('br-tl', LOCK, 12.26, { x: -BR, y: -BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.2 });
+track('br-tr', LOCK, 12.26, { x: BR, y: -BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.2 });
+track('br-bl', LOCK, 12.26, { x: -BR, y: BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.2 });
+track('br-br', LOCK, 12.26, { x: BR, y: BR }, WHIP, { dIn: 0.36, fade: 0.5, dOut: 0.2 });
 
 // --- beat 5 ---
-track('deal', 12.52, 18.30, { sc: 0.88, y: 40 }, WHIP, { dIn: 0.5, dOut: 0.16 });
+track('deal', 12.52, 18.46, { sc: 0.88, y: 40 }, WHIP, { dIn: 0.5, dOut: 0.2 });
 track('it1', 12.70, 99, POP, {}, { dIn: 0.36 });
 track('it2', 13.66, 99, POP, {}, { dIn: 0.36 });
 track('it3', 14.44, 99, POP, {}, { dIn: 0.36 });
-track('pill-check', 15.80, 18.30, POP, WHIP, { dOut: 0.16 });
+track('pill-check', 15.80, 18.46, POP, WHIP, { dOut: 0.2 });
 const BAR_IN = 16.70, BAR_D = 0.9;
 
 // --- beat 6 ---
@@ -257,7 +262,7 @@ track('pill-store', 19.42, 99, POP, OUT);
 
 function pose(k, t) {
   if (t < k.tin || t > k.tout + k.dOut) return null;
-  const p = clamp((t - k.tin) / k.dIn), e = backOut(p, k.s);
+  const p = clamp((t - k.tin) / k.dIn), e = springT(t - k.tin, k.dIn);
   const f = k.from, x = k.exit;
   let tx = (f.x || 0) * (1 - e), ty = (f.y || 0) * (1 - e);
   let sc = 1 + ((f.sc ?? 1) - 1) * (1 - e);
@@ -268,7 +273,7 @@ function pose(k, t) {
     const eq = easeIn(q);
     tx += (x.x || 0) * eq; ty += (x.y || 0) * eq;
     sc *= 1 + ((x.sc ?? 1) - 1) * eq; r += (x.r || 0) * eq;
-    op *= 1 - easeOut(q) * (x.x ? 0.6 : 1); // whipped elements stay visible while moving off
+    op *= x.x ? 1 - q * q : 1 - easeOut(q); // whipped elements stay visible while moving off
     if (q >= 1) op = 0;
   }
   return { tx, ty, sc, r, op };
@@ -282,7 +287,7 @@ function apply(t) {
     k.el.style.transform = `translate(${P.tx.toFixed(2)}px, ${P.ty.toFixed(2)}px) scale(${P.sc.toFixed(4)}) rotate(${P.r.toFixed(3)}deg)`;
   }
   // progress bar: fills to 25% with a slight overshoot, counter follows the bar
-  const pb = clamp((t - BAR_IN) / BAR_D), eb = t < BAR_IN ? 0 : backOut(pb, 1.0);
+  const eb = springT(t - BAR_IN, BAR_D);
   document.getElementById('fill').style.transform = `scaleX(${(0.25 * eb).toFixed(4)})`;
   document.getElementById('pct').textContent = Math.round(25 * clamp(eb)) + '%';
 }
@@ -299,7 +304,7 @@ function motion(t0, t1) {
     m = Math.max(m, d, Math.abs(b.op - a.op) * 40);
   }
   const ba = clamp((t0 - BAR_IN) / BAR_D), bb = clamp((t1 - BAR_IN) / BAR_D);
-  if (t1 >= BAR_IN && t0 <= BAR_IN + BAR_D) m = Math.max(m, Math.abs(backOut(bb, 1) - backOut(ba, 1)) * 0.25 * 690);
+  if (t1 >= BAR_IN && t0 <= BAR_IN + BAR_D) m = Math.max(m, Math.abs(springT(t1 - BAR_IN, BAR_D) - springT(t0 - BAR_IN, BAR_D)) * 0.25 * 690);
   return m;
 }
 
@@ -315,6 +320,9 @@ window.ready = (async () => {
     const maxw = +(k.dataset.maxw || 980); let fs = 108;
     k.style.fontSize = fs + 'px';
     while (k.scrollWidth > maxw && fs > 40) { fs -= 2; k.style.fontSize = fs + 'px'; }
+  });
+  document.querySelectorAll('.small').forEach(k => {
+    let fs = 42; while (k.scrollWidth > 980 && fs > 26) { fs -= 1; k.style.fontSize = fs + 'px'; }
   });
   ['pill-hand', 'pill-diya', 'pill-shield', 'pill-check', 'pill-store'].forEach(id => centerX(document.getElementById(id)));
   apply(0);

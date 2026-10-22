@@ -27,7 +27,11 @@ def src_index(f):
 
 # ---------------- easing ----------------
 def clamp(x, a=0.0, b=1.0): return max(a, min(b, x))
-def back_out(p, s=1.2): p -= 1; return p * p * ((s + 1) * p + s) + 1
+def spring(t, d, z=0.7):
+    """Damped spring from rest (zero start velocity, ~4-5% overshoot), settled within d seconds."""
+    if t <= 0: return 0.0
+    wn = 5.2 / (z * d); wd = wn * math.sqrt(1 - z * z)
+    return 1 - math.exp(-z * wn * t) * (math.cos(wd * t) + z * wn / wd * math.sin(wd * t))
 def in_out_back(p, c1=0.6):
     c2 = c1 * 1.525
     if p < 0.5: return (2 * p) ** 2 * ((c2 + 1) * 2 * p - c2) / 2
@@ -36,7 +40,7 @@ def in_out_back(p, c1=0.6):
 # ---------------- video transform ----------------
 WHIPS = [3.10, 6.60, 12.40, 18.60]   # whip centers (reel s); 18.60 is the cut
 WHIP_D = 0.32
-SHRINK_T, SHRINK_D, SHRINK_S, CARD_CY = 18.95, 0.6, 0.58, 770.0
+SHRINK_T, SHRINK_D, SHRINK_S, CARD_CY = 18.85, 0.75, 0.58, 770.0
 
 def video_pose(t):
     """-> (roll_px, scale, center_y, corner_radius)"""
@@ -44,7 +48,7 @@ def video_pose(t):
     for c in WHIPS:
         p = (t - (c - WHIP_D / 2)) / WHIP_D
         if 0 < p < 1: roll = W * in_out_back(p)
-    e = back_out(clamp((t - SHRINK_T) / SHRINK_D), 1.1) if t > SHRINK_T else 0.0
+    e = spring(t - SHRINK_T, SHRINK_D)
     s = 1 + (SHRINK_S - 1) * e
     cy = H / 2 + (CARD_CY - H / 2) * e
     return roll, s, cy, 52.0 * clamp(e * 1.6)
@@ -60,7 +64,7 @@ YY, XX = np.mgrid[0:H, 0:W].astype(np.float32)
 def hex_rgb(h): return np.array([int(h[i:i + 2], 16) for i in (5, 3, 1)], np.float32)  # BGR order (OpenCV)
 
 def make_bg():
-    stops = [(0, "#041633"), (700, "#0A3F86"), (1300, "#1C82D6"), (1920, "#2EA6F2")]
+    stops = [(0, "#0A3F86"), (760, "#1C82D6"), (1350, "#0A3F86"), (1920, "#041633")]  # navy at the bottom so sky-blue captions read
     col = np.zeros((H, 3), np.float32)
     ys = np.arange(H)
     for c in range(3):
@@ -108,13 +112,14 @@ def base_frame(frame, t):
         hw, hh = W * s / 2, H * s / 2
         sdf = rrect_sdf(W / 2, cy, hw, hh, rad)
         a = np.clip(0.5 - sdf, 0, 1)[..., None]
+        k = clamp((1 - s) / (1 - SHRINK_S) * 3)   # card ring/glow/shadow fade in with the shrink
         sh = rrect_sdf(W / 2, cy + 26, hw, hh, rad)
-        shadow = (0.5 * np.exp(-(np.clip(sh, 0, None) / 38) ** 2) * (sh > -60))[..., None]
-        glow = (0.55 * np.exp(-(np.clip(sdf, 0, None) / 22) ** 2) * (sdf > 0))[..., None]
+        shadow = (k * 0.5 * np.exp(-(np.clip(sh, 0, None) / 38) ** 2) * (sh > -60))[..., None]
+        glow = (k * 0.55 * np.exp(-(np.clip(sdf, 0, None) / 22) ** 2) * (sdf > 0))[..., None]
         out = BG * (1 - shadow) + BG * shadow * 0.25
         out = out + glow * (np.array([255, 205, 120], np.float32) - out)
         out = out * (1 - a) + vid * a
-        ring = (np.clip(1 - np.abs(sdf + 3) / 2.5, 0, 1) * 0.6)[..., None]
+        ring = (np.clip(1 - np.abs(sdf + 3) / 2.5, 0, 1) * 0.6 * k)[..., None]
         out = out + ring * (255 - out)
     rgb, alpha, halo = water(t)
     seg = out[WY0:]
