@@ -46,7 +46,7 @@
     var gap = 18;
 
     if (ctx.aspect === "landscape") {
-      srcPt = [hx - head.width / 2 - 34, ft + 150];
+      srcPt = [hx - head.width / 2 - 60, ft + 150];
       A = f.map(tRef, srcPt[0], srcPt[1]);
       var leaderLen = 150;
       var Lx = A.x - leaderLen;

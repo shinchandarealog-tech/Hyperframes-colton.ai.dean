@@ -33,7 +33,7 @@
       });
     }
     function basePlacement(w) {
-      if (ctx.aspect === "landscape") return "bottom";
+      if (ctx.aspect === "landscape") return ctx.footage.openSide ? "aside" : "bottom";
       if (ctx.frame.modeAt(w.start) === "full") return "chest";
       var busy = ctx.stageBusy(w.start, w.end);
       return busy === "all" ? "seam" : busy === "lower" ? "top" : "stage";
@@ -147,6 +147,7 @@
     // 3. Landscape: lift above the hands when a gesture collides with the box.
     if (ctx.aspect === "landscape") {
       groups.forEach(function (g) {
+        if (g.place !== "bottom") return; // only bottom-center captions lift
         var cfg = C.bottom;
         var estW = Math.min(cfg.maxWidth, g.text.length * cfg.size * 0.55);
         var box = [ctx.W / 2 - estW / 2, ctx.H - cfg.bottom - cfg.size * 1.3, ctx.W / 2 + estW / 2, ctx.H - cfg.bottom];
@@ -170,6 +171,34 @@
       }
     }
 
+    // 3b. Never on printed text in the footage: move the caption above the
+    //     print (keeping clear of the chin), else below it.
+    function captionRect(g, cfg, bottom) {
+      var lines = Math.ceil(g.text.length / Math.max(1, cfg.maxChars / 2)) > 1 ? 2 : 1;
+      var h = cfg.size * 1.18 * lines;
+      var w = Math.min(cfg.maxWidth, g.text.length * cfg.size * 0.55);
+      var x0 = cfg.align === "center" ? ctx.W / 2 - w / 2 : ctx.aspect === "portrait" ? P.margin : P.margin;
+      return [x0, ctx.H - bottom - h, x0 + w, ctx.H - bottom];
+    }
+    groups.forEach(function (g) {
+      var cfg = C[g.place];
+      if (cfg.bottom == null || g.place === "stage") return;
+      g.bottom = cfg.bottom;
+      var t = (g.in + g.out) / 2;
+      var mode = ctx.frame.modeAt(t);
+      (ctx.footage.avoidText || []).forEach(function (a) {
+        var p0 = ctx.frame.map(t, a.rect[0], a.rect[1]);
+        var p1 = ctx.frame.map(t, a.rect[2], a.rect[3]);
+        var r = [p0.x, p0.y, p1.x, p1.y];
+        var box = captionRect(g, cfg, g.bottom);
+        if (!MS.rectsOverlap(r, box)) return;
+        var h = box[3] - box[1];
+        var chin = ctx.frame.map(t, 0, ctx.footage.head.chinY).y + 40;
+        if (r[1] - 16 - h >= chin) g.bottom = ctx.H - (r[1] - 16); // above the print
+        else g.bottom = Math.max(P.safe ? P.safe.bottom : 32, ctx.H - (r[3] + 16 + h)); // below
+      });
+    });
+
     // 4. Build DOM + timeline.
     var layer = MS.el("div", "ms-captions", ctx.overlay);
     groups.forEach(function (g, gi) {
@@ -183,7 +212,11 @@
         MS.place(el, P.zones.stage);
       } else {
         if (cfg.top != null) el.style.top = cfg.top + "px";
-        else el.style.bottom = cfg.bottom + "px";
+        else el.style.bottom = (g.bottom != null ? g.bottom : cfg.bottom) + "px";
+        if (ctx.aspect === "landscape" && cfg.align === "left") {
+          el.style.left = P.margin + "px";
+          el.style.width = cfg.maxWidth + "px";
+        }
         if (ctx.aspect === "portrait") {
           el.style.left = P.margin + "px";
           el.style.width = P.zones.stage[2] + "px";

@@ -36,6 +36,9 @@
       zones: { primary: [96, 150, 640, 470] },
       type: { headline: 76, label: 52, eyebrow: 24 },
       captions: {
+        // aside: on the footage's open side, sharing the headline's left edge —
+        // used when the footage map declares an openSide.
+        aside: { size: 42, maxChars: 40, bottom: 360, align: "left", maxWidth: 470 },
         bottom: { size: 44, maxChars: 44, bottom: 64, align: "center", maxWidth: 1240 },
         lifted: { size: 44, maxChars: 44, bottom: 290, align: "center", maxWidth: 1240 },
       },

@@ -103,8 +103,9 @@
 .ms-cap.is-stage .ms-cap-text { line-height: 1.08; letter-spacing: -0.02em; }
 .ms-cap.is-bottom .ms-cap-text,
 .ms-cap.is-lifted .ms-cap-text,
+.ms-cap.is-aside .ms-cap-text,
 .ms-cap.is-chest .ms-cap-text {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 14px rgba(0, 0, 0, 0.35);
 }
-.ms-cap-word { opacity: 0.5; }
-.ms-cap.is-stage .ms-cap-word { opacity: 0.32; }
+.ms-cap-word { opacity: 0.6; }
+.ms-cap.is-stage .ms-cap-word { opacity: 0.4; }

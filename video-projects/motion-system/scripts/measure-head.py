@@ -96,9 +96,9 @@ def gesture_windows(samples, w, step):
                 else:
                     cur = {"start": s["t"], "end": s["t"], "rect": u}
                     windows.append(cur)
-    for g in windows:  # pad by half a sample either side
-        g["start"] = round(max(0, g["start"] - step / 2), 3)
-        g["end"] = round(g["end"] + step / 2, 3)
+    for g in windows:  # pad by a full sample: fast hands blur and drop out between samples
+        g["start"] = round(max(0, g["start"] - step), 3)
+        g["end"] = round(g["end"] + step, 3)
     return sorted(windows, key=lambda g: g["start"])
 
 
