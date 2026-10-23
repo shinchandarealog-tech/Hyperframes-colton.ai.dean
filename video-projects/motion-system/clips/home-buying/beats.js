@@ -9,8 +9,9 @@ window.MS_CLIPS["home-buying"] = {
   layout: {
     portrait: [
       { at: 0, mode: "split" },
-      { at: 9.82, mode: "full" },  // "Let's break it down step by step…"
-      { at: 12.66, mode: "split" },
+      { at: 9.82, mode: "full" },   // "Let's break it down step by step" — direct address
+      { at: 11.12, mode: "split" }, // back for "so you can get started today" (the 11.0 s
+                                    // hand chop rises over FULL-layout captions)
     ],
   },
 

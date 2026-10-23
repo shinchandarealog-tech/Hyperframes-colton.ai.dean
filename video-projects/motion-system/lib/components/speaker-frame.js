@@ -66,6 +66,16 @@
       return m;
     }
 
+    // Logical layout at t: switches exactly on the beat time (no camera lead).
+    // Captions and other content decisions use this; modeAt() is the visual state.
+    function layoutAt(t) {
+      var m = schedule[0].mode;
+      schedule.forEach(function (s) {
+        if (t >= s.at) m = s.mode;
+      });
+      return m;
+    }
+
     function stageVars(mode) {
       var m = cfg.modes[mode];
       return { x: ctx.W / 2 - m.scale * (src.width / 2), y: m.y, scale: m.scale };
@@ -101,6 +111,7 @@
     // Public API for other components.
     ctx.frame = {
       modeAt: modeAt,
+      layoutAt: layoutAt,
       headX: headX,
       faceTop: faceTop,
       head: head,

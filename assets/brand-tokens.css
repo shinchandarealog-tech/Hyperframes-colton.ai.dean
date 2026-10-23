@@ -64,7 +64,7 @@
   --type-title: 56px;      --type-title-weight: 500;
   --type-body: 40px;       --type-body-weight: 400;
   --type-label: 28px;      --type-label-weight: 500;   --type-label-tracking: 0.02em;
-  --type-mono: 26px;
+  --type-mono: 28px;      /* 28 px = phone reading floor at 1080 short side */
 
   /* ── Layout (9:16, 1080×1920) ── */
   --space-unit: 8px;

@@ -34,7 +34,7 @@
       margin: 96,
       // The speaker is centered; the open wall on the left is the primary zone.
       zones: { primary: [96, 150, 640, 470] },
-      type: { headline: 76, label: 52, eyebrow: 24 },
+      type: { headline: 76, label: 52, eyebrow: 28 }, // 28 px = phone reading floor (2.6% of short side)
       captions: {
         // aside: on the footage's open side, sharing the headline's left edge —
         // used when the footage map declares an openSide.
@@ -52,7 +52,7 @@
       seamY: 960,
       // Graphic stage above the speaker (SPLIT layout), inside the safe zones.
       zones: { stage: [64, 220, 876, 700] },
-      type: { headline: 100, label: 60, eyebrow: 26 },
+      type: { headline: 100, label: 60, eyebrow: 28 },
       captions: {
         seam: { size: 48, maxChars: 40, bottom: 1920 - 932, align: "left", maxWidth: 876 },
         top: { size: 48, maxChars: 40, top: 236, align: "left", maxWidth: 876 },

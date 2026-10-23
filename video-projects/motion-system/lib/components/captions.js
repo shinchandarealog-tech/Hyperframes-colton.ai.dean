@@ -34,7 +34,7 @@
     }
     function basePlacement(w) {
       if (ctx.aspect === "landscape") return ctx.footage.openSide ? "aside" : "bottom";
-      if (ctx.frame.modeAt(w.start) === "full") return "chest";
+      if (ctx.frame.layoutAt(w.start) === "full") return "chest";
       var busy = ctx.stageBusy(w.start, w.end);
       return busy === "all" ? "seam" : busy === "lower" ? "top" : "stage";
     }
@@ -49,6 +49,8 @@
         cl = null;
         return;
       }
+      // a layout change always ends a clause: placement can't straddle it
+      if (cl && ctx.frame.layoutAt(words[cl[cl.length - 1]].start) !== ctx.frame.layoutAt(w.start)) cl = null;
       if (!cl) clauses.push((cl = []));
       cl.push(i);
       if (/[,.?!]$/.test(w.text)) cl = null;

@@ -294,3 +294,75 @@ The variety check: six beats use six different entrances (mask, draw-on, segment
 2. Write `footage-map.json` for this clip and `beats.json` for the sample.
 3. Build components C1–C8 as isolated sub-compositions, each with its own preview URL, in both aspect ratios.
 4. Lint → Studio preview gate (you scrub each component) → only then a draft render → every-frame review → MP4 preview gate.
+
+---
+
+## 10. Phase 2 — implementation status (2026-10-23)
+
+**Status: initial component set implemented and draft-rendered in both aspect ratios. Not production-ready** — needs your review of the drafts and decisions below.
+
+### 10.1 What exists
+
+```
+lib/                      generic system (no clip content)
+  ms-core.js              aspect profiles, zones, safe areas, type/motion tokens, mount()
+  ms.css                  component styles (all values from brand-tokens.css)
+  components/
+    speaker-frame.js      C8 — framing, SPLIT/FULL portrait layouts, head-follow crop, source→frame mapping
+    headline.js           C1 — mask-revealed lines, inline {{text|mono|dim|accent|warn@t}} markup
+    anchored-label.js     C2 — anchor dot + drawn leader + label; per-aspect geometry
+    captions.js           C7 — clause/phrase grouping, per-aspect placements, word fill
+clips/home-buying/        the ONLY clip-specific files
+  beats.js                beat script + portrait layout schedule
+  footage-map.js          measured head track, gestures, avoidAccent, avoidText, openSide
+  transcript.js           generated from assets/transcript.json
+index.html                16:9 entry (1920×1080) — `npx hyperframes render`
+entries/portrait.html     9:16 entry (1080×1920) — `npx hyperframes render -c entries/portrait.html`
+scripts/measure-head.py   head + hand measurement → footage map (verify with --overlay)
+scripts/transcript-to-js.mjs
+assets/vendor/gsap.min.js GSAP 3.14.2, local (no CDN)
+```
+
+A new clip = new `clips/<name>/` folder (beats, footage map, transcript) + point the entries at it. No component edits.
+
+### 10.2 Decisions made during implementation (deviations from §5–§7)
+
+| Area | Proposal | As built | Why |
+|---|---|---|---|
+| Two entries | `index-vertical.html` at project root | `entries/portrait.html`, rendered with `-c` | `hyperframes lint` errors on two root-level entries ("duplicate audio playback"); a subfolder entry renders correctly (verified). |
+| Audio | open question (T2) | `<video data-has-audio>` (no `muted`), `class="clip"` on the video | Both forms smoke-tested on CLI 0.8.186: identical audio level, no doubling, correct frames. |
+| 16:9 captions | bottom-center, lift over gestures | **aside**: left-aligned on the footage's open side, sharing the headline's left edge (bottom-center + lift remains for footage without an `openSide`) | Frame review showed lifted captions landing on the chest print ("GALICI FINANCIAL") and hands crossing bottom captions. The aside never collides with either. |
+| 9:16 captions | seam / chest | **seam** (stage busy), **top** (stage's lower part busy, e.g. a label leader crossing the seam), **stage** (large editorial captions when the stage is free), **chest** (FULL; moved above printed text) | The SPLIT stage would otherwise sit empty between graphics. |
+| Active word | inactive 72% / current 100% | fill model: words brighten as spoken (60% on footage, 40% in the stage) and stay bright | Avoids flicker; reads as calm karaoke. |
+| FULL layout window | 9.82–12.60 s | 9.82–11.12 s ("Let's break it down step by step" only) | At 11.0 s a hand chop rises over FULL-layout captions; returning to SPLIT for the next clause avoids it. |
+| Type floor | label note 24/26 px, `--type-mono` 26 px | 28 px everywhere (token updated) | `hyperframes check` floor: 2.6% of the short side. |
+
+### 10.3 Tests performed (all actually run)
+
+- **Audio**: 3 s smoke renders of both audio forms → audio −23.0 dB mean (source −23.0), frames matched source (PSNR 37.6 dB at draft quality).
+- **Fonts**: all six Geist weights load from local files with networking disabled (Chromium, `document.fonts.load`).
+- **Lint**: `hyperframes lint` 0 errors / 0 warnings. **Check** (`hyperframes check`, 16:9 entry only — the command has no entry selector): 0 errors; Motion 0 warnings; Contrast 28/28 WCAG AA; 12 `line_unread` warnings (see 10.4).
+- **Runtime**: both entries mount headless with no console/page errors; timelines registered at 18.67 s.
+- **Renders**: both entries render draft MP4s — 561 frames each, 1920×1080 and 1080×1920, audio −23.7 dB mean (source −23.6).
+- **Frame review**: every frame of both drafts read on timestamped contact sheets (30 frames per sheet) plus full-resolution frames at every state change. Three review/fix rounds; after each fix the new render was diffed frame-by-frame against the reviewed one and every changed frame was re-reviewed (renders are deterministic: unchanged inputs produced byte-identical frames).
+- **Head/hand map**: verified on an overlay contact sheet (37 samples).
+
+Failures found and fixed: root not sized outside the runtime (black overlays); timeline registration invisible to lint; two-root lint error; caption on chest print (both aspects); hands over captions; caption fragment from mid-sentence placement switch; caption placed in the stage position over the face in FULL (vote across a layout change); captions overlapping a headline's suppress window; anchor dot touching hair; text below the 28 px floor; caption phrasing ("plan your | finances").
+
+### 10.4 Known limitations / open items
+
+1. **Caption reading time** — `check` wants 1.5–3.2 s per phrase; speech-synced phrases here last 0.7–1.8 s because the speaker talks fast. Holding them longer would desync captions from speech. Options: accept (current), or allow longer phrases (fewer, longer groups).
+2. **Closing line** — "It's gotten pretty pricey." is on screen < 2 s because the footage ends 0.08 s after "pricey". No outro hold was added (per direction). If the full video continues, this resolves itself.
+3. **FULL layout is a 1.78× upscale** — visibly softer than SPLIT; used for 1.3 s only.
+4. **Portrait SPLIT headroom** is tight (~28 px between the seam and the hair). `cropY` in `PROFILES.portrait.speaker.modes.split` controls it.
+5. **Mode-change seam**: for ~3 frames (11.10–11.17 s) the incoming stage caption overlaps the top of the speaker frame while the camera finishes its move.
+6. **Measurement tools**: hand detection only scans the bottom 24% of the source (a high hand chop was under-measured); a static white object at the bottom right masks hands overlapping it (right hand at 1.75–2.5 s). `avoidText` (the chest print) is hand-entered. All are editable in `footage-map.js`.
+7. **Studio preview** was not used: this cloud container's localhost isn't reachable from your device, so review happens on the draft MP4s.
+8. **C3–C6 not built yet** — B3 (promise), B4 (roadmap) and B5 (context) are captions-only in this phase.
+
+### 10.5 Proposed next steps
+
+1. You review the two draft MP4s (`renders/landscape-draft.mp4`, `renders/portrait-draft.mp4`) and decide on 10.4 items 1–2.
+2. Build **C3 timeline diagram** for B2→B3 ("late 20s → next 10 years → home → end of 30s") — the one diagram the transcript supports.
+3. Build **C5 pull quote** (light surface) for B5 and **C4 section marker** for B4.
+4. Then a standard-quality render of both formats + full frame review.

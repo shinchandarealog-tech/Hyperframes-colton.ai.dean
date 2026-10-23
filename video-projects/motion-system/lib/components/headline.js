@@ -30,6 +30,7 @@
     var inners = [];
     spec.lines.forEach(function (ln, i) {
       var line = MS.el("div", "ms-hl-line", box);
+      line.setAttribute("data-layout-allow-overflow", ""); // the line is a reveal mask
       var inner = MS.el("span", "ms-hl-inner" + (ln.tone === "dim" ? " is-dim" : ""), line);
       MS.parseMarkup(ln.text).forEach(function (seg) {
         if (!seg.style) {
