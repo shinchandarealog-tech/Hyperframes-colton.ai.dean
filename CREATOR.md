@@ -10,32 +10,34 @@ Your identity, positioning, and workflow for video work in this workspace. **Rea
 
 ## Identity
 
-- **Name on-screen**: _(your display name)_
-- **Instagram**: _(@handle or "—")_
-- **TikTok**: _(handle or "—")_
-- **YouTube**: _(handle or "—")_
-- **X / other**: _(handle or "—")_
+- **Name on-screen**: _not set yet — do NOT put any name on screen until filled in_
+- **Instagram**: _not set yet_
+- **TikTok**: _not set yet_
+- **YouTube**: _not set yet_
+- **X / other**: _not set yet_
+
+> Identity skipped during /setup (2026-10-23). Never invent a name or handle — leave lower-thirds/outros identity-free or ask first.
 
 When putting handles on-screen (lower-thirds, outros, end-cards), use the platform-appropriate handle.
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Cross-post to all three** — TikTok, Instagram Reels, YouTube Shorts. Default: **9:16 vertical, 1080×1920, 30fps**. Keep key text/UI inside the shared safe zone (avoid the bottom ~20% caption/UI band and the right-side action rail).
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+_No fixed niche (no preference given at /setup, 2026-10-23)._ Ask about the topic per video; don't assume one.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Both** — face-cam talking-head videos and faceless motion-graphic videos.
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**Mix of both modes** (set at /setup, 2026-10-23). Per video, confirm which mode applies:
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
