@@ -9,6 +9,8 @@ Short-form = 1080x1920 vertical, 10–30s, talking-head face + motion-graphic sc
 
 **Always invoke `/hyperframes` first.** This skill sits on top of it — it does not replace the framework rules (`data-*` attributes, `window.__timelines`, composition structure). Those are non-negotiable regardless of the format.
 
+> **Workspace overrides (PREFERENCES.md, 2026-10-23) — read before applying anything below.** This playbook was written for a louder house style. In this workspace the following are **opt-in only, never defaults**: face grading, Ken Burns drift and side vignettes on the user's footage (footage is shown as delivered); ambient particle / grain / HUD-grid / scan-beam backgrounds; the navy gradient seam; Montserrat-900 karaoke "pop" captions; "one jaw-dropper per 5s"; whip-pans and glitches. Use the approved tokens (`assets/brand-tokens.css`, Geist) and the reference implementation in `video-projects/motion-system/` (DESIGN.md: SPLIT/FULL vertical layouts, restrained captions). The audio-sync protocol, face-mode interpolation, verification gate and "data-feel beats decoration" lessons still apply.
+
 ## When this skill fires
 
 - "Make a short-form video", "TikTok post", "Reels", "Shorts", "vertical video"
@@ -52,8 +54,8 @@ index.html (root, 1080x1920, data-composition-id="main")
 ```
 
 - `data-duration` is identical across root, ambient-bg, seam-treatment, face-video, face-audio, captions. Only scene overlays change over time.
-- `<audio>` for the face is a SEPARATE element (mixer needs it), never use the video's own audio track.
-- `class="clip"` goes on timed divs — NEVER on `<video>` or `<audio>`.
+- Face audio: either keep it on the `<video>` (`data-has-audio="true"`, no `muted`) or use a `muted` video + separate `<audio>` — never both. Both verified on CLI 0.8.186.
+- `class="clip"` goes on timed divs. (On CLI 0.8.186 it is also harmless on `<video>` — verified 2026-10-23; see workspace `CLAUDE.md`.)
 
 ## Face-mode choreography (the signature move of short-form)
 

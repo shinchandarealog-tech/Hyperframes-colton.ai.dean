@@ -76,7 +76,7 @@ Used by `/make-a-video` Gate 6. Every sub-composition follows this pattern.
 ## Hard rules the scaffold enforces
 
 1. **Root composition `<div>` in `index.html`** has `id`, `data-composition-id`, `data-start="0"`, `data-width`, `data-height`. Sub-composition roots have `data-composition-id`, `data-start`, `data-duration` — no width/height.
-2. **Every timed visible element** has `class="clip"`, `data-start`, `data-duration`, `data-track-index`. **Exceptions:** `<video>` and `<audio>` do NOT get `class="clip"` — it breaks them.
+2. **Every timed visible element** has `class="clip"`, `data-start`, `data-duration`, `data-track-index`. (On CLI 0.8.186, `class="clip"` on `<video>` is fine — verified; older guidance said it breaks video.)
 3. **CSS is scoped.** No top-level rules inside a sub-composition file. Every selector lives under `[data-composition-id="..."]`.
 4. **Timeline registered** on `window.__timelines['<id>']` with key exactly matching `data-composition-id`.
 5. **Anchor tween** at the end of every timeline: `tl.to({}, { duration: SLOT_DURATION }, 0)`.

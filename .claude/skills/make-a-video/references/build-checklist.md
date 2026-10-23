@@ -9,8 +9,7 @@ Used by `/make-a-video` Gates 7 and 8. Run before any render and before telling 
 - [ ] Root `<div>` in `index.html` has `id`, `data-composition-id`, `data-start="0"`, `data-width`, `data-height`
 - [ ] Every sub-composition `.html` has a root `<div>` with `data-composition-id`, `data-start`, `data-duration`
 - [ ] Every timed visible element has `class="clip"`, `data-start`, `data-duration`, `data-track-index`
-- [ ] NO `class="clip"` on `<video>` tags
-- [ ] `<video>` elements are `muted`; audio lives in sibling `<audio>` elements
+- [ ] Footage audio uses ONE form: `data-has-audio="true"` on the `<video>` (no `muted`), or `muted` video + sibling `<audio>` — never both (CLI 0.8.186, verified)
 - [ ] Same-track clips never overlap (different `data-track-index` for overlapping elements)
 - [ ] Every GSAP timeline ends with `tl.to({}, { duration: SLOT_DURATION }, 0)`
 - [ ] Every timeline registered on `window.__timelines['<id>']` with key matching `data-composition-id` exactly
@@ -25,9 +24,9 @@ Used by `/make-a-video` Gates 7 and 8. Run before any render and before telling 
 
 - [ ] Palette on-brief — no rogue colors, ≤5 symbolic hues
 - [ ] Typography on-brief — only the fonts declared in `assets/style-profile.md`
-- [ ] Grid / vignette / grain texture present on every scene (or on the full-composition background)
+- [ ] Grid / vignette / grain texture ONLY if the concept justifies it (opt-in per PREFERENCES.md); never on the user's footage
 - [ ] Ambient background composition on `data-track-index="0"` for full duration
-- [ ] Every scene transition is a *motion* transition (whip · morph · blur · recolor), not a hard fade
+- [ ] Each transition is chosen for the content beat (mask, draw-on, layout move, a clean cut on a word…); no single transition repeated everywhere
 - [ ] Outro holds 4–6 seconds
 - [ ] At least one visual callback (element returns later)
 - [ ] Scene lengths follow the brief's pacing tier (kinetic 1–2s · balanced 2–3s · relaxed 3–5s)

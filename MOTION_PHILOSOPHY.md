@@ -1,5 +1,7 @@
 # MOTION PHILOSOPHY — The Gold Standard
 
+> **Workspace status (2026-10-23):** `PREFERENCES.md` overrides this file's *aesthetic* defaults. Black canvas, perspective grid, crosshairs, vignette, grain, chrome-gradient/halo text, whip transitions, the ~1.5s scene average and the 4–6s outro hold are **opt-in per concept**, not defaults. Still binding: one idea per beat, symbolic palette discipline, and the technical recipes/laws (timeline padding, 1/fps snapping, duration diagnostic, deterministic code).
+
 > Reference deconstruction of the **Infinite — Global Payments** 30s spot
 > (`x-XTeSJ-DKx63uB4.mp4`, 1920×1080, 30fps, 900 frames). This is what every
 > Hyperframes motion-graphics build should aspire to. Re-read before starting any

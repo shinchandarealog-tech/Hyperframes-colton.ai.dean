@@ -63,11 +63,13 @@ Many creators record and pre-edit their own speaking video, then have the assist
 **How to use it:**
 1. **Always read the full file** at the start of any creative session — `Read MOTION_PHILOSOPHY.md` from the workspace root. Don't skim, don't quote from memory.
 2. **Re-read sections 0 (10 Laws) and 4 (pre-flight checklist)** every time, even on quick iterations. They are the discipline.
-3. **Apply the defaults**: ~1.5s avg scene length, black canvas + perspective grid + crosshairs + vignette + grain on every scene, chrome-gradient text with halo glow, motion-blurred whip transitions (never hard cuts), ≤5 symbolic colors, hold the outro 4–6s, rule of threes.
+3. **Defaults are opt-in, not automatic** (approved creative direction in `PREFERENCES.md`, 2026-10-23): the black canvas, perspective grid, crosshairs, vignette, grain, chrome-gradient/glowing text and whip transitions are used **only when a specific concept justifies them**. There is no mandatory average scene length or outro hold — timing follows the script and footage. Never grade, darken, or vignette the user's footage by default. Still in force from this file: one idea per beat, ≤5 symbolic colors, and the technical laws (timeline padding, 1/fps snapping, duration diagnostic).
 4. **Use the recipes**: section 3 has copy-pasteable HyperFrames patterns (composition shell, kinetic-type opener, whip-streak, color-recolor trick, registry block mappings).
 5. **Run the pre-flight checklist** before claiming any motion piece is done.
 
-**Order of precedence**: `PREFERENCES.md` (user's taste) > `MOTION_PHILOSOPHY.md` (aesthetic baseline) > skill defaults. When a brand brief explicitly demands a different aesthetic, keep the discipline (one idea per beat, motion in transitions, breathing outros, callbacks) but adapt the palette and texture.
+**Order of precedence**: `PREFERENCES.md` (user's taste) > `MOTION_PHILOSOPHY.md` (aesthetic baseline) > skill defaults. The current `PREFERENCES.md` creative direction (restrained, editorial, footage-first) replaces this file's aesthetic defaults; keep its discipline and technical recipes only.
+
+**Skill defaults that are overridden in this workspace** (the skills still describe them; don't apply them automatically): `short-form-video`'s mandatory face grade + Ken Burns + side vignette, ambient particle/grain/HUD backgrounds, navy seam gradient, Montserrat-900 karaoke "pop" captions, and "one jaw-dropper per 5s"; `make-a-video`'s grid/vignette/grain-on-every-scene and motion-transitions-only checklist items; `hyperframes`' "scene transition" rules apply to scene-based compositions — overlay graphics on continuous talking-head footage may enter and exit on their own (the footage is the continuity).
 
 If either file is missing from the workspace root, stop and ask the user before brainstorming — they should always be there.
 
@@ -171,8 +173,10 @@ The CLI reads `hyperframes.json`/`meta.json` from the current directory and reso
 1. `mkdir video-projects/<new-project-slug>` (kebab-case, e.g. `ai-agents-intro`)
 2. `cd video-projects/<new-project-slug>`
 3. Run `npx hyperframes init` to scaffold, then edit `meta.json` for the new id/name/dimensions, and create `index.html`, `compositions/`, `assets/`, `renders/`
-4. Pull in the shared brand tokens: `cp ../../assets/brand-tokens.css assets/`
-5. Build the composition; lint + render from inside this folder
+4. Pull in the shared brand tokens **and the self-hosted fonts** (the tokens file references `fonts/`): `cp ../../assets/brand-tokens.css assets/ && cp -r ../../assets/fonts assets/`
+5. `init` templates load GSAP from a CDN — replace with a local copy (`assets/vendor/gsap.min.js`, copy from `video-projects/motion-system/assets/vendor/`) so renders never fetch from the network
+6. `init` also writes a project-level `CLAUDE.md`/`AGENTS.md`; keep the precedence note at their top (see `video-projects/motion-system/CLAUDE.md`)
+7. Build the composition; lint + render from inside this folder
 
 ### What lives at the workspace root
 
@@ -186,16 +190,20 @@ The CLI reads `hyperframes.json`/`meta.json` from the current directory and reso
 ## Render Contract (the must-dos and must-not-dos)
 
 1. Root `<div>` needs `id`, `data-composition-id`, `data-start="0"`, `data-width`, `data-height`.
-2. Timed visible elements need `class="clip"` — **except** `<video>` and `<audio>` (adding `class="clip"` to `<video>` breaks it).
+2. Timed visible elements get `class="clip"`. On CLI 0.8.186, `class="clip"` on a `<video>` is fine — it's what `init` scaffolds (verified 2026-10-23: rendered frames matched the source). Older guidance saying it "breaks" video is outdated.
 3. Every timed element needs `data-start`, `data-duration`, `data-track-index`.
 4. `data-start` can reference another clip's id: `data-start="intro"`, `data-start="intro + 2"`, `data-start="intro - 0.5"`. Same-track clips cannot overlap — use different `data-track-index` values.
-5. `<video>` must be `muted`; audio belongs in sibling `<audio>` elements for the mixer. `data-has-audio="true"` only when the video's own audio should feed the mix.
+5. Audio — two verified forms on CLI 0.8.186 (2026-10-23 smoke test: both rendered audio at the source level, no doubling):
+   - **Default:** footage with sound keeps it on the `<video>` with `data-has-audio="true"` and **no** `muted` (what `init --video` scaffolds and what the CLI docs describe).
+   - **Detached:** `muted` `<video>` + a sibling `<audio>` pointing at the same file — use for music, voiceover, replacement audio, J/L cuts, or volume automation.
+   Never both at once (that doubles the audio). Silent footage/b-roll: `muted`.
 6. Every composition registers exactly one GSAP timeline, paused, on `window.__timelines["<data-composition-id>"]`. Key must match `data-composition-id` exactly.
-7. Composition duration = `tl.duration()`. If the timeline is shorter than the video, the video truncates. Pad with `tl.set({}, {}, <seconds>)` to extend.
+7. Root `data-duration` sets the composition length. Still pad every timeline to its slot (`tl.set({}, {}, <seconds>)`) — sub-compositions whose timeline is shorter than their slot can blank out (MOTION_PHILOSOPHY Law 11).
 8. Never call `.play()`, `.pause()`, or set `.currentTime` on media. The framework owns playback.
 9. Never animate `width`/`height`/`top`/`left` directly on a `<video>` — the browser freezes frames. Wrap in a `<div>` and animate the wrapper.
 10. Sub-compositions use `<template>` + `data-composition-src`. Their timelines auto-link to the parent — never do `masterTL.add(child)`.
-11. Determinism: no `Date.now()`, no unseeded `Math.random()`, no render-time network fetches. Use seeded PRNGs.
+11. Determinism: no `Date.now()`, no unseeded `Math.random()`, no render-time network fetches (that includes GSAP from a CDN and web fonts — vendor GSAP locally, self-host fonts). Use seeded PRNGs.
+12. Build overlay DOM and timelines synchronously at load (no `async`/`fetch`/`setTimeout`). Per-video data goes in plain `.js` files that set a global, not JSON fetched at runtime.
 
 ## Authoring Loop
 
@@ -264,12 +272,12 @@ Without this gate, the user has to be your QA. With it, they only see iterations
 
 After editing compositions and before any render command:
 
-1. Start Studio in the background:
+1. Start Studio as a persistent background preview (the CLI's agent-safe mode):
    ```bash
    cd video-projects/<project-slug>
-   npx hyperframes preview    # run_in_background: true
+   npx hyperframes preview --background   # then: npx hyperframes preview --status
    ```
-2. Wait for "Studio running" on http://localhost:3002.
+2. Confirm it is listening (`preview --status`) on http://localhost:3002. Stop it with `npx hyperframes preview --stop` when review is finished.
 3. Hand the user the URL + tell them exactly which sub-compositions to scrub (individual comp URLs load fastest — the master composition can stall when it includes WebGL shader blocks under software WebGL fallback). Example: `http://localhost:3002/?comp=v01-kinetic-type`.
 4. Wait for explicit sign-off on the live preview ("looks good, render a draft" / "ship it" / "go ahead"). Silence is not approval.
 5. Hot reload means any further edit you make shows up live without a restart.

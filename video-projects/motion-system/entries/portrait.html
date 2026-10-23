@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- Motion System — portrait entry (1080×1920). Shares lib/ and clips/ with index.html (16:9). Render: npx hyperframes render -c entries/portrait.html -->
+    <link rel="stylesheet" href="../assets/brand-tokens.css" />
+    <link rel="stylesheet" href="../lib/ms.css" />
+    <script src="../assets/vendor/gsap.min.js"></script>
+    <style>
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      class="ms-root"
+      data-composition-id="ms-portrait"
+      data-start="0"
+      data-duration="18.67"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div class="ms-speaker">
+        <div class="ms-stage">
+          <div class="ms-track">
+            <video
+              id="a-roll"
+              class="clip"
+              src="../assets/sample-home-buying.mp4"
+              playsinline
+              data-start="0"
+              data-duration="18.67"
+              data-track-index="0"
+              data-has-audio="true"
+            ></video>
+          </div>
+        </div>
+      </div>
+      <div class="ms-seam"></div>
+      <div class="ms-overlay"></div>
+    </div>
+
+    <!-- generic system -->
+    <script src="../lib/ms-core.js"></script>
+    <script src="../lib/components/speaker-frame.js"></script>
+    <script src="../lib/components/headline.js"></script>
+    <script src="../lib/components/anchored-label.js"></script>
+    <script src="../lib/components/captions.js"></script>
+    <!-- clip data (content) -->
+    <script src="../clips/home-buying/transcript.js"></script>
+    <script src="../clips/home-buying/footage-map.js"></script>
+    <script src="../clips/home-buying/beats.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["ms-portrait"] = MS.mount({ root: document.getElementById("root"), clip: "home-buying" }).tl;
+    </script>
+  </body>
+</html>

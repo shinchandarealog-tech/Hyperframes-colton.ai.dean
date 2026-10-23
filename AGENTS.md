@@ -54,15 +54,16 @@ Fix all errors before presenting the result.
 ## Key Rules
 
 1. Every timed element needs `data-start`, `data-duration`, and `data-track-index`
-2. Visible timed elements **must** have `class="clip"` — the framework uses this for visibility control
+2. Visible timed elements get `class="clip"` (on CLI 0.8.186 this is also fine on `<video>` — verified)
 3. GSAP timelines must be paused and registered on `window.__timelines`:
    ```js
    window.__timelines = window.__timelines || {};
    window.__timelines["composition-id"] = gsap.timeline({ paused: true });
    ```
-4. Videos use `muted` with a separate `<audio>` element for the audio track
-5. Sub-compositions use `data-composition-src="compositions/file.html"`
-6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
+4. Footage with sound keeps it on the `<video>` (`data-has-audio="true"`, no `muted`) — or, for detached audio, a `muted` video + sibling `<audio>`. Never both. (Both verified on CLI 0.8.186; see `CLAUDE.md` Render Contract.)
+5. Read `CLAUDE.md`, `CREATOR.md`, and `PREFERENCES.md` before any video work — `PREFERENCES.md` makes the grid/grain/vignette/chrome-text/whip defaults opt-in and forbids altering the user's footage by default
+6. Sub-compositions use `data-composition-src="compositions/file.html"`
+7. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches (GSAP vendored locally, fonts self-hosted)
 
 ## Documentation
 

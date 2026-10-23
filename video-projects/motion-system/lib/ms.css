@@ -1,0 +1,110 @@
+/* Motion System — component styles. Values come from assets/brand-tokens.css.
+ * Aspect-specific rules key off [data-aspect] on the root (set by MS.mount). */
+
+.ms-root {
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-body);
+  color: var(--brand-text);
+  -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+}
+.ms-root[data-aspect="landscape"] { background: var(--brand-near-black); }
+.ms-root[data-aspect="portrait"]  { background: var(--brand-surface); } /* graphic stage */
+
+/* Speaker frame — the footage is shown as delivered (no filters). */
+.ms-speaker { position: absolute; inset: 0; overflow: hidden; }
+.ms-stage   { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.ms-track   { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+.ms-track video { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+
+/* Portrait SPLIT seam: one hairline, no gradient glow. */
+.ms-seam {
+  position: absolute; left: 0; right: 0; top: 960px; height: 1px;
+  background: var(--brand-border);
+}
+
+.ms-overlay { position: absolute; inset: 0; pointer-events: none; }
+
+/* Legibility on footage: a tight contact shadow plus a soft lift. */
+.is-on-footage { text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 2px 18px rgba(0, 0, 0, 0.28); }
+
+/* C1 Headline ---------------------------------------------------------- */
+.ms-headline {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: var(--type-headline-weight);
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+}
+.ms-hl-line {
+  overflow: hidden;
+  /* room for descenders and the text shadow inside the mask */
+  padding: 0 0.2em 0.14em 0.04em;
+  margin: 0 -0.2em -0.14em -0.04em;
+}
+.ms-hl-inner { display: inline-block; white-space: nowrap; }
+.ms-hl-inner.is-dim { color: var(--brand-text-dim); }
+.ms-hl-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: var(--brand-text);
+}
+.ms-hl-accent { color: var(--brand-accent); }
+.ms-hl-warn   { color: var(--brand-warn); }
+.ms-hl-accent.is-pending, .ms-hl-warn.is-pending { color: inherit; }
+.ms-hl-strong { font-weight: 700; color: var(--brand-text); }
+
+/* C2 Anchored label ------------------------------------------------------ */
+.ms-label-svg { position: absolute; left: 0; top: 0; overflow: visible; }
+.ms-label-leader {
+  fill: none;
+  stroke: rgba(244, 241, 234, 0.7);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-linecap: round;
+}
+.ms-root[data-aspect="portrait"] .ms-label-leader { stroke-width: 2; }
+.ms-label { position: absolute; display: flex; flex-direction: column; gap: 6px; white-space: nowrap; }
+.ms-label.is-right { align-items: flex-end; text-align: right; }
+.ms-label-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  padding: 0.05em 0.1em 0.12em;
+  margin: -0.05em -0.1em -0.12em;
+}
+.ms-label-note {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--brand-text-dim);
+}
+
+/* C7 Captions ------------------------------------------------------------ */
+.ms-captions { position: absolute; inset: 0; }
+.ms-cap { position: absolute; display: flex; }
+.ms-cap.is-bottom, .ms-cap.is-lifted { left: 0; right: 0; justify-content: center; }
+.ms-cap.is-center { justify-content: center; text-align: center; }
+.ms-cap.is-left { justify-content: flex-start; text-align: left; }
+.ms-cap.is-stage { flex-direction: column; justify-content: center; }
+.ms-cap-text {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+.ms-cap.is-stage .ms-cap-text { line-height: 1.08; letter-spacing: -0.02em; }
+.ms-cap.is-bottom .ms-cap-text,
+.ms-cap.is-lifted .ms-cap-text,
+.ms-cap.is-chest .ms-cap-text {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+.ms-cap-word { opacity: 0.5; }
+.ms-cap.is-stage .ms-cap-word { opacity: 0.32; }

@@ -66,7 +66,7 @@ Then ask progressively — they don't need answers to all of these:
 4. Logo file? (path · none — use text wordmark instead)
 5. Reference videos for vibe? (URLs/paths · none)
 6. Other assets? (screenshots · product photos · b-roll · music — list paths)
-7. MOTION_PHILOSOPHY aesthetic (black canvas · chrome type · perspective grid · whip transitions) or a different feel?
+7. Workspace creative direction from PREFERENCES.md (restrained editorial, footage-first; grid/grain/chrome/whips opt-in) or a different feel for this one?
 8. Pacing? (kinetic 1–2s · balanced 2–3s · relaxed 3–5s)
 9. Music? (none · ambient pad 0.15 · music bed 0.4 · full 0.8 — file path if they have one)
 10. Outro / call-to-action text?
@@ -241,7 +241,7 @@ Full preflight + pre-delivery checklist: `Read: references/build-checklist.md`
 - **DO NOT ask the user for assets** before inventorying their workspace.
 - **DO NOT skip the `tl.to({}, { duration: SLOT_DURATION }, 0)` anchor tween** at the end of every sub-composition timeline. MOTION_PHILOSOPHY Law 11.
 - **DO NOT use `Math.random()` / `Date.now()`** inside render logic. Seeded hashes only.
-- **DO NOT add `class="clip"` to `<video>` tags.** It breaks them.
+- `class="clip"` on `<video>` is fine on CLI 0.8.186 (verified). Footage audio: `data-has-audio="true"` on the video, or `muted` video + sibling `<audio>` — never both.
 - **DO NOT impose a brand on the user.** Ask first; fall back to MOTION_PHILOSOPHY defaults only when they explicitly decline.
 
 ---
