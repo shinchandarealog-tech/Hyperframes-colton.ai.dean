@@ -1,12 +1,8 @@
-<!-- HYPERFRAMES_SETUP_INCOMPLETE -->
-<!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
-     and run onboarding before any video work. The setup skill removes it when finished. -->
-
 # Creator Profile — _(your name)_
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
 
-> 🚧 **This file is a blank template.** Run `/setup` (or just tell Claude "help me get set up") and it will fill these sections in from a short interview. You can also edit it by hand any time.
+> Set up via `/setup` on 2026-10-23. Re-run `/setup` or edit by hand any time.
 
 ## Identity
 
@@ -44,11 +40,16 @@ _No fixed niche (no preference given at /setup, 2026-10-23)._ Ask about the topi
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+Set at /setup (2026-10-23) — full tokens in `assets/brand-tokens.css`, creative direction in `PREFERENCES.md`.
+
+- **Palette**: near-black `#0B0B0D`, graphite `#1C1D21`, raised graphite `#2A2C31`, warm white `#F4F1EA`; electric blue `#3D7BFF` (accent, used sparingly); warning `#FF9F43` (rare).
+- **Surfaces**: dark by default; warm-white panels with dark type allowed when they serve the footage.
+- **Type**: Geist (headlines + body), Geist Mono (technical details only) — self-hosted in `assets/fonts/`.
+- **Logo**: _none yet_.
 
 ## Inspiration creators
 
-_(Studied creators live in [`_reference/creator-library/`](_reference/creator-library/). Paste a TikTok / Instagram Reel / YouTube Short URL and run `/study-creator <url>` to add one. At build time, name a creator — "build this like @handle" — to apply their style fingerprint to the visual layer. /setup seeds your first few here.)_
+_None studied yet — reference reels were skipped at /setup (2026-10-23)._ The approved creative direction in `PREFERENCES.md` is the style baseline until references are added. Studied creators live in [`_reference/creator-library/`](_reference/creator-library/); add one with `/study-creator <url>`.
 
 ## Posting cadence & length defaults
 

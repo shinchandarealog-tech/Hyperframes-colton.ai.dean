@@ -1,16 +1,86 @@
-:root {
-  /* TODO: fill in your brand colors */
-  --brand-bg: ;
-  --brand-surface: ;
-  --brand-surface-2: ;
-  --brand-border: ;
-  --brand-accent: ;
-  --brand-accent-glow: ;
-  --brand-warn: ;
-  --brand-text: ;
-  --brand-text-dim: ;
+/* Brand tokens — approved during /setup (2026-10-23).
+ * Creative direction: Apple-style product presentation, editorial motion,
+ * considered spatial UI. Footage is the foundation; graphics serve the script.
+ *
+ * Per-project use: copy this file AND the fonts/ folder into the project's
+ * assets/ (cp ../../assets/brand-tokens.css assets/ && cp -r ../../assets/fonts assets/).
+ * Fonts are self-hosted so renders never depend on network access.
+ */
 
-  /* TODO: pick your typography */
-  --font-mono: ui-monospace, Menlo, monospace;
-  --font-display: system-ui, sans-serif;
+/* ── Fonts: Geist + Geist Mono (SIL OFL 1.1, see fonts/OFL-LICENSE.txt) ── */
+@font-face { font-family: "Geist"; src: url("fonts/Geist-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Geist"; src: url("fonts/Geist-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+@font-face { font-family: "Geist"; src: url("fonts/Geist-SemiBold.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: block; }
+@font-face { font-family: "Geist"; src: url("fonts/Geist-Bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: block; }
+@font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: block; }
+@font-face { font-family: "Geist Mono"; src: url("fonts/GeistMono-Medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: block; }
+
+:root {
+  /* ── Core palette ── */
+  --brand-near-black: #0B0B0D;
+  --brand-graphite: #1C1D21;
+  --brand-graphite-raised: #2A2C31;
+  --brand-warm-white: #F4F1EA;
+  --brand-accent: #3D7BFF;              /* electric blue — only when it serves the content */
+  --brand-accent-glow: rgba(61, 123, 255, 0.28); /* soft focus ring only, never glowing text */
+  --brand-warn: #FF9F43;                /* rare warning / contrast state */
+
+  /* ── Dark surface (default) ── */
+  --brand-bg: var(--brand-near-black);  /* full-bleed graphic scenes only — never a grade over footage */
+  --brand-surface: var(--brand-graphite);
+  --brand-surface-2: var(--brand-graphite-raised);
+  --brand-border: rgba(244, 241, 234, 0.12);
+  --brand-text: var(--brand-warm-white);
+  --brand-text-dim: rgba(244, 241, 234, 0.62);
+
+  /* ── Light surface (allowed when it better serves the footage/concept) ── */
+  --brand-light-surface: var(--brand-warm-white);
+  --brand-light-surface-2: #E9E5DC;
+  --brand-light-border: rgba(11, 11, 13, 0.12);
+  --brand-light-text: var(--brand-near-black);
+  --brand-light-text-dim: rgba(11, 11, 13, 0.62);
+
+  /* ── Optional material: glass (one option, not the default) ── */
+  --brand-surface-glass: rgba(28, 29, 33, 0.62);
+  --brand-glass-filter: blur(20px) saturate(140%);
+  --brand-light-surface-glass: rgba(244, 241, 234, 0.72);
+
+  /* ── Depth ── */
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 12px 32px -8px rgba(0, 0, 0, 0.55);
+  --radius-s: 6px;
+  --radius-m: 14px;
+  --border-hairline: 1px;
+
+  /* ── Typography ── */
+  --font-display: "Geist", system-ui, sans-serif;
+  --font-body: "Geist", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, Menlo, monospace; /* technical details only */
+
+  /* Type scale at 1080×1920 — a flexible starting point, not a mandate.
+   * Choose sizes by hierarchy, content, composition, and mobile readability. */
+  --type-display: 132px;   --type-display-weight: 600; --type-display-tracking: -0.02em;
+  --type-headline: 88px;   --type-headline-weight: 600;
+  --type-title: 56px;      --type-title-weight: 500;
+  --type-body: 40px;       --type-body-weight: 400;
+  --type-label: 28px;      --type-label-weight: 500;   --type-label-tracking: 0.02em;
+  --type-mono: 26px;
+
+  /* ── Layout (9:16, 1080×1920) ── */
+  --space-unit: 8px;
+  --margin-x: 64px;
+  --safe-top: 220px;
+  --safe-bottom: 380px;
+  --safe-right: 140px;
+
+  /* ── Motion (use as a vocabulary, matched to the content) ── */
+  --ease-enter: power3.out;
+  --ease-move: power2.inOut;
+  --ease-emphasis: expo.out;
+  --ease-exit: power2.in;
+  --dur-micro: 0.18s;
+  --dur-standard: 0.45s;
+  --dur-structural: 0.8s;
+  --stagger-min: 0.04s;
+  --stagger-max: 0.08s;
 }
