@@ -1,0 +1,2 @@
+# Source footage stays out of git (personal media; ~48 MB). Re-download per DESIGN.md §8 T6.
+assets/*.mp4
