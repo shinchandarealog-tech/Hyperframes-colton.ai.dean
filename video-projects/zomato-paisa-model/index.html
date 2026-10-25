@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); }
+      @font-face { font-family: "Caveat"; font-style: normal; font-weight: 600; src: url("assets/fonts/caveat-latin-600-normal.woff2") format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #140d08; }
+      body { font-family: "Inter", sans-serif; }
+
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #140d08; }
+
+      /* ---------- A-roll (graded via data-color-grading) ---------- */
+      #vwrap { position: absolute; inset: 0; transform-origin: 70% 33%; }
+      #a-roll { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      /* left-side shade so type always reads over the wall */
+      #shade {
+        position: absolute; inset: 0; pointer-events: none; z-index: 2;
+        background: radial-gradient(ellipse 70% 90% at 18% 50%, rgba(20, 10, 4, 0.5) 0%, rgba(20, 10, 4, 0) 70%);
+      }
+
+      /* ---------- Shared type ---------- */
+      .cap {
+        position: absolute; inset: 0; z-index: 5;
+        display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+        padding: 0 0 40px 120px; gap: 6px;
+        text-shadow: 0 6px 40px rgba(0, 0, 0, 0.55);
+      }
+      .lead { font: 600 50px/1.1 "Inter", sans-serif; color: #f4ede4; letter-spacing: -0.5px; }
+      .lead .w, .hero .w { display: inline-block; }
+      .hero {
+        font-family: "Bebas Neue", sans-serif; font-size: 210px; line-height: 0.88;
+        color: #fff; letter-spacing: 2px; max-width: 980px;
+      }
+      .hero.mid { font-size: 170px; }
+      .cap-right { align-items: flex-end; text-align: right; padding: 0 130px 40px 0; }
+      .gold {
+        background: linear-gradient(180deg, #fff3c4 0%, #f3d98a 22%, #d9b25a 55%, #8c6a2a 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        filter: drop-shadow(0 6px 26px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 18px rgba(217, 178, 90, 0.25));
+        text-shadow: none;
+      }
+      .hl { position: relative; display: inline-block; }
+      .hl-bg {
+        position: absolute; left: -10px; right: -10px; top: 4%; bottom: 0%;
+        background: #c8742e; border-radius: 10px; transform-origin: left center; z-index: 0;
+      }
+      .hl-t { position: relative; z-index: 1; }
+      .lead .hl-bg { top: -2px; bottom: -4px; left: -8px; right: -8px; border-radius: 8px; }
+
+      /* ---------- Insert stage (shared) ---------- */
+      .stage {
+        position: absolute; inset: 0; z-index: 4; overflow: hidden;
+        background:
+          radial-gradient(ellipse 60% 55% at 50% 45%, rgba(200, 116, 46, 0.22) 0%, rgba(200, 116, 46, 0) 70%),
+          #140d08;
+      }
+      .stage-cam { position: absolute; inset: 0; }
+
+      /* Hook */
+      #hook .stage-cam { display: flex; align-items: center; justify-content: center; gap: 70px; padding: 0 140px; }
+      .coin {
+        width: 300px; height: 300px; border-radius: 50%; flex: 0 0 auto;
+        background: radial-gradient(circle at 35% 30%, #fff3c4 0%, #f3d98a 25%, #d9b25a 55%, #8c6a2a 100%);
+        box-shadow: 0 0 80px rgba(243, 217, 138, 0.45), inset 0 -12px 30px rgba(90, 60, 20, 0.6), inset 0 10px 24px rgba(255, 255, 255, 0.4);
+        display: flex; align-items: center; justify-content: center;
+        font: 700 190px/1 "Inter", sans-serif; color: #7a5a22;
+        text-shadow: 0 2px 0 rgba(255, 240, 200, 0.6);
+      }
+      .hook-text { display: flex; flex-direction: column; gap: 10px; }
+      .hook-title { font-family: "Instrument Serif", serif; font-size: 230px; line-height: 0.9; color: #fff;
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.35), 0 0 70px rgba(243, 217, 138, 0.25); }
+      .hook-sub { font: 500 64px/1.1 "Instrument Serif", serif; font-style: italic; color: #f3d98a; }
+      .hook-sub .w { display: inline-block; }
+
+      .streak {
+        position: absolute; top: 46%; left: 0; width: 70%; height: 22px; z-index: 9;
+        background: linear-gradient(90deg, rgba(79, 214, 224, 0) 0%, rgba(79, 214, 224, 0.9) 45%, #e9feff 55%, rgba(79, 214, 224, 0) 100%);
+        filter: blur(10px); mix-blend-mode: screen; pointer-events: none;
+      }
+
+      /* Orders */
+      #orders .stage-cam { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 40px; }
+      .orders-lead { font: 600 50px/1 "Inter", sans-serif; color: #f4ede4; }
+      .cards { position: relative; width: 860px; height: 470px; }
+      .card {
+        position: absolute; left: 0; width: 860px; height: 150px; border-radius: 26px;
+        background: linear-gradient(180deg, #2b1c12 0%, #22160e 100%);
+        border: 2px solid rgba(217, 178, 90, 0.55);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        display: flex; align-items: center; gap: 34px; padding: 0 40px;
+      }
+      .card .bell {
+        width: 86px; height: 86px; border-radius: 22px; background: #c8742e; flex: 0 0 auto;
+        display: flex; align-items: center; justify-content: center;
+      }
+      .card .bell svg { width: 48px; height: 48px; }
+      .card .meta { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+      .card .t1 { font: 700 44px/1 "Inter", sans-serif; color: #fff; letter-spacing: 0.5px; }
+      .card .t2 { font: 500 30px/1 "Inter", sans-serif; color: #c9b9a6; }
+      .card .amt { font: 400 76px/1 "Bebas Neue", sans-serif; letter-spacing: 1px; font-variant-numeric: tabular-nums; }
+      .c1 { top: 320px; }
+      .c2 { top: 160px; }
+      .c3 { top: 0px; }
+      .orders-hero { font: 400 120px/0.9 "Bebas Neue", sans-serif; color: #fff; letter-spacing: 2px; }
+
+      /* Chalkboard */
+      #board { background: #2a1a10; }
+      #board .stage-cam { transform-origin: 50% 50%; }
+      .wall {
+        position: absolute; inset: 0;
+        background:
+          linear-gradient(115deg, rgba(255, 190, 120, 0) 0%, rgba(255, 190, 120, 0.16) 30%, rgba(255, 190, 120, 0) 31%, rgba(255, 190, 120, 0) 38%, rgba(255, 190, 120, 0.14) 39%, rgba(255, 190, 120, 0) 55%),
+          radial-gradient(ellipse 80% 70% at 30% 20%, #6b4a2e 0%, #3a2516 70%);
+      }
+      .chalkboard {
+        position: absolute; left: 90px; top: 70px; width: 1740px; height: 900px;
+        border-radius: 10px; border: 28px solid #8a5a2e;
+        box-shadow: inset 0 0 0 4px #5e3a1c, 0 30px 60px rgba(0, 0, 0, 0.45);
+        background:
+          radial-gradient(ellipse 60% 50% at 30% 30%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 70%),
+          radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 40%),
+          #1f3a2e;
+        overflow: hidden;
+      }
+      .sunlight {
+        position: absolute; inset: 0; pointer-events: none;
+        background: repeating-linear-gradient(118deg, rgba(255, 210, 150, 0) 0px, rgba(255, 210, 150, 0) 140px, rgba(255, 210, 150, 0.09) 140px, rgba(255, 210, 150, 0.09) 230px);
+      }
+      .chalk { font-family: "Caveat", cursive; font-weight: 600; color: #f4ede4; text-shadow: 0 0 2px rgba(255, 255, 255, 0.5); }
+      .bx { position: absolute; border: 4px solid rgba(244, 237, 228, 0.9); border-radius: 8px; padding: 6px 26px; font-size: 58px; line-height: 1.1; white-space: nowrap; }
+      .in1 { left: 90px; top: 150px; }
+      .in2 { left: 90px; top: 360px; }
+      .in3 { left: 90px; top: 570px; }
+      .zbox { left: 860px; top: 330px; font-size: 92px; padding: 18px 40px; border-width: 6px; border-color: #f3d98a; color: #f3d98a; }
+      .rider { left: 1335px; top: 350px; border-color: #e3925a; color: #f0b183; }
+      .lbl { position: absolute; font-size: 66px; white-space: nowrap; }
+      .lbl-in { left: 120px; top: 40px; color: #f3d98a; }
+      .lbl-out { left: 1060px; top: 520px; color: #f0b183; }
+      .board-svg { position: absolute; left: 0; top: 0; width: 1684px; height: 844px; overflow: visible; }
+      .board-svg path { fill: none; stroke: rgba(244, 237, 228, 0.92); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+      .board-svg path.out { stroke: #f0b183; }
+
+      /* Final equation */
+      #final .stage-cam { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 4px; }
+      .f-lead { font: 600 46px/1 "Inter", sans-serif; color: #c9b9a6; margin-bottom: 40px; letter-spacing: 0.5px; }
+      .f-row { position: relative; font-family: "Bebas Neue", sans-serif; font-size: 170px; line-height: 0.95; letter-spacing: 2px; }
+      .f-row .small { font-family: "Inter", sans-serif; font-weight: 600; font-size: 54px; letter-spacing: 0; vertical-align: middle; color: #f4ede4; }
+      .f-gt { font: 400 190px/0.8 "Bebas Neue", sans-serif; color: #c8742e; }
+      .f-dim { color: rgba(244, 237, 228, 0.55); }
+      .ring { position: absolute; left: -120px; top: -22px; width: calc(100% + 240px); height: calc(100% + 44px); overflow: visible; }
+      .ring path { fill: none; stroke: #f4ede4; stroke-width: 7; stroke-linecap: round; }
+
+      /* GOAL circle (speaker scene) */
+      .goal-wrap { position: relative; display: inline-block; }
+      .goal-wrap .ring { left: -60px; top: -26px; width: calc(100% + 120px); height: calc(100% + 40px); }
+
+      #blackout { position: absolute; inset: 0; background: #000; z-index: 20; opacity: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-9nns" id="root" data-composition-id="main" data-start="0" data-duration="31" data-width="1920" data-height="1080">
+      <!-- A-roll: muted video in an untimed wrapper; audio rides a sibling <audio> -->
+      <div data-hf-id="hf-dx5d" id="vwrap">
+        <video data-color-grading="{&quot;preset&quot;:&quot;skin-soft&quot;,&quot;intensity&quot;:0.65,&quot;adjust&quot;:{&quot;exposure&quot;:0.04,&quot;contrast&quot;:0.14,&quot;highlights&quot;:-0.1,&quot;shadows&quot;:0.02,&quot;whites&quot;:0,&quot;blacks&quot;:-0.08,&quot;temperature&quot;:0.32,&quot;tint&quot;:0.03,&quot;vibrance&quot;:0.07,&quot;saturation&quot;:0.06},&quot;details&quot;:{&quot;vignette&quot;:0.14,&quot;vignetteMidpoint&quot;:0.5,&quot;vignetteRoundness&quot;:0,&quot;vignetteFeather&quot;:0.65,&quot;grain&quot;:0.05,&quot;grainSize&quot;:0.2,&quot;grainRoughness&quot;:0.5},&quot;effects&quot;:{&quot;blur&quot;:0,&quot;pixelate&quot;:0,&quot;chromaBleed&quot;:0,&quot;tapeDamage&quot;:0,&quot;tapeTracking&quot;:0,&quot;tapeNoise&quot;:1,&quot;tapeSpeed&quot;:0.5,&quot;filmArtifacts&quot;:0,&quot;halftone&quot;:0,&quot;halftoneSize&quot;:0,&quot;twoInkPrint&quot;:0,&quot;twoInkPrintSize&quot;:0,&quot;ascii&quot;:0,&quot;asciiSize&quot;:0.06578947368421052,&quot;asciiInvert&quot;:0,&quot;asciiStyle&quot;:0,&quot;asciiColor&quot;:1,&quot;asciiRotation&quot;:0,&quot;dither&quot;:0,&quot;ditherSize&quot;:0,&quot;bloom&quot;:0,&quot;bloomRadius&quot;:8,&quot;monoScreen&quot;:0,&quot;monoScreenSize&quot;:0,&quot;monoScreenAngle&quot;:0,&quot;monoScreenSpread&quot;:0,&quot;monoScreenShape&quot;:0,&quot;monoScreenInvert&quot;:0,&quot;scanlines&quot;:0,&quot;scanlineCount&quot;:0,&quot;scanlineSoftness&quot;:0,&quot;chromaticAberration&quot;:0,&quot;chromaticAngle&quot;:0,&quot;crtCurvature&quot;:0,&quot;digitalGlitch&quot;:0,&quot;digitalGlitchColorSplit&quot;:0,&quot;digitalGlitchLineTear&quot;:0,&quot;digitalGlitchPixelate&quot;:0,&quot;digitalGlitchBlockAmount&quot;:0,&quot;digitalGlitchBlockDisplacement&quot;:0,&quot;digitalGlitchBlockOpacity&quot;:0,&quot;digitalGlitchSpeed&quot;:0,&quot;engraving&quot;:0,&quot;engravingSpacing&quot;:0.4117647058823529,&quot;engravingMinThickness&quot;:0.2,&quot;engravingMaxThickness&quot;:0.4571428571428572,&quot;engravingAngle&quot;:0.25,&quot;engravingContrast&quot;:0.4666666666666667,&quot;engravingSharpness&quot;:0.59,&quot;engravingWave&quot;:0.2,&quot;engravingWaveFrequency&quot;:0.2222222222222222,&quot;crosshatch&quot;:0,&quot;crosshatchSpacing&quot;:0.28,&quot;crosshatchThickness&quot;:0.25,&quot;crosshatchAngle&quot;:0.25,&quot;crosshatchContrast&quot;:0.3333333333333333,&quot;crosshatchEdges&quot;:0.5,&quot;crosshatchLineWeight&quot;:0,&quot;crosshatchWave&quot;:0.33,&quot;crosshatchWaveFrequency&quot;:0.2222222222222222,&quot;kuwahara&quot;:0,&quot;kuwaharaRadius&quot;:0.14285714285714285,&quot;kuwaharaSharpness&quot;:0.3125,&quot;kuwaharaSaturation&quot;:0.5},&quot;lut&quot;:null,&quot;colorSpace&quot;:&quot;rec709&quot;}" data-hf-id="hf-5rrw" id="a-roll" src="assets/source.mp4" muted playsinline data-start="0" data-duration="29.7" data-track-index="0"></video>
+      </div>
+      <div data-hf-id="hf-pwjg" id="shade"></div>
+      <audio data-hf-id="hf-uwgp" id="voice" src="assets/source.mp4" data-start="0" data-duration="29.7" data-track-index="1" data-volume="1"></audio>
+
+      <!-- ===== 0.00–1.45 HOOK: "Zomato kaise paise kamata hai?" ===== -->
+      <div data-hf-id="hf-wheh" id="hook" class="clip stage" data-start="0" data-duration="1.45" data-track-index="2">
+        <div data-hf-id="hf-aqcw" class="stage-cam">
+          <div data-hf-id="hf-pso9" class="coin" id="coin">₹</div>
+          <div data-hf-id="hf-j7vj" class="hook-text">
+            <div data-hf-id="hf-o5q6" class="hook-title" id="hook-title">Zomato</div>
+            <div data-hf-id="hf-b7d0" class="hook-sub"><span data-hf-id="hf-48en" class="w">kaise</span> <span data-hf-id="hf-pa3y" class="w">paise</span> <span data-hf-id="hf-28rl" class="w">kamata</span> <span data-hf-id="hf-4vw3" class="w">hai?</span></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-a92q" class="streak" id="streak-hook"></div>
+      </div>
+
+      <!-- ===== Speaker captions (track 3, sequential) ===== -->
+      <div data-hf-id="hf-dc82" id="cap1" class="clip cap" data-start="3.4" data-duration="3.2" data-track-index="3">
+        <div data-hf-id="hf-wnrm" class="lead"><span data-hf-id="hf-srzb" class="w">toh...</span></div>
+        <div data-hf-id="hf-hie8" class="hero"><span data-hf-id="hf-bshc" class="w">CUSTOMER</span> <span data-hf-id="hf-exgl" class="w">CHARGES</span></div>
+      </div>
+
+      <div data-hf-id="hf-vkgf" id="cap2" class="clip cap" data-start="6.6" data-duration="2.0" data-track-index="3">
+        <div data-hf-id="hf-8lg6" class="lead"><span data-hf-id="hf-wy3h" class="w">customer charges</span> <span data-hf-id="hf-bmui" class="w">hote hain</span></div>
+        <div data-hf-id="hf-2zq0" class="hero"><span data-hf-id="hf-l9hl" class="hl"><span data-hf-id="hf-t5w7" class="hl-bg"></span><span data-hf-id="hf-cmtr" class="hl-t">KUCH-KUCH</span></span></div>
+      </div>
+
+      <div data-hf-id="hf-ym46" id="cap3" class="clip cap" data-start="8.6" data-duration="3.3" data-track-index="3">
+        <div data-hf-id="hf-8zr7" class="lead"><span data-hf-id="hf-m1vs" class="w">aur</span> <span data-hf-id="hf-hyyn" class="w">restaurant</span> <span data-hf-id="hf-w4ol" class="w">se bhi</span></div>
+        <div data-hf-id="hf-1ssx" class="hero"><span data-hf-id="hf-x73n" class="w gold">COMMISSION</span></div>
+        <div data-hf-id="hf-9e28" class="lead"><span data-hf-id="hf-7v2b" class="w">milti hai</span></div>
+      </div>
+
+      <div data-hf-id="hf-hyex" id="cap4a" class="clip cap cap-right" data-start="13.77" data-duration="1.5" data-track-index="3">
+        <div data-hf-id="hf-6lx1" class="lead"><span data-hf-id="hf-vzcr" class="w">aur toh</span></div>
+        <div data-hf-id="hf-106v" class="hero"><span data-hf-id="hf-e5t4" class="w">MARKETING</span></div>
+      </div>
+
+      <div data-hf-id="hf-r2v5" id="cap4" class="clip cap" data-start="15.27" data-duration="1.93" data-track-index="3">
+        <div data-hf-id="hf-7082" class="lead"><span data-hf-id="hf-22yj" class="w">aur toh</span></div>
+        <div data-hf-id="hf-1ehw" class="hero"><span data-hf-id="hf-k7a8" class="w">MARKETING</span> <span data-hf-id="hf-skl9" class="hl"><span data-hf-id="hf-k4rb" class="hl-bg"></span><span data-hf-id="hf-tqmu" class="hl-t">FEE</span></span></div>
+        <div data-hf-id="hf-5ezy" class="lead"><span data-hf-id="hf-xv66" class="w">ek tarah se</span></div>
+      </div>
+
+      <div data-hf-id="hf-h914" id="cap5" class="clip cap" data-start="17.2" data-duration="2.95" data-track-index="3">
+        <div data-hf-id="hf-7ej3" class="lead"><span data-hf-id="hf-gggn" class="w">aur humne</span></div>
+        <div data-hf-id="hf-jtpa" class="hero mid"><span data-hf-id="hf-tric" class="hl"><span data-hf-id="hf-jqga" class="hl-bg"></span><span data-hf-id="hf-00si" class="hl-t">RIDER</span></span> <span data-hf-id="hf-05cf" class="w">KO BHI</span></div>
+        <div data-hf-id="hf-7taa" class="hero mid"><span data-hf-id="hf-vhdi" class="w gold">PAISE DENE HAIN</span></div>
+      </div>
+
+      <div data-hf-id="hf-r7ym" id="cap6" style="gap: 34px" class="clip cap" data-start="25.3" data-duration="2.3" data-track-index="3">
+        <div data-hf-id="hf-7su4" class="lead"><span data-hf-id="hf-051s" class="w">the whole</span></div>
+        <div data-hf-id="hf-273y" class="hero"><span data-hf-id="hf-7p79" class="goal-wrap"><span data-hf-id="hf-4vfv" class="w">GOAL</span>
+          <svg data-hf-id="hf-8wwq" class="ring" viewBox="0 0 400 200" preserveAspectRatio="none"><path data-hf-id="hf-e0tu" id="goal-ring" d="M330 22 C 230 -6, 60 4, 22 90 C -4 160, 150 196, 270 186 C 380 176, 410 110, 360 52 C 340 30, 300 18, 250 16" /></svg>
+        </span></div>
+        <div data-hf-id="hf-50ox" class="lead"><span data-hf-id="hf-ep3d" class="w">ki jo paisa</span> <span data-hf-id="hf-kzp8" class="w">aa raha hai...</span></div>
+      </div>
+
+      <!-- ===== 11.90–13.90 ORDERS insert ===== -->
+      <div data-hf-id="hf-v1lo" id="orders" class="clip stage" data-start="11.9" data-duration="1.87" data-track-index="2">
+        <div data-hf-id="hf-ic17" class="stage-cam" id="orders-cam">
+          <div data-hf-id="hf-cx1o" class="orders-lead">because restaurant ke liye</div>
+          <div data-hf-id="hf-5cwd" class="cards">
+            <div data-hf-id="hf-mdvm" class="card c1"><div data-hf-id="hf-s4hf" class="bell"><svg data-hf-id="hf-i4bo" viewBox="0 0 24 24" fill="#fff"><path data-hf-id="hf-pza8" d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z" /></svg></div><div data-hf-id="hf-puvz" class="meta"><div data-hf-id="hf-zsx1" class="t1">NEW ORDER</div><div data-hf-id="hf-woop" class="t2">#2041 · 2 items</div></div><div data-hf-id="hf-o8u3" class="amt gold">₹349</div></div>
+            <div data-hf-id="hf-g85t" class="card c2"><div data-hf-id="hf-5mhf" class="bell"><svg data-hf-id="hf-zsws" viewBox="0 0 24 24" fill="#fff"><path data-hf-id="hf-jzyw" d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z" /></svg></div><div data-hf-id="hf-zjfj" class="meta"><div data-hf-id="hf-vj3t" class="t1">NEW ORDER</div><div data-hf-id="hf-94en" class="t2">#2042 · 3 items</div></div><div data-hf-id="hf-r559" class="amt gold">₹512</div></div>
+            <div data-hf-id="hf-fgi0" class="card c3"><div data-hf-id="hf-586e" class="bell"><svg data-hf-id="hf-ylzp" viewBox="0 0 24 24" fill="#fff"><path data-hf-id="hf-it1t" d="M12 22a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22zm7-6V11a7 7 0 0 0-5.5-6.84V3.5a1.5 1.5 0 0 0-3 0v.66A7 7 0 0 0 5 11v5l-2 2v1h18v-1z" /></svg></div><div data-hf-id="hf-z54i" class="meta"><div data-hf-id="hf-wq0w" class="t1">NEW ORDER</div><div data-hf-id="hf-lq6l" class="t2">#2043 · 1 item</div></div><div data-hf-id="hf-8k4t" class="amt gold">₹189</div></div>
+          </div>
+          <div data-hf-id="hf-rd8s" class="orders-hero">ORDER GENERATE HO RAHA HAI</div>
+        </div>
+        <div data-hf-id="hf-pkkg" class="streak" id="streak-orders"></div>
+      </div>
+
+      <!-- ===== 20.15–25.30 CHALKBOARD: paisa aa raha / jaa raha ===== -->
+      <div data-hf-id="hf-9vyf" id="board" class="clip stage" data-start="20.15" data-duration="5.15" data-track-index="2">
+        <div data-hf-id="hf-nmrg" class="stage-cam" id="board-cam">
+          <div data-hf-id="hf-a9vw" class="wall"></div>
+          <div data-hf-id="hf-lodz" class="chalkboard">
+            <div data-hf-id="hf-sgv2" class="sunlight"></div>
+            <svg data-hf-id="hf-j83o" class="board-svg" viewBox="0 0 1684 844">
+              <path data-hf-id="hf-0y03" id="arr1" d="M700 200 C 760 210, 800 290, 850 360 M828 330 L850 362 L814 360" />
+              <path data-hf-id="hf-ar0a" id="arr2" d="M762 412 C 790 412, 820 412, 848 412 M822 392 L850 412 L822 432" />
+              <path data-hf-id="hf-apxe" id="arr3" d="M700 620 C 760 610, 800 530, 850 466 M812 470 L850 464 L836 500" />
+              <path data-hf-id="hf-gbxx" id="arr4" class="out" d="M1248 412 C 1272 386, 1300 386, 1326 410 M1298 386 L1328 410 L1294 424" />
+            </svg>
+            <div data-hf-id="hf-5e0h" class="chalk lbl lbl-in" id="lbl-in">kuch paisa aa raha hai</div>
+            <div data-hf-id="hf-6tgc" class="chalk bx in1" id="in1">Customer charges</div>
+            <div data-hf-id="hf-j30t" class="chalk bx in2" id="in2">Restaurant commission</div>
+            <div data-hf-id="hf-rdxn" class="chalk bx in3" id="in3">Marketing fee</div>
+            <div data-hf-id="hf-9fu1" class="chalk bx zbox" id="zbox">ZOMATO</div>
+            <div data-hf-id="hf-bhuz" class="chalk bx rider" id="rider">Rider</div>
+            <div data-hf-id="hf-mnjz" class="chalk lbl lbl-out" id="lbl-out">kuch paisa jaa raha hai</div>
+          </div>
+        </div>
+        <div data-hf-id="hf-qv7p" class="streak" id="streak-board"></div>
+      </div>
+
+      <!-- ===== 27.60–29.70 FINAL: aa raha > jaa raha ===== -->
+      <div data-hf-id="hf-4yn4" id="final" class="clip stage" data-start="27.6" data-duration="3.4" data-track-index="2">
+        <div data-hf-id="hf-jxcg" class="stage-cam" id="final-cam">
+          <div data-hf-id="hf-dlbz" class="f-lead">should be more than</div>
+          <div data-hf-id="hf-ud5d" class="f-row" id="f-top"><span data-hf-id="hf-0zvb" class="small">jo paisa</span> <span data-hf-id="hf-moht" class="gold">AA RAHA</span> <span data-hf-id="hf-waks" class="small">hai</span>
+            <svg data-hf-id="hf-v6im" class="ring" viewBox="0 0 400 200" preserveAspectRatio="none"><path data-hf-id="hf-yhx0" id="final-ring" d="M340 24 C 240 -4, 60 6, 20 92 C -6 160, 150 196, 270 186 C 384 176, 410 108, 362 52 C 342 30, 300 18, 252 16" /></svg>
+          </div>
+          <div data-hf-id="hf-spg4" class="f-gt" id="f-gt">&gt;</div>
+          <div data-hf-id="hf-46pk" class="f-row f-dim" id="f-bot"><span data-hf-id="hf-z2qf" class="small">jo paisa</span> JAA RAHA <span data-hf-id="hf-sv50" class="small">hai</span></div>
+        </div>
+        <div data-hf-id="hf-e48x" class="streak" id="streak-final"></div>
+      </div>
+
+      <div data-hf-id="hf-9vqe" id="blackout"></div>
+
+      <!-- ===== SFX (subtle, under voice) ===== -->
+      <audio data-hf-id="hf-n1c6" id="sfx-w1" src="assets/whoosh.mp3" data-start="11.82" data-duration="0.57" data-track-index="10" data-volume="0.22"></audio>
+      <audio data-hf-id="hf-c6z9" id="sfx-p1" src="assets/pop.mp3" data-start="12.15" data-duration="0.6" data-track-index="11" data-volume="0.18"></audio>
+      <audio data-hf-id="hf-tllf" id="sfx-p2" src="assets/pop.mp3" data-start="12.55" data-duration="0.6" data-track-index="12" data-volume="0.18"></audio>
+      <audio data-hf-id="hf-jzmp" id="sfx-p3" src="assets/pop.mp3" data-start="12.95" data-duration="0.6" data-track-index="13" data-volume="0.18"></audio>
+      <audio data-hf-id="hf-kvpy" id="sfx-w2" src="assets/whoosh.mp3" data-start="20.07" data-duration="0.57" data-track-index="10" data-volume="0.22"></audio>
+      <audio data-hf-id="hf-7rx6" id="sfx-w3" src="assets/whoosh.mp3" data-start="27.52" data-duration="0.57" data-track-index="14" data-volume="0.22"></audio>
+      <audio data-hf-id="hf-ig81" id="sfx-s1" src="assets/sparkle.mp3" data-start="28.7" data-duration="1.0" data-track-index="15" data-volume="0.15"></audio>
+    </div>
+
+    <script>
+      (() => {
+        const tl = gsap.timeline({ paused: true });
+        const T = 31;
+
+        // helper: draw-on for an SVG path
+        const draw = (sel, at, dur, ease) => {
+          const p = document.querySelector(sel);
+          const len = Math.ceil(p.getTotalLength()) + 2;
+          tl.set(p, { strokeDasharray: len, strokeDashoffset: len }, 0);
+          tl.to(p, { strokeDashoffset: 0, duration: dur, ease: ease || "power1.inOut" }, at);
+        };
+        const words = (sel) => gsap.utils.toArray(sel);
+
+        /* ---------- A-roll camera: fake multi-cam crops, cut on the word ---------- */
+        // crop A (wide, slow push while he thinks)
+        tl.set("#vwrap", { scale: 1.02, transformOrigin: "70% 33%" }, 1.45);
+        tl.to("#vwrap", { scale: 1.12, duration: 5.15, ease: "power1.inOut" }, 1.45);
+        // crop B (tight on face)
+        tl.set("#vwrap", { scale: 1.38, transformOrigin: "70% 30%" }, 6.6);
+        tl.to("#vwrap", { scale: 1.43, duration: 2.0, ease: "none" }, 6.6);
+        // crop A2
+        tl.set("#vwrap", { scale: 1.1, transformOrigin: "72% 38%" }, 8.6);
+        tl.to("#vwrap", { scale: 1.16, duration: 3.3, ease: "none" }, 8.6);
+        // crop C (medium)
+        // host reaction cutaway (source cuts to host 13.77–15.27)
+        tl.set("#vwrap", { scale: 1.12, transformOrigin: "28% 32%" }, 13.77);
+        tl.to("#vwrap", { scale: 1.18, duration: 1.5, ease: "none" }, 13.77);
+        // crop C (back on guest)
+        tl.set("#vwrap", { scale: 1.26, transformOrigin: "69% 34%" }, 15.27);
+        tl.to("#vwrap", { scale: 1.3, duration: 1.93, ease: "none" }, 15.27);
+        // crop B again
+        tl.set("#vwrap", { scale: 1.4, transformOrigin: "71% 30%" }, 17.2);
+        tl.to("#vwrap", { scale: 1.45, duration: 2.95, ease: "none" }, 17.2);
+        // crop D (tightest, the payoff)
+        tl.set("#vwrap", { scale: 1.55, transformOrigin: "70% 30%" }, 25.3);
+        tl.to("#vwrap", { scale: 1.62, duration: 2.3, ease: "none" }, 25.3);
+
+        /* ---------- HOOK 0–1.45 ---------- */
+        tl.fromTo("#hook .stage-cam", { scale: 1 }, { scale: 1.08, duration: 1.45, ease: "none" }, 0);
+        tl.from("#coin", { rotationY: 90, scale: 0.6, opacity: 0, duration: 0.5, ease: "back.out(1.6)" }, 0.05);
+        tl.from("#hook-title", { y: 40, opacity: 0, filter: "blur(12px)", duration: 0.35, ease: "expo.out" }, 0.22);
+        const hw = words("#hook .hook-sub .w");
+        [0.45, 0.6, 0.78, 0.93].forEach((t, i) => tl.from(hw[i], { y: 24, opacity: 0, duration: 0.22, ease: "power3.out" }, t));
+        tl.fromTo("#streak-hook", { xPercent: -110, opacity: 0.9 }, { xPercent: 180, opacity: 0, duration: 0.5, ease: "power3.in" }, 0.75);
+
+        /* ---------- cap1 3.4: toh... CUSTOMER CHARGES ---------- */
+        const c1 = words("#cap1 .w");
+        tl.from(c1[0], { y: 20, opacity: 0, duration: 0.25, ease: "power2.out" }, 3.5);
+        tl.from(c1[1], { scale: 1.3, opacity: 0, y: 20, duration: 0.28, ease: "expo.out", transformOrigin: "0% 100%" }, 3.88);
+        tl.from(c1[2], { scale: 1.3, opacity: 0, y: 20, duration: 0.28, ease: "expo.out", transformOrigin: "0% 100%" }, 4.3);
+
+        /* ---------- cap2 6.6: hote hain KUCH-KUCH ---------- */
+        const c2 = words("#cap2 .w");
+        tl.from(c2[0], { y: 20, opacity: 0, duration: 0.25, ease: "power2.out" }, 6.62);
+        tl.from(c2[1], { y: 20, opacity: 0, duration: 0.25, ease: "power2.out" }, 6.9);
+        tl.from("#cap2 .hl-bg", { scaleX: 0, duration: 0.3, ease: "power3.out" }, 7.2);
+        tl.from("#cap2 .hl-t", { opacity: 0, x: -20, duration: 0.25, ease: "power2.out" }, 7.25);
+
+        /* ---------- cap3 8.6: aur restaurant se bhi COMMISSION milti hai ---------- */
+        const c3 = words("#cap3 .w");
+        tl.from(c3[0], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 8.7);
+        tl.from(c3[1], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 8.85);
+        tl.from(c3[2], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 9.95);
+        tl.from(c3[3], { scale: 1.25, opacity: 0, y: 30, duration: 0.32, ease: "expo.out", transformOrigin: "0% 100%" }, 10.3);
+        tl.from(c3[4], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 11.2);
+
+        /* ---------- ORDERS 11.9–13.9 ---------- */
+        tl.fromTo("#streak-orders", { xPercent: -110, opacity: 0.9 }, { xPercent: 180, opacity: 0, duration: 0.4, ease: "power3.in" }, 11.9);
+        tl.fromTo("#orders-cam", { scale: 1.06 }, { scale: 1, duration: 1.87, ease: "power2.out" }, 11.9);
+        tl.from("#orders .orders-lead", { y: 20, opacity: 0, duration: 0.25, ease: "power2.out" }, 11.95);
+        tl.from("#orders .c1", { y: 60, opacity: 0, scale: 0.9, duration: 0.35, ease: "back.out(1.5)" }, 12.15);
+        tl.from("#orders .c2", { y: 60, opacity: 0, scale: 0.9, duration: 0.35, ease: "back.out(1.5)" }, 12.55);
+        tl.from("#orders .c3", { y: 60, opacity: 0, scale: 0.9, duration: 0.35, ease: "back.out(1.5)" }, 12.95);
+        tl.from("#orders .orders-hero", { scale: 1.2, opacity: 0, duration: 0.3, ease: "expo.out" }, 12.75);
+
+        /* ---------- cap4a 13.77 (host cutaway, right side): aur toh MARKETING ---------- */
+        const c4a = words("#cap4a .w");
+        tl.from(c4a[0], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 14.2);
+        tl.from(c4a[1], { scale: 1.3, opacity: 0, y: 20, duration: 0.28, ease: "expo.out", transformOrigin: "100% 100%" }, 14.55);
+
+        /* ---------- cap4 15.27 (guest): MARKETING carries over, FEE lands, ek tarah se ---------- */
+        const c4 = words("#cap4 .w");
+        tl.from("#cap4 .hl-bg", { scaleX: 0, duration: 0.28, ease: "power3.out" }, 15.3);
+        tl.from("#cap4 .hl-t", { opacity: 0, x: -20, duration: 0.22, ease: "power2.out" }, 15.34);
+        tl.from(c4[2], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 16.1);
+
+        /* ---------- cap5 17.2: aur humne RIDER ko bhi PAISE DENE HAIN ---------- */
+        const c5 = words("#cap5 .w");
+        tl.from(c5[0], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 17.3);
+        tl.from("#cap5 .hl-bg", { scaleX: 0, duration: 0.28, ease: "power3.out" }, 18.65);
+        tl.from("#cap5 .hl-t", { opacity: 0, x: -20, duration: 0.22, ease: "power2.out" }, 18.69);
+        tl.from(c5[1], { opacity: 0, y: 20, duration: 0.22, ease: "power2.out" }, 18.95);
+        tl.from(c5[2], { scale: 1.2, opacity: 0, y: 20, duration: 0.3, ease: "expo.out", transformOrigin: "0% 100%" }, 19.1);
+
+        /* ---------- BOARD 20.15–25.3 ---------- */
+        tl.fromTo("#streak-board", { xPercent: -110, opacity: 0.9 }, { xPercent: 180, opacity: 0, duration: 0.4, ease: "power3.in" }, 20.15);
+        tl.fromTo("#board-cam", { scale: 1.0, x: 0, y: 0, rotation: 0 }, { scale: 1.07, x: 60, y: 10, rotation: -0.5, duration: 3.6, ease: "power1.inOut" }, 20.15);
+        tl.to("#board-cam", { scale: 1.06, x: -40, y: 0, rotation: 0.3, duration: 1.4, ease: "power2.inOut" }, 23.8);
+        tl.from("#lbl-in", { opacity: 0, y: 16, duration: 0.3, ease: "power2.out" }, 20.22);
+        tl.from("#in1", { opacity: 0, x: -30, duration: 0.3, ease: "power2.out" }, 20.85);
+        draw("#arr1", 21.05, 0.35);
+        tl.from("#in2", { opacity: 0, x: -30, duration: 0.3, ease: "power2.out" }, 21.35);
+        draw("#arr2", 21.55, 0.35);
+        tl.from("#in3", { opacity: 0, x: -30, duration: 0.3, ease: "power2.out" }, 21.85);
+        draw("#arr3", 22.05, 0.35);
+        tl.from("#zbox", { scale: 0.8, opacity: 0, duration: 0.4, ease: "back.out(1.6)" }, 22.3);
+        draw("#arr4", 24.0, 0.4);
+        tl.from("#rider", { opacity: 0, x: 30, duration: 0.3, ease: "power2.out" }, 24.3);
+        tl.from("#lbl-out", { opacity: 0, y: -16, duration: 0.3, ease: "power2.out" }, 24.4);
+
+        /* ---------- cap6 25.3: the whole GOAL (circled) ---------- */
+        const c6 = words("#cap6 .w");
+        tl.from(c6[0], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 25.4);
+        tl.from(c6[1], { scale: 1.35, opacity: 0, y: 20, duration: 0.3, ease: "expo.out", transformOrigin: "0% 100%" }, 25.9);
+        draw("#goal-ring", 26.15, 0.45, "power2.inOut");
+        tl.from(c6[2], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 26.7);
+        tl.from(c6[3], { y: 20, opacity: 0, duration: 0.22, ease: "power2.out" }, 27.15);
+
+        /* ---------- FINAL 27.6–29.7 ---------- */
+        tl.fromTo("#streak-final", { xPercent: -110, opacity: 0.9 }, { xPercent: 180, opacity: 0, duration: 0.4, ease: "power3.in" }, 27.6);
+        tl.fromTo("#final-cam", { scale: 1.0 }, { scale: 1.08, duration: 3.4, ease: "none" }, 27.6);
+        tl.from("#final .f-lead", { y: 16, opacity: 0, duration: 0.25, ease: "power2.out" }, 27.62);
+        tl.from("#f-top", { scale: 1.2, opacity: 0, duration: 0.3, ease: "expo.out" }, 27.65);
+        tl.from("#f-gt", { scale: 0.4, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 28.0);
+        tl.from("#f-bot", { y: 30, opacity: 0, duration: 0.3, ease: "power2.out" }, 28.25);
+        draw("#final-ring", 28.7, 0.45, "power2.inOut");
+        // final-scene exit only: blur out to black
+        tl.to("#final-cam", { filter: "blur(18px)", duration: 0.4, ease: "power2.in" }, 30.6);
+        tl.to("#blackout", { opacity: 1, duration: 0.3, ease: "power2.in" }, 30.7);
+
+        tl.to({}, { duration: T }, 0); // duration anchor
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

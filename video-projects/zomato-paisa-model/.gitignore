@@ -1,0 +1,5 @@
+# Source footage (large, third-party) — keep local
+assets/source.mp4
+# CLI scratch
+.hyperframes/
+renders/
