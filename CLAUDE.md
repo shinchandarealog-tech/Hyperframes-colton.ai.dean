@@ -46,6 +46,18 @@ This is the engine behind setup's "paste your favorite reels" step — those lin
 
 **At build time**: when the user says "build this like @handle" (or "blend @h1 + @h2"), read each named handle's `_reference/creator-library/<handle>/style-distilled.md` before brainstorming scenes. Those fingerprints override `MOTION_PHILOSOPHY.md` defaults for hook structure, caption style, pacing, transition rotation, and scene archetypes — but remain subordinate to `PREFERENCES.md`. If a handle doesn't have a distilled file yet (fewer than 3 analyses), read the available `videos/*/analysis.md` files directly.
 
+### Quick video questions — `/watch`
+
+`/watch <url-or-path> [question]` downloads a video, pulls frames, and gets a transcript so you can answer questions about it (lighter than `/study-creator`; writes nothing to the creator library).
+
+**Transcription is keyless by choice** — never ask the user for a Groq/OpenAI key. When `/watch` reports "No transcript available" (no native captions, or a local file), transcribe locally with the multilingual `large-v3` model instead, from inside the work dir:
+
+```bash
+npx --prefix <workspace-root> hyperframes transcribe <work-dir>/download/video.mp4 --model large-v3 --json   # add --language hi (etc.) when the language is known
+```
+
+Don't use `small.en` for this — it hallucinates loops on non-English speech. `large-v3` takes ~6 s per second of audio on the cloud container and the first run downloads ~3 GB of model, so for videos over ~2 min tell the user it'll take a few minutes. Translate non-English transcripts when summarizing.
+
 ### Division of labor (from CREATOR.md)
 
 Many creators record and pre-edit their own speaking video, then have the assistant build the visual layer on top. **If `CREATOR.md` says the user works this way, do NOT cut their audio, remove pauses, restructure their speech, or change their pacing.** Their speaking video is the source of truth — sync visuals to its timing, never the other way around. Other creators build faceless videos with motion graphics + TTS narration; `CREATOR.md` records which mode the user prefers.
