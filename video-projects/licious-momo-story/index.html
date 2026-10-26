@@ -1,0 +1,683 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Licious momo story</title>
+<style>@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 100 1000; src: url("assets/fonts/DMSans-Variable.woff2") format("woff2"); }
+@font-face { font-family: "DM Sans"; font-style: italic; font-weight: 800; src: url("assets/fonts/DMSans-Italic-800.woff2") format("woff2"); }
+@font-face { font-family: "Great Vibes"; font-style: normal; font-weight: 400; src: url("assets/fonts/GreatVibes.woff2") format("woff2"); }
+@font-face { font-family: "Pinyon Script"; font-style: normal; font-weight: 400; src: url("assets/fonts/PinyonScript.woff2") format("woff2"); }
+@font-face { font-family: "Archivo Narrow"; font-style: normal; font-weight: 700; src: url("assets/fonts/ArchivoNarrow-700.woff2") format("woff2"); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; background: #000; overflow: hidden; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #F3E6B5; font-family: "DM Sans", sans-serif; }
+
+#face-wrap { position: absolute; inset: 0; z-index: 2; transform-origin: 540px 960px; }
+#face { width: 1080px; height: 1920px; object-fit: cover; display: block; }
+
+/* ---- base subtitle: small white phrase, chest level ---- */
+.sub { position: absolute; left: 0; right: 0; top: 1205px; z-index: 40; display: flex; justify-content: center; padding: 0 70px; }
+.sub span { font-weight: 700; font-size: 50px; letter-spacing: -0.01em; color: #fff; text-align: center;
+  text-shadow: 0 2px 3px rgba(0,0,0,.75), 0 0 10px rgba(0,0,0,.55), 0 0 28px rgba(0,0,0,.45); display: inline-block; }
+
+/* ---- emphasis lockup: bold sans + overlapping script ---- */
+.emph { position: absolute; left: 0; right: 0; top: 200px; z-index: 41; display: flex; justify-content: center; }
+.lk { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 960px; }
+.lk-s { font-weight: 800; font-size: 60px; letter-spacing: -0.03em; color: #fff; line-height: 1; z-index: 1;
+  text-shadow: 0 3px 10px rgba(0,0,0,.45); }
+.lk-c { font-family: "Great Vibes", cursive; font-size: 150px; line-height: 0.9; color: #fff; margin-top: -26px; padding: 0 30px;
+  text-shadow: 0 4px 14px rgba(0,0,0,.45); }
+.prod .pc { font-family: "Pinyon Script", cursive; font-size: 104px; color: #fff; line-height: 1.1; margin-top: -6px;
+  text-shadow: 0 4px 14px rgba(0,0,0,.5); white-space: nowrap; }
+.prod .pc i { font-style: normal; display: inline-block; }
+
+/* ---- acid yellow inner-thought line ---- */
+.yel { position: absolute; top: 300px; z-index: 41; }
+.yel-l { left: 70px; } .yel-r { right: 70px; }
+.yel span { display: inline-block; font-weight: 800; font-style: italic; font-size: 64px; color: #E2F040; letter-spacing: -0.02em;
+  text-shadow: 0 3px 10px rgba(0,0,0,.45); }
+.label { position: absolute; left: 0; right: 0; top: 300px; z-index: 41; display: flex; justify-content: center; }
+.label span { font-weight: 500; font-size: 54px; color: #fff; text-shadow: 0 3px 10px rgba(0,0,0,.45); }
+
+/* ---- typewriter search bar ---- */
+.type { position: absolute; left: 0; right: 0; top: 270px; z-index: 41; display: flex; justify-content: center; }
+.type .bar { background: rgba(70,64,58,.55); border: 1.5px solid rgba(255,255,255,.35); border-radius: 18px; padding: 20px 34px;
+  min-width: 560px; max-width: 980px; display: flex; align-items: center; }
+.type .tw-t { font-weight: 600; font-size: 50px; color: #fff; letter-spacing: 0.01em; white-space: nowrap; }
+.type .ch { font-style: normal; display: inline-block; overflow: hidden; vertical-align: bottom; }
+.type .cur { font-weight: 300; font-size: 54px; color: #fff; margin-left: 4px; }
+
+/* ---- arc text ---- */
+.arc { position: absolute; left: 0; top: 120px; z-index: 41; width: 1080px; height: 520px; }
+.arc svg { overflow: visible; }
+.arc text { font-family: "DM Sans", sans-serif; font-weight: 700; font-size: 62px; fill: #fff; letter-spacing: 0.01em;
+  paint-order: stroke; stroke: rgba(0,0,0,.25); stroke-width: 4px; }
+
+/* ---- cream kinetic title card ---- */
+.card { position: absolute; inset: 0; z-index: 30; background: #F3E6B5; display: flex; align-items: center; justify-content: center; }
+.card-in { display: flex; flex-direction: column; align-items: flex-start; padding: 0 110px; width: 100%; }
+.ln { color: #A3161C; line-height: 0.95; white-space: nowrap; }
+.ln-script { font-family: "Great Vibes", cursive; font-size: 150px; margin-left: 0; line-height: 1.05; }
+.ln-bold { font-family: "Archivo Narrow", sans-serif; font-weight: 700; font-size: 132px; letter-spacing: -0.03em; margin-left: 120px; margin-top: -30px; }
+.ln-small { font-family: "Archivo Narrow", sans-serif; font-weight: 700; font-size: 84px; letter-spacing: -0.02em; margin-left: 60px; margin-top: 6px; }
+.card .ln:nth-child(odd) { align-self: flex-start; }
+
+/* ---- scrapbook collage ---- */
+.collage { position: absolute; inset: 0; z-index: 30; background: #F3E6B5; }
+.col-text { position: absolute; left: 540px; top: 200px; width: 490px; display: flex; flex-direction: column; }
+.collage .ln-script { font-size: 92px; margin: -4px 0 18px 26px; line-height: 1.1; }
+.collage .ln-small { font-size: 58px; margin: 4px 0 0 0; }
+.collage .ln-bold { font-size: 96px; margin: 0; }
+.plane { position: absolute; left: 600px; top: 1560px; width: 120px; transform: rotate(-12deg); overflow: visible; }
+.star { position: absolute; left: 930px; top: 1600px; font-size: 54px; color: #5a3b2e; }
+.slot { position: absolute; z-index: 31; background: #fff; border-radius: 6px; box-shadow: 0 14px 30px rgba(80,50,20,.28); transform-origin: 50% 50%; outline: 12px solid #fff; }
+.slotv { position: absolute; z-index: 32; overflow: hidden; border-radius: 4px; opacity: 0; transform-origin: 50% 50%; }
+.slotv video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pin { position: absolute; left: 50%; top: -22px; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; z-index: 40;
+  background: radial-gradient(circle at 35% 35%, #ffd0dc, #e0607d 60%, #a23a55); box-shadow: 0 4px 6px rgba(0,0,0,.25); }
+
+/* ---- framed face windows ---- */
+.fbg { position: absolute; inset: 0; z-index: 1; }
+.fbg-pol { background: #EDE2CB; }
+.pol-card { position: absolute; left: 110px; top: 390px; width: 860px; height: 1290px; background: #FBF8F1; border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(90,60,30,.22); }
+.pol-heart { position: absolute; left: 790px; top: 1500px; width: 140px; z-index: 5; transform: rotate(-12deg); }
+.fbg-pol .pol-heart { z-index: 3; }
+.fbg-cam { background: #F5EFE6; }
+.paper { position: absolute; inset: 0; }
+.cam-body { position: absolute; left: 105px; top: 470px; width: 870px; height: 1250px; border-radius: 70px;
+  background: linear-gradient(150deg, #E9C9BC 0%, #C99583 35%, #B07A6B 65%, #D8AE9F 100%);
+  box-shadow: inset 0 0 0 10px rgba(255,255,255,.18), 0 24px 50px rgba(90,50,40,.35); }
+.cam-screen { position: absolute; left: 50px; top: 70px; width: 770px; height: 720px; border-radius: 22px; background: #2a2220; }
+.cam-dial { position: absolute; left: 90px; top: 870px; width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, #d9d6d2 0 30%, #a9a39e 31% 60%, #8e8884 61%); box-shadow: 0 6px 10px rgba(0,0,0,.25);
+  display: flex; align-items: center; justify-content: center; }
+.cam-dial span { font-weight: 800; font-size: 56px; color: #4b4441; }
+.cam-btn { position: absolute; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, #e3dfdb, #9d9792); box-shadow: 0 5px 8px rgba(0,0,0,.25); }
+.cam-btn.b1 { left: 420px; top: 900px; } .cam-btn.b2 { left: 600px; top: 900px; }
+.cam-grill { position: absolute; left: 430px; top: 1070px; width: 260px; height: 60px;
+  background: radial-gradient(circle, #6d5550 4px, transparent 5px) 0 0/28px 28px; opacity: .7; }
+.cam-bezel { position: absolute; left: 175px; top: 560px; width: 730px; height: 670px; z-index: 3; border-radius: 14px;
+  box-shadow: inset 0 0 0 6px rgba(255,255,255,.25), inset 0 0 40px rgba(0,0,0,.35); pointer-events: none; }
+.lily { position: absolute; left: 760px; top: 1560px; width: 300px; z-index: 4; }
+.fbg-pink { background: #E8B8C4; }
+.bokeh { position: absolute; inset: 0;
+  background: radial-gradient(circle at 15% 20%, #f7d6de 0 8%, transparent 20%), radial-gradient(circle at 85% 30%, #d98ea1 0 6%, transparent 18%),
+  radial-gradient(circle at 30% 80%, #f2c4cf 0 9%, transparent 22%), radial-gradient(circle at 80% 85%, #c97c90 0 7%, transparent 20%),
+  radial-gradient(circle at 50% 50%, #eab3c0, #d996a8); }
+.hearts { position: absolute; inset: 0; }
+
+.ftext { position: absolute; left: 0; right: 0; z-index: 42; display: flex; justify-content: center; }
+.ftext-red { top: 150px; }
+.ftext-red .lk-s { color: #A3161C; text-shadow: none; font-family: "Archivo Narrow", sans-serif; font-weight: 700; font-size: 72px; }
+.ftext-red .lk-c { color: #A3161C; text-shadow: none; font-size: 130px; }
+.ftext-white { top: 210px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="159.68" data-width="1080" data-height="1920">
+<div id="face-wrap"><video id="face" data-start="0" data-duration="159.68" data-track-index="0" src="assets/clean.mp4" muted playsinline></video></div>
+<audio id="vo" data-start="0" data-duration="159.68" data-track-index="1" src="assets/clean.mp4" data-volume="1"></audio>
+<div id="sub1" class="clip sub" data-start="0.767" data-duration="1.333" data-track-index="2" style=""><span>are literally the most</span></div>
+<div id="sub5" class="clip sub" data-start="5.167" data-duration="0.666" data-track-index="2" style=""><span>Let me tell you</span></div>
+<div id="sub13" class="clip sub" data-start="10.633" data-duration="0.534" data-track-index="2" style=""><span>poore bombay mein</span></div>
+<div id="sub14" class="clip sub" data-start="11.167" data-duration="0.866" data-track-index="2" style=""><span>ache momo milte hi</span></div>
+<div id="sub16" class="clip sub" data-start="12.767" data-duration="0.900" data-track-index="2" style=""><span>Anyway we were going</span></div>
+<div id="sub17" class="clip sub" data-start="13.667" data-duration="1.100" data-track-index="2" style=""><span>from one spot to another</span></div>
+<div id="sub20" class="clip sub" data-start="16.433" data-duration="0.767" data-track-index="2" style=""><span>toh hum road pe khade hue</span></div>
+<div id="sub21" class="clip sub" data-start="17.200" data-duration="0.900" data-track-index="2" style=""><span>ek auto waale ko bolte hai</span></div>
+<div id="sub23" class="clip sub" data-start="18.667" data-duration="0.866" data-track-index="2" style=""><span>humein aage chhodh do</span></div>
+<div id="sub24" class="clip sub" data-start="19.533" data-duration="0.534" data-track-index="2" style=""><span>toh hum iss auto</span></div>
+<div id="sub25" class="clip sub" data-start="20.067" data-duration="0.366" data-track-index="2" style=""><span>mein baithte hai</span></div>
+<div id="sub31" class="clip sub" data-start="24.600" data-duration="0.600" data-track-index="2" style=""><span>and humare piche</span></div>
+<div id="sub32" class="clip sub" data-start="25.200" data-duration="0.533" data-track-index="2" style=""><span>waali gaadi</span></div>
+<div id="sub35" class="clip sub" data-start="27.000" data-duration="1.200" data-track-index="2" style=""><span>jabki side mein</span></div>
+<div id="sub37" class="clip sub" data-start="29.200" data-duration="0.667" data-track-index="2" style=""><span>like yeh banda na</span></div>
+<div id="sub38" class="clip sub" data-start="29.867" data-duration="1.233" data-track-index="2" style=""><span>side se gaadi nikal sakta hai</span></div>
+<div id="sub39" class="clip sub" data-start="31.100" data-duration="0.767" data-track-index="2" style=""><span>but itni akkal toh</span></div>
+<div id="sub41" class="clip sub" data-start="33.100" data-duration="0.800" data-track-index="2" style=""><span>toh woh horn maar raha hai</span></div>
+<div id="sub43" class="clip sub" data-start="34.933" data-duration="1.767" data-track-index="2" style=""><span>lagataar horn bajane ke baad</span></div>
+<div id="sub44" class="clip sub" data-start="36.700" data-duration="0.900" data-track-index="2" style=""><span>yeh banda apni gaadi</span></div>
+<div id="sub45" class="clip sub" data-start="37.600" data-duration="0.933" data-track-index="2" style=""><span>humari just side mein</span></div>
+<div id="sub46" class="clip sub" data-start="38.533" data-duration="0.967" data-track-index="2" style=""><span>laake khadi kar deta hai</span></div>
+<div id="sub47" class="clip sub" data-start="39.500" data-duration="1.000" data-track-index="2" style=""><span>and passenger seat pe</span></div>
+<div id="sub48" class="clip sub" data-start="40.500" data-duration="0.867" data-track-index="2" style=""><span>jo aurat baithi hai</span></div>
+<div id="sub49" class="clip sub" data-start="41.367" data-duration="0.633" data-track-index="2" style=""><span>wohi apni khidki</span></div>
+<div id="sub50" class="clip sub" data-start="42.000" data-duration="0.733" data-track-index="2" style=""><span>niche karti hai</span></div>
+<div id="sub51" class="clip sub" data-start="42.733" data-duration="1.134" data-track-index="2" style=""><span>and woh autowaale ko</span></div>
+<div id="sub53" class="clip sub" data-start="45.333" data-duration="0.600" data-track-index="2" style=""><span>diye jaa rahi hai ki</span></div>
+<div id="sub56" class="clip sub" data-start="47.700" data-duration="0.700" data-track-index="2" style=""><span>yeh koi jagah hai</span></div>
+<div id="sub57" class="clip sub" data-start="48.400" data-duration="0.967" data-track-index="2" style=""><span>apna auto lagane ki?</span></div>
+<div id="sub58" class="clip sub" data-start="49.367" data-duration="1.300" data-track-index="2" style=""><span>and bichara autowala sirf</span></div>
+<div id="sub60" class="clip sub" data-start="51.567" data-duration="0.666" data-track-index="2" style=""><span>muje maaf kardo</span></div>
+<div id="sub61" class="clip sub" data-start="52.233" data-duration="0.634" data-track-index="2" style=""><span>yehi kar raha hai</span></div>
+<div id="sub62" class="clip sub" data-start="52.867" data-duration="1.666" data-track-index="2" style=""><span>but that woman would just</span></div>
+<div id="sub64" class="clip sub" data-start="55.867" data-duration="1.066" data-track-index="2" style=""><span>and now if you know me</span></div>
+<div id="sub65" class="clip sub" data-start="56.933" data-duration="0.634" data-track-index="2" style=""><span>you would know ki</span></div>
+<div id="sub68" class="clip sub" data-start="59.267" data-duration="1.000" data-track-index="2" style=""><span>toh muje agaya gussa</span></div>
+<div id="sub74" class="clip sub" data-start="64.900" data-duration="0.800" data-track-index="2" style=""><span>and she&#x27;s like</span></div>
+<div id="sub76" class="clip sub" data-start="67.200" data-duration="1.300" data-track-index="2" style=""><span>and I&#x27;m like ma&#x27;am</span></div>
+<div id="sub78" class="clip sub" data-start="70.333" data-duration="0.767" data-track-index="2" style=""><span>10 min hogaye hai</span></div>
+<div id="sub79" class="clip sub" data-start="71.100" data-duration="0.633" data-track-index="2" style=""><span>apko yeh karte hue</span></div>
+<div id="sub80" class="clip sub" data-start="71.733" data-duration="0.834" data-track-index="2" style=""><span>do you have nothing else</span></div>
+<div id="sub81" class="clip sub" data-start="72.567" data-duration="0.900" data-track-index="2" style=""><span>to do with your life?</span></div>
+<div id="sub82" class="clip sub" data-start="73.467" data-duration="1.433" data-track-index="2" style=""><span>and when I tell you</span></div>
+<div id="sub83" class="clip sub" data-start="74.900" data-duration="1.067" data-track-index="2" style=""><span>that woman had a</span></div>
+<div id="sub85" class="clip sub" data-start="76.867" data-duration="1.000" data-track-index="2" style=""><span>woh matlab pagal ho chuki thi</span></div>
+<div id="sub86" class="clip sub" data-start="77.867" data-duration="0.900" data-track-index="2" style=""><span>aise kaise bol rahi hai</span></div>
+<div id="sub87" class="clip sub" data-start="78.767" data-duration="0.333" data-track-index="2" style=""><span>aise kaise ...</span></div>
+<div id="sub91" class="clip sub" data-start="81.567" data-duration="0.933" data-track-index="2" style=""><span>Anyway, while she&#x27;s</span></div>
+<div id="sub92" class="clip sub" data-start="82.500" data-duration="0.800" data-track-index="2" style=""><span>losing her mind</span></div>
+<div id="sub93" class="clip sub" data-start="83.300" data-duration="1.433" data-track-index="2" style=""><span>her husband opens his door</span></div>
+<div id="sub94" class="clip sub" data-start="84.733" data-duration="1.000" data-track-index="2" style=""><span>and starts walking</span></div>
+<div id="sub95" class="clip sub" data-start="85.733" data-duration="1.134" data-track-index="2" style=""><span>towards our auto</span></div>
+<div id="sub104" class="clip sub" data-start="96.200" data-duration="0.800" data-track-index="2" style=""><span>and usually</span></div>
+<div id="sub105" class="clip sub" data-start="97.000" data-duration="1.033" data-track-index="2" style=""><span>I would be really scared</span></div>
+<div id="sub106" class="clip sub" data-start="98.033" data-duration="0.934" data-track-index="2" style=""><span>kyu ki mujse toh bada</span></div>
+<div id="sub108" class="clip sub" data-start="99.733" data-duration="0.700" data-track-index="2" style=""><span>poore zindagi mein</span></div>
+<div id="sub109" class="clip sub" data-start="100.433" data-duration="1.867" data-track-index="2" style=""><span>but this guy is wearing</span></div>
+<div id="sub111" class="clip sub" data-start="103.100" data-duration="0.600" data-track-index="2" style=""><span>I swear to god</span></div>
+<div id="sub112" class="clip sub" data-start="103.700" data-duration="1.067" data-track-index="2" style=""><span>I&#x27;m not making this shit up</span></div>
+<div id="sub113" class="clip sub" data-start="104.767" data-duration="2.033" data-track-index="2" style=""><span>toh I have lost my mind</span></div>
+<div id="sub114" class="clip sub" data-start="106.800" data-duration="1.000" data-track-index="2" style=""><span>mai pagalon ki tarah</span></div>
+<div id="sub116" class="clip sub" data-start="110.067" data-duration="0.900" data-track-index="2" style=""><span>ab usse muje dekh ke</span></div>
+<div id="sub117" class="clip sub" data-start="110.967" data-duration="0.933" data-track-index="2" style=""><span>aur gussa aa raha hai</span></div>
+<div id="sub118" class="clip sub" data-start="111.900" data-duration="0.867" data-track-index="2" style=""><span>and woh apna rant</span></div>
+<div id="sub119" class="clip sub" data-start="112.767" data-duration="0.833" data-track-index="2" style=""><span>rok hi nahi raha hai</span></div>
+<div id="sub120" class="clip sub" data-start="113.600" data-duration="0.867" data-track-index="2" style=""><span>ki mai itna ameer hu</span></div>
+<div id="sub122" class="clip sub" data-start="115.200" data-duration="0.933" data-track-index="2" style=""><span>toh my bestfriend</span></div>
+<div id="sub123" class="clip sub" data-start="116.133" data-duration="0.700" data-track-index="2" style=""><span>who is literally</span></div>
+<div id="sub125" class="clip sub" data-start="117.800" data-duration="0.867" data-track-index="2" style=""><span>jo poori ladai mein sirf</span></div>
+<div id="sub126" class="clip sub" data-start="118.667" data-duration="1.033" data-track-index="2" style=""><span>sorry sorry bol raha tha</span></div>
+<div id="sub127" class="clip sub" data-start="119.700" data-duration="1.133" data-track-index="2" style=""><span>looks at him and says</span></div>
+<div id="sub128" class="clip sub" data-start="120.833" data-duration="0.900" data-track-index="2" style=""><span>agar aap itne ameer ho</span></div>
+<div id="sub134" class="clip sub" data-start="126.267" data-duration="1.533" data-track-index="2" style=""><span>usne hum dono ko</span></div>
+<div id="sub135" class="clip sub" data-start="127.800" data-duration="1.067" data-track-index="2" style=""><span>yu yu karte hue dekha</span></div>
+<div id="sub136" class="clip sub" data-start="128.867" data-duration="0.700" data-track-index="2" style=""><span>and usne humein bola ki</span></div>
+<div id="sub138" class="clip sub" data-start="130.800" data-duration="1.200" data-track-index="2" style=""><span>and we went through</span></div>
+<div id="sub139" class="clip sub" data-start="132.000" data-duration="0.967" data-track-index="2" style=""><span>all of that</span></div>
+<div id="sub140" class="clip sub" data-start="132.967" data-duration="0.833" data-track-index="2" style=""><span>just to experience</span></div>
+<div id="sub146" class="clip sub" data-start="141.133" data-duration="1.300" data-track-index="2" style=""><span>just look at this</span></div>
+<div id="sub154" class="clip sub" data-start="149.933" data-duration="1.234" data-track-index="2" style=""><span>kyu ki muje mirch nahi lagti</span></div>
+<div id="sub155" class="clip sub" data-start="151.167" data-duration="0.966" data-track-index="2" style=""><span>par meri baaton se jarur</span></div>
+<div id="sub157" class="clip sub" data-start="153.333" data-duration="1.634" data-track-index="2" style=""><span>and this is exactly</span></div>
+<div id="em0" class="clip emph" data-start="0.000" data-duration="0.767" data-track-index="3" style=""><div class="lk"><span class="lk-s">Me and my</span><span class="lk-c">bestfriend</span></div></div>
+<div id="em15" class="clip emph" data-start="12.033" data-duration="0.734" data-track-index="3" style=""><div class="lk"><span class="lk-s">nahi hai</span><span class="lk-c">bhaiya</span></div></div>
+<div id="em19" class="clip emph" data-start="15.867" data-duration="0.566" data-track-index="3" style=""><div class="lk"><span class="lk-s">ho rahi thi</span><span class="lk-c">bhai</span></div></div>
+<div id="em33" class="clip emph" data-start="25.733" data-duration="0.700" data-track-index="3" style=""><div class="lk"><span class="lk-s">pagalon ki</span><span class="lk-c">tarah</span></div></div>
+<div id="em36" class="clip emph" data-start="28.200" data-duration="1.000" data-track-index="3" style=""><div class="lk"><span class="lk-s">poori sadak</span><span class="lk-c">khaali padi hai</span></div></div>
+<div id="em52" class="clip emph" data-start="43.867" data-duration="1.466" data-track-index="3" style=""><div class="lk"><span class="lk-s">maa behen ki</span><span class="lk-c">gaaliyan</span></div></div>
+<div id="em59" class="clip emph" data-start="50.667" data-duration="0.900" data-track-index="3" style=""><div class="lk"><span class="lk-s">sorry ma&#x27;am,</span><span class="lk-c">sorry ma&#x27;am</span></div></div>
+<div id="em63" class="clip emph" data-start="54.533" data-duration="1.334" data-track-index="3" style=""><div class="lk"><span class="lk-s">not stop</span><span class="lk-c">talking at him</span></div></div>
+<div id="em77" class="clip emph" data-start="68.500" data-duration="1.833" data-track-index="3" style=""><div class="lk"><span class="lk-s">aap thode</span><span class="lk-c">jobless ho kya?</span></div></div>
+<div id="em84" class="clip emph" data-start="75.967" data-duration="0.900" data-track-index="3" style=""><div class="lk"><span class="lk-s">full body</span><span class="lk-c">reaction</span></div></div>
+<div id="em97" class="clip emph" data-start="89.033" data-duration="1.534" data-track-index="3" style=""><div class="lk"><span class="lk-s">scary looking</span><span class="lk-c">man okay</span></div></div>
+<div id="em107" class="clip emph" data-start="98.967" data-duration="0.766" data-track-index="3" style=""><div class="lk"><span class="lk-s">koi fattu</span><span class="lk-c">hai hi nahi</span></div></div>
+<div id="em110" class="clip emph" data-start="102.300" data-duration="0.800" data-track-index="3" style=""><div class="lk"><span class="lk-s">this</span><span class="lk-c">outfit</span></div></div>
+<div id="em115" class="clip emph" data-start="107.800" data-duration="2.267" data-track-index="3" style=""><div class="lk"><span class="lk-s">has rahi hu ki</span><span class="lk-c">hehehehe</span></div></div>
+<div id="em124" class="clip emph" data-start="116.833" data-duration="0.967" data-track-index="3" style=""><div class="lk"><span class="lk-s">the calmest</span><span class="lk-c">person i know</span></div></div>
+<div id="em149" class="clip emph" data-start="144.600" data-duration="0.867" data-track-index="3" style=""><div class="lk"><span class="lk-s">bhara hua hai</span><span class="lk-c">yaar</span></div></div>
+<div id="em158" class="clip emph" data-start="154.967" data-duration="1.333" data-track-index="3" style=""><div class="lk"><span class="lk-s">how a good momo</span><span class="lk-c">should be</span></div></div>
+<div id="y6" class="clip yel yel-l" data-start="5.833" data-duration="0.667" data-track-index="4" style=""><span>guys a story!</span></div>
+<div id="y22" class="clip yel yel-r" data-start="18.100" data-duration="0.567" data-track-index="4" style=""><span>please bhaiya!!</span></div>
+<div id="y34" class="clip yel yel-l" data-start="26.433" data-duration="0.567" data-track-index="4" style=""><span>horn baja rahi hai!!</span></div>
+<div id="y54" class="clip yel yel-r" data-start="45.933" data-duration="0.967" data-track-index="4" style=""><span>tu andha hai kya??</span></div>
+<div id="y55" class="clip yel yel-l" data-start="46.900" data-duration="0.800" data-track-index="4" style=""><span>tuje dikhta nahi hai??</span></div>
+<div id="y75" class="clip yel yel-r" data-start="65.700" data-duration="1.500" data-track-index="4" style=""><span>kya boli kya boli??</span></div>
+<div id="y137" class="clip yel yel-r" data-start="129.567" data-duration="1.233" data-track-index="4" style=""><span>goli se uda dega?!</span></div>
+<div id="y148" class="clip yel yel-l" data-start="143.667" data-duration="0.933" data-track-index="4" style=""><span>juicy chicken!!</span></div>
+<div id="y153" class="clip yel yel-r" data-start="148.133" data-duration="1.800" data-track-index="4" style=""><span>laal chutney</span></div>
+<div id="y156" class="clip yel yel-l" data-start="152.133" data-duration="1.200" data-track-index="4" style=""><span>mirchi lag jaati hai</span></div>
+<div id="lb147" class="clip label" data-start="142.433" data-duration="1.234" data-track-index="4" style=""><span>yeh kya mast</span></div>
+<div id="tw0" class="clip type" data-start="6.500" data-duration="0.667" data-track-index="5" style=""><div class="bar"><span class="tw-t"><i class="ch">L</i><i class="ch">A</i><i class="ch">S</i><i class="ch">T</i><i class="ch">&nbsp;</i><i class="ch">S</i><i class="ch">A</i><i class="ch">T</i><i class="ch">U</i><i class="ch">R</i><i class="ch">D</i><i class="ch">A</i><i class="ch">Y</i></span><b class="cur">|</b></div></div>
+<div id="tw1" class="clip type" data-start="14.767" data-duration="1.100" data-track-index="5" style=""><div class="bar"><span class="tw-t"><i class="ch">A</i><i class="ch">N</i><i class="ch">D</i><i class="ch">H</i><i class="ch">I</i><i class="ch">&nbsp;</i><i class="ch">B</i><i class="ch">A</i><i class="ch">A</i><i class="ch">R</i><i class="ch">I</i><i class="ch">S</i><i class="ch">H</i></span><b class="cur">|</b></div></div>
+<div id="tw2" class="clip type" data-start="33.900" data-duration="1.033" data-track-index="5" style=""><div class="bar"><span class="tw-t"><i class="ch">5</i><i class="ch">&nbsp;</i><i class="ch">M</i><i class="ch">I</i><i class="ch">N</i><i class="ch">&nbsp;</i><i class="ch">T</i><i class="ch">A</i><i class="ch">K</i></span><b class="cur">|</b></div></div>
+<div id="tw3" class="clip type" data-start="86.867" data-duration="2.166" data-track-index="5" style=""><div class="bar"><span class="tw-t"><i class="ch">6</i><i class="ch">&nbsp;</i><i class="ch">F</i><i class="ch">E</i><i class="ch">E</i><i class="ch">T</i><i class="ch">&nbsp;</i><i class="ch">T</i><i class="ch">A</i><i class="ch">L</i><i class="ch">L</i></span><b class="cur">|</b></div></div>
+<div id="tw4" class="clip type" data-start="121.733" data-duration="1.100" data-track-index="5" style=""><div class="bar"><span class="tw-t"><i class="ch">C</i><i class="ch">R</i><i class="ch">E</i><i class="ch">T</i><i class="ch">A</i><i class="ch">&nbsp;</i><i class="ch">M</i><i class="ch">E</i><i class="ch">I</i><i class="ch">N</i><i class="ch">&nbsp;</i><i class="ch">K</i><i class="ch">Y</i><i class="ch">U</i><i class="ch">&nbsp;</i><i class="ch">G</i><i class="ch">H</i><i class="ch">U</i><i class="ch">M</i><i class="ch">&nbsp;</i><i class="ch">R</i><i class="ch">A</i><i class="ch">H</i><i class="ch">E</i><i class="ch">&nbsp;</i><i class="ch">H</i><i class="ch">O</i><i class="ch">?</i></span><b class="cur">|</b></div></div>
+<div id="arc40" class="clip arc" data-start="31.867" data-duration="1.233" data-track-index="6" style=""><svg viewBox="0 0 1080 520" width="1080" height="520"><defs><path id="arcp40" d="M150,470 Q540,40 930,470"/></defs><text><textPath href="#arcp40" startOffset="50%" text-anchor="middle">uske ander hai hi nahi</textPath></text></svg></div>
+<div id="arc121" class="clip arc" data-start="114.467" data-duration="0.733" data-track-index="6" style=""><svg viewBox="0 0 1080 520" width="1080" height="520"><defs><path id="arcp121" d="M150,470 Q540,40 930,470"/></defs><text><textPath href="#arcp121" startOffset="50%" text-anchor="middle">itna ameer hu</textPath></text></svg></div>
+<div id="prod" class="clip emph prod" data-start="139.067" data-duration="2.066" data-track-index="3" style=""><div class="lk"><span class="lk-s">The Licious</span><span class="pc"><i class="pl">M</i><i class="pl">o</i><i class="pl">t</i><i class="pl">h</i><i class="pl">e</i><i class="pl">r</i><i class="pl">&nbsp;</i><i class="pl">o</i><i class="pl">f</i><i class="pl">&nbsp;</i><i class="pl">a</i><i class="pl">l</i><i class="pl">l</i><i class="pl">&nbsp;</i><i class="pl">M</i><i class="pl">o</i><i class="pl">m</i><i class="pl">o</i><i class="pl">s</i></span></div></div>
+<div id="card1" class="clip card" data-start="2.100" data-duration="3.067" data-track-index="7" style=""><div class="card-in"><div class="ln ln-script">no bullshit</div><div class="ln ln-bold">people I know</div><div class="ln ln-small">even when our life</div><div class="ln ln-script">is in</div><div class="ln ln-bold">danger</div></div></div>
+<div id="card2" class="clip card" data-start="57.567" data-duration="1.700" data-track-index="7" style=""><div class="card-in"><div class="ln ln-script">mai toh yu turant</div><div class="ln ln-bold">ragebait</div><div class="ln ln-small">ho jaati hu</div></div></div>
+<div id="card3" class="clip card" data-start="90.567" data-duration="2.333" data-track-index="7" style=""><div class="card-in"><div class="ln ln-small">woh literally</div><div class="ln ln-script">humare auto</div><div class="ln ln-bold">ke ander</div><div class="ln ln-small">ghus ke muje bol raha hai ki</div></div></div>
+<div id="card4" class="clip card" data-start="92.900" data-duration="3.300" data-track-index="7" style=""><div class="card-in"><div class="ln ln-script">tuje</div><div class="ln ln-bold">kharid lunga</div><div class="ln ln-small">tuj jaisi 100</div><div class="ln ln-script">kharid lunga</div><div class="ln ln-small">tu jaanti nahi hai muje</div></div></div>
+<div id="col1" class="clip collage" data-start="7.167" data-duration="3.466" data-track-index="8" style=""><div class="col-text"><div class="ln ln-small">hum dono</div><div class="ln ln-script">bandra mein</div><div class="ln ln-small">ache momo</div><div class="ln ln-script">dhundhne</div><div class="ln ln-small">nikle the</div><div class="ln ln-small">jo ki humari hi</div><div class="ln ln-script">galti hai</div></div><svg class="plane" viewBox="0 0 120 80"><path d="M5 40 L110 8 L70 75 L55 48 Z M55 48 L110 8" fill="none" stroke="#5a3b2e" stroke-width="3" stroke-linejoin="round"/><path d="M5 40 C-30 60 -60 20 -90 50" fill="none" stroke="#5a3b2e" stroke-width="2.5" stroke-dasharray="6 7"/></svg><div class="star">&#10022;</div></div>
+<div id="col1-f0" class="clip slot" data-start="7.167" data-duration="3.466" data-track-index="20" style="left:70px;top:250px;width:430px;height:640px;transform:rotate(-5deg);"><div class="pin"></div></div>
+<div class="slotv" id="col1-w0" style="left:70px;top:250px;width:430px;height:640px;transform:rotate(-5deg);"><video id="col1-v0" data-start="7.167" data-duration="3.466" data-track-index="30" data-media-start="0.4" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="col1-f1" class="clip slot" data-start="7.167" data-duration="3.466" data-track-index="21" style="left:585px;top:840px;width:420px;height:640px;transform:rotate(5deg);"><div class="pin"></div></div>
+<div class="slotv" id="col1-w1" style="left:585px;top:840px;width:420px;height:640px;transform:rotate(5deg);"><video id="col1-v1" data-start="7.167" data-duration="3.466" data-track-index="31" data-media-start="143.7" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="col1-f2" class="clip slot" data-start="7.167" data-duration="3.466" data-track-index="22" style="left:85px;top:1150px;width:400px;height:600px;transform:rotate(-3deg);"><div class="pin"></div></div>
+<div class="slotv" id="col1-w2" style="left:85px;top:1150px;width:400px;height:600px;transform:rotate(-3deg);"><video id="col1-v2" data-start="7.167" data-duration="3.466" data-track-index="32" data-media-start="148.4" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="col2" class="clip collage" data-start="133.800" data-duration="5.267" data-track-index="8" style=""><div class="col-text"><div class="ln ln-small">a nice plate of</div><div class="ln ln-script">momo</div><div class="ln ln-small">when we could have</div><div class="ln ln-small">ordered the</div><div class="ln ln-script">best,</div><div class="ln ln-small">no BS</div><div class="ln ln-script">momos online!</div></div><svg class="plane" viewBox="0 0 120 80"><path d="M5 40 L110 8 L70 75 L55 48 Z M55 48 L110 8" fill="none" stroke="#5a3b2e" stroke-width="3" stroke-linejoin="round"/><path d="M5 40 C-30 60 -60 20 -90 50" fill="none" stroke="#5a3b2e" stroke-width="2.5" stroke-dasharray="6 7"/></svg><div class="star">&#10022;</div></div>
+<div id="col2-f0" class="clip slot" data-start="133.800" data-duration="5.267" data-track-index="20" style="left:70px;top:250px;width:430px;height:640px;transform:rotate(-5deg);"><div class="pin"></div></div>
+<div class="slotv" id="col2-w0" style="left:70px;top:250px;width:430px;height:640px;transform:rotate(-5deg);"><video id="col2-v0" data-start="133.800" data-duration="5.267" data-track-index="30" data-media-start="141.3" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="col2-f1" class="clip slot" data-start="133.800" data-duration="5.267" data-track-index="21" style="left:585px;top:840px;width:420px;height:640px;transform:rotate(5deg);"><div class="pin"></div></div>
+<div class="slotv" id="col2-w1" style="left:585px;top:840px;width:420px;height:640px;transform:rotate(5deg);"><video id="col2-v1" data-start="133.800" data-duration="5.267" data-track-index="31" data-media-start="145.6" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="col2-f2" class="clip slot" data-start="133.800" data-duration="5.267" data-track-index="22" style="left:85px;top:1150px;width:400px;height:600px;transform:rotate(-3deg);"><div class="pin"></div></div>
+<div class="slotv" id="col2-w2" style="left:85px;top:1150px;width:400px;height:600px;transform:rotate(-3deg);"><video id="col2-v2" data-start="133.800" data-duration="5.267" data-track-index="32" data-media-start="152.3" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="pol1-bg" class="clip fbg fbg-pol" data-start="20.433" data-duration="4.167" data-track-index="9" style=""><div class="pol-card"></div><svg class="pol-heart" viewBox="0 0 100 92"><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" fill="#B5121B" opacity="0.92"/><path d="M30 20 C22 26 20 36 26 46" stroke="#fff" stroke-width="4" fill="none" opacity=".5" stroke-linecap="round"/></svg></div>
+<div id="pol1-t26" class="clip ftext ftext-red" data-start="20.433" data-duration="0.867" data-track-index="11" style=""><div class="lk"><span class="lk-s">yeh bichara</span><span class="lk-c">autowala</span></div></div>
+<div id="pol1-t27" class="clip ftext ftext-red" data-start="21.300" data-duration="0.833" data-track-index="11" style=""><div class="lk"><span class="lk-s">apna auto</span><span class="lk-c">start nahi</span></div></div>
+<div id="pol1-t28" class="clip ftext ftext-red" data-start="22.133" data-duration="0.634" data-track-index="11" style=""><div class="lk"><span class="lk-s">kar pa raha hai</span><span class="lk-c">kyu ki</span></div></div>
+<div id="pol1-t29" class="clip ftext ftext-red" data-start="22.767" data-duration="0.700" data-track-index="11" style=""><div class="lk"><span class="lk-s">baarish ke</span><span class="lk-c">wajhese</span></div></div>
+<div id="pol1-t30" class="clip ftext ftext-red" data-start="23.467" data-duration="1.133" data-track-index="11" style=""><div class="lk"><span class="lk-s">iska auto</span><span class="lk-c">kharab hogaya hai</span></div></div>
+<div id="cam1-bg" class="clip fbg fbg-cam" data-start="60.267" data-duration="4.633" data-track-index="9" style=""><svg class="paper" viewBox="0 0 1080 1920" width="1080" height="1920"><circle cx="656.0" cy="574.0" r="9.6" fill="#E7A9B4"/><circle cx="647.7" cy="585.4" r="9.6" fill="#E7A9B4"/><circle cx="634.3" cy="581.1" r="9.6" fill="#E7A9B4"/><circle cx="634.3" cy="566.9" r="9.6" fill="#E7A9B4"/><circle cx="647.7" cy="562.6" r="9.6" fill="#E7A9B4"/><circle cx="644" cy="574" r="6.6" fill="#E9C46A"/><circle cx="757.0" cy="1906.0" r="8.0" fill="#E7A9B4"/><circle cx="750.1" cy="1915.5" r="8.0" fill="#E7A9B4"/><circle cx="738.9" cy="1911.9" r="8.0" fill="#E7A9B4"/><circle cx="738.9" cy="1900.1" r="8.0" fill="#E7A9B4"/><circle cx="750.1" cy="1896.5" r="8.0" fill="#E7A9B4"/><circle cx="747" cy="1906" r="5.5" fill="#E9C46A"/><circle cx="1066.0" cy="1862.0" r="8.8" fill="#E7A9B4"/><circle cx="1058.4" cy="1872.5" r="8.8" fill="#E7A9B4"/><circle cx="1046.1" cy="1868.5" r="8.8" fill="#E7A9B4"/><circle cx="1046.1" cy="1855.5" r="8.8" fill="#E7A9B4"/><circle cx="1058.4" cy="1851.5" r="8.8" fill="#E7A9B4"/><circle cx="1055" cy="1862" r="6.1" fill="#E9C46A"/><circle cx="375.0" cy="657.0" r="12.8" fill="#E7A9B4"/><circle cx="363.9" cy="672.2" r="12.8" fill="#E7A9B4"/><circle cx="346.1" cy="666.4" r="12.8" fill="#E7A9B4"/><circle cx="346.1" cy="647.6" r="12.8" fill="#E7A9B4"/><circle cx="363.9" cy="641.8" r="12.8" fill="#E7A9B4"/><circle cx="359" cy="657" r="8.8" fill="#E9C46A"/><circle cx="985.0" cy="1516.0" r="7.2" fill="#E7A9B4"/><circle cx="978.8" cy="1524.6" r="7.2" fill="#E7A9B4"/><circle cx="968.7" cy="1521.3" r="7.2" fill="#E7A9B4"/><circle cx="968.7" cy="1510.7" r="7.2" fill="#E7A9B4"/><circle cx="978.8" cy="1507.4" r="7.2" fill="#E7A9B4"/><circle cx="976" cy="1516" r="5.0" fill="#E9C46A"/><circle cx="26.0" cy="831.0" r="12.8" fill="#E7A9B4"/><circle cx="14.9" cy="846.2" r="12.8" fill="#E7A9B4"/><circle cx="-2.9" cy="840.4" r="12.8" fill="#E7A9B4"/><circle cx="-2.9" cy="821.6" r="12.8" fill="#E7A9B4"/><circle cx="14.9" cy="815.8" r="12.8" fill="#E7A9B4"/><circle cx="10" cy="831" r="8.8" fill="#E9C46A"/><circle cx="640.0" cy="437.0" r="7.2" fill="#E7A9B4"/><circle cx="633.8" cy="445.6" r="7.2" fill="#E7A9B4"/><circle cx="623.7" cy="442.3" r="7.2" fill="#E7A9B4"/><circle cx="623.7" cy="431.7" r="7.2" fill="#E7A9B4"/><circle cx="633.8" cy="428.4" r="7.2" fill="#E7A9B4"/><circle cx="631" cy="437" r="5.0" fill="#E9C46A"/><circle cx="626.0" cy="297.0" r="14.4" fill="#E7A9B4"/><circle cx="613.6" cy="314.1" r="14.4" fill="#E7A9B4"/><circle cx="593.4" cy="307.6" r="14.4" fill="#E7A9B4"/><circle cx="593.4" cy="286.4" r="14.4" fill="#E7A9B4"/><circle cx="613.6" cy="279.9" r="14.4" fill="#E7A9B4"/><circle cx="608" cy="297" r="9.9" fill="#E9C46A"/><circle cx="613.0" cy="856.0" r="14.4" fill="#E7A9B4"/><circle cx="600.6" cy="873.1" r="14.4" fill="#E7A9B4"/><circle cx="580.4" cy="866.6" r="14.4" fill="#E7A9B4"/><circle cx="580.4" cy="845.4" r="14.4" fill="#E7A9B4"/><circle cx="600.6" cy="838.9" r="14.4" fill="#E7A9B4"/><circle cx="595" cy="856" r="9.9" fill="#E9C46A"/><circle cx="615.0" cy="1551.0" r="10.4" fill="#E7A9B4"/><circle cx="606.0" cy="1563.4" r="10.4" fill="#E7A9B4"/><circle cx="591.5" cy="1558.6" r="10.4" fill="#E7A9B4"/><circle cx="591.5" cy="1543.4" r="10.4" fill="#E7A9B4"/><circle cx="606.0" cy="1538.6" r="10.4" fill="#E7A9B4"/><circle cx="602" cy="1551" r="7.2" fill="#E9C46A"/><circle cx="477.0" cy="756.0" r="13.6" fill="#E7A9B4"/><circle cx="465.3" cy="772.2" r="13.6" fill="#E7A9B4"/><circle cx="446.2" cy="766.0" r="13.6" fill="#E7A9B4"/><circle cx="446.2" cy="746.0" r="13.6" fill="#E7A9B4"/><circle cx="465.3" cy="739.8" r="13.6" fill="#E7A9B4"/><circle cx="460" cy="756" r="9.4" fill="#E9C46A"/><circle cx="164.0" cy="1602.0" r="12.8" fill="#E7A9B4"/><circle cx="152.9" cy="1617.2" r="12.8" fill="#E7A9B4"/><circle cx="135.1" cy="1611.4" r="12.8" fill="#E7A9B4"/><circle cx="135.1" cy="1592.6" r="12.8" fill="#E7A9B4"/><circle cx="152.9" cy="1586.8" r="12.8" fill="#E7A9B4"/><circle cx="148" cy="1602" r="8.8" fill="#E9C46A"/><circle cx="696.0" cy="201.0" r="9.6" fill="#E7A9B4"/><circle cx="687.7" cy="212.4" r="9.6" fill="#E7A9B4"/><circle cx="674.3" cy="208.1" r="9.6" fill="#E7A9B4"/><circle cx="674.3" cy="193.9" r="9.6" fill="#E7A9B4"/><circle cx="687.7" cy="189.6" r="9.6" fill="#E7A9B4"/><circle cx="684" cy="201" r="6.6" fill="#E9C46A"/><circle cx="998.0" cy="1175.0" r="10.4" fill="#E7A9B4"/><circle cx="989.0" cy="1187.4" r="10.4" fill="#E7A9B4"/><circle cx="974.5" cy="1182.6" r="10.4" fill="#E7A9B4"/><circle cx="974.5" cy="1167.4" r="10.4" fill="#E7A9B4"/><circle cx="989.0" cy="1162.6" r="10.4" fill="#E7A9B4"/><circle cx="985" cy="1175" r="7.2" fill="#E9C46A"/><circle cx="37.0" cy="1685.0" r="8.0" fill="#E7A9B4"/><circle cx="30.1" cy="1694.5" r="8.0" fill="#E7A9B4"/><circle cx="18.9" cy="1690.9" r="8.0" fill="#E7A9B4"/><circle cx="18.9" cy="1679.1" r="8.0" fill="#E7A9B4"/><circle cx="30.1" cy="1675.5" r="8.0" fill="#E7A9B4"/><circle cx="27" cy="1685" r="5.5" fill="#E9C46A"/><circle cx="529.0" cy="785.0" r="8.8" fill="#E7A9B4"/><circle cx="521.4" cy="795.5" r="8.8" fill="#E7A9B4"/><circle cx="509.1" cy="791.5" r="8.8" fill="#E7A9B4"/><circle cx="509.1" cy="778.5" r="8.8" fill="#E7A9B4"/><circle cx="521.4" cy="774.5" r="8.8" fill="#E7A9B4"/><circle cx="518" cy="785" r="6.1" fill="#E9C46A"/><circle cx="190.0" cy="203.0" r="8.8" fill="#E7A9B4"/><circle cx="182.4" cy="213.5" r="8.8" fill="#E7A9B4"/><circle cx="170.1" cy="209.5" r="8.8" fill="#E7A9B4"/><circle cx="170.1" cy="196.5" r="8.8" fill="#E7A9B4"/><circle cx="182.4" cy="192.5" r="8.8" fill="#E7A9B4"/><circle cx="179" cy="203" r="6.1" fill="#E9C46A"/><circle cx="894.0" cy="455.0" r="11.2" fill="#E7A9B4"/><circle cx="884.3" cy="468.3" r="11.2" fill="#E7A9B4"/><circle cx="868.7" cy="463.2" r="11.2" fill="#E7A9B4"/><circle cx="868.7" cy="446.8" r="11.2" fill="#E7A9B4"/><circle cx="884.3" cy="441.7" r="11.2" fill="#E7A9B4"/><circle cx="880" cy="455" r="7.7" fill="#E9C46A"/><circle cx="667.0" cy="1683.0" r="12.0" fill="#E7A9B4"/><circle cx="656.6" cy="1697.3" r="12.0" fill="#E7A9B4"/><circle cx="639.9" cy="1691.8" r="12.0" fill="#E7A9B4"/><circle cx="639.9" cy="1674.2" r="12.0" fill="#E7A9B4"/><circle cx="656.6" cy="1668.7" r="12.0" fill="#E7A9B4"/><circle cx="652" cy="1683" r="8.2" fill="#E9C46A"/><circle cx="371.0" cy="24.0" r="11.2" fill="#E7A9B4"/><circle cx="361.3" cy="37.3" r="11.2" fill="#E7A9B4"/><circle cx="345.7" cy="32.2" r="11.2" fill="#E7A9B4"/><circle cx="345.7" cy="15.8" r="11.2" fill="#E7A9B4"/><circle cx="361.3" cy="10.7" r="11.2" fill="#E7A9B4"/><circle cx="357" cy="24" r="7.7" fill="#E9C46A"/><circle cx="305.0" cy="1866.0" r="10.4" fill="#E7A9B4"/><circle cx="296.0" cy="1878.4" r="10.4" fill="#E7A9B4"/><circle cx="281.5" cy="1873.6" r="10.4" fill="#E7A9B4"/><circle cx="281.5" cy="1858.4" r="10.4" fill="#E7A9B4"/><circle cx="296.0" cy="1853.6" r="10.4" fill="#E7A9B4"/><circle cx="292" cy="1866" r="7.2" fill="#E9C46A"/><circle cx="715.0" cy="1148.0" r="10.4" fill="#E7A9B4"/><circle cx="706.0" cy="1160.4" r="10.4" fill="#E7A9B4"/><circle cx="691.5" cy="1155.6" r="10.4" fill="#E7A9B4"/><circle cx="691.5" cy="1140.4" r="10.4" fill="#E7A9B4"/><circle cx="706.0" cy="1135.6" r="10.4" fill="#E7A9B4"/><circle cx="702" cy="1148" r="7.2" fill="#E9C46A"/><circle cx="596.0" cy="767.0" r="12.8" fill="#E7A9B4"/><circle cx="584.9" cy="782.2" r="12.8" fill="#E7A9B4"/><circle cx="567.1" cy="776.4" r="12.8" fill="#E7A9B4"/><circle cx="567.1" cy="757.6" r="12.8" fill="#E7A9B4"/><circle cx="584.9" cy="751.8" r="12.8" fill="#E7A9B4"/><circle cx="580" cy="767" r="8.8" fill="#E9C46A"/><circle cx="147.0" cy="499.0" r="12.8" fill="#E7A9B4"/><circle cx="135.9" cy="514.2" r="12.8" fill="#E7A9B4"/><circle cx="118.1" cy="508.4" r="12.8" fill="#E7A9B4"/><circle cx="118.1" cy="489.6" r="12.8" fill="#E7A9B4"/><circle cx="135.9" cy="483.8" r="12.8" fill="#E7A9B4"/><circle cx="131" cy="499" r="8.8" fill="#E9C46A"/><circle cx="847.0" cy="3.0" r="11.2" fill="#E7A9B4"/><circle cx="837.3" cy="16.3" r="11.2" fill="#E7A9B4"/><circle cx="821.7" cy="11.2" r="11.2" fill="#E7A9B4"/><circle cx="821.7" cy="-5.2" r="11.2" fill="#E7A9B4"/><circle cx="837.3" cy="-10.3" r="11.2" fill="#E7A9B4"/><circle cx="833" cy="3" r="7.7" fill="#E9C46A"/><circle cx="575.0" cy="506.0" r="12.8" fill="#E7A9B4"/><circle cx="563.9" cy="521.2" r="12.8" fill="#E7A9B4"/><circle cx="546.1" cy="515.4" r="12.8" fill="#E7A9B4"/><circle cx="546.1" cy="496.6" r="12.8" fill="#E7A9B4"/><circle cx="563.9" cy="490.8" r="12.8" fill="#E7A9B4"/><circle cx="559" cy="506" r="8.8" fill="#E9C46A"/><path d="M90 120 C60 60 150 20 200 80 C240 20 340 60 300 140 C270 200 200 240 200 260 C190 230 110 190 90 120 Z" fill="#CDBBA2" opacity=".85"/></svg><div class="cam-body"><div class="cam-screen"></div><div class="cam-dial"><span>M</span></div><div class="cam-btn b1"></div><div class="cam-btn b2"></div><div class="cam-grill"></div></div><svg class="lily" viewBox="0 0 200 200"><circle cx="138.0" cy="100.0" r="30.4" fill="#E6A1B5"/><circle cx="111.7" cy="136.1" r="30.4" fill="#E6A1B5"/><circle cx="69.3" cy="122.3" r="30.4" fill="#E6A1B5"/><circle cx="69.3" cy="77.7" r="30.4" fill="#E6A1B5"/><circle cx="111.7" cy="63.9" r="30.4" fill="#E6A1B5"/><circle cx="100" cy="100" r="20.9" fill="#E9C46A"/><circle cx="172.0" cy="160.0" r="17.6" fill="#F0BFCB"/><circle cx="156.8" cy="180.9" r="17.6" fill="#F0BFCB"/><circle cx="132.2" cy="172.9" r="17.6" fill="#F0BFCB"/><circle cx="132.2" cy="147.1" r="17.6" fill="#F0BFCB"/><circle cx="156.8" cy="139.1" r="17.6" fill="#F0BFCB"/><circle cx="150" cy="160" r="12.1" fill="#E9C46A"/></svg></div>
+<div id="cam1-bz" class="clip cam-bezel" data-start="60.267" data-duration="4.633" data-track-index="10" style=""></div>
+<div id="cam1-t69" class="clip ftext ftext-red" data-start="60.267" data-duration="0.966" data-track-index="11" style=""><div class="lk"><span class="lk-s">I look at</span><span class="lk-c">this woman</span></div></div>
+<div id="cam1-t70" class="clip ftext ftext-red" data-start="61.233" data-duration="1.200" data-track-index="11" style=""><div class="lk"><span class="lk-s">with a</span><span class="lk-c">straight face</span></div></div>
+<div id="cam1-t71" class="clip ftext ftext-red" data-start="62.433" data-duration="0.667" data-track-index="11" style=""><div class="lk"><span class="lk-s">and I</span><span class="lk-c">say</span></div></div>
+<div id="cam1-t72" class="clip ftext ftext-red" data-start="63.100" data-duration="0.767" data-track-index="11" style=""><div class="lk"><span class="lk-s">ma&#x27;am</span><span class="lk-c">aap thode</span></div></div>
+<div id="cam1-t73" class="clip ftext ftext-red" data-start="63.867" data-duration="1.033" data-track-index="11" style=""><div class="lk"><span class="lk-s">jobless</span><span class="lk-c">ho kya?</span></div></div>
+<div id="pink1-bg" class="clip fbg fbg-pink" data-start="79.100" data-duration="2.467" data-track-index="9" style=""><div class="bokeh"></div><svg class="hearts" viewBox="0 0 1080 1920" width="1080" height="1920"><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(563,408) scale(0.41)" fill="#fff" opacity="0.35"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(655,906) scale(0.31)" fill="#fff" opacity="0.44"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(774,1618) scale(0.50)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(506,956) scale(0.58)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(334,636) scale(0.44)" fill="#fff" opacity="0.36"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(227,1797) scale(0.48)" fill="#fff" opacity="0.45"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(85,176) scale(0.58)" fill="#fff" opacity="0.56"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(354,20) scale(0.63)" fill="#fff" opacity="0.27"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(538,1558) scale(0.64)" fill="#fff" opacity="0.50"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(143,511) scale(0.37)" fill="#fff" opacity="0.33"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(847,1468) scale(0.75)" fill="#fff" opacity="0.53"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(892,875) scale(0.73)" fill="#fff" opacity="0.25"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(252,1643) scale(0.28)" fill="#fff" opacity="0.37"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(303,64) scale(0.60)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(948,1405) scale(0.36)" fill="#fff" opacity="0.60"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(747,1129) scale(0.52)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(949,1237) scale(0.50)" fill="#fff" opacity="0.63"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(240,586) scale(0.25)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(862,480) scale(0.52)" fill="#fff" opacity="0.50"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(454,89) scale(0.44)" fill="#fff" opacity="0.60"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(647,446) scale(0.54)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(549,971) scale(0.53)" fill="#fff" opacity="0.30"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(928,1645) scale(0.27)" fill="#fff" opacity="0.59"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(764,408) scale(0.37)" fill="#fff" opacity="0.48"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(538,784) scale(0.40)" fill="#fff" opacity="0.42"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(155,522) scale(0.45)" fill="#fff" opacity="0.65"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(691,685) scale(0.74)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(959,327) scale(0.38)" fill="#fff" opacity="0.48"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(180,1175) scale(0.53)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(870,594) scale(0.53)" fill="#fff" opacity="0.63"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(336,1016) scale(0.38)" fill="#fff" opacity="0.57"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(273,965) scale(0.38)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(1005,1480) scale(0.52)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(494,597) scale(0.50)" fill="#fff" opacity="0.38"/></svg></div>
+<div id="pink1-t88" class="clip ftext ftext-white" data-start="79.100" data-duration="0.633" data-track-index="11" style=""><div class="lk"><span class="lk-s">and I&#x27;m</span><span class="lk-c">just like</span></div></div>
+<div id="pink1-t89" class="clip ftext ftext-white" data-start="79.733" data-duration="0.967" data-track-index="11" style=""><div class="lk"><span class="lk-s">itna toh maine</span><span class="lk-c">kuch nahi</span></div></div>
+<div id="pink1-t90" class="clip ftext ftext-white" data-start="80.700" data-duration="0.867" data-track-index="11" style=""><div class="lk"><span class="lk-s">bola tha</span><span class="lk-c">girliepop</span></div></div>
+<div id="pink2-bg" class="clip fbg fbg-pink" data-start="122.833" data-duration="3.434" data-track-index="9" style=""><div class="bokeh"></div><svg class="hearts" viewBox="0 0 1080 1920" width="1080" height="1920"><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(563,408) scale(0.41)" fill="#fff" opacity="0.35"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(655,906) scale(0.31)" fill="#fff" opacity="0.44"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(774,1618) scale(0.50)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(506,956) scale(0.58)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(334,636) scale(0.44)" fill="#fff" opacity="0.36"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(227,1797) scale(0.48)" fill="#fff" opacity="0.45"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(85,176) scale(0.58)" fill="#fff" opacity="0.56"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(354,20) scale(0.63)" fill="#fff" opacity="0.27"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(538,1558) scale(0.64)" fill="#fff" opacity="0.50"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(143,511) scale(0.37)" fill="#fff" opacity="0.33"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(847,1468) scale(0.75)" fill="#fff" opacity="0.53"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(892,875) scale(0.73)" fill="#fff" opacity="0.25"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(252,1643) scale(0.28)" fill="#fff" opacity="0.37"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(303,64) scale(0.60)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(948,1405) scale(0.36)" fill="#fff" opacity="0.60"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(747,1129) scale(0.52)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(949,1237) scale(0.50)" fill="#fff" opacity="0.63"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(240,586) scale(0.25)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(862,480) scale(0.52)" fill="#fff" opacity="0.50"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(454,89) scale(0.44)" fill="#fff" opacity="0.60"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(647,446) scale(0.54)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(549,971) scale(0.53)" fill="#fff" opacity="0.30"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(928,1645) scale(0.27)" fill="#fff" opacity="0.59"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(764,408) scale(0.37)" fill="#fff" opacity="0.48"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(538,784) scale(0.40)" fill="#fff" opacity="0.42"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(155,522) scale(0.45)" fill="#fff" opacity="0.65"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(691,685) scale(0.74)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(959,327) scale(0.38)" fill="#fff" opacity="0.48"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(180,1175) scale(0.53)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(870,594) scale(0.53)" fill="#fff" opacity="0.63"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(336,1016) scale(0.38)" fill="#fff" opacity="0.57"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(273,965) scale(0.38)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(1005,1480) scale(0.52)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(494,597) scale(0.50)" fill="#fff" opacity="0.38"/></svg></div>
+<div id="pink2-t131" class="clip ftext ftext-white" data-start="122.833" data-duration="1.067" data-track-index="11" style=""><div class="lk"><span class="lk-s">and we</span><span class="lk-c">both have</span></div></div>
+<div id="pink2-t132" class="clip ftext ftext-white" data-start="123.900" data-duration="1.500" data-track-index="11" style=""><div class="lk"><span class="lk-s">died</span><span class="lk-c">laughing</span></div></div>
+<div id="pink2-t133" class="clip ftext ftext-white" data-start="125.400" data-duration="0.867" data-track-index="11" style=""><div class="lk"><span class="lk-s">humse ho hi</span><span class="lk-c">nahi paa raha</span></div></div>
+<div id="pol2-bg" class="clip fbg fbg-pol" data-start="145.467" data-duration="2.666" data-track-index="9" style=""><div class="pol-card"></div><svg class="pol-heart" viewBox="0 0 100 92"><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" fill="#B5121B" opacity="0.92"/><path d="M30 20 C22 26 20 36 26 46" stroke="#fff" stroke-width="4" fill="none" opacity=".5" stroke-linecap="round"/></svg></div>
+<div id="pol2-t150" class="clip ftext ftext-red" data-start="145.467" data-duration="0.666" data-track-index="11" style=""><div class="lk"><span class="lk-s">and it</span><span class="lk-c">has a</span></div></div>
+<div id="pol2-t151" class="clip ftext ftext-red" data-start="146.133" data-duration="1.167" data-track-index="11" style=""><div class="lk"><span class="lk-s">very thin</span><span class="lk-c">coating</span></div></div>
+<div id="pol2-t152" class="clip ftext ftext-red" data-start="147.300" data-duration="0.833" data-track-index="11" style=""><div class="lk"><span class="lk-s">I love to</span><span class="lk-c">eat it</span></div></div>
+<div id="pink3-bg" class="clip fbg fbg-pink" data-start="156.300" data-duration="3.380" data-track-index="9" style=""><div class="bokeh"></div><svg class="hearts" viewBox="0 0 1080 1920" width="1080" height="1920"><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(563,408) scale(0.41)" fill="#fff" opacity="0.35"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(655,906) scale(0.31)" fill="#fff" opacity="0.44"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(774,1618) scale(0.50)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(506,956) scale(0.58)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(334,636) scale(0.44)" fill="#fff" opacity="0.36"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(227,1797) scale(0.48)" fill="#fff" opacity="0.45"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(85,176) scale(0.58)" fill="#fff" opacity="0.56"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(354,20) scale(0.63)" fill="#fff" opacity="0.27"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(538,1558) scale(0.64)" fill="#fff" opacity="0.50"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(143,511) scale(0.37)" fill="#fff" opacity="0.33"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(847,1468) scale(0.75)" fill="#fff" opacity="0.53"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(892,875) scale(0.73)" fill="#fff" opacity="0.25"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(252,1643) scale(0.28)" fill="#fff" opacity="0.37"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(303,64) scale(0.60)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(948,1405) scale(0.36)" fill="#fff" opacity="0.60"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(747,1129) scale(0.52)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(949,1237) scale(0.50)" fill="#fff" opacity="0.63"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(240,586) scale(0.25)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(862,480) scale(0.52)" fill="#fff" opacity="0.50"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(454,89) scale(0.44)" fill="#fff" opacity="0.60"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(647,446) scale(0.54)" fill="#fff" opacity="0.26"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(549,971) scale(0.53)" fill="#fff" opacity="0.30"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(928,1645) scale(0.27)" fill="#fff" opacity="0.59"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(764,408) scale(0.37)" fill="#fff" opacity="0.48"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(538,784) scale(0.40)" fill="#fff" opacity="0.42"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(155,522) scale(0.45)" fill="#fff" opacity="0.65"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(691,685) scale(0.74)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(959,327) scale(0.38)" fill="#fff" opacity="0.48"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(180,1175) scale(0.53)" fill="#fff" opacity="0.46"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(870,594) scale(0.53)" fill="#fff" opacity="0.63"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(336,1016) scale(0.38)" fill="#fff" opacity="0.57"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(273,965) scale(0.38)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(1005,1480) scale(0.52)" fill="#fff" opacity="0.64"/><path d="M50 88 C20 66 4 48 4 30 C4 14 16 4 30 4 C40 4 47 10 50 18 C53 10 60 4 70 4 C84 4 96 14 96 30 C96 48 80 66 50 88 Z" transform="translate(494,597) scale(0.50)" fill="#fff" opacity="0.38"/></svg></div>
+<div id="pink3-t159" class="clip ftext ftext-white" data-start="156.300" data-duration="0.867" data-track-index="11" style=""><div class="lk"><span class="lk-c">umm</span></div></div>
+<div id="pink3-t160" class="clip ftext ftext-white" data-start="157.167" data-duration="1.100" data-track-index="11" style=""><div class="lk"><span class="lk-s">umm</span><span class="lk-c">umm umm...</span></div></div>
+<div id="pink3-t161" class="clip ftext ftext-white" data-start="158.267" data-duration="1.266" data-track-index="11" style=""><div class="lk"><span class="lk-s">umm umm</span><span class="lk-c">umm umm...</span></div></div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#sub1 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},0.777);
+tl.fromTo("#sub5 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},5.177);
+tl.fromTo("#sub13 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},10.643);
+tl.fromTo("#sub14 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},11.177);
+tl.fromTo("#sub16 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},12.777);
+tl.fromTo("#sub17 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},13.677);
+tl.fromTo("#sub20 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},16.443);
+tl.fromTo("#sub21 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},17.210);
+tl.fromTo("#sub23 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},18.677);
+tl.fromTo("#sub24 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},19.543);
+tl.fromTo("#sub25 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},20.077);
+tl.fromTo("#sub31 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},24.610);
+tl.fromTo("#sub32 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},25.210);
+tl.fromTo("#sub35 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},27.010);
+tl.fromTo("#sub37 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},29.210);
+tl.fromTo("#sub38 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},29.877);
+tl.fromTo("#sub39 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},31.110);
+tl.fromTo("#sub41 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},33.110);
+tl.fromTo("#sub43 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},34.943);
+tl.fromTo("#sub44 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},36.710);
+tl.fromTo("#sub45 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},37.610);
+tl.fromTo("#sub46 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},38.543);
+tl.fromTo("#sub47 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},39.510);
+tl.fromTo("#sub48 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},40.510);
+tl.fromTo("#sub49 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},41.377);
+tl.fromTo("#sub50 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},42.010);
+tl.fromTo("#sub51 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},42.743);
+tl.fromTo("#sub53 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},45.343);
+tl.fromTo("#sub56 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},47.710);
+tl.fromTo("#sub57 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},48.410);
+tl.fromTo("#sub58 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},49.377);
+tl.fromTo("#sub60 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},51.577);
+tl.fromTo("#sub61 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},52.243);
+tl.fromTo("#sub62 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},52.877);
+tl.fromTo("#sub64 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},55.877);
+tl.fromTo("#sub65 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},56.943);
+tl.fromTo("#sub68 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},59.277);
+tl.fromTo("#sub74 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},64.910);
+tl.fromTo("#sub76 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},67.210);
+tl.fromTo("#sub78 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},70.343);
+tl.fromTo("#sub79 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},71.110);
+tl.fromTo("#sub80 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},71.743);
+tl.fromTo("#sub81 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},72.577);
+tl.fromTo("#sub82 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},73.477);
+tl.fromTo("#sub83 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},74.910);
+tl.fromTo("#sub85 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},76.877);
+tl.fromTo("#sub86 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},77.877);
+tl.fromTo("#sub87 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},78.777);
+tl.fromTo("#sub91 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},81.577);
+tl.fromTo("#sub92 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},82.510);
+tl.fromTo("#sub93 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},83.310);
+tl.fromTo("#sub94 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},84.743);
+tl.fromTo("#sub95 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},85.743);
+tl.fromTo("#sub104 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},96.210);
+tl.fromTo("#sub105 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},97.010);
+tl.fromTo("#sub106 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},98.043);
+tl.fromTo("#sub108 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},99.743);
+tl.fromTo("#sub109 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},100.443);
+tl.fromTo("#sub111 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},103.110);
+tl.fromTo("#sub112 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},103.710);
+tl.fromTo("#sub113 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},104.777);
+tl.fromTo("#sub114 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},106.810);
+tl.fromTo("#sub116 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},110.077);
+tl.fromTo("#sub117 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},110.977);
+tl.fromTo("#sub118 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},111.910);
+tl.fromTo("#sub119 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},112.777);
+tl.fromTo("#sub120 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},113.610);
+tl.fromTo("#sub122 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},115.210);
+tl.fromTo("#sub123 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},116.143);
+tl.fromTo("#sub125 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},117.810);
+tl.fromTo("#sub126 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},118.677);
+tl.fromTo("#sub127 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},119.710);
+tl.fromTo("#sub128 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},120.843);
+tl.fromTo("#sub134 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},126.277);
+tl.fromTo("#sub135 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},127.810);
+tl.fromTo("#sub136 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},128.877);
+tl.fromTo("#sub138 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},130.810);
+tl.fromTo("#sub139 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},132.010);
+tl.fromTo("#sub140 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},132.977);
+tl.fromTo("#sub146 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},141.143);
+tl.fromTo("#sub154 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},149.943);
+tl.fromTo("#sub155 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},151.177);
+tl.fromTo("#sub157 span",{opacity:0,scale:0.94},{opacity:1,scale:1,duration:0.16,ease:"power2.out",immediateRender:false},153.343);
+tl.fromTo("#em0 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},0.020);
+tl.fromTo("#em0 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},0.100);
+tl.fromTo("#em15 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},12.053);
+tl.fromTo("#em15 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},12.133);
+tl.fromTo("#em19 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},15.887);
+tl.fromTo("#em19 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},15.967);
+tl.fromTo("#em33 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},25.753);
+tl.fromTo("#em33 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},25.833);
+tl.fromTo("#em36 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},28.220);
+tl.fromTo("#em36 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},28.300);
+tl.fromTo("#em52 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},43.887);
+tl.fromTo("#em52 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},43.967);
+tl.fromTo("#em59 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},50.687);
+tl.fromTo("#em59 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},50.767);
+tl.fromTo("#em63 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},54.553);
+tl.fromTo("#em63 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},54.633);
+tl.fromTo("#em77 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},68.520);
+tl.fromTo("#em77 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},68.600);
+tl.fromTo("#em84 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},75.987);
+tl.fromTo("#em84 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},76.067);
+tl.fromTo("#em97 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},89.053);
+tl.fromTo("#em97 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},89.133);
+tl.fromTo("#em107 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},98.987);
+tl.fromTo("#em107 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},99.067);
+tl.fromTo("#em110 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},102.320);
+tl.fromTo("#em110 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},102.400);
+tl.fromTo("#em115 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},107.820);
+tl.fromTo("#em115 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},107.900);
+tl.fromTo("#em124 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},116.853);
+tl.fromTo("#em124 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},116.933);
+tl.fromTo("#em149 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},144.620);
+tl.fromTo("#em149 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},144.700);
+tl.fromTo("#em158 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},154.987);
+tl.fromTo("#em158 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},155.067);
+tl.fromTo("#y6 span",{x:-30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},5.853);
+tl.fromTo("#y22 span",{x:30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},18.120);
+tl.fromTo("#y34 span",{x:-30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},26.453);
+tl.fromTo("#y54 span",{x:30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},45.953);
+tl.fromTo("#y55 span",{x:-30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},46.920);
+tl.fromTo("#y75 span",{x:30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},65.720);
+tl.fromTo("#y137 span",{x:30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},129.587);
+tl.fromTo("#y148 span",{x:-30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},143.687);
+tl.fromTo("#y153 span",{x:30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},148.153);
+tl.fromTo("#y156 span",{x:-30,opacity:0,rotation:-3},{x:0,opacity:1,rotation:-3,duration:0.3,ease:"back.out(2)",immediateRender:false},152.153);
+tl.fromTo("#lb147 span",{y:16,opacity:0},{y:0,opacity:1,duration:0.25,ease:"power2.out",immediateRender:false},142.453);
+tl.set("#tw0 .ch",{opacity:0,maxWidth:"0em"},6.500);
+tl.fromTo("#tw0 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},6.500);
+tl.set("#tw0 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},6.620);
+tl.set("#tw0 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},6.656);
+tl.set("#tw0 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},6.692);
+tl.set("#tw0 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},6.728);
+tl.set("#tw0 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},6.764);
+tl.set("#tw0 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},6.800);
+tl.set("#tw0 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},6.835);
+tl.set("#tw0 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},6.871);
+tl.set("#tw0 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},6.907);
+tl.set("#tw0 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},6.943);
+tl.set("#tw0 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},6.979);
+tl.set("#tw0 .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},7.015);
+tl.set("#tw0 .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},7.051);
+tl.fromTo("#tw0 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:1,yoyo:true,immediateRender:false},6.500);
+tl.set("#tw1 .ch",{opacity:0,maxWidth:"0em"},14.767);
+tl.fromTo("#tw1 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},14.767);
+tl.set("#tw1 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},14.887);
+tl.set("#tw1 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},14.946);
+tl.set("#tw1 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},15.005);
+tl.set("#tw1 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},15.065);
+tl.set("#tw1 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},15.124);
+tl.set("#tw1 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},15.183);
+tl.set("#tw1 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},15.242);
+tl.set("#tw1 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},15.302);
+tl.set("#tw1 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},15.361);
+tl.set("#tw1 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},15.420);
+tl.set("#tw1 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},15.479);
+tl.set("#tw1 .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},15.539);
+tl.set("#tw1 .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},15.598);
+tl.fromTo("#tw1 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:2,yoyo:true,immediateRender:false},14.767);
+tl.set("#tw2 .ch",{opacity:0,maxWidth:"0em"},33.900);
+tl.fromTo("#tw2 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},33.900);
+tl.set("#tw2 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},34.020);
+tl.set("#tw2 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},34.085);
+tl.set("#tw2 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},34.150);
+tl.set("#tw2 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},34.215);
+tl.set("#tw2 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},34.280);
+tl.set("#tw2 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},34.345);
+tl.set("#tw2 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},34.410);
+tl.set("#tw2 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},34.475);
+tl.set("#tw2 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},34.540);
+tl.fromTo("#tw2 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:2,yoyo:true,immediateRender:false},33.900);
+tl.set("#tw3 .ch",{opacity:0,maxWidth:"0em"},86.867);
+tl.fromTo("#tw3 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},86.867);
+tl.set("#tw3 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},86.987);
+tl.set("#tw3 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},87.052);
+tl.set("#tw3 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},87.117);
+tl.set("#tw3 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},87.182);
+tl.set("#tw3 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},87.247);
+tl.set("#tw3 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},87.312);
+tl.set("#tw3 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},87.377);
+tl.set("#tw3 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},87.442);
+tl.set("#tw3 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},87.507);
+tl.set("#tw3 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},87.572);
+tl.set("#tw3 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},87.637);
+tl.fromTo("#tw3 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:4,yoyo:true,immediateRender:false},86.867);
+tl.set("#tw4 .ch",{opacity:0,maxWidth:"0em"},121.733);
+tl.fromTo("#tw4 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},121.733);
+tl.set("#tw4 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},121.853);
+tl.set("#tw4 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},121.881);
+tl.set("#tw4 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},121.908);
+tl.set("#tw4 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},121.936);
+tl.set("#tw4 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},121.963);
+tl.set("#tw4 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},121.991);
+tl.set("#tw4 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},122.018);
+tl.set("#tw4 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},122.046);
+tl.set("#tw4 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},122.073);
+tl.set("#tw4 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},122.101);
+tl.set("#tw4 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},122.128);
+tl.set("#tw4 .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},122.156);
+tl.set("#tw4 .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},122.183);
+tl.set("#tw4 .ch:nth-child(14)",{opacity:1,maxWidth:"2em"},122.211);
+tl.set("#tw4 .ch:nth-child(15)",{opacity:1,maxWidth:"2em"},122.238);
+tl.set("#tw4 .ch:nth-child(16)",{opacity:1,maxWidth:"2em"},122.266);
+tl.set("#tw4 .ch:nth-child(17)",{opacity:1,maxWidth:"2em"},122.293);
+tl.set("#tw4 .ch:nth-child(18)",{opacity:1,maxWidth:"2em"},122.321);
+tl.set("#tw4 .ch:nth-child(19)",{opacity:1,maxWidth:"2em"},122.348);
+tl.set("#tw4 .ch:nth-child(20)",{opacity:1,maxWidth:"2em"},122.376);
+tl.set("#tw4 .ch:nth-child(21)",{opacity:1,maxWidth:"2em"},122.403);
+tl.set("#tw4 .ch:nth-child(22)",{opacity:1,maxWidth:"2em"},122.431);
+tl.set("#tw4 .ch:nth-child(23)",{opacity:1,maxWidth:"2em"},122.458);
+tl.set("#tw4 .ch:nth-child(24)",{opacity:1,maxWidth:"2em"},122.486);
+tl.set("#tw4 .ch:nth-child(25)",{opacity:1,maxWidth:"2em"},122.513);
+tl.set("#tw4 .ch:nth-child(26)",{opacity:1,maxWidth:"2em"},122.541);
+tl.set("#tw4 .ch:nth-child(27)",{opacity:1,maxWidth:"2em"},122.568);
+tl.set("#tw4 .ch:nth-child(28)",{opacity:1,maxWidth:"2em"},122.596);
+tl.fromTo("#tw4 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:2,yoyo:true,immediateRender:false},121.733);
+tl.fromTo("#arc40 svg",{opacity:0,rotation:-6,transformOrigin:"50% 90%"},{opacity:1,rotation:0,duration:0.4,ease:"power3.out",immediateRender:false},31.887);
+tl.fromTo("#arc121 svg",{opacity:0,rotation:-6,transformOrigin:"50% 90%"},{opacity:1,rotation:0,duration:0.4,ease:"power3.out",immediateRender:false},114.487);
+tl.fromTo("#prod .lk-s",{y:20,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out",immediateRender:false},139.087);
+tl.fromTo("#prod .pl",{opacity:0,y:14},{opacity:1,y:0,duration:0.22,stagger:0.045,ease:"power2.out",immediateRender:false},139.317);
+tl.set("#card1 .ln",{opacity:0},2.100);
+tl.fromTo("#card1 .ln:nth-child(1)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"power3.out",immediateRender:false},2.120);
+tl.fromTo("#card1 .ln:nth-child(2)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"back.out(1.6)",immediateRender:false},2.670);
+tl.fromTo("#card1 .ln:nth-child(3)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"expo.out",immediateRender:false},3.653);
+tl.fromTo("#card1 .ln:nth-child(4)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"power3.out",immediateRender:false},4.453);
+tl.fromTo("#card1 .ln:nth-child(5)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"back.out(1.6)",immediateRender:false},4.753);
+tl.set("#card2 .ln",{opacity:0},57.567);
+tl.fromTo("#card2 .ln:nth-child(1)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"power3.out",immediateRender:false},57.587);
+tl.fromTo("#card2 .ln:nth-child(2)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"back.out(1.6)",immediateRender:false},58.553);
+tl.fromTo("#card2 .ln:nth-child(3)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"expo.out",immediateRender:false},58.903);
+tl.set("#card3 .ln",{opacity:0},90.567);
+tl.fromTo("#card3 .ln:nth-child(1)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"power3.out",immediateRender:false},90.587);
+tl.fromTo("#card3 .ln:nth-child(2)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"back.out(1.6)",immediateRender:false},91.087);
+tl.fromTo("#card3 .ln:nth-child(3)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"expo.out",immediateRender:false},91.487);
+tl.fromTo("#card3 .ln:nth-child(4)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"power3.out",immediateRender:false},92.087);
+tl.set("#card4 .ln",{opacity:0},92.900);
+tl.fromTo("#card4 .ln:nth-child(1)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"power3.out",immediateRender:false},92.920);
+tl.fromTo("#card4 .ln:nth-child(2)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"back.out(1.6)",immediateRender:false},93.220);
+tl.fromTo("#card4 .ln:nth-child(3)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"expo.out",immediateRender:false},93.953);
+tl.fromTo("#card4 .ln:nth-child(4)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"power3.out",immediateRender:false},94.403);
+tl.fromTo("#card4 .ln:nth-child(5)",{opacity:0,y:30},{opacity:1,y:0,duration:0.32,ease:"back.out(1.6)",immediateRender:false},95.220);
+tl.set("#col1 .ln",{opacity:0},7.167);
+tl.fromTo("#col1 .ln:nth-child(1)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},7.187);
+tl.fromTo("#col1 .ln:nth-child(2)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},7.537);
+tl.fromTo("#col1 .ln:nth-child(3)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},8.087);
+tl.fromTo("#col1 .ln:nth-child(4)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},8.387);
+tl.fromTo("#col1 .ln:nth-child(5)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},8.953);
+tl.fromTo("#col1 .ln:nth-child(6)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},9.420);
+tl.fromTo("#col1 .ln:nth-child(7)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},10.187);
+tl.set(["#col1-f0","#col1-w0"],{opacity:0},7.167);
+tl.fromTo(["#col1-f0","#col1-w0"],{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)",immediateRender:false},7.167);
+tl.set("#col1-w0",{opacity:0},10.633);
+tl.set("#col1-w0",{opacity:0},0);
+tl.set(["#col1-f1","#col1-w1"],{opacity:0},7.167);
+tl.fromTo(["#col1-f1","#col1-w1"],{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)",immediateRender:false},7.287);
+tl.set("#col1-w1",{opacity:0},10.633);
+tl.set("#col1-w1",{opacity:0},0);
+tl.set(["#col1-f2","#col1-w2"],{opacity:0},7.167);
+tl.fromTo(["#col1-f2","#col1-w2"],{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)",immediateRender:false},7.407);
+tl.set("#col1-w2",{opacity:0},10.633);
+tl.set("#col1-w2",{opacity:0},0);
+tl.set("#col2 .ln",{opacity:0},133.800);
+tl.fromTo("#col2 .ln:nth-child(1)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},133.820);
+tl.fromTo("#col2 .ln:nth-child(2)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},134.220);
+tl.fromTo("#col2 .ln:nth-child(3)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},135.053);
+tl.fromTo("#col2 .ln:nth-child(4)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},135.887);
+tl.fromTo("#col2 .ln:nth-child(5)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},136.237);
+tl.fromTo("#col2 .ln:nth-child(6)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},137.187);
+tl.fromTo("#col2 .ln:nth-child(7)",{opacity:0,y:22},{opacity:1,y:0,duration:0.3,ease:"power3.out",immediateRender:false},137.537);
+tl.set(["#col2-f0","#col2-w0"],{opacity:0},133.800);
+tl.fromTo(["#col2-f0","#col2-w0"],{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)",immediateRender:false},133.800);
+tl.set("#col2-w0",{opacity:0},139.067);
+tl.set("#col2-w0",{opacity:0},0);
+tl.set(["#col2-f1","#col2-w1"],{opacity:0},133.800);
+tl.fromTo(["#col2-f1","#col2-w1"],{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)",immediateRender:false},133.920);
+tl.set("#col2-w1",{opacity:0},139.067);
+tl.set("#col2-w1",{opacity:0},0);
+tl.set(["#col2-f2","#col2-w2"],{opacity:0},133.800);
+tl.fromTo(["#col2-f2","#col2-w2"],{scale:0.86,opacity:0},{scale:1,opacity:1,duration:0.32,ease:"back.out(1.8)",immediateRender:false},134.040);
+tl.set("#col2-w2",{opacity:0},139.067);
+tl.set("#col2-w2",{opacity:0},0);
+tl.set("#face-wrap",{scale:0.76,y:40,clipPath:"inset(210.0px 26.8px 367.9px 26.8px round 7.9px)"},20.433);
+tl.fromTo("#face-wrap",{scale:0.7828},{scale:0.76,duration:0.12,ease:"power2.out",immediateRender:false},20.433);
+tl.set("#face-wrap",{scale:1,y:0,clipPath:"inset(0px 0px 0px 0px round 0px)"},24.600);
+tl.fromTo("#pol1-t26 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},20.453);
+tl.fromTo("#pol1-t26 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},20.533);
+tl.fromTo("#pol1-t27 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},21.320);
+tl.fromTo("#pol1-t27 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},21.400);
+tl.fromTo("#pol1-t28 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},22.153);
+tl.fromTo("#pol1-t28 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},22.233);
+tl.fromTo("#pol1-t29 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},22.787);
+tl.fromTo("#pol1-t29 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},22.867);
+tl.fromTo("#pol1-t30 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},23.487);
+tl.fromTo("#pol1-t30 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},23.567);
+tl.set("#face-wrap",{scale:0.76,y:70,clipPath:"inset(341.6px 59.7px 696.8px 59.7px round 18.4px)"},60.267);
+tl.fromTo("#face-wrap",{scale:0.7828},{scale:0.76,duration:0.12,ease:"power2.out",immediateRender:false},60.267);
+tl.set("#face-wrap",{scale:1,y:0,clipPath:"inset(0px 0px 0px 0px round 0px)"},64.900);
+tl.fromTo("#cam1-t69 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},60.287);
+tl.fromTo("#cam1-t69 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},60.367);
+tl.fromTo("#cam1-t70 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},61.253);
+tl.fromTo("#cam1-t70 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},61.333);
+tl.fromTo("#cam1-t71 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},62.453);
+tl.fromTo("#cam1-t71 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},62.533);
+tl.fromTo("#cam1-t72 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},63.120);
+tl.fromTo("#cam1-t72 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},63.200);
+tl.fromTo("#cam1-t73 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},63.887);
+tl.fromTo("#cam1-t73 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},63.967);
+tl.set("#face-wrap",{scale:0.89,y:0,clipPath:"inset(49.9px 11.9px 49.9px 11.9px round 24.7px)"},79.100);
+tl.fromTo("#face-wrap",{scale:0.9167},{scale:0.89,duration:0.12,ease:"power2.out",immediateRender:false},79.100);
+tl.set("#face-wrap",{scale:1,y:0,clipPath:"inset(0px 0px 0px 0px round 0px)"},81.567);
+tl.fromTo("#pink1-t88 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},79.120);
+tl.fromTo("#pink1-t88 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},79.200);
+tl.fromTo("#pink1-t89 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},79.753);
+tl.fromTo("#pink1-t89 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},79.833);
+tl.fromTo("#pink1-t90 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},80.720);
+tl.fromTo("#pink1-t90 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},80.800);
+tl.set("#face-wrap",{scale:0.89,y:0,clipPath:"inset(49.9px 11.9px 49.9px 11.9px round 24.7px)"},122.833);
+tl.fromTo("#face-wrap",{scale:0.9167},{scale:0.89,duration:0.12,ease:"power2.out",immediateRender:false},122.833);
+tl.set("#face-wrap",{scale:1,y:0,clipPath:"inset(0px 0px 0px 0px round 0px)"},126.267);
+tl.fromTo("#pink2-t131 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},122.853);
+tl.fromTo("#pink2-t131 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},122.933);
+tl.fromTo("#pink2-t132 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},123.920);
+tl.fromTo("#pink2-t132 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},124.000);
+tl.fromTo("#pink2-t133 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},125.420);
+tl.fromTo("#pink2-t133 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},125.500);
+tl.set("#face-wrap",{scale:0.76,y:40,clipPath:"inset(210.0px 26.8px 367.9px 26.8px round 7.9px)"},145.467);
+tl.fromTo("#face-wrap",{scale:0.7828},{scale:0.76,duration:0.12,ease:"power2.out",immediateRender:false},145.467);
+tl.set("#face-wrap",{scale:1,y:0,clipPath:"inset(0px 0px 0px 0px round 0px)"},148.133);
+tl.fromTo("#pol2-t150 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},145.487);
+tl.fromTo("#pol2-t150 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},145.567);
+tl.fromTo("#pol2-t151 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},146.153);
+tl.fromTo("#pol2-t151 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},146.233);
+tl.fromTo("#pol2-t152 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},147.320);
+tl.fromTo("#pol2-t152 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},147.400);
+tl.set("#face-wrap",{scale:0.89,y:0,clipPath:"inset(49.9px 11.9px 49.9px 11.9px round 24.7px)"},156.300);
+tl.fromTo("#face-wrap",{scale:0.9167},{scale:0.89,duration:0.12,ease:"power2.out",immediateRender:false},156.300);
+tl.set("#face-wrap",{scale:1,y:0,clipPath:"inset(0px 0px 0px 0px round 0px)"},159.680);
+tl.fromTo("#pink3-t159 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},156.320);
+tl.fromTo("#pink3-t159 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},156.400);
+tl.fromTo("#pink3-t160 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},157.187);
+tl.fromTo("#pink3-t160 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},157.267);
+tl.fromTo("#pink3-t161 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.28,ease:"power3.out",immediateRender:false},158.287);
+tl.fromTo("#pink3-t161 .lk-c",{clipPath:"inset(0 100% 0 0)",x:-10},{clipPath:"inset(0 0% 0 0)",x:0,duration:0.5,ease:"power2.out",immediateRender:false},158.367);
+tl.set("#face-wrap",{scale:1.09},0.767);
+tl.set("#face-wrap",{scale:1},2.100);
+tl.set("#face-wrap",{scale:1.09},5.167);
+tl.set("#face-wrap",{scale:1},5.833);
+tl.set("#face-wrap",{scale:1.09},10.633);
+tl.set("#face-wrap",{scale:1},11.167);
+tl.set("#face-wrap",{scale:1.09},16.433);
+tl.set("#face-wrap",{scale:1},17.200);
+tl.set("#face-wrap",{scale:1.09},19.533);
+tl.set("#face-wrap",{scale:1},20.067);
+tl.set("#face-wrap",{scale:1.09},29.867);
+tl.set("#face-wrap",{scale:1},31.100);
+tl.set("#face-wrap",{scale:1.09},38.533);
+tl.set("#face-wrap",{scale:1},39.500);
+tl.set("#face-wrap",{scale:1.09},48.400);
+tl.set("#face-wrap",{scale:1},49.367);
+tl.set("#face-wrap",{scale:1.09},52.867);
+tl.set("#face-wrap",{scale:1},54.533);
+tl.set("#face-wrap",{scale:1.09},56.933);
+tl.set("#face-wrap",{scale:1},57.567);
+tl.set("#face-wrap",{scale:1.09},70.333);
+tl.set("#face-wrap",{scale:1},71.100);
+tl.set("#face-wrap",{scale:1.09},73.467);
+tl.set("#face-wrap",{scale:1},74.900);
+tl.set("#face-wrap",{scale:1.09},77.867);
+tl.set("#face-wrap",{scale:1},78.767);
+tl.set("#face-wrap",{scale:1.09},83.300);
+tl.set("#face-wrap",{scale:1},84.733);
+tl.set("#face-wrap",{scale:1.09},91.067);
+tl.set("#face-wrap",{scale:1},92.067);
+tl.set("#face-wrap",{scale:1.09},97.000);
+tl.set("#face-wrap",{scale:1},98.033);
+tl.set("#face-wrap",{scale:1.09},103.700);
+tl.set("#face-wrap",{scale:1},104.767);
+tl.set("#face-wrap",{scale:1.09},110.967);
+tl.set("#face-wrap",{scale:1},111.900);
+tl.set("#face-wrap",{scale:1.09},112.767);
+tl.set("#face-wrap",{scale:1},113.600);
+tl.set("#face-wrap",{scale:1.09},119.700);
+tl.set("#face-wrap",{scale:1},120.833);
+tl.set("#face-wrap",{scale:1.09},127.800);
+tl.set("#face-wrap",{scale:1},128.867);
+tl.set("#face-wrap",{scale:1.09},132.000);
+tl.set("#face-wrap",{scale:1},132.967);
+tl.set("#face-wrap",{scale:1.09},141.133);
+tl.set("#face-wrap",{scale:1},142.433);
+tl.set("#face-wrap",{scale:1.09},149.933);
+tl.set("#face-wrap",{scale:1},151.167);
+tl.set({}, {}, 159.68);
+window.__timelines["main"] = tl;
+</script>
+</div>
+</body></html>

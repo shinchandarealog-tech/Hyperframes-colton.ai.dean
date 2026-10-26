@@ -1,0 +1,104 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; background: #000; overflow: hidden; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #F3E6B5; font-family: "DM Sans", sans-serif; }
+
+#face-wrap { position: absolute; inset: 0; z-index: 2; transform-origin: 540px 960px; }
+#face { width: 1080px; height: 1920px; object-fit: cover; display: block; }
+
+/* ---- base subtitle: small white phrase, chest level ---- */
+.sub { position: absolute; left: 0; right: 0; top: 1205px; z-index: 40; display: flex; justify-content: center; padding: 0 70px; }
+.sub span { font-weight: 700; font-size: 50px; letter-spacing: -0.01em; color: #fff; text-align: center;
+  text-shadow: 0 2px 3px rgba(0,0,0,.75), 0 0 10px rgba(0,0,0,.55), 0 0 28px rgba(0,0,0,.45); display: inline-block; }
+
+/* ---- emphasis lockup: bold sans + overlapping script ---- */
+.emph { position: absolute; left: 0; right: 0; top: 200px; z-index: 41; display: flex; justify-content: center; }
+.lk { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 960px; }
+.lk-s { font-weight: 800; font-size: 60px; letter-spacing: -0.03em; color: #fff; line-height: 1; z-index: 1;
+  text-shadow: 0 3px 10px rgba(0,0,0,.45); }
+.lk-c { font-family: "Great Vibes", cursive; font-size: 150px; line-height: 0.9; color: #fff; margin-top: -26px; padding: 0 30px;
+  text-shadow: 0 4px 14px rgba(0,0,0,.45); }
+.prod .pc { font-family: "Pinyon Script", cursive; font-size: 104px; color: #fff; line-height: 1.1; margin-top: -6px;
+  text-shadow: 0 4px 14px rgba(0,0,0,.5); white-space: nowrap; }
+.prod .pc i { font-style: normal; display: inline-block; }
+
+/* ---- acid yellow inner-thought line ---- */
+.yel { position: absolute; top: 300px; z-index: 41; }
+.yel-l { left: 70px; } .yel-r { right: 70px; }
+.yel span { display: inline-block; font-weight: 800; font-style: italic; font-size: 64px; color: #E2F040; letter-spacing: -0.02em;
+  text-shadow: 0 3px 10px rgba(0,0,0,.45); }
+.label { position: absolute; left: 0; right: 0; top: 300px; z-index: 41; display: flex; justify-content: center; }
+.label span { font-weight: 500; font-size: 54px; color: #fff; text-shadow: 0 3px 10px rgba(0,0,0,.45); }
+
+/* ---- typewriter search bar ---- */
+.type { position: absolute; left: 0; right: 0; top: 270px; z-index: 41; display: flex; justify-content: center; }
+.type .bar { background: rgba(70,64,58,.55); border: 1.5px solid rgba(255,255,255,.35); border-radius: 18px; padding: 20px 34px;
+  min-width: 560px; max-width: 980px; display: flex; align-items: center; }
+.type .tw-t { font-weight: 600; font-size: 50px; color: #fff; letter-spacing: 0.01em; white-space: nowrap; }
+.type .ch { font-style: normal; display: inline-block; overflow: hidden; vertical-align: bottom; }
+.type .cur { font-weight: 300; font-size: 54px; color: #fff; margin-left: 4px; }
+
+/* ---- arc text ---- */
+.arc { position: absolute; left: 0; top: 120px; z-index: 41; width: 1080px; height: 520px; }
+.arc svg { overflow: visible; }
+.arc text { font-family: "DM Sans", sans-serif; font-weight: 700; font-size: 62px; fill: #fff; letter-spacing: 0.01em;
+  paint-order: stroke; stroke: rgba(0,0,0,.25); stroke-width: 4px; }
+
+/* ---- cream kinetic title card ---- */
+.card { position: absolute; inset: 0; z-index: 30; background: #F3E6B5; display: flex; align-items: center; justify-content: center; }
+.card-in { display: flex; flex-direction: column; align-items: flex-start; padding: 0 110px; width: 100%; }
+.ln { color: #A3161C; line-height: 0.95; white-space: nowrap; }
+.ln-script { font-family: "Great Vibes", cursive; font-size: 150px; margin-left: 0; line-height: 1.05; }
+.ln-bold { font-family: "Archivo Narrow", sans-serif; font-weight: 700; font-size: 132px; letter-spacing: -0.03em; margin-left: 120px; margin-top: -30px; }
+.ln-small { font-family: "Archivo Narrow", sans-serif; font-weight: 700; font-size: 84px; letter-spacing: -0.02em; margin-left: 60px; margin-top: 6px; }
+.card .ln:nth-child(odd) { align-self: flex-start; }
+
+/* ---- scrapbook collage ---- */
+.collage { position: absolute; inset: 0; z-index: 30; background: #F3E6B5; }
+.col-text { position: absolute; left: 540px; top: 200px; width: 490px; display: flex; flex-direction: column; }
+.collage .ln-script { font-size: 92px; margin: -4px 0 18px 26px; line-height: 1.1; }
+.collage .ln-small { font-size: 58px; margin: 4px 0 0 0; }
+.collage .ln-bold { font-size: 96px; margin: 0; }
+.plane { position: absolute; left: 600px; top: 1560px; width: 120px; transform: rotate(-12deg); overflow: visible; }
+.star { position: absolute; left: 930px; top: 1600px; font-size: 54px; color: #5a3b2e; }
+.slot { position: absolute; z-index: 31; background: #fff; border-radius: 6px; box-shadow: 0 14px 30px rgba(80,50,20,.28); transform-origin: 50% 50%; outline: 12px solid #fff; }
+.slotv { position: absolute; z-index: 32; overflow: hidden; border-radius: 4px; opacity: 0; transform-origin: 50% 50%; }
+.slotv video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pin { position: absolute; left: 50%; top: -22px; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; z-index: 40;
+  background: radial-gradient(circle at 35% 35%, #ffd0dc, #e0607d 60%, #a23a55); box-shadow: 0 4px 6px rgba(0,0,0,.25); }
+
+/* ---- framed face windows ---- */
+.fbg { position: absolute; inset: 0; z-index: 1; }
+.fbg-pol { background: #EDE2CB; }
+.pol-card { position: absolute; left: 110px; top: 390px; width: 860px; height: 1290px; background: #FBF8F1; border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(90,60,30,.22); }
+.pol-heart { position: absolute; left: 790px; top: 1500px; width: 140px; z-index: 5; transform: rotate(-12deg); }
+.fbg-pol .pol-heart { z-index: 3; }
+.fbg-cam { background: #F5EFE6; }
+.paper { position: absolute; inset: 0; }
+.cam-body { position: absolute; left: 105px; top: 470px; width: 870px; height: 1250px; border-radius: 70px;
+  background: linear-gradient(150deg, #E9C9BC 0%, #C99583 35%, #B07A6B 65%, #D8AE9F 100%);
+  box-shadow: inset 0 0 0 10px rgba(255,255,255,.18), 0 24px 50px rgba(90,50,40,.35); }
+.cam-screen { position: absolute; left: 50px; top: 70px; width: 770px; height: 720px; border-radius: 22px; background: #2a2220; }
+.cam-dial { position: absolute; left: 90px; top: 870px; width: 250px; height: 250px; border-radius: 50%;
+  background: radial-gradient(circle, #d9d6d2 0 30%, #a9a39e 31% 60%, #8e8884 61%); box-shadow: 0 6px 10px rgba(0,0,0,.25);
+  display: flex; align-items: center; justify-content: center; }
+.cam-dial span { font-weight: 800; font-size: 56px; color: #4b4441; }
+.cam-btn { position: absolute; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, #e3dfdb, #9d9792); box-shadow: 0 5px 8px rgba(0,0,0,.25); }
+.cam-btn.b1 { left: 420px; top: 900px; } .cam-btn.b2 { left: 600px; top: 900px; }
+.cam-grill { position: absolute; left: 430px; top: 1070px; width: 260px; height: 60px;
+  background: radial-gradient(circle, #6d5550 4px, transparent 5px) 0 0/28px 28px; opacity: .7; }
+.cam-bezel { position: absolute; left: 175px; top: 560px; width: 730px; height: 670px; z-index: 3; border-radius: 14px;
+  box-shadow: inset 0 0 0 6px rgba(255,255,255,.25), inset 0 0 40px rgba(0,0,0,.35); pointer-events: none; }
+.lily { position: absolute; left: 760px; top: 1560px; width: 300px; z-index: 4; }
+.fbg-pink { background: #E8B8C4; }
+.bokeh { position: absolute; inset: 0;
+  background: radial-gradient(circle at 15% 20%, #f7d6de 0 8%, transparent 20%), radial-gradient(circle at 85% 30%, #d98ea1 0 6%, transparent 18%),
+  radial-gradient(circle at 30% 80%, #f2c4cf 0 9%, transparent 22%), radial-gradient(circle at 80% 85%, #c97c90 0 7%, transparent 20%),
+  radial-gradient(circle at 50% 50%, #eab3c0, #d996a8); }
+.hearts { position: absolute; inset: 0; }
+
+.ftext { position: absolute; left: 0; right: 0; z-index: 42; display: flex; justify-content: center; }
+.ftext-red { top: 150px; }
+.ftext-red .lk-s { color: #A3161C; text-shadow: none; font-family: "Archivo Narrow", sans-serif; font-weight: 700; font-size: 72px; }
+.ftext-red .lk-c { color: #A3161C; text-shadow: none; font-size: 130px; }
+.ftext-white { top: 210px; }
