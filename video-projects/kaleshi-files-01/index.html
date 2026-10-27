@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait"><head><meta charset="utf-8">
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Kaleshi Aurat Files 01</title>
+<style>@font-face { font-family: "Fraunces"; font-style: normal; font-weight: 100 900; src: url("assets/fonts/Fraunces-VF.woff2") format("woff2"); }
+@font-face { font-family: "Fraunces"; font-style: italic; font-weight: 100 900; src: url("assets/fonts/Fraunces-Italic-VF.woff2") format("woff2"); }
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 100 1000; src: url("assets/fonts/DMSans-Variable.woff2") format("woff2"); }
+@font-face { font-family: "Special Elite"; font-style: normal; font-weight: 400; src: url("assets/fonts/SpecialElite.woff2") format("woff2"); }
+
+:root { --bu: #5E202B; --deep: #44151E; --pk: #FDC5F4; --cr: #F3EAE3; --news: #EFE6D2; --ink: #1E1A18; --red: #C0143C; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--bu); font-family: "DM Sans", sans-serif; }
+
+.f-disp { font-family: "Fraunces", serif; font-weight: 800; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; letter-spacing: -0.035em; }
+.f-acc { font-family: "Fraunces", serif; font-style: italic; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; letter-spacing: -0.02em; }
+.tw { font-family: "Special Elite", monospace; }
+
+/* footage */
+#face-wrap, .vwrap { position: absolute; inset: 0; z-index: 2; transform-origin: 540px 960px; }
+#face, .vwrap video { width: 1080px; height: 1920px; object-fit: cover; display: block; }
+.warm { position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(180deg, rgba(94,32,43,.20), rgba(94,32,43,0) 28%, rgba(94,32,43,0) 72%, rgba(94,32,43,.24)); }
+
+/* cold open VHS */
+.vhs { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
+.vhs .scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 3px, rgba(0,0,0,.14) 3px 5px); }
+.vhs .rec { position: absolute; left: 56px; top: 70px; font-weight: 800; font-size: 44px; color: #fff; letter-spacing: .08em; text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+.vhs .rec b { display: inline-block; width: 30px; height: 30px; border-radius: 50%; background: #ff3434; margin-right: 14px; vertical-align: 2px; }
+.vhs .tc { position: absolute; right: 56px; bottom: 90px; font-size: 40px; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+.rew { position: absolute; inset: 0; z-index: 22; overflow: hidden; }
+.rew .bars i { position: absolute; left: 0; right: 0; top: 0; height: 120px; display: block;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,.55) 40%, rgba(200,200,255,.35) 60%, transparent); mix-blend-mode: screen; }
+.rew .bars i:nth-child(2) { height: 60px; }
+.rew .bars i:nth-child(3) { height: 200px; opacity: .6; }
+.rew-ico { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font-size: 300px; color: #fff; text-shadow: 0 8px 30px rgba(0,0,0,.6); }
+
+/* paper scenes */
+.paper { position: absolute; inset: 0; z-index: 30; background: var(--news); }
+.cover .rw { position: absolute; left: 0; right: 0; top: 260px; text-align: center; font-size: 52px; color: var(--ink); }
+.folder { position: absolute; left: 90px; right: 90px; top: 520px; background: var(--cr); border: 8px solid var(--bu); padding: 60px 54px; box-shadow: 0 18px 0 rgba(68,21,30,.18); }
+.fl-k { font-size: 44px; color: var(--bu); }
+.fl-t { font-size: 150px; line-height: .9; color: var(--bu); margin-top: 18px; }
+.fl-m { font-size: 40px; line-height: 1.45; color: #3a3330; margin-top: 40px; }
+.stamp { position: absolute; border: 8px solid var(--red); color: var(--red); padding: 8px 30px; font-size: 64px; letter-spacing: .06em; line-height: 1.05; text-align: center; background: rgba(239,230,210,.0); }
+#conf { left: 300px; top: 1360px; }
+
+/* hook front page */
+.hook .mast { position: absolute; left: 0; right: 0; top: 0; height: 200px; background: var(--bu); color: var(--cr); font-size: 92px; display: flex; align-items: center; justify-content: center; }
+.hook .dl { position: absolute; left: 70px; right: 70px; top: 228px; font-size: 32px; color: #5a514b; border-bottom: 3px solid var(--ink); padding-bottom: 16px; }
+.hook .hl { position: absolute; left: 70px; right: 70px; top: 320px; font-size: 168px; line-height: .9; color: var(--ink); }
+.hook .hw { display: inline-block; }
+.hook .rule2 { position: absolute; left: 70px; right: 70px; top: 1000px; height: 3px; background: var(--ink); }
+.hook .photo { position: absolute; left: 70px; top: 1060px; width: 520px; height: 640px; background: #fff; padding: 14px 14px 64px; box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+.hook .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; filter: grayscale(1) contrast(1.15); display: block; }
+.hook .cap2 { position: absolute; left: 18px; bottom: 16px; font-size: 28px; color: #444; }
+.hook .col { position: absolute; left: 630px; right: 60px; top: 1120px; }
+.hook .col-t { font-size: 44px; line-height: 1.3; color: #2d2724; }
+.hook .dg { position: relative; margin-top: 40px; font-size: 150px; color: var(--bu); line-height: 1; }
+.hook .dg em { position: relative; font-style: inherit; }
+.hook .hi { position: absolute; left: -10px; right: -20px; bottom: 6px; height: 56px; background: var(--pk); transform-origin: 0 50%; }
+
+/* evidence board */
+.board { position: absolute; inset: 0; z-index: 30; }
+.board .cork { position: absolute; inset: 0; background-color: #B98A5E; background-image: radial-gradient(#a37650 2px, transparent 2.6px), radial-gradient(#c79b70 1.5px, transparent 2px); background-size: 22px 22px, 31px 31px; background-position: 0 0, 11px 7px; }
+.board .tag { position: absolute; left: 60px; top: 190px; background: var(--cr); padding: 16px 26px; transform: rotate(-2deg); box-shadow: 0 8px 0 rgba(68,21,30,.25); font-size: 44px; color: var(--ink); white-space: nowrap; }
+.board .tag b, .note b { font-weight: 400; background: var(--bu); color: var(--cr); padding: 2px 12px; margin-right: 16px; font-size: 32px; vertical-align: 4px; }
+.ch { font-style: normal; display: inline-block; overflow: hidden; vertical-align: bottom; }
+.board .map { position: absolute; left: 70px; top: 330px; width: 460px; height: 340px; background: #EEE7D4; transform: rotate(-4deg); box-shadow: 0 12px 24px rgba(40,20,10,.3);
+  background-image: linear-gradient(#d9cfb4 2px, transparent 2px), linear-gradient(90deg, #d9cfb4 2px, transparent 2px); background-size: 46px 46px; }
+.board .map-l { position: absolute; left: 30px; top: 160px; width: 400px; height: 60px; border-top: 10px solid #9ED3E6; border-radius: 50% 50% 0 0; }
+.board .map-t { position: absolute; left: 26px; bottom: 20px; font-size: 40px; color: var(--ink); }
+.board .mpin { position: absolute; left: 196px; top: 96px; width: 56px; height: 56px; border-radius: 50% 50% 50% 0; background: var(--red); transform: rotate(-45deg); box-shadow: 0 6px 6px rgba(0,0,0,.3); }
+.board .mpin::after { content: ""; position: absolute; left: 18px; top: 18px; width: 20px; height: 20px; border-radius: 50%; background: #fff; }
+.board .string { position: absolute; inset: 0; z-index: 34; overflow: visible; }
+.board .string path { fill: none; stroke: var(--red); stroke-width: 7; stroke-dasharray: 1; stroke-linecap: round; }
+#nf { left: 120px; top: 560px; z-index: 36; font-size: 60px; background: rgba(239,230,210,.82); }
+.pol { position: absolute; z-index: 32; background: #fff; padding: 18px 18px 78px; box-shadow: 0 16px 30px rgba(40,20,10,.35); opacity: 0; }
+.pol .pv { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.pol .pv video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pol .pl { position: absolute; left: 22px; bottom: 22px; font-size: 34px; color: var(--ink); }
+.pol .pin2 { position: absolute; left: 50%; top: -20px; margin-left: -18px; width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #ff7a8e, var(--red) 60%, #7a0f24); box-shadow: 0 4px 6px rgba(0,0,0,.35); }
+.bnote { position: absolute; left: 60px; right: 60px; top: 1400px; z-index: 37; background: var(--cr); padding: 30px 40px 36px; transform: rotate(-1deg); box-shadow: 0 10px 0 rgba(68,21,30,.3); min-height: 230px; }
+.bn-s { font-size: 46px; color: #3a3330; }
+.bn-b { font-size: 120px; line-height: 1; color: var(--bu); }
+
+/* captions */
+.sub { position: absolute; left: 0; right: 0; top: 1205px; z-index: 40; display: flex; justify-content: center; padding: 0 70px; }
+.sub span { font-weight: 700; font-size: 54px; color: var(--cr); text-align: center; display: inline-block;
+  text-shadow: 0 3px 0 var(--deep), 0 0 12px rgba(68,21,30,.85), 0 0 30px rgba(68,21,30,.55); }
+.emph { position: absolute; left: 0; right: 0; top: 190px; z-index: 41; display: flex; justify-content: center; }
+.lk { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 980px; }
+.lk-s { font-weight: 800; font-size: 58px; color: var(--cr); line-height: 1.05; text-shadow: 0 3px 0 var(--deep), 0 0 16px rgba(68,21,30,.7); }
+.lk-c { font-size: 140px; line-height: .98; color: var(--pk); padding: 0 20px 10px; text-shadow: 0 4px 0 var(--deep), 0 0 26px rgba(68,21,30,.6); }
+.thought { position: absolute; top: 330px; z-index: 42; background: var(--cr); padding: 22px 34px 24px; box-shadow: 0 8px 0 rgba(68,21,30,.4); }
+.th-r { right: 70px; } .th-l { left: 70px; }
+.thought span { font-size: 52px; color: var(--ink); white-space: nowrap; }
+.thought .tape { position: absolute; left: 50%; top: -22px; margin-left: -70px; width: 140px; height: 42px; background: rgba(253,197,244,.85); transform: rotate(-4deg); }
+.note { position: absolute; left: 70px; top: 330px; z-index: 42; background: var(--cr); padding: 18px 28px; transform: rotate(-1.5deg); box-shadow: 0 8px 0 rgba(68,21,30,.4); white-space: nowrap; }
+.note span { font-size: 46px; color: var(--ink); }
+.arc { position: absolute; left: 0; top: 120px; z-index: 41; width: 1080px; height: 520px; }
+.arc svg { overflow: visible; }
+.arc text { font-size: 70px; fill: var(--cr); paint-order: stroke; stroke: var(--deep); stroke-width: 6px; }
+
+/* freeze-frame suspect cards */
+.freeze { position: absolute; inset: 0; z-index: 25; overflow: hidden; }
+.freeze img { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; filter: saturate(.55) contrast(1.05); }
+.freeze .tint { position: absolute; inset: 0; background: rgba(94,32,43,.5); mix-blend-mode: multiply; }
+.sus { position: absolute; left: 60px; right: 60px; top: 1250px; background: var(--cr); border-left: 22px solid var(--pk); padding: 34px 40px 40px; box-shadow: 0 16px 0 var(--deep); }
+.sus-k { font-size: 40px; }
+.sus-n { font-size: 108px; line-height: .95; color: var(--bu); margin-top: 8px; }
+.sus-l { font-size: 38px; color: #3a3330; margin-top: 18px; }
+
+/* rain, auto, peep */
+.rain { position: absolute; inset: 0; z-index: 24; overflow: hidden; pointer-events: none; }
+.rain line { stroke: rgba(243,234,227,.75); stroke-width: 4; stroke-linecap: round; }
+.auto { position: absolute; left: 700px; top: 1330px; width: 320px; height: 300px; z-index: 39; }
+.auto-svg { position: absolute; left: 0; top: 40px; filter: drop-shadow(0 10px 0 rgba(68,21,30,.45)); }
+.puffs i { position: absolute; left: 10px; top: 150px; width: 70px; height: 70px; border-radius: 50%; background: #e8e2da; display: block; }
+.auto-t { position: absolute; left: 70px; top: 0; font-size: 34px; color: var(--cr); background: var(--bu); padding: 4px 14px; transform: rotate(-4deg); }
+.peep { position: absolute; inset: 0; z-index: 43; pointer-events: none; }
+.pw { position: absolute; font-size: 190px; color: var(--pk); -webkit-text-stroke: 10px var(--deep); paint-order: stroke fill; text-shadow: 14px 14px 0 var(--deep); }
+.pw1 { left: 50px; top: 420px; }
+.pw2 { right: 40px; top: 640px; color: var(--cr); font-size: 170px; }
+
+/* end band + meter */
+.band { position: absolute; left: 0; right: 0; bottom: 0; height: 210px; z-index: 45; background: var(--bu); display: flex; align-items: center; justify-content: center; gap: 30px; }
+.band span:first-child { font-size: 48px; color: var(--cr); }
+.band b { width: 18px; height: 18px; border-radius: 50%; background: var(--pk); }
+.band span:last-child { font-size: 92px; color: var(--pk); }
+.meter { position: absolute; left: 50px; top: 56px; width: 380px; z-index: 50; transform-origin: 0 50%; }
+.meter .mt { display: inline-block; font-size: 30px; color: var(--cr); background: var(--bu); padding: 4px 14px; border-radius: 6px 6px 0 0; }
+.meter .mbar { height: 34px; background: var(--cr); border: 5px solid var(--bu); border-radius: 0 10px 10px 10px; overflow: hidden; box-shadow: 0 6px 0 rgba(68,21,30,.35); }
+.meter .mf { height: 100%; width: 6%; background: linear-gradient(90deg, var(--pk), #E0609A); }
+.meter .mp { position: absolute; left: 300px; top: 0; font-size: 34px; color: var(--cr); text-shadow: 0 2px 0 var(--deep), 0 0 8px var(--deep); }
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="50.333" data-width="1080" data-height="1920">
+<div class="vwrap" id="cold-wrap"><video id="cold" data-start="0" data-duration="2.400" data-track-index="2" data-media-start="120.83" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="vhs" class="clip vhs" data-start="0.000" data-duration="2.400" data-track-index="20" style=""><div class="scan"></div><div class="rec"><b></b>REC</div><div class="tc tw">SAT · 21:47</div></div>
+<div id="cold-lk" class="clip emph" data-start="0.000" data-duration="2.000" data-track-index="21" style=""><div class="lk"><span class="lk-s">agar aap itne ameer ho toh</span><span class="lk-c f-acc">Creta mein kyu?</span></div></div>
+<div id="rew" class="clip rew" data-start="2.000" data-duration="0.400" data-track-index="22" style=""><div class="bars"><i></i><i></i><i></i></div><div class="rew-ico f-disp">◀◀</div></div>
+<div id="cover" class="clip paper cover" data-start="2.400" data-duration="1.000" data-track-index="30" style=""><div class="rw tw">◀◀ REWIND · LAST SATURDAY</div><div class="folder"><div class="tw fl-k">CASE FILE #01</div><div class="f-disp fl-t">The Kaleshi Aurat Files</div><div class="tw fl-m">LOCATION: BANDRA, MUMBAI<br>WEATHER: ANDHI BAARISH<br>SUSPECTS: 3</div></div><div class="stamp tw" id="conf">CONFIDENTIAL</div></div>
+<div id="face-wrap"><video id="face" data-start="3.400" data-duration="45.333" data-track-index="0" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="warm" class="clip warm" data-start="3.400" data-duration="45.333" data-track-index="4" style=""></div>
+<div id="sub0" class="clip sub" data-start="3.400" data-duration="0.767" data-track-index="5" style=""><span>Me and my bestfriend</span></div>
+<div id="sub5" class="clip sub" data-start="8.567" data-duration="0.666" data-track-index="5" style=""><span>Let me tell you</span></div>
+<div id="sub16" class="clip sub" data-start="16.167" data-duration="0.900" data-track-index="5" style=""><span>Anyway we were going</span></div>
+<div id="sub17" class="clip sub" data-start="17.067" data-duration="1.100" data-track-index="5" style=""><span>from one spot to another</span></div>
+<div id="sub20" class="clip sub" data-start="19.833" data-duration="0.767" data-track-index="5" style=""><span>toh hum road pe khade hue</span></div>
+<div id="sub21" class="clip sub" data-start="20.600" data-duration="0.900" data-track-index="5" style=""><span>ek auto waale ko bolte hai</span></div>
+<div id="sub23" class="clip sub" data-start="22.067" data-duration="0.866" data-track-index="5" style=""><span>humein aage chhodh do</span></div>
+<div id="sub24" class="clip sub" data-start="22.933" data-duration="0.534" data-track-index="5" style=""><span>toh hum iss auto</span></div>
+<div id="sub25" class="clip sub" data-start="23.467" data-duration="0.366" data-track-index="5" style=""><span>mein baithte hai</span></div>
+<div id="sub26" class="clip sub" data-start="23.833" data-duration="0.867" data-track-index="5" style=""><span>and yeh bichara autowala</span></div>
+<div id="sub27" class="clip sub" data-start="24.700" data-duration="0.833" data-track-index="5" style=""><span>apna auto start nahi</span></div>
+<div id="sub28" class="clip sub" data-start="25.533" data-duration="0.634" data-track-index="5" style=""><span>kar pa raha hai kyu ki</span></div>
+<div id="sub29" class="clip sub" data-start="26.167" data-duration="0.700" data-track-index="5" style=""><span>baarish ke wajhese</span></div>
+<div id="sub30" class="clip sub" data-start="26.867" data-duration="1.133" data-track-index="5" style=""><span>iska auto kharab hogaya hai</span></div>
+<div id="sub31" class="clip sub" data-start="28.000" data-duration="0.600" data-track-index="5" style=""><span>and humare piche</span></div>
+<div id="sub32" class="clip sub" data-start="28.600" data-duration="0.533" data-track-index="5" style=""><span>waali gaadi</span></div>
+<div id="sub34" class="clip sub" data-start="29.833" data-duration="0.567" data-track-index="5" style=""><span>horn baja rahi hai</span></div>
+<div id="sub35" class="clip sub" data-start="30.400" data-duration="1.200" data-track-index="5" style=""><span>jabki side mein</span></div>
+<div id="sub37" class="clip sub" data-start="32.600" data-duration="0.667" data-track-index="5" style=""><span>like yeh banda na</span></div>
+<div id="sub38" class="clip sub" data-start="33.267" data-duration="1.233" data-track-index="5" style=""><span>side se gaadi nikal sakta hai</span></div>
+<div id="sub39" class="clip sub" data-start="34.500" data-duration="0.767" data-track-index="5" style=""><span>but itni akkal toh</span></div>
+<div id="sub41" class="clip sub" data-start="36.500" data-duration="0.800" data-track-index="5" style=""><span>toh woh horn maar raha hai</span></div>
+<div id="sub43" class="clip sub" data-start="38.333" data-duration="1.767" data-track-index="5" style=""><span>lagataar horn bajane ke baad</span></div>
+<div id="sub44" class="clip sub" data-start="40.100" data-duration="0.900" data-track-index="5" style=""><span>yeh banda apni gaadi</span></div>
+<div id="sub45" class="clip sub" data-start="41.000" data-duration="0.933" data-track-index="5" style=""><span>humari just side mein</span></div>
+<div id="sub46" class="clip sub" data-start="41.933" data-duration="0.967" data-track-index="5" style=""><span>laake khadi kar deta hai</span></div>
+<div id="sub47" class="clip sub" data-start="42.900" data-duration="1.000" data-track-index="5" style=""><span>and passenger seat pe</span></div>
+<div id="sub50" class="clip sub" data-start="45.400" data-duration="0.733" data-track-index="5" style=""><span>niche karti hai</span></div>
+<div id="sub51" class="clip sub" data-start="46.133" data-duration="1.134" data-track-index="5" style=""><span>and woh autowaale ko</span></div>
+<div id="em15" class="clip emph" data-start="15.433" data-duration="0.734" data-track-index="6" style=""><div class="lk"><span class="lk-s">nahi hai</span><span class="lk-c f-acc">bhaiya</span></div></div>
+<div id="em19" class="clip emph" data-start="19.267" data-duration="0.566" data-track-index="6" style=""><div class="lk"><span class="lk-s">ho rahi thi</span><span class="lk-c f-acc">bhai</span></div></div>
+<div id="em33" class="clip emph" data-start="29.133" data-duration="0.700" data-track-index="6" style=""><div class="lk"><span class="lk-s">pagalon ki</span><span class="lk-c f-acc">tarah</span></div></div>
+<div id="em36" class="clip emph" data-start="31.600" data-duration="1.000" data-track-index="6" style=""><div class="lk"><span class="lk-s">poori sadak</span><span class="lk-c f-acc">khaali padi hai</span></div></div>
+<div id="em52" class="clip emph" data-start="47.267" data-duration="3.066" data-track-index="6" style=""><div class="lk"><span class="lk-s">maa behen ki</span><span class="lk-c f-acc">gaaliyan</span></div></div>
+<div id="th6" class="clip thought th-r" data-start="9.233" data-duration="0.667" data-track-index="7" style=""><div class="tape"></div><span class="tw">guys a story!</span></div>
+<div id="th22" class="clip thought th-r" data-start="21.500" data-duration="0.567" data-track-index="7" style=""><div class="tape"></div><span class="tw">please bhaiya!!</span></div>
+<div id="nt0" class="clip note" data-start="18.167" data-duration="1.100" data-track-index="8" style=""><b class="tw">CASE NOTE</b><span class="tw"><i class="ch">W</i><i class="ch">E</i><i class="ch">A</i><i class="ch">T</i><i class="ch">H</i><i class="ch">E</i><i class="ch">R</i><i class="ch">:</i><i class="ch">&nbsp;</i><i class="ch">A</i><i class="ch">N</i><i class="ch">D</i><i class="ch">H</i><i class="ch">I</i><i class="ch">&nbsp;</i><i class="ch">B</i><i class="ch">A</i><i class="ch">A</i><i class="ch">R</i><i class="ch">I</i><i class="ch">S</i><i class="ch">H</i></span></div>
+<div id="nt1" class="clip note" data-start="37.300" data-duration="1.033" data-track-index="8" style=""><b class="tw">CASE NOTE</b><span class="tw"><i class="ch">D</i><i class="ch">U</i><i class="ch">R</i><i class="ch">A</i><i class="ch">T</i><i class="ch">I</i><i class="ch">O</i><i class="ch">N</i><i class="ch">:</i><i class="ch">&nbsp;</i><i class="ch">5</i><i class="ch">&nbsp;</i><i class="ch">M</i><i class="ch">I</i><i class="ch">N</i><i class="ch">&nbsp;</i><i class="ch">T</i><i class="ch">A</i><i class="ch">K</i></span></div>
+<div id="arc40" class="clip arc" data-start="35.267" data-duration="1.233" data-track-index="9" style=""><svg viewBox="0 0 1080 520" width="1080" height="520"><defs><path id="arcp40" d="M150,470 Q540,40 930,470"/></defs><text class="f-acc"><textPath href="#arcp40" startOffset="50%" text-anchor="middle">uske ander hai hi nahi</textPath></text></svg></div>
+<div id="fz0" class="clip freeze" data-start="3.700" data-duration="1.800" data-track-index="25" style=""><img src="assets/stills/f-0.3.jpg" alt=""><div class="tint"></div><div class="sus" style="border-left-color:#FDC5F4"><div class="tw sus-k" style="color:#5E202B">SUSPECT #1</div><div class="f-disp sus-n">The Bestfriend</div><div class="tw sus-l">calmest person alive · threat level: 0</div></div></div>
+<div id="fz1" class="clip freeze" data-start="43.900" data-duration="1.500" data-track-index="25" style=""><img src="assets/stills/f-40.5.jpg" alt=""><div class="tint"></div><div class="sus" style="border-left-color:#C0143C"><div class="tw sus-k" style="color:#C0143C">SUSPECT #2</div><div class="f-disp sus-n">Aunty, passenger seat</div><div class="tw sus-l">volume: 11 · patience: none</div></div></div>
+<div id="hook" class="clip paper hook" data-start="5.500" data-duration="3.067" data-track-index="30" style=""><div class="mast f-disp">THE DAILY KALESH</div><div class="dl tw">SAT · VOL 01 · ₹0 · BANDRA EDITION</div><div class="hl f-disp"><span class="hw">“No</span> <span class="hw">bullshit</span> <span class="hw">people</span> <span class="hw">I know”</span> </div><div class="rule2"></div><div class="photo"><img src="assets/stills/f-1.6.jpg" alt=""><div class="cap2 tw">FIG 1. the reporter</div></div><div class="col"><div class="tw col-t">…even when our life is in</div><div class="f-acc dg"><span class="hi"></span><em>danger.</em></div></div></div>
+<div id="board" class="clip board" data-start="9.900" data-duration="5.533" data-track-index="30" style=""><div class="cork"></div><div class="tag tw"><b>CASE NOTE</b><span><i class="ch">D</i><i class="ch">A</i><i class="ch">T</i><i class="ch">E</i><i class="ch">:</i><i class="ch">&nbsp;</i><i class="ch">L</i><i class="ch">A</i><i class="ch">S</i><i class="ch">T</i><i class="ch">&nbsp;</i><i class="ch">S</i><i class="ch">A</i><i class="ch">T</i><i class="ch">U</i><i class="ch">R</i><i class="ch">D</i><i class="ch">A</i><i class="ch">Y</i></span></div><div class="map"><div class="map-l"></div><div class="tw map-t">BANDRA, MUMBAI</div><div class="mpin"></div></div><svg class="string" width="1080" height="1920"><path d="M300,470 L800,520 L290,900" pathLength="1"/></svg><div class="stamp tw" id="nf">ACHE MOMO:<br>NOT FOUND</div></div>
+<div class="pol" id="pa" style="left:600px;top:330px;width:400px;height:540px;transform:rotate(5deg);"><div class="pv"><video id="pa-v" data-start="9.900" data-duration="5.533" data-track-index="11" data-media-start="0.4" src="assets/clean.mp4" muted playsinline></video></div><div class="tw pl">EXHIBIT A</div><div class="pin2"></div></div>
+<div class="pol" id="pb" style="left:90px;top:760px;width:400px;height:540px;transform:rotate(-3deg);"><div class="pv"><video id="pb-v" data-start="9.900" data-duration="5.533" data-track-index="12" data-media-start="148.4" src="assets/clean.mp4" muted playsinline></video></div><div class="tw pl">EXHIBIT B: momo</div><div class="pin2"></div></div>
+<div id="bn8" class="clip bnote" data-start="10.567" data-duration="0.900" data-track-index="31" style=""><div class="tw bn-s">hum dono</div><div class="f-acc bn-b">bandra mein</div></div>
+<div id="bn9" class="clip bnote" data-start="11.467" data-duration="0.866" data-track-index="31" style=""><div class="tw bn-s">ache momo</div><div class="f-acc bn-b">dhundhne</div></div>
+<div id="bn10" class="clip bnote" data-start="12.333" data-duration="0.467" data-track-index="31" style=""><div class="f-acc bn-b">nikle the</div></div>
+<div id="bn11" class="clip bnote" data-start="12.800" data-duration="0.767" data-track-index="31" style=""><div class="tw bn-s">jo ki</div><div class="f-acc bn-b">humari hi</div></div>
+<div id="bn12" class="clip bnote" data-start="13.567" data-duration="0.466" data-track-index="31" style=""><div class="f-acc bn-b">galti hai</div></div>
+<div id="bn13" class="clip bnote" data-start="14.033" data-duration="0.534" data-track-index="31" style=""><div class="tw bn-s">poore</div><div class="f-acc bn-b">bombay mein</div></div>
+<div id="bn14" class="clip bnote" data-start="14.567" data-duration="0.866" data-track-index="31" style=""><div class="tw bn-s">ache momo</div><div class="f-acc bn-b">milte hi…</div></div>
+<div id="rain" class="clip rain" data-start="18.167" data-duration="5.666" data-track-index="26" style=""><svg class="rl" width="1080" height="3840"><g><line x1="0" y1="0" x2="-18" y2="70"/><line x1="137" y1="251" x2="119" y2="321"/><line x1="274" y1="502" x2="256" y2="572"/><line x1="411" y1="753" x2="393" y2="823"/><line x1="548" y1="1004" x2="530" y2="1074"/><line x1="685" y1="1255" x2="667" y2="1325"/><line x1="822" y1="1506" x2="804" y2="1576"/><line x1="959" y1="1757" x2="941" y2="1827"/><line x1="16" y1="88" x2="-2" y2="158"/><line x1="153" y1="339" x2="135" y2="409"/><line x1="290" y1="590" x2="272" y2="660"/><line x1="427" y1="841" x2="409" y2="911"/><line x1="564" y1="1092" x2="546" y2="1162"/><line x1="701" y1="1343" x2="683" y2="1413"/><line x1="838" y1="1594" x2="820" y2="1664"/><line x1="975" y1="1845" x2="957" y2="1915"/><line x1="32" y1="176" x2="14" y2="246"/><line x1="169" y1="427" x2="151" y2="497"/><line x1="306" y1="678" x2="288" y2="748"/><line x1="443" y1="929" x2="425" y2="999"/><line x1="580" y1="1180" x2="562" y2="1250"/><line x1="717" y1="1431" x2="699" y2="1501"/><line x1="854" y1="1682" x2="836" y2="1752"/><line x1="991" y1="13" x2="973" y2="83"/><line x1="48" y1="264" x2="30" y2="334"/><line x1="185" y1="515" x2="167" y2="585"/><line x1="322" y1="766" x2="304" y2="836"/><line x1="459" y1="1017" x2="441" y2="1087"/><line x1="596" y1="1268" x2="578" y2="1338"/><line x1="733" y1="1519" x2="715" y2="1589"/><line x1="870" y1="1770" x2="852" y2="1840"/><line x1="1007" y1="101" x2="989" y2="171"/><line x1="64" y1="352" x2="46" y2="422"/><line x1="201" y1="603" x2="183" y2="673"/><line x1="338" y1="854" x2="320" y2="924"/><line x1="475" y1="1105" x2="457" y2="1175"/><line x1="612" y1="1356" x2="594" y2="1426"/><line x1="749" y1="1607" x2="731" y2="1677"/><line x1="886" y1="1858" x2="868" y2="1928"/><line x1="1023" y1="189" x2="1005" y2="259"/><line x1="80" y1="440" x2="62" y2="510"/><line x1="217" y1="691" x2="199" y2="761"/><line x1="354" y1="942" x2="336" y2="1012"/><line x1="491" y1="1193" x2="473" y2="1263"/><line x1="628" y1="1444" x2="610" y2="1514"/><line x1="765" y1="1695" x2="747" y2="1765"/></g><g transform="translate(0,1920)"><line x1="0" y1="0" x2="-18" y2="70"/><line x1="137" y1="251" x2="119" y2="321"/><line x1="274" y1="502" x2="256" y2="572"/><line x1="411" y1="753" x2="393" y2="823"/><line x1="548" y1="1004" x2="530" y2="1074"/><line x1="685" y1="1255" x2="667" y2="1325"/><line x1="822" y1="1506" x2="804" y2="1576"/><line x1="959" y1="1757" x2="941" y2="1827"/><line x1="16" y1="88" x2="-2" y2="158"/><line x1="153" y1="339" x2="135" y2="409"/><line x1="290" y1="590" x2="272" y2="660"/><line x1="427" y1="841" x2="409" y2="911"/><line x1="564" y1="1092" x2="546" y2="1162"/><line x1="701" y1="1343" x2="683" y2="1413"/><line x1="838" y1="1594" x2="820" y2="1664"/><line x1="975" y1="1845" x2="957" y2="1915"/><line x1="32" y1="176" x2="14" y2="246"/><line x1="169" y1="427" x2="151" y2="497"/><line x1="306" y1="678" x2="288" y2="748"/><line x1="443" y1="929" x2="425" y2="999"/><line x1="580" y1="1180" x2="562" y2="1250"/><line x1="717" y1="1431" x2="699" y2="1501"/><line x1="854" y1="1682" x2="836" y2="1752"/><line x1="991" y1="13" x2="973" y2="83"/><line x1="48" y1="264" x2="30" y2="334"/><line x1="185" y1="515" x2="167" y2="585"/><line x1="322" y1="766" x2="304" y2="836"/><line x1="459" y1="1017" x2="441" y2="1087"/><line x1="596" y1="1268" x2="578" y2="1338"/><line x1="733" y1="1519" x2="715" y2="1589"/><line x1="870" y1="1770" x2="852" y2="1840"/><line x1="1007" y1="101" x2="989" y2="171"/><line x1="64" y1="352" x2="46" y2="422"/><line x1="201" y1="603" x2="183" y2="673"/><line x1="338" y1="854" x2="320" y2="924"/><line x1="475" y1="1105" x2="457" y2="1175"/><line x1="612" y1="1356" x2="594" y2="1426"/><line x1="749" y1="1607" x2="731" y2="1677"/><line x1="886" y1="1858" x2="868" y2="1928"/><line x1="1023" y1="189" x2="1005" y2="259"/><line x1="80" y1="440" x2="62" y2="510"/><line x1="217" y1="691" x2="199" y2="761"/><line x1="354" y1="942" x2="336" y2="1012"/><line x1="491" y1="1193" x2="473" y2="1263"/><line x1="628" y1="1444" x2="610" y2="1514"/><line x1="765" y1="1695" x2="747" y2="1765"/></g></svg></div>
+<div id="auto" class="clip auto" data-start="23.833" data-duration="4.167" data-track-index="27" style=""><svg class="auto-svg" viewBox="0 0 300 230" width="300" height="230"><path d="M40 70 Q60 18 150 14 Q240 18 262 70 L270 170 L30 170 Z" fill="#1E1A18"/><path d="M22 100 Q24 76 52 72 L250 72 Q278 76 280 100 L284 178 L18 178 Z" fill="#F2C230" stroke="#1E1A18" stroke-width="7"/><rect x="64" y="88" width="80" height="56" rx="8" fill="#9ED3E6" stroke="#1E1A18" stroke-width="5"/><rect x="160" y="88" width="80" height="56" rx="8" fill="#9ED3E6" stroke="#1E1A18" stroke-width="5"/><rect x="10" y="168" width="282" height="18" rx="9" fill="#2E6B3A" stroke="#1E1A18" stroke-width="5"/><circle cx="70" cy="196" r="26" fill="#1E1A18"/><circle cx="70" cy="196" r="10" fill="#C9C2B8"/><circle cx="232" cy="196" r="26" fill="#1E1A18"/><circle cx="232" cy="196" r="10" fill="#C9C2B8"/></svg><div class="puffs"><i></i><i></i><i></i></div><div class="tw auto-t">EXHIBIT C</div></div>
+<div id="pp0" class="clip peep" data-start="29.833" data-duration="0.567" data-track-index="28" style=""><div class="pw f-disp pw1">PEEP!</div><div class="pw f-disp pw2">PEEP!!</div></div>
+<div id="pp1" class="clip peep" data-start="36.500" data-duration="0.800" data-track-index="28" style=""><div class="pw f-disp pw1">PEEP!</div><div class="pw f-disp pw2">PEEP!!</div></div>
+<div id="pp2" class="clip peep" data-start="38.333" data-duration="1.767" data-track-index="28" style=""><div class="pw f-disp pw1">PEEP!</div><div class="pw f-disp pw2">PEEP!!</div></div>
+<div id="endhold" class="clip freeze" data-start="48.733" data-duration="1.600" data-track-index="24" style=""><img src="assets/stills/f-45.25.jpg" alt=""><div class="tint"></div></div>
+<div id="band" class="clip band" data-start="47.900" data-duration="2.433" data-track-index="45" style=""><span class="tw">CASE CONTINUES</span><b></b><span class="f-disp">Part 2 →</span></div>
+<div id="meter" class="clip meter" data-start="3.700" data-duration="46.633" data-track-index="50" style=""><span class="mt tw">KALESH METER</span><div class="mbar"><div class="mf"></div></div><span class="mp tw">6%</span></div>
+<audio id="vo-cold" data-start="0" data-duration="2.000" data-track-index="3" data-media-start="120.83" src="assets/clean.mp4" data-volume="1"></audio>
+<audio id="sx1" data-start="2.000" data-duration="0.950" data-track-index="61" src="assets/sfx/rewind.wav" data-volume="0.5"></audio>
+<audio id="sx2" data-start="2.400" data-duration="1.000" data-track-index="62" src="assets/sfx/paper-flip.mp3" data-volume="0.35"></audio>
+<audio id="sx3" data-start="3.020" data-duration="1.000" data-track-index="63" src="assets/sfx/slam.mp3" data-volume="0.4"></audio>
+<audio id="vo" data-start="3.400" data-duration="45.333" data-track-index="1" src="assets/clean.mp4" data-volume="1"></audio>
+<audio id="sx4" data-start="9.233" data-duration="0.500" data-track-index="64" src="assets/sfx/pop.mp3" data-volume="0.3"></audio>
+<audio id="sx5" data-start="21.500" data-duration="0.500" data-track-index="65" src="assets/sfx/pop.mp3" data-volume="0.3"></audio>
+<audio id="sx6" data-start="18.287" data-duration="0.875" data-track-index="60" src="assets/sfx/keyboard-typing.mp3" data-volume="0.28"></audio>
+<audio id="sx7" data-start="37.420" data-duration="0.825" data-track-index="61" src="assets/sfx/keyboard-typing.mp3" data-volume="0.28"></audio>
+<audio id="sx8" data-start="3.700" data-duration="1.300" data-track-index="62" src="assets/sfx/dundun.wav" data-volume="0.55"></audio>
+<audio id="sx9" data-start="43.900" data-duration="1.300" data-track-index="63" src="assets/sfx/dundun.wav" data-volume="0.55"></audio>
+<audio id="sx10" data-start="5.500" data-duration="1.000" data-track-index="64" src="assets/sfx/paper-flip.mp3" data-volume="0.35"></audio>
+<audio id="sx11" data-start="8.000" data-duration="0.550" data-track-index="65" src="assets/sfx/whoosh.mp3" data-volume="0.25"></audio>
+<audio id="sx12" data-start="9.980" data-duration="0.650" data-track-index="60" src="assets/sfx/keyboard-typing.mp3" data-volume="0.28"></audio>
+<audio id="sx13" data-start="10.817" data-duration="0.500" data-track-index="61" src="assets/sfx/pop.mp3" data-volume="0.3"></audio>
+<audio id="sx14" data-start="14.727" data-duration="1.000" data-track-index="62" src="assets/sfx/slam.mp3" data-volume="0.45"></audio>
+<audio id="sx15" data-start="11.017" data-duration="0.500" data-track-index="63" src="assets/sfx/pop.mp3" data-volume="0.28"></audio>
+<audio id="sx16" data-start="11.617" data-duration="0.500" data-track-index="64" src="assets/sfx/pop.mp3" data-volume="0.28"></audio>
+<audio id="sx17" data-start="18.167" data-duration="6.000" data-track-index="65" src="assets/sfx/rain.wav" data-volume="0.3"></audio>
+<audio id="sx18" data-start="23.833" data-duration="0.500" data-track-index="60" src="assets/sfx/pop.mp3" data-volume="0.3"></audio>
+<audio id="sx19" data-start="24.700" data-duration="1.000" data-track-index="61" src="assets/sfx/sputter.wav" data-volume="0.35"></audio>
+<audio id="sx20" data-start="26.867" data-duration="1.000" data-track-index="62" src="assets/sfx/sputter.wav" data-volume="0.4"></audio>
+<audio id="sx21" data-start="29.853" data-duration="0.450" data-track-index="63" src="assets/sfx/honk.wav" data-volume="0.4"></audio>
+<audio id="sx22" data-start="30.053" data-duration="0.450" data-track-index="64" src="assets/sfx/honk.wav" data-volume="0.4"></audio>
+<audio id="sx23" data-start="36.520" data-duration="0.450" data-track-index="65" src="assets/sfx/honk.wav" data-volume="0.4"></audio>
+<audio id="sx24" data-start="36.720" data-duration="0.450" data-track-index="60" src="assets/sfx/honk.wav" data-volume="0.4"></audio>
+<audio id="sx25" data-start="38.353" data-duration="0.450" data-track-index="61" src="assets/sfx/honk.wav" data-volume="0.4"></audio>
+<audio id="sx26" data-start="38.553" data-duration="0.450" data-track-index="62" src="assets/sfx/honk.wav" data-volume="0.4"></audio>
+<audio id="sx27" data-start="48.733" data-duration="1.300" data-track-index="63" src="assets/sfx/dundun.wav" data-volume="0.55"></audio>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#vhs .rec b",{opacity:1},{opacity:0.15,duration:0.3,ease:"steps(1)",repeat:6,yoyo:true},0);
+tl.fromTo("#cold-lk .lk-s",{y:20,opacity:0},{y:0,opacity:1,duration:0.25,ease:"power3.out"},0.05);
+tl.fromTo("#cold-lk .lk-c",{opacity:0,scale:1.25},{opacity:1,scale:1,duration:0.35,ease:"back.out(2.2)"},0.92);
+tl.fromTo("#rew .bars i",{yPercent:-120},{yPercent:900,duration:0.2,stagger:0.05,ease:"none",repeat:1},2.0);
+tl.fromTo("#cold-wrap",{x:0,scale:1},{x:-22,scale:1.06,duration:0.4,ease:"power2.in"},2.0);
+tl.fromTo("#cover .folder",{y:60,opacity:0},{y:0,opacity:1,duration:0.3,ease:"expo.out"},2.42);
+tl.fromTo("#cover .rw",{opacity:0},{opacity:1,duration:0.15},2.42);
+tl.fromTo("#conf",{scale:2.4,opacity:0,rotation:-14},{scale:1,opacity:1,rotation:-8,duration:0.18,ease:"power4.in"},2.85);
+tl.fromTo("#sub0 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},3.410);
+tl.fromTo("#sub5 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},8.577);
+tl.fromTo("#sub16 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},16.177);
+tl.fromTo("#sub17 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},17.077);
+tl.fromTo("#sub20 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},19.843);
+tl.fromTo("#sub21 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},20.610);
+tl.fromTo("#sub23 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},22.077);
+tl.fromTo("#sub24 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},22.943);
+tl.fromTo("#sub25 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},23.477);
+tl.fromTo("#sub26 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},23.843);
+tl.fromTo("#sub27 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},24.710);
+tl.fromTo("#sub28 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},25.543);
+tl.fromTo("#sub29 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},26.177);
+tl.fromTo("#sub30 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},26.877);
+tl.fromTo("#sub31 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},28.010);
+tl.fromTo("#sub32 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},28.610);
+tl.fromTo("#sub34 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},29.843);
+tl.fromTo("#sub35 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},30.410);
+tl.fromTo("#sub37 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},32.610);
+tl.fromTo("#sub38 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},33.277);
+tl.fromTo("#sub39 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},34.510);
+tl.fromTo("#sub41 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},36.510);
+tl.fromTo("#sub43 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},38.343);
+tl.fromTo("#sub44 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},40.110);
+tl.fromTo("#sub45 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},41.010);
+tl.fromTo("#sub46 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},41.943);
+tl.fromTo("#sub47 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},42.910);
+tl.fromTo("#sub50 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},45.410);
+tl.fromTo("#sub51 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},46.143);
+tl.fromTo("#em15 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},15.453);
+tl.fromTo("#em15 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},15.533);
+tl.fromTo("#em19 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},19.287);
+tl.fromTo("#em19 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},19.367);
+tl.fromTo("#em33 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},29.153);
+tl.fromTo("#em33 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},29.233);
+tl.fromTo("#em36 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},31.620);
+tl.fromTo("#em36 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},31.700);
+tl.fromTo("#em52 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},47.287);
+tl.fromTo("#em52 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},47.367);
+tl.fromTo("#th6",{opacity:0,scale:0.6,rotation:8},{opacity:1,scale:1,rotation:3,duration:0.3,ease:"back.out(2.4)",immediateRender:false},9.253);
+tl.fromTo("#th22",{opacity:0,scale:0.6,rotation:8},{opacity:1,scale:1,rotation:3,duration:0.3,ease:"back.out(2.4)",immediateRender:false},21.520);
+tl.fromTo("#nt0",{opacity:0,y:-14},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},18.167);
+tl.set("#nt0 .ch",{opacity:0,maxWidth:"0em"},18.287);
+tl.set("#nt0 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},18.287);
+tl.set("#nt0 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},18.325);
+tl.set("#nt0 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},18.362);
+tl.set("#nt0 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},18.399);
+tl.set("#nt0 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},18.437);
+tl.set("#nt0 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},18.474);
+tl.set("#nt0 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},18.512);
+tl.set("#nt0 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},18.549);
+tl.set("#nt0 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},18.587);
+tl.set("#nt0 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},18.625);
+tl.set("#nt0 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},18.662);
+tl.set("#nt0 .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},18.700);
+tl.set("#nt0 .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},18.737);
+tl.set("#nt0 .ch:nth-child(14)",{opacity:1,maxWidth:"2em"},18.774);
+tl.set("#nt0 .ch:nth-child(15)",{opacity:1,maxWidth:"2em"},18.812);
+tl.set("#nt0 .ch:nth-child(16)",{opacity:1,maxWidth:"2em"},18.849);
+tl.set("#nt0 .ch:nth-child(17)",{opacity:1,maxWidth:"2em"},18.887);
+tl.set("#nt0 .ch:nth-child(18)",{opacity:1,maxWidth:"2em"},18.924);
+tl.set("#nt0 .ch:nth-child(19)",{opacity:1,maxWidth:"2em"},18.962);
+tl.set("#nt0 .ch:nth-child(20)",{opacity:1,maxWidth:"2em"},19.000);
+tl.set("#nt0 .ch:nth-child(21)",{opacity:1,maxWidth:"2em"},19.037);
+tl.set("#nt0 .ch:nth-child(22)",{opacity:1,maxWidth:"2em"},19.075);
+tl.fromTo("#nt1",{opacity:0,y:-14},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},37.300);
+tl.set("#nt1 .ch",{opacity:0,maxWidth:"0em"},37.420);
+tl.set("#nt1 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},37.420);
+tl.set("#nt1 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},37.461);
+tl.set("#nt1 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},37.502);
+tl.set("#nt1 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},37.542);
+tl.set("#nt1 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},37.583);
+tl.set("#nt1 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},37.624);
+tl.set("#nt1 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},37.665);
+tl.set("#nt1 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},37.705);
+tl.set("#nt1 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},37.746);
+tl.set("#nt1 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},37.787);
+tl.set("#nt1 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},37.828);
+tl.set("#nt1 .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},37.869);
+tl.set("#nt1 .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},37.909);
+tl.set("#nt1 .ch:nth-child(14)",{opacity:1,maxWidth:"2em"},37.950);
+tl.set("#nt1 .ch:nth-child(15)",{opacity:1,maxWidth:"2em"},37.991);
+tl.set("#nt1 .ch:nth-child(16)",{opacity:1,maxWidth:"2em"},38.032);
+tl.set("#nt1 .ch:nth-child(17)",{opacity:1,maxWidth:"2em"},38.072);
+tl.set("#nt1 .ch:nth-child(18)",{opacity:1,maxWidth:"2em"},38.113);
+tl.set("#nt1 .ch:nth-child(19)",{opacity:1,maxWidth:"2em"},38.154);
+tl.fromTo("#arc40 svg",{opacity:0,rotation:-6,transformOrigin:"50% 90%"},{opacity:1,rotation:0,duration:0.4,ease:"power3.out",immediateRender:false},35.287);
+tl.fromTo("#fz0 img",{scale:1},{scale:1.04,duration:1.800,ease:"none",immediateRender:false},3.700);
+tl.set("#fz0 .sus",{x:-700},3.700);
+tl.fromTo("#fz0 .sus",{x:-700,rotation:-8},{x:0,rotation:-2,duration:0.38,ease:"expo.out",immediateRender:false},3.780);
+tl.fromTo("#fz1 img",{scale:1},{scale:1.04,duration:1.500,ease:"none",immediateRender:false},43.900);
+tl.set("#fz1 .sus",{x:-700},43.900);
+tl.fromTo("#fz1 .sus",{x:-700,rotation:-8},{x:0,rotation:2,duration:0.38,ease:"expo.out",immediateRender:false},43.980);
+tl.fromTo("#hook .hw:nth-child(1)",{opacity:0,y:30},{opacity:1,y:0,duration:0.24,ease:"power3.out",immediateRender:false},5.520);
+tl.fromTo("#hook .hw:nth-child(2)",{opacity:0,y:30},{opacity:1,y:0,duration:0.24,ease:"power3.out",immediateRender:false},5.950);
+tl.fromTo("#hook .hw:nth-child(3)",{opacity:0,y:30},{opacity:1,y:0,duration:0.24,ease:"power3.out",immediateRender:false},6.400);
+tl.fromTo("#hook .hw:nth-child(4)",{opacity:0,y:30},{opacity:1,y:0,duration:0.24,ease:"power3.out",immediateRender:false},6.700);
+tl.set(["#hook .photo","#hook .col-t","#hook .dg"],{opacity:0},5.500);
+tl.fromTo("#hook .photo",{opacity:0,rotation:-6,scale:0.9},{opacity:1,rotation:-2,scale:1,duration:0.3,ease:"back.out(1.8)"},5.700);
+tl.fromTo("#hook .col-t",{opacity:0},{opacity:1,duration:0.2},7.030);
+tl.fromTo("#hook .dg",{opacity:0,y:16},{opacity:1,y:0,duration:0.25,ease:"power2.out"},7.830);
+tl.fromTo("#hook .hi",{scaleX:0},{scaleX:1,duration:0.3,ease:"power2.inOut",immediateRender:false},8.000);
+tl.set("#board .tag .ch",{opacity:0,maxWidth:"0em"},9.980);
+tl.set("#board .tag .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},9.980);
+tl.set("#board .tag .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},10.012);
+tl.set("#board .tag .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},10.043);
+tl.set("#board .tag .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},10.075);
+tl.set("#board .tag .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},10.106);
+tl.set("#board .tag .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},10.138);
+tl.set("#board .tag .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},10.169);
+tl.set("#board .tag .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},10.201);
+tl.set("#board .tag .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},10.233);
+tl.set("#board .tag .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},10.264);
+tl.set("#board .tag .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},10.296);
+tl.set("#board .tag .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},10.327);
+tl.set("#board .tag .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},10.359);
+tl.set("#board .tag .ch:nth-child(14)",{opacity:1,maxWidth:"2em"},10.391);
+tl.set("#board .tag .ch:nth-child(15)",{opacity:1,maxWidth:"2em"},10.422);
+tl.set("#board .tag .ch:nth-child(16)",{opacity:1,maxWidth:"2em"},10.454);
+tl.set("#board .tag .ch:nth-child(17)",{opacity:1,maxWidth:"2em"},10.485);
+tl.set("#board .tag .ch:nth-child(18)",{opacity:1,maxWidth:"2em"},10.517);
+tl.set("#board .tag .ch:nth-child(19)",{opacity:1,maxWidth:"2em"},10.548);
+tl.set(["#board .map","#board .mpin","#board .string","#nf"],{opacity:0},9.900);
+tl.fromTo("#board .map",{opacity:0,scale:0.85},{opacity:1,scale:1,duration:0.3,ease:"back.out(1.8)"},10.567);
+tl.fromTo("#board .mpin",{opacity:0,y:-90},{opacity:1,y:0,duration:0.35,ease:"bounce.out"},10.817);
+tl.fromTo("#board .string",{opacity:1,strokeDashoffset:1},{strokeDashoffset:0,duration:0.6,ease:"power2.inOut"},12.067);
+tl.fromTo("#nf",{scale:2.4,opacity:0,rotation:-16},{scale:1,opacity:1,rotation:-9,duration:0.18,ease:"power4.in"},14.567);
+tl.set("#pa",{opacity:0},0);
+tl.fromTo("#pa",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.3,ease:"back.out(1.8)",immediateRender:false},11.017);
+tl.set("#pa",{opacity:0},15.433);
+tl.set("#pb",{opacity:0},0);
+tl.fromTo("#pb",{opacity:0,scale:0.8},{opacity:1,scale:1,duration:0.3,ease:"back.out(1.8)",immediateRender:false},11.617);
+tl.set("#pb",{opacity:0},15.433);
+tl.fromTo("#bn8 .bn-b",{opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out",immediateRender:false},10.607);
+tl.fromTo("#bn9 .bn-b",{opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out",immediateRender:false},11.507);
+tl.fromTo("#bn10 .bn-b",{opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out",immediateRender:false},12.373);
+tl.fromTo("#bn11 .bn-b",{opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out",immediateRender:false},12.840);
+tl.fromTo("#bn12 .bn-b",{opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out",immediateRender:false},13.607);
+tl.fromTo("#bn13 .bn-b",{opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out",immediateRender:false},14.073);
+tl.fromTo("#bn14 .bn-b",{opacity:0,y:14},{opacity:1,y:0,duration:0.25,ease:"power2.out",immediateRender:false},14.607);
+tl.fromTo("#rain .rl",{y:-1920},{y:0,duration:0.9,ease:"none",repeat:6},18.167);
+tl.fromTo("#rain",{opacity:0},{opacity:1,duration:0.4},18.167);
+tl.fromTo("#auto",{opacity:0,scale:0.5,rotation:-10},{opacity:1,scale:1,rotation:4,duration:0.35,ease:"back.out(2.2)",immediateRender:false},23.853);
+tl.fromTo("#auto .auto-svg",{rotation:-3},{rotation:3,duration:0.08,ease:"none",repeat:13,yoyo:true,transformOrigin:"50% 90%",immediateRender:false},24.700);
+tl.set("#auto .puffs i",{opacity:0},23.833);
+tl.fromTo("#auto .puffs i",{opacity:0.9,scale:0.3,y:0,x:0},{opacity:0,scale:2.2,y:-150,x:-60,duration:0.9,stagger:0.22,ease:"power1.out",immediateRender:false},26.867);
+tl.set(["#pp0 .pw1","#pp0 .pw2"],{opacity:0},29.833);
+tl.fromTo("#pp0 .pw1",{opacity:0,scale:2.2,rotation:-18},{opacity:1,scale:1,rotation:-10,duration:0.16,ease:"power4.in",immediateRender:false},29.853);
+tl.fromTo("#pp0 .pw2",{opacity:0,scale:2.2,rotation:16},{opacity:1,scale:1,rotation:8,duration:0.16,ease:"power4.in",immediateRender:false},30.033);
+tl.fromTo("#face-wrap",{x:-14},{x:14,duration:0.05,ease:"none",repeat:5,yoyo:true,immediateRender:false},29.853);
+tl.set("#face-wrap",{x:0},30.163);
+tl.set(["#pp1 .pw1","#pp1 .pw2"],{opacity:0},36.500);
+tl.fromTo("#pp1 .pw1",{opacity:0,scale:2.2,rotation:-18},{opacity:1,scale:1,rotation:-10,duration:0.16,ease:"power4.in",immediateRender:false},36.520);
+tl.fromTo("#pp1 .pw2",{opacity:0,scale:2.2,rotation:16},{opacity:1,scale:1,rotation:8,duration:0.16,ease:"power4.in",immediateRender:false},36.700);
+tl.fromTo("#face-wrap",{x:-14},{x:14,duration:0.05,ease:"none",repeat:5,yoyo:true,immediateRender:false},36.520);
+tl.set("#face-wrap",{x:0},36.830);
+tl.set(["#pp2 .pw1","#pp2 .pw2"],{opacity:0},38.333);
+tl.fromTo("#pp2 .pw1",{opacity:0,scale:2.2,rotation:-18},{opacity:1,scale:1,rotation:-10,duration:0.16,ease:"power4.in",immediateRender:false},38.353);
+tl.fromTo("#pp2 .pw2",{opacity:0,scale:2.2,rotation:16},{opacity:1,scale:1,rotation:8,duration:0.16,ease:"power4.in",immediateRender:false},38.533);
+tl.fromTo("#face-wrap",{x:-14},{x:14,duration:0.05,ease:"none",repeat:5,yoyo:true,immediateRender:false},38.353);
+tl.set("#face-wrap",{x:0},38.663);
+tl.fromTo("#band",{yPercent:110},{yPercent:0,duration:0.35,ease:"expo.out",immediateRender:false},47.900);
+tl.fromTo("#meter",{opacity:0,x:-40},{opacity:1,x:0,duration:0.3,ease:"power3.out",immediateRender:false},3.700);
+tl.fromTo("#meter .mf",{width:"0%"},{width:"6%",duration:0.45,ease:"power3.out",immediateRender:false},3.750);
+tl.set("#meter .mp",{textContent:"6%"},3.950);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},3.750);
+tl.fromTo("#meter .mf",{width:"6%"},{width:"11%",duration:0.45,ease:"power3.out",immediateRender:false},14.600);
+tl.set("#meter .mp",{textContent:"11%"},14.800);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},14.600);
+tl.fromTo("#meter .mf",{width:"11%"},{width:"18%",duration:0.45,ease:"power3.out",immediateRender:false},18.300);
+tl.set("#meter .mp",{textContent:"18%"},18.500);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},18.300);
+tl.fromTo("#meter .mf",{width:"18%"},{width:"26%",duration:0.45,ease:"power3.out",immediateRender:false},27.000);
+tl.set("#meter .mp",{textContent:"26%"},27.200);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},27.000);
+tl.fromTo("#meter .mf",{width:"26%"},{width:"40%",duration:0.45,ease:"power3.out",immediateRender:false},29.833);
+tl.set("#meter .mp",{textContent:"40%"},30.033);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},29.833);
+tl.fromTo("#meter .mf",{width:"40%"},{width:"52%",duration:0.45,ease:"power3.out",immediateRender:false},36.500);
+tl.set("#meter .mp",{textContent:"52%"},36.700);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},36.500);
+tl.fromTo("#meter .mf",{width:"52%"},{width:"62%",duration:0.45,ease:"power3.out",immediateRender:false},38.333);
+tl.set("#meter .mp",{textContent:"62%"},38.533);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},38.333);
+tl.fromTo("#meter .mf",{width:"62%"},{width:"74%",duration:0.45,ease:"power3.out",immediateRender:false},43.950);
+tl.set("#meter .mp",{textContent:"74%"},44.150);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},43.950);
+tl.fromTo("#meter .mf",{width:"74%"},{width:"88%",duration:0.45,ease:"power3.out",immediateRender:false},47.267);
+tl.set("#meter .mp",{textContent:"88%"},47.467);
+tl.fromTo("#meter",{scale:1.12},{scale:1,duration:0.3,ease:"back.out(3)",immediateRender:false},47.267);
+tl.set("#meter .mt",{backgroundColor:"#C0143C"},43.950);
+tl.set("#meter",{opacity:0},5.500);
+tl.set("#meter",{opacity:1},8.567);
+tl.set("#meter .mf",{backgroundImage:"linear-gradient(90deg,#E0609A,#C0143C)"},43.950);
+tl.set("#face-wrap",{scale:1.09},19.833);
+tl.set("#face-wrap",{scale:1},20.600);
+tl.set("#face-wrap",{scale:1.09},22.933);
+tl.set("#face-wrap",{scale:1},23.467);
+tl.set("#face-wrap",{scale:1.09},33.267);
+tl.set("#face-wrap",{scale:1},34.500);
+tl.set("#face-wrap",{scale:1.09},41.933);
+tl.set("#face-wrap",{scale:1},42.900);
+tl.set({}, {}, 50.333);
+window.__timelines["main"] = tl;
+</script>
+</div>
+</body></html>
