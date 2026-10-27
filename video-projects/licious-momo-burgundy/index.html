@@ -1,61 +1,293 @@
 <!doctype html>
-<html lang="en" data-resolution="portrait">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=1080, height=1920" />
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <style>
-      /* Placeholders: replace all three with the film's own palette and display face. */
-      :root {
-        --ground: #6b6b6b;
-        --ink: #ffffff;
-        --font-display: sans-serif;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        width: 1080px;
-        height: 1920px;
-        overflow: hidden;
-        background: var(--ground);
-      }
-      #root {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--font-display);
-      }
-      #title {
-        color: var(--ink);
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
-    </style>
-  </head>
-  <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="10"
-      data-width="1080"
-      data-height="1920"
-    >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
-    </div>
-    <script>
-      const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0);
-      window.__timelines["main"] = tl;
-      tl.seek(0);
-    </script>
-  </body>
-</html>
+<html lang="en" data-resolution="portrait"><head><meta charset="utf-8">
+<meta name="viewport" content="width=1080, height=1920" />
+<title>Licious momo story, burgundy</title>
+<style>@font-face { font-family: "Fraunces"; font-style: normal; font-weight: 100 900; src: url("assets/fonts/Fraunces-VF.woff2") format("woff2"); }
+@font-face { font-family: "Fraunces"; font-style: italic; font-weight: 100 900; src: url("assets/fonts/Fraunces-Italic-VF.woff2") format("woff2"); }
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 100 1000; src: url("assets/fonts/DMSans-Variable.woff2") format("woff2"); }
+
+:root { --burgundy: #5E202B; --deep: #44151E; --blush: #FDC5F4; --cream: #F3EAE3; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+#root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--burgundy); font-family: "DM Sans", sans-serif; }
+
+/* Fraunces voices */
+.f-disp { font-family: "Fraunces", serif; font-weight: 800; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; letter-spacing: -0.035em; }
+.f-acc { font-family: "Fraunces", serif; font-style: italic; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; letter-spacing: -0.02em; }
+
+#face-wrap { position: absolute; inset: 0; z-index: 2; transform-origin: 540px 960px; }
+#face { width: 1080px; height: 1920px; object-fit: cover; display: block; }
+.warm { position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(180deg, rgba(94,32,43,.20), rgba(94,32,43,0) 28%, rgba(94,32,43,0) 72%, rgba(94,32,43,.24)); }
+
+/* texture */
+.grain { position: absolute; inset: 0; pointer-events: none; opacity: .16; mix-blend-mode: soft-light; }
+.vig { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 45%, rgba(30,6,12,.55) 100%); }
+
+/* normal caption: cream, chest level */
+.sub { position: absolute; left: 0; right: 0; top: 1205px; z-index: 40; display: flex; justify-content: center; padding: 0 70px; }
+.sub span { font-weight: 700; font-size: 52px; color: var(--cream); text-align: center; display: inline-block;
+  text-shadow: 0 3px 0 var(--deep), 0 0 12px rgba(68,21,30,.85), 0 0 30px rgba(68,21,30,.55); }
+
+/* key-word lockup */
+.emph, .head { position: absolute; left: 0; right: 0; top: 180px; z-index: 41; display: flex; justify-content: center; }
+.lk { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 980px; }
+.lk-s { font-weight: 800; font-size: 58px; letter-spacing: .01em; color: var(--cream); line-height: 1.05;
+  text-shadow: 0 3px 0 var(--deep), 0 0 16px rgba(68,21,30,.7); }
+.lk-c { font-size: 140px; line-height: .98; color: var(--blush); padding: 0 20px 10px;
+  text-shadow: 0 4px 0 var(--deep), 0 0 26px rgba(68,21,30,.6); }
+.head { top: 150px; }
+.head .lk-c { font-size: 128px; }
+
+/* inner-thought pill sticker */
+.pill { position: absolute; top: 300px; z-index: 41; }
+.pill-l { left: 64px; } .pill-r { right: 64px; }
+.pill span { display: inline-block; background: var(--blush); color: var(--burgundy); font-size: 58px; padding: 8px 32px 16px;
+  border-radius: 999px; box-shadow: 0 8px 0 var(--deep); white-space: nowrap; }
+
+/* typewriter bar */
+.type { position: absolute; left: 0; right: 0; top: 270px; z-index: 41; display: flex; justify-content: center; }
+.type .bar { background: rgba(94,32,43,.82); border: 2px solid rgba(243,234,227,.45); border-radius: 18px; padding: 20px 34px;
+  min-width: 560px; max-width: 980px; display: flex; align-items: center; }
+.type .tw-t { font-weight: 700; font-size: 50px; color: var(--cream); letter-spacing: .06em; white-space: nowrap; }
+.type .ch { font-style: normal; display: inline-block; overflow: hidden; vertical-align: bottom; }
+.type .cur { font-weight: 300; font-size: 54px; color: var(--blush); margin-left: 4px; }
+
+/* arc text */
+.arc { position: absolute; left: 0; top: 120px; z-index: 41; width: 1080px; height: 520px; }
+.arc svg { overflow: visible; }
+.arc text { font-size: 70px; fill: var(--cream); paint-order: stroke; stroke: var(--deep); stroke-width: 6px; }
+
+/* burgundy title card */
+.card { position: absolute; inset: 0; z-index: 30; background: var(--burgundy); }
+.card .stack { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 0 96px 120px; }
+.card .kick { font-size: 52px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--blush); margin-bottom: 26px; }
+.ln-big { font-size: 206px; line-height: .86; color: var(--cream); }
+.ln-big + .ln-big { margin-left: 70px; }
+.ln-small { font-size: 60px; font-weight: 500; color: var(--cream); margin-top: 60px; padding-top: 40px;
+  background: linear-gradient(var(--blush), var(--blush)) 6px 0 / 240px 4px no-repeat; }
+.ln-acc { font-size: 168px; line-height: 1.05; color: var(--blush); }
+.card .stamp { position: absolute; right: 90px; top: 210px; width: 190px; height: 190px; }
+
+/* arched-window pages */
+.page { position: absolute; inset: 0; z-index: 30; background: var(--burgundy); }
+.page-under { z-index: 1; }
+.rim { position: absolute; border: 14px solid var(--cream); box-shadow: 0 30px 60px rgba(30,6,12,.5); pointer-events: none; }
+.archv { position: absolute; z-index: 32; overflow: hidden; opacity: 0; }
+.archv video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
+.spark { position: absolute; width: 90px; height: 90px; }
+</style></head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="45.333" data-width="1080" data-height="1920">
+<svg width="0" height="0" style="position:absolute"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+<div id="face-wrap"><video id="face" data-start="0" data-duration="45.333" data-track-index="0" src="assets/clean.mp4" muted playsinline></video></div>
+<audio id="vo" data-start="0" data-duration="45.333" data-track-index="1" src="assets/clean.mp4" data-volume="1"></audio>
+<div id="warm" class="clip warm" data-start="0.000" data-duration="45.333" data-track-index="3" style=""></div>
+<div id="sub1" class="clip sub" data-start="0.767" data-duration="1.333" data-track-index="4" style=""><span>are literally the most</span></div>
+<div id="sub5" class="clip sub" data-start="5.167" data-duration="0.666" data-track-index="4" style=""><span>Let me tell you</span></div>
+<div id="sub13" class="clip sub" data-start="10.633" data-duration="0.534" data-track-index="4" style=""><span>poore bombay mein</span></div>
+<div id="sub14" class="clip sub" data-start="11.167" data-duration="0.866" data-track-index="4" style=""><span>ache momo milte hi</span></div>
+<div id="sub16" class="clip sub" data-start="12.767" data-duration="0.900" data-track-index="4" style=""><span>Anyway we were going</span></div>
+<div id="sub17" class="clip sub" data-start="13.667" data-duration="1.100" data-track-index="4" style=""><span>from one spot to another</span></div>
+<div id="sub20" class="clip sub" data-start="16.433" data-duration="0.767" data-track-index="4" style=""><span>toh hum road pe khade hue</span></div>
+<div id="sub21" class="clip sub" data-start="17.200" data-duration="0.900" data-track-index="4" style=""><span>ek auto waale ko bolte hai</span></div>
+<div id="sub23" class="clip sub" data-start="18.667" data-duration="0.866" data-track-index="4" style=""><span>humein aage chhodh do</span></div>
+<div id="sub24" class="clip sub" data-start="19.533" data-duration="0.534" data-track-index="4" style=""><span>toh hum iss auto</span></div>
+<div id="sub25" class="clip sub" data-start="20.067" data-duration="0.366" data-track-index="4" style=""><span>mein baithte hai</span></div>
+<div id="sub31" class="clip sub" data-start="24.600" data-duration="0.600" data-track-index="4" style=""><span>and humare piche</span></div>
+<div id="sub32" class="clip sub" data-start="25.200" data-duration="0.533" data-track-index="4" style=""><span>waali gaadi</span></div>
+<div id="sub35" class="clip sub" data-start="27.000" data-duration="1.200" data-track-index="4" style=""><span>jabki side mein</span></div>
+<div id="sub37" class="clip sub" data-start="29.200" data-duration="0.667" data-track-index="4" style=""><span>like yeh banda na</span></div>
+<div id="sub38" class="clip sub" data-start="29.867" data-duration="1.233" data-track-index="4" style=""><span>side se gaadi nikal sakta hai</span></div>
+<div id="sub39" class="clip sub" data-start="31.100" data-duration="0.767" data-track-index="4" style=""><span>but itni akkal toh</span></div>
+<div id="sub41" class="clip sub" data-start="33.100" data-duration="0.800" data-track-index="4" style=""><span>toh woh horn maar raha hai</span></div>
+<div id="sub43" class="clip sub" data-start="34.933" data-duration="1.767" data-track-index="4" style=""><span>lagataar horn bajane ke baad</span></div>
+<div id="sub44" class="clip sub" data-start="36.700" data-duration="0.900" data-track-index="4" style=""><span>yeh banda apni gaadi</span></div>
+<div id="sub45" class="clip sub" data-start="37.600" data-duration="0.933" data-track-index="4" style=""><span>humari just side mein</span></div>
+<div id="sub46" class="clip sub" data-start="38.533" data-duration="0.967" data-track-index="4" style=""><span>laake khadi kar deta hai</span></div>
+<div id="sub47" class="clip sub" data-start="39.500" data-duration="1.000" data-track-index="4" style=""><span>and passenger seat pe</span></div>
+<div id="sub48" class="clip sub" data-start="40.500" data-duration="0.867" data-track-index="4" style=""><span>jo aurat baithi hai</span></div>
+<div id="sub49" class="clip sub" data-start="41.367" data-duration="0.633" data-track-index="4" style=""><span>wohi apni khidki</span></div>
+<div id="sub50" class="clip sub" data-start="42.000" data-duration="0.733" data-track-index="4" style=""><span>niche karti hai</span></div>
+<div id="sub51" class="clip sub" data-start="42.733" data-duration="1.134" data-track-index="4" style=""><span>and woh autowaale ko</span></div>
+<div id="em0" class="clip emph" data-start="0.000" data-duration="0.767" data-track-index="5" style=""><div class="lk"><span class="lk-s">me and my</span><span class="lk-c f-acc">bestfriend</span></div></div>
+<div id="em15" class="clip emph" data-start="12.033" data-duration="0.734" data-track-index="5" style=""><div class="lk"><span class="lk-s">nahi hai</span><span class="lk-c f-acc">bhaiya</span></div></div>
+<div id="em19" class="clip emph" data-start="15.867" data-duration="0.566" data-track-index="5" style=""><div class="lk"><span class="lk-s">ho rahi thi</span><span class="lk-c f-acc">bhai</span></div></div>
+<div id="em33" class="clip emph" data-start="25.733" data-duration="0.700" data-track-index="5" style=""><div class="lk"><span class="lk-s">pagalon ki</span><span class="lk-c f-acc">tarah</span></div></div>
+<div id="em36" class="clip emph" data-start="28.200" data-duration="1.000" data-track-index="5" style=""><div class="lk"><span class="lk-s">poori sadak</span><span class="lk-c f-acc">khaali padi hai</span></div></div>
+<div id="em52" class="clip emph" data-start="43.867" data-duration="1.466" data-track-index="5" style=""><div class="lk"><span class="lk-s">maa behen ki</span><span class="lk-c f-acc">gaaliyan</span></div></div>
+<div id="pl6" class="clip pill pill-l" data-start="5.833" data-duration="0.667" data-track-index="6" style=""><span class="f-acc">guys a story!</span></div>
+<div id="pl22" class="clip pill pill-r" data-start="18.100" data-duration="0.567" data-track-index="6" style=""><span class="f-acc">please bhaiya!!</span></div>
+<div id="pl34" class="clip pill pill-l" data-start="26.433" data-duration="0.567" data-track-index="6" style=""><span class="f-acc">horn baja rahi hai!!</span></div>
+<div id="tw0" class="clip type" data-start="6.500" data-duration="0.667" data-track-index="7" style=""><div class="bar"><span class="tw-t"><i class="ch">L</i><i class="ch">A</i><i class="ch">S</i><i class="ch">T</i><i class="ch">&nbsp;</i><i class="ch">S</i><i class="ch">A</i><i class="ch">T</i><i class="ch">U</i><i class="ch">R</i><i class="ch">D</i><i class="ch">A</i><i class="ch">Y</i></span><b class="cur">|</b></div></div>
+<div id="tw1" class="clip type" data-start="14.767" data-duration="1.100" data-track-index="7" style=""><div class="bar"><span class="tw-t"><i class="ch">A</i><i class="ch">N</i><i class="ch">D</i><i class="ch">H</i><i class="ch">I</i><i class="ch">&nbsp;</i><i class="ch">B</i><i class="ch">A</i><i class="ch">A</i><i class="ch">R</i><i class="ch">I</i><i class="ch">S</i><i class="ch">H</i></span><b class="cur">|</b></div></div>
+<div id="tw2" class="clip type" data-start="33.900" data-duration="1.033" data-track-index="7" style=""><div class="bar"><span class="tw-t"><i class="ch">5</i><i class="ch">&nbsp;</i><i class="ch">M</i><i class="ch">I</i><i class="ch">N</i><i class="ch">&nbsp;</i><i class="ch">T</i><i class="ch">A</i><i class="ch">K</i></span><b class="cur">|</b></div></div>
+<div id="arc40" class="clip arc" data-start="31.867" data-duration="1.233" data-track-index="8" style=""><svg viewBox="0 0 1080 520" width="1080" height="520"><defs><path id="arcp40" d="M150,470 Q540,40 930,470"/></defs><text class="f-acc"><textPath href="#arcp40" startOffset="50%" text-anchor="middle">uske ander hai hi nahi</textPath></text></svg></div>
+<div id="card1" class="clip card" data-start="2.100" data-duration="3.067" data-track-index="10" style=""><div class="stack"><div class="kick">no bullshit</div><div class="ln ln-big f-disp">people</div><div class="ln ln-big f-disp">I know</div><div class="ln ln-small">even when our life is in</div><div class="ln ln-acc f-acc">danger.</div></div><svg class="stamp" viewBox="0 0 200 200"><defs><path id="ringcard1" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs><circle cx="100" cy="100" r="94" fill="none" stroke="#FDC5F4" stroke-width="3"/><text font-family="DM Sans" font-weight="700" font-size="22" fill="#FDC5F4"><textPath href="#ringcard1" textLength="438" lengthAdjust="spacing">STORYTIME · STORYTIME · STORYTIME · </textPath></text><path d="M100 74 L106 94 L126 100 L106 106 L100 126 L94 106 L74 100 L94 94 Z" fill="#F3EAE3"/></svg><svg class="grain" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#noise)"/></svg><div class="vig"></div></div>
+<div id="ab1" class="clip page" data-start="7.167" data-duration="3.466" data-track-index="11" style=""><svg class="spark" style="left:70px;top:1560px" viewBox="0 0 100 100"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#FDC5F4"/></svg><svg class="spark" style="left:930px;top:640px;width:60px;height:60px" viewBox="0 0 100 100"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#F3EAE3"/></svg><svg class="grain" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#noise)"/></svg><div class="vig"></div></div>
+<div id="ab1-rim" class="clip rim" data-start="7.167" data-duration="3.466" data-track-index="12" style="left:150px;top:560px;width:780px;height:1120px;border-radius:390px 390px 26px 26px;z-index:33;"></div>
+<div class="archv" id="ab1-w0" style="left:150px;top:560px;width:780px;height:1120px;border-radius:390px 390px 26px 26px;"><video id="ab1-v0" data-start="7.167" data-duration="1.766" data-track-index="20" data-media-start="0.4" src="assets/clean.mp4" muted playsinline></video></div>
+<div class="archv" id="ab1-w1" style="left:150px;top:560px;width:780px;height:1120px;border-radius:390px 390px 26px 26px;"><video id="ab1-v1" data-start="8.933" data-duration="1.700" data-track-index="21" data-media-start="148.4" src="assets/clean.mp4" muted playsinline></video></div>
+<div id="ab1-t8" class="clip head" data-start="7.167" data-duration="0.900" data-track-index="40" style=""><div class="lk"><span class="lk-s">hum dono</span><span class="lk-c f-acc">bandra mein</span></div></div>
+<div id="ab1-t9" class="clip head" data-start="8.067" data-duration="0.866" data-track-index="40" style=""><div class="lk"><span class="lk-s">ache momo</span><span class="lk-c f-acc">dhundhne</span></div></div>
+<div id="ab1-t10" class="clip head" data-start="8.933" data-duration="0.467" data-track-index="40" style=""><div class="lk"><span class="lk-c f-acc">nikle the</span></div></div>
+<div id="ab1-t11" class="clip head" data-start="9.400" data-duration="0.767" data-track-index="40" style=""><div class="lk"><span class="lk-s">jo ki</span><span class="lk-c f-acc">humari hi</span></div></div>
+<div id="ab1-t12" class="clip head" data-start="10.167" data-duration="0.466" data-track-index="40" style=""><div class="lk"><span class="lk-c f-acc">galti hai</span></div></div>
+<div id="af1" class="clip page page-under" data-start="20.433" data-duration="4.167" data-track-index="13" style=""><svg class="spark" style="left:70px;top:1560px" viewBox="0 0 100 100"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#FDC5F4"/></svg><svg class="spark" style="left:930px;top:640px;width:60px;height:60px" viewBox="0 0 100 100"><path d="M50 4 L58 42 L96 50 L58 58 L50 96 L42 58 L4 50 L42 42 Z" fill="#F3EAE3"/></svg><svg class="grain" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#noise)"/></svg><div class="vig"></div></div>
+<div id="af1-rim" class="clip rim" data-start="20.433" data-duration="4.167" data-track-index="14" style="left:150px;top:560px;width:780px;height:1120px;border-radius:390px 390px 26px 26px;z-index:3;"></div>
+<div id="af1-t26" class="clip head" data-start="20.433" data-duration="0.867" data-track-index="40" style=""><div class="lk"><span class="lk-s">yeh bichara</span><span class="lk-c f-acc">autowala</span></div></div>
+<div id="af1-t27" class="clip head" data-start="21.300" data-duration="0.833" data-track-index="40" style=""><div class="lk"><span class="lk-s">apna auto</span><span class="lk-c f-acc">start nahi</span></div></div>
+<div id="af1-t28" class="clip head" data-start="22.133" data-duration="0.634" data-track-index="40" style=""><div class="lk"><span class="lk-s">kar pa raha hai</span><span class="lk-c f-acc">kyu ki</span></div></div>
+<div id="af1-t29" class="clip head" data-start="22.767" data-duration="0.700" data-track-index="40" style=""><div class="lk"><span class="lk-s">baarish ke</span><span class="lk-c f-acc">wajhese</span></div></div>
+<div id="af1-t30" class="clip head" data-start="23.467" data-duration="1.133" data-track-index="40" style=""><div class="lk"><span class="lk-s">iska auto</span><span class="lk-c f-acc">kharab hogaya hai</span></div></div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+window.__timelines = window.__timelines || {};
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#sub1 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},0.777);
+tl.fromTo("#sub5 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},5.177);
+tl.fromTo("#sub13 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},10.643);
+tl.fromTo("#sub14 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},11.177);
+tl.fromTo("#sub16 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},12.777);
+tl.fromTo("#sub17 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},13.677);
+tl.fromTo("#sub20 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},16.443);
+tl.fromTo("#sub21 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},17.210);
+tl.fromTo("#sub23 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},18.677);
+tl.fromTo("#sub24 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},19.543);
+tl.fromTo("#sub25 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},20.077);
+tl.fromTo("#sub31 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},24.610);
+tl.fromTo("#sub32 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},25.210);
+tl.fromTo("#sub35 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},27.010);
+tl.fromTo("#sub37 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},29.210);
+tl.fromTo("#sub38 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},29.877);
+tl.fromTo("#sub39 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},31.110);
+tl.fromTo("#sub41 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},33.110);
+tl.fromTo("#sub43 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},34.943);
+tl.fromTo("#sub44 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},36.710);
+tl.fromTo("#sub45 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},37.610);
+tl.fromTo("#sub46 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},38.543);
+tl.fromTo("#sub47 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},39.510);
+tl.fromTo("#sub48 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},40.510);
+tl.fromTo("#sub49 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},41.377);
+tl.fromTo("#sub50 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},42.010);
+tl.fromTo("#sub51 span",{opacity:0,y:8},{opacity:1,y:0,duration:0.14,ease:"power2.out",immediateRender:false},42.743);
+tl.fromTo("#em0 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},0.020);
+tl.fromTo("#em0 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},0.100);
+tl.fromTo("#em15 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},12.053);
+tl.fromTo("#em15 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},12.133);
+tl.fromTo("#em19 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},15.887);
+tl.fromTo("#em19 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},15.967);
+tl.fromTo("#em33 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},25.753);
+tl.fromTo("#em33 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},25.833);
+tl.fromTo("#em36 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},28.220);
+tl.fromTo("#em36 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},28.300);
+tl.fromTo("#em52 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},43.887);
+tl.fromTo("#em52 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},43.967);
+tl.fromTo("#pl6 span",{opacity:0,scale:0.55,rotation:-12},{opacity:1,scale:1,rotation:-3,duration:0.32,ease:"back.out(2.6)",immediateRender:false},5.853);
+tl.fromTo("#pl22 span",{opacity:0,scale:0.55,rotation:8},{opacity:1,scale:1,rotation:-3,duration:0.32,ease:"back.out(2.6)",immediateRender:false},18.120);
+tl.fromTo("#pl34 span",{opacity:0,scale:0.55,rotation:-12},{opacity:1,scale:1,rotation:-3,duration:0.32,ease:"back.out(2.6)",immediateRender:false},26.453);
+tl.set("#tw0 .ch",{opacity:0,maxWidth:"0em"},6.500);
+tl.fromTo("#tw0 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},6.500);
+tl.set("#tw0 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},6.620);
+tl.set("#tw0 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},6.653);
+tl.set("#tw0 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},6.687);
+tl.set("#tw0 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},6.720);
+tl.set("#tw0 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},6.753);
+tl.set("#tw0 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},6.787);
+tl.set("#tw0 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},6.820);
+tl.set("#tw0 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},6.853);
+tl.set("#tw0 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},6.887);
+tl.set("#tw0 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},6.920);
+tl.set("#tw0 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},6.954);
+tl.set("#tw0 .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},6.987);
+tl.set("#tw0 .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},7.020);
+tl.fromTo("#tw0 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:1,yoyo:true,immediateRender:false},6.500);
+tl.set("#tw1 .ch",{opacity:0,maxWidth:"0em"},14.767);
+tl.fromTo("#tw1 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},14.767);
+tl.set("#tw1 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},14.887);
+tl.set("#tw1 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},14.942);
+tl.set("#tw1 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},14.997);
+tl.set("#tw1 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},15.052);
+tl.set("#tw1 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},15.107);
+tl.set("#tw1 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},15.162);
+tl.set("#tw1 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},15.217);
+tl.set("#tw1 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},15.272);
+tl.set("#tw1 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},15.327);
+tl.set("#tw1 .ch:nth-child(10)",{opacity:1,maxWidth:"2em"},15.382);
+tl.set("#tw1 .ch:nth-child(11)",{opacity:1,maxWidth:"2em"},15.437);
+tl.set("#tw1 .ch:nth-child(12)",{opacity:1,maxWidth:"2em"},15.492);
+tl.set("#tw1 .ch:nth-child(13)",{opacity:1,maxWidth:"2em"},15.547);
+tl.fromTo("#tw1 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:2,yoyo:true,immediateRender:false},14.767);
+tl.set("#tw2 .ch",{opacity:0,maxWidth:"0em"},33.900);
+tl.fromTo("#tw2 .bar",{opacity:0,y:-12},{opacity:1,y:0,duration:0.18,ease:"power2.out",immediateRender:false},33.900);
+tl.set("#tw2 .ch:nth-child(1)",{opacity:1,maxWidth:"2em"},34.020);
+tl.set("#tw2 .ch:nth-child(2)",{opacity:1,maxWidth:"2em"},34.080);
+tl.set("#tw2 .ch:nth-child(3)",{opacity:1,maxWidth:"2em"},34.140);
+tl.set("#tw2 .ch:nth-child(4)",{opacity:1,maxWidth:"2em"},34.200);
+tl.set("#tw2 .ch:nth-child(5)",{opacity:1,maxWidth:"2em"},34.260);
+tl.set("#tw2 .ch:nth-child(6)",{opacity:1,maxWidth:"2em"},34.320);
+tl.set("#tw2 .ch:nth-child(7)",{opacity:1,maxWidth:"2em"},34.380);
+tl.set("#tw2 .ch:nth-child(8)",{opacity:1,maxWidth:"2em"},34.440);
+tl.set("#tw2 .ch:nth-child(9)",{opacity:1,maxWidth:"2em"},34.500);
+tl.fromTo("#tw2 .cur",{opacity:1},{opacity:0,duration:0.25,ease:"steps(1)",repeat:2,yoyo:true,immediateRender:false},33.900);
+tl.fromTo("#arc40 svg",{opacity:0,rotation:-6,transformOrigin:"50% 90%"},{opacity:1,rotation:0,duration:0.4,ease:"power3.out",immediateRender:false},31.887);
+tl.set("#card1 .stack > *",{opacity:0},2.100);
+tl.fromTo("#card1 .kick",{opacity:0,y:20},{opacity:1,y:0,duration:0.3,ease:"power2.out"},2.140);
+tl.fromTo("#card1 .ln:nth-child(2)",{opacity:0,y:50},{opacity:1,y:0,duration:0.45,ease:"expo.out"},2.570);
+tl.fromTo("#card1 .ln:nth-child(3)",{opacity:0,y:50},{opacity:1,y:0,duration:0.45,ease:"expo.out"},2.870);
+tl.fromTo("#card1 .ln:nth-child(4)",{opacity:0,y:16},{opacity:1,y:0,duration:0.3,ease:"power2.out"},3.653);
+tl.fromTo("#card1 .ln:nth-child(5)",{opacity:0,scale:1.25,transformOrigin:"0% 60%"},{opacity:1,scale:1,duration:0.35,ease:"back.out(2.2)"},4.453);
+tl.fromTo("#card1 .stamp",{rotation:0},{rotation:40,duration:3.067,ease:"none"},2.100);
+tl.set("#ab1-w0",{opacity:0},0);
+tl.set("#ab1-w0",{opacity:1},7.167);
+tl.set("#ab1-w0",{opacity:0},8.933);
+tl.set("#ab1-w1",{opacity:0},0);
+tl.set("#ab1-w1",{opacity:1},8.933);
+tl.set("#ab1-w1",{opacity:0},10.633);
+tl.fromTo(["#ab1-rim","#ab1-w0"],{y:80,scale:0.94},{y:0,scale:1,duration:0.4,ease:"expo.out",immediateRender:false},7.177);
+tl.fromTo("#ab1 .spark",{rotation:-30,scale:0.4},{rotation:15,scale:1,duration:3.466,ease:"power1.out",immediateRender:false},7.167);
+tl.fromTo("#ab1-t8 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},7.187);
+tl.fromTo("#ab1-t8 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},7.267);
+tl.fromTo("#ab1-t9 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},8.087);
+tl.fromTo("#ab1-t9 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},8.167);
+tl.fromTo("#ab1-t10 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},8.953);
+tl.fromTo("#ab1-t10 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},9.033);
+tl.fromTo("#ab1-t11 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},9.420);
+tl.fromTo("#ab1-t11 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},9.500);
+tl.fromTo("#ab1-t12 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},10.187);
+tl.fromTo("#ab1-t12 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},10.267);
+tl.set("#face-wrap",{scale:0.8,y:160,clipPath:"inset(260.0px 52.5px 260.0px 52.5px round 487.5px 487.5px 32.5px 32.5px)"},20.433);
+tl.fromTo("#face-wrap",{scale:0.8240},{scale:0.8,duration:0.14,ease:"power2.out",immediateRender:false},20.433);
+tl.set("#face-wrap",{scale:1,y:0,clipPath:"inset(0px 0px 0px 0px round 0px)"},24.600);
+tl.set("#warm",{opacity:0},20.433);
+tl.set("#warm",{opacity:1},24.600);
+tl.fromTo("#af1 .spark",{rotation:-30,scale:0.4},{rotation:15,scale:1,duration:4.167,ease:"power1.out",immediateRender:false},20.433);
+tl.fromTo("#af1-t26 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},20.453);
+tl.fromTo("#af1-t26 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},20.533);
+tl.fromTo("#af1-t27 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},21.320);
+tl.fromTo("#af1-t27 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},21.400);
+tl.fromTo("#af1-t28 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},22.153);
+tl.fromTo("#af1-t28 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},22.233);
+tl.fromTo("#af1-t29 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},22.787);
+tl.fromTo("#af1-t29 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},22.867);
+tl.fromTo("#af1-t30 .lk-s",{y:24,opacity:0},{y:0,opacity:1,duration:0.26,ease:"power3.out",immediateRender:false},23.487);
+tl.fromTo("#af1-t30 .lk-c",{opacity:0,scale:1.18,y:10},{opacity:1,scale:1,y:0,duration:0.34,ease:"back.out(2)",immediateRender:false},23.567);
+tl.set("#face-wrap",{scale:1.09},0.767);
+tl.set("#face-wrap",{scale:1},2.100);
+tl.set("#face-wrap",{scale:1.09},5.167);
+tl.set("#face-wrap",{scale:1},5.833);
+tl.set("#face-wrap",{scale:1.09},10.633);
+tl.set("#face-wrap",{scale:1},11.167);
+tl.set("#face-wrap",{scale:1.09},16.433);
+tl.set("#face-wrap",{scale:1},17.200);
+tl.set("#face-wrap",{scale:1.09},19.533);
+tl.set("#face-wrap",{scale:1},20.067);
+tl.set("#face-wrap",{scale:1.09},29.867);
+tl.set("#face-wrap",{scale:1},31.100);
+tl.set("#face-wrap",{scale:1.09},38.533);
+tl.set("#face-wrap",{scale:1},39.500);
+tl.set({}, {}, 45.333);
+window.__timelines["main"] = tl;
+</script>
+</div>
+</body></html>
