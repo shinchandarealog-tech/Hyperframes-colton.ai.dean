@@ -50,6 +50,9 @@ PULLUP = (t0(44), t1(46))
 ZOOM_S = 1.6
 ZOOM_A = (ZOOM_S, -218, 4)      # face pushed left, empty wall on the right for text
 ZOOM_B = (ZOOM_S, 122, 4)       # face pushed right, text on the left
+COLD_S = 1.3                    # cold-open shot is closer, so a softer zoom
+COLD_A = (COLD_S, -162, 0)      # face sits at x~540; max offset at 1.3x is 162px
+COLD_B = (COLD_S, 162, 0)
 
 covered = set()
 for a, b in [(HOOK_A[0], HOOK_B[1]), (ROAD["start"], ROAD["end"])] + [(t["start"], t["end"]) for t in TORN]:
@@ -83,15 +86,20 @@ def heads(prefix, text, en_limit, cls="head"):
 GRAIN = '<svg class="grain" width="1080" height="1920"><rect width="1080" height="1920" filter="url(#noise)"/></svg><div class="vig"></div>'
 
 # ---------------------------------------------------------------- cold open + rewind band
-els.append(f'<div class="vwrap"><video id="cold" data-start="0" data-duration="2.000" data-track-index="2" '
+els.append(f'<div class="vwrap" id="cold-wrap"><video id="cold" data-start="0" data-duration="2.000" data-track-index="2" '
            f'data-media-start="{COLD_MEDIA}" src="assets/clean.mp4" muted playsinline></video></div>')
 aud.append(f'<audio id="vo-cold" data-start="0" data-duration="2.000" data-track-index="3" data-media-start="{COLD_MEDIA}" src="assets/clean.mp4" data-volume="1"></audio>')
-clip("cold-lk", 0, 2.0, 21, "emph", lockup("agar aap itne ameer ho toh", "Creta mein kyu?"))
-T('tl.fromTo("#cold-lk .lk-s",{y:20,opacity:0},{y:0,opacity:1,duration:0.25,ease:"power3.out"},0.05);')
-T(f'tl.fromTo("#cold-lk .lk-c",{{opacity:0,scale:1.2}},{{opacity:1,scale:1,duration:0.35,ease:"back.out(2.2)"}},{C[129]["start"] - COLD_MEDIA:.3f});')
+COLD_PAN = C[129]["start"] - COLD_MEDIA          # "creta mein kyu" starts here
+T(f'tl.fromTo("#cold-wrap",{{scale:1,x:0,y:0}},{{scale:{COLD_S},x:{COLD_A[1]},y:{COLD_A[2]},duration:0.3,ease:"power3.out"}},0);')
+T(f'tl.to("#cold-wrap",{{x:{COLD_B[1]},y:{COLD_B[2]},duration:0.4,ease:"power2.inOut"}},{COLD_PAN - 0.1:.3f});')
+clip("coldA", 0, COLD_PAN + 0.08, 21, "hook hook-r cold-txt", '<div class="hs">agar aap itne ameer ho toh</div>')
+T('tl.fromTo("#coldA .hs",{opacity:0,x:30},{opacity:1,x:0,duration:0.25,ease:"power3.out"},0.12);')
+clip("coldB", COLD_PAN, 2.0, 22, "hook hook-l cold-txt", '<div class="f-acc hd hd-sm">Creta mein kyu?</div>')
+T(f'tl.fromTo("#coldB .hd",{{opacity:0,scale:1.25,transformOrigin:"0% 60%"}},{{opacity:1,scale:1,duration:0.3,ease:"back.out(2.2)"}},{COLD_PAN + 0.05:.3f});')
+sfx("whoosh.mp3", 0.0, 0.55, 0.22); sfx("swipe.mp3", COLD_PAN - 0.12, 0.8, 0.25); sfx("pop.mp3", COLD_PAN + 0.05, 0.6, 0.25)
 clip("rewind", 2.0, O, 22, "card rewind", f'<div class="f-disp rw">◀◀ last saturday</div>{GRAIN}')
 T('tl.fromTo("#rewind .rw",{x:120,opacity:0},{x:0,opacity:1,duration:0.22,ease:"expo.out"},2.0);')
-sfx("whoosh.mp3", 1.96, 0.55, 0.3)
+sfx("rewind.wav", 1.98, 0.95, 0.4)
 
 # ---------------------------------------------------------------- main face + voice
 els.append(f'<div id="face-wrap"><video id="face" data-start="{O:.3f}" data-duration="{MAIN:.3f}" data-track-index="0" src="assets/clean.mp4" muted playsinline></video></div>')
@@ -107,9 +115,11 @@ for c in CAPS:
 for i, (s, b) in EMPH.items():
     clip(f"em{i}", t0(i), DUR if i == LAST else t1(i), 5, "emph", lockup(s, b))
     anim_lockup(f"#em{i}", t0(i))
+    sfx("click.wav", t0(i) + 0.1, 0.45, 0.18)
 for i, (txt, side) in PILL.items():
     clip(f"pl{i}", t0(i), t1(i), 6, f"pill pill-{side}", f'<span class="f-acc">{esc(txt)}</span>')
     T(f'tl.fromTo("#pl{i} span",{{opacity:0,scale:0.55,rotation:{-12 if side == "l" else 8}}},{{opacity:1,scale:1,rotation:-3,duration:0.32,ease:"back.out(2.6)",immediateRender:false}},{t0(i) + 0.02:.3f});')
+    sfx("pop.mp3", t0(i) + 0.02, 0.6, 0.28)
 for k, (i, txt) in enumerate(TYPE):
     st, en = t0(i), t1(i)
     chars = "".join(f'<i class="ch">{esc(ch) if ch != " " else "&nbsp;"}</i>' for ch in txt)
@@ -119,11 +129,13 @@ for k, (i, txt) in enumerate(TYPE):
     span = min(0.06 * len(txt), (en - st) * 0.65)
     for j in range(len(txt)):
         T(f'tl.set("#tw{k} .ch:nth-child({j + 1})",{{opacity:1,maxWidth:"2em"}},{st + 0.12 + span * j / len(txt):.3f});')
+    sfx("keyboard-typing.mp3", st + 0.1, span + 0.1, 0.25)
     T(f'tl.fromTo("#tw{k} .cur",{{opacity:1}},{{opacity:0,duration:0.25,ease:"steps(1)",repeat:{max(1, int((en - st) / 0.5))},yoyo:true,immediateRender:false}},{st:.3f});')
 for i, txt in ARC.items():
     svg = (f'<svg viewBox="0 0 1080 520" width="1080" height="520"><defs><path id="arcp{i}" d="M150,470 Q540,40 930,470"/></defs>'
            f'<text class="f-acc"><textPath href="#arcp{i}" startOffset="50%" text-anchor="middle">{esc(txt)}</textPath></text></svg>')
     clip(f"arc{i}", t0(i), t1(i), 8, "arc", svg)
+    sfx("whoosh.mp3", t0(i), 0.55, 0.2)
     T(f'tl.fromTo("#arc{i} svg",{{opacity:0,rotation:-6,transformOrigin:"50% 90%"}},{{opacity:1,rotation:0,duration:0.4,ease:"power3.out",immediateRender:false}},{t0(i) + 0.02:.3f});')
 
 # ---------------------------------------------------------------- hook: shoulder-to-shoulder zoom
@@ -131,7 +143,8 @@ sa, sb = ZOOM_A, ZOOM_B
 T(f'tl.fromTo("#face-wrap",{{scale:1,x:0,y:0}},{{scale:{sa[0]},x:{sa[1]},y:{sa[2]},duration:0.38,ease:"power3.out",immediateRender:false}},{HOOK_A[0]:.3f});')
 T(f'tl.to("#face-wrap",{{x:{sb[1]},y:{sb[2]},duration:0.45,ease:"power2.inOut"}},{HOOK_B[0]:.3f});')
 T(f'tl.to("#face-wrap",{{scale:1,x:0,y:0,duration:0.35,ease:"power3.inOut"}},{HOOK_B[1]:.3f});')
-sfx("whoosh.mp3", HOOK_B[0] - 0.05, 0.55, 0.22)
+sfx("whoosh.mp3", HOOK_A[0], 0.55, 0.22); sfx("swipe.mp3", HOOK_B[0] - 0.05, 0.8, 0.25)
+sfx("sparkle.mp3", t0(4) + 0.02, 1.2, 0.25)
 clip("hookA", HOOK_A[0], HOOK_A[1], 9, "hook hook-r",
      '<div class="kick">no bullshit</div><div class="f-disp hb">people</div><div class="f-disp hb">I know</div>')
 T(f'tl.set("#hookA > *",{{opacity:0}},{HOOK_A[0]:.3f});')
@@ -198,12 +211,13 @@ for k in range(steps + 1):
     sec = round(300 * k / steps)
     T(f'tl.set("#timer .tn",{{textContent:"{sec // 60:02d}:{sec % 60:02d}"}},{ts + 0.2 + k * 0.055:.3f});')
 T(f'tl.fromTo("#timer .tn",{{scale:1.15}},{{scale:1,duration:0.35,ease:"back.out(3)",immediateRender:false}},{ts + 0.2 + steps * 0.055:.3f});')
-sfx("ticks.wav", ts + 0.2, 1.8, 0.3)
+sfx("ticks.wav", ts + 0.2, 1.8, 0.3); sfx("slam.mp3", ts + 0.2 + steps * 0.055, 1.0, 0.28)
 
 # ---------------------------------------------------------------- car pulls up (mini diagram)
 ps, pe = PULLUP
 clip("pullup", ps, pe, 16, "mini", '<div class="lane-l"></div><div class="divider"></div><div class="veh auto-v sm"><span>US</span></div><div class="veh car-v sm" id="pu-car"><span>HIM</span></div>')
 T(f'tl.fromTo("#pullup",{{opacity:0,x:60}},{{opacity:1,x:0,duration:0.3,ease:"power3.out",immediateRender:false}},{ps + 0.02:.3f});')
+sfx("swipe.mp3", t0(45), 0.8, 0.2)
 T(f'tl.fromTo("#pu-car",{{x:0,y:150}},{{x:120,y:0,duration:1.4,ease:"power2.inOut",immediateRender:false}},{t0(45):.3f});')
 
 # ---------------------------------------------------------------- bleeped gaaliyan + Part 2 hold
@@ -212,6 +226,7 @@ T(f'tl.fromTo("#bleep",{{opacity:0,scale:1.4,rotation:-8}},{{opacity:1,scale:1,r
 sfx("bleep.wav", t0(LAST) + 0.6, 0.6, 0.22)
 clip("endhold", O + MAIN, DUR, 24, "freeze", '<img src="assets/stills/end.jpg" alt=""><div class="tint"></div>')
 clip("band", O + MAIN - 0.3, DUR, 45, "band", '<span>STORY CONTINUES</span><b></b><span class="f-disp">Part 2 →</span>')
+sfx("whoosh.mp3", O + MAIN - 0.3, 0.55, 0.25)
 T(f'tl.fromTo("#band",{{yPercent:110}},{{yPercent:0,duration:0.35,ease:"expo.out",immediateRender:false}},{O + MAIN - 0.3:.3f});')
 
 # ---------------------------------------------------------------- punch-ins (plain face only)

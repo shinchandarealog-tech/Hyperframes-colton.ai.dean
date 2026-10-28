@@ -116,3 +116,6 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .band span:first-child { font-size: 44px; font-weight: 700; letter-spacing: .16em; color: var(--cream); }
 .band b { width: 18px; height: 18px; border-radius: 50%; background: var(--blush); }
 .band span:last-child { font-size: 96px; color: var(--blush); }
+.hook .hd-sm { font-size: 120px; line-height: 1; }
+.cold-txt { width: 360px; top: 560px; }
+.cold-txt .hd-sm { font-size: 100px; }
