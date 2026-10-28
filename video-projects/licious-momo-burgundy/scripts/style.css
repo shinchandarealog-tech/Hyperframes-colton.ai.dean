@@ -1,6 +1,5 @@
 @font-face { font-family: "Fraunces"; font-style: normal; font-weight: 100 900; src: url("assets/fonts/Fraunces-VF.woff2") format("woff2"); }
 @font-face { font-family: "Fraunces"; font-style: italic; font-weight: 100 900; src: url("assets/fonts/Fraunces-Italic-VF.woff2") format("woff2"); }
-@font-face { font-family: "Briston"; font-style: normal; font-weight: 400; src: url("assets/fonts/BristonClean.ttf") format("truetype"); }
 @font-face { font-family: "DM Sans"; font-style: normal; font-weight: 100 1000; src: url("assets/fonts/DMSans-Variable.woff2") format("woff2"); }
 
 :root { --burgundy: #5E202B; --deep: #44151E; --blush: #FDC5F4; --cream: #F3EAE3; }
@@ -118,11 +117,6 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .band b { width: 18px; height: 18px; border-radius: 50%; background: var(--blush); }
 .band span:last-child { font-size: 96px; color: var(--blush); }
 .hook .hd-sm { font-size: 120px; line-height: 1; }
-.cold-txt { width: 360px; top: 560px; }
-.cold-txt .hd-sm { font-size: 100px; }
-/* Briston (user-supplied, cleaned approximation; no punctuation -> falls back to Fraunces) */
-.f-br { font-family: "Briston", "Fraunces", serif !important; font-style: normal !important; font-weight: 400 !important; font-variation-settings: normal !important; letter-spacing: 0 !important; }
-.hook .hb.f-br { font-size: 100px; line-height: 1; white-space: nowrap; }
-.hook-r:has(.hb) { right: 34px; width: 470px; }
-.hook .hd.f-br { font-size: 132px; }
-.cold-txt .hd.f-br { font-size: 104px; line-height: 1; }
+.cold-txt { width: 420px; top: 540px; }
+.hook-r.cold-txt { right: 24px; } .hook-l.cold-txt { left: 26px; }
+.cold-txt .hb { font-size: 96px; line-height: .95; white-space: nowrap; }
