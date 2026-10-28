@@ -1,0 +1,27 @@
+{
+  "name": "two-timelines",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Two Timelines — 30s 9:16 motion graphic reel (Remotion)",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion render TwoTimelines out/two-timelines.mp4 --codec=h264 --crf=18 --audio-codec=aac",
+    "cover": "remotion still TwoTimelines out/cover.png --frame=670",
+    "stills": "node scripts/stills.mjs",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.539",
+    "@remotion/fonts": "^4.0.539",
+    "@remotion/google-fonts": "^4.0.539",
+    "@remotion/media-parser": "^4.0.539",
+    "@remotion/studio": "^4.0.539",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.539"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^5.9.3"
+  }
+}

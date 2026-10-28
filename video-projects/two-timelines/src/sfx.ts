@@ -1,0 +1,38 @@
+// Every sound cue: frame (absolute) + file in public/sfx/.
+// A cue only plays if its file exists. Optional `frames` caps its length.
+export type Cue = { file: string; frame: number; frames?: number; volume?: number; loopUntil?: number };
+
+export const SFX: Cue[] = [
+  { file: "clack.mp3", frame: 0 },
+  { file: "clack.mp3", frame: 15 },
+  { file: "clack.mp3", frame: 30 },
+  { file: "whoosh.mp3", frame: 60 },
+  { file: "whoosh.mp3", frame: 750 },
+  { file: "tick-loop.mp3", frame: 60, loopUntil: 660, volume: 0.35 },
+  { file: "crumple.mp3", frame: 150 },
+  { file: "crumple.mp3", frame: 180 },
+  { file: "crumple.mp3", frame: 210 },
+  { file: "typing.mp3", frame: 125, frames: 36, volume: 0.45 },
+  { file: "ding.mp3", frame: 222 },
+  { file: "scrub.mp3", frame: 240, volume: 0.5 },
+  { file: "tick.mp3", frame: 290 },
+  { file: "tick.mp3", frame: 298 },
+  { file: "tick.mp3", frame: 306 },
+  { file: "bonk.mp3", frame: 400 },
+  { file: "pop.mp3", frame: 420 },
+  { file: "pop.mp3", frame: 426 },
+  { file: "pop.mp3", frame: 432 },
+  { file: "pop.mp3", frame: 850 },
+  { file: "click-fast.mp3", frame: 450 },
+  { file: "swish.mp3", frame: 470, volume: 0.45 },
+  { file: "swish.mp3", frame: 475, volume: 0.45 },
+  { file: "swish.mp3", frame: 480, volume: 0.45 },
+  { file: "snap.mp3", frame: 560 },
+  { file: "snap.mp3", frame: 580 },
+  { file: "snap.mp3", frame: 600 },
+  { file: "snap.mp3", frame: 620 },
+  { file: "riser.mp3", frame: 630 },
+  { file: "bass-hit.mp3", frame: 660, volume: 0.9 },
+  { file: "chime.mp3", frame: 660 },
+  { file: "error.mp3", frame: 700, volume: 0.5 },
+];
