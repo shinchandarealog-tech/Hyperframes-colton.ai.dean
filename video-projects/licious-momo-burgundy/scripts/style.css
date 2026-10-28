@@ -11,7 +11,8 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .f-disp { font-family: "Fraunces", serif; font-weight: 800; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; letter-spacing: -0.035em; }
 .f-acc { font-family: "Fraunces", serif; font-style: italic; font-weight: 500; font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1; letter-spacing: -0.02em; }
 
-#face-wrap { position: absolute; inset: 0; z-index: 2; transform-origin: 540px 960px; }
+#face-wrap, .vwrap { position: absolute; inset: 0; z-index: 2; transform-origin: 540px 960px; }
+.vwrap video { width: 1080px; height: 1920px; object-fit: cover; display: block; }
 #face { width: 1080px; height: 1920px; object-fit: cover; display: block; }
 .warm { position: absolute; inset: 0; z-index: 3; pointer-events: none;
   background: linear-gradient(180deg, rgba(94,32,43,.20), rgba(94,32,43,0) 28%, rgba(94,32,43,0) 72%, rgba(94,32,43,.24)); }
@@ -22,15 +23,15 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 
 /* normal caption: cream, chest level */
 .sub { position: absolute; left: 0; right: 0; top: 1205px; z-index: 40; display: flex; justify-content: center; padding: 0 70px; }
-.sub span { font-weight: 700; font-size: 52px; color: var(--cream); text-align: center; display: inline-block;
+.sub span { font-weight: 700; font-size: 60px; color: var(--cream); text-align: center; display: inline-block;
   text-shadow: 0 3px 0 var(--deep), 0 0 12px rgba(68,21,30,.85), 0 0 30px rgba(68,21,30,.55); }
 
 /* key-word lockup */
 .emph, .head { position: absolute; left: 0; right: 0; top: 180px; z-index: 41; display: flex; justify-content: center; }
 .lk { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 980px; }
-.lk-s { font-weight: 800; font-size: 58px; letter-spacing: .01em; color: var(--cream); line-height: 1.05;
+.lk-s { font-weight: 800; font-size: 62px; letter-spacing: .01em; color: var(--cream); line-height: 1.05;
   text-shadow: 0 3px 0 var(--deep), 0 0 16px rgba(68,21,30,.7); }
-.lk-c { font-size: 140px; line-height: .98; color: var(--blush); padding: 0 20px 10px;
+.lk-c { font-size: 150px; line-height: .98; color: var(--blush); padding: 0 20px 10px;
   text-shadow: 0 4px 0 var(--deep), 0 0 26px rgba(68,21,30,.6); }
 .head { top: 150px; }
 .head .lk-c { font-size: 128px; }
@@ -72,3 +73,46 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .archv { position: absolute; z-index: 32; overflow: hidden; opacity: 0; }
 .archv video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; display: block; }
 .spark { position: absolute; width: 90px; height: 90px; }
+
+/* ---- v2 ---- */
+.rewind .rw { position: absolute; left: 0; right: 0; top: 860px; text-align: center; font-size: 120px; color: var(--cream); }
+.hook { position: absolute; top: 470px; z-index: 41; width: 440px; }
+.hook-r { right: 40px; text-align: left; }
+.hook-l { left: 40px; }
+.hook .kick { font-size: 50px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--blush); text-shadow: 0 3px 0 var(--deep); margin-bottom: 14px; }
+.hook .hb { font-size: 150px; line-height: .86; color: var(--cream); text-shadow: 0 5px 0 var(--deep), 0 0 24px rgba(68,21,30,.6); }
+.hook .hs { font-size: 56px; font-weight: 700; line-height: 1.15; color: var(--cream); text-shadow: 0 3px 0 var(--deep), 0 0 16px rgba(68,21,30,.75); }
+.hook .hd { font-size: 150px; line-height: 1.05; color: var(--blush); text-shadow: 0 5px 0 var(--deep), 0 0 24px rgba(68,21,30,.6); }
+.paper { position: absolute; z-index: 31; background: var(--cream); box-shadow: 0 30px 60px rgba(30,6,12,.5); }
+.tv { position: absolute; z-index: 32; overflow: hidden; opacity: 0; }
+.tv video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; display: block; }
+.tape { position: absolute; z-index: 34; width: 240px; height: 70px; background: rgba(253,197,244,.88); box-shadow: 0 3px 6px rgba(0,0,0,.15); }
+.head-hi { top: 140px; }
+.roadpg { z-index: 30; }
+.road { position: absolute; left: 230px; top: 560px; width: 620px; height: 980px; background: #4a1820; border: 8px solid var(--cream); border-radius: 26px; overflow: hidden; }
+.road .divider, .mini .divider { position: absolute; left: 50%; top: 20px; bottom: 20px; border-left: 8px dashed rgba(243,234,227,.6); }
+.veh { position: absolute; border: 7px solid var(--deep); display: flex; align-items: flex-end; justify-content: center; }
+.veh span { font-family: "DM Sans"; font-weight: 800; font-size: 34px; color: var(--deep); padding-bottom: 14px; letter-spacing: .06em; }
+.auto-v { left: 70px; top: 200px; width: 170px; height: 230px; background: #F2C230; border-radius: 70px 70px 20px 20px; }
+.car-v { left: 70px; top: 520px; width: 170px; height: 280px; background: var(--blush); border-radius: 30px; }
+.empty { position: absolute; left: 350px; top: 120px; width: 210px; height: 760px; border: 6px dashed var(--blush); border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+.empty span { font-size: 64px; color: var(--blush); transform: rotate(-90deg); white-space: nowrap; }
+.go { position: absolute; left: 0; top: 0; overflow: visible; }
+.go path { fill: none; stroke: var(--cream); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+.timer { position: absolute; left: 0; right: 0; top: 170px; z-index: 41; text-align: center; }
+.timer .tk { font-size: 52px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--cream); text-shadow: 0 3px 0 var(--deep), 0 0 14px rgba(68,21,30,.7); }
+.timer .tn { font-size: 250px; line-height: 1; color: var(--cream); font-variant-numeric: tabular-nums; text-shadow: 0 8px 0 var(--deep), 0 0 30px rgba(68,21,30,.6); }
+.mini { position: absolute; right: 50px; top: 150px; width: 300px; height: 420px; z-index: 41; background: #4a1820; border: 6px solid var(--cream); border-radius: 20px; overflow: hidden; box-shadow: 0 12px 0 rgba(68,21,30,.45); }
+.mini .veh.sm { border-width: 4px; }
+.mini .veh.sm span { font-size: 20px; padding-bottom: 8px; }
+.mini .auto-v.sm { left: 24px; top: 110px; width: 90px; height: 124px; border-radius: 38px 38px 10px 10px; }
+.mini .car-v.sm { left: 66px; top: 150px; width: 90px; height: 150px; border-radius: 16px; }
+.bleepbar { position: absolute; left: 0; right: 0; top: 440px; z-index: 42; display: flex; justify-content: center; }
+.bleepbar span { background: var(--deep); color: var(--blush); font-size: 80px; padding: 4px 40px 14px; border-radius: 14px; transform: rotate(-3deg); display: inline-block; }
+.freeze { position: absolute; inset: 0; z-index: 25; overflow: hidden; }
+.freeze img { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; filter: saturate(.7); }
+.freeze .tint { position: absolute; inset: 0; background: rgba(94,32,43,.38); mix-blend-mode: multiply; }
+.band { position: absolute; left: 0; right: 0; bottom: 0; height: 210px; z-index: 45; background: var(--burgundy); display: flex; align-items: center; justify-content: center; gap: 30px; }
+.band span:first-child { font-size: 44px; font-weight: 700; letter-spacing: .16em; color: var(--cream); }
+.band b { width: 18px; height: 18px; border-radius: 50%; background: var(--blush); }
+.band span:last-child { font-size: 96px; color: var(--blush); }
