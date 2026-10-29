@@ -17,9 +17,13 @@ Like the @daniel-hee reel, this is an editing-service ad wrapper ("Raw" vs "Fina
 ## Other moves (not requested)
 Icon pops (Instagram/TikTok/YouTube, ChatGPT logo) under the caption, phone-UI typing screens, a red flash glitch, thumbnail montage cutaways.
 
-## What to steal
-- The per-word fly-in (`flyIn()` in `video-projects/10-80-style-edit/index.html`): fromTo {opacity 0, x/y offset rotating through 6 directions, scale 1.25, blur 8px} → rest, 0.22s power3.out, at each word's timestamp.
-- Two-line structure: white line 1, accent line 2.
+## What to steal (approved version, used in `video-projects/10-80-style-edit`)
+The user signed off on this exact recipe. Reuse it when they ask for "the rayyan text animation":
+- **Per-word drop-in** on each word's spoken timestamp: starts ~230px above its slot (1080 scale) with a slight sideways drift (±50px), opacity 0, scale 1.06, plus a **vertical motion-blur streak** (SVG feGaussianBlur stdDeviation "1.5 16" → "0 0"). Lands in 0.17s, power2.out. See `flyIn()` in that project's `index.html`.
+- **Flat baseline.** Every word rests on the same line. The user explicitly rejected staggered "bouncy" word heights.
+- **Line 1:** heavy italic caps (Montserrat 800 italic) in white with a soft white glow.
+- **Line 2 / keywords:** same treatment in the accent colour. The user chose orange over the reference's purple.
+- Phrases of 1–2 lines that build word by word, then hard-cut to the next phrase.
 
 ## Don't copy
 The ad wrapper, the purple palette (the user chose orange), and the creator's handle and branding.
