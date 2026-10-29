@@ -11,7 +11,7 @@
 3. **Small words:** bold sans lowercase words popped in one by one with a blur-in, spread across a row ("let me *show* you", with one word in italic serif). There's also a low subtitle line where each word sharpens in from blur ("I'm going to break it down for you").
 
 ## Extras
-- **3D word spiral:** words on a helix orbiting the speaker ("how do you do that text effect"). Words on the far side are mirrored and pass behind him, and words blur at the edges of the orbit.
+- **3D word ring/spiral:** the sentence ("how do you do that text effect") is laid clockwise along ONE tilted 3D ring around the speaker: first word at 12 o'clock, down the right side, upside-down across the bottom, reading upward on the left, then a second lap slightly outside the first (spiral). Each word flies in from the camera, big and blurred, then settles onto the ring; the whole ring slowly turns and tilts. Words do NOT orbit or pass behind him. (The first build got this wrong with an orbiting helix; the user corrected it.)
 - **Red circle glitch transition:** a red disc with a cyan/red chromatic rim sweeps across, blows out to white, cut.
 
 ## Applied in `video-projects/10-80-style-edit` (user-approved scope)

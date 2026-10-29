@@ -99,6 +99,7 @@
       .serif,
       .sub,
       .orb {
+        transform: translate(-50%, -50%);
         position: absolute;
         left: 0;
         top: 0;
@@ -157,7 +158,23 @@
         display: inline-block;
         margin: 0 0.16em;
       }
-      /* 3D spiral words */
+      /* 3D word ring */
+      .ring {
+        position: absolute;
+        left: 575px;
+        top: 860px;
+        width: 0;
+        height: 0;
+        transform-style: preserve-3d;
+      }
+      .slot {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        transform-style: preserve-3d;
+      }
       .orb {
         font-family: var(--font-small);
         font-weight: 800;
@@ -166,6 +183,9 @@
         color: #fff;
         text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
         backface-visibility: visible;
+        left: 0;
+        top: 0;
+        translate: -50% -50%;
       }
 
       /* ---------- diagram cutaways ---------- */
@@ -346,7 +366,6 @@
             playsinline
           ></video>
           <div id="behind" class="layer"></div>
-          <div id="orb-back" class="layer persp"></div>
           <video
             id="fg"
             data-start="0"
@@ -447,12 +466,8 @@
       // Times are source seconds (word timestamps from assets/transcript.large-v3.json).
       const GIANT_Y = 650, SM_Y = 1010, SERIF_Y = 1185, SUB_Y = 1420;
       const BEATS = [
-        { s: 0.02, e: 2.86, items: [
-          { k: "spiral", w: [["gaming", 0.45], ["music", 1.0], ["&", 1.46], ["calling", 1.64]] },
-        ] },
-        { s: 2.88, e: 4.75, items: [
-          { k: "sm", x: "all-rounder", t: 2.89, at: [300, SM_Y - 40] },
-          { k: "serif", x: "earbuds", t: 3.34 },
+        { s: 0.02, e: 4.75, items: [
+          { k: "spiral", w: [["gaming", 0.45], ["music", 1.0], ["&", 1.46], ["calling", 1.64], ["all-rounder", 2.89], ["earbuds", 3.34]] },
         ] },
         { s: 4.8, e: 6.5, items: [
           { k: "sm", x: "this", t: 4.85, at: [330, SM_Y] },
@@ -600,41 +615,31 @@
         });
       });
 
-      // 3D helix: every word exists twice — once behind her (#orb-back, under the cutout) and once
-      // in front (#orb-front). Each frame shows whichever copy is on the near side of the orbit.
+      // Word ring (joshua-esca "how do you do that text effect"): the sentence is laid clockwise along
+      // one tilted 3D ring around her — first word at 12 o'clock, then down the right side, upside-down
+      // across the bottom, up the left. The radius grows as it goes, so the second lap sits outside the
+      // first (a spiral). Each word flies in from the camera, big and blurred, and settles onto the ring;
+      // meanwhile the whole ring slowly turns and tilts.
       function buildSpiral(words, s, e) {
-        const back = document.getElementById("orb-back");
         const front = document.getElementById("orb-front");
-        const R = 430, CX = 540, SPEED = 115, Y0 = 590, DY = 115, RISE = 70;
-        const orbs = words.map(([txt, t], i) => ({
-          t, i,
-          base: -SPEED * (t - words[0][1]) - 18,
-          b: make("orb", txt, back),
-          f: make("orb", txt, front),
-        }));
-        show(back, s, e);
+        const ring = make("ring", "", front);
+        const FS = 86, R0 = 290, GROW = 35, GAP = 0.1, CHAR = 0.52;
+        let ang = -0.32; // radians, clockwise from 12 o'clock; start just left of top like the reference
+        words.forEach(([txt, t]) => {
+          const arc = (txt.length * CHAR * FS) / (R0 + GROW * Math.max(0, ang) / (2 * Math.PI));
+          const mid = ang + arc / 2;
+          const r = R0 + GROW * Math.max(0, mid) / (2 * Math.PI);
+          ang += arc + GAP;
+          const slot = make("slot", "", ring);
+          slot.style.transform = `rotate(${(mid * 180 / Math.PI).toFixed(2)}deg) translateY(${-r}px)`;
+          const w = make("orb", txt, slot);
+          w.style.fontSize = FS + "px";
+          tl.fromTo(w, { z: 520, scale: 1.25, opacity: 0, filter: "blur(16px)" },
+            { z: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, t);
+        });
         show(front, s, e);
-        const proxy = { p: 0 };
-        tl.fromTo(proxy, { p: 0 }, {
-          p: 1, duration: e - s, ease: "none",
-          onUpdate() {
-            const now = s + this.time();
-            orbs.forEach((o) => {
-              const th = (o.base + SPEED * (now - words[0][1])) * Math.PI / 180;
-              const sin = Math.sin(th), cos = Math.cos(th);
-              const a = Math.max(0, Math.min(1, (now - o.t) / 0.16));
-              const y = Y0 + o.i * DY - RISE * ((now - s) / (e - s));
-              const tf = `translate(-50%,-50%) translate3d(${(CX + R * sin).toFixed(1)}px, ${y.toFixed(1)}px, ${(R * cos).toFixed(1)}px) rotateY(${(th * 180 / Math.PI).toFixed(1)}deg)`;
-              const blur = (Math.abs(sin) * 5 + (1 - a) * 10).toFixed(1);
-              [o.b, o.f].forEach((el) => {
-                el.style.transform = tf;
-                el.style.filter = `blur(${blur}px)`;
-              });
-              o.f.style.opacity = cos > 0 ? a : 0;
-              o.b.style.opacity = cos > 0 ? 0 : a * 0.85;
-            });
-          },
-        }, s);
+        tl.fromTo(ring, { rotationX: 22, rotationY: -3, rotationZ: -6, scale: 0.96 },
+          { rotationX: 32, rotationY: 3, rotationZ: 12, scale: 1.04, duration: e - s, ease: "sine.inOut" }, s);
       }
 
       // ---------- face-cam: Ken Burns + punch-in jump cuts ----------
