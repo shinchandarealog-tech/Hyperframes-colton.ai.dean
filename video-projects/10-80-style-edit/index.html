@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
+      @font-face {
+        font-family: "Instrument Serif";
+        font-style: italic;
+        font-weight: 400;
+        src: url("assets/fonts/InstrumentSerif-Italic.ttf") format("truetype");
+      }
       :root {
         --orange: #ff7a1a;
         --amber: #ffc066;
@@ -13,6 +19,7 @@
         --ink: #ffffff;
         --font-small: "Inter", sans-serif;
         --font-key: "Montserrat", sans-serif;
+        --font-serif: "Instrument Serif", "Playfair Display", serif;
       }
       * {
         margin: 0;
@@ -55,6 +62,15 @@
         object-fit: cover;
         filter: contrast(1.06) saturate(1.06) brightness(0.97);
       }
+      #fg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        filter: contrast(1.06) saturate(1.06) brightness(0.97);
+      }
       #face-vignette {
         position: absolute;
         inset: 0;
@@ -67,120 +83,89 @@
         position: absolute;
         inset: 0;
       }
-      #spill {
+      /* ---------- captions (joshua-esca style) ---------- */
+      .layer {
         position: absolute;
-        left: -200px;
-        top: 700px;
-        width: 1480px;
-        height: 900px;
-        background: radial-gradient(ellipse at 50% 50%, rgba(255, 122, 26, 0.55) 0%, rgba(255, 110, 20, 0.22) 38%, transparent 70%);
-        mix-blend-mode: screen;
-        opacity: 0;
+        inset: 0;
+        pointer-events: none;
       }
-
-      #scrim {
-        position: absolute;
-        left: -100px;
-        top: 900px;
-        width: 1280px;
-        height: 560px;
-        background: radial-gradient(ellipse at 50% 50%, rgba(25, 9, 2, 0.5) 0%, rgba(25, 9, 2, 0.25) 45%, transparent 70%);
-        opacity: 0;
+      .persp {
+        perspective: 1500px;
+        perspective-origin: 50% 40%;
+        transform-style: preserve-3d;
       }
-      /* captions */
-      .cap {
-        position: absolute;
-        left: 60px;
-        right: 60px;
-        top: 1030px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-        opacity: 0;
-      }
-      .row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 18px;
-      }
+      .giant,
       .sm,
-      .quote {
-        font-family: var(--font-key);
-        font-weight: 800;
-        font-style: italic;
-        text-transform: uppercase;
-        font-size: 72px;
-        line-height: 1.04;
-        color: var(--ink);
-        letter-spacing: -0.01em;
-        text-shadow: 0 0 16px rgba(255, 255, 255, 0.55), 0 0 34px rgba(255, 255, 255, 0.25), 0 3px 10px rgba(0, 0, 0, 0.55);
+      .serif,
+      .sub,
+      .orb {
+        position: absolute;
+        left: 0;
+        top: 0;
         white-space: nowrap;
+        opacity: 0;
       }
-      .pill {
-        border: 3px solid rgba(255, 255, 255, 0.95);
-        border-radius: 999px;
-        padding: 0 30px 4px 24px;
-        box-shadow: 0 0 14px rgba(0, 0, 0, 0.25);
-      }
-      .kw,
-      .kwu {
-        font-family: var(--font-key);
+      /* giant word: sits BEHIND the speaker (between the video and her cutout) */
+      .giant {
+        width: 1080px;
+        text-align: center;
+        font-family: var(--font-small);
         font-weight: 900;
-        text-transform: uppercase;
-        line-height: 1.02;
-        white-space: nowrap;
-        padding: 0 14px;
-        background: linear-gradient(180deg, #fff3cc 0%, #ffc35a 30%, var(--orange) 62%, #f0560a 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        filter: drop-shadow(0 3px 0 rgba(80, 26, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 110, 20, 0.95)) drop-shadow(0 0 38px rgba(255, 90, 10, 0.6));
+        letter-spacing: -0.055em;
+        line-height: 0.82;
+        color: #fff;
+        text-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
       }
-      .kw {
-        font-style: italic;
-        font-size: 128px;
+      /* small bold sans words, popped in one by one */
+      .sm {
+        font-family: var(--font-small);
+        font-weight: 700;
+        font-size: 66px;
         letter-spacing: -0.02em;
+        color: #fff;
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
       }
-      .kwu {
-        font-style: normal;
-        font-size: 104px;
+      /* elegant italic serif accent word, in front of the speaker, warm orange glow */
+      .serif {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 190px;
+        letter-spacing: -0.02em;
+        line-height: 1;
+        color: #fff7ee;
+        text-shadow: 0 0 22px rgba(255, 130, 40, 0.55), 0 0 60px rgba(255, 110, 20, 0.35), 0 4px 14px rgba(0, 0, 0, 0.45);
+      }
+      .sm .it {
+        font-family: var(--font-serif);
+        font-style: italic;
+        font-weight: 400;
+        font-size: 1.12em;
+      }
+      /* subtitle line: small words revealed one by one from blur */
+      .sub {
+        width: 1080px;
+        text-align: center;
+        font-family: var(--font-small);
+        font-weight: 600;
+        font-size: 54px;
         letter-spacing: -0.01em;
+        color: #fff;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
       }
-      .words {
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        flex-wrap: nowrap;
-        gap: 0 14px;
-      }
-      .words.quote-row {
-        flex-wrap: wrap;
-        max-width: 820px;
-        gap: 0 18px;
-      }
-      .w {
+      .sub span {
         display: inline-block;
-        will-change: transform, opacity, filter;
+        margin: 0 0.16em;
       }
-      .w .kw,
-      .w .kwu {
-        display: inline-block;
-        padding: 0 4px;
-      }
-      .quote span {
-        display: inline-block;
-      }
-      .icons {
-        display: flex;
-        gap: 34px;
-        margin-bottom: 6px;
-      }
-      .icons svg {
-        width: 78px;
-        height: 78px;
-        filter: drop-shadow(0 0 10px rgba(255, 120, 30, 0.9));
+      /* 3D spiral words */
+      .orb {
+        font-family: var(--font-small);
+        font-weight: 800;
+        font-size: 118px;
+        letter-spacing: -0.03em;
+        color: #fff;
+        text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+        backface-visibility: visible;
       }
 
       /* ---------- diagram cutaways ---------- */
@@ -294,9 +279,27 @@
         mix-blend-mode: screen;
         pointer-events: none;
       }
-      #flash {
+      /* red circle glitch transition (from the joshua-esca reference) */
+      #redwipe,
+      #redring {
+        left: -660px;
+        top: -240px;
+        width: 2400px;
+        height: 2400px;
+        border-radius: 50%;
+      }
+      #redwipe {
+        background: #d9232d;
+        mix-blend-mode: multiply;
+      }
+      #redring {
+        border: 22px solid #5ff2e6;
+        box-shadow: 0 0 0 14px rgba(217, 35, 45, 0.9), 0 0 40px rgba(95, 242, 230, 0.8);
+        mix-blend-mode: screen;
+      }
+      #wflash {
         inset: 0;
-        background: radial-gradient(ellipse at 50% 50%, #fff6e8 0%, #ffc070 45%, #ff7a1a 100%);
+        background: radial-gradient(circle at 50% 50%, #ffffff 0%, #fff2f2 55%, #ffd9dc 100%);
         mix-blend-mode: normal;
       }
       #leak-warm {
@@ -342,6 +345,17 @@
             muted
             playsinline
           ></video>
+          <div id="behind" class="layer"></div>
+          <div id="orb-back" class="layer persp"></div>
+          <video
+            id="fg"
+            data-start="0"
+            data-duration="37.6"
+            data-track-index="30"
+            src="assets/fg-cutout.webm"
+            muted
+            playsinline
+          ></video>
         </div>
         <div id="face-vignette"></div>
       </div>
@@ -354,26 +368,27 @@
       <audio id="sfx-pop3" data-start="1.44" data-duration="0.72" data-track-index="6" src="assets/pop.mp3" data-volume="0.28"></audio>
       <audio id="sfx-k1" data-start="2.89" data-duration="0.2" data-track-index="7" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
       <audio id="sfx-k2" data-start="5.69" data-duration="0.2" data-track-index="8" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
-      <audio id="sfx-k3" data-start="9.07" data-duration="0.2" data-track-index="9" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-k3" data-start="9.83" data-duration="0.57" data-track-index="9" src="assets/whoosh.mp3" data-volume="0.4"></audio>
       <audio id="sfx-t1" data-start="10.35" data-duration="0.57" data-track-index="10" src="assets/whoosh.mp3" data-volume="0.6"></audio>
       <audio id="sfx-60" data-start="11.25" data-duration="0.46" data-track-index="11" src="assets/click.wav" data-volume="0.45"></audio>
       <audio id="sfx-t2" data-start="13.05" data-duration="1.06" data-track-index="12" src="assets/swipe.mp3" data-volume="0.65"></audio>
       <audio id="sfx-k4" data-start="15.23" data-duration="0.2" data-track-index="13" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
       <audio id="sfx-k5" data-start="19.6" data-duration="0.2" data-track-index="14" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
-      <audio id="sfx-t3" data-start="19.95" data-duration="2.0" data-track-index="15" src="assets/power-up.mp3" data-volume="0.5"></audio>
+      <audio id="sfx-t3" data-start="19.86" data-duration="0.6" data-track-index="15" src="assets/glitch.mp3" data-volume="0.35"></audio>
       <audio id="sfx-500" data-start="22.55" data-duration="0.93" data-track-index="16" src="assets/zap.mp3" data-volume="0.7"></audio>
       <audio id="sfx-t4" data-start="25.05" data-duration="2.04" data-track-index="17" src="assets/sparkle.mp3" data-volume="0.4"></audio>
       <audio id="sfx-k6" data-start="25.32" data-duration="0.57" data-track-index="18" src="assets/whoosh.mp3" data-volume="0.4"></audio>
-      <audio id="sfx-k7" data-start="30.3" data-duration="0.2" data-track-index="19" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-k7" data-start="30.15" data-duration="0.57" data-track-index="19" src="assets/whoosh.mp3" data-volume="0.4"></audio>
       <audio id="sfx-z1" data-start="32.47" data-duration="0.57" data-track-index="20" src="assets/whoosh.mp3" data-volume="0.38"></audio>
-      <audio id="sfx-k8" data-start="34.24" data-duration="0.2" data-track-index="21" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
-      <audio id="sfx-end" data-start="36.05" data-duration="1.1" data-track-index="22" src="assets/bass-drop.mp3" data-volume="0.32"></audio>
+      <audio id="sfx-k8" data-start="34.45" data-duration="0.57" data-track-index="21" src="assets/whoosh.mp3" data-volume="0.4"></audio>
+      <audio id="sfx-k9" data-start="18.84" data-duration="0.2" data-track-index="23" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-k10" data-start="16.4" data-duration="0.57" data-track-index="24" src="assets/whoosh.mp3" data-volume="0.4"></audio>
+      <audio id="sfx-end" data-start="36.47" data-duration="1.1" data-track-index="22" src="assets/bass-drop.mp3" data-volume="0.32"></audio>
 
       <div id="overlay" class="clip" data-start="0" data-duration="37.6" data-track-index="2">
-        <div id="scrim"></div>
-        <div id="spill"></div>
         <svg id="mb-defs-svg" width="0" height="0" style="position:absolute"><defs id="mb-defs"></defs></svg>
-        <div id="caps"></div>
+        <div id="orb-front" class="layer persp"></div>
+        <div id="caps" class="layer"></div>
 
         <!-- cutaway 1: latency -->
         <div id="g1" class="gfx">
@@ -408,7 +423,9 @@
           </svg>
         </div>
 
-        <div id="flash" class="leak"></div>
+        <div id="redwipe" class="leak"></div>
+        <div id="redring" class="leak"></div>
+        <div id="wflash" class="leak"></div>
         <div id="leak-warm" class="leak"></div>
         <div id="leak-blob" class="leak"></div>
         <div id="leak-ring" class="leak"></div>
@@ -420,171 +437,205 @@
       const D = 37.6;
       const tl = gsap.timeline({ paused: true });
 
-      // ---------- icons ----------
-      const ICON = {
-        game:
-          '<svg viewBox="0 0 64 64"><path fill="#ff8a2a" d="M18 18h28c8 0 14 7 15 16l1 10c1 7-6 10-10 5l-6-7H18l-6 7c-4 5-11 2-10-5l1-10c1-9 7-16 15-16z"/><path fill="#3a1608" d="M20 26h4v5h5v4h-5v5h-4v-5h-5v-4h5zM44 27a3 3 0 1 1 0 .1zM40 34a3 3 0 1 1 0 .1z"/></svg>',
-        music:
-          '<svg viewBox="0 0 64 64"><path fill="#ff8a2a" d="M26 10l26-6v38a8 8 0 1 1-6-7.7V16l-14 3.4V48a8 8 0 1 1-6-7.7z"/></svg>',
-        call:
-          '<svg viewBox="0 0 64 64"><path fill="#ff8a2a" d="M18 6c2-1 4 0 5 2l5 11c1 2 0 4-1 5l-5 4c3 7 8 12 15 15l4-5c1-1 3-2 5-1l11 5c2 1 3 3 2 5l-3 9c-1 2-3 3-5 3C28 58 6 36 6 13c0-2 1-4 3-5z"/></svg>',
-      };
-
-      // ---------- caption script (times in source seconds) ----------
-      // Each group: [start, end, items]. item: {k: kind, x: text, w: per-word fly-in times, r: row}
-      // kinds: sm (small white), pill (small in outline pill, flies in as one unit),
-      //        kw (italic glow keyword), kwu (upright glow keyword), quote, icons (uses t)
-      const CAPS = [
-        [0.02, 4.75, [
-          { k: "icons", x: ["game", "music", "call"], t: [0.52, 1.0, 1.64], r: 0 },
-          { k: "sm", x: "Gaming, music", w: [0.45, 1.0], r: 1 },
-          { k: "sm", x: "& calling", w: [1.46, 1.64], r: 1 },
-          { k: "kw", x: "All-rounder", w: [2.89], r: 2 },
-          { k: "pill", x: "earbuds", w: [3.34], r: 3 },
-        ]],
-        [4.8, 6.5, [
-          { k: "sm", x: "this is", w: [4.85, 5.1], r: 0 },
-          { k: "kw", x: "Perfect", w: [5.69], r: 1 },
-          { k: "sm", x: "for you", w: [5.95, 6.1], r: 2 },
-        ]],
-        [6.59, 7.9, [{ k: "sm", x: "True wireless", w: [7.46, 7.71], r: 0 }]],
-        [7.94, 9.0, [{ k: "sm", x: "earbuds", w: [8.0], r: 0 }]],
-        [9.05, 10.5, [{ k: "kwu", x: "Powerful bass", w: [9.2, 9.98], r: 0, s: 100 }]],
+      // ---------- captions: joshua-esca text style ----------
+      // Layout (1080x1920 source): her head spans y≈520–860, shoulders ≈960, chest ≈1150–1350.
+      //   giant  – huge white sans word BEHIND her (between #face and the #fg cutout), sweeps in with motion blur
+      //   serif  – big italic serif accent word in front of her chest, rises in from a vertical blur
+      //   sm     – small bold sans words popped in one by one at given centre points
+      //   sub    – subtitle line low in frame, each word sharpening in from blur
+      //   spiral – words orbiting her head on a 3D helix, passing behind her
+      // Times are source seconds (word timestamps from assets/transcript.large-v3.json).
+      const GIANT_Y = 650, SM_Y = 1010, SERIF_Y = 1185, SUB_Y = 1420;
+      const BEATS = [
+        { s: 0.02, e: 2.86, items: [
+          { k: "spiral", w: [["gaming", 0.45], ["music", 1.0], ["&", 1.46], ["calling", 1.64]] },
+        ] },
+        { s: 2.88, e: 4.75, items: [
+          { k: "sm", x: "all-rounder", t: 2.89, at: [300, SM_Y - 40] },
+          { k: "serif", x: "earbuds", t: 3.34 },
+        ] },
+        { s: 4.8, e: 6.5, items: [
+          { k: "sm", x: "this", t: 4.85, at: [330, SM_Y] },
+          { k: "sm", x: "is", t: 5.1, at: [470, SM_Y] },
+          { k: "serif", x: "perfect", t: 5.69 },
+          { k: "sm", x: "for you", t: 5.95, at: [760, SERIF_Y + 140] },
+        ] },
+        { s: 6.59, e: 9.0, items: [{ k: "sub", x: "true wireless earbuds", w: [7.46, 7.71, 8.0] }] },
+        { s: 9.05, e: 10.5, items: [
+          { k: "serif", x: "powerful", t: 9.2 },
+          { k: "giant", x: "BASS", t: 9.98, m: "sweepR" },
+        ] },
         // 10.5 – 13.62 : cutaway 1
-        [13.62, 14.8, [{ k: "sm", x: "and quad silicon mic", w: [13.62, 13.86, 14.1, 14.65], r: 0 }]],
-        [14.82, 16.45, [
-          { k: "sm", x: "that cuts", w: [14.83, 15.0], r: 0 },
-          { k: "kw", x: "Noise", w: [15.23], r: 1 },
-        ]],
-        [16.47, 17.5, [{ k: "sm", x: "just open the lid", w: [16.55, 16.8, 16.95, 17.08], r: 0 }]],
-        [17.52, 18.8, [{ k: "sm", x: "& instantly connect", w: [17.55, 17.66, 18.16], r: 0 }]],
-        [18.82, 20.1, [
-          { k: "sm", x: "No delay,", w: [18.84, 19.01], r: 0 },
-          { k: "kwu", x: "No hassle", w: [19.6, 19.87], r: 1 },
-        ]],
+        { s: 13.62, e: 14.8, items: [{ k: "sub", x: "and quad silicon mic", w: [13.62, 13.86, 14.1, 14.65] }] },
+        { s: 14.82, e: 16.45, items: [
+          { k: "sm", x: "that", t: 14.83, at: [330, SM_Y] },
+          { k: "sm", x: "cuts", t: 15.0, at: [760, SM_Y] },
+          { k: "giant", x: "NOISE", t: 15.23, m: "pop" },
+        ] },
+        { s: 16.47, e: 17.6, items: [
+          { k: "giant", x: "JUST", t: 16.55, m: "sweepL" },
+          { k: "serif", x: "open the lid", t: 16.91 },
+        ] },
+        { s: 17.62, e: 18.8, items: [{ k: "sub", x: "& instantly connect", w: [17.62, 17.7, 18.16] }] },
+        { s: 18.82, e: 20.1, items: [
+          { k: "giant", x: "NO", t: 18.84, m: "pop" },
+          { k: "serif", x: "delay", t: 19.01, e: 19.6 },
+          { k: "serif", x: "hassle", t: 19.65 },
+        ] },
         // 20.1 – 25.45 : cutaway 2
-        [25.45, 26.45, [
-          { k: "kw", x: "Tension-free", w: [25.47], r: 0 },
-          { k: "sm", x: "use", w: [26.02], r: 1 },
-        ]],
-        [26.47, 27.36, [{ k: "sm", x: "touch control", w: [26.48, 26.79], r: 0 }]],
-        [27.38, 28.62, [{ k: "pill", x: "Type-C charging", w: [27.38], r: 0 }]],
-        [28.62, 29.62, [{ k: "sm", x: "& stylish look", w: [28.64, 28.85, 29.33], r: 0 }]],
-        [29.65, 31.4, [
-          { k: "sm", x: "all of it in", w: [29.68, 29.8, 29.92, 30.04], r: 0 },
-          { k: "kw", x: "One pair", w: [30.3, 30.55], r: 1 },
-        ]],
-        [31.43, 32.6, [{ k: "quote", x: "So don't wait.", w: [31.43, 32.04, 32.18], r: 0 }]],
-        [32.62, 35.36, [
-          { k: "sm", x: "get your earbuds", w: [32.63, 33.0, 33.83], r: 0 },
-          { k: "kw", x: "Order today", w: [34.24, 34.6], r: 1 },
-        ]],
-        [35.38, D, [
-          { k: "sm", x: "& feel the sound's", w: [35.39, 35.6, 35.75, 35.9], r: 0 },
-          { k: "kw", x: "Real power", w: [36.1, 36.52], r: 1 },
-        ]],
+        { s: 25.45, e: 26.45, items: [
+          { k: "serif", x: "tension-free", t: 25.47 },
+          { k: "sm", x: "use", t: 26.02, at: [540, SERIF_Y + 150] },
+        ] },
+        { s: 26.47, e: 27.36, items: [{ k: "sub", x: "touch control", w: [26.48, 26.79] }] },
+        { s: 27.38, e: 28.62, items: [
+          { k: "sm", x: "type-C", t: 27.38, at: [300, SM_Y] },
+          { k: "serif", x: "charging", t: 27.75 },
+        ] },
+        { s: 28.62, e: 29.62, items: [{ k: "sub", x: "& stylish look", w: [28.64, 28.85, 29.33] }] },
+        { s: 29.65, e: 31.4, items: [
+          { k: "sm", x: "all of it in", t: 29.68, at: [540, SM_Y] },
+          { k: "giant", x: "ONE", t: 30.3, m: "sweepL" },
+          { k: "serif", x: "pair", t: 30.55 },
+        ] },
+        { s: 31.43, e: 32.6, items: [
+          { k: "sm", x: "so", t: 31.43, at: [250, SM_Y + 60] },
+          { k: "sm", x: "don't", t: 32.04, at: [450, SM_Y + 60] },
+          { k: "sm", x: "<span class='it'>wait.</span>", t: 32.18, at: [680, SM_Y + 60] },
+        ] },
+        { s: 32.62, e: 34.2, items: [{ k: "sub", x: "get your earbuds", w: [32.63, 33.0, 33.83] }] },
+        { s: 34.22, e: 35.36, items: [
+          { k: "sm", x: "order", t: 34.24, at: [540, SM_Y] },
+          { k: "giant", x: "TODAY", t: 34.6, m: "sweepR" },
+        ] },
+        { s: 35.38, e: D, items: [
+          { k: "sm", x: "& feel the sound's", t: 35.39, at: [540, SM_Y] },
+          { k: "serif", x: "real", t: 36.1 },
+          { k: "giant", x: "POWER", t: 36.52, m: "sweepL" },
+        ] },
       ];
 
-      // Word fly-in (from the rayyan-visions reference): each word starts faded, blurred,
-      // ~1.25x and offset above / to the side, then lands in ~0.2s. Direction rotates per word.
-      // Reference timing: a word appears as a faint grey ghost ~230px above its slot (1080 scale),
-      // drops in with vertical motion blur and lands in ~5 frames on a flat baseline.
-      const FLY = [[24, -230], [-18, -210], [40, -250], [6, -220], [-30, -240], [52, -215]];
+      // SVG blur filter per element, so motion blur can be directional (x-only / y-only)
       const svgNS = "http://www.w3.org/2000/svg";
       const mbDefs = document.getElementById("mb-defs");
-      let flyN = 0;
-      function flyIn(el, t) {
-        const n = flyN++;
-        const [dx, dy] = FLY[n % FLY.length];
+      let mbN = 0;
+      function motionBlur(el) {
         const f = document.createElementNS(svgNS, "filter");
-        f.setAttribute("id", "mb" + n);
-        f.setAttribute("x", "-20%");
-        f.setAttribute("y", "-80%");
-        f.setAttribute("width", "140%");
-        f.setAttribute("height", "260%");
-        const blur = document.createElementNS(svgNS, "feGaussianBlur");
-        blur.setAttribute("stdDeviation", "0 0");
-        f.appendChild(blur);
+        f.setAttribute("id", "mb" + mbN);
+        f.setAttribute("x", "-30%");
+        f.setAttribute("y", "-60%");
+        f.setAttribute("width", "160%");
+        f.setAttribute("height", "220%");
+        const g = document.createElementNS(svgNS, "feGaussianBlur");
+        g.setAttribute("stdDeviation", "0 0");
+        f.appendChild(g);
         mbDefs.appendChild(f);
-        el.style.filter = "url(#mb" + n + ")";
-        tl.fromTo(el, { x: dx, y: dy, scale: 1.06 }, { x: 0, y: 0, scale: 1, duration: 0.17, ease: "power2.out" }, t);
-        tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.17, ease: "power1.out" }, t);
-        tl.fromTo(blur, { attr: { stdDeviation: "1.5 16" } }, { attr: { stdDeviation: "0 0" }, duration: 0.17, ease: "power2.out" }, t);
+        el.style.filter = "url(#mb" + mbN++ + ")";
+        return g;
+      }
+      function place(el, x, y) {
+        // x,y = visual centre in frame px; xPercent/yPercent keep it centred while GSAP animates x/y
+        gsap.set(el, { left: x, top: y, xPercent: -50, yPercent: -50 });
+      }
+      const capsEl = document.getElementById("caps");
+      const behindEl = document.getElementById("behind");
+      function make(cls, html, parent) {
+        const el = document.createElement("div");
+        el.className = cls;
+        el.innerHTML = html;
+        parent.appendChild(el);
+        return el;
+      }
+      function show(el, t, end) {
+        tl.set(el, { opacity: 1 }, t);
+        tl.set(el, { opacity: 0 }, end);
       }
 
-      const capsEl = document.getElementById("caps");
-      const MAXW = 930;
-      const KEYS = ["kw", "kwu"];
-      CAPS.forEach(([start, end, items], gi) => {
-        const g = document.createElement("div");
-        g.className = "cap";
-        g.id = "cap" + gi;
-        const rows = [];
-        items.forEach((it, ii) => {
-          if (!rows[it.r]) {
-            rows[it.r] = document.createElement("div");
-            rows[it.r].className = "row";
-            g.appendChild(rows[it.r]);
-          }
-          const row = rows[it.r];
-          let el;
-          it.words = [];
-          if (it.k === "icons") {
-            el = document.createElement("div");
-            el.className = "icons";
-            el.innerHTML = it.x.map((n) => ICON[n]).join("");
-          } else {
-            // outer .w span carries the fly-in (incl. blur); inner span carries the look (glow filter)
-            el = document.createElement("div");
-            el.className = "words" + (it.k === "quote" ? " quote-row" : "");
-            const parts = it.k === "pill" ? [it.x] : it.x.split(" ");
-            const base = KEYS.includes(it.k) ? 104 : 72;
-            const fs = Math.min(base, Math.floor(MAXW / (it.x.length * (KEYS.includes(it.k) ? 0.8 : 0.74))));
-            el.style.columnGap = Math.round(fs * 0.24) + "px";
-            parts.forEach((txt) => {
-              const w = document.createElement("span");
-              w.className = "w";
-              const inner = document.createElement("span");
-              inner.className = it.k === "pill" ? "sm pill" : it.k === "kwu" ? "kw" : it.k;
-              inner.textContent = txt;
-              inner.style.fontSize = fs + "px";
-              w.appendChild(inner);
-              el.appendChild(w);
-              it.words.push(w);
-            });
-          }
-          el.id = g.id + "-" + ii;
-          row.appendChild(el);
-          it.el = el;
-        });
-        capsEl.appendChild(g);
-
-        tl.set(g, { opacity: 1 }, start);
-        tl.set(g, { opacity: 0 }, end);
+      BEATS.forEach(({ s, e, items }) => {
         items.forEach((it) => {
-          if (it.k === "icons") {
-            [...it.el.children].forEach((ic, n) => {
-              tl.fromTo(ic, { opacity: 0, scale: 0.4, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "back.out(2.4)" }, it.t[n]);
+          const end = it.e || e;
+          if (it.k === "giant") {
+            const fs = Math.min(380, Math.floor(980 / (it.x.length * 0.8)));
+            const el = make("giant", it.x, behindEl);
+            el.style.fontSize = fs + "px";
+            gsap.set(el, { top: GIANT_Y, yPercent: -50 });
+            const blur = motionBlur(el);
+            show(el, it.t, end);
+            if (it.m === "pop") {
+              tl.fromTo(el, { scale: 1.22 }, { scale: 1, duration: 0.2, ease: "power3.out" }, it.t);
+              tl.fromTo(blur, { attr: { stdDeviation: "16 16" } }, { attr: { stdDeviation: "0 0" }, duration: 0.2, ease: "power2.out" }, it.t);
+            } else {
+              const dx = it.m === "sweepL" ? -460 : 460;
+              tl.fromTo(el, { x: dx }, { x: 0, duration: 0.22, ease: "power3.out" }, it.t);
+              tl.fromTo(blur, { attr: { stdDeviation: "46 0" } }, { attr: { stdDeviation: "0 0" }, duration: 0.22, ease: "power2.out" }, it.t);
+            }
+            // slow push so the giant word keeps living while it holds
+            tl.fromTo(el, { scale: 1 }, { scale: 1.04, duration: Math.max(0.3, end - it.t - 0.22), ease: "none", immediateRender: false }, it.t + 0.22);
+          } else if (it.k === "serif") {
+            const el = make("serif", it.x, capsEl);
+            const fs = Math.min(190, Math.floor(980 / (it.x.length * 0.42)));
+            el.style.fontSize = fs + "px";
+            place(el, 540, SERIF_Y);
+            const blur = motionBlur(el);
+            show(el, it.t, end);
+            tl.fromTo(el, { y: 70, scaleY: 1.18 }, { y: 0, scaleY: 1, duration: 0.24, ease: "power3.out" }, it.t);
+            tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.16, ease: "power1.out", immediateRender: false }, it.t);
+            tl.fromTo(blur, { attr: { stdDeviation: "0 18" } }, { attr: { stdDeviation: "0 0" }, duration: 0.24, ease: "power2.out" }, it.t);
+          } else if (it.k === "sm") {
+            const el = make("sm", it.x, capsEl);
+            place(el, it.at[0], it.at[1]);
+            show(el, it.t, end);
+            tl.fromTo(el, { scale: 0.82, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out" }, it.t);
+            tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power1.out", immediateRender: false }, it.t);
+          } else if (it.k === "sub") {
+            const el = make("sub", it.x.split(" ").map((w) => "<span>" + w + "</span>").join(""), capsEl);
+            gsap.set(el, { top: SUB_Y, yPercent: -50 });
+            show(el, it.w[0], end);
+            [...el.children].forEach((sp, n) => {
+              tl.fromTo(sp, { opacity: 0, filter: "blur(9px)", x: -10 }, { opacity: 1, filter: "blur(0px)", x: 0, duration: 0.18, ease: "power2.out" }, it.w[n]);
             });
-            tl.to(it.el, { y: -8, duration: end - it.t[2], ease: "sine.inOut" }, it.t[2]);
-            return;
-          }
-          it.words.forEach((w, n) => flyIn(w, it.w[n]));
-          if (KEYS.includes(it.k)) {
-            const last = it.w[it.w.length - 1] + 0.22;
-            tl.fromTo(it.el, { scale: 1 }, { scale: 1.04, duration: Math.max(0.3, end - last), ease: "sine.out" }, last);
+          } else if (it.k === "spiral") {
+            buildSpiral(it.w, s, e);
           }
         });
-        // keyword glow spills onto the footage
-        const key = items.find((it) => KEYS.includes(it.k));
-        if (key) {
-          const kt = key.w[0];
-          tl.fromTo("#spill", { opacity: 0 }, { opacity: 0.4, duration: 0.25, ease: "power2.out", immediateRender: false }, kt);
-          tl.to("#spill", { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.12);
-          tl.fromTo("#scrim", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out", immediateRender: false }, kt - 0.05);
-          tl.to("#scrim", { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.12);
-        }
       });
+
+      // 3D helix: every word exists twice — once behind her (#orb-back, under the cutout) and once
+      // in front (#orb-front). Each frame shows whichever copy is on the near side of the orbit.
+      function buildSpiral(words, s, e) {
+        const back = document.getElementById("orb-back");
+        const front = document.getElementById("orb-front");
+        const R = 430, CX = 540, SPEED = 115, Y0 = 590, DY = 115, RISE = 70;
+        const orbs = words.map(([txt, t], i) => ({
+          t, i,
+          base: -SPEED * (t - words[0][1]) - 18,
+          b: make("orb", txt, back),
+          f: make("orb", txt, front),
+        }));
+        show(back, s, e);
+        show(front, s, e);
+        const proxy = { p: 0 };
+        tl.fromTo(proxy, { p: 0 }, {
+          p: 1, duration: e - s, ease: "none",
+          onUpdate() {
+            const now = s + this.time();
+            orbs.forEach((o) => {
+              const th = (o.base + SPEED * (now - words[0][1])) * Math.PI / 180;
+              const sin = Math.sin(th), cos = Math.cos(th);
+              const a = Math.max(0, Math.min(1, (now - o.t) / 0.16));
+              const y = Y0 + o.i * DY - RISE * ((now - s) / (e - s));
+              const tf = `translate(-50%,-50%) translate3d(${(CX + R * sin).toFixed(1)}px, ${y.toFixed(1)}px, ${(R * cos).toFixed(1)}px) rotateY(${(th * 180 / Math.PI).toFixed(1)}deg)`;
+              const blur = (Math.abs(sin) * 5 + (1 - a) * 10).toFixed(1);
+              [o.b, o.f].forEach((el) => {
+                el.style.transform = tf;
+                el.style.filter = `blur(${blur}px)`;
+              });
+              o.f.style.opacity = cos > 0 ? a : 0;
+              o.b.style.opacity = cos > 0 ? 0 : a * 0.85;
+            });
+          },
+        }, s);
+      }
 
       // ---------- face-cam: Ken Burns + punch-in jump cuts ----------
       tl.fromTo("#face-kb", { scale: 1 }, { scale: 1.035, duration: D, ease: "none" }, 0);
@@ -596,7 +647,7 @@
         if (i % 2 === 1 && t > 1) {
           // zoom-snap: fast scale with a touch of motion blur
           tl.to("#face-wrap", { scale: s, duration: 0.14, ease: "expo.out" }, t - 0.04);
-          tl.fromTo("#face", { filter: "contrast(1.06) saturate(1.06) brightness(0.97) blur(5px)" },
+          tl.fromTo("#face, #fg", { filter: "contrast(1.06) saturate(1.06) brightness(0.97) blur(5px)" },
             { filter: "contrast(1.06) saturate(1.06) brightness(0.97) blur(0px)", duration: 0.16, ease: "power2.out", immediateRender: false }, t - 0.04);
         } else {
           tl.set("#face-wrap", { scale: s }, t);
@@ -682,11 +733,15 @@
       tl.to("#g1", { x: -1080, filter: "blur(24px)", duration: 0.24, ease: "power4.in" }, 13.44);
       tl.fromTo("#face-fx", { x: 1080, filter: "blur(24px) brightness(1)" }, { x: 0, filter: "blur(0px) brightness(1)", duration: 0.3, ease: "power4.out", immediateRender: false }, 13.56);
 
-      // T3 face -> battery diagram: orange overexposure flash
-      tl.to("#face-fx", { filter: "blur(4px) brightness(2.4)", scale: 1.06, duration: 0.2, ease: "power2.in" }, 19.92);
-      tl.fromTo("#flash", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power2.in" }, 20.0);
-      tl.set("#face-fx", { filter: "blur(0px) brightness(1)", scale: 1 }, C2 + 0.02);
-      tl.to("#flash", { opacity: 0, duration: 0.35, ease: "power2.out" }, C2 + 0.04);
+      // T3 face -> battery diagram: red circle glitch (joshua-esca reference) — a red disc with a
+      // cyan/red chromatic rim sweeps across, the frame blows out to white, cut, white recedes.
+      tl.fromTo("#redwipe", { opacity: 0.92, scale: 0.05, x: 520 }, { scale: 1, x: 0, duration: 0.17, ease: "power2.in", immediateRender: false }, 19.86);
+      tl.fromTo("#redring", { opacity: 1, scale: 0.06, x: 540 }, { scale: 1.02, x: -14, duration: 0.17, ease: "power2.in", immediateRender: false }, 19.86);
+      tl.to("#face-fx", { x: -18, duration: 0.05, ease: "none", yoyo: true, repeat: 3 }, 19.86);
+      tl.fromTo("#wflash", { opacity: 0 }, { opacity: 1, duration: 0.07, ease: "power2.in", immediateRender: false }, 20.03);
+      tl.set(["#redwipe", "#redring"], { opacity: 0 }, C2);
+      tl.set("#face-fx", { x: 0 }, C2);
+      tl.to("#wflash", { opacity: 0, duration: 0.3, ease: "power2.out" }, C2 + 0.02);
 
       // T5 accent zoom-blurs into the closing beats
       [[29.65, 1.1], [32.62, 1.08]].forEach(([t, k]) => {
