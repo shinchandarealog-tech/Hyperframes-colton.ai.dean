@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Jost"; font-style: normal; font-weight: 100 900; src: url("assets/fonts/jost-latin.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/instrument-serif-italic-latin.woff2") format("woff2"); }
+      :root {
+        --red: #e3342f;
+        --cream: #f3ede2;
+        --ink: #141414;
+        --yellow: #f2b705;
+        --blue: #1f4fa3;
+        --f-display: "Jost", sans-serif;
+        --f-serif: "Instrument Serif", serif;
+        --f-ui: "Inter", sans-serif;
+        --f-mono: "JetBrains Mono", monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; overflow: hidden;
+        background: var(--cream);
+      }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--cream); }
+      .clip { position: absolute; inset: 0; }
+
+      /* ---------- shared canvas texture ---------- */
+      .canvas {
+        background-color: var(--cream);
+        background-image: radial-gradient(rgba(20, 20, 20, 0.09) 2px, transparent 2.5px);
+        background-size: 44px 44px;
+      }
+
+      /* ---------- face ---------- */
+      #face-shadow {
+        position: absolute; inset: 0; z-index: 10;
+        filter: drop-shadow(0 28px 50px rgba(20, 20, 20, 0.28));
+      }
+      #face-wrap {
+        position: absolute; inset: 0; overflow: hidden;
+        clip-path: inset(0px 0px 0px 0px round 0px);
+      }
+      #face-zoom { position: absolute; inset: 0; transform-origin: 590px 640px; }
+      #face-video {
+        position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover;
+        filter: contrast(1.07) saturate(1.06) brightness(0.98);
+      }
+      #face-grad {
+        position: absolute; inset: 0; pointer-events: none; opacity: 0;
+        background:
+          linear-gradient(180deg, rgba(0,0,0,0) 46%, rgba(8,6,4,0.55) 62%, rgba(8,6,4,0.82) 100%),
+          radial-gradient(ellipse at 50% 35%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.35) 100%);
+      }
+
+      /* ---------- two-tier captions ---------- */
+      .cap {
+        z-index: 30; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+        padding: 1080px 70px 0; gap: 10px; text-align: center;
+      }
+      .lead {
+        font-family: var(--f-ui); font-weight: 600; font-size: 40px; letter-spacing: 0.06em;
+        text-transform: uppercase; color: #fff;
+        text-shadow: 0 2px 14px rgba(0,0,0,0.65);
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 0 14px; max-width: 900px;
+      }
+      .lead span { display: inline-block; }
+      .key-sans {
+        font-family: var(--f-display); font-weight: 800; font-size: 150px; line-height: 0.95;
+        color: var(--red); text-transform: uppercase; letter-spacing: -0.01em;
+        text-shadow: 0 4px 24px rgba(0,0,0,0.45);
+      }
+      .key-serif {
+        font-family: var(--f-serif); font-style: italic; font-size: 170px; line-height: 0.95;
+        color: var(--red); text-shadow: 0 4px 26px rgba(0,0,0,0.5);
+      }
+      .key-sans span, .key-serif span { display: inline-block; }
+
+      /* chips */
+      .chips { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 18px; }
+      .chip {
+        display: inline-flex; align-items: center; gap: 16px;
+        padding: 14px 30px 14px 16px; border-radius: 999px;
+        background: rgba(255,255,255,0.94); color: var(--ink);
+        font-family: var(--f-ui); font-weight: 600; font-size: 40px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      }
+      .chip .ic {
+        width: 50px; height: 50px; border-radius: 50%; display: grid; place-items: center;
+        color: #fff; font-family: var(--f-ui); font-weight: 800; font-size: 30px; background: var(--red);
+      }
+      .chip .ic.ok { background: var(--blue); }
+
+      /* ---------- transition overlays ---------- */
+      #flash { position: absolute; inset: 0; z-index: 50; opacity: 0; background: var(--red); pointer-events: none; }
+      #sweep {
+        position: absolute; left: -900px; top: -300px; width: 700px; height: 2600px; z-index: 50;
+        background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.95) 50%, rgba(255,255,255,0));
+        transform: rotate(18deg); filter: blur(18px); opacity: 0; pointer-events: none;
+      }
+
+      /* ---------- B: school ---------- */
+      #sB { z-index: 5; }
+      #sB .label {
+        position: absolute; top: 960px; left: 0; right: 0; text-align: center;
+        font-family: var(--f-ui); font-weight: 600; font-size: 42px; letter-spacing: 0.08em; color: var(--ink);
+        text-transform: uppercase;
+      }
+      #sB .label span { display: inline-block; margin: 0 7px; }
+      #sB .word {
+        position: absolute; top: 1040px; left: 0; right: 0; display: flex; justify-content: center; gap: 4px;
+        font-family: var(--f-display); font-weight: 800; font-size: 200px; line-height: 1; color: var(--ink);
+      }
+      #sB .word span { display: inline-block; }
+      #sB .word span.r { color: var(--red); }
+      #sB .shapes { position: absolute; top: 1330px; left: 0; right: 0; display: flex; justify-content: center; gap: 46px; }
+      .sh-c { width: 110px; height: 110px; border-radius: 50%; background: var(--yellow); }
+      .sh-s { width: 104px; height: 104px; background: var(--red); }
+      .sh-t { width: 0; height: 0; border-left: 62px solid transparent; border-right: 62px solid transparent; border-bottom: 108px solid var(--blue); }
+      #sB .pin {
+        position: absolute; top: 1530px; left: 50%; transform: translateX(-50%);
+        display: inline-flex; gap: 14px; align-items: center; white-space: nowrap;
+        padding: 16px 32px; border-radius: 999px; background: var(--ink); color: var(--cream);
+        font-family: var(--f-mono); font-size: 34px;
+      }
+      #sB .pin b { color: var(--yellow); font-weight: 700; }
+
+      /* ---------- D: art | design ---------- */
+      #sD { z-index: 5; }
+      #sD .art {
+        position: absolute; left: 0; width: 540px; top: 780px; text-align: center;
+        font-family: var(--f-serif); font-style: italic; font-size: 190px; line-height: 1; color: var(--ink);
+      }
+      #sD .design {
+        position: absolute; left: 540px; width: 540px; top: 800px; text-align: center;
+        font-family: var(--f-display); font-weight: 800; font-size: 104px; line-height: 1.5; color: var(--ink);
+        letter-spacing: 0.02em;
+      }
+      #sD .aur {
+        position: absolute; left: 0; right: 0; top: 1180px; text-align: center;
+        font-family: var(--f-mono); font-size: 34px; color: rgba(20,20,20,0.6); letter-spacing: 0.1em;
+      }
+      #sD .line {
+        position: absolute; left: 536px; top: 600px; width: 8px; height: 640px; background: var(--red);
+        transform-origin: 50% 0%; box-shadow: 0 0 22px rgba(227,52,47,0.45);
+      }
+      #sD .head {
+        position: absolute; top: 360px; left: 0; right: 0; text-align: center;
+        font-family: var(--f-ui); font-weight: 600; font-size: 42px; letter-spacing: 0.08em; color: var(--ink);
+      }
+      #sD .head span { display: inline-block; margin: 0 7px; }
+      #sD .merged-ul { position: absolute; left: 290px; width: 500px; top: 1110px; height: 10px; background: var(--red); transform-origin: 0 50%; }
+
+      /* ---------- F: clean shapes ---------- */
+      #sF { z-index: 5; }
+      #sF-inner { position: absolute; inset: 0; transform-origin: 540px 960px; }
+      #sF .title {
+        position: absolute; top: 380px; left: 0; right: 0; display: flex; justify-content: center; gap: 28px;
+        font-family: var(--f-display); font-weight: 800; font-size: 118px; color: var(--ink); text-transform: uppercase;
+      }
+      #sF .title span { display: inline-block; }
+      #sF .title span.r { color: var(--red); }
+      #sF .orn { position: absolute; left: 190px; top: 700px; width: 700px; height: 420px; }
+      #sF .row { position: absolute; top: 820px; left: 0; right: 0; display: flex; justify-content: center; align-items: flex-end; gap: 70px; }
+      #sF .row .sh-c { width: 170px; height: 170px; }
+      #sF .row .sh-s { width: 160px; height: 160px; }
+      #sF .row .sh-t { border-left-width: 96px; border-right-width: 96px; border-bottom-width: 166px; }
+      #sF .fchip {
+        position: absolute; top: 1210px; left: 50%; transform: translateX(-50%);
+        display: inline-flex; gap: 16px; align-items: center; white-space: nowrap;
+        padding: 18px 40px 18px 18px; border-radius: 999px; background: #fff;
+        font-family: var(--f-ui); font-weight: 700; font-size: 50px; color: var(--ink);
+        box-shadow: 0 14px 40px rgba(20,20,20,0.16);
+      }
+      #sF .fchip .ic { width: 62px; height: 62px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-size: 44px; font-weight: 800; }
+      .br { position: absolute; width: 70px; height: 70px; border: 0 solid var(--ink); }
+      #sF .brk { position: absolute; left: 120px; top: 740px; width: 840px; height: 330px; }
+      #sF .brk .br.tl { left: 0; top: 0; border-top-width: 8px; border-left-width: 8px; }
+      #sF .brk .br.tr { right: 0; top: 0; border-top-width: 8px; border-right-width: 8px; }
+      #sF .brk .br.bl { left: 0; bottom: 0; border-bottom-width: 8px; border-left-width: 8px; }
+      #sF .brk .br.bt { right: 0; bottom: 0; border-bottom-width: 8px; border-right-width: 8px; }
+      #sF .focus {
+        position: absolute; top: 1380px; left: 0; right: 0; text-align: center;
+        font-family: var(--f-mono); font-size: 36px; letter-spacing: 0.3em; color: var(--red);
+      }
+
+      /* ---------- H: verdict panel ---------- */
+      #sH { z-index: 5; }
+      #sH .panel { position: absolute; left: 60px; right: 60px; top: 990px; display: flex; flex-direction: column; gap: 30px; }
+      #sH .row {
+        display: flex; align-items: center; gap: 30px; padding: 34px 36px; border-radius: 34px;
+        background: #fff; box-shadow: 0 16px 44px rgba(20,20,20,0.12);
+      }
+      #sH .ic { flex: none; width: 104px; height: 104px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-family: var(--f-ui); font-weight: 800; font-size: 60px; }
+      #sH .ic.ok { background: var(--blue); }
+      #sH .ic.no { background: var(--red); }
+      #sH .t { font-family: var(--f-display); font-weight: 800; font-size: 74px; line-height: 1; color: var(--ink); }
+      #sH .s { font-family: var(--f-ui); font-weight: 500; font-size: 40px; color: rgba(20,20,20,0.65); margin-top: 10px; }
+      #sH .s b { color: var(--ink); font-weight: 700; }
+
+      /* ---------- I: timeline card ---------- */
+      #tcard {
+        z-index: 25; position: absolute; left: 90px; right: 90px; top: 130px; height: 210px;
+        border-radius: 34px; background: rgba(255,255,255,0.92); box-shadow: 0 16px 44px rgba(0,0,0,0.3);
+        padding: 30px 44px;
+      }
+      #tcard .yrs { display: flex; justify-content: space-between; font-family: var(--f-mono); font-weight: 700; font-size: 44px; color: var(--ink); }
+      #tcard .track { position: relative; margin-top: 22px; height: 16px; border-radius: 8px; background: rgba(20,20,20,0.1); }
+      #tcard .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 8px; background: var(--red); transform-origin: 0 50%; }
+      #tcard .tag {
+        position: absolute; right: 30px; top: -34px; padding: 10px 24px; border-radius: 999px;
+        background: var(--ink); color: var(--yellow); font-family: var(--f-ui); font-weight: 700; font-size: 34px; white-space: nowrap;
+      }
+
+      /* ---------- J: carousel ---------- */
+      #sJ { z-index: 5; }
+      #sJ .head {
+        position: absolute; top: 300px; left: 0; right: 0; display: flex; justify-content: center; gap: 16px;
+        font-family: var(--f-ui); font-weight: 600; font-size: 50px; letter-spacing: 0.06em; color: var(--ink); text-transform: uppercase;
+      }
+      #sJ .head span { display: inline-block; }
+      #sJ .head span.r { color: var(--red); }
+      #track { position: absolute; left: 0; top: 520px; width: 1840px; height: 980px; transform-origin: 920px 490px; }
+      .card {
+        position: absolute; top: 0; width: 560px; height: 980px; border-radius: 40px; overflow: hidden;
+        background: #fff; box-shadow: 0 24px 60px rgba(20,20,20,0.16);
+      }
+      .card .art { position: absolute; left: 40px; right: 40px; top: 40px; height: 700px; border-radius: 26px; overflow: hidden; }
+      .card .lbl {
+        position: absolute; left: 40px; right: 40px; bottom: 50px;
+        font-family: var(--f-display); font-weight: 800; font-size: 66px; line-height: 1; color: var(--ink); text-transform: uppercase;
+      }
+      .card .lbl em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--red); text-transform: none; font-size: 76px; }
+      /* card 1: layout wireframe */
+      .wf { background: #f6f6f4; padding: 34px; display: flex; flex-direction: column; gap: 22px; }
+      .wf .nav { height: 34px; display: flex; gap: 14px; align-items: center; }
+      .wf .nav i { display: block; height: 14px; border-radius: 7px; background: #cfcfcf; }
+      .wf .hero { height: 250px; border-radius: 18px; background: var(--ink); position: relative; }
+      .wf .hero::after { content: ""; position: absolute; left: 30px; bottom: 30px; width: 180px; height: 22px; border-radius: 11px; background: var(--cream); }
+      .wf .cols { display: flex; gap: 18px; }
+      .wf .cols i { flex: 1; height: 180px; border-radius: 16px; background: #e4e1da; }
+      .wf .btn { width: 210px; height: 66px; border-radius: 33px; background: var(--red); }
+      /* card 2: logos */
+      .lg { background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 26px; padding: 40px; }
+      .lg > div { border-radius: 22px; background: #fff; display: grid; place-items: center; }
+      .lg .m1 { width: 120px; height: 120px; border-radius: 50%; background: var(--ink); position: relative; }
+      .lg .m1::after { content: ""; position: absolute; left: 30px; top: 30px; width: 60px; height: 60px; background: var(--yellow); }
+      .lg .m2 { width: 0; height: 0; border-left: 66px solid transparent; border-right: 66px solid transparent; border-bottom: 116px solid var(--red); }
+      .lg .m3 { width: 120px; height: 120px; background: var(--blue); border-radius: 0 60px 60px 0; }
+      .lg .m4 { display: flex; gap: 12px; align-items: flex-end; }
+      .lg .m4 i { display: block; width: 26px; background: var(--ink); }
+      /* card 3: building */
+      .bd { background: linear-gradient(180deg, #a9c6e8 0%, #dfe9f3 70%, #cfc8b8 70%); position: relative; }
+      .bd .blk { position: absolute; left: 50px; right: 50px; bottom: 210px; height: 330px; background: #f7f5f0; box-shadow: 0 8px 0 rgba(0,0,0,0.08); }
+      .bd .glass {
+        position: absolute; left: 70px; right: 140px; top: 40px; bottom: 40px; background: #24384f;
+        background-image: linear-gradient(90deg, rgba(255,255,255,0.5) 3px, transparent 3px), linear-gradient(0deg, rgba(255,255,255,0.5) 3px, transparent 3px);
+        background-size: 46px 100%, 100% 64px;
+      }
+      .bd .tower { position: absolute; right: 70px; bottom: 210px; width: 150px; height: 470px; background: #ece8df; }
+      .bd .sign { position: absolute; right: 100px; bottom: 260px; width: 90px; display: flex; flex-direction: column; align-items: center; font-family: var(--f-display); font-weight: 800; font-size: 46px; line-height: 0.95; color: var(--ink); }
+
+      /* ---------- L: finale ---------- */
+      #sL { z-index: 5; }
+      #sL-inner { position: absolute; inset: 0; }
+      #sL .w { position: absolute; left: 0; right: 0; text-align: center; font-family: var(--f-ui); font-weight: 600; font-size: 40px; letter-spacing: 0.12em; color: rgba(20,20,20,0.6); text-transform: uppercase; }
+      #sL .big { position: absolute; left: 0; right: 0; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 136px; line-height: 1; color: var(--ink); text-transform: uppercase; }
+      #sL .big.r { color: var(--red); }
+      #sL .wins { position: absolute; left: 0; right: 0; top: 1130px; display: flex; justify-content: center; gap: 16px; font-family: var(--f-ui); font-weight: 600; font-size: 46px; letter-spacing: 0.06em; color: var(--ink); text-transform: uppercase; }
+      #sL .wins span { display: inline-block; }
+      #sL .detail { position: absolute; left: 0; right: 0; top: 1220px; text-align: center; font-family: var(--f-serif); font-style: italic; font-size: 190px; line-height: 1; color: var(--ink); }
+      #sL .strike { position: absolute; left: 270px; width: 540px; top: 1318px; height: 16px; background: var(--red); transform-origin: 0 50%; transform: rotate(-4deg); }
+      #sL .x { position: absolute; left: 820px; top: 1210px; width: 110px; height: 110px; border-radius: 50%; background: var(--red); color: #fff; display: grid; place-items: center; font-family: var(--f-ui); font-weight: 800; font-size: 64px; }
+      #sL .mini { position: absolute; left: 0; right: 0; top: 1560px; display: flex; justify-content: center; gap: 30px; }
+      #sL .mini .sh-c { width: 60px; height: 60px; }
+      #sL .mini .sh-s { width: 56px; height: 56px; }
+      #sL .mini .sh-t { border-left-width: 34px; border-right-width: 34px; border-bottom-width: 58px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="30.60" data-width="1080" data-height="1920">
+
+      <!-- ============ AUDIO ============ -->
+      <audio id="voice" src="assets/talk-edit.mp4" data-start="0" data-duration="29.87" data-track-index="2" data-volume="1"></audio>
+
+      <!-- ============ FACE (track 0) ============ -->
+      <div id="face-shadow">
+        <div id="face-wrap">
+          <div id="face-zoom">
+            <video id="face-video" src="assets/talk-edit.mp4" data-start="0" data-duration="29.87" data-track-index="0" muted playsinline></video>
+          </div>
+          <div id="face-grad"></div>
+        </div>
+      </div>
+
+      <!-- ============ GRAPHIC SCENES (track 1) ============ -->
+      <!-- B: school / BAUHAUS -->
+      <div id="sB" class="clip canvas" data-start="0.80" data-duration="2.25" data-track-index="1">
+        <div class="label"><span>ek</span><span>school</span><span>start</span><span>hua</span><span>tha</span></div>
+        <div class="word"><span>B</span><span>A</span><span>U</span><span class="r">H</span><span>A</span><span>U</span><span>S</span></div>
+        <div class="shapes"><div class="sh-c"></div><div class="sh-s"></div><div class="sh-t"></div></div>
+        <div class="pin">Weimar, Germany · <b>1919</b></div>
+      </div>
+
+      <!-- D: art | design -->
+      <div id="sD" class="clip canvas" data-start="3.90" data-duration="2.50" data-track-index="1">
+        <div class="head"><span>art</span><span>aur</span><span>design</span><span>ke</span><span>beech</span><span>ki</span><span>line</span></div>
+        <div class="art">Art</div>
+        <div class="line"></div>
+        <div class="design">DESIGN</div>
+        <div class="merged-ul"></div>
+        <div class="aur">HATA DO.</div>
+      </div>
+
+      <!-- F: clean shapes -->
+      <div id="sF" class="clip canvas" data-start="9.20" data-duration="2.16" data-track-index="1">
+        <div id="sF-inner">
+          <div class="title"><span>Clean</span><span class="r">Shapes</span></div>
+          <svg class="orn" viewBox="0 0 700 420" fill="none">
+            <path d="M40 300 C 80 120, 200 120, 210 230 S 120 360, 90 270 S 230 60, 350 180 S 420 380, 470 250 S 640 60, 660 220 S 560 360, 540 260" stroke="#141414" stroke-width="10" stroke-linecap="round"/>
+            <circle cx="350" cy="180" r="22" fill="#141414"/>
+            <path d="M150 360 q 30 -40 60 0 t 60 0 t 60 0 t 60 0 t 60 0 t 60 0" stroke="#141414" stroke-width="6"/>
+          </svg>
+          <div class="row"><div class="sh-c"></div><div class="sh-s"></div><div class="sh-t"></div></div>
+          <div class="brk"><i class="br tl"></i><i class="br tr"></i><i class="br bl"></i><i class="br bt"></i></div>
+          <div class="fchip"><span class="ic">+</span>Function</div>
+          <div class="focus">FOCUS</div>
+        </div>
+      </div>
+
+      <!-- H: verdict panel (face card sits above it) -->
+      <div id="sH" class="clip canvas" data-start="13.25" data-duration="4.05" data-track-index="1">
+        <div class="panel">
+          <div class="row" id="h1"><div class="ic ok">✓</div><div><div class="t">Appreciated</div><div class="s" id="h1s">for its <b>simplicity</b></div></div></div>
+          <div class="row" id="h2"><div class="ic no">✕</div><div><div class="t">Criticized</div><div class="s" id="h2s">for erasing <b>craftsmanship</b></div></div></div>
+        </div>
+      </div>
+
+      <!-- J: carousel -->
+      <div id="sJ" class="clip canvas" data-start="20.12" data-duration="4.08" data-track-index="1">
+        <div class="head"><span>aaj</span><span>jo</span><span>aap</span><span class="r" id="jdekh">dekhte ho</span></div>
+        <div id="track">
+          <div class="card" id="c1" style="left: 0px">
+            <div class="art wf"><div class="nav"><i style="width:90px"></i><i style="width:60px"></i><i style="width:60px"></i><i style="width:60px"></i></div><div class="hero"></div><div class="cols"><i></i><i></i><i></i></div><div class="btn"></div></div>
+            <div class="lbl"><em>Clean</em><br />Layouts</div>
+          </div>
+          <div class="card" id="c2" style="left: 640px">
+            <div class="art lg"><div><div class="m1"></div></div><div><div class="m2"></div></div><div><div class="m3"></div></div><div><div class="m4"><i style="height:60px"></i><i style="height:100px"></i><i style="height:140px"></i></div></div></div>
+            <div class="lbl"><em>Simple</em><br />Logos</div>
+          </div>
+          <div class="card" id="c3" style="left: 1280px">
+            <div class="art bd"><div class="tower"></div><div class="blk"><div class="glass"></div></div><div class="sign"><span>B</span><span>A</span><span>U</span><span>H</span></div></div>
+            <div class="lbl"><em>Minimal</em><br />Buildings</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- L: finale -->
+      <div id="sL" class="clip canvas" data-start="25.95" data-duration="4.65" data-track-index="1">
+        <div id="sL-inner">
+          <div class="w" id="lw1" style="top: 560px">where</div>
+          <div class="big" id="lb1" style="top: 620px">Simplicity,</div>
+          <div class="w" id="lw2" style="top: 820px">where</div>
+          <div class="big r" id="lb2" style="top: 880px">Efficiency</div>
+          <div class="wins"><span>often</span><span>wins</span><span>over</span></div>
+          <div class="detail">detail.</div>
+          <div class="strike"></div>
+          <div class="x">✕</div>
+          <div class="mini"><div class="sh-c"></div><div class="sh-s"></div><div class="sh-t"></div></div>
+        </div>
+      </div>
+
+      <!-- ============ FACE OVERLAYS + CAPTIONS (track 3+) ============ -->
+      <!-- A -->
+      <div id="capA" class="clip cap" data-start="0" data-duration="0.85" data-track-index="3">
+        <div class="key-sans" id="kA" style="font-size: 230px">1919</div>
+        <div class="lead"><span>mein</span><span>Germany</span><span>mein</span></div>
+      </div>
+      <!-- C -->
+      <div id="capC" class="clip cap" data-start="2.98" data-duration="0.94" data-track-index="3">
+        <div class="lead"><span>The</span><span>idea</span><span>was</span></div>
+        <div class="key-serif" id="kC"><span>S</span><span>i</span><span>m</span><span>p</span><span>l</span><span>e</span><span>.</span></div>
+      </div>
+      <!-- E -->
+      <div id="capE" class="clip cap" data-start="6.40" data-duration="2.80" data-track-index="3" style="padding-top: 1000px">
+        <div class="lead"><span>Bauhaus</span><span>ne</span></div>
+        <div class="chips">
+          <div class="chip" id="e1"><span class="ic">✕</span>Curves</div>
+          <div class="chip" id="e2"><span class="ic">✕</span>Detail</div>
+          <div class="chip" id="e3"><span class="ic">✕</span>Decoration</div>
+        </div>
+        <div class="key-sans" id="kE" style="font-size: 120px; margin-top: 14px">hata ke</div>
+      </div>
+      <!-- G -->
+      <div id="capG" class="clip cap" data-start="11.22" data-duration="2.08" data-track-index="3">
+        <div class="lead"><span>It</span><span>was</span><span>heavily</span><span>influenced</span><span>by</span></div>
+        <div class="key-serif" id="kG"><span>M</span><span>o</span><span>d</span><span>e</span><span>r</span><span>n</span><span>i</span><span>s</span><span>m</span><span>,</span></div>
+      </div>
+      <!-- I -->
+      <div id="tcard" class="clip" data-start="17.20" data-duration="3.00" data-track-index="4">
+        <div class="yrs"><span>1919</span><span>1933</span></div>
+        <div class="track"><div class="fill"></div></div>
+        <div class="tag" id="ttag">sirf 14 saal</div>
+      </div>
+      <div id="capI1" class="clip cap" data-start="17.20" data-duration="1.40" data-track-index="3">
+        <div class="lead" style="font-size: 46px"><span>School</span><span>zyada</span><span>saal</span><span>chala</span><span>nahi</span></div>
+      </div>
+      <div id="capI2" class="clip cap" data-start="18.60" data-duration="1.62" data-track-index="5">
+        <div class="lead"><span>but</span><span>uska</span></div>
+        <div class="key-sans" id="kI" style="font-size: 180px">Impact</div>
+        <div class="lead"><span>aaj</span><span>bhi</span><span>hai</span></div>
+      </div>
+      <!-- K -->
+      <div id="capK" class="clip cap" data-start="24.20" data-duration="1.80" data-track-index="3">
+        <div class="lead"><span>they</span><span>are</span><span>all</span><span>products</span><span>of</span></div>
+        <div class="key-serif" id="kK"><span>M</span><span>o</span><span>d</span><span>e</span><span>r</span><span>n</span><span>i</span><span>s</span><span>m</span><span>.</span></div>
+        <div id="kKul" style="width: 620px; height: 10px; background: var(--red); border-radius: 5px; margin-top: 6px; transform-origin: 0 50%"></div>
+      </div>
+
+      <!-- ============ TRANSITION OVERLAYS ============ -->
+      <div id="flash"></div>
+      <div id="sweep"></div>
+
+      <!-- ============ SFX ============ -->
+      <audio id="x01" src="assets/sfx/slam.mp3"     data-start="0.05"  data-duration="0.9" data-track-index="10" data-volume="0.35"></audio>
+      <audio id="x02" src="assets/sfx/whoosh.mp3"   data-start="0.80"  data-duration="0.57" data-track-index="11" data-volume="0.35"></audio>
+      <audio id="x03" src="assets/sfx/slam.mp3"     data-start="2.03"  data-duration="0.85" data-track-index="10" data-volume="0.4"></audio>
+      <audio id="x04" src="assets/sfx/hard-cut.mp3" data-start="2.92"  data-duration="0.2" data-track-index="11" data-volume="0.4"></audio>
+      <audio id="x05" src="assets/sfx/swipe.mp3"    data-start="3.88"  data-duration="0.6" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="x06" src="assets/sfx/zap.mp3"      data-start="5.73"  data-duration="0.5" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="x07" src="assets/sfx/whoosh.mp3"   data-start="6.36"  data-duration="0.57" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="x08" src="assets/sfx/pop.mp3"      data-start="6.95"  data-duration="0.4" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="x09" src="assets/sfx/pop.mp3"      data-start="7.51"  data-duration="0.4" data-track-index="10" data-volume="0.35"></audio>
+      <audio id="x10" src="assets/sfx/pop.mp3"      data-start="7.97"  data-duration="0.4" data-track-index="11" data-volume="0.35"></audio>
+      <audio id="x11" src="assets/sfx/click.wav"    data-start="8.56"  data-duration="0.4" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="x12" src="assets/sfx/whoosh.mp3"   data-start="9.08"  data-duration="0.57" data-track-index="10" data-volume="0.35"></audio>
+      <audio id="x13" src="assets/sfx/pop.mp3"      data-start="9.50"  data-duration="0.4" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="x14" src="assets/sfx/pop.mp3"      data-start="9.99"  data-duration="0.4" data-track-index="12" data-volume="0.35"></audio>
+      <audio id="x15" src="assets/sfx/click.wav"    data-start="10.62" data-duration="0.4" data-track-index="10" data-volume="0.4"></audio>
+      <audio id="x16" src="assets/sfx/whoosh.mp3"   data-start="11.02" data-duration="0.57" data-track-index="11" data-volume="0.35"></audio>
+      <audio id="x17" src="assets/sfx/sparkle.mp3"  data-start="12.68" data-duration="1.0" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="x18" src="assets/sfx/swipe.mp3"    data-start="13.22" data-duration="0.6" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="x19" src="assets/sfx/pop.mp3"      data-start="13.46" data-duration="0.4" data-track-index="11" data-volume="0.35"></audio>
+      <audio id="x20" src="assets/sfx/error.mp3"    data-start="15.33" data-duration="0.6" data-track-index="12" data-volume="0.22"></audio>
+      <audio id="x21" src="assets/sfx/whoosh.mp3"   data-start="16.85" data-duration="0.57" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="x22" src="assets/sfx/riser.mp3"    data-start="17.30" data-duration="0.9" data-track-index="11" data-volume="0.25"></audio>
+      <audio id="x23" src="assets/sfx/slam.mp3"     data-start="18.96" data-duration="0.9" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="x24" src="assets/sfx/whoosh.mp3"   data-start="20.10" data-duration="0.57" data-track-index="10" data-volume="0.35"></audio>
+      <audio id="x25" src="assets/sfx/pop.mp3"      data-start="21.10" data-duration="0.4" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="x26" src="assets/sfx/swipe.mp3"    data-start="21.90" data-duration="0.5" data-track-index="12" data-volume="0.25"></audio>
+      <audio id="x27" src="assets/sfx/swipe.mp3"    data-start="22.84" data-duration="0.5" data-track-index="10" data-volume="0.25"></audio>
+      <audio id="x28" src="assets/sfx/whoosh.mp3"   data-start="23.62" data-duration="0.57" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="x29" src="assets/sfx/hard-cut.mp3" data-start="24.14" data-duration="0.2" data-track-index="12" data-volume="0.4"></audio>
+      <audio id="x30" src="assets/sfx/sparkle.mp3"  data-start="25.42" data-duration="0.9" data-track-index="10" data-volume="0.25"></audio>
+      <audio id="x31" src="assets/sfx/swipe.mp3"    data-start="25.92" data-duration="0.6" data-track-index="11" data-volume="0.3"></audio>
+      <audio id="x32" src="assets/sfx/pop.mp3"      data-start="26.29" data-duration="0.4" data-track-index="12" data-volume="0.3"></audio>
+      <audio id="x33" src="assets/sfx/pop.mp3"      data-start="27.41" data-duration="0.4" data-track-index="10" data-volume="0.3"></audio>
+      <audio id="x34" src="assets/sfx/slam.mp3"     data-start="29.25" data-duration="0.62" data-track-index="11" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      (() => {
+        const tl = gsap.timeline({ paused: true });
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+        // word-in helper: blur-rise each span at its spoken time
+        const words = (sel, times, ease = "power3.out") => {
+          $$(sel).forEach((el, i) => {
+            tl.from(el, { opacity: 0, y: 22, filter: "blur(8px)", duration: 0.22, ease }, times[i]);
+          });
+        };
+        // letter wipe for keywords
+        const letters = (sel, t, each = 0.03) => {
+          tl.from($$(sel + " span"), { opacity: 0, y: 40, filter: "blur(10px)", duration: 0.28, ease: "expo.out", stagger: each }, t);
+        };
+
+        /* ---------------- FACE states ---------------- */
+        const FULL = "inset(0px 0px 0px 0px round 0px)";
+        const CARD = "inset(330px 190px 920px 190px round 48px)"; // head + shoulders region
+        const fw = "#face-wrap", fz = "#face-zoom";
+
+        tl.set(fw, { clipPath: FULL, y: 0, x: 0, opacity: 1 }, 0);
+        tl.set("#face-grad", { opacity: 1 }, 0);
+        // A: punch-in + slow push
+        tl.fromTo(fz, { scale: 1.18 }, { scale: 1.24, duration: 0.82, ease: "none" }, 0);
+
+        // A → B : face shrinks into a card at the top (canvas revealed underneath)
+        tl.to(fw, { clipPath: CARD, y: -110, duration: 0.5, ease: "expo.inOut" }, 0.82);
+        tl.to(fz, { scale: 1.0, duration: 0.5, ease: "expo.inOut" }, 0.82);
+        tl.to("#face-grad", { opacity: 0, duration: 0.3 }, 0.82);
+        tl.to(fz, { scale: 1.04, duration: 1.6, ease: "none" }, 1.32);
+
+        // B → C : red/cream flash-flicker, face back to full under the flash
+        const flicker = (t) => {
+          tl.set("#flash", { opacity: 1, backgroundColor: "#e3342f" }, t);
+          tl.set("#flash", { backgroundColor: "#f3ede2" }, t + 0.067);
+          tl.set("#flash", { backgroundColor: "#e3342f" }, t + 0.133);
+          tl.set("#flash", { opacity: 0 }, t + 0.2);
+        };
+        flicker(2.92);
+        tl.set(fw, { clipPath: FULL, y: 0 }, 2.98);
+        tl.set("#face-grad", { opacity: 1 }, 2.98);
+        tl.fromTo(fz, { scale: 1.32 }, { scale: 1.36, duration: 1.0, ease: "none", immediateRender: false }, 2.98);
+
+        // C → D : push left, D slides in from the right
+        tl.to(fw, { x: -1080, duration: 0.36, ease: "power3.inOut" }, 3.88);
+        tl.from("#sD", { x: 1080, duration: 0.36, ease: "power3.inOut" }, 3.88);
+        tl.set(fw, { opacity: 0, x: 0 }, 4.26);
+
+        // D → E : defocus-blur reset back onto the face
+        tl.set(fw, { opacity: 1 }, 6.40);
+        tl.fromTo("#face-video", { filter: "contrast(1.07) saturate(1.06) brightness(0.98) blur(26px)" },
+          { filter: "contrast(1.07) saturate(1.06) brightness(0.98) blur(0px)", duration: 0.4, ease: "power2.out", immediateRender: false }, 6.40);
+        tl.fromTo(fz, { scale: 1.3 }, { scale: 1.2, duration: 2.8, ease: "power1.out", immediateRender: false }, 6.40);
+
+        // E → F : light sweep, cut at its peak
+        tl.set("#sweep", { opacity: 1 }, 9.04);
+        tl.fromTo("#sweep", { x: 0 }, { x: 2800, duration: 0.36, ease: "power3.in" }, 9.04);
+        tl.set("#sweep", { opacity: 0 }, 9.42);
+        tl.set(fw, { opacity: 0 }, 9.20);
+
+        // F → G : zoom-through F, revealing the face
+        tl.fromTo(fw, { opacity: 0 }, { opacity: 1, duration: 0.24, ease: "power2.in", immediateRender: false }, 11.10);
+        tl.fromTo(fz, { scale: 1.16 }, { scale: 1.22, duration: 2.1, ease: "none", immediateRender: false }, 11.10);
+        tl.to("#sF-inner", { scale: 2.2, filter: "blur(14px)", duration: 0.26, ease: "power2.in" }, 11.08);
+
+        // G → H : face back to the top card, verdict panel slides up
+        tl.to(fw, { clipPath: CARD, y: -110, duration: 0.5, ease: "expo.inOut" }, 13.22);
+        tl.to(fz, { scale: 1.0, duration: 0.5, ease: "expo.inOut" }, 13.22);
+        tl.to("#face-grad", { opacity: 0, duration: 0.3 }, 13.22);
+        tl.from("#sH .panel", { y: 900, duration: 0.55, ease: "expo.out" }, 13.3);
+
+        // H → I : card expands back to full
+        tl.to(fw, { clipPath: FULL, y: 0, duration: 0.45, ease: "expo.inOut" }, 16.85);
+        tl.to("#face-grad", { opacity: 1, duration: 0.3 }, 16.95);
+        tl.fromTo(fz, { scale: 1.0 }, { scale: 1.18, duration: 0.45, ease: "expo.inOut", immediateRender: false }, 16.85);
+        tl.to(fz, { scale: 1.24, duration: 2.9, ease: "none" }, 17.30);
+
+        // I → J : vertical whip
+        tl.to(fw, { y: -360, filter: "blur(30px)", duration: 0.3, ease: "power2.in" }, 20.10);
+        tl.from("#sJ", { y: 360, filter: "blur(30px)", duration: 0.5, ease: "power2.out" }, 20.12);
+        tl.set(fw, { opacity: 0, y: 0, filter: "blur(0px)" }, 20.42);
+
+        // J → K : flicker back to the face
+        flicker(24.12);
+        tl.set(fw, { opacity: 1 }, 24.18);
+        tl.fromTo(fz, { scale: 1.32 }, { scale: 1.38, duration: 1.8, ease: "none", immediateRender: false }, 24.18);
+
+        // K → L : face shrinks away, L pushes up
+        tl.to(fw, { clipPath: "inset(560px 390px 920px 390px round 200px)", opacity: 0, duration: 0.42, ease: "expo.in" }, 25.92);
+        tl.from("#sL-inner", { y: 300, opacity: 0, duration: 0.45, ease: "expo.out" }, 25.98);
+
+        /* ---------------- A captions ---------------- */
+        tl.from("#kA", { scale: 1.6, opacity: 0, filter: "blur(16px)", duration: 0.3, ease: "expo.out" }, 0.05);
+        words("#capA .lead span", [0.43, 0.52, 0.77]);
+
+        /* ---------------- B: school ---------------- */
+        words("#sB .label span", [0.99, 0.99, 1.21, 1.47, 1.67], "power2.out");
+        tl.from($$("#sB .word span"), { y: -260, opacity: 0, duration: 0.42, ease: "back.out(1.6)", stagger: 0.045 }, 2.0);
+        tl.from($$("#sB .shapes > div"), { scale: 0, rotation: -90, duration: 0.4, ease: "back.out(2)", stagger: 0.08 }, 2.3);
+        tl.from("#sB .pin", { y: 40, opacity: 0, duration: 0.3, ease: "power2.out" }, 2.5);
+
+        /* ---------------- C captions ---------------- */
+        words("#capC .lead span", [3.09, 3.16, 3.41]);
+        letters("#kC", 3.62);
+
+        /* ---------------- D: art | design ---------------- */
+        words("#sD .head span", [4.12, 4.19, 4.44, 4.74, 4.84, 5.21, 5.33], "power2.out");
+        tl.from("#sD .art", { x: -120, opacity: 0, duration: 0.4, ease: "expo.out" }, 4.12);
+        tl.from("#sD .design", { x: 120, opacity: 0, duration: 0.4, ease: "expo.out" }, 4.44);
+        tl.from("#sD .line", { scaleY: 0, duration: 0.5, ease: "power3.out" }, 4.74);
+        // "hata do" — the line is erased, the two words merge into one lockup
+        tl.to("#sD .line", { scaleY: 0, transformOrigin: "50% 100%", duration: 0.24, ease: "power3.in" }, 5.73);
+        tl.to("#sD .art", { x: 250, y: -40, duration: 0.45, ease: "expo.inOut" }, 5.8);
+        tl.to("#sD .design", { x: -250, y: 130, duration: 0.45, ease: "expo.inOut" }, 5.8);
+        tl.from("#sD .merged-ul", { scaleX: 0, duration: 0.3, ease: "power2.out" }, 6.05);
+        tl.from("#sD .aur", { opacity: 0, y: 20, duration: 0.25, ease: "power2.out" }, 5.73);
+
+        /* ---------------- E captions ---------------- */
+        words("#capE .lead span", [6.48, 6.78]);
+        [["#e1", 6.95], ["#e2", 7.51], ["#e3", 7.97]].forEach(([s, t]) =>
+          tl.from(s, { scale: 0.4, opacity: 0, duration: 0.32, ease: "back.out(2.2)" }, t));
+        tl.from("#kE", { scale: 1.5, opacity: 0, duration: 0.26, ease: "expo.out" }, 8.56);
+
+        /* ---------------- F: clean shapes ---------------- */
+        words("#sF .title span", [9.28, 9.47], "expo.out");
+        tl.from("#sF .orn", { opacity: 0, scale: 0.9, duration: 0.2, ease: "power2.out" }, 9.22);
+        tl.to("#sF .orn", { opacity: 0, scale: 0.4, rotation: 25, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, 9.45);
+        tl.from($$("#sF .row > div"), { scale: 0, rotation: 120, duration: 0.45, ease: "back.out(1.8)", stagger: 0.09 }, 9.55);
+        tl.from("#sF .fchip", { y: 60, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 9.99);
+        tl.from("#sF .brk", { scale: 1.35, opacity: 0, duration: 0.22, ease: "power4.out" }, 10.62);
+        tl.from("#sF .focus", { opacity: 0, scale: 1.4, duration: 0.3, ease: "power2.out" }, 10.66);
+        tl.to($$("#sF .row > div"), { y: -14, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1, stagger: 0.1 }, 10.1);
+
+        /* ---------------- G captions ---------------- */
+        words("#capG .lead span", [11.29, 11.34, 11.52, 11.95, 12.56]);
+        letters("#kG", 12.66, 0.025);
+
+        /* ---------------- H: verdict ---------------- */
+        tl.from("#h1", { scale: 0.85, opacity: 0, duration: 0.3, ease: "back.out(2)" }, 13.46);
+        tl.from("#h1s", { opacity: 0, x: -20, duration: 0.25, ease: "power2.out" }, 14.24);
+        tl.from("#h2", { scale: 0.85, opacity: 0, duration: 0.3, ease: "back.out(2)" }, 15.30);
+        tl.from("#h2s", { opacity: 0, x: -20, duration: 0.25, ease: "power2.out" }, 15.98);
+        tl.to("#h2", { x: 10, duration: 0.05, yoyo: true, repeat: 3, ease: "none" }, 15.36);
+
+        /* ---------------- I: timeline + impact ---------------- */
+        tl.from("#tcard", { y: -60, opacity: 0, duration: 0.35, ease: "expo.out" }, 17.22);
+        tl.from("#tcard .fill", { scaleX: 0, duration: 0.95, ease: "power2.inOut" }, 17.30);
+        tl.from("#ttag", { scale: 0, duration: 0.3, ease: "back.out(2.4)" }, 18.18);
+        words("#capI1 .lead span", [17.30, 17.54, 17.86, 18.02, 18.18]);
+        words("#capI2 .lead:first-child span", [18.62, 18.71]);
+        tl.from("#kI", { scale: 2.4, opacity: 0, filter: "blur(12px)", duration: 0.24, ease: "power4.out" }, 18.96);
+        tl.fromTo(fz, { x: 0 }, { x: 8, duration: 0.04, yoyo: true, repeat: 3, ease: "none", immediateRender: false }, 19.0);
+        words("#capI2 .lead:last-child span", [19.71, 19.82, 19.96]);
+
+        /* ---------------- J: carousel ---------------- */
+        words("#sJ .head span:not(.r)", [20.34, 20.57, 20.89]);
+        tl.from("#jdekh", { opacity: 0, y: 22, duration: 0.25, ease: "power3.out" }, 23.68);
+        tl.set("#track", { x: 260, scale: 1 }, 20.12);
+        tl.from("#c1", { x: 700, rotation: 6, duration: 0.5, ease: "expo.out" }, 20.38);
+        tl.to("#track", { x: -380, duration: 0.45, ease: "power3.inOut" }, 21.90);
+        tl.to("#track", { x: -1020, duration: 0.45, ease: "power3.inOut" }, 22.84);
+        tl.to("#track", { x: -380, scale: 0.52, duration: 0.5, ease: "expo.inOut" }, 23.42);
+        [["#c1 .lbl", 21.10], ["#c2 .lbl", 21.97], ["#c3 .lbl", 22.91]].forEach(([s, t]) =>
+          tl.from(s, { opacity: 0, y: 30, duration: 0.3, ease: "power2.out" }, t));
+        tl.from("#c2 .lg > div", { scale: 0.6, opacity: 0, duration: 0.3, ease: "back.out(2)", stagger: 0.06 }, 22.0);
+        tl.from("#c3 .glass", { scaleY: 0, transformOrigin: "50% 100%", duration: 0.4, ease: "power3.out" }, 22.95);
+
+        /* ---------------- K captions ---------------- */
+        words("#capK .lead span", [24.30, 24.42, 24.60, 24.79, 25.30]);
+        letters("#kK", 25.40, 0.025);
+        tl.from("#kKul", { scaleX: 0, duration: 0.35, ease: "power2.out" }, 25.62);
+
+        /* ---------------- L: finale ---------------- */
+        tl.from("#lw1", { opacity: 0, y: 16, duration: 0.2, ease: "power2.out" }, 26.13);
+        tl.from("#lb1", { opacity: 0, scale: 1.3, filter: "blur(10px)", duration: 0.3, ease: "expo.out" }, 26.29);
+        tl.from("#lw2", { opacity: 0, y: 16, duration: 0.2, ease: "power2.out" }, 27.22);
+        tl.from("#lb2", { opacity: 0, scale: 1.3, filter: "blur(10px)", duration: 0.3, ease: "expo.out" }, 27.41);
+        words("#sL .wins span", [28.09, 28.46, 28.82]);
+        tl.from("#sL .detail", { opacity: 0, y: 30, duration: 0.25, ease: "power3.out" }, 29.19);
+        tl.from("#sL .strike", { scaleX: 0, duration: 0.18, ease: "power4.out" }, 29.36);
+        tl.to("#sL .detail", { opacity: 0.35, duration: 0.2 }, 29.46);
+        tl.from("#sL .x", { scale: 0, rotation: -90, duration: 0.3, ease: "back.out(2.5)" }, 29.4);
+        tl.from($$("#sL .mini > div"), { scale: 0, duration: 0.3, ease: "back.out(2)", stagger: 0.07 }, 26.5);
+        tl.to("#sL-inner", { scale: 1.05, duration: 4.2, ease: "none" }, 26.4);
+
+        tl.to({}, { duration: 30.60 }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
