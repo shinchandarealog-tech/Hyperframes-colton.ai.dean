@@ -488,17 +488,14 @@
       // Word fly-in (from the rayyan-visions reference): each word starts faded, blurred,
       // ~1.25x and offset above / to the side, then lands in ~0.2s. Direction rotates per word.
       // Reference timing: a word appears as a faint grey ghost ~230px above its slot (1080 scale),
-      // drops in with vertical motion blur and lands in ~5 frames. Words rest at slightly
-      // different heights, so the line has a loose, hand-placed bounce.
+      // drops in with vertical motion blur and lands in ~5 frames on a flat baseline.
       const FLY = [[24, -230], [-18, -210], [40, -250], [6, -220], [-30, -240], [52, -215]];
-      const REST = [-6, 14, 4, -4, 12, 0];
       const svgNS = "http://www.w3.org/2000/svg";
       const mbDefs = document.getElementById("mb-defs");
       let flyN = 0;
       function flyIn(el, t) {
         const n = flyN++;
         const [dx, dy] = FLY[n % FLY.length];
-        const rest = REST[n % REST.length];
         const f = document.createElementNS(svgNS, "filter");
         f.setAttribute("id", "mb" + n);
         f.setAttribute("x", "-20%");
@@ -510,7 +507,7 @@
         f.appendChild(blur);
         mbDefs.appendChild(f);
         el.style.filter = "url(#mb" + n + ")";
-        tl.fromTo(el, { x: dx, y: dy + rest, scale: 1.06 }, { x: 0, y: rest, scale: 1, duration: 0.17, ease: "power2.out" }, t);
+        tl.fromTo(el, { x: dx, y: dy, scale: 1.06 }, { x: 0, y: 0, scale: 1, duration: 0.17, ease: "power2.out" }, t);
         tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.17, ease: "power1.out" }, t);
         tl.fromTo(blur, { attr: { stdDeviation: "1.5 16" } }, { attr: { stdDeviation: "0 0" }, duration: 0.17, ease: "power2.out" }, t);
       }
