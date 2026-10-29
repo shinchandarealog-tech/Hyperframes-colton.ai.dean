@@ -1,0 +1,524 @@
+[
+  {
+    "text": "Gaming,",
+    "start": 0.01,
+    "end": 0.95,
+    "id": "w0"
+  },
+  {
+    "text": "Music",
+    "start": 1.15,
+    "end": 1.57,
+    "id": "w1"
+  },
+  {
+    "text": "and",
+    "start": 1.57,
+    "end": 1.84,
+    "id": "w2"
+  },
+  {
+    "text": "Calling",
+    "start": 1.99,
+    "end": 2.7,
+    "id": "w3"
+  },
+  {
+    "text": "are",
+    "start": 2.89,
+    "end": 3.1,
+    "id": "w4"
+  },
+  {
+    "text": "all",
+    "start": 3.1,
+    "end": 3.4,
+    "id": "w5"
+  },
+  {
+    "text": "rounder",
+    "start": 3.4,
+    "end": 4.09,
+    "id": "w6"
+  },
+  {
+    "text": "earbuds,",
+    "start": 4.09,
+    "end": 4.8,
+    "id": "w7"
+  },
+  {
+    "text": "so",
+    "start": 4.8,
+    "end": 5.11,
+    "id": "w8"
+  },
+  {
+    "text": "this",
+    "start": 5.11,
+    "end": 5.4,
+    "id": "w9"
+  },
+  {
+    "text": "is",
+    "start": 5.4,
+    "end": 5.53,
+    "id": "w10"
+  },
+  {
+    "text": "the",
+    "start": 5.64,
+    "end": 5.77,
+    "id": "w11"
+  },
+  {
+    "text": "perfect",
+    "start": 5.77,
+    "end": 6.22,
+    "id": "w12"
+  },
+  {
+    "text": "one.",
+    "start": 6.36,
+    "end": 6.58,
+    "id": "w13"
+  },
+  {
+    "text": "True",
+    "start": 6.59,
+    "end": 6.98,
+    "id": "w14"
+  },
+  {
+    "text": "wireless",
+    "start": 7.03,
+    "end": 7.94,
+    "id": "w15"
+  },
+  {
+    "text": "earbuds",
+    "start": 7.94,
+    "end": 8.73,
+    "id": "w16"
+  },
+  {
+    "text": "are",
+    "start": 8.73,
+    "end": 9.07,
+    "id": "w17"
+  },
+  {
+    "text": "powerful",
+    "start": 9.07,
+    "end": 9.98,
+    "id": "w18"
+  },
+  {
+    "text": "bass,",
+    "start": 9.98,
+    "end": 10.64,
+    "id": "w19"
+  },
+  {
+    "text": "ultra-low",
+    "start": 10.64,
+    "end": 11.26,
+    "id": "w20"
+  },
+  {
+    "text": "60ms",
+    "start": 11.68,
+    "end": 12.02,
+    "id": "w21"
+  },
+  {
+    "text": "latency",
+    "start": 12.02,
+    "end": 12.62,
+    "id": "w22"
+  },
+  {
+    "text": "for",
+    "start": 12.62,
+    "end": 12.8,
+    "id": "w23"
+  },
+  {
+    "text": "smooth",
+    "start": 12.82,
+    "end": 13.23,
+    "id": "w24"
+  },
+  {
+    "text": "gaming",
+    "start": 13.27,
+    "end": 13.66,
+    "id": "w25"
+  },
+  {
+    "text": "and",
+    "start": 13.66,
+    "end": 13.86,
+    "id": "w26"
+  },
+  {
+    "text": "quad",
+    "start": 13.86,
+    "end": 14.16,
+    "id": "w27"
+  },
+  {
+    "text": "silicon",
+    "start": 14.16,
+    "end": 14.66,
+    "id": "w28"
+  },
+  {
+    "text": "mic",
+    "start": 14.67,
+    "end": 15.02,
+    "id": "w29"
+  },
+  {
+    "text": "for",
+    "start": 15.04,
+    "end": 15.42,
+    "id": "w30"
+  },
+  {
+    "text": "noise",
+    "start": 15.42,
+    "end": 16.05,
+    "id": "w31"
+  },
+  {
+    "text": "cut",
+    "start": 16.05,
+    "end": 16.43,
+    "id": "w32"
+  },
+  {
+    "text": "and",
+    "start": 16.43,
+    "end": 16.81,
+    "id": "w33"
+  },
+  {
+    "text": "instantly",
+    "start": 16.81,
+    "end": 17.94,
+    "id": "w34"
+  },
+  {
+    "text": "connect.",
+    "start": 17.94,
+    "end": 19.06,
+    "id": "w35"
+  },
+  {
+    "text": "No",
+    "start": 19.07,
+    "end": 19.18,
+    "id": "w36"
+  },
+  {
+    "text": "delay,",
+    "start": 19.18,
+    "end": 19.6,
+    "id": "w37"
+  },
+  {
+    "text": "no",
+    "start": 19.6,
+    "end": 19.72,
+    "id": "w38"
+  },
+  {
+    "text": "hassle,",
+    "start": 19.72,
+    "end": 20.22,
+    "id": "w39"
+  },
+  {
+    "text": "1",
+    "start": 20.22,
+    "end": 20.49,
+    "id": "w40"
+  },
+  {
+    "text": "bar",
+    "start": 20.52,
+    "end": 20.8,
+    "id": "w41"
+  },
+  {
+    "text": "charge",
+    "start": 20.8,
+    "end": 21.37,
+    "id": "w42"
+  },
+  {
+    "text": "and",
+    "start": 21.38,
+    "end": 21.67,
+    "id": "w43"
+  },
+  {
+    "text": "power",
+    "start": 21.67,
+    "end": 22.15,
+    "id": "w44"
+  },
+  {
+    "text": "up",
+    "start": 22.15,
+    "end": 22.34,
+    "id": "w45"
+  },
+  {
+    "text": "to",
+    "start": 22.34,
+    "end": 22.53,
+    "id": "w46"
+  },
+  {
+    "text": "500",
+    "start": 22.53,
+    "end": 23.39,
+    "id": "w47"
+  },
+  {
+    "text": "hours",
+    "start": 23.39,
+    "end": 23.73,
+    "id": "w48"
+  },
+  {
+    "text": "standby",
+    "start": 24.16,
+    "end": 24.54,
+    "id": "w49"
+  },
+  {
+    "text": "time.",
+    "start": 24.54,
+    "end": 25.46,
+    "id": "w50"
+  },
+  {
+    "text": "Tension",
+    "start": 25.47,
+    "end": 26.05,
+    "id": "w51"
+  },
+  {
+    "text": "free",
+    "start": 26.05,
+    "end": 26.39,
+    "id": "w52"
+  },
+  {
+    "text": "use,",
+    "start": 26.39,
+    "end": 26.8,
+    "id": "w53"
+  },
+  {
+    "text": "touch",
+    "start": 26.8,
+    "end": 27.03,
+    "id": "w54"
+  },
+  {
+    "text": "control,",
+    "start": 27.19,
+    "end": 27.75,
+    "id": "w55"
+  },
+  {
+    "text": "type",
+    "start": 27.75,
+    "end": 28.02,
+    "id": "w56"
+  },
+  {
+    "text": "Ccharging",
+    "start": 28.02,
+    "end": 28.64,
+    "id": "w57"
+  },
+  {
+    "text": "and",
+    "start": 28.64,
+    "end": 28.83,
+    "id": "w58"
+  },
+  {
+    "text": "stylish",
+    "start": 28.85,
+    "end": 29.32,
+    "id": "w59"
+  },
+  {
+    "text": "look.",
+    "start": 29.32,
+    "end": 29.82,
+    "id": "w60"
+  },
+  {
+    "text": "This",
+    "start": 29.83,
+    "end": 30,
+    "id": "w61"
+  },
+  {
+    "text": "is",
+    "start": 30,
+    "end": 30.09,
+    "id": "w62"
+  },
+  {
+    "text": "the",
+    "start": 30.09,
+    "end": 30.18,
+    "id": "w63"
+  },
+  {
+    "text": "perfect",
+    "start": 30.22,
+    "end": 30.53,
+    "id": "w64"
+  },
+  {
+    "text": "one.",
+    "start": 30.53,
+    "end": 30.79,
+    "id": "w65"
+  },
+  {
+    "text": "So",
+    "start": 30.83,
+    "end": 30.96,
+    "id": "w66"
+  },
+  {
+    "text": "wait",
+    "start": 30.96,
+    "end": 31.22,
+    "id": "w67"
+  },
+  {
+    "text": "for",
+    "start": 31.34,
+    "end": 31.45,
+    "id": "w68"
+  },
+  {
+    "text": "it.",
+    "start": 31.45,
+    "end": 31.77,
+    "id": "w69"
+  },
+  {
+    "text": "You",
+    "start": 31.83,
+    "end": 32.06,
+    "id": "w70"
+  },
+  {
+    "text": "will",
+    "start": 32.06,
+    "end": 32.39,
+    "id": "w71"
+  },
+  {
+    "text": "get",
+    "start": 32.39,
+    "end": 32.63,
+    "id": "w72"
+  },
+  {
+    "text": "the",
+    "start": 32.63,
+    "end": 32.79,
+    "id": "w73"
+  },
+  {
+    "text": "best",
+    "start": 32.97,
+    "end": 33.2,
+    "id": "w74"
+  },
+  {
+    "text": "earbuds",
+    "start": 33.2,
+    "end": 33.67,
+    "id": "w75"
+  },
+  {
+    "text": "in",
+    "start": 33.81,
+    "end": 33.92,
+    "id": "w76"
+  },
+  {
+    "text": "every",
+    "start": 33.92,
+    "end": 34.33,
+    "id": "w77"
+  },
+  {
+    "text": "order",
+    "start": 34.33,
+    "end": 34.74,
+    "id": "w78"
+  },
+  {
+    "text": "and",
+    "start": 34.74,
+    "end": 34.96,
+    "id": "w79"
+  },
+  {
+    "text": "it",
+    "start": 34.99,
+    "end": 35.14,
+    "id": "w80"
+  },
+  {
+    "text": "will",
+    "start": 35.14,
+    "end": 35.47,
+    "id": "w81"
+  },
+  {
+    "text": "sound",
+    "start": 35.47,
+    "end": 35.73,
+    "id": "w82"
+  },
+  {
+    "text": "like",
+    "start": 35.87,
+    "end": 36.21,
+    "id": "w83"
+  },
+  {
+    "text": "a",
+    "start": 36.21,
+    "end": 36.29,
+    "id": "w84"
+  },
+  {
+    "text": "real",
+    "start": 36.29,
+    "end": 36.49,
+    "id": "w85"
+  },
+  {
+    "text": "powerfield.",
+    "start": 36.92,
+    "end": 37.58,
+    "id": "w86"
+  }
+]

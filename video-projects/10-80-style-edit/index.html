@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --orange: #ff7a1a;
+        --amber: #ffc066;
+        --ember: #6b2a10;
+        --night: #120806;
+        --ink: #ffffff;
+        --font-small: "Inter", sans-serif;
+        --font-key: "Montserrat", sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      /* ---------- face-cam ---------- */
+      #face-wrap {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 18%;
+      }
+      #face-kb {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 25%;
+      }
+      #face {
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        filter: contrast(1.06) saturate(1.06) brightness(0.97);
+      }
+      #face-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 80% 70% at 50% 40%, transparent 55%, rgba(10, 4, 2, 0.45) 100%);
+        pointer-events: none;
+      }
+
+      /* ---------- overlay layer ---------- */
+      #overlay {
+        position: absolute;
+        inset: 0;
+      }
+      #spill {
+        position: absolute;
+        left: -200px;
+        top: 700px;
+        width: 1480px;
+        height: 900px;
+        background: radial-gradient(ellipse at 50% 50%, rgba(255, 122, 26, 0.55) 0%, rgba(255, 110, 20, 0.22) 38%, transparent 70%);
+        mix-blend-mode: screen;
+        opacity: 0;
+      }
+
+      #scrim {
+        position: absolute;
+        left: -100px;
+        top: 900px;
+        width: 1280px;
+        height: 560px;
+        background: radial-gradient(ellipse at 50% 50%, rgba(25, 9, 2, 0.5) 0%, rgba(25, 9, 2, 0.25) 45%, transparent 70%);
+        opacity: 0;
+      }
+      /* captions */
+      .cap {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 1030px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        opacity: 0;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+      }
+      .sm {
+        font-family: var(--font-small);
+        font-weight: 600;
+        font-size: 52px;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.75), 0 0 18px rgba(0, 0, 0, 0.5);
+        white-space: nowrap;
+      }
+      .pill {
+        border: 3px solid rgba(255, 255, 255, 0.95);
+        border-radius: 999px;
+        padding: 2px 26px 6px;
+        box-shadow: 0 0 14px rgba(0, 0, 0, 0.25);
+      }
+      .kw,
+      .kwu {
+        font-family: var(--font-key);
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.02;
+        white-space: nowrap;
+        padding: 0 14px;
+        background: linear-gradient(180deg, #fff3cc 0%, #ffc35a 30%, var(--orange) 62%, #f0560a 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 3px 0 rgba(80, 26, 0, 0.6)) drop-shadow(0 0 12px rgba(255, 110, 20, 0.95)) drop-shadow(0 0 38px rgba(255, 90, 10, 0.6));
+      }
+      .kw {
+        font-style: italic;
+        font-size: 128px;
+        letter-spacing: -0.02em;
+      }
+      .kwu {
+        font-style: normal;
+        font-size: 104px;
+        letter-spacing: -0.01em;
+      }
+      .quote {
+        font-family: var(--font-small);
+        font-weight: 800;
+        font-size: 66px;
+        color: #fff;
+        text-align: center;
+        line-height: 1.12;
+        max-width: 820px;
+        text-shadow: 0 3px 16px rgba(0, 0, 0, 0.65);
+      }
+      .quote span {
+        display: inline-block;
+      }
+      .icons {
+        display: flex;
+        gap: 34px;
+        margin-bottom: 6px;
+      }
+      .icons svg {
+        width: 78px;
+        height: 78px;
+        filter: drop-shadow(0 0 10px rgba(255, 120, 30, 0.9));
+      }
+
+      /* ---------- diagram cutaways ---------- */
+      .gfx {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        background: radial-gradient(ellipse 75% 45% at 50% 50%, var(--ember) 0%, #3a1608 38%, var(--night) 78%);
+        overflow: hidden;
+      }
+      .gfx .glow {
+        position: absolute;
+        left: 140px;
+        top: 760px;
+        width: 800px;
+        height: 400px;
+        background: radial-gradient(ellipse at 50% 50%, rgba(255, 140, 50, 0.35), transparent 70%);
+      }
+      .bar {
+        position: absolute;
+        left: 100px;
+        top: 920px;
+        width: 880px;
+        height: 84px;
+        border-radius: 42px;
+        border: 3px solid rgba(255, 232, 205, 0.9);
+        box-shadow: 0 0 22px rgba(255, 130, 40, 0.55), inset 0 0 18px rgba(0, 0, 0, 0.35);
+        background: rgba(60, 22, 8, 0.55);
+        overflow: hidden;
+      }
+      .fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(180deg, #ffb066 0%, var(--orange) 55%, #d9520f 100%);
+        transform-origin: 0 50%;
+      }
+      .flare {
+        position: absolute;
+        top: 880px;
+        left: 0;
+        width: 260px;
+        height: 164px;
+        background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 240, 0.95) 0%, rgba(255, 210, 140, 0.6) 22%, transparent 65%);
+        mix-blend-mode: screen;
+        opacity: 0;
+      }
+      .tick {
+        position: absolute;
+        top: 896px;
+        width: 4px;
+        height: 132px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        transform-origin: 50% 50%;
+      }
+      .blabel {
+        position: absolute;
+        top: 920px;
+        height: 84px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-small);
+        font-weight: 700;
+        font-size: 50px;
+        color: #fff4e6;
+        text-shadow: 0 0 10px rgba(255, 150, 60, 0.9), 0 2px 4px rgba(0, 0, 0, 0.5);
+        font-variant-numeric: tabular-nums;
+        white-space: nowrap;
+      }
+      .note {
+        position: absolute;
+        font-family: var(--font-small);
+        font-weight: 800;
+        font-size: 72px;
+        color: var(--orange);
+        text-shadow: 0 0 16px rgba(255, 120, 30, 0.75);
+        white-space: nowrap;
+      }
+      .note.white {
+        color: #fff;
+        font-weight: 600;
+        font-size: 54px;
+        text-shadow: 0 0 10px rgba(255, 150, 60, 0.5);
+      }
+      .arrows {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: visible;
+      }
+      .arrows path {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+        opacity: 0;
+      }
+
+      /* light leak */
+      .leak {
+        position: absolute;
+        opacity: 0;
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+      #leak-warm {
+        inset: 0;
+        background: #ff7a1a;
+      }
+      #leak-ring {
+        left: 40px;
+        top: 460px;
+        width: 1000px;
+        height: 1000px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(255, 150, 50, 0.95) 52%, rgba(255, 110, 20, 0.6) 60%, transparent 72%);
+        filter: blur(18px);
+      }
+      #leak-blob {
+        left: -500px;
+        top: 200px;
+        width: 1400px;
+        height: 1500px;
+        background: radial-gradient(ellipse at 50% 50%, rgba(255, 210, 140, 1) 0%, rgba(255, 130, 40, 0.8) 30%, transparent 65%);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="37.6"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="face-wrap">
+        <div id="face-kb">
+          <video
+            id="face"
+            data-start="0"
+            data-duration="37.6"
+            data-track-index="0"
+            src="assets/raw.mp4"
+            muted
+            playsinline
+          ></video>
+        </div>
+        <div id="face-vignette"></div>
+      </div>
+
+      <audio id="voice" data-start="0" data-duration="37.6" data-track-index="1" src="assets/raw.mp4" data-volume="1"></audio>
+      <audio id="sfx-1" data-start="10.5" data-duration="0.57" data-track-index="3" src="assets/whoosh.mp3" data-volume="0.22"></audio>
+      <audio id="sfx-2" data-start="20.1" data-duration="0.57" data-track-index="4" src="assets/whoosh.mp3" data-volume="0.22"></audio>
+      <audio id="sfx-3" data-start="25.05" data-duration="2.04" data-track-index="5" src="assets/sparkle.mp3" data-volume="0.16"></audio>
+
+      <div id="overlay" class="clip" data-start="0" data-duration="37.6" data-track-index="2">
+        <div id="scrim"></div>
+        <div id="spill"></div>
+        <div id="caps"></div>
+
+        <!-- cutaway 1: latency -->
+        <div id="g1" class="gfx">
+          <div class="glow"></div>
+          <div class="bar"><div class="fill" id="g1-fill"></div></div>
+          <div class="flare" id="g1-flare"></div>
+          <div class="tick" id="g1-tick" style="left: 268px"></div>
+          <div class="blabel" id="g1-num" style="left: 100px; width: 168px">0ms</div>
+          <div class="note" id="g1-ultra" style="left: 330px; top: 676px">Ultra-low</div>
+          <div class="note white" id="g1-lat" style="left: 104px; top: 1030px">latency</div>
+          <div class="note" id="g1-game" style="left: 0; width: 1080px; text-align: center; top: 1172px">Smooth gaming</div>
+          <svg class="arrows" viewBox="0 0 1080 1920">
+            <path id="g1-arc" d="M 318 724 C 230 724, 196 790, 186 892" />
+            <path id="g1-arc-h" d="M 168 868 L 186 896 L 206 870" />
+            <path id="g1-up" d="M 540 1160 L 540 1032 M 518 1056 L 540 1030 L 562 1056" />
+          </svg>
+        </div>
+
+        <!-- cutaway 2: battery -->
+        <div id="g2" class="gfx">
+          <div class="glow"></div>
+          <div class="bar"><div class="fill" id="g2-fill"></div></div>
+          <div id="g2-nub" style="position:absolute;left:986px;top:938px;width:18px;height:48px;border-radius:0 10px 10px 0;background:rgba(255,232,205,.9);box-shadow:0 0 12px rgba(255,130,40,.6)"></div>
+          <div class="flare" id="g2-flare"></div>
+          <div class="blabel" id="g2-num" style="left: 100px; width: 880px">0 hrs</div>
+          <div class="note" id="g2-charge" style="left: 90px; top: 676px">1 charge</div>
+          <div class="note" id="g2-standby" style="left: 0; width: 1080px; text-align: center; top: 1172px">Standby time</div>
+          <svg class="arrows" viewBox="0 0 1080 1920">
+            <path id="g2-arc" d="M 400 724 C 560 690, 830 720, 900 892" />
+            <path id="g2-arc-h" d="M 874 874 L 902 896 L 914 864" />
+            <path id="g2-up" d="M 540 1160 L 540 1032 M 518 1056 L 540 1030 L 562 1056" />
+          </svg>
+        </div>
+
+        <div id="leak-warm" class="leak"></div>
+        <div id="leak-blob" class="leak"></div>
+        <div id="leak-ring" class="leak"></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const D = 37.6;
+      const tl = gsap.timeline({ paused: true });
+
+      // ---------- icons ----------
+      const ICON = {
+        game:
+          '<svg viewBox="0 0 64 64"><path fill="#ff8a2a" d="M18 18h28c8 0 14 7 15 16l1 10c1 7-6 10-10 5l-6-7H18l-6 7c-4 5-11 2-10-5l1-10c1-9 7-16 15-16z"/><path fill="#3a1608" d="M20 26h4v5h5v4h-5v5h-4v-5h-5v-4h5zM44 27a3 3 0 1 1 0 .1zM40 34a3 3 0 1 1 0 .1z"/></svg>',
+        music:
+          '<svg viewBox="0 0 64 64"><path fill="#ff8a2a" d="M26 10l26-6v38a8 8 0 1 1-6-7.7V16l-14 3.4V48a8 8 0 1 1-6-7.7z"/></svg>',
+        call:
+          '<svg viewBox="0 0 64 64"><path fill="#ff8a2a" d="M18 6c2-1 4 0 5 2l5 11c1 2 0 4-1 5l-5 4c3 7 8 12 15 15l4-5c1-1 3-2 5-1l11 5c2 1 3 3 2 5l-3 9c-1 2-3 3-5 3C28 58 6 36 6 13c0-2 1-4 3-5z"/></svg>',
+      };
+
+      // ---------- caption script (times in source seconds) ----------
+      // Each group: [start, end, items]. item: {k: kind, x: text, t: appear time, r: row}
+      // kinds: sm (small white), pill (small in outline pill), kw (italic glow keyword),
+      //        kwu (upright glow keyword), slide (kw that slides in from left), quote, icons
+      const CAPS = [
+        [0.02, 4.75, [
+          { k: "icons", x: ["game", "music", "call"], t: [0.02, 1.15, 1.99], r: 0 },
+          { k: "sm", x: "Gaming, music", t: 0.02, r: 1 },
+          { k: "sm", x: "& calling", t: 1.57, r: 1 },
+          { k: "kw", x: "All-rounder", t: 3.1, r: 2 },
+          { k: "pill", x: "earbuds", t: 4.09, r: 3 },
+        ]],
+        [4.8, 6.55, [
+          { k: "sm", x: "so this is the", t: 4.8, r: 0 },
+          { k: "kw", x: "Perfect one", t: 5.77, r: 1 },
+        ]],
+        [6.59, 7.9, [{ k: "sm", x: "True wireless", t: 6.59, r: 0 }]],
+        [7.94, 9.0, [{ k: "sm", x: "earbuds", t: 7.94, r: 0 }]],
+        [9.05, 10.5, [{ k: "kwu", x: "Powerful bass", t: 9.07, r: 0, s: 100 }]],
+        // 10.5 – 13.62 : cutaway 1
+        [13.62, 15.0, [{ k: "sm", x: "and quad silicon mic", t: 13.66, r: 0 }]],
+        [15.0, 16.4, [
+          { k: "sm", x: "for", t: 15.04, r: 0 },
+          { k: "kw", x: "Noise cut", t: 15.42, r: 1 },
+        ]],
+        [16.43, 17.9, [{ k: "sm", x: "flip, lid open", t: 16.57, r: 0 }]],
+        [17.9, 19.0, [{ k: "sm", x: "instantly connect", t: 17.94, r: 0 }]],
+        [19.05, 20.1, [
+          { k: "sm", x: "No delay,", t: 19.07, r: 0 },
+          { k: "kwu", x: "No hassle", t: 19.6, r: 1 },
+        ]],
+        // 20.1 – 25.45 : cutaway 2
+        [25.45, 26.75, [
+          { k: "slide", x: "Tension-free", t: 25.47, r: 0 },
+          { k: "sm", x: "use", t: 26.39, r: 1 },
+        ]],
+        [26.78, 27.7, [{ k: "sm", x: "touch control", t: 26.8, r: 0 }]],
+        [27.72, 28.62, [{ k: "pill", x: "Type-C charging", t: 27.75, r: 0 }]],
+        [28.62, 29.8, [{ k: "sm", x: "& stylish look", t: 28.64, r: 0 }]],
+        [29.82, 30.8, [{ k: "quote", x: "This is the perfect one.", t: 29.83, r: 0, w: [29.83, 30.0, 30.09, 30.22, 30.53] }]],
+        [30.82, 31.8, [{ k: "sm", x: "so wait for it", t: 30.83, r: 0 }]],
+        [31.82, 32.95, [{ k: "sm", x: "you will get the", t: 31.83, r: 0 }]],
+        [32.95, 34.7, [
+          { k: "sm", x: "you will get the", t: 32.95, r: 0 },
+          { k: "kw", x: "Best earbuds", t: 32.97, r: 1 },
+          { k: "sm", x: "in every order", t: 33.81, r: 2 },
+        ]],
+        [34.72, 36.2, [{ k: "sm", x: "and it will sound like", t: 34.74, r: 0 }]],
+        [36.2, D, [
+          { k: "sm", x: "a real", t: 36.2, r: 0 },
+          { k: "kw", x: "Powerfield", t: 36.29, r: 1 },
+        ]],
+      ];
+
+      const capsEl = document.getElementById("caps");
+      const MAXW = 930;
+      CAPS.forEach(([start, end, items], gi) => {
+        const g = document.createElement("div");
+        g.className = "cap";
+        g.id = "cap" + gi;
+        const rows = [];
+        items.forEach((it, ii) => {
+          if (!rows[it.r]) {
+            rows[it.r] = document.createElement("div");
+            rows[it.r].className = "row";
+            g.appendChild(rows[it.r]);
+          }
+          const row = rows[it.r];
+          let el;
+          if (it.k === "icons") {
+            el = document.createElement("div");
+            el.className = "icons";
+            el.innerHTML = it.x.map((n) => ICON[n]).join("");
+          } else if (it.k === "quote") {
+            el = document.createElement("div");
+            el.className = "quote";
+            el.innerHTML = it.x.split(" ").map((w) => "<span>" + w + "</span>").join(" ");
+          } else {
+            el = document.createElement("div");
+            el.className = it.k === "pill" ? "sm pill" : it.k === "slide" ? "kw" : it.k;
+            el.textContent = it.x;
+            if (it.s) el.style.fontSize = it.s + "px";
+          }
+          el.id = g.id + "-" + ii;
+          row.appendChild(el);
+          it.el = el;
+        });
+        capsEl.appendChild(g);
+        // fit keywords to the safe width by character count (Montserrat 900 caps ~0.8em/char)
+        items.forEach((it) => {
+          if (["kw", "kwu", "slide"].includes(it.k)) {
+            const base = it.s || (it.k === "kwu" ? 104 : 128);
+            it.el.style.fontSize = Math.min(base, Math.floor(MAXW / (it.x.length * 0.8))) + "px";
+          }
+        });
+        const hasKey = items.some((it) => ["kw", "kwu", "slide"].includes(it.k));
+        tl.set(g, { opacity: 1 }, start);
+        tl.set(g, { opacity: 0 }, end);
+        items.forEach((it) => {
+          const el = it.el;
+          if (it.k === "icons") {
+            [...el.children].forEach((ic, n) => {
+              tl.fromTo(ic, { opacity: 0, scale: 0.4, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "back.out(2.4)" }, it.t[n]);
+            });
+            tl.to(el, { y: -8, duration: end - it.t[2], ease: "sine.inOut" }, it.t[2]);
+          } else if (it.k === "sm" || it.k === "pill") {
+            tl.fromTo(el, { opacity: 0, y: 16, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.18, ease: "power2.out" }, it.t);
+          } else if (it.k === "kw") {
+            tl.fromTo(el, { opacity: 0, scale: 1.4, y: 10 }, { opacity: 1, scale: 1, y: 0, duration: 0.3, ease: "back.out(1.8)" }, it.t);
+            tl.to(el, { scale: 1.04, duration: Math.max(0.3, end - it.t - 0.3), ease: "sine.out" }, it.t + 0.3);
+          } else if (it.k === "kwu") {
+            tl.fromTo(el, { opacity: 0, scale: 0.82, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 0.28, ease: "expo.out" }, it.t);
+            tl.to(el, { scale: 1.035, duration: Math.max(0.3, end - it.t - 0.28), ease: "sine.out" }, it.t + 0.28);
+          } else if (it.k === "slide") {
+            tl.fromTo(el, { opacity: 0, x: -520 }, { opacity: 1, x: 0, duration: 0.36, ease: "power4.out" }, it.t);
+            tl.to(el, { scale: 1.03, duration: end - it.t - 0.36, ease: "sine.out" }, it.t + 0.36);
+          } else if (it.k === "quote") {
+            [...el.children].forEach((sp, n) => {
+              tl.fromTo(sp, { opacity: 0, filter: "blur(10px)", y: 10 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.2, ease: "power2.out" }, it.w[n]);
+            });
+          }
+        });
+        // keyword glow spills onto the footage
+        if (hasKey) {
+          const kt = items.find((it) => ["kw", "kwu", "slide"].includes(it.k)).t;
+          tl.fromTo("#spill", { opacity: 0 }, { opacity: 0.4, duration: 0.25, ease: "power2.out", immediateRender: false }, kt);
+          tl.to("#spill", { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.12);
+          tl.fromTo("#scrim", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out", immediateRender: false }, kt - 0.05);
+          tl.to("#scrim", { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.12);
+        }
+      });
+
+      // ---------- face-cam: Ken Burns + punch-in jump cuts ----------
+      tl.fromTo("#face-kb", { scale: 1 }, { scale: 1.035, duration: D, ease: "none" }, 0);
+      [
+        [0, 1], [4.8, 1.13], [6.59, 1], [9.05, 1.13],
+        [13.62, 1], [16.43, 1.13], [19.05, 1],
+        [25.45, 1.12], [27.72, 1], [29.82, 1.15], [31.82, 1], [34.72, 1.12],
+      ].forEach(([t, s]) => tl.set("#face-wrap", { scale: s }, t));
+
+      // ---------- cutaway 1: ultra-low latency (10.5 – 13.62) ----------
+      const C1 = 10.5, C1E = 13.62;
+      tl.set("#g1", { opacity: 1 }, C1);
+      tl.set("#g1", { opacity: 0 }, C1E);
+      tl.fromTo("#g1 .bar", { scaleX: 0.04, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.42, ease: "expo.out" }, C1 + 0.04);
+      tl.fromTo("#g1-fill", { scaleX: 0 }, { scaleX: 0.19, duration: 0.5, ease: "power3.out" }, C1 + 0.3);
+      tl.fromTo("#g1-flare", { x: -60, opacity: 0 }, { x: 860, opacity: 1, duration: 0.7, ease: "power2.inOut" }, C1 + 0.1);
+      tl.to("#g1-flare", { opacity: 0, duration: 0.2 }, C1 + 0.8);
+      tl.fromTo("#g1-tick", { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, C1 + 0.55);
+      tl.fromTo("#g1-ultra", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, C1 + 0.45);
+      const cnt1 = { v: 0 };
+      tl.fromTo(cnt1, { v: 0 }, {
+        v: 60, duration: 0.45, ease: "power2.out",
+        onUpdate: () => (document.getElementById("g1-num").textContent = Math.round(cnt1.v) + "ms"),
+      }, 11.25);
+      tl.fromTo("#g1-num", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 11.25);
+      tl.fromTo("#g1-lat", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }, 12.02);
+      tl.fromTo("#g1-game", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 12.82);
+      tl.fromTo("#g1 .glow", { opacity: 0.6, scale: 0.9 }, { opacity: 1, scale: 1.08, duration: C1E - C1, ease: "sine.inOut" }, C1);
+
+      // ---------- cutaway 2: 500 hrs standby (20.1 – 25.45) ----------
+      const C2 = 20.1, C2E = 25.45;
+      tl.set("#g2", { opacity: 1 }, C2);
+      tl.set("#g2", { opacity: 0 }, C2E);
+      tl.fromTo(["#g2 .bar", "#g2-nub"], { scaleX: 0.04, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.42, ease: "expo.out" }, C2 + 0.04);
+      tl.fromTo("#g2-charge", { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 20.5);
+      tl.fromTo("#g2-fill", { scaleX: 0 }, { scaleX: 1, duration: 1.7, ease: "power2.inOut" }, 21.6);
+      tl.fromTo("#g2-flare", { x: -60, opacity: 0 }, { x: 860, opacity: 1, duration: 1.7, ease: "power2.inOut" }, 21.6);
+      tl.to("#g2-flare", { opacity: 0, duration: 0.25 }, 23.3);
+      const cnt2 = { v: 0 };
+      tl.fromTo("#g2-num", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 21.6);
+      tl.fromTo(cnt2, { v: 0 }, {
+        v: 500, duration: 1.0, ease: "power2.out", immediateRender: false,
+        onUpdate: () => (document.getElementById("g2-num").textContent = Math.round(cnt2.v) + " hrs"),
+      }, 21.6);
+      tl.fromTo("#g2-num", { scale: 1 }, { scale: 1.18, duration: 0.14, ease: "power2.out", yoyo: true, repeat: 1 }, 22.6);
+      tl.fromTo("#g2-standby", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }, 24.16);
+      tl.fromTo("#g2 .glow", { opacity: 0.6, scale: 0.9 }, { opacity: 1, scale: 1.08, duration: C2E - C2, ease: "sine.inOut" }, C2);
+
+      // hand-drawn arrows: stroke-dash draw-on
+      function draw(sel, t, dur) {
+        document.querySelectorAll(sel).forEach((p) => {
+          const L = p.getTotalLength();
+          p.style.strokeDasharray = L;
+          tl.set(p, { opacity: 1 }, t);
+          tl.fromTo(p, { strokeDashoffset: L }, { strokeDashoffset: 0, duration: dur, ease: "power2.inOut" }, t);
+        });
+      }
+      draw("#g1-arc", 10.75, 0.4);
+      draw("#g1-arc-h", 11.12, 0.14);
+      draw("#g1-up", 12.95, 0.3);
+      draw("#g2-arc", 20.7, 0.45);
+      draw("#g2-arc-h", 21.12, 0.14);
+      draw("#g2-up", 24.3, 0.3);
+
+      // ---------- light leak: cutaway 2 -> face ----------
+      const L = 25.1;
+      tl.to("#leak-warm", { opacity: 0.35, duration: 0.3, ease: "power1.in" }, L);
+      tl.fromTo("#leak-blob", { opacity: 0, x: 0 }, { opacity: 0.9, x: 380, duration: 0.4, ease: "sine.inOut" }, L + 0.05);
+      tl.fromTo("#leak-ring", { opacity: 0, scale: 0.6, rotation: 0 }, { opacity: 1, scale: 1.25, rotation: 40, duration: 0.4, ease: "power2.out" }, L + 0.05);
+      tl.to("#leak-warm", { opacity: 0.55, duration: 0.12, ease: "power2.in" }, L + 0.3);
+      tl.to("#leak-warm", { opacity: 0, duration: 0.45, ease: "power2.out" }, C2E + 0.11);
+      tl.to("#leak-blob", { opacity: 0, x: 700, duration: 0.45, ease: "power1.out" }, C2E + 0.11);
+      tl.to("#leak-ring", { opacity: 0, scale: 1.6, duration: 0.45, ease: "power1.out" }, C2E + 0.11);
+
+      tl.set({}, {}, D);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

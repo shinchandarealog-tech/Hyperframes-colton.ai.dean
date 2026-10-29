@@ -1,0 +1,518 @@
+[
+  {
+    "text": "We",
+    "start": 0.01,
+    "end": 0.14,
+    "id": "w0"
+  },
+  {
+    "text": "are",
+    "start": 0.14,
+    "end": 0.34,
+    "id": "w1"
+  },
+  {
+    "text": "using",
+    "start": 0.34,
+    "end": 0.71,
+    "id": "w2"
+  },
+  {
+    "text": "gaming,",
+    "start": 0.71,
+    "end": 1.28,
+    "id": "w3"
+  },
+  {
+    "text": "music,",
+    "start": 1.28,
+    "end": 1.84,
+    "id": "w4"
+  },
+  {
+    "text": "or",
+    "start": 1.84,
+    "end": 2,
+    "id": "w5"
+  },
+  {
+    "text": "calling",
+    "start": 2,
+    "end": 2.24,
+    "id": "w6"
+  },
+  {
+    "text": "all-rounder",
+    "start": 2.24,
+    "end": 3.75,
+    "id": "w7"
+  },
+  {
+    "text": "earbuds",
+    "start": 3.8,
+    "end": 4.67,
+    "id": "w8"
+  },
+  {
+    "text": "We",
+    "start": 4.85,
+    "end": 4.95,
+    "id": "w9"
+  },
+  {
+    "text": "are",
+    "start": 4.95,
+    "end": 5.12,
+    "id": "w10"
+  },
+  {
+    "text": "using",
+    "start": 5.12,
+    "end": 5.41,
+    "id": "w11"
+  },
+  {
+    "text": "perfect",
+    "start": 5.41,
+    "end": 5.79,
+    "id": "w12"
+  },
+  {
+    "text": "earbuds",
+    "start": 5.99,
+    "end": 6.41,
+    "id": "w13"
+  },
+  {
+    "text": "We",
+    "start": 6.55,
+    "end": 6.68,
+    "id": "w14"
+  },
+  {
+    "text": "are",
+    "start": 6.68,
+    "end": 6.88,
+    "id": "w15"
+  },
+  {
+    "text": "using",
+    "start": 6.89,
+    "end": 7.26,
+    "id": "w16"
+  },
+  {
+    "text": "2",
+    "start": 7.26,
+    "end": 7.49,
+    "id": "w17"
+  },
+  {
+    "text": "wireless",
+    "start": 7.49,
+    "end": 8.08,
+    "id": "w18"
+  },
+  {
+    "text": "earbuds,",
+    "start": 8.08,
+    "end": 9.58,
+    "id": "w19"
+  },
+  {
+    "text": "powerful",
+    "start": 9.58,
+    "end": 10.19,
+    "id": "w20"
+  },
+  {
+    "text": "bass,",
+    "start": 10.19,
+    "end": 10.62,
+    "id": "w21"
+  },
+  {
+    "text": "ultra",
+    "start": 10.62,
+    "end": 11.04,
+    "id": "w22"
+  },
+  {
+    "text": "low",
+    "start": 11.04,
+    "end": 11.21,
+    "id": "w23"
+  },
+  {
+    "text": "60ms",
+    "start": 11.64,
+    "end": 12,
+    "id": "w24"
+  },
+  {
+    "text": "latency",
+    "start": 12,
+    "end": 12.6,
+    "id": "w25"
+  },
+  {
+    "text": "for",
+    "start": 12.68,
+    "end": 12.77,
+    "id": "w26"
+  },
+  {
+    "text": "smooth",
+    "start": 12.9,
+    "end": 13.18,
+    "id": "w27"
+  },
+  {
+    "text": "gaming",
+    "start": 13.23,
+    "end": 13.58,
+    "id": "w28"
+  },
+  {
+    "text": "Quad",
+    "start": 13.59,
+    "end": 13.98,
+    "id": "w29"
+  },
+  {
+    "text": "silicon",
+    "start": 14.02,
+    "end": 14.79,
+    "id": "w30"
+  },
+  {
+    "text": "mic,",
+    "start": 14.79,
+    "end": 15.17,
+    "id": "w31"
+  },
+  {
+    "text": "noise",
+    "start": 15.31,
+    "end": 15.58,
+    "id": "w32"
+  },
+  {
+    "text": "is",
+    "start": 15.58,
+    "end": 15.7,
+    "id": "w33"
+  },
+  {
+    "text": "the",
+    "start": 15.7,
+    "end": 15.88,
+    "id": "w34"
+  },
+  {
+    "text": "correct",
+    "start": 15.88,
+    "end": 16.28,
+    "id": "w35"
+  },
+  {
+    "text": "cut",
+    "start": 16.47,
+    "end": 16.56,
+    "id": "w36"
+  },
+  {
+    "text": "Flip",
+    "start": 16.57,
+    "end": 17.16,
+    "id": "w37"
+  },
+  {
+    "text": "lid",
+    "start": 17.16,
+    "end": 17.51,
+    "id": "w38"
+  },
+  {
+    "text": "open,",
+    "start": 17.71,
+    "end": 18.29,
+    "id": "w39"
+  },
+  {
+    "text": "instantly",
+    "start": 18.29,
+    "end": 18.4,
+    "id": "w40"
+  },
+  {
+    "text": "connect",
+    "start": 18.55,
+    "end": 18.72,
+    "id": "w41"
+  },
+  {
+    "text": "No",
+    "start": 18.73,
+    "end": 18.92,
+    "id": "w42"
+  },
+  {
+    "text": "delay,",
+    "start": 18.92,
+    "end": 19.63,
+    "id": "w43"
+  },
+  {
+    "text": "no",
+    "start": 19.63,
+    "end": 19.69,
+    "id": "w44"
+  },
+  {
+    "text": "hassle",
+    "start": 19.88,
+    "end": 20.46,
+    "id": "w45"
+  },
+  {
+    "text": "Egg",
+    "start": 20.47,
+    "end": 20.79,
+    "id": "w46"
+  },
+  {
+    "text": "bar",
+    "start": 20.79,
+    "end": 21.12,
+    "id": "w47"
+  },
+  {
+    "text": "charged,",
+    "start": 21.12,
+    "end": 22.05,
+    "id": "w48"
+  },
+  {
+    "text": "power",
+    "start": 22.19,
+    "end": 22.53,
+    "id": "w49"
+  },
+  {
+    "text": "up",
+    "start": 22.53,
+    "end": 22.7,
+    "id": "w50"
+  },
+  {
+    "text": "to",
+    "start": 22.7,
+    "end": 22.87,
+    "id": "w51"
+  },
+  {
+    "text": "500",
+    "start": 22.87,
+    "end": 23.66,
+    "id": "w52"
+  },
+  {
+    "text": "hours",
+    "start": 23.66,
+    "end": 24.1,
+    "id": "w53"
+  },
+  {
+    "text": "standby",
+    "start": 24.1,
+    "end": 24.76,
+    "id": "w54"
+  },
+  {
+    "text": "time",
+    "start": 24.76,
+    "end": 24.77,
+    "id": "w55"
+  },
+  {
+    "text": "Tension",
+    "start": 24.77,
+    "end": 25.62,
+    "id": "w56"
+  },
+  {
+    "text": "free",
+    "start": 25.62,
+    "end": 26.11,
+    "id": "w57"
+  },
+  {
+    "text": "use,",
+    "start": 26.11,
+    "end": 26.61,
+    "id": "w58"
+  },
+  {
+    "text": "touch",
+    "start": 26.75,
+    "end": 27.06,
+    "id": "w59"
+  },
+  {
+    "text": "control,",
+    "start": 27.06,
+    "end": 27.77,
+    "id": "w60"
+  },
+  {
+    "text": "type",
+    "start": 27.77,
+    "end": 28.04,
+    "id": "w61"
+  },
+  {
+    "text": "Ccharging,",
+    "start": 28.04,
+    "end": 28.68,
+    "id": "w62"
+  },
+  {
+    "text": "or",
+    "start": 28.81,
+    "end": 28.92,
+    "id": "w63"
+  },
+  {
+    "text": "stylish",
+    "start": 28.92,
+    "end": 29.36,
+    "id": "w64"
+  },
+  {
+    "text": "look",
+    "start": 29.36,
+    "end": 29.44,
+    "id": "w65"
+  },
+  {
+    "text": "It",
+    "start": 29.65,
+    "end": 29.81,
+    "id": "w66"
+  },
+  {
+    "text": "is",
+    "start": 29.81,
+    "end": 29.98,
+    "id": "w67"
+  },
+  {
+    "text": "not",
+    "start": 29.98,
+    "end": 30.24,
+    "id": "w68"
+  },
+  {
+    "text": "just",
+    "start": 30.24,
+    "end": 30.58,
+    "id": "w69"
+  },
+  {
+    "text": "earbuds,",
+    "start": 30.58,
+    "end": 31.23,
+    "id": "w70"
+  },
+  {
+    "text": "it",
+    "start": 31.36,
+    "end": 31.49,
+    "id": "w71"
+  },
+  {
+    "text": "is",
+    "start": 31.63,
+    "end": 31.7,
+    "id": "w72"
+  },
+  {
+    "text": "weightless",
+    "start": 31.7,
+    "end": 32.64,
+    "id": "w73"
+  },
+  {
+    "text": "It",
+    "start": 32.65,
+    "end": 32.85,
+    "id": "w74"
+  },
+  {
+    "text": "is",
+    "start": 32.85,
+    "end": 33.04,
+    "id": "w75"
+  },
+  {
+    "text": "the",
+    "start": 33.16,
+    "end": 33.36,
+    "id": "w76"
+  },
+  {
+    "text": "value",
+    "start": 33.36,
+    "end": 33.9,
+    "id": "w77"
+  },
+  {
+    "text": "of",
+    "start": 33.9,
+    "end": 34.11,
+    "id": "w78"
+  },
+  {
+    "text": "earbuds,",
+    "start": 34.11,
+    "end": 34.95,
+    "id": "w79"
+  },
+  {
+    "text": "and",
+    "start": 35.03,
+    "end": 35.34,
+    "id": "w80"
+  },
+  {
+    "text": "sound",
+    "start": 35.53,
+    "end": 35.88,
+    "id": "w81"
+  },
+  {
+    "text": "is",
+    "start": 35.88,
+    "end": 36.09,
+    "id": "w82"
+  },
+  {
+    "text": "real",
+    "start": 36.09,
+    "end": 36.51,
+    "id": "w83"
+  },
+  {
+    "text": "power",
+    "start": 36.51,
+    "end": 37.04,
+    "id": "w84"
+  },
+  {
+    "text": "field",
+    "start": 37.04,
+    "end": 37.31,
+    "id": "w85"
+  }
+]
