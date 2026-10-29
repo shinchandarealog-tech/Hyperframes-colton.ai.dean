@@ -34,6 +34,11 @@
       }
 
       /* ---------- face-cam ---------- */
+      #face-fx {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 40%;
+      }
       #face-wrap {
         position: absolute;
         inset: 0;
@@ -274,6 +279,11 @@
         mix-blend-mode: screen;
         pointer-events: none;
       }
+      #flash {
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 50%, #fff6e8 0%, #ffc070 45%, #ff7a1a 100%);
+        mix-blend-mode: normal;
+      }
       #leak-warm {
         inset: 0;
         background: #ff7a1a;
@@ -305,6 +315,7 @@
       data-width="1080"
       data-height="1920"
     >
+      <div id="face-fx">
       <div id="face-wrap">
         <div id="face-kb">
           <video
@@ -319,11 +330,29 @@
         </div>
         <div id="face-vignette"></div>
       </div>
+      </div>
 
       <audio id="voice" data-start="0" data-duration="37.6" data-track-index="1" src="assets/raw.mp4" data-volume="1"></audio>
-      <audio id="sfx-1" data-start="10.5" data-duration="0.57" data-track-index="3" src="assets/whoosh.mp3" data-volume="0.22"></audio>
-      <audio id="sfx-2" data-start="20.1" data-duration="0.57" data-track-index="4" src="assets/whoosh.mp3" data-volume="0.22"></audio>
-      <audio id="sfx-3" data-start="25.05" data-duration="2.04" data-track-index="5" src="assets/sparkle.mp3" data-volume="0.16"></audio>
+      <audio id="sfx-open" data-start="0.0" data-duration="1.1" data-track-index="3" src="assets/bass-drop.mp3" data-volume="0.25"></audio>
+      <audio id="sfx-pop1" data-start="0.32" data-duration="0.72" data-track-index="4" src="assets/pop.mp3" data-volume="0.28"></audio>
+      <audio id="sfx-pop2" data-start="0.8" data-duration="0.72" data-track-index="5" src="assets/pop.mp3" data-volume="0.28"></audio>
+      <audio id="sfx-pop3" data-start="1.44" data-duration="0.72" data-track-index="6" src="assets/pop.mp3" data-volume="0.28"></audio>
+      <audio id="sfx-k1" data-start="2.89" data-duration="0.2" data-track-index="7" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-k2" data-start="5.69" data-duration="0.2" data-track-index="8" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-k3" data-start="9.07" data-duration="0.2" data-track-index="9" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-t1" data-start="10.35" data-duration="0.57" data-track-index="10" src="assets/whoosh.mp3" data-volume="0.6"></audio>
+      <audio id="sfx-60" data-start="11.25" data-duration="0.46" data-track-index="11" src="assets/click.wav" data-volume="0.45"></audio>
+      <audio id="sfx-t2" data-start="13.05" data-duration="1.06" data-track-index="12" src="assets/swipe.mp3" data-volume="0.65"></audio>
+      <audio id="sfx-k4" data-start="15.23" data-duration="0.2" data-track-index="13" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-k5" data-start="19.6" data-duration="0.2" data-track-index="14" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-t3" data-start="19.95" data-duration="2.0" data-track-index="15" src="assets/power-up.mp3" data-volume="0.5"></audio>
+      <audio id="sfx-500" data-start="22.55" data-duration="0.93" data-track-index="16" src="assets/zap.mp3" data-volume="0.7"></audio>
+      <audio id="sfx-t4" data-start="25.05" data-duration="2.04" data-track-index="17" src="assets/sparkle.mp3" data-volume="0.4"></audio>
+      <audio id="sfx-k6" data-start="25.32" data-duration="0.57" data-track-index="18" src="assets/whoosh.mp3" data-volume="0.4"></audio>
+      <audio id="sfx-k7" data-start="30.3" data-duration="0.2" data-track-index="19" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-z1" data-start="32.47" data-duration="0.57" data-track-index="20" src="assets/whoosh.mp3" data-volume="0.38"></audio>
+      <audio id="sfx-k8" data-start="34.24" data-duration="0.2" data-track-index="21" src="assets/hard-cut.mp3" data-volume="0.45"></audio>
+      <audio id="sfx-end" data-start="36.05" data-duration="1.1" data-track-index="22" src="assets/bass-drop.mp3" data-volume="0.32"></audio>
 
       <div id="overlay" class="clip" data-start="0" data-duration="37.6" data-track-index="2">
         <div id="scrim"></div>
@@ -363,6 +392,7 @@
           </svg>
         </div>
 
+        <div id="flash" class="leak"></div>
         <div id="leak-warm" class="leak"></div>
         <div id="leak-blob" class="leak"></div>
         <div id="leak-ring" class="leak"></div>
@@ -523,12 +553,21 @@
         [0, 1], [4.8, 1.13], [6.59, 1], [9.05, 1.13],
         [13.62, 1], [16.43, 1.13], [19.05, 1],
         [25.45, 1.12], [27.38, 1], [29.65, 1.15], [31.43, 1], [32.62, 1.12], [35.38, 1],
-      ].forEach(([t, s]) => tl.set("#face-wrap", { scale: s }, t));
+      ].forEach(([t, s], i) => {
+        if (i % 2 === 1 && t > 1) {
+          // zoom-snap: fast scale with a touch of motion blur
+          tl.to("#face-wrap", { scale: s, duration: 0.14, ease: "expo.out" }, t - 0.04);
+          tl.fromTo("#face", { filter: "contrast(1.06) saturate(1.06) brightness(0.97) blur(5px)" },
+            { filter: "contrast(1.06) saturate(1.06) brightness(0.97) blur(0px)", duration: 0.16, ease: "power2.out", immediateRender: false }, t - 0.04);
+        } else {
+          tl.set("#face-wrap", { scale: s }, t);
+        }
+      });
 
       // ---------- cutaway 1: ultra-low latency (10.5 – 13.62) ----------
       const C1 = 10.5, C1E = 13.62;
       tl.set("#g1", { opacity: 1 }, C1);
-      tl.set("#g1", { opacity: 0 }, C1E);
+      tl.set("#g1", { opacity: 0, x: 0, filter: "blur(0px)" }, C1E + 0.2);
       tl.fromTo("#g1 .bar", { scaleX: 0.04, opacity: 0 }, { scaleX: 1, opacity: 1, duration: 0.42, ease: "expo.out" }, C1 + 0.04);
       tl.fromTo("#g1-fill", { scaleX: 0 }, { scaleX: 0.19, duration: 0.5, ease: "power3.out" }, C1 + 0.3);
       tl.fromTo("#g1-flare", { x: -60, opacity: 0 }, { x: 860, opacity: 1, duration: 0.7, ease: "power2.inOut" }, C1 + 0.1);
@@ -589,6 +628,31 @@
       tl.to("#leak-warm", { opacity: 0, duration: 0.45, ease: "power2.out" }, C2E + 0.11);
       tl.to("#leak-blob", { opacity: 0, x: 700, duration: 0.45, ease: "power1.out" }, C2E + 0.11);
       tl.to("#leak-ring", { opacity: 0, scale: 1.6, duration: 0.45, ease: "power1.out" }, C2E + 0.11);
+
+      // ---------- transitions ----------
+      // T0 opening: settle into focus from a zoomed blur
+      tl.fromTo("#face-fx", { scale: 1.22, filter: "blur(14px) brightness(1.3)" },
+        { scale: 1, filter: "blur(0px) brightness(1)", duration: 0.5, ease: "expo.out" }, 0);
+
+      // T1 face -> latency diagram: zoom-through
+      tl.to("#face-fx", { scale: 1.6, filter: "blur(16px) brightness(1.7)", duration: 0.3, ease: "power2.in" }, 10.2);
+      tl.set("#face-fx", { scale: 1, filter: "blur(0px) brightness(1)" }, C1 + 0.02);
+      tl.fromTo("#g1", { scale: 1.3, filter: "blur(14px)" }, { scale: 1, filter: "blur(0px)", duration: 0.38, ease: "expo.out", immediateRender: false }, C1);
+
+      // T2 latency diagram -> face: whip pan left
+      tl.to("#g1", { x: -1080, filter: "blur(24px)", duration: 0.24, ease: "power4.in" }, 13.44);
+      tl.fromTo("#face-fx", { x: 1080, filter: "blur(24px) brightness(1)" }, { x: 0, filter: "blur(0px) brightness(1)", duration: 0.3, ease: "power4.out", immediateRender: false }, 13.56);
+
+      // T3 face -> battery diagram: orange overexposure flash
+      tl.to("#face-fx", { filter: "blur(4px) brightness(2.4)", scale: 1.06, duration: 0.2, ease: "power2.in" }, 19.92);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "power2.in" }, 20.0);
+      tl.set("#face-fx", { filter: "blur(0px) brightness(1)", scale: 1 }, C2 + 0.02);
+      tl.to("#flash", { opacity: 0, duration: 0.35, ease: "power2.out" }, C2 + 0.04);
+
+      // T5 accent zoom-blurs into the closing beats
+      [[29.65, 1.1], [32.62, 1.08]].forEach(([t, k]) => {
+        tl.fromTo("#face-fx", { scale: k, filter: "blur(10px) brightness(1.15)" }, { scale: 1, filter: "blur(0px) brightness(1)", duration: 0.32, ease: "expo.out", immediateRender: false }, t);
+      });
 
       tl.set({}, {}, D);
       window.__timelines["main"] = tl;
