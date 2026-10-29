@@ -1,0 +1,878 @@
+[
+  {
+    "text": "I",
+    "start": 0.03,
+    "end": 0.05,
+    "id": "w0"
+  },
+  {
+    "text": "think",
+    "start": 0.05,
+    "end": 0.33,
+    "id": "w1"
+  },
+  {
+    "text": "right",
+    "start": 0.33,
+    "end": 0.61,
+    "id": "w2"
+  },
+  {
+    "text": "now",
+    "start": 0.61,
+    "end": 0.77,
+    "id": "w3"
+  },
+  {
+    "text": "wellness",
+    "start": 0.77,
+    "end": 1.24,
+    "id": "w4"
+  },
+  {
+    "text": "is",
+    "start": 1.24,
+    "end": 1.34,
+    "id": "w5"
+  },
+  {
+    "text": "in",
+    "start": 1.34,
+    "end": 1.44,
+    "id": "w6"
+  },
+  {
+    "text": "a",
+    "start": 1.44,
+    "end": 1.49,
+    "id": "w7"
+  },
+  {
+    "text": "really",
+    "start": 1.49,
+    "end": 1.82,
+    "id": "w8"
+  },
+  {
+    "text": "interesting",
+    "start": 1.82,
+    "end": 2.4,
+    "id": "w9"
+  },
+  {
+    "text": "and",
+    "start": 2.4,
+    "end": 2.52,
+    "id": "w10"
+  },
+  {
+    "text": "sort",
+    "start": 2.52,
+    "end": 2.63,
+    "id": "w11"
+  },
+  {
+    "text": "of",
+    "start": 2.64,
+    "end": 2.71,
+    "id": "w12"
+  },
+  {
+    "text": "precarious",
+    "start": 2.73,
+    "end": 3.52,
+    "id": "w13"
+  },
+  {
+    "text": "place",
+    "start": 3.52,
+    "end": 4.19,
+    "id": "w14"
+  },
+  {
+    "text": "where",
+    "start": 4.27,
+    "end": 4.64,
+    "id": "w15"
+  },
+  {
+    "text": "we're",
+    "start": 4.68,
+    "end": 5.05,
+    "id": "w16"
+  },
+  {
+    "text": "on",
+    "start": 5.05,
+    "end": 5.21,
+    "id": "w17"
+  },
+  {
+    "text": "the",
+    "start": 5.21,
+    "end": 5.44,
+    "id": "w18"
+  },
+  {
+    "text": "verge",
+    "start": 5.45,
+    "end": 5.86,
+    "id": "w19"
+  },
+  {
+    "text": "of",
+    "start": 5.86,
+    "end": 6.02,
+    "id": "w20"
+  },
+  {
+    "text": "losing",
+    "start": 6.02,
+    "end": 6.5,
+    "id": "w21"
+  },
+  {
+    "text": "the",
+    "start": 6.53,
+    "end": 6.75,
+    "id": "w22"
+  },
+  {
+    "text": "plot.",
+    "start": 6.75,
+    "end": 7.12,
+    "id": "w23"
+  },
+  {
+    "text": "The",
+    "start": 7.15,
+    "end": 7.41,
+    "id": "w24"
+  },
+  {
+    "text": "point",
+    "start": 7.41,
+    "end": 7.9,
+    "id": "w25"
+  },
+  {
+    "text": "is",
+    "start": 7.9,
+    "end": 8.09,
+    "id": "w26"
+  },
+  {
+    "text": "to",
+    "start": 8.09,
+    "end": 8.27,
+    "id": "w27"
+  },
+  {
+    "text": "be",
+    "start": 8.28,
+    "end": 8.47,
+    "id": "w28"
+  },
+  {
+    "text": "healthy",
+    "start": 8.47,
+    "end": 9.12,
+    "id": "w29"
+  },
+  {
+    "text": "and",
+    "start": 9.15,
+    "end": 9.44,
+    "id": "w30"
+  },
+  {
+    "text": "well,",
+    "start": 9.44,
+    "end": 10.08,
+    "id": "w31"
+  },
+  {
+    "text": "right?",
+    "start": 10.08,
+    "end": 10.1,
+    "id": "w32"
+  },
+  {
+    "text": "Not",
+    "start": 10.1,
+    "end": 10.39,
+    "id": "w33"
+  },
+  {
+    "text": "necessarily",
+    "start": 10.39,
+    "end": 11.53,
+    "id": "w34"
+  },
+  {
+    "text": "to",
+    "start": 11.53,
+    "end": 11.73,
+    "id": "w35"
+  },
+  {
+    "text": "consume",
+    "start": 11.73,
+    "end": 12.45,
+    "id": "w36"
+  },
+  {
+    "text": "or",
+    "start": 12.45,
+    "end": 12.64,
+    "id": "w37"
+  },
+  {
+    "text": "over-consume.",
+    "start": 12.64,
+    "end": 13.92,
+    "id": "w38"
+  },
+  {
+    "text": "There",
+    "start": 13.95,
+    "end": 14.12,
+    "id": "w39"
+  },
+  {
+    "text": "is",
+    "start": 14.19,
+    "end": 14.24,
+    "id": "w40"
+  },
+  {
+    "text": "an",
+    "start": 14.24,
+    "end": 14.32,
+    "id": "w41"
+  },
+  {
+    "text": "herb",
+    "start": 14.36,
+    "end": 14.51,
+    "id": "w42"
+  },
+  {
+    "text": "for",
+    "start": 14.51,
+    "end": 14.65,
+    "id": "w43"
+  },
+  {
+    "text": "everything.",
+    "start": 14.65,
+    "end": 15.28,
+    "id": "w44"
+  },
+  {
+    "text": "So",
+    "start": 15.3,
+    "end": 15.42,
+    "id": "w45"
+  },
+  {
+    "text": "for",
+    "start": 15.42,
+    "end": 15.64,
+    "id": "w46"
+  },
+  {
+    "text": "anxiety,",
+    "start": 15.64,
+    "end": 16.29,
+    "id": "w47"
+  },
+  {
+    "text": "some",
+    "start": 16.29,
+    "end": 16.58,
+    "id": "w48"
+  },
+  {
+    "text": "of",
+    "start": 16.58,
+    "end": 16.72,
+    "id": "w49"
+  },
+  {
+    "text": "the",
+    "start": 16.72,
+    "end": 16.94,
+    "id": "w50"
+  },
+  {
+    "text": "best",
+    "start": 16.94,
+    "end": 17.23,
+    "id": "w51"
+  },
+  {
+    "text": "are",
+    "start": 17.23,
+    "end": 17.45,
+    "id": "w52"
+  },
+  {
+    "text": "Nurbine.",
+    "start": 17.45,
+    "end": 18,
+    "id": "w53"
+  },
+  {
+    "text": "Lavender",
+    "start": 18.03,
+    "end": 18.53,
+    "id": "w54"
+  },
+  {
+    "text": "is",
+    "start": 18.53,
+    "end": 18.66,
+    "id": "w55"
+  },
+  {
+    "text": "a",
+    "start": 18.66,
+    "end": 18.72,
+    "id": "w56"
+  },
+  {
+    "text": "perfect",
+    "start": 18.72,
+    "end": 19.14,
+    "id": "w57"
+  },
+  {
+    "text": "example.",
+    "start": 19.19,
+    "end": 19.68,
+    "id": "w58"
+  },
+  {
+    "text": "Chamomile,",
+    "start": 19.71,
+    "end": 20.78,
+    "id": "w59"
+  },
+  {
+    "text": "Valerian,",
+    "start": 20.78,
+    "end": 21.6,
+    "id": "w60"
+  },
+  {
+    "text": "cava,",
+    "start": 21.6,
+    "end": 22.47,
+    "id": "w61"
+  },
+  {
+    "text": "rose,",
+    "start": 22.5,
+    "end": 22.82,
+    "id": "w62"
+  },
+  {
+    "text": "passion",
+    "start": 22.82,
+    "end": 23.21,
+    "id": "w63"
+  },
+  {
+    "text": "flower.",
+    "start": 23.22,
+    "end": 23.75,
+    "id": "w64"
+  },
+  {
+    "text": "We",
+    "start": 23.75,
+    "end": 24.057,
+    "id": "w65"
+  },
+  {
+    "text": "can",
+    "start": 24.057,
+    "end": 24.363,
+    "id": "w66"
+  },
+  {
+    "text": "use",
+    "start": 24.363,
+    "end": 24.67,
+    "id": "w67"
+  },
+  {
+    "text": "them",
+    "start": 24.67,
+    "end": 25.11,
+    "id": "w68"
+  },
+  {
+    "text": "right",
+    "start": 25.11,
+    "end": 25.68,
+    "id": "w69"
+  },
+  {
+    "text": "away",
+    "start": 25.68,
+    "end": 26.16,
+    "id": "w70"
+  },
+  {
+    "text": "to",
+    "start": 26.16,
+    "end": 26.31,
+    "id": "w71"
+  },
+  {
+    "text": "feel",
+    "start": 26.31,
+    "end": 26.61,
+    "id": "w72"
+  },
+  {
+    "text": "the",
+    "start": 26.61,
+    "end": 26.82,
+    "id": "w73"
+  },
+  {
+    "text": "benefits,",
+    "start": 26.84,
+    "end": 27.44,
+    "id": "w74"
+  },
+  {
+    "text": "but",
+    "start": 27.47,
+    "end": 27.64,
+    "id": "w75"
+  },
+  {
+    "text": "we",
+    "start": 27.71,
+    "end": 27.8,
+    "id": "w76"
+  },
+  {
+    "text": "can",
+    "start": 27.8,
+    "end": 28.01,
+    "id": "w77"
+  },
+  {
+    "text": "also",
+    "start": 28.02,
+    "end": 28.31,
+    "id": "w78"
+  },
+  {
+    "text": "use",
+    "start": 28.31,
+    "end": 28.53,
+    "id": "w79"
+  },
+  {
+    "text": "them",
+    "start": 28.53,
+    "end": 28.82,
+    "id": "w80"
+  },
+  {
+    "text": "over",
+    "start": 28.82,
+    "end": 29.11,
+    "id": "w81"
+  },
+  {
+    "text": "time",
+    "start": 29.11,
+    "end": 29.4,
+    "id": "w82"
+  },
+  {
+    "text": "to",
+    "start": 29.4,
+    "end": 29.54,
+    "id": "w83"
+  },
+  {
+    "text": "help",
+    "start": 29.54,
+    "end": 29.83,
+    "id": "w84"
+  },
+  {
+    "text": "rehabilitate",
+    "start": 29.83,
+    "end": 30.8,
+    "id": "w85"
+  },
+  {
+    "text": "the",
+    "start": 30.8,
+    "end": 30.98,
+    "id": "w86"
+  },
+  {
+    "text": "nervous",
+    "start": 30.99,
+    "end": 31.43,
+    "id": "w87"
+  },
+  {
+    "text": "system.",
+    "start": 31.44,
+    "end": 31.84,
+    "id": "w88"
+  },
+  {
+    "text": "And",
+    "start": 31.86,
+    "end": 32.17,
+    "id": "w89"
+  },
+  {
+    "text": "it",
+    "start": 32.17,
+    "end": 32.39,
+    "id": "w90"
+  },
+  {
+    "text": "has",
+    "start": 32.39,
+    "end": 32.72,
+    "id": "w91"
+  },
+  {
+    "text": "the",
+    "start": 32.72,
+    "end": 33.04,
+    "id": "w92"
+  },
+  {
+    "text": "power",
+    "start": 33.05,
+    "end": 33.6,
+    "id": "w93"
+  },
+  {
+    "text": "to",
+    "start": 33.6,
+    "end": 33.82,
+    "id": "w94"
+  },
+  {
+    "text": "sedate",
+    "start": 33.82,
+    "end": 34.47,
+    "id": "w95"
+  },
+  {
+    "text": "us,",
+    "start": 34.48,
+    "end": 34.96,
+    "id": "w96"
+  },
+  {
+    "text": "has",
+    "start": 34.96,
+    "end": 35.2,
+    "id": "w97"
+  },
+  {
+    "text": "the",
+    "start": 35.2,
+    "end": 35.43,
+    "id": "w98"
+  },
+  {
+    "text": "power",
+    "start": 35.43,
+    "end": 35.82,
+    "id": "w99"
+  },
+  {
+    "text": "to",
+    "start": 35.82,
+    "end": 35.99,
+    "id": "w100"
+  },
+  {
+    "text": "wake",
+    "start": 35.99,
+    "end": 36.3,
+    "id": "w101"
+  },
+  {
+    "text": "us",
+    "start": 36.3,
+    "end": 36.46,
+    "id": "w102"
+  },
+  {
+    "text": "up.",
+    "start": 36.46,
+    "end": 36.88,
+    "id": "w103"
+  },
+  {
+    "text": "That",
+    "start": 36.91,
+    "end": 37.08,
+    "id": "w104"
+  },
+  {
+    "text": "is",
+    "start": 37.15,
+    "end": 37.24,
+    "id": "w105"
+  },
+  {
+    "text": "the",
+    "start": 37.24,
+    "end": 37.42,
+    "id": "w106"
+  },
+  {
+    "text": "magic",
+    "start": 37.42,
+    "end": 37.72,
+    "id": "w107"
+  },
+  {
+    "text": "and",
+    "start": 37.72,
+    "end": 37.9,
+    "id": "w108"
+  },
+  {
+    "text": "also",
+    "start": 37.9,
+    "end": 38.14,
+    "id": "w109"
+  },
+  {
+    "text": "the",
+    "start": 38.14,
+    "end": 38.32,
+    "id": "w110"
+  },
+  {
+    "text": "reality",
+    "start": 38.32,
+    "end": 38.74,
+    "id": "w111"
+  },
+  {
+    "text": "of",
+    "start": 38.74,
+    "end": 38.86,
+    "id": "w112"
+  },
+  {
+    "text": "herbalism.",
+    "start": 38.86,
+    "end": 39.59,
+    "id": "w113"
+  },
+  {
+    "text": "It",
+    "start": 39.62,
+    "end": 39.76,
+    "id": "w114"
+  },
+  {
+    "text": "is",
+    "start": 39.76,
+    "end": 39.92,
+    "id": "w115"
+  },
+  {
+    "text": "timeless.",
+    "start": 39.92,
+    "end": 40.76,
+    "id": "w116"
+  },
+  {
+    "text": "It's",
+    "start": 40.83,
+    "end": 41,
+    "id": "w117"
+  },
+  {
+    "text": "not",
+    "start": 41.07,
+    "end": 41.17,
+    "id": "w118"
+  },
+  {
+    "text": "a",
+    "start": 41.17,
+    "end": 41.2,
+    "id": "w119"
+  },
+  {
+    "text": "trend.",
+    "start": 41.24,
+    "end": 41.68,
+    "id": "w120"
+  },
+  {
+    "text": "It",
+    "start": 41.7,
+    "end": 41.82,
+    "id": "w121"
+  },
+  {
+    "text": "exists",
+    "start": 41.82,
+    "end": 42.24,
+    "id": "w122"
+  },
+  {
+    "text": "outside",
+    "start": 42.24,
+    "end": 42.73,
+    "id": "w123"
+  },
+  {
+    "text": "of",
+    "start": 42.73,
+    "end": 42.84,
+    "id": "w124"
+  },
+  {
+    "text": "wellness.",
+    "start": 42.87,
+    "end": 43.68,
+    "id": "w125"
+  },
+  {
+    "text": "Simple,",
+    "start": 43.71,
+    "end": 44.28,
+    "id": "w126"
+  },
+  {
+    "text": "it's",
+    "start": 44.28,
+    "end": 44.58,
+    "id": "w127"
+  },
+  {
+    "text": "effective,",
+    "start": 44.58,
+    "end": 45.44,
+    "id": "w128"
+  },
+  {
+    "text": "and",
+    "start": 45.44,
+    "end": 45.66,
+    "id": "w129"
+  },
+  {
+    "text": "it",
+    "start": 45.66,
+    "end": 45.8,
+    "id": "w130"
+  },
+  {
+    "text": "is",
+    "start": 45.8,
+    "end": 45.94,
+    "id": "w131"
+  },
+  {
+    "text": "straight",
+    "start": 45.94,
+    "end": 46.52,
+    "id": "w132"
+  },
+  {
+    "text": "from",
+    "start": 46.54,
+    "end": 46.82,
+    "id": "w133"
+  },
+  {
+    "text": "nature.",
+    "start": 46.82,
+    "end": 47.52,
+    "id": "w134"
+  },
+  {
+    "text": "It's",
+    "start": 47.55,
+    "end": 47.72,
+    "id": "w135"
+  },
+  {
+    "text": "not",
+    "start": 47.79,
+    "end": 47.9,
+    "id": "w136"
+  },
+  {
+    "text": "a",
+    "start": 47.9,
+    "end": 47.92,
+    "id": "w137"
+  },
+  {
+    "text": "manufactured",
+    "start": 47.96,
+    "end": 48.62,
+    "id": "w138"
+  },
+  {
+    "text": "thing,",
+    "start": 48.62,
+    "end": 49.04,
+    "id": "w139"
+  },
+  {
+    "text": "and",
+    "start": 49.04,
+    "end": 49.25,
+    "id": "w140"
+  },
+  {
+    "text": "it",
+    "start": 49.25,
+    "end": 49.38,
+    "id": "w141"
+  },
+  {
+    "text": "can",
+    "start": 49.39,
+    "end": 49.58,
+    "id": "w142"
+  },
+  {
+    "text": "be",
+    "start": 49.61,
+    "end": 49.74,
+    "id": "w143"
+  },
+  {
+    "text": "so",
+    "start": 49.76,
+    "end": 49.88,
+    "id": "w144"
+  },
+  {
+    "text": "accessible.",
+    "start": 49.88,
+    "end": 50.8,
+    "id": "w145"
+  }
+]
