@@ -99,7 +99,6 @@
       .serif,
       .sub,
       .orb {
-        transform: translate(-50%, -50%);
         position: absolute;
         left: 0;
         top: 0;
@@ -182,10 +181,9 @@
         letter-spacing: -0.03em;
         color: #fff;
         text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
-        backface-visibility: visible;
         left: 0;
         top: 0;
-        translate: -50% -50%;
+        will-change: transform, opacity, filter;
       }
 
       /* ---------- diagram cutaways ---------- */
@@ -615,31 +613,62 @@
         });
       });
 
-      // Word ring (joshua-esca "how do you do that text effect"): the sentence is laid clockwise along
-      // one tilted 3D ring around her — first word at 12 o'clock, then down the right side, upside-down
-      // across the bottom, up the left. The radius grows as it goes, so the second lap sits outside the
-      // first (a spiral). Each word flies in from the camera, big and blurred, and settles onto the ring;
-      // meanwhile the whole ring slowly turns and tilts.
+      // Word spiral (joshua-esca "how do you do that 3D text effect", studied frame by frame):
+      // - words are laid clockwise from just left of 12 o'clock, each rotated to follow the curve
+      //   (sideways down the right, upside down at the bottom, reading upward on the left);
+      // - the spiral comes TOWARD the camera: every new word is bigger and a little further out;
+      // - each word arrives ~60° further along the curve, huge and blurred, and slides back into its
+      //   slot in ~0.2s;
+      // - older words keep receding: they shrink, drift toward the centre and go soft (depth of field);
+      // - at the end everything racks out of focus, then the cut.
       function buildSpiral(words, s, e) {
-        const front = document.getElementById("orb-front");
-        const ring = make("ring", "", front);
-        const FS = 86, R0 = 290, GROW = 35, GAP = 0.1, CHAR = 0.52;
-        let ang = -0.32; // radians, clockwise from 12 o'clock; start just left of top like the reference
-        words.forEach(([txt, t]) => {
-          const arc = (txt.length * CHAR * FS) / (R0 + GROW * Math.max(0, ang) / (2 * Math.PI));
-          const mid = ang + arc / 2;
-          const r = R0 + GROW * Math.max(0, mid) / (2 * Math.PI);
-          ang += arc + GAP;
-          const slot = make("slot", "", ring);
-          slot.style.transform = `rotate(${(mid * 180 / Math.PI).toFixed(2)}deg) translateY(${-r}px)`;
-          const w = make("orb", txt, slot);
-          w.style.fontSize = FS + "px";
-          tl.fromTo(w, { z: 520, scale: 1.25, opacity: 0, filter: "blur(16px)" },
-            { z: 0, scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, t);
+        const layer = document.getElementById("orb-front");
+        const CX = 560, CY = 770;                    // centred on her neck / upper chest
+        const N = words.length;
+        const START = -0.30, SPAN = 2 * Math.PI * 0.93; // fill ~335° of the circle
+        const size = (i) => 84 + (156 - 84) * Math.pow(i / (N - 1), 1.15);   // newest word largest
+        const rad = (i) => 300 + 120 * (i / (N - 1));                       // and further out
+        // angular width of each word ∝ its on-screen length at its radius; scale to fill SPAN
+        const raw = words.map(([txt], i) => (txt.length * 0.56 * size(i) + 34) / rad(i));
+        const k = SPAN / raw.reduce((a, b) => a + b, 0);
+        let acc = START;
+        const orbs = words.map(([txt, t], i) => {
+          const w = raw[i] * k, mid = acc + w / 2;
+          acc += w;
+          const el = make("orb", txt, layer);
+          el.style.fontSize = size(i).toFixed(0) + "px";
+          return { el, t, th: mid, r: rad(i) };
         });
-        show(front, s, e);
-        tl.fromTo(ring, { rotationX: 22, rotationY: -3, rotationZ: -6, scale: 0.96 },
-          { rotationX: 32, rotationY: 3, rotationZ: 12, scale: 1.04, duration: e - s, ease: "sine.inOut" }, s);
+        show(layer, s, e);
+        const ARRIVE = 0.22, RECEDE = 0.17, FOCUS_OUT = 0.32;
+        const proxy = { p: 0 };
+        tl.fromTo(proxy, { p: 0 }, {
+          p: 1, duration: e - s, ease: "none",
+          onUpdate() {
+            const now = s + this.time();
+            const rack = Math.max(0, Math.min(1, (now - (e - FOCUS_OUT)) / FOCUS_OUT));
+            orbs.forEach((o) => {
+              const age = now - o.t;
+              if (age < 0) { o.el.style.opacity = 0; return; }
+              // arrival: u goes 1 → 0 with a strong ease-out
+              const a = Math.min(1, age / ARRIVE);
+              const u = Math.pow(1 - a, 3);
+              // recession after landing
+              const rec = Math.max(0.55, 1 - RECEDE * Math.max(0, age - ARRIVE));
+              const th = o.th + u * 1.05;                       // comes from ~60° further clockwise
+              const r = o.r * (0.55 + 0.45 * rec) * (1 + 0.5 * u);
+              const sc = rec * (1 + 1.4 * u);
+              const x = CX + r * Math.sin(th), y = CY - r * Math.cos(th);
+              const blur = 16 * u + 6 * (1 - rec) + 14 * rack;
+              o.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%) rotate(${(th * 180 / Math.PI).toFixed(1)}deg) scale(${sc.toFixed(3)})`;
+              o.el.style.filter = `blur(${blur.toFixed(1)}px)`;
+              o.el.style.opacity = (Math.min(1, age / 0.08) * (1 - 0.25 * (1 - rec)) * (1 - 0.6 * rack)).toFixed(3);
+            });
+          },
+        }, s);
+        // rack focus on the footage at the end, cleared by the cut at e
+        tl.fromTo("#face-kb", { filter: "blur(0px)" }, { filter: "blur(8px)", duration: FOCUS_OUT, ease: "power1.in", immediateRender: false }, e - FOCUS_OUT);
+        tl.set("#face-kb", { filter: "blur(0px)" }, e);
       }
 
       // ---------- face-cam: Ken Burns + punch-in jump cuts ----------
@@ -725,9 +754,10 @@
       tl.to("#leak-ring", { opacity: 0, scale: 1.6, duration: 0.45, ease: "power1.out" }, C2E + 0.11);
 
       // ---------- transitions ----------
-      // T0 opening: settle into focus from a zoomed blur
-      tl.fromTo("#face-fx", { scale: 1.22, filter: "blur(14px) brightness(1.3)" },
-        { scale: 1, filter: "blur(0px) brightness(1)", duration: 0.5, ease: "expo.out" }, 0);
+      // T0 opening: camera pull-back under the word spiral (joshua-esca reference: ~1.4x → 1x)
+      tl.fromTo("#face-fx", { scale: 1.42, filter: "blur(10px) brightness(1.2)" },
+        { scale: 1, duration: 1.3, ease: "power2.out" }, 0);
+      tl.to("#face-fx", { filter: "blur(0px) brightness(1)", duration: 0.3, ease: "power1.out" }, 0);
 
       // T1 face -> latency diagram: zoom-through
       tl.to("#face-fx", { scale: 1.6, filter: "blur(16px) brightness(1.7)", duration: 0.3, ease: "power2.in" }, 10.2);

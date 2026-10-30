@@ -11,7 +11,14 @@
 3. **Small words:** bold sans lowercase words popped in one by one with a blur-in, spread across a row ("let me *show* you", with one word in italic serif). There's also a low subtitle line where each word sharpens in from blur ("I'm going to break it down for you").
 
 ## Extras
-- **3D word ring/spiral:** the sentence ("how do you do that text effect") is laid clockwise along ONE tilted 3D ring around the speaker: first word at 12 o'clock, down the right side, upside-down across the bottom, reading upward on the left, then a second lap slightly outside the first (spiral). Each word flies in from the camera, big and blurred, then settles onto the ring; the whole ring slowly turns and tilts. Words do NOT orbit or pass behind him. (The first build got this wrong with an orbiting helix; the user corrected it.)
+- **3D word spiral** (analysed frame by frame, 1.2–3.1s in the source):
+  1. The footage pulls back (camera zoom-out ~1.4x → 1x) over ~0.8s while the first words arrive.
+  2. Words run clockwise from just left of 12 o'clock and are rotated along the curve (sideways down the right, upside down at the bottom, reading upward on the left). The circle is centred on the neck.
+  3. The spiral comes toward the camera: each new word is bigger and slightly further out ("how" small → "effect" huge, running off frame).
+  4. Each word arrives ~60° further clockwise, huge and heavily blurred, and slides back along the curve into its slot in ~4–6 frames.
+  5. Older words keep receding: they shrink, drift inward and go soft (depth of field), but stay readable.
+  6. Exit: rack-focus blur on everything, then cut.
+  Two earlier rebuilds missed this (an orbiting helix, then a static flat ring); the user rejected both.
 - **Red circle glitch transition:** a red disc with a cyan/red chromatic rim sweeps across, blows out to white, cut.
 
 ## Applied in `video-projects/10-80-style-edit` (user-approved scope)
