@@ -18,7 +18,8 @@
   4. Each word arrives ~60° further clockwise, huge and heavily blurred, and slides back along the curve into its slot in ~4–6 frames.
   5. Older words keep receding: they shrink, drift inward and go soft (depth of field), but stay readable.
   6. Exit: rack-focus blur on everything, then cut.
-  Two earlier rebuilds missed this (an orbiting helix, then a static flat ring); the user rejected both.
+  7. Scale (what the user kept flagging): each word is roughly as wide as the speaker's torso ("that" covers his chest). Letter height ≈ 1/3 of the ring radius, and the ring reaches the frame edges. Keep every piece short (split long words, e.g. "all-" + "rounder") so it bends with the curve instead of reading as a straight bar.
+  Three earlier rebuilds missed this (an orbiting helix, then a static flat ring); the user rejected both.
 - **Red circle glitch transition:** a red disc with a cyan/red chromatic rim sweeps across, blows out to white, cut.
 
 ## Applied in `video-projects/10-80-style-edit` (user-approved scope)

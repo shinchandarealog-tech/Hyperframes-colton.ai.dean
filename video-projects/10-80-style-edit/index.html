@@ -176,9 +176,9 @@
       }
       .orb {
         font-family: var(--font-small);
-        font-weight: 800;
+        font-weight: 700;
         font-size: 118px;
-        letter-spacing: -0.03em;
+        letter-spacing: -0.035em;
         color: #fff;
         text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
         left: 0;
@@ -465,7 +465,7 @@
       const GIANT_Y = 650, SM_Y = 1010, SERIF_Y = 1185, SUB_Y = 1420;
       const BEATS = [
         { s: 0.02, e: 4.75, items: [
-          { k: "spiral", w: [["gaming", 0.45], ["music", 1.0], ["&", 1.46], ["calling", 1.64], ["all-rounder", 2.89], ["earbuds", 3.34]] },
+          { k: "spiral", w: [["gaming", 0.45], ["music", 1.0], ["&", 1.46], ["calling", 1.64], ["all-", 2.89], ["rounder", 3.04], ["earbuds", 3.34]] },
         ] },
         { s: 4.8, e: 6.5, items: [
           { k: "sm", x: "this", t: 4.85, at: [330, SM_Y] },
@@ -623,18 +623,17 @@
       // - at the end everything racks out of focus, then the cut.
       function buildSpiral(words, s, e) {
         const layer = document.getElementById("orb-front");
-        const CX = 560, CY = 770;                    // centred on her neck / upper chest
+        const CX = 540, CY = 820;                    // centred on her neck / upper chest
         const N = words.length;
-        const START = -0.30, SPAN = 2 * Math.PI * 0.93; // fill ~335° of the circle
-        const size = (i) => 84 + (156 - 84) * Math.pow(i / (N - 1), 1.15);   // newest word largest
-        const rad = (i) => 300 + 120 * (i / (N - 1));                       // and further out
-        // angular width of each word ∝ its on-screen length at its radius; scale to fill SPAN
-        const raw = words.map(([txt], i) => (txt.length * 0.56 * size(i) + 34) / rad(i));
-        const k = SPAN / raw.reduce((a, b) => a + b, 0);
-        let acc = START;
+        // reference scale: each word is roughly torso-wide, the ring reaches the frame edges and the
+        // later words go round a second, wider lap (like "effect" over "how")
+        const size = (i) => 128 + 72 * (i / (N - 1));
+        const rad = (i) => 335 + 125 * (i / (N - 1));
+        let acc = -0.42;
         const orbs = words.map(([txt, t], i) => {
-          const w = raw[i] * k, mid = acc + w / 2;
-          acc += w;
+          const w = (txt.length * 0.55 * size(i) + 30) / rad(i);
+          const mid = acc + w / 2;
+          acc += w + 0.06;
           const el = make("orb", txt, layer);
           el.style.fontSize = size(i).toFixed(0) + "px";
           return { el, t, th: mid, r: rad(i) };
