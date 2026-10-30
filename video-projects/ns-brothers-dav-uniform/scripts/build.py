@@ -23,16 +23,16 @@ SCENES = [
     ("tracksuit", 9.5, 13.8, "video", "tracksuit", 0.3, "slideL", "DAV Tracksuit"),
     ("smart", 13.8, 15.95, "poster", "poster-35-kids", 0, "slideUp", ("CLASS III – V", "SMART LOOK")),
     ("blazer", 15.95, 17.9, "video", "blazer", 0.6, "fade", "DAV Blazer"),
-    ("jacket", 17.9, 20.45, "video", "jacket", 4.7, "slideL", "DAV Winter Jacket"),
-    ("davjacket", 20.45, 22.3, "poster", "poster-nur-jacket", 0, "slideUp", ("DAV", "WINTER JACKET")),
+    ("jacketfront", 17.9, 19.3, "photo", "jacket-front", 0, "slideL", "DAV Winter Jacket"),
+    ("jacket", 19.3, 22.3, "video", "jacket", 3.7, "fade", None),
     ("otherschools", 22.3, 25.4, "tour", "shot-otherschools", 0, "slideR", "Other Schools Too"),
     ("bags", 25.4, 26.15, "tour", "shot-bags", 0, "slideL", None),
     ("stationery", 26.15, 27.1, "tour", "shot-pens", 0, "slideL", None),
     ("lunch", 27.1, 28.2, "tour", "shot-lunchbox", 0, "slideL", None),
     ("bottles", 28.2, 28.95, "tour", "shot-bottles", 0, "slideL", None),
     ("everything", 28.95, 32.7, "tour", "shot-everything", 0, "fade", None),
-    ("oneroof", 32.7, 35.2, "tour", "store-tour", 24.05, "slideR", None),
-    ("counter", 35.2, 37.95, "tour", "store-tour", 39.35, "fade", None),
+    ("oneroof", 32.7, 35.2, "tour", "shot-oneroof", 0, "slideR", None),
+    ("counter", 35.2, 37.95, "tour", "shot-counter", 0, "fade", None),
     ("onestop", 37.95, 39.6, "onestop", None, 0, "fade", None),
     ("visit", 39.6, 41.8, "video", "storefront", 3.65, "slideUp", None),
     ("address", 41.8, 46.75, "address", None, 0, "fade", None),
@@ -104,7 +104,7 @@ def scene_html(i, sc):
         crop = ' tour' if kind == "tour" else ""
         body = (
             f'<div class="kb" id="kb-{sid}"><div class="crop{crop}">'
-            f'<video id="v-{sid}" src="assets/{src}.mp4" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" '
+            f'<video id="v-{sid}" src="assets/{src}-hd.mp4" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" '
             f'data-media-start="{fmt(mstart)}" data-track-index="{track}" muted playsinline></video>'
             f"</div></div>"
             f'<div class="shade clip" id="sh-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track + 2}"></div>'
@@ -114,6 +114,13 @@ def scene_html(i, sc):
                 f'<div class="tag clip" id="tag-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track + 4}">'
                 f"{tag}</div>"
             )
+    elif kind == "photo":
+        body = (
+            f'<div class="clip photo" id="p-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track}">'
+            f'<div class="kb" id="kb-{sid}"><img src="assets/{src}.jpg" alt=""></div>'
+            f'<div class="shade"></div>'
+            f'<div class="tag" id="tag-{sid}">{tag}</div></div>'
+        )
     elif kind == "poster":
         cls, sub = tag
         body = (
@@ -200,7 +207,7 @@ def build():
             frm, to, ease = trans[tr]
             js.append(f"tl.fromTo('#w-{sid}', {frm}, {{...{to}, duration:{ov(sid)}, ease:'{ease}'}}, {cs:.2f});")
             js.append(f"tl.fromTo('#flash', {{opacity:0}}, {{opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut'{'' if i == 1 else ', immediateRender:false'}}}, {start - 0.15:.2f});")
-        if kind in ("video", "tour"):
+        if kind in ("video", "tour", "photo"):
             js.append(f"tl.fromTo('#kb-{sid}', {{scale:1}}, {{scale:1.07, duration:{end - cs:.2f}, ease:'none'}}, {cs:.2f});")
             if tag:
                 js.append(f"tl.from('#tag-{sid}', {{x:-40, opacity:0, duration:0.6, ease:'power2.out'}}, {start + 0.15:.2f});")
