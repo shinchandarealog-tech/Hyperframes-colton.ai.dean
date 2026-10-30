@@ -261,22 +261,22 @@ ${fonts}
         background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.85), rgba(255,255,255,0)); }
 
       /* Lower caption plate */
-      #plate { position: absolute; left: 48px; right: 48px; bottom: 330px; height: 290px; z-index: 60; border-radius: 34px;
+      #plate { position: absolute; left: 90px; right: 90px; bottom: 340px; height: 220px; z-index: 60; border-radius: 34px;
         background: linear-gradient(160deg, rgba(27,42,115,0.96), rgba(14,22,70,0.96)); border: 4px solid rgba(247,183,49,0.9);
         box-shadow: 0 18px 50px rgba(0,0,0,0.55), inset 0 0 40px rgba(247,183,49,0.12); }
       #plate::before { content: ""; position: absolute; left: 40px; right: 40px; top: -4px; height: 8px; border-radius: 8px;
         background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron)); }
-      .cap { position: absolute; inset: 0; padding: 26px 110px; display: flex; align-items: center; justify-content: center; gap: 28px;
-        color: var(--cream); font-size: 64px; font-weight: 800; line-height: 1.25; text-align: center; opacity: 0; }
-      .cap.has-icon { font-size: 84px; }
+      .cap { position: absolute; inset: 0; padding: 20px 60px; display: flex; align-items: center; justify-content: center; gap: 28px;
+        color: var(--cream); font-size: 52px; font-weight: 800; line-height: 1.25; text-align: center; opacity: 0; }
+      .cap.has-icon { font-size: 66px; }
       .cap .txt { max-width: 900px; }
       .cap .hl { color: var(--gold); }
-      .cap .ico { flex: 0 0 auto; width: 130px; height: 130px; border-radius: 50%; background: var(--saffron); display: grid; place-items: center;
+      .cap .ico { flex: 0 0 auto; width: 104px; height: 104px; border-radius: 50%; background: var(--saffron); display: grid; place-items: center;
         box-shadow: 0 0 0 8px rgba(242,140,27,0.25); }
-      .cap .ico svg { width: 80px; height: 80px; fill: none; stroke: #fff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
+      .cap .ico svg { width: 64px; height: 64px; fill: none; stroke: #fff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
 
       /* Address card */
-      #addr { position: absolute; left: 60px; right: 150px; bottom: 646px; z-index: 58; padding: 40px 50px 44px; border-radius: 30px;
+      #addr { position: absolute; left: 60px; right: 150px; bottom: 586px; z-index: 58; padding: 40px 50px 44px; border-radius: 30px;
         background: rgba(255,246,230,0.97); border: 4px solid var(--saffron); box-shadow: 0 18px 50px rgba(0,0,0,0.5);
         display: flex; flex-direction: column; gap: 14px; }
       #addr .ahead { display: flex; align-items: center; gap: 20px; white-space: nowrap; color: var(--navy); font-size: 54px; font-weight: 800; line-height: 1.1;
