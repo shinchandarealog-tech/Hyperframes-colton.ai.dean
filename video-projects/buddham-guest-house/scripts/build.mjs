@@ -28,7 +28,7 @@ const SHOTS = [
   ["dipak", 20.0, 23.7, "up"], // bathroom — "taaki aapka har stay"
   ["dipak", 11.2, 25.0, "whipR"], // bed — "bane aaramdayak"
   ["buddham", 5.7, 26.5, "leak"], // Babhanpura sign — "location note kar lijiye"
-  ["buddham", 25.4, 28.2, "whipL"], // street — "AIIMS-Janipur road, Babhanpura"
+  ["buddham", 25.4, 28.2, "whipL"], // street — "S. Janipur road, Babhanpura"
   ["dipak", 36.0, 30.3, "whipR"], // road — "Shiv mandir se 200m purab"
   ["phulwari", 30.6, 32.5, "zoom"], // Gonpura sign — "Gonpura road"
   ["buddham", 28.0, 33.7, "whipL"], // market street — "Phulwari Sharif, Patna"
@@ -52,27 +52,27 @@ const ICON = {
 // Lower-plate captions [start, end, html, icon?]
 const CAPS = [
   [0.1, 2.35, `फुलवारी शरीफ़ में ठहरने के लिए चाहिए…`],
-  [2.35, 5.4, `${HL("आराम")}, ${HL("सुकून")} और बढ़िया सुविधाएँ`],
-  [5.4, 8.7, `तो आपका स्वागत है ${HL("बुद्धम गेस्ट हाउस")} में`],
+  [2.35, 5.4, `${HL("आराम")}, ${HL("सुकून")} और बढ़िया सुविधाएँ?`],
+  [5.4, 8.7, `तो आपका स्वागत है ${HL("BUDDHAM GUEST HOUSE")} में!`],
   [8.7, 10.2, `चाहे परिवार के साथ ठहरना हो`],
   [10.2, 13.15, `या कपल स्टे के लिए आरामदायक जगह चाहिए`],
-  [13.15, 15.2, `${HL("बुद्धम गेस्ट हाउस")} में पाइए`],
-  [15.2, 17.7, `अपनी ज़रूरत के हिसाब से ठहरने की सुविधा`],
+  [13.15, 15.2, `${HL("BUDDHAM GUEST HOUSE")} में पाइए`],
+  [15.2, 17.7, `अपनी ज़रूरत के हिसाब से ठहरने की सुविधा!`],
   [17.7, 19.2, `आरामदायक ${HL("कमरे")}`, "bed"],
   [19.2, 21.1, `${HL("फैमिली")} और ${HL("कपल")} स्टे`, "family"],
   [21.1, 22.5, `${HL("24×7")} चेक-इन`, "clock"],
-  [22.5, 23.7, `${HL("फ्री")} Wi-Fi`, "wifi"],
-  [23.7, 26.5, `ताकि आपका हर स्टे बने ${HL("आरामदायक")}`],
+  [22.5, 23.7, `${HL("फ्री")} वाई-फाई`, "wifi"],
+  [23.7, 26.5, `ताकि आपका हर स्टे बने ${HL("आरामदायक")}!`],
   [26.5, 35.4, `लोकेशन ${HL("नोट")} कर लीजिए`, "pin"],
-  [35.4, 38.1, `तो ठहरने के लिए बार-बार जगह मत ढूँढिए`],
-  [38.1, CALL_AT + HALF, `${HL("बुद्धम गेस्ट हाउस")} से आज ही संपर्क कीजिए`],
+  [35.4, 38.1, `तो ठहरने के लिए बार-बार जगह मत ढूँढिए!`],
+  [38.1, CALL_AT + HALF, `${HL("BUDDHAM GUEST HOUSE")} से आज ही संपर्क कीजिए!`],
 ];
 
 // Address lines, revealed as the VO reads them
 const ADDR = [
-  [28.2, `एम्स–जानीपुर रोड, बभनपुरा`],
-  [30.3, `शिव मंदिर से 200 मीटर पूरब`],
-  [32.5, `गोनपुरा रोड`],
+  [28.2, `एस जानीपुर रोड, बभनपुरा`],
+  [30.3, `शिव मंदिर से 200 मीटर पूर्व`],
+  [32.5, `गोनापुरा रोड`],
   [33.7, `फुलवारी शरीफ़, पटना`],
 ];
 
@@ -337,7 +337,7 @@ ${shotsHtml}
       </div>
 
       <div id="addr" class="clip" data-start="27.9" data-duration="${r3(35.4 + HALF - 27.9)}" data-track-index="8">
-        <div class="ahead"><span class="apin">${ICON.pin}</span>बुद्धम गेस्ट हाउस</div>
+        <div class="ahead"><span class="apin">${ICON.pin}</span>BUDDHAM GUEST HOUSE</div>
           ${addrHtml}
       </div>
 
@@ -355,14 +355,14 @@ ${shotsHtml}
           .map((c) => `<span class="dg${c === "-" ? " sep" : ""}">${c}</span>`)
           .join("")}</div>
         <div class="uline"></div>
-        <div class="k3">बुद्धम गेस्ट हाउस, फुलवारी शरीफ़</div>
+        <div class="k3">BUDDHAM GUEST HOUSE, फुलवारी शरीफ़</div>
       </div>
 
       <div id="outro" class="clip" data-start="${r3(OUTRO_AT - HALF)}" data-duration="${r3(TOTAL - OUTRO_AT + HALF)}" data-track-index="11">
         <div class="rays"></div>
         <img class="logo" src="assets/logo.png" alt="Buddham Guest House logo" />
-        <div class="t1">Stay peacefully,</div>
-        <div class="t2">feel like home.</div>
+        <div class="t1">Stay Peacefully…</div>
+        <div class="t2">Feel Like Home!</div>
         <div class="pill"><span class="pi">${ICON.phone}</span>790-310-2149</div>
         <div class="loc">फुलवारी शरीफ़, पटना</div>
       </div>
