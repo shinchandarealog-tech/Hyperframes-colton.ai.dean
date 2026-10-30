@@ -4,12 +4,12 @@
 set -euo pipefail
 cd assets
 W=../../../assets
-G="eq=contrast=1.06:saturation=1.18:brightness=0.01,scale=1080:1920:flags=lanczos,unsharp=5:5:0.6,setsar=1,fps=30"
+G="eq=contrast=1.06:saturation=1.18:brightness=0.01,unsharp=5:5:0.5,setsar=1,fps=30"
 ENC="-c:v libx264 -crf 18 -preset medium -g 15 -pix_fmt yuv420p -movflags +faststart"
-# Crop away burned-in titles; delogo the old phone-number overlays.
-ffmpeg -y -v error -i src/clip-buddham.mp4 -an -vf "delogo=x=112:y=640:w=246:h=52,crop=362:644:59:212,$G" $ENC buddham.mp4
-ffmpeg -y -v error -i src/clip-dipak.mp4 -an -vf "delogo=x=90:y=1012:w=598:h=152,crop=551:979:85:301,$G" $ENC dipak.mp4
-ffmpeg -y -v error -i src/clip-phulwari.mp4 -an -vf "crop=547:973:86:218,$G" $ENC phulwari.mp4
+# Full-frame framing; the top brand band in index.html covers the old burned-in titles.
+ffmpeg -y -v error -i src/clip-buddham.mp4 -an -vf "delogo=x=112:y=640:w=246:h=52,scale=1080:2016:flags=lanczos,crop=1080:1836:0:180,pad=1080:1920:0:0:color=0x0e1646,$G" $ENC buddham.mp4
+ffmpeg -y -v error -i src/clip-dipak.mp4 -an -vf "delogo=x=90:y=1012:w=598:h=152,scale=1080:2112:flags=lanczos,crop=1080:1782:0:330,pad=1080:1920:0:0:color=0x0e1646,$G" $ENC dipak.mp4
+ffmpeg -y -v error -i src/clip-phulwari.mp4 -an -vf "scale=1080:1920:flags=lanczos,$G" $ENC phulwari.mp4
 # Voiceover + music bed + transition SFX.
 ffmpeg -y -v error -i voiceover.mp3 -i $W/music/music-bed-cinematic-tech.mp3 -i $W/sfx/transitions/whoosh.mp3 -i $W/sfx/ui/pop.mp3 -i $W/sfx/cinematic/sparkle.mp3 -i $W/sfx/impact/bass-drop.mp3 -filter_complex "\
 [0]apad=whole_dur=50.5[vo];\

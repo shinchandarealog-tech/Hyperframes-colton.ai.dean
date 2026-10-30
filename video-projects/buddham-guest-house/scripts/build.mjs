@@ -4,37 +4,36 @@
 import { readFileSync, writeFileSync } from "node:fs";
 
 const TOTAL = 50.5;
-const HALF = 0.15; // half of each transition window (shots overlap by 2*HALF)
+const HALF = 0.2; // half of each transition window (shots overlap by 2*HALF)
 
-// [clip, sourceTime at the cut, cut time, transition into this shot]
+// [clip, source time where the shot starts (incl. transition lead-in), cut time, transition into this shot]
+// Source ranges were picked from ffmpeg blurdetect scores — sharp, steady stretches only.
 const SHOTS = [
   ["buddham", 0.0, 0.0, "none"], // aerial — Phulwari Sharif
-  ["dipak", 2.1, 0.9, "zoom"], // building low angle — "thaharne ke liye"
-  ["phulwari", 19.0, 2.4, "whipL"], // bed — "aaram"
-  ["dipak", 6.15, 3.0, "whipR"], // white bed — "sukoon"
-  ["phulwari", 14.4, 3.8, "up"], // AC — "badhiya suvidhayein"
-  ["phulwari", 0.2, 5.4, "leak"], // facade — "to aapka swagat hai"
-  ["phulwari", 32.5, 6.85, "zoom"], // signboard — "Buddham Guest House mein"
-  ["dipak", 7.1, 8.7, "leak"], // teal room — "parivar ke saath"
-  ["dipak", 13.0, 10.2, "whipL"], // pink room — "couple stay"
-  ["buddham", 1.2, 11.5, "whipR"], // blue room — "aaramdayak jagah"
-  ["phulwari", 28.25, 13.2, "zoom"], // balcony — "Buddham GH mein paaiye"
-  ["buddham", 3.1, 15.2, "whipL"], // red room — "apni zaroorat"
-  ["phulwari", 20.6, 16.5, "up"], // corridor — "thaharne ki suvidha"
-  ["dipak", 18.0, 17.7, "leak"], // bed — "aaramdayak kamre"
-  ["dipak", 8.85, 19.2, "whipR"], // fan room — "family aur couple stay"
-  ["buddham", 9.1, 21.1, "zoom"], // reception — "24x7 check-in"
-  ["phulwari", 11.3, 22.5, "whipL"], // TV — "free WiFi"
-  ["dipak", 20.0, 23.7, "up"], // bathroom — "taaki aapka har stay"
-  ["dipak", 11.2, 25.0, "whipR"], // bed — "bane aaramdayak"
-  ["buddham", 5.7, 26.5, "leak"], // Babhanpura sign — "location note kar lijiye"
-  ["buddham", 25.4, 28.2, "whipL"], // street — "S. Janipur road, Babhanpura"
-  ["dipak", 36.0, 30.3, "whipR"], // road — "Shiv mandir se 200m purab"
-  ["phulwari", 30.6, 32.5, "zoom"], // Gonpura sign — "Gonpura road"
-  ["buddham", 28.0, 33.7, "whipL"], // market street — "Phulwari Sharif, Patna"
-  ["dipak", 39.2, 35.4, "leak"], // road into building — "baar baar jagah mat dhoondhiye"
-  ["dipak", 42.35, 38.1, "zoom"], // building — "Buddham GH se"
-  ["phulwari", 4.0, 39.4, "whipR"], // facade — "aaj hi sampark kijiye"
+  ["dipak", 1.9, 0.8, "fade"], // building — "thaharne ke liye chahiye"
+  ["dipak", 11.0, 2.4, "slide"], // bed — "aaram, sukoon"
+  ["phulwari", 14.25, 3.9, "fade"], // AC — "badhiya suvidhayein"
+  ["phulwari", 0.0, 5.1, "slide"], // facade — "to aapka swagat hai"
+  ["phulwari", 32.3, 6.55, "slide"], // signboard — "Buddham Guest House mein"
+  ["dipak", 7.0, 8.7, "slide"], // teal room — "parivar ke saath"
+  ["dipak", 13.0, 10.2, "fade"], // pink room — "couple stay"
+  ["dipak", 17.7, 11.5, "slide"], // bed — "aaramdayak jagah chahiye"
+  ["phulwari", 28.2, 13.0, "fade"], // balcony — "Buddham GH mein paaiye"
+  ["dipak", 8.8, 14.8, "slide"], // fan room — "apni zaroorat ke hisaab se"
+  ["phulwari", 20.3, 16.5, "slide"], // corridor — "thaharne ki suvidha"
+  ["phulwari", 1.85, 17.7, "leak"], // bed — "aaramdayak kamre"
+  ["dipak", 6.0, 18.75, "fade"], // white bed — "kamre"
+  ["phulwari", 16.0, 19.2, "slide"], // blue room — "family aur couple stay"
+  ["phulwari", 26.85, 20.1, "fade"], // room with AC — "stay ki suvidha"
+  ["dipak", 28.3, 21.0, "fade"], // reception desk — "24x7 check-in"
+  ["phulwari", 11.15, 22.5, "slide"], // TV — "free WiFi"
+  ["dipak", 20.0, 23.7, "slide"], // bathroom — "taaki aapka har stay bane aaramdayak"
+  ["buddham", 5.3, 26.5, "leak"], // Babhanpura sign — "location note kar lijiye"
+  ["dipak", 35.3, 28.2, "slide"], // road — "S. Janipur road ... Shiv mandir se 200m purv"
+  ["phulwari", 30.4, 32.5, "slide"], // Gonapura sign — "Gonapura road"
+  ["dipak", 40.0, 33.7, "fade"], // road to building — "Phulwari Sharif, Patna ... baar baar"
+  ["phulwari", 32.3, 37.1, "leak"], // signboard callback — "jagah mat dhoondhiye"
+  ["phulwari", 4.0, 39.2, "slide"], // facade — "Buddham GH se aaj hi sampark kijiye"
 ];
 const CALL_AT = 40.8;
 const OUTRO_AT = 45.1;
@@ -52,8 +51,8 @@ const ICON = {
 // Lower-plate captions [start, end, html, icon?]
 const CAPS = [
   [0.1, 2.35, `फुलवारी शरीफ़ में ठहरने के लिए चाहिए…`],
-  [2.35, 5.4, `${HL("आराम")}, ${HL("सुकून")} और बढ़िया सुविधाएँ?`],
-  [5.4, 8.7, `तो आपका स्वागत है ${HL("BUDDHAM GUEST HOUSE")} में!`],
+  [2.35, 5.1, `${HL("आराम")}, ${HL("सुकून")} और बढ़िया सुविधाएँ?`],
+  [5.1, 8.7, `तो आपका स्वागत है ${HL("BUDDHAM GUEST HOUSE")} में!`],
   [8.7, 10.2, `चाहे परिवार के साथ ठहरना हो`],
   [10.2, 13.15, `या कपल स्टे के लिए आरामदायक जगह चाहिए`],
   [13.15, 15.2, `${HL("BUDDHAM GUEST HOUSE")} में पाइए`],
@@ -79,8 +78,8 @@ const ADDR = [
 // Kinetic words over the "aaram / sukoon / suvidhayein" beat
 const SLAMS = [
   [2.4, 3.0, "आराम"],
-  [3.0, 3.8, "सुकून"],
-  [3.8, 5.4, "सुविधाएँ"],
+  [3.0, 3.9, "सुकून"],
+  [3.9, 5.1, "सुविधाएँ"],
 ];
 
 const r3 = (n) => Math.round(n * 1000) / 1000;
@@ -92,7 +91,7 @@ SHOTS.forEach(([clip, src, cut], i) => {
   const next = i + 1 < SHOTS.length ? SHOTS[i + 1][2] : CALL_AT;
   const start = i === 0 ? 0 : cut - HALF;
   const end = next + HALF;
-  const mediaStart = i === 0 ? src : src - HALF;
+  const mediaStart = src;
   shotsHtml += `
       <div class="shot" id="shot${i}" style="z-index:${i + 1}"><div class="kb" id="kb${i}">
         <video id="v${i}" src="assets/${clip}.mp4" muted playsinline data-start="${r3(start)}" data-duration="${r3(end - start)}" data-media-start="${r3(mediaStart)}" data-track-index="${1 + (i % 2)}"></video>
@@ -116,32 +115,30 @@ SHOTS.forEach(([, , cut, tr], i) => {
   const next = i + 1 < SHOTS.length ? SHOTS[i + 1][2] : CALL_AT;
   const start = i === 0 ? 0 : cut - HALF;
   const end = next + HALF;
-  const drift = i % 2 ? 24 : -24;
-  js += `  tl.fromTo("#kb${i}", { scale: 1.05, x: ${-drift} }, { scale: 1.13, x: ${drift}, duration: ${T(end - start)}, ease: "none" }, ${T(start)});\n`;
+  // Barely-there drift so stills breathe without zooming into the room
+  js += `  tl.fromTo("#kb${i}", { scale: 1.0 }, { scale: 1.03, duration: ${T(end - start)}, ease: "none" }, ${T(start)});\n`;
   if (i === 0) return;
   const t0 = T(cut - HALF);
+  const D = T(2 * HALF);
   const out = `#shot${i - 1}`;
   const inn = `#shot${i}`;
+  // Soft, blur-free transitions: the incoming shot is fully sharp the moment it settles.
   switch (tr) {
-    case "whipL":
-    case "whipR": {
-      const s = tr === "whipL" ? 1 : -1;
-      js += `  tl.fromTo("${inn}", { x: ${s * 1080}, filter: "blur(22px)" }, { x: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, ${t0});\n`;
-      js += `  tl.to("${out}", { x: ${-s * 760}, filter: "blur(22px)", duration: 0.3, ease: "power2.in" }, ${t0});\n`;
+    case "slide":
+      js += `  tl.fromTo("${inn}", { x: 1080 }, { x: 0, duration: ${D}, ease: "power3.inOut" }, ${t0});\n`;
+      js += `  tl.to("${out}", { x: -320, duration: ${D}, ease: "power3.inOut" }, ${t0});\n`;
       break;
-    }
     case "up":
-      js += `  tl.fromTo("${inn}", { y: 1920, filter: "blur(22px)" }, { y: 0, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, ${t0});\n`;
-      js += `  tl.to("${out}", { y: -900, filter: "blur(22px)", duration: 0.3, ease: "power2.in" }, ${t0});\n`;
+      js += `  tl.fromTo("${inn}", { y: 1920 }, { y: 0, duration: ${D}, ease: "power3.inOut" }, ${t0});\n`;
+      js += `  tl.to("${out}", { y: -560, duration: ${D}, ease: "power3.inOut" }, ${t0});\n`;
       break;
-    case "zoom":
-      js += `  tl.fromTo("${inn}", { scale: 1.7, opacity: 0, filter: "blur(16px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.4, ease: "power3.out" }, ${t0});\n`;
-      js += `  tl.to("${out}", { scale: 1.35, filter: "blur(14px)", duration: 0.3, ease: "power2.in" }, ${t0});\n`;
+    case "fade":
+      js += `  tl.fromTo("${inn}", { opacity: 0 }, { opacity: 1, duration: ${D}, ease: "sine.inOut" }, ${t0});\n`;
       break;
     case "leak":
-      js += `  tl.fromTo("${inn}", { scale: 1.25, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" }, ${t0});\n`;
-      js += `  tl.fromTo("#leak", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1.4, duration: 0.18, ease: "power2.out", immediateRender: false }, ${t0});\n`;
-      js += `  tl.to("#leak", { opacity: 0, scale: 1.8, duration: 0.4, ease: "power2.in" }, ${T(cut + 0.05)});\n`;
+      js += `  tl.fromTo("${inn}", { opacity: 0 }, { opacity: 1, duration: ${D}, ease: "sine.inOut" }, ${t0});\n`;
+      js += `  tl.fromTo("#leak", { opacity: 0, scale: 0.8 }, { opacity: 0.75, scale: 1.2, duration: 0.25, ease: "sine.out", immediateRender: false }, ${t0});\n`;
+      js += `  tl.to("#leak", { opacity: 0, scale: 1.5, duration: 0.4, ease: "sine.in" }, ${T(cut + 0.05)});\n`;
       break;
   }
 });
@@ -156,18 +153,18 @@ CAPS.forEach(([s, e, , icon], i) => {
 });
 
 // Location chip over the opening aerial
-js += `  tl.from("#hook", { y: -60, opacity: 0, duration: 0.5, ease: "expo.out" }, 0.15);\n`;
-js += `  tl.from("#hook .ico", { scale: 0, duration: 0.45, ease: "back.out(2.5)" }, 0.35);\n`;
+js += `  tl.from("#band .bt", { opacity: 0, x: -40, duration: 0.5, ease: "power2.out" }, 0.35);\n`;
+js += `  tl.from("#band .bs", { opacity: 0, x: -30, duration: 0.5, ease: "power2.out" }, 0.5);\n`;
+
 
 // Word slams
 SLAMS.forEach(([s, e], i) => {
-  js += `  tl.fromTo("#slam${i}", { scale: 2.4, opacity: 0, filter: "blur(10px)" }, { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.3, ease: "expo.out" }, ${T(s)});\n`;
-  js += `  tl.to("#slam${i}", { scale: 1.08, duration: ${T(e - s - 0.3)}, ease: "none" }, ${T(s + 0.3)});\n`;
+  js += `  tl.fromTo("#slam${i}", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power2.out" }, ${T(s)});\n`;
   if (i < SLAMS.length - 1) js += `  tl.set("#slam${i}", { opacity: 0 }, ${T(e)});\n`;
 });
 
 // Logo badge pops on "Buddham Guest House"
-js += `  tl.from("#badge", { scale: 0, rotation: -120, duration: 0.6, ease: "back.out(1.8)" }, 6.95);\n`;
+js += `  tl.from("#badge", { scale: 0, rotation: -90, duration: 0.6, ease: "back.out(1.6)" }, 0.3);\n`;
 js += `  tl.fromTo("#badge .shine", { x: -260 }, { x: 260, duration: 0.7, ease: "power2.inOut" }, 7.5);\n`;
 js += `  tl.fromTo("#badge .shine", { x: -260 }, { x: 260, duration: 0.7, ease: "power2.inOut", immediateRender: false }, 13.3);\n`;
 js += `  tl.fromTo("#badge .shine", { x: -260 }, { x: 260, duration: 0.7, ease: "power2.inOut", immediateRender: false }, 38.2);\n`;
@@ -238,33 +235,40 @@ ${fonts}
         background: radial-gradient(circle, rgba(255,214,120,0.95) 0%, rgba(247,183,49,0.7) 25%, rgba(242,140,27,0.35) 50%, rgba(242,140,27,0) 70%); mix-blend-mode: screen; }
 
       /* Opening location chip */
-      #hook { position: absolute; top: 150px; left: 0; right: 0; z-index: 50; display: flex; justify-content: center; }
+      /* Top brand band — hides the clips' old burned-in titles; text sits below Instagram's top bar */
+      #band { position: absolute; left: 0; right: 0; top: 0; height: 330px; z-index: 56; padding: 150px 250px 0 54px;
+        background: linear-gradient(180deg, #0f1a52 0%, #1b2a73 100%); border-bottom: 6px solid var(--gold);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35); display: flex; flex-direction: column; gap: 6px; }
+      #band .bt { color: var(--cream); font-family: "Poppins", sans-serif; font-weight: 800; font-size: 58px; line-height: 1.1; white-space: nowrap; }
+      #band .bs { color: var(--gold); font-size: 40px; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+      #foot { position: absolute; left: 0; right: 0; bottom: 0; height: 160px; z-index: 55;
+        background: linear-gradient(180deg, #1b2a73 0%, #0e1646 100%); border-top: 4px solid var(--gold); }
       #hook .chip { display: flex; align-items: center; gap: 18px; padding: 14px 40px 14px 18px; border-radius: 999px;
         background: rgba(20,33,94,0.88); border: 3px solid var(--gold); color: var(--cream); font-size: 54px; font-weight: 800; line-height: 1.1; }
       #hook .ico { width: 70px; height: 70px; border-radius: 50%; background: var(--saffron); display: grid; place-items: center; }
       #hook .ico svg { width: 44px; height: 44px; fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
 
       /* Kinetic slams */
-      .slam { position: absolute; left: 0; right: 0; top: 330px; z-index: 50; text-align: center; font-size: 190px; font-weight: 800; line-height: 1.2;
+      .slam { position: absolute; left: 0; right: 0; top: 400px; z-index: 50; text-align: center; font-size: 170px; font-weight: 800; line-height: 1.2;
         color: var(--cream); text-shadow: 0 0 40px rgba(247,183,49,0.85), 0 8px 0 var(--saffron), 0 14px 30px rgba(0,0,0,0.55); }
 
       /* Logo badge */
-      #badge { position: absolute; top: 120px; left: 56px; width: 190px; height: 190px; border-radius: 50%; z-index: 55; overflow: hidden;
+      #badge { position: absolute; top: 140px; right: 44px; width: 170px; height: 170px; border-radius: 50%; z-index: 90; overflow: hidden;
         background: var(--cream); border: 6px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 0 30px rgba(247,183,49,0.5);
         display: grid; place-items: center; }
-      #badge img { width: 160px; height: auto; margin-top: 6px; }
+      #badge img { width: 144px; height: auto; margin-top: 6px; }
       #badge .shine { position: absolute; top: -40px; left: 50%; width: 60px; height: 280px; margin-left: -30px; transform: rotate(25deg);
         background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.85), rgba(255,255,255,0)); }
 
       /* Lower caption plate */
-      #plate { position: absolute; left: 48px; right: 48px; bottom: 200px; height: 290px; z-index: 60; border-radius: 34px;
+      #plate { position: absolute; left: 48px; right: 48px; bottom: 330px; height: 290px; z-index: 60; border-radius: 34px;
         background: linear-gradient(160deg, rgba(27,42,115,0.96), rgba(14,22,70,0.96)); border: 4px solid rgba(247,183,49,0.9);
         box-shadow: 0 18px 50px rgba(0,0,0,0.55), inset 0 0 40px rgba(247,183,49,0.12); }
       #plate::before { content: ""; position: absolute; left: 40px; right: 40px; top: -4px; height: 8px; border-radius: 8px;
         background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron)); }
-      .cap { position: absolute; inset: 0; padding: 26px 50px; display: flex; align-items: center; justify-content: center; gap: 28px;
-        color: var(--cream); font-size: 70px; font-weight: 800; line-height: 1.25; text-align: center; opacity: 0; }
-      .cap.has-icon { font-size: 92px; }
+      .cap { position: absolute; inset: 0; padding: 26px 110px; display: flex; align-items: center; justify-content: center; gap: 28px;
+        color: var(--cream); font-size: 64px; font-weight: 800; line-height: 1.25; text-align: center; opacity: 0; }
+      .cap.has-icon { font-size: 84px; }
       .cap .txt { max-width: 900px; }
       .cap .hl { color: var(--gold); }
       .cap .ico { flex: 0 0 auto; width: 130px; height: 130px; border-radius: 50%; background: var(--saffron); display: grid; place-items: center;
@@ -272,14 +276,14 @@ ${fonts}
       .cap .ico svg { width: 80px; height: 80px; fill: none; stroke: #fff; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; }
 
       /* Address card */
-      #addr { position: absolute; left: 70px; right: 70px; bottom: 520px; z-index: 58; padding: 40px 50px 44px; border-radius: 30px;
+      #addr { position: absolute; left: 60px; right: 150px; bottom: 646px; z-index: 58; padding: 40px 50px 44px; border-radius: 30px;
         background: rgba(255,246,230,0.97); border: 4px solid var(--saffron); box-shadow: 0 18px 50px rgba(0,0,0,0.5);
         display: flex; flex-direction: column; gap: 14px; }
-      #addr .ahead { display: flex; align-items: center; gap: 20px; color: var(--navy); font-size: 64px; font-weight: 800; line-height: 1.1;
+      #addr .ahead { display: flex; align-items: center; gap: 20px; white-space: nowrap; color: var(--navy); font-size: 54px; font-weight: 800; line-height: 1.1;
         padding-bottom: 14px; border-bottom: 4px solid rgba(242,140,27,0.5); }
       #addr .apin { width: 84px; height: 84px; border-radius: 50%; background: var(--saffron); display: grid; place-items: center; }
       #addr .apin svg { width: 52px; height: 52px; fill: none; stroke: #fff; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
-      .aline { display: flex; align-items: center; gap: 22px; color: var(--navy); font-size: 58px; font-weight: 600; line-height: 1.25; }
+      .aline { display: flex; align-items: center; gap: 22px; color: var(--navy); font-size: 54px; font-weight: 600; line-height: 1.25; }
       .aline .dot { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; background: var(--leaf); box-shadow: 0 0 0 6px rgba(46,125,50,0.2); }
 
       /* Call card */
@@ -305,7 +309,7 @@ ${fonts}
       /* Outro */
       #outro { position: absolute; inset: 0; z-index: 80; overflow: hidden;
         background: radial-gradient(circle at 50% 33%, #fffdf6 0%, var(--cream) 45%, #f8e3bf 100%);
-        display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 60px 140px; gap: 26px; }
+        display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 120px 60px 300px; gap: 26px; }
       #outro .rays { top: 30%; opacity: 0.22; }
       #outro .logo { position: relative; width: 900px; height: auto; }
       #outro .t1, #outro .t2 { position: relative; font-family: "Poppins", sans-serif; font-weight: 800; font-size: 82px; line-height: 1.1; color: var(--navy); }
@@ -324,15 +328,17 @@ ${shotsHtml}
       <div id="grade"></div>
       <div id="leak"></div>
 
-      <div id="hook" class="clip" data-start="0" data-duration="2.4" data-track-index="5">
-        <div class="chip"><span class="ico">${ICON.pin}</span>फुलवारी शरीफ़, पटना</div>
+      <div id="band" class="clip" data-start="0" data-duration="${r3(CALL_AT + HALF)}" data-track-index="5">
+        <div class="bt">BUDDHAM GUEST HOUSE</div>
+        <div class="bs">फुलवारी शरीफ़, पटना · 790-310-2149</div>
       </div>
+      <div id="foot" class="clip" data-start="0" data-duration="${r3(CALL_AT + HALF)}" data-track-index="12"></div>
 
-      <div id="slams" class="clip" data-start="2.4" data-duration="3.0" data-track-index="6">
+      <div id="slams" class="clip" data-start="2.4" data-duration="2.7" data-track-index="6">
         ${slamsHtml}
       </div>
 
-      <div id="badge" class="clip" data-start="6.95" data-duration="${r3(CALL_AT + HALF - 6.95)}" data-track-index="7">
+      <div id="badge" class="clip" data-start="0" data-duration="${TOTAL}" data-track-index="7">
         <img src="assets/emblem.png" alt="Buddham Guest House" /><div class="shine"></div>
       </div>
 
