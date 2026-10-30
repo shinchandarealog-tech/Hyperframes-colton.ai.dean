@@ -23,12 +23,12 @@ SCENES = [
     ("davjacket", 20.45, 22.3, "poster", "poster-nur-jacket", 0, "whipUp", ("DAV", "WINTER JACKET")),
     ("otherschools", 22.3, 25.4, "tour", "store-tour", 5.5, "whipR", "OTHER SCHOOLS TOO"),
     ("bags", 25.4, 26.15, "tour", "store-tour", 10.9, "zoom", None),
-    ("stationery", 26.15, 27.35, "tour", "store-tour", 28.5, "whipL", None),
-    ("lunch", 27.35, 28.2, "tour", "store-tour", 22.6, "whipUp", None),
+    ("stationery", 26.15, 27.1, "tour", "store-tour", 28.4, "whipL", None),
+    ("lunch", 27.1, 28.2, "tour", "store-tour", 22.4, "whipUp", None),
     ("bottles", 28.2, 28.95, "tour", "store-tour", 9.85, "whipR", None),
-    ("everything", 28.95, 32.7, "tour", "store-tour", 34.0, "zoom", None),
+    ("everything", 28.95, 32.7, "tour", "store-tour", 33.7, "zoom", None),
     ("oneroof", 32.7, 34.1, "tour", "store-tour", 24.2, "whipL", None),
-    ("counter", 34.1, 37.95, "tour", "store-tour", 38.8, "whipUp", None),
+    ("counter", 34.1, 37.95, "tour", "store-tour", 38.95, "whipUp", None),
     ("onestop", 37.95, 39.6, "onestop", None, 0, "zoom", None),
     ("visit", 39.6, 41.8, "video", "storefront", 3.8, "whipR", None),
     ("address", 41.8, 46.75, "address", None, 0, "zoom", None),
@@ -68,7 +68,7 @@ ADDRESS_LINES = [
     (41.95, "Near Punjab National Bank"),
     (43.36, "Chandauthi More"),
     (44.6, "Opp. Military Hospital Gate"),
-    (46.35, "Gaya, Bihar"),
+    (45.85, "Gaya, Bihar"),
 ]
 
 # (src, start, duration, volume)
