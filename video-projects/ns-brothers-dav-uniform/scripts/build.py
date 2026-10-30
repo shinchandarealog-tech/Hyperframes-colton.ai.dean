@@ -7,32 +7,36 @@ Edit the tables below and re-run: python3 scripts/build.py
 from pathlib import Path
 
 DURATION = 58.6
-X = 0.3  # transition overlap: incoming scene starts this much before its cut
+X = 0.45  # transition overlap: incoming scene starts this much before its cut
+X_QUICK = 0.25  # shorter overlap into the quick item shots so each item stays readable
+
+
+def ov(sid):
+    return X_QUICK if sid in ("bags", "stationery", "lunch", "bottles") else X
 
 # (id, start, end, kind, source, media_start, transition, tag)
 #   kind: video | tour (store-tour clip, cropped to hide burned-in badge/watermark)
 #         poster | onestop | address | phone
 SCENES = [
     ("storefront", 0.0, 6.1, "video", "storefront", 0.0, None, None),
-    ("nurkids", 6.1, 9.5, "poster", "poster-nur-kids", 0, "zoom", ("CLASS NUR – II", "DAV WINTER UNIFORM")),
-    ("tracksuit", 9.5, 12.3, "video", "tracksuit", 0.4, "whipL", "DAV TRACKSUIT"),
-    ("seniors", 12.3, 13.8, "poster", "poster-912-kids", 0, "whipUp", ("CLASS IX – XII", "DAV WINTER UNIFORM")),
-    ("smart", 13.8, 15.95, "poster", "poster-35-kids", 0, "whipR", ("CLASS III – V", "SMART LOOK")),
-    ("blazer", 15.95, 17.0, "video", "blazer", 1.0, "zoom", "DAV BLAZER"),
-    ("jacket", 17.0, 20.45, "video", "jacket", 4.5, "whipL", "DAV WINTER JACKET"),
-    ("davjacket", 20.45, 22.3, "poster", "poster-nur-jacket", 0, "whipUp", ("DAV", "WINTER JACKET")),
-    ("otherschools", 22.3, 25.4, "tour", "store-tour", 5.5, "whipR", "OTHER SCHOOLS TOO"),
-    ("bags", 25.4, 26.15, "tour", "store-tour", 10.9, "zoom", None),
-    ("stationery", 26.15, 27.1, "tour", "store-tour", 28.4, "whipL", None),
-    ("lunch", 27.1, 28.2, "tour", "store-tour", 22.4, "whipUp", None),
-    ("bottles", 28.2, 28.95, "tour", "store-tour", 9.85, "whipR", None),
-    ("everything", 28.95, 32.7, "tour", "store-tour", 33.7, "zoom", None),
-    ("oneroof", 32.7, 34.1, "tour", "store-tour", 24.2, "whipL", None),
-    ("counter", 34.1, 37.95, "tour", "store-tour", 38.95, "whipUp", None),
-    ("onestop", 37.95, 39.6, "onestop", None, 0, "zoom", None),
-    ("visit", 39.6, 41.8, "video", "storefront", 3.8, "whipR", None),
-    ("address", 41.8, 46.75, "address", None, 0, "zoom", None),
-    ("phone", 46.75, DURATION, "phone", None, 0, "whipUp", None),
+    ("nurkids", 6.1, 9.5, "poster", "poster-nur-kids", 0, "fade", ("CLASS NUR – II", "DAV WINTER UNIFORM")),
+    ("tracksuit", 9.5, 13.8, "video", "tracksuit", 0.3, "slideL", "DAV Tracksuit"),
+    ("smart", 13.8, 15.95, "poster", "poster-35-kids", 0, "slideUp", ("CLASS III – V", "SMART LOOK")),
+    ("blazer", 15.95, 17.9, "video", "blazer", 0.6, "fade", "DAV Blazer"),
+    ("jacket", 17.9, 20.45, "video", "jacket", 4.7, "slideL", "DAV Winter Jacket"),
+    ("davjacket", 20.45, 22.3, "poster", "poster-nur-jacket", 0, "slideUp", ("DAV", "WINTER JACKET")),
+    ("otherschools", 22.3, 25.4, "tour", "shot-otherschools", 0, "slideR", "Other Schools Too"),
+    ("bags", 25.4, 26.15, "tour", "shot-bags", 0, "slideL", None),
+    ("stationery", 26.15, 27.1, "tour", "shot-pens", 0, "slideL", None),
+    ("lunch", 27.1, 28.2, "tour", "shot-lunchbox", 0, "slideL", None),
+    ("bottles", 28.2, 28.95, "tour", "shot-bottles", 0, "slideL", None),
+    ("everything", 28.95, 32.7, "tour", "shot-everything", 0, "fade", None),
+    ("oneroof", 32.7, 35.2, "tour", "store-tour", 24.05, "slideR", None),
+    ("counter", 35.2, 37.95, "tour", "store-tour", 39.35, "fade", None),
+    ("onestop", 37.95, 39.6, "onestop", None, 0, "fade", None),
+    ("visit", 39.6, 41.8, "video", "storefront", 3.65, "slideUp", None),
+    ("address", 41.8, 46.75, "address", None, 0, "fade", None),
+    ("phone", 46.75, DURATION, "phone", None, 0, "slideUp", None),
 ]
 
 # Phrase captions — text from the script, timed to the voiceover.
@@ -41,16 +45,13 @@ CAPTIONS = [
     (0.05, 2.95, "Gaya mein *DAV School* ke students ke liye"),
     (2.97, 5.9, "*NS Brothers* lekar aaya hai khaas uniform collection!"),
     (6.12, 9.3, "*DAV School* ke students aur parents, dhyan dijiye!"),
-    (9.58, 12.28, "Aapke bachchon ki *DAV School Uniform*"),
-    (12.3, 13.6, "ab milegi *NS Brothers* par!"),
-    (13.9, 15.9, "School ki *smart look* uniform ho"),
-    (15.9, 16.75, "ya *winter uniform*"),
-    (17.0, 18.75, "*DAV School* ke uniform collection ke liye"),
-    (18.76, 20.35, "aaiye *NS Brothers!*"),
+    (9.58, 13.7, "Aapke bachchon ki *DAV School Uniform* ab milegi *NS Brothers* par!"),
+    (13.9, 16.8, "School ki *smart look* uniform ho ya *winter uniform*"),
+    (17.0, 20.4, "*DAV School* ke uniform collection ke liye aaiye *NS Brothers!*"),
     (20.5, 22.3, "Aur haan! *DAV* ke saath-saath,"),
     (22.3, 25.15, "*doosre schools* ki uniforms bhi yahan available hain"),
     (29.1, 32.6, "School ki zaroorat ka bahut kuchh, *ek hi jagah!*"),
-    (32.85, 33.95, "*Ek chhat* ke neeche"),
+    (32.85, 34.15, "*Ek chhat* ke neeche"),
     (34.19, 36.1, "Toh apne bachchon ki *school uniform* ke liye"),
     (36.1, 37.85, "kahin aur jaane ki *zaroorat nahi!*"),
     (39.68, 41.7, "Aaj hi visit karein *NS Brothers!*"),
@@ -73,9 +74,9 @@ ADDRESS_LINES = [
 
 # (src, start, duration, volume)
 SFX = (
-    [("whoosh.mp3", s[1] - X - 0.05, 0.6, 0.35) for s in SCENES[1:] if s[0] not in {i[0] for i in ITEMS}]
-    + [("pop.mp3", t - 0.05, 0.7, 0.45) for _, t, _ in ITEMS]
-    + [("slam.mp3", 38.0, 1.2, 0.4), ("sparkle.mp3", 41.9, 2.0, 0.3), ("pop.mp3", 0.25, 0.7, 0.35)]
+    [("whoosh.mp3", s[1] - ov(s[0]), 0.6, 0.18) for s in SCENES[1:] if s[0] not in {i[0] for i in ITEMS}]
+    + [("pop.mp3", t - 0.05, 0.7, 0.25) for _, t, _ in ITEMS]
+    + [("slam.mp3", 37.95, 1.2, 0.25), ("sparkle.mp3", 41.9, 2.0, 0.3), ("pop.mp3", 0.25, 0.7, 0.35)]
 )
 
 
@@ -94,7 +95,7 @@ def caption_html(text):
 
 def scene_html(i, sc):
     sid, start, end, kind, src, mstart, trans, tag = sc
-    cs = start if i == 0 else start - X
+    cs = start if i == 0 else start - ov(sid)
     dur = end - cs
     track = 1 + (i % 2)
     z = 10 + i
@@ -137,7 +138,7 @@ def scene_html(i, sc):
         body = (
             f'<div class="clip graphic address" id="g-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track}">'
             f'<div class="addr-content">'
-            f'<svg id="pin" viewBox="0 0 100 130" width="170" height="221"><path d="M50 4C25 4 6 23 6 48c0 33 44 76 44 76s44-43 44-76C94 23 75 4 50 4z" fill="#E3262B"/><circle cx="50" cy="48" r="17" fill="#FFD60A"/></svg>'
+            f'<svg id="pin" viewBox="0 0 100 130" width="170" height="221"><path d="M50 4C25 4 6 23 6 48c0 33 44 76 44 76s44-43 44-76C94 23 75 4 50 4z" fill="#A9D2F5"/><circle cx="50" cy="48" r="17" fill="#0A1236"/></svg>'
             f'<div class="visit" id="ad-visit">VISIT</div>'
             f'<div class="brand" id="ad-brand">NS BROTHERS</div>'
             f'<div class="city" id="ad-city">GAYA</div>'
@@ -188,34 +189,34 @@ def build():
     # Timeline JS
     js = []
     trans = {
-        "whipL": ("{x:1080, skewX:-10, filter:'blur(36px)'}", "{x:0, skewX:0, filter:'blur(0px)'}", "power3.out"),
-        "whipR": ("{x:-1080, skewX:10, filter:'blur(36px)'}", "{x:0, skewX:0, filter:'blur(0px)'}", "power3.out"),
-        "whipUp": ("{y:1920, filter:'blur(36px)'}", "{y:0, filter:'blur(0px)'}", "expo.out"),
-        "zoom": ("{scale:1.6, opacity:0, filter:'blur(28px)'}", "{scale:1, opacity:1, filter:'blur(0px)'}", "power2.out"),
+        "slideL": ("{x:1080, filter:'blur(10px)'}", "{x:0, filter:'blur(0px)'}", "power2.inOut"),
+        "slideR": ("{x:-1080, filter:'blur(10px)'}", "{x:0, filter:'blur(0px)'}", "power2.inOut"),
+        "slideUp": ("{y:1920, filter:'blur(10px)'}", "{y:0, filter:'blur(0px)'}", "power2.inOut"),
+        "fade": ("{scale:1.08, opacity:0}", "{scale:1, opacity:1}", "sine.inOut"),
     }
     for i, (sid, start, end, kind, src, ms, tr, tag) in enumerate(SCENES):
-        cs = start if i == 0 else start - X
+        cs = start if i == 0 else start - ov(sid)
         if tr:
             frm, to, ease = trans[tr]
-            js.append(f"tl.fromTo('#w-{sid}', {frm}, {{...{to}, duration:{X + 0.08}, ease:'{ease}'}}, {cs:.2f});")
-            js.append(f"tl.fromTo('#flash', {{opacity:0}}, {{opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut'{'' if i == 1 else ', immediateRender:false'}}}, {start - 0.12:.2f});")
+            js.append(f"tl.fromTo('#w-{sid}', {frm}, {{...{to}, duration:{ov(sid)}, ease:'{ease}'}}, {cs:.2f});")
+            js.append(f"tl.fromTo('#flash', {{opacity:0}}, {{opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut'{'' if i == 1 else ', immediateRender:false'}}}, {start - 0.15:.2f});")
         if kind in ("video", "tour"):
             js.append(f"tl.fromTo('#kb-{sid}', {{scale:1}}, {{scale:1.07, duration:{end - cs:.2f}, ease:'none'}}, {cs:.2f});")
             if tag:
-                js.append(f"tl.from('#tag-{sid}', {{x:-80, opacity:0, duration:0.45, ease:'back.out(1.8)'}}, {start + 0.15:.2f});")
+                js.append(f"tl.from('#tag-{sid}', {{x:-40, opacity:0, duration:0.6, ease:'power2.out'}}, {start + 0.15:.2f});")
         if kind == "poster":
             js.append(f"tl.from('#ps-{sid}', {{y:-60, opacity:0, duration:0.4, ease:'power3.out'}}, {start + 0.05:.2f});")
-            js.append(f"tl.fromTo('#pc-{sid}', {{rotation:-2}}, {{rotation:1.5, scale:1.04, duration:{end - start + X:.2f}, ease:'none'}}, {cs:.2f});")
+            js.append(f"tl.fromTo('#pc-{sid}', {{rotation:-2}}, {{rotation:1.5, scale:1.04, duration:{end - cs:.2f}, ease:'none'}}, {cs:.2f});")
             js.append(f"tl.from('#pl-{sid}', {{y:60, opacity:0, duration:0.45, ease:'back.out(1.6)'}}, {start + 0.15:.2f});")
 
     js += [
         # opener title
-        "tl.from('#t-ns', {scale:2.2, opacity:0, filter:'blur(20px)', duration:0.55, ease:'expo.out'}, 0.25);",
+        "tl.from('#t-ns', {y:30, opacity:0, duration:0.8, ease:'power2.out'}, 0.25);",
         "tl.from('#t-sd', {y:30, opacity:0, duration:0.4, ease:'power2.out'}, 0.7);",
-        "tl.from('#t-dav', {scaleX:0, duration:0.5, ease:'power4.out'}, 4.2);",
+        "tl.from('#t-dav', {y:20, opacity:0, duration:0.6, ease:'power2.out'}, 4.0);",
         # one stop
-        "tl.from('#os1', {x:-900, filter:'blur(30px)', duration:0.4, ease:'expo.out'}, 38.05);",
-        "tl.from('#os2', {x:900, filter:'blur(30px)', duration:0.4, ease:'expo.out'}, 38.3);",
+        "tl.from('#os1', {y:40, opacity:0, duration:0.5, ease:'power2.out'}, 37.9);",
+        "tl.from('#os2', {y:40, opacity:0, duration:0.5, ease:'power2.out'}, 38.2);",
         "tl.from('#os3', {y:40, opacity:0, duration:0.4, ease:'power2.out'}, 38.65);",
         "tl.fromTo('#g-onestop', {scale:1}, {scale:1.06, duration:1.95, ease:'none'}, 37.65);",
         # address
@@ -234,15 +235,15 @@ def build():
         "tl.from('#ph-call', {opacity:0, y:24, duration:0.5, ease:'power2.out'}, 46.95);",
         "tl.from('#ph-n1', {scale:0.6, opacity:0, duration:0.45, ease:'back.out(2)'}, 47.1);",
         "tl.from('#ph-n2', {scale:0.6, opacity:0, duration:0.45, ease:'back.out(2)'}, 52.0);",
-        "tl.from('#ph-sd', {scaleX:0, duration:0.45, ease:'power4.out'}, 55.75);",
+        "tl.from('#ph-sd', {y:20, opacity:0, duration:0.5, ease:'power2.out'}, 55.7);",
         "tl.from('#ph-addr', {opacity:0, y:20, duration:0.4, ease:'power2.out'}, 56.2);",
         "tl.fromTo('.ph-content', {scale:1}, {scale:1.05, duration:11.8, ease:'none'}, 46.75);",
         "tl.to('#fade', {opacity:1, duration:0.45, ease:'power1.in'}, 58.1);",
     ]
     for i, (s, e, t) in enumerate(CAPTIONS):
-        js.append(f"tl.from('#cap{i} .cap-box', {{y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}}, {s:.2f});")
+        js.append(f"tl.from('#cap{i} .cap-box', {{y:24, opacity:0, duration:0.45, ease:'power2.out'}}, {s:.2f});")
     for sid, t, _ in ITEMS:
-        js.append(f"tl.from('#item-{sid} .item-box', {{scale:2.4, opacity:0, rotation:-6, duration:0.3, ease:'expo.out'}}, {t:.2f});")
+        js.append(f"tl.from('#item-{sid} .item-box', {{y:30, opacity:0, duration:0.35, ease:'power2.out'}}, {t:.2f});")
     js.append(f"tl.set({{}}, {{}}, {DURATION});")
 
     template = Path(__file__).with_name("template.html").read_text()

@@ -29,76 +29,72 @@
       .shade { position: absolute; inset: 0;
         background: radial-gradient(ellipse 120% 70% at 50% 45%, rgba(0,0,0,0) 55%, rgba(5,10,35,0.55) 100%); }
 
-      .tag { position: absolute; top: 230px; left: 60px; padding: 14px 30px; background: var(--red);
-        color: var(--white); font-family: var(--font-display); font-size: 58px; letter-spacing: 2px;
-        border-left: 14px solid var(--yellow); box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
+      .tag { position: absolute; top: 230px; left: 60px; padding: 14px 32px; border-radius: 16px;
+        background: rgba(10,18,54,0.72); color: var(--white); font-weight: 700; font-size: 44px; letter-spacing: 1px;
+        border: 2px solid rgba(255,255,255,0.18); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
 
       /* Poster scenes */
       .poster { position: absolute; inset: 0; background: var(--navy-deep); }
       .poster-bg { position: absolute; inset: -80px; width: calc(100% + 160px); height: calc(100% + 160px);
-        object-fit: cover; filter: blur(40px) brightness(0.45) saturate(1.2); }
+        object-fit: cover; filter: blur(40px) brightness(0.4) saturate(1.1); }
       .poster-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
         padding: 170px 60px 0; gap: 36px; }
-      .pill { padding: 12px 34px; border-radius: 999px; font-family: var(--font-display); font-size: 44px; letter-spacing: 3px; }
-      .pill.school { background: var(--yellow); color: var(--red); }
+      .pill { padding: 12px 34px; border-radius: 999px; font-weight: 700; font-size: 36px; letter-spacing: 4px; }
+      .pill.school { background: rgba(255,255,255,0.12); color: var(--white); border: 2px solid rgba(255,255,255,0.3); }
       .card { background: var(--white); padding: 14px; border-radius: 22px; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
       .card img { display: block; max-width: 900px; max-height: 960px; border-radius: 12px; }
       #pc-nurkids img, #pc-smart img { height: 820px; }
-      #pc-seniors img { height: 800px; }
       #pc-davjacket img { width: 900px; }
-      .poster-label { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-      .poster-label .cls { background: var(--red); color: var(--white); font-family: var(--font-display);
-        font-size: 66px; padding: 6px 34px; letter-spacing: 2px; }
-      .poster-label .sub { color: var(--yellow); font-family: var(--font-display); font-size: 48px; letter-spacing: 4px; }
+      .poster-label { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+      .poster-label .cls { color: var(--white); font-family: var(--font-display); font-size: 72px; letter-spacing: 3px; }
+      .poster-label .sub { color: var(--sky); font-weight: 700; font-size: 36px; letter-spacing: 6px; }
 
       /* Opener title */
       .title { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
         padding-top: 200px; gap: 18px;
-        background: linear-gradient(180deg, rgba(5,10,35,0.65) 0%, rgba(5,10,35,0) 38%); }
-      .t-ns { font-family: var(--font-display); font-size: 150px; color: var(--yellow); letter-spacing: 3px;
-        text-shadow: 0 8px 0 var(--red), 0 18px 50px rgba(0,0,0,0.6); line-height: 1; }
-      .t-sd { font-family: var(--font-body); font-weight: 800; font-size: 44px; color: var(--white); letter-spacing: 8px;
+        background: linear-gradient(180deg, rgba(5,10,35,0.88) 0%, rgba(5,10,35,0.6) 22%, rgba(5,10,35,0) 42%); }
+      .t-ns { font-family: var(--font-display); font-size: 140px; color: var(--white); letter-spacing: 4px;
+        text-shadow: 0 10px 40px rgba(0,0,0,0.6); line-height: 1; }
+      .t-sd { font-weight: 700; font-size: 40px; color: var(--sky); letter-spacing: 10px;
         text-shadow: 0 4px 20px rgba(0,0,0,0.7); }
-      .t-dav { margin-top: 20px; background: var(--red); color: var(--white); font-family: var(--font-display);
-        font-size: 68px; padding: 10px 40px; letter-spacing: 2px; border-bottom: 10px solid var(--yellow); }
+      .t-dav { margin-top: 24px; background: rgba(10,18,54,0.75); color: var(--white); font-weight: 700;
+        font-size: 46px; padding: 14px 38px; letter-spacing: 4px; border-radius: 16px; border: 2px solid rgba(169,210,245,0.5); }
 
       /* Graphic scenes */
       .graphic { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 60% at 50% 45%, #1d3184 0%, var(--navy-deep) 75%); }
       .onestop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 0 60px 200px; }
-      .os-line { font-family: var(--font-display); font-size: 220px; line-height: 1; color: var(--white); letter-spacing: 4px; }
-      .os-line.yellow { color: var(--yellow); text-shadow: 0 10px 0 var(--red); }
-      .os-sub { margin-top: 40px; font-weight: 700; font-size: 44px; color: var(--sky); }
+      .os-line { font-family: var(--font-display); font-size: 200px; line-height: 1; color: var(--white); letter-spacing: 6px; }
+      .os-line.yellow { color: var(--sky); }
+      .os-sub { margin-top: 40px; font-weight: 600; font-size: 42px; color: rgba(255,255,255,0.8); }
 
       .addr-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
         padding: 230px 70px 0; }
-      .visit { margin-top: 20px; font-weight: 800; font-size: 50px; letter-spacing: 14px; color: var(--sky); }
+      .visit { margin-top: 20px; font-weight: 700; font-size: 44px; letter-spacing: 14px; color: var(--sky); }
       .brand { font-family: var(--font-display); font-size: 120px; color: var(--white); letter-spacing: 3px; line-height: 1.1; }
-      .city { font-family: var(--font-display); font-size: 260px; line-height: 1; color: var(--yellow); text-shadow: 0 10px 0 var(--red); }
+      .city { font-family: var(--font-display); font-size: 240px; line-height: 1; color: var(--white); }
       .addr-lines { margin-top: 60px; display: flex; flex-direction: column; gap: 22px; align-self: stretch; padding: 0 40px; }
-      .addr-line { display: flex; align-items: center; gap: 24px; font-weight: 700; font-size: 52px; color: var(--white); }
-      .dot { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 6px rgba(227,38,43,0.3); }
+      .addr-line { display: flex; align-items: center; gap: 24px; font-weight: 600; font-size: 50px; color: var(--white); }
+      .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--sky); }
 
       .ph-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center;
         padding: 330px 60px 0; }
-      .ph-brand { font-family: var(--font-display); font-size: 230px; line-height: 0.95; color: var(--white); letter-spacing: 4px; }
-      #ph-ns { color: var(--yellow); text-shadow: 0 10px 0 var(--red); }
-      .ph-call { margin-top: 70px; font-weight: 800; font-size: 44px; letter-spacing: 12px; color: var(--sky); }
-      .ph-num { margin-top: 26px; background: var(--white); color: var(--navy); font-weight: 800; font-size: 76px;
-        padding: 12px 46px; border-radius: 999px; font-variant-numeric: tabular-nums; }
-      .ph-sd { margin-top: 70px; background: var(--red); color: var(--yellow); font-family: var(--font-display);
-        font-size: 92px; padding: 8px 56px; letter-spacing: 6px; }
-      .ph-addr { margin-top: 24px; font-weight: 600; font-size: 40px; color: var(--sky); }
+      .ph-brand { font-family: var(--font-display); font-size: 220px; line-height: 0.95; color: var(--white); letter-spacing: 6px; }
+      #ph-ns { color: var(--sky); }
+      .ph-call { margin-top: 70px; font-weight: 700; font-size: 40px; letter-spacing: 12px; color: var(--sky); }
+      .ph-num { margin-top: 26px; background: rgba(255,255,255,0.1); color: var(--white); font-weight: 700; font-size: 72px;
+        padding: 12px 46px; border-radius: 999px; border: 2px solid rgba(255,255,255,0.35); font-variant-numeric: tabular-nums; }
+      .ph-sd { margin-top: 70px; color: var(--white); font-family: var(--font-display);
+        font-size: 84px; padding: 6px 50px; letter-spacing: 10px; border-top: 3px solid var(--sky); border-bottom: 3px solid var(--sky); }
+      .ph-addr { margin-top: 28px; font-weight: 500; font-size: 38px; color: rgba(255,255,255,0.75); }
 
-      /* Captions + item labels */
+      /* Captions + item labels — straight, white on a soft dark box */
       .caption { position: absolute; left: 0; right: 0; bottom: 330px; display: flex; justify-content: center; padding: 0 70px; z-index: 200; }
-      .cap-box { display: inline-block; max-width: 940px; text-align: center; background: rgba(10,18,54,0.88);
-        color: var(--white); font-weight: 800; font-size: 58px; line-height: 1.22; padding: 18px 34px; border-radius: 20px;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
-      .cap-box .hl { color: var(--yellow); }
+      .cap-box { display: inline-block; max-width: 940px; text-align: center; background: rgba(8,14,40,0.62);
+        color: var(--white); font-weight: 700; font-size: 54px; line-height: 1.3; padding: 18px 36px; border-radius: 22px; }
+      .cap-box .hl { color: var(--sky); }
       .item { position: absolute; left: 0; right: 0; bottom: 360px; display: flex; justify-content: center; z-index: 210; }
-      .item-box { font-family: var(--font-display); font-size: 130px; color: var(--yellow); background: var(--red);
-        padding: 6px 46px; letter-spacing: 3px; transform: rotate(-3deg); box-shadow: 0 16px 50px rgba(0,0,0,0.45);
-        border-bottom: 12px solid var(--yellow); }
+      .item-box { font-weight: 800; font-size: 80px; color: var(--white); background: rgba(8,14,40,0.62);
+        padding: 14px 54px; letter-spacing: 6px; border-radius: 24px; }
 
       #flash { position: absolute; inset: 0; background: var(--white); opacity: 0; z-index: 300; pointer-events: none; }
       #fade { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 310; pointer-events: none; }
@@ -107,42 +103,38 @@
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="58.6" data-width="1080" data-height="1920">
       <div class="scene" id="w-storefront" style="z-index:10"><div class="kb" id="kb-storefront"><div class="crop"><video id="v-storefront" src="assets/storefront.mp4" data-start="0" data-duration="6.1" data-media-start="0" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-storefront" data-start="0" data-duration="6.1" data-track-index="3"></div></div>
-      <div class="scene" id="w-nurkids" style="z-index:11"><div class="clip poster" id="p-nurkids" data-start="5.8" data-duration="3.7" data-track-index="2"><img class="poster-bg" src="assets/poster-nur-kids.jpg" alt=""><div class="poster-content"><div class="pill school" id="ps-nurkids">DAV PUBLIC SCHOOL · GAYA JI</div><div class="card" id="pc-nurkids"><img src="assets/poster-nur-kids.jpg" alt=""></div><div class="poster-label" id="pl-nurkids"><span class="cls">CLASS NUR – II</span><span class="sub">DAV WINTER UNIFORM</span></div></div></div></div>
-      <div class="scene" id="w-tracksuit" style="z-index:12"><div class="kb" id="kb-tracksuit"><div class="crop"><video id="v-tracksuit" src="assets/tracksuit.mp4" data-start="9.2" data-duration="3.1" data-media-start="0.4" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-tracksuit" data-start="9.2" data-duration="3.1" data-track-index="3"></div><div class="tag clip" id="tag-tracksuit" data-start="9.2" data-duration="3.1" data-track-index="5">DAV TRACKSUIT</div></div>
-      <div class="scene" id="w-seniors" style="z-index:13"><div class="clip poster" id="p-seniors" data-start="12" data-duration="1.8" data-track-index="2"><img class="poster-bg" src="assets/poster-912-kids.jpg" alt=""><div class="poster-content"><div class="pill school" id="ps-seniors">DAV PUBLIC SCHOOL · GAYA JI</div><div class="card" id="pc-seniors"><img src="assets/poster-912-kids.jpg" alt=""></div><div class="poster-label" id="pl-seniors"><span class="cls">CLASS IX – XII</span><span class="sub">DAV WINTER UNIFORM</span></div></div></div></div>
-      <div class="scene" id="w-smart" style="z-index:14"><div class="clip poster" id="p-smart" data-start="13.5" data-duration="2.45" data-track-index="1"><img class="poster-bg" src="assets/poster-35-kids.jpg" alt=""><div class="poster-content"><div class="pill school" id="ps-smart">DAV PUBLIC SCHOOL · GAYA JI</div><div class="card" id="pc-smart"><img src="assets/poster-35-kids.jpg" alt=""></div><div class="poster-label" id="pl-smart"><span class="cls">CLASS III – V</span><span class="sub">SMART LOOK</span></div></div></div></div>
-      <div class="scene" id="w-blazer" style="z-index:15"><div class="kb" id="kb-blazer"><div class="crop"><video id="v-blazer" src="assets/blazer.mp4" data-start="15.65" data-duration="1.35" data-media-start="1" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-blazer" data-start="15.65" data-duration="1.35" data-track-index="4"></div><div class="tag clip" id="tag-blazer" data-start="15.65" data-duration="1.35" data-track-index="6">DAV BLAZER</div></div>
-      <div class="scene" id="w-jacket" style="z-index:16"><div class="kb" id="kb-jacket"><div class="crop"><video id="v-jacket" src="assets/jacket.mp4" data-start="16.7" data-duration="3.75" data-media-start="4.5" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-jacket" data-start="16.7" data-duration="3.75" data-track-index="3"></div><div class="tag clip" id="tag-jacket" data-start="16.7" data-duration="3.75" data-track-index="5">DAV WINTER JACKET</div></div>
-      <div class="scene" id="w-davjacket" style="z-index:17"><div class="clip poster" id="p-davjacket" data-start="20.15" data-duration="2.15" data-track-index="2"><img class="poster-bg" src="assets/poster-nur-jacket.jpg" alt=""><div class="poster-content"><div class="pill school" id="ps-davjacket">DAV PUBLIC SCHOOL · GAYA JI</div><div class="card" id="pc-davjacket"><img src="assets/poster-nur-jacket.jpg" alt=""></div><div class="poster-label" id="pl-davjacket"><span class="cls">DAV</span><span class="sub">WINTER JACKET</span></div></div></div></div>
-      <div class="scene" id="w-otherschools" style="z-index:18"><div class="kb" id="kb-otherschools"><div class="crop tour"><video id="v-otherschools" src="assets/store-tour.mp4" data-start="22" data-duration="3.4" data-media-start="5.5" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-otherschools" data-start="22" data-duration="3.4" data-track-index="3"></div><div class="tag clip" id="tag-otherschools" data-start="22" data-duration="3.4" data-track-index="5">OTHER SCHOOLS TOO</div></div>
-      <div class="scene" id="w-bags" style="z-index:19"><div class="kb" id="kb-bags"><div class="crop tour"><video id="v-bags" src="assets/store-tour.mp4" data-start="25.1" data-duration="1.05" data-media-start="10.9" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-bags" data-start="25.1" data-duration="1.05" data-track-index="4"></div></div>
-      <div class="scene" id="w-stationery" style="z-index:20"><div class="kb" id="kb-stationery"><div class="crop tour"><video id="v-stationery" src="assets/store-tour.mp4" data-start="25.85" data-duration="1.25" data-media-start="28.4" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-stationery" data-start="25.85" data-duration="1.25" data-track-index="3"></div></div>
-      <div class="scene" id="w-lunch" style="z-index:21"><div class="kb" id="kb-lunch"><div class="crop tour"><video id="v-lunch" src="assets/store-tour.mp4" data-start="26.8" data-duration="1.4" data-media-start="22.4" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-lunch" data-start="26.8" data-duration="1.4" data-track-index="4"></div></div>
-      <div class="scene" id="w-bottles" style="z-index:22"><div class="kb" id="kb-bottles"><div class="crop tour"><video id="v-bottles" src="assets/store-tour.mp4" data-start="27.9" data-duration="1.05" data-media-start="9.85" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-bottles" data-start="27.9" data-duration="1.05" data-track-index="3"></div></div>
-      <div class="scene" id="w-everything" style="z-index:23"><div class="kb" id="kb-everything"><div class="crop tour"><video id="v-everything" src="assets/store-tour.mp4" data-start="28.65" data-duration="4.05" data-media-start="33.7" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-everything" data-start="28.65" data-duration="4.05" data-track-index="4"></div></div>
-      <div class="scene" id="w-oneroof" style="z-index:24"><div class="kb" id="kb-oneroof"><div class="crop tour"><video id="v-oneroof" src="assets/store-tour.mp4" data-start="32.4" data-duration="1.7" data-media-start="24.2" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-oneroof" data-start="32.4" data-duration="1.7" data-track-index="3"></div></div>
-      <div class="scene" id="w-counter" style="z-index:25"><div class="kb" id="kb-counter"><div class="crop tour"><video id="v-counter" src="assets/store-tour.mp4" data-start="33.8" data-duration="4.15" data-media-start="38.95" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-counter" data-start="33.8" data-duration="4.15" data-track-index="4"></div></div>
-      <div class="scene" id="w-onestop" style="z-index:26"><div class="clip graphic onestop" id="g-onestop" data-start="37.65" data-duration="1.95" data-track-index="1"><div class="os-line" id="os1">ONE STOP</div><div class="os-line yellow" id="os2">SOLUTION</div><div class="os-sub" id="os3">Uniforms · Bags · Stationery · Bottles</div></div></div>
-      <div class="scene" id="w-visit" style="z-index:27"><div class="kb" id="kb-visit"><div class="crop"><video id="v-visit" src="assets/storefront.mp4" data-start="39.3" data-duration="2.5" data-media-start="3.8" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-visit" data-start="39.3" data-duration="2.5" data-track-index="4"></div></div>
-      <div class="scene" id="w-address" style="z-index:28"><div class="clip graphic address" id="g-address" data-start="41.5" data-duration="5.25" data-track-index="1"><div class="addr-content"><svg id="pin" viewBox="0 0 100 130" width="170" height="221"><path d="M50 4C25 4 6 23 6 48c0 33 44 76 44 76s44-43 44-76C94 23 75 4 50 4z" fill="#E3262B"/><circle cx="50" cy="48" r="17" fill="#FFD60A"/></svg><div class="visit" id="ad-visit">VISIT</div><div class="brand" id="ad-brand">NS BROTHERS</div><div class="city" id="ad-city">GAYA</div><div class="addr-lines"><div class="addr-line" id="al0"><span class="dot"></span>Near Punjab National Bank</div><div class="addr-line" id="al1"><span class="dot"></span>Chandauthi More</div><div class="addr-line" id="al2"><span class="dot"></span>Opp. Military Hospital Gate</div><div class="addr-line" id="al3"><span class="dot"></span>Gaya, Bihar</div></div></div></div></div>
-      <div class="scene" id="w-phone" style="z-index:29"><div class="clip graphic phone" id="g-phone" data-start="46.45" data-duration="12.15" data-track-index="2"><div class="ph-content"><div class="ph-brand" id="ph-ns">NS</div><div class="ph-brand" id="ph-bro">BROTHERS</div><div class="ph-call" id="ph-call">CALL NOW</div><div class="ph-num" id="ph-n1">+91 94708 54055</div><div class="ph-num" id="ph-n2">+91 75418 54737</div><div class="ph-sd" id="ph-sd">SCHOOL DRESS</div><div class="ph-addr" id="ph-addr">Chandauthi More, Gaya</div></div></div></div>
+      <div class="scene" id="w-nurkids" style="z-index:11"><div class="clip poster" id="p-nurkids" data-start="5.65" data-duration="3.85" data-track-index="2"><img class="poster-bg" src="assets/poster-nur-kids.jpg" alt=""><div class="poster-content"><div class="pill school" id="ps-nurkids">DAV PUBLIC SCHOOL · GAYA JI</div><div class="card" id="pc-nurkids"><img src="assets/poster-nur-kids.jpg" alt=""></div><div class="poster-label" id="pl-nurkids"><span class="cls">CLASS NUR – II</span><span class="sub">DAV WINTER UNIFORM</span></div></div></div></div>
+      <div class="scene" id="w-tracksuit" style="z-index:12"><div class="kb" id="kb-tracksuit"><div class="crop"><video id="v-tracksuit" src="assets/tracksuit.mp4" data-start="9.05" data-duration="4.75" data-media-start="0.3" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-tracksuit" data-start="9.05" data-duration="4.75" data-track-index="3"></div><div class="tag clip" id="tag-tracksuit" data-start="9.05" data-duration="4.75" data-track-index="5">DAV Tracksuit</div></div>
+      <div class="scene" id="w-smart" style="z-index:13"><div class="clip poster" id="p-smart" data-start="13.35" data-duration="2.6" data-track-index="2"><img class="poster-bg" src="assets/poster-35-kids.jpg" alt=""><div class="poster-content"><div class="pill school" id="ps-smart">DAV PUBLIC SCHOOL · GAYA JI</div><div class="card" id="pc-smart"><img src="assets/poster-35-kids.jpg" alt=""></div><div class="poster-label" id="pl-smart"><span class="cls">CLASS III – V</span><span class="sub">SMART LOOK</span></div></div></div></div>
+      <div class="scene" id="w-blazer" style="z-index:14"><div class="kb" id="kb-blazer"><div class="crop"><video id="v-blazer" src="assets/blazer.mp4" data-start="15.5" data-duration="2.4" data-media-start="0.6" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-blazer" data-start="15.5" data-duration="2.4" data-track-index="3"></div><div class="tag clip" id="tag-blazer" data-start="15.5" data-duration="2.4" data-track-index="5">DAV Blazer</div></div>
+      <div class="scene" id="w-jacket" style="z-index:15"><div class="kb" id="kb-jacket"><div class="crop"><video id="v-jacket" src="assets/jacket.mp4" data-start="17.45" data-duration="3" data-media-start="4.7" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-jacket" data-start="17.45" data-duration="3" data-track-index="4"></div><div class="tag clip" id="tag-jacket" data-start="17.45" data-duration="3" data-track-index="6">DAV Winter Jacket</div></div>
+      <div class="scene" id="w-davjacket" style="z-index:16"><div class="clip poster" id="p-davjacket" data-start="20" data-duration="2.3" data-track-index="1"><img class="poster-bg" src="assets/poster-nur-jacket.jpg" alt=""><div class="poster-content"><div class="pill school" id="ps-davjacket">DAV PUBLIC SCHOOL · GAYA JI</div><div class="card" id="pc-davjacket"><img src="assets/poster-nur-jacket.jpg" alt=""></div><div class="poster-label" id="pl-davjacket"><span class="cls">DAV</span><span class="sub">WINTER JACKET</span></div></div></div></div>
+      <div class="scene" id="w-otherschools" style="z-index:17"><div class="kb" id="kb-otherschools"><div class="crop tour"><video id="v-otherschools" src="assets/shot-otherschools.mp4" data-start="21.85" data-duration="3.55" data-media-start="0" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-otherschools" data-start="21.85" data-duration="3.55" data-track-index="4"></div><div class="tag clip" id="tag-otherschools" data-start="21.85" data-duration="3.55" data-track-index="6">Other Schools Too</div></div>
+      <div class="scene" id="w-bags" style="z-index:18"><div class="kb" id="kb-bags"><div class="crop tour"><video id="v-bags" src="assets/shot-bags.mp4" data-start="25.15" data-duration="1" data-media-start="0" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-bags" data-start="25.15" data-duration="1" data-track-index="3"></div></div>
+      <div class="scene" id="w-stationery" style="z-index:19"><div class="kb" id="kb-stationery"><div class="crop tour"><video id="v-stationery" src="assets/shot-pens.mp4" data-start="25.9" data-duration="1.2" data-media-start="0" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-stationery" data-start="25.9" data-duration="1.2" data-track-index="4"></div></div>
+      <div class="scene" id="w-lunch" style="z-index:20"><div class="kb" id="kb-lunch"><div class="crop tour"><video id="v-lunch" src="assets/shot-lunchbox.mp4" data-start="26.85" data-duration="1.35" data-media-start="0" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-lunch" data-start="26.85" data-duration="1.35" data-track-index="3"></div></div>
+      <div class="scene" id="w-bottles" style="z-index:21"><div class="kb" id="kb-bottles"><div class="crop tour"><video id="v-bottles" src="assets/shot-bottles.mp4" data-start="27.95" data-duration="1" data-media-start="0" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-bottles" data-start="27.95" data-duration="1" data-track-index="4"></div></div>
+      <div class="scene" id="w-everything" style="z-index:22"><div class="kb" id="kb-everything"><div class="crop tour"><video id="v-everything" src="assets/shot-everything.mp4" data-start="28.5" data-duration="4.2" data-media-start="0" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-everything" data-start="28.5" data-duration="4.2" data-track-index="3"></div></div>
+      <div class="scene" id="w-oneroof" style="z-index:23"><div class="kb" id="kb-oneroof"><div class="crop tour"><video id="v-oneroof" src="assets/store-tour.mp4" data-start="32.25" data-duration="2.95" data-media-start="24.05" data-track-index="2" muted playsinline></video></div></div><div class="shade clip" id="sh-oneroof" data-start="32.25" data-duration="2.95" data-track-index="4"></div></div>
+      <div class="scene" id="w-counter" style="z-index:24"><div class="kb" id="kb-counter"><div class="crop tour"><video id="v-counter" src="assets/store-tour.mp4" data-start="34.75" data-duration="3.2" data-media-start="39.35" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-counter" data-start="34.75" data-duration="3.2" data-track-index="3"></div></div>
+      <div class="scene" id="w-onestop" style="z-index:25"><div class="clip graphic onestop" id="g-onestop" data-start="37.5" data-duration="2.1" data-track-index="2"><div class="os-line" id="os1">ONE STOP</div><div class="os-line yellow" id="os2">SOLUTION</div><div class="os-sub" id="os3">Uniforms · Bags · Stationery · Bottles</div></div></div>
+      <div class="scene" id="w-visit" style="z-index:26"><div class="kb" id="kb-visit"><div class="crop"><video id="v-visit" src="assets/storefront.mp4" data-start="39.15" data-duration="2.65" data-media-start="3.65" data-track-index="1" muted playsinline></video></div></div><div class="shade clip" id="sh-visit" data-start="39.15" data-duration="2.65" data-track-index="3"></div></div>
+      <div class="scene" id="w-address" style="z-index:27"><div class="clip graphic address" id="g-address" data-start="41.35" data-duration="5.4" data-track-index="2"><div class="addr-content"><svg id="pin" viewBox="0 0 100 130" width="170" height="221"><path d="M50 4C25 4 6 23 6 48c0 33 44 76 44 76s44-43 44-76C94 23 75 4 50 4z" fill="#A9D2F5"/><circle cx="50" cy="48" r="17" fill="#0A1236"/></svg><div class="visit" id="ad-visit">VISIT</div><div class="brand" id="ad-brand">NS BROTHERS</div><div class="city" id="ad-city">GAYA</div><div class="addr-lines"><div class="addr-line" id="al0"><span class="dot"></span>Near Punjab National Bank</div><div class="addr-line" id="al1"><span class="dot"></span>Chandauthi More</div><div class="addr-line" id="al2"><span class="dot"></span>Opp. Military Hospital Gate</div><div class="addr-line" id="al3"><span class="dot"></span>Gaya, Bihar</div></div></div></div></div>
+      <div class="scene" id="w-phone" style="z-index:28"><div class="clip graphic phone" id="g-phone" data-start="46.3" data-duration="12.3" data-track-index="1"><div class="ph-content"><div class="ph-brand" id="ph-ns">NS</div><div class="ph-brand" id="ph-bro">BROTHERS</div><div class="ph-call" id="ph-call">CALL NOW</div><div class="ph-num" id="ph-n1">+91 94708 54055</div><div class="ph-num" id="ph-n2">+91 75418 54737</div><div class="ph-sd" id="ph-sd">SCHOOL DRESS</div><div class="ph-addr" id="ph-addr">Chandauthi More, Gaya</div></div></div></div>
       <div class="clip title" id="title" data-start="0" data-duration="6.1" data-track-index="9" style="z-index:12"><div class="t-ns" id="t-ns">NS BROTHERS</div><div class="t-sd" id="t-sd">SCHOOL DRESS · GAYA</div><div class="t-dav" id="t-dav">DAV UNIFORM COLLECTION</div></div>
       <div class="caption clip" id="cap0" data-start="0.05" data-duration="2.9" data-track-index="20"><span class="cap-box">Gaya mein <span class="hl">DAV School</span> ke students ke liye</span></div>
       <div class="caption clip" id="cap1" data-start="2.97" data-duration="2.93" data-track-index="20"><span class="cap-box"><span class="hl">NS Brothers</span> lekar aaya hai khaas uniform collection!</span></div>
       <div class="caption clip" id="cap2" data-start="6.12" data-duration="3.18" data-track-index="20"><span class="cap-box"><span class="hl">DAV School</span> ke students aur parents, dhyan dijiye!</span></div>
-      <div class="caption clip" id="cap3" data-start="9.58" data-duration="2.7" data-track-index="20"><span class="cap-box">Aapke bachchon ki <span class="hl">DAV School Uniform</span></span></div>
-      <div class="caption clip" id="cap4" data-start="12.3" data-duration="1.3" data-track-index="20"><span class="cap-box">ab milegi <span class="hl">NS Brothers</span> par!</span></div>
-      <div class="caption clip" id="cap5" data-start="13.9" data-duration="2" data-track-index="20"><span class="cap-box">School ki <span class="hl">smart look</span> uniform ho</span></div>
-      <div class="caption clip" id="cap6" data-start="15.9" data-duration="0.85" data-track-index="20"><span class="cap-box">ya <span class="hl">winter uniform</span></span></div>
-      <div class="caption clip" id="cap7" data-start="17" data-duration="1.75" data-track-index="20"><span class="cap-box"><span class="hl">DAV School</span> ke uniform collection ke liye</span></div>
-      <div class="caption clip" id="cap8" data-start="18.76" data-duration="1.59" data-track-index="20"><span class="cap-box">aaiye <span class="hl">NS Brothers!</span></span></div>
-      <div class="caption clip" id="cap9" data-start="20.5" data-duration="1.8" data-track-index="20"><span class="cap-box">Aur haan! <span class="hl">DAV</span> ke saath-saath,</span></div>
-      <div class="caption clip" id="cap10" data-start="22.3" data-duration="2.85" data-track-index="20"><span class="cap-box"><span class="hl">doosre schools</span> ki uniforms bhi yahan available hain</span></div>
-      <div class="caption clip" id="cap11" data-start="29.1" data-duration="3.5" data-track-index="20"><span class="cap-box">School ki zaroorat ka bahut kuchh, <span class="hl">ek hi jagah!</span></span></div>
-      <div class="caption clip" id="cap12" data-start="32.85" data-duration="1.1" data-track-index="20"><span class="cap-box"><span class="hl">Ek chhat</span> ke neeche</span></div>
-      <div class="caption clip" id="cap13" data-start="34.19" data-duration="1.91" data-track-index="20"><span class="cap-box">Toh apne bachchon ki <span class="hl">school uniform</span> ke liye</span></div>
-      <div class="caption clip" id="cap14" data-start="36.1" data-duration="1.75" data-track-index="20"><span class="cap-box">kahin aur jaane ki <span class="hl">zaroorat nahi!</span></span></div>
-      <div class="caption clip" id="cap15" data-start="39.68" data-duration="2.02" data-track-index="20"><span class="cap-box">Aaj hi visit karein <span class="hl">NS Brothers!</span></span></div>
+      <div class="caption clip" id="cap3" data-start="9.58" data-duration="4.12" data-track-index="20"><span class="cap-box">Aapke bachchon ki <span class="hl">DAV School Uniform</span> ab milegi <span class="hl">NS Brothers</span> par!</span></div>
+      <div class="caption clip" id="cap4" data-start="13.9" data-duration="2.9" data-track-index="20"><span class="cap-box">School ki <span class="hl">smart look</span> uniform ho ya <span class="hl">winter uniform</span></span></div>
+      <div class="caption clip" id="cap5" data-start="17" data-duration="3.4" data-track-index="20"><span class="cap-box"><span class="hl">DAV School</span> ke uniform collection ke liye aaiye <span class="hl">NS Brothers!</span></span></div>
+      <div class="caption clip" id="cap6" data-start="20.5" data-duration="1.8" data-track-index="20"><span class="cap-box">Aur haan! <span class="hl">DAV</span> ke saath-saath,</span></div>
+      <div class="caption clip" id="cap7" data-start="22.3" data-duration="2.85" data-track-index="20"><span class="cap-box"><span class="hl">doosre schools</span> ki uniforms bhi yahan available hain</span></div>
+      <div class="caption clip" id="cap8" data-start="29.1" data-duration="3.5" data-track-index="20"><span class="cap-box">School ki zaroorat ka bahut kuchh, <span class="hl">ek hi jagah!</span></span></div>
+      <div class="caption clip" id="cap9" data-start="32.85" data-duration="1.3" data-track-index="20"><span class="cap-box"><span class="hl">Ek chhat</span> ke neeche</span></div>
+      <div class="caption clip" id="cap10" data-start="34.19" data-duration="1.91" data-track-index="20"><span class="cap-box">Toh apne bachchon ki <span class="hl">school uniform</span> ke liye</span></div>
+      <div class="caption clip" id="cap11" data-start="36.1" data-duration="1.75" data-track-index="20"><span class="cap-box">kahin aur jaane ki <span class="hl">zaroorat nahi!</span></span></div>
+      <div class="caption clip" id="cap12" data-start="39.68" data-duration="2.02" data-track-index="20"><span class="cap-box">Aaj hi visit karein <span class="hl">NS Brothers!</span></span></div>
       <div class="item clip" id="item-bags" data-start="25.45" data-duration="0.7" data-track-index="21"><span class="item-box">SCHOOL BAGS</span></div>
       <div class="item clip" id="item-stationery" data-start="26.16" data-duration="0.94" data-track-index="22"><span class="item-box">STATIONERY</span></div>
       <div class="item clip" id="item-lunch" data-start="27.36" data-duration="0.84" data-track-index="21"><span class="item-box">LUNCH BOXES</span></div>
@@ -152,103 +144,97 @@
       <audio id="vo" src="assets/voiceover.mp3" data-start="0" data-duration="58" data-track-index="30" data-volume="1"></audio>
       <audio id="music" src="assets/music.mp3" data-start="0" data-duration="58.6" data-track-index="31" data-volume="0.12"></audio>
       <audio id="sfx0" src="assets/pop.mp3" data-start="0.25" data-duration="0.7" data-track-index="40" data-volume="0.35"></audio>
-      <audio id="sfx1" src="assets/whoosh.mp3" data-start="5.75" data-duration="0.6" data-track-index="41" data-volume="0.35"></audio>
-      <audio id="sfx2" src="assets/whoosh.mp3" data-start="9.15" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
-      <audio id="sfx3" src="assets/whoosh.mp3" data-start="11.95" data-duration="0.6" data-track-index="43" data-volume="0.35"></audio>
-      <audio id="sfx4" src="assets/whoosh.mp3" data-start="13.45" data-duration="0.6" data-track-index="40" data-volume="0.35"></audio>
-      <audio id="sfx5" src="assets/whoosh.mp3" data-start="15.6" data-duration="0.6" data-track-index="41" data-volume="0.35"></audio>
-      <audio id="sfx6" src="assets/whoosh.mp3" data-start="16.65" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
-      <audio id="sfx7" src="assets/whoosh.mp3" data-start="20.1" data-duration="0.6" data-track-index="43" data-volume="0.35"></audio>
-      <audio id="sfx8" src="assets/whoosh.mp3" data-start="21.95" data-duration="0.6" data-track-index="40" data-volume="0.35"></audio>
-      <audio id="sfx9" src="assets/pop.mp3" data-start="25.4" data-duration="0.7" data-track-index="41" data-volume="0.45"></audio>
-      <audio id="sfx10" src="assets/pop.mp3" data-start="26.11" data-duration="0.7" data-track-index="42" data-volume="0.45"></audio>
-      <audio id="sfx11" src="assets/pop.mp3" data-start="27.31" data-duration="0.7" data-track-index="43" data-volume="0.45"></audio>
-      <audio id="sfx12" src="assets/pop.mp3" data-start="28.17" data-duration="0.7" data-track-index="40" data-volume="0.45"></audio>
-      <audio id="sfx13" src="assets/whoosh.mp3" data-start="28.6" data-duration="0.6" data-track-index="41" data-volume="0.35"></audio>
-      <audio id="sfx14" src="assets/whoosh.mp3" data-start="32.35" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
-      <audio id="sfx15" src="assets/whoosh.mp3" data-start="33.75" data-duration="0.6" data-track-index="43" data-volume="0.35"></audio>
-      <audio id="sfx16" src="assets/whoosh.mp3" data-start="37.6" data-duration="0.6" data-track-index="40" data-volume="0.35"></audio>
-      <audio id="sfx17" src="assets/slam.mp3" data-start="38" data-duration="1.2" data-track-index="41" data-volume="0.4"></audio>
-      <audio id="sfx18" src="assets/whoosh.mp3" data-start="39.25" data-duration="0.6" data-track-index="42" data-volume="0.35"></audio>
-      <audio id="sfx19" src="assets/whoosh.mp3" data-start="41.45" data-duration="0.6" data-track-index="43" data-volume="0.35"></audio>
-      <audio id="sfx20" src="assets/sparkle.mp3" data-start="41.9" data-duration="2" data-track-index="40" data-volume="0.3"></audio>
-      <audio id="sfx21" src="assets/whoosh.mp3" data-start="46.4" data-duration="0.6" data-track-index="41" data-volume="0.35"></audio>
+      <audio id="sfx1" src="assets/whoosh.mp3" data-start="5.65" data-duration="0.6" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx2" src="assets/whoosh.mp3" data-start="9.05" data-duration="0.6" data-track-index="42" data-volume="0.18"></audio>
+      <audio id="sfx3" src="assets/whoosh.mp3" data-start="13.35" data-duration="0.6" data-track-index="43" data-volume="0.18"></audio>
+      <audio id="sfx4" src="assets/whoosh.mp3" data-start="15.5" data-duration="0.6" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx5" src="assets/whoosh.mp3" data-start="17.45" data-duration="0.6" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx6" src="assets/whoosh.mp3" data-start="20" data-duration="0.6" data-track-index="42" data-volume="0.18"></audio>
+      <audio id="sfx7" src="assets/whoosh.mp3" data-start="21.85" data-duration="0.6" data-track-index="43" data-volume="0.18"></audio>
+      <audio id="sfx8" src="assets/pop.mp3" data-start="25.4" data-duration="0.7" data-track-index="40" data-volume="0.25"></audio>
+      <audio id="sfx9" src="assets/pop.mp3" data-start="26.11" data-duration="0.7" data-track-index="41" data-volume="0.25"></audio>
+      <audio id="sfx10" src="assets/pop.mp3" data-start="27.31" data-duration="0.7" data-track-index="42" data-volume="0.25"></audio>
+      <audio id="sfx11" src="assets/pop.mp3" data-start="28.17" data-duration="0.7" data-track-index="43" data-volume="0.25"></audio>
+      <audio id="sfx12" src="assets/whoosh.mp3" data-start="28.5" data-duration="0.6" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx13" src="assets/whoosh.mp3" data-start="32.25" data-duration="0.6" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx14" src="assets/whoosh.mp3" data-start="34.75" data-duration="0.6" data-track-index="42" data-volume="0.18"></audio>
+      <audio id="sfx15" src="assets/whoosh.mp3" data-start="37.5" data-duration="0.6" data-track-index="43" data-volume="0.18"></audio>
+      <audio id="sfx16" src="assets/slam.mp3" data-start="37.95" data-duration="1.2" data-track-index="40" data-volume="0.25"></audio>
+      <audio id="sfx17" src="assets/whoosh.mp3" data-start="39.15" data-duration="0.6" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx18" src="assets/whoosh.mp3" data-start="41.35" data-duration="0.6" data-track-index="42" data-volume="0.18"></audio>
+      <audio id="sfx19" src="assets/sparkle.mp3" data-start="41.9" data-duration="2" data-track-index="43" data-volume="0.3"></audio>
+      <audio id="sfx20" src="assets/whoosh.mp3" data-start="46.3" data-duration="0.6" data-track-index="40" data-volume="0.18"></audio>
     </div>
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
       tl.fromTo('#kb-storefront', {scale:1}, {scale:1.07, duration:6.10, ease:'none'}, 0.00);
-      tl.fromTo('#w-nurkids', {scale:1.6, opacity:0, filter:'blur(28px)'}, {...{scale:1, opacity:1, filter:'blur(0px)'}, duration:0.38, ease:'power2.out'}, 5.80);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut'}, 5.98);
+      tl.fromTo('#w-nurkids', {scale:1.08, opacity:0}, {...{scale:1, opacity:1}, duration:0.45, ease:'sine.inOut'}, 5.65);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut'}, 5.95);
       tl.from('#ps-nurkids', {y:-60, opacity:0, duration:0.4, ease:'power3.out'}, 6.15);
-      tl.fromTo('#pc-nurkids', {rotation:-2}, {rotation:1.5, scale:1.04, duration:3.70, ease:'none'}, 5.80);
+      tl.fromTo('#pc-nurkids', {rotation:-2}, {rotation:1.5, scale:1.04, duration:3.85, ease:'none'}, 5.65);
       tl.from('#pl-nurkids', {y:60, opacity:0, duration:0.45, ease:'back.out(1.6)'}, 6.25);
-      tl.fromTo('#w-tracksuit', {x:1080, skewX:-10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 9.20);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 9.38);
-      tl.fromTo('#kb-tracksuit', {scale:1}, {scale:1.07, duration:3.10, ease:'none'}, 9.20);
-      tl.from('#tag-tracksuit', {x:-80, opacity:0, duration:0.45, ease:'back.out(1.8)'}, 9.65);
-      tl.fromTo('#w-seniors', {y:1920, filter:'blur(36px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.38, ease:'expo.out'}, 12.00);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 12.18);
-      tl.from('#ps-seniors', {y:-60, opacity:0, duration:0.4, ease:'power3.out'}, 12.35);
-      tl.fromTo('#pc-seniors', {rotation:-2}, {rotation:1.5, scale:1.04, duration:1.80, ease:'none'}, 12.00);
-      tl.from('#pl-seniors', {y:60, opacity:0, duration:0.45, ease:'back.out(1.6)'}, 12.45);
-      tl.fromTo('#w-smart', {x:-1080, skewX:10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 13.50);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 13.68);
+      tl.fromTo('#w-tracksuit', {x:1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 9.05);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 9.35);
+      tl.fromTo('#kb-tracksuit', {scale:1}, {scale:1.07, duration:4.75, ease:'none'}, 9.05);
+      tl.from('#tag-tracksuit', {x:-40, opacity:0, duration:0.6, ease:'power2.out'}, 9.65);
+      tl.fromTo('#w-smart', {y:1920, filter:'blur(10px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 13.35);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 13.65);
       tl.from('#ps-smart', {y:-60, opacity:0, duration:0.4, ease:'power3.out'}, 13.85);
-      tl.fromTo('#pc-smart', {rotation:-2}, {rotation:1.5, scale:1.04, duration:2.45, ease:'none'}, 13.50);
+      tl.fromTo('#pc-smart', {rotation:-2}, {rotation:1.5, scale:1.04, duration:2.60, ease:'none'}, 13.35);
       tl.from('#pl-smart', {y:60, opacity:0, duration:0.45, ease:'back.out(1.6)'}, 13.95);
-      tl.fromTo('#w-blazer', {scale:1.6, opacity:0, filter:'blur(28px)'}, {...{scale:1, opacity:1, filter:'blur(0px)'}, duration:0.38, ease:'power2.out'}, 15.65);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 15.83);
-      tl.fromTo('#kb-blazer', {scale:1}, {scale:1.07, duration:1.35, ease:'none'}, 15.65);
-      tl.from('#tag-blazer', {x:-80, opacity:0, duration:0.45, ease:'back.out(1.8)'}, 16.10);
-      tl.fromTo('#w-jacket', {x:1080, skewX:-10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 16.70);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 16.88);
-      tl.fromTo('#kb-jacket', {scale:1}, {scale:1.07, duration:3.75, ease:'none'}, 16.70);
-      tl.from('#tag-jacket', {x:-80, opacity:0, duration:0.45, ease:'back.out(1.8)'}, 17.15);
-      tl.fromTo('#w-davjacket', {y:1920, filter:'blur(36px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.38, ease:'expo.out'}, 20.15);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 20.33);
+      tl.fromTo('#w-blazer', {scale:1.08, opacity:0}, {...{scale:1, opacity:1}, duration:0.45, ease:'sine.inOut'}, 15.50);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 15.80);
+      tl.fromTo('#kb-blazer', {scale:1}, {scale:1.07, duration:2.40, ease:'none'}, 15.50);
+      tl.from('#tag-blazer', {x:-40, opacity:0, duration:0.6, ease:'power2.out'}, 16.10);
+      tl.fromTo('#w-jacket', {x:1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 17.45);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 17.75);
+      tl.fromTo('#kb-jacket', {scale:1}, {scale:1.07, duration:3.00, ease:'none'}, 17.45);
+      tl.from('#tag-jacket', {x:-40, opacity:0, duration:0.6, ease:'power2.out'}, 18.05);
+      tl.fromTo('#w-davjacket', {y:1920, filter:'blur(10px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 20.00);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 20.30);
       tl.from('#ps-davjacket', {y:-60, opacity:0, duration:0.4, ease:'power3.out'}, 20.50);
-      tl.fromTo('#pc-davjacket', {rotation:-2}, {rotation:1.5, scale:1.04, duration:2.15, ease:'none'}, 20.15);
+      tl.fromTo('#pc-davjacket', {rotation:-2}, {rotation:1.5, scale:1.04, duration:2.30, ease:'none'}, 20.00);
       tl.from('#pl-davjacket', {y:60, opacity:0, duration:0.45, ease:'back.out(1.6)'}, 20.60);
-      tl.fromTo('#w-otherschools', {x:-1080, skewX:10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 22.00);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 22.18);
-      tl.fromTo('#kb-otherschools', {scale:1}, {scale:1.07, duration:3.40, ease:'none'}, 22.00);
-      tl.from('#tag-otherschools', {x:-80, opacity:0, duration:0.45, ease:'back.out(1.8)'}, 22.45);
-      tl.fromTo('#w-bags', {scale:1.6, opacity:0, filter:'blur(28px)'}, {...{scale:1, opacity:1, filter:'blur(0px)'}, duration:0.38, ease:'power2.out'}, 25.10);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 25.28);
-      tl.fromTo('#kb-bags', {scale:1}, {scale:1.07, duration:1.05, ease:'none'}, 25.10);
-      tl.fromTo('#w-stationery', {x:1080, skewX:-10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 25.85);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 26.03);
-      tl.fromTo('#kb-stationery', {scale:1}, {scale:1.07, duration:1.25, ease:'none'}, 25.85);
-      tl.fromTo('#w-lunch', {y:1920, filter:'blur(36px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.38, ease:'expo.out'}, 26.80);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 26.98);
-      tl.fromTo('#kb-lunch', {scale:1}, {scale:1.07, duration:1.40, ease:'none'}, 26.80);
-      tl.fromTo('#w-bottles', {x:-1080, skewX:10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 27.90);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 28.08);
-      tl.fromTo('#kb-bottles', {scale:1}, {scale:1.07, duration:1.05, ease:'none'}, 27.90);
-      tl.fromTo('#w-everything', {scale:1.6, opacity:0, filter:'blur(28px)'}, {...{scale:1, opacity:1, filter:'blur(0px)'}, duration:0.38, ease:'power2.out'}, 28.65);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 28.83);
-      tl.fromTo('#kb-everything', {scale:1}, {scale:1.07, duration:4.05, ease:'none'}, 28.65);
-      tl.fromTo('#w-oneroof', {x:1080, skewX:-10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 32.40);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 32.58);
-      tl.fromTo('#kb-oneroof', {scale:1}, {scale:1.07, duration:1.70, ease:'none'}, 32.40);
-      tl.fromTo('#w-counter', {y:1920, filter:'blur(36px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.38, ease:'expo.out'}, 33.80);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 33.98);
-      tl.fromTo('#kb-counter', {scale:1}, {scale:1.07, duration:4.15, ease:'none'}, 33.80);
-      tl.fromTo('#w-onestop', {scale:1.6, opacity:0, filter:'blur(28px)'}, {...{scale:1, opacity:1, filter:'blur(0px)'}, duration:0.38, ease:'power2.out'}, 37.65);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 37.83);
-      tl.fromTo('#w-visit', {x:-1080, skewX:10, filter:'blur(36px)'}, {...{x:0, skewX:0, filter:'blur(0px)'}, duration:0.38, ease:'power3.out'}, 39.30);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 39.48);
-      tl.fromTo('#kb-visit', {scale:1}, {scale:1.07, duration:2.50, ease:'none'}, 39.30);
-      tl.fromTo('#w-address', {scale:1.6, opacity:0, filter:'blur(28px)'}, {...{scale:1, opacity:1, filter:'blur(0px)'}, duration:0.38, ease:'power2.out'}, 41.50);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 41.68);
-      tl.fromTo('#w-phone', {y:1920, filter:'blur(36px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.38, ease:'expo.out'}, 46.45);
-      tl.fromTo('#flash', {opacity:0}, {opacity:0.35, duration:0.12, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 46.63);
-      tl.from('#t-ns', {scale:2.2, opacity:0, filter:'blur(20px)', duration:0.55, ease:'expo.out'}, 0.25);
+      tl.fromTo('#w-otherschools', {x:-1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 21.85);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 22.15);
+      tl.fromTo('#kb-otherschools', {scale:1}, {scale:1.07, duration:3.55, ease:'none'}, 21.85);
+      tl.from('#tag-otherschools', {x:-40, opacity:0, duration:0.6, ease:'power2.out'}, 22.45);
+      tl.fromTo('#w-bags', {x:1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.25, ease:'power2.inOut'}, 25.15);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 25.25);
+      tl.fromTo('#kb-bags', {scale:1}, {scale:1.07, duration:1.00, ease:'none'}, 25.15);
+      tl.fromTo('#w-stationery', {x:1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.25, ease:'power2.inOut'}, 25.90);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 26.00);
+      tl.fromTo('#kb-stationery', {scale:1}, {scale:1.07, duration:1.20, ease:'none'}, 25.90);
+      tl.fromTo('#w-lunch', {x:1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.25, ease:'power2.inOut'}, 26.85);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 26.95);
+      tl.fromTo('#kb-lunch', {scale:1}, {scale:1.07, duration:1.35, ease:'none'}, 26.85);
+      tl.fromTo('#w-bottles', {x:1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.25, ease:'power2.inOut'}, 27.95);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 28.05);
+      tl.fromTo('#kb-bottles', {scale:1}, {scale:1.07, duration:1.00, ease:'none'}, 27.95);
+      tl.fromTo('#w-everything', {scale:1.08, opacity:0}, {...{scale:1, opacity:1}, duration:0.45, ease:'sine.inOut'}, 28.50);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 28.80);
+      tl.fromTo('#kb-everything', {scale:1}, {scale:1.07, duration:4.20, ease:'none'}, 28.50);
+      tl.fromTo('#w-oneroof', {x:-1080, filter:'blur(10px)'}, {...{x:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 32.25);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 32.55);
+      tl.fromTo('#kb-oneroof', {scale:1}, {scale:1.07, duration:2.95, ease:'none'}, 32.25);
+      tl.fromTo('#w-counter', {scale:1.08, opacity:0}, {...{scale:1, opacity:1}, duration:0.45, ease:'sine.inOut'}, 34.75);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 35.05);
+      tl.fromTo('#kb-counter', {scale:1}, {scale:1.07, duration:3.20, ease:'none'}, 34.75);
+      tl.fromTo('#w-onestop', {scale:1.08, opacity:0}, {...{scale:1, opacity:1}, duration:0.45, ease:'sine.inOut'}, 37.50);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 37.80);
+      tl.fromTo('#w-visit', {y:1920, filter:'blur(10px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 39.15);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 39.45);
+      tl.fromTo('#kb-visit', {scale:1}, {scale:1.07, duration:2.65, ease:'none'}, 39.15);
+      tl.fromTo('#w-address', {scale:1.08, opacity:0}, {...{scale:1, opacity:1}, duration:0.45, ease:'sine.inOut'}, 41.35);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 41.65);
+      tl.fromTo('#w-phone', {y:1920, filter:'blur(10px)'}, {...{y:0, filter:'blur(0px)'}, duration:0.45, ease:'power2.inOut'}, 46.30);
+      tl.fromTo('#flash', {opacity:0}, {opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut', immediateRender:false}, 46.60);
+      tl.from('#t-ns', {y:30, opacity:0, duration:0.8, ease:'power2.out'}, 0.25);
       tl.from('#t-sd', {y:30, opacity:0, duration:0.4, ease:'power2.out'}, 0.7);
-      tl.from('#t-dav', {scaleX:0, duration:0.5, ease:'power4.out'}, 4.2);
-      tl.from('#os1', {x:-900, filter:'blur(30px)', duration:0.4, ease:'expo.out'}, 38.05);
-      tl.from('#os2', {x:900, filter:'blur(30px)', duration:0.4, ease:'expo.out'}, 38.3);
+      tl.from('#t-dav', {y:20, opacity:0, duration:0.6, ease:'power2.out'}, 4.0);
+      tl.from('#os1', {y:40, opacity:0, duration:0.5, ease:'power2.out'}, 37.9);
+      tl.from('#os2', {y:40, opacity:0, duration:0.5, ease:'power2.out'}, 38.2);
       tl.from('#os3', {y:40, opacity:0, duration:0.4, ease:'power2.out'}, 38.65);
       tl.fromTo('#g-onestop', {scale:1}, {scale:1.06, duration:1.95, ease:'none'}, 37.65);
       tl.from('#pin', {y:-400, duration:0.6, ease:'bounce.out'}, 41.65);
@@ -265,30 +251,27 @@
       tl.from('#ph-call', {opacity:0, y:24, duration:0.5, ease:'power2.out'}, 46.95);
       tl.from('#ph-n1', {scale:0.6, opacity:0, duration:0.45, ease:'back.out(2)'}, 47.1);
       tl.from('#ph-n2', {scale:0.6, opacity:0, duration:0.45, ease:'back.out(2)'}, 52.0);
-      tl.from('#ph-sd', {scaleX:0, duration:0.45, ease:'power4.out'}, 55.75);
+      tl.from('#ph-sd', {y:20, opacity:0, duration:0.5, ease:'power2.out'}, 55.7);
       tl.from('#ph-addr', {opacity:0, y:20, duration:0.4, ease:'power2.out'}, 56.2);
       tl.fromTo('.ph-content', {scale:1}, {scale:1.05, duration:11.8, ease:'none'}, 46.75);
       tl.to('#fade', {opacity:1, duration:0.45, ease:'power1.in'}, 58.1);
-      tl.from('#cap0 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 0.05);
-      tl.from('#cap1 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 2.97);
-      tl.from('#cap2 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 6.12);
-      tl.from('#cap3 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 9.58);
-      tl.from('#cap4 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 12.30);
-      tl.from('#cap5 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 13.90);
-      tl.from('#cap6 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 15.90);
-      tl.from('#cap7 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 17.00);
-      tl.from('#cap8 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 18.76);
-      tl.from('#cap9 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 20.50);
-      tl.from('#cap10 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 22.30);
-      tl.from('#cap11 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 29.10);
-      tl.from('#cap12 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 32.85);
-      tl.from('#cap13 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 34.19);
-      tl.from('#cap14 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 36.10);
-      tl.from('#cap15 .cap-box', {y:40, scale:0.85, opacity:0, duration:0.28, ease:'back.out(2)'}, 39.68);
-      tl.from('#item-bags .item-box', {scale:2.4, opacity:0, rotation:-6, duration:0.3, ease:'expo.out'}, 25.45);
-      tl.from('#item-stationery .item-box', {scale:2.4, opacity:0, rotation:-6, duration:0.3, ease:'expo.out'}, 26.16);
-      tl.from('#item-lunch .item-box', {scale:2.4, opacity:0, rotation:-6, duration:0.3, ease:'expo.out'}, 27.36);
-      tl.from('#item-bottles .item-box', {scale:2.4, opacity:0, rotation:-6, duration:0.3, ease:'expo.out'}, 28.22);
+      tl.from('#cap0 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 0.05);
+      tl.from('#cap1 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 2.97);
+      tl.from('#cap2 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 6.12);
+      tl.from('#cap3 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 9.58);
+      tl.from('#cap4 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 13.90);
+      tl.from('#cap5 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 17.00);
+      tl.from('#cap6 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 20.50);
+      tl.from('#cap7 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 22.30);
+      tl.from('#cap8 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 29.10);
+      tl.from('#cap9 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 32.85);
+      tl.from('#cap10 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 34.19);
+      tl.from('#cap11 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 36.10);
+      tl.from('#cap12 .cap-box', {y:24, opacity:0, duration:0.45, ease:'power2.out'}, 39.68);
+      tl.from('#item-bags .item-box', {y:30, opacity:0, duration:0.35, ease:'power2.out'}, 25.45);
+      tl.from('#item-stationery .item-box', {y:30, opacity:0, duration:0.35, ease:'power2.out'}, 26.16);
+      tl.from('#item-lunch .item-box', {y:30, opacity:0, duration:0.35, ease:'power2.out'}, 27.36);
+      tl.from('#item-bottles .item-box', {y:30, opacity:0, duration:0.35, ease:'power2.out'}, 28.22);
       tl.set({}, {}, 58.6);
       window.__timelines["main"] = tl;
     </script>
