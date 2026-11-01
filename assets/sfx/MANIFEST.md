@@ -9,6 +9,14 @@ All paths below are **relative to `assets/`** so they match `<audio src="...">` 
 | Moment in video | Best SFX | Path | Duration |
 |-----------------|----------|------|----------|
 | Scene cut / whip transition | whoosh | `sfx/transitions/whoosh.mp3` | 0.57s |
+| Whip transition, airy & short (peak ~0.7s) | whoosh-03 | `sfx/transitions/whoosh-03.mp3` | 1.96s |
+| Whip transition, quick (peak ~0.74s) | whoosh-06 | `sfx/transitions/whoosh-06.mp3` | 2.30s |
+| Whip transition (peak ~0.87s) | whoosh-07 | `sfx/transitions/whoosh-07.mp3` | 2.56s |
+| Whip transition (peak ~0.96s) | whoosh-05 | `sfx/transitions/whoosh-05.mp3` | 2.12s |
+| Whip transition, loudest/punchiest (peak ~1.0s) | whoosh-01 | `sfx/transitions/whoosh-01.mp3` | 2.67s |
+| Whip transition, longer swell (peak ~1.11s) | whoosh-02 | `sfx/transitions/whoosh-02.mp3` | 2.41s |
+| Soft/subtle whoosh, under-the-voice (peak ~0.89s, quiet) | whoosh-04 | `sfx/transitions/whoosh-04.mp3` | 2.85s |
+| Big cinematic whoosh into a title / reveal (peak ~0.48s) | cinematic-whoosh | `sfx/cinematic/cinematic-whoosh.mp3` | 2.95s |
 | Side-to-side swipe transition | swipe | `sfx/transitions/swipe.mp3` | 1.06s |
 | Digital/tech transition, data reveal | glitch | `sfx/transitions/glitch.mp3` | 2.64s |
 | Hard snap on a beat drop | hard-cut | `sfx/transitions/hard-cut.mp3` | 0.20s |
@@ -34,6 +42,7 @@ All paths below are **relative to `assets/`** so they match `<audio src="...">` 
 ## Usage notes + gotchas
 
 - **`hard-cut.mp3` was trimmed** from the original 8s (which had 7.8s of dead air tail) down to 0.2s with the snap hitting at ~23ms. Drop it in with `data-duration="0.2"` and it'll fire cleanly on the beat. The untrimmed source is kept alongside as `hard-cut.original.mp3` in case you ever want to re-trim differently.
+- **Creator whoosh pack (`whoosh-01`…`whoosh-07`, `cinematic-whoosh`)** — supplied by the creator from their own Google Drive. Each whoosh builds up *before* its loudest point, so **start the audio clip ≈ peak-time earlier than the cut** (e.g. a cut at 4.0s with `whoosh-05` → `data-start="3.04"`). Peak times are in the quick-pick table. Rotate through the seven so back-to-back cuts don't sound identical. `whoosh-04` is ~10 dB quieter than the rest, so it fits under speech. `cinematic-whoosh.mp3` was trimmed: 1.0s of silence removed from the start, the tail cut at 2.9s with a 0.2s fade. The untrimmed source is `cinematic-whoosh.original.mp3`. (The Drive folder had two copies of the cinematic whoosh with identical audio, so only one was kept.)
 - **`keyboard-typing.mp3` is a ~20s continuous loop** of fast laptop keys. For typing that lasts N seconds, set `data-start` where the typing begins and `data-duration` to match the typing length — the mixer will truncate naturally. Pair with `<audio>` not `<video>`.
 - **`click.wav` is WAV** (uncompressed, ~80KB). All other SFX are MP3. Hyperframes' mixer handles both — no conversion needed.
 - **Loopable beds**: `ambient-hum.mp3` (62.85s) and `music-bed-cinematic-tech.mp3` (122.91s) are long enough to cover most shorts without a loop seam being audible. For videos longer than the bed's duration, crossfade a second copy at `(duration - 1s)` with a 1s overlap.
@@ -46,10 +55,12 @@ All paths below are **relative to `assets/`** so they match `<audio src="...">` 
 assets/
 ├── sfx/
 │   ├── transitions/    whoosh.mp3  swipe.mp3  glitch.mp3  hard-cut.mp3
+│   │                   whoosh-01.mp3 … whoosh-07.mp3  (creator pack)
 │   ├── ui/             click.wav   pop.mp3    notification.mp3  keyboard-typing.mp3
 │   │                   send-message.mp3  zap.mp3  error.mp3
 │   ├── impact/         slam.mp3    boom.mp3   stinger.mp3   bass-drop.mp3
 │   ├── cinematic/      riser.mp3   sparkle.mp3  paper-flip.mp3  power-up.mp3
+│   │                   cinematic-whoosh.mp3  (creator pack)
 │   ├── ambient/        ambient-hum.mp3  tech-drone.mp3
 │   └── MANIFEST.md     (this file)
 ├── music/              music-bed-cinematic-tech.mp3
@@ -67,3 +78,4 @@ To add more SFX later:
 License:
 - Pixabay assets — Pixabay Content License (free commercial use, no attribution required).
 - Mixkit assets (`keyboard-typing`, `send-message`, `zap`, `error`, `stinger`, `bass-drop`, `power-up`) — Mixkit Sound Effects Free License (free commercial use, no attribution required, cannot be redistributed as a standalone sound pack).
+- Creator whoosh pack (`whoosh-01`…`whoosh-07`, `cinematic-whoosh`) — supplied by the creator from their own Google Drive; the creator is responsible for confirming usage rights.
