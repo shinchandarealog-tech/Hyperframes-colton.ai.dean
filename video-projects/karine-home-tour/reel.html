@@ -1,0 +1,313 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Home Tour Reel</title>
+<style>
+:root{--coral:#E0553A;--coral-tint:#FCE3DC;--ink:#151515;--paper:#F7F4F0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+body{font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
+#stage{position:absolute;inset:0;overflow:hidden;background:var(--paper)}
+.scene{position:absolute;inset:0;display:none;overflow:hidden}
+.abs{position:absolute}
+.full{position:absolute;inset:0}
+img.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.wrap{position:absolute;inset:0;overflow:hidden}
+.caps{text-transform:uppercase}
+.w{will-change:transform,opacity}
+.shadowtxt{text-shadow:0 3px 18px rgba(0,0,0,.45),0 1px 3px rgba(0,0,0,.35)}
+.row{display:flex;align-items:center;justify-content:center}
+.coralbox{background:var(--coral);color:#fff;border-radius:14px;padding:2px 20px 6px;display:inline-block}
+.pill{display:inline-flex;align-items:center;gap:18px;background:#fff;color:var(--ink);border-radius:999px;
+  padding:12px 34px 12px 12px;font-weight:800;font-size:40px;letter-spacing:.02em;text-transform:uppercase;
+  box-shadow:0 10px 30px rgba(0,0,0,.22)}
+.ico{width:60px;height:60px;border-radius:50%;background:var(--coral);display:flex;align-items:center;justify-content:center;flex:none}
+.ico svg{width:34px;height:34px}
+.shade{position:absolute;left:0;right:0;bottom:0;height:900px;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0))}
+.shadeTop{position:absolute;left:0;right:0;top:0;height:800px;background:linear-gradient(to bottom,rgba(0,0,0,.45),rgba(0,0,0,0))}
+.uicard{position:absolute;display:flex;align-items:center;gap:18px;background:#fff;color:var(--ink);border-radius:28px;
+  padding:16px 30px 16px 16px;font-weight:700;font-size:34px;box-shadow:0 18px 44px rgba(150,60,30,.20)}
+.uicard .ico{background:var(--coral-tint)}
+.photo{position:absolute;left:-310px;top:-415px;width:620px;height:830px;border-radius:36px;overflow:hidden;
+  border:12px solid #fff;box-shadow:0 26px 60px rgba(0,0,0,.25);backface-visibility:hidden;background:#ddd}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.card{position:absolute;overflow:hidden;border-radius:44px;box-shadow:0 22px 50px rgba(0,0,0,.22);background:#222}
+</style></head>
+<body><div id="stage">
+
+<!-- A: hook card -> full-frame captions (src 0..172) -->
+<div class="scene" id="A">
+  <div id="Acard" class="abs w" style="left:90px;top:160px;width:900px;height:1600px;overflow:hidden;border-radius:56px;box-shadow:0 30px 70px rgba(0,0,0,.25);background:#ddd">
+    <img class="vid w" id="Avid">
+    <div id="Ashade" class="shade" style="opacity:0"></div>
+    <div id="Achip" class="abs w caps" style="left:0;top:0;background:var(--coral);color:#fff;font-weight:900;font-size:46px;letter-spacing:.04em;padding:12px 30px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 10px 26px rgba(0,0,0,.25)">Custom-built</div>
+  </div>
+  <div class="abs" style="left:0;right:0;top:1150px;display:flex;flex-direction:column;align-items:center;gap:14px">
+    <div id="A1" class="w caps shadowtxt" style="font-weight:900;font-size:80px;letter-spacing:.01em">Executive home</div>
+    <div class="row" style="gap:18px">
+      <div id="A2" class="w caps shadowtxt" style="font-weight:900;font-size:80px">Completed in</div>
+      <div id="A3" class="w coralbox" style="font-weight:900;font-size:80px">2025</div>
+    </div>
+    <div style="height:18px"></div>
+    <div id="A4" class="w pill"><div class="ico"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 2 18.5 11.5H15l5 7.5H4l5-7.5H5.5Z"/><rect x="10.8" y="18.5" width="2.4" height="3.5" fill="#fff"/></svg></div>1.2 private acres</div>
+    <div id="A5" class="w pill"><div class="ico"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.7" fill="#E0553A"/></svg></div>Just outside the city</div>
+  </div>
+</div>
+
+<!-- B: white scene with photo-card stack (graphic only) -->
+<div class="scene" id="B" style="background:linear-gradient(180deg,#FCFBF9,#EFEBE6)">
+  <div class="abs" style="left:0;right:0;top:230px;display:flex;flex-direction:column;align-items:center;gap:18px">
+    <div id="B1" class="w caps" style="color:var(--ink);font-weight:800;font-size:46px;letter-spacing:.08em">Step inside to over</div>
+    <div id="B2" class="w coralbox" style="font-weight:900;font-size:128px;letter-spacing:-.01em;padding:0 30px 8px;border-radius:20px">3,300 SQ FT</div>
+  </div>
+  <div id="Bstack" class="abs" style="left:540px;top:1150px;width:0;height:0;perspective:2200px">
+    <div class="photo w" id="P0"><img src="assets/stills/s_7.9.jpg"></div>
+    <div class="photo w" id="P1"><img src="assets/stills/s_9.6.jpg"></div>
+    <div class="photo w" id="P2"><img src="assets/stills/s_10.9.jpg"></div>
+    <div class="photo w" id="P3"><img src="assets/stills/s_57.9.jpg"></div>
+  </div>
+  <div id="B3" class="abs w caps" style="left:0;right:0;top:1665px;text-align:center;color:var(--ink);font-weight:800;font-size:40px;letter-spacing:.07em">of beautifully finished living space</div>
+</div>
+
+<!-- C: kitchen b-roll + coral gradient -->
+<div class="scene" id="C">
+  <div class="wrap"><div id="Cz" class="full w"><img class="vid" id="Cvid"></div></div>
+  <div id="Cgrad" class="abs" style="left:0;right:0;bottom:0;height:0;background:linear-gradient(to top,rgba(224,85,58,.96) 0%,rgba(224,85,58,.78) 32%,rgba(224,85,58,0) 100%)"></div>
+  <div class="abs" style="left:0;right:0;bottom:250px;height:80px">
+    <div id="C1" class="abs w caps" style="left:0;right:0;text-align:center;font-weight:800;font-size:52px;letter-spacing:.09em">Designer kitchen</div>
+    <div id="C2" class="abs w caps" style="left:0;right:0;text-align:center;font-weight:800;font-size:52px;letter-spacing:.09em">Soaring ceilings</div>
+    <div id="C3" class="abs w caps" style="left:0;right:0;text-align:center;font-weight:800;font-size:52px;letter-spacing:.09em">Luxurious primary suite</div>
+  </div>
+  <div id="Cbar" class="abs w" style="left:500px;bottom:360px;width:80px;height:6px;border-radius:3px;background:#fff"></div>
+</div>
+
+<!-- D: split screen -->
+<div class="scene" id="D" style="background:var(--paper)">
+  <div id="Dtop" class="card w" style="left:60px;top:70px;width:960px;height:760px"><img class="vid" id="Dvid1" style="object-position:50% 52%"></div>
+  <div id="Dbot" class="card w" style="left:60px;top:1090px;width:960px;height:760px"><img class="vid" id="Dvid2" style="object-position:50% 50%"></div>
+  <div id="D1" class="abs w caps" style="left:0;right:0;top:862px;text-align:center;color:var(--ink);font-weight:800;font-size:40px;letter-spacing:.07em">Every detail · high-end finishes</div>
+  <div class="abs" style="left:0;right:0;top:930px;display:flex;justify-content:center">
+    <div id="D2" class="w caps" style="background:var(--coral);color:#fff;font-weight:900;font-size:50px;letter-spacing:.02em;padding:10px 36px 14px;border-radius:999px;box-shadow:0 10px 26px rgba(224,85,58,.35)">Exceptional craftsmanship</div>
+  </div>
+</div>
+
+<!-- E: definition tag over stairs -->
+<div class="scene" id="E">
+  <div class="wrap"><div id="Ez" class="full w"><img class="vid" id="Evid"></div></div>
+  <div class="shade"></div>
+  <div class="abs" style="left:70px;top:1270px">
+    <div style="display:flex;align-items:center;gap:24px">
+      <div id="E1" class="w" style="width:108px;height:108px;border-radius:50%;background:var(--coral);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25)">
+        <svg viewBox="0 0 24 24" width="62" height="62"><g stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M12 3v18"/><path d="M4.2 7.5l15.6 9"/><path d="M4.2 16.5l15.6-9"/></g></svg>
+      </div>
+      <div id="E2" class="w shadowtxt" style="font-weight:800;font-size:84px;letter-spacing:-.01em;white-space:nowrap">Walkout basement</div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:28px;margin-left:132px">
+      <div id="E3" class="w" style="background:#fff;color:var(--ink);font-weight:600;font-size:38px;padding:10px 28px 12px;border-radius:999px">Fully finished</div>
+      <div id="E4" class="w" style="background:#fff;color:var(--ink);font-weight:600;font-size:38px;padding:10px 28px 12px;border-radius:999px">Walk-out level</div>
+    </div>
+  </div>
+</div>
+
+<!-- F: light gradient scene -->
+<div class="scene" id="F" style="background:radial-gradient(1200px 900px at 75% 70%,#FFFFFF 0%,rgba(255,255,255,0) 60%),linear-gradient(180deg,#FFF6F1 0%,#FDE6DD 55%,#F7D2C5 100%)">
+  <div class="abs" style="left:70px;top:150px;color:var(--coral);font-weight:900;font-size:112px;line-height:1.02;letter-spacing:-.015em">
+    <div id="F1" class="w caps">Heated</div>
+    <div id="F2" class="w caps">3-car garage</div>
+    <div id="F3" class="w caps" style="margin-top:22px">Energy</div>
+    <div id="F4" class="w caps">efficient</div>
+  </div>
+  <svg id="S0" class="abs w" style="left:0;top:0" width="120" height="120" viewBox="-1 -1 2 2"><path fill="#E0553A" d="M0-1C.1-.1.1-.1 1 0C.1.1.1.1 0 1C-.1.1-.1.1-1 0C-.1-.1-.1-.1 0-1Z"/></svg>
+  <svg id="S1" class="abs w" style="left:0;top:0" width="80" height="80" viewBox="-1 -1 2 2"><path fill="#fff" d="M0-1C.1-.1.1-.1 1 0C.1.1.1.1 0 1C-.1.1-.1.1-1 0C-.1-.1-.1-.1 0-1Z"/></svg>
+  <svg id="S2" class="abs w" style="left:0;top:0" width="70" height="70" viewBox="-1 -1 2 2"><path fill="#E0553A" d="M0-1C.1-.1.1-.1 1 0C.1.1.1.1 0 1C-.1.1-.1.1-1 0C-.1-.1-.1-.1 0-1Z"/></svg>
+  <svg id="S3" class="abs w" style="left:0;top:0" width="96" height="96" viewBox="-1 -1 2 2"><path fill="#fff" d="M0-1C.1-.1.1-.1 1 0C.1.1.1.1 0 1C-.1.1-.1.1-1 0C-.1-.1-.1-.1 0-1Z"/></svg>
+  <img id="Fcut" class="abs w" src="assets/stills/cutout.png" style="left:590px;top:700px;height:1180px;filter:drop-shadow(0 24px 40px rgba(150,60,30,.25))">
+  <div id="Fvc" class="abs w" style="left:70px;top:720px;width:420px;height:330px;border-radius:30px;overflow:hidden;border:8px solid #fff;box-shadow:0 18px 44px rgba(150,60,30,.22)">
+    <img class="vid" id="Fvid" style="object-position:50% 45%">
+    <div class="abs" style="left:14px;bottom:14px;background:rgba(255,255,255,.95);color:var(--ink);font-weight:700;font-size:26px;padding:6px 16px 8px;border-radius:999px">Walkout level</div>
+  </div>
+  <div id="U1" class="uicard w" style="left:70px;top:1110px"><div class="ico"><svg viewBox="0 0 24 24"><path fill="#E0553A" d="M12 2c1 4 5.5 6 5.5 11.5a5.5 5.5 0 0 1-11 0c0-2.2 1-3.8 2.2-5 0 2 1 3.2 2.2 3.2C10.9 8.6 10 5.6 12 2z"/></svg></div>Heated garage</div>
+  <div id="U2" class="uicard w" style="left:800px;top:1330px"><div class="ico"><svg viewBox="0 0 24 24"><path fill="#E0553A" d="M3 13.5 5 8h14l2 5.5V18H3z"/><circle cx="7.5" cy="18" r="2.2" fill="#E0553A"/><circle cx="16.5" cy="18" r="2.2" fill="#E0553A"/><rect x="6.5" y="9.5" width="11" height="3.2" rx="1" fill="#FCE3DC"/></svg></div>3 cars</div>
+  <div id="U3" class="uicard w" style="left:70px;top:1290px"><div class="ico"><svg viewBox="0 0 24 24"><path fill="#E0553A" d="M13.5 2 4 14h7l-1.5 8L20 10h-7z"/></svg></div>Energy efficient</div>
+</div>
+
+<!-- G: drone + check line -->
+<div class="scene" id="G">
+  <div class="wrap"><div id="Gz" class="full w"><img class="vid" id="Gvid"></div></div>
+  <div class="shade" style="height:760px;opacity:.85"></div>
+  <div class="abs row" style="left:0;right:0;top:1480px;gap:26px">
+    <div id="G1" class="w" style="width:104px;height:104px;border-radius:50%;background:var(--coral);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.25);flex:none">
+      <svg viewBox="0 0 24 24" width="60" height="60"><path d="M5 12.5l4.6 4.6L19.5 7" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div id="G2" class="w caps shadowtxt" style="font-weight:900;font-size:72px;white-space:nowrap">1.2 private acres</div>
+  </div>
+</div>
+
+<!-- H: presenter end -->
+<div class="scene" id="H">
+  <div class="wrap"><div id="Hz" class="full w"><img class="vid" id="Hvid"></div></div>
+  <div class="shadeTop"></div>
+  <div class="abs" style="left:0;right:0;top:250px;display:flex;flex-direction:column;align-items:center">
+    <div style="position:relative;height:84px;width:100%">
+      <div id="H1" class="abs w caps shadowtxt" style="left:0;right:0;text-align:center;font-weight:900;font-size:72px">See it in person?</div>
+      <div id="H2" class="abs w caps shadowtxt" style="left:0;right:0;text-align:center;font-weight:800;font-size:56px;letter-spacing:.05em;top:10px">Reach out today to</div>
+    </div>
+    <div id="H3" class="w coralbox caps" style="margin-top:22px;font-weight:900;font-size:88px;line-height:1.04;text-align:center;padding:14px 34px 20px;border-radius:22px;box-shadow:0 14px 34px rgba(0,0,0,.25)">Book your<br>private showing</div>
+  </div>
+</div>
+
+</div>
+<script>
+const FPS=24;
+// scene boundaries in output frames
+const SC={A:[0,173],B:[173,300],C:[300,422],D:[422,547],E:[547,600],F:[600,697],G:[697,791],H:[791,888]};
+const T=k=>SC[k][0]/FPS;
+// source frame per output frame
+function srcMap(n){
+  if(n<173) return {Avid:n};
+  if(n<300) return {};
+  if(n<422) return {Cvid:593+(n-300)};
+  if(n<547) return {Dvid1:715+(n-422),Dvid2:1154+(n-422)};
+  if(n<600) return {Evid:1509+(n-547)};
+  if(n<697) return {Fvid:1562+(n-600)};
+  if(n<791) return {Gvid:2078+(n-697)};
+  return {Hvid:2172+(n-791)};
+}
+// ---------- motion helpers (pure functions of t) ----------
+const WIN=new Map();
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,p)=>a+(b-a)*p;
+const backOut=(p,s=1.35)=>{p=p-1;return 1+(s+1)*p*p*p+s*p*p;};
+const cubicOut=p=>1-Math.pow(1-p,3);
+const cubicIn=p=>p*p*p;
+function prog(t,a,d){WIN.set(a+','+d,[a,a+d]);return clamp((t-a)/d);}
+const $=id=>document.getElementById(id);
+function put(el,{o=1,x=0,y=0,s=1,r=0,ry=0,blur=0}={}){
+  if(typeof el==='string') el=$(el);
+  el.style.opacity=o.toFixed(4);
+  el.style.visibility=o<=0.001?'hidden':'visible';
+  el.style.transform=`translate(${x.toFixed(2)}px,${y.toFixed(2)}px) rotateY(${ry.toFixed(3)}deg) rotate(${r.toFixed(3)}deg) scale(${s.toFixed(4)})`;
+  if(blur!==null) el.style.filter=blur>0.01?`blur(${blur.toFixed(2)}px)`:'';
+}
+// pop in with spring overshoot; optional exit
+function popv(t,a,{d=.5,s0=.6,x0=0,y0=40,r0=0,out=null,od=.18,ox=0,oy=-30,os=.9}={}){
+  const p=prog(t,a,d), e=backOut(p);
+  let o=clamp((t-a)/(d*.35)), x=lerp(x0,0,e), y=lerp(y0,0,e), s=lerp(s0,1,e), r=lerp(r0,0,e);
+  if(t<a) o=0;
+  if(out!==null){const q=prog(t,out,od),qe=cubicIn(q);o*=1-q;x+=ox*qe;y+=oy*qe;s*=lerp(1,os,qe);}
+  return {o,x,y,s,r,blur:null};
+}
+// full-frame zoom-settle entrance (overscan keeps edges covered)
+function settle(el,t,a){const e=backOut(prog(t,a,.5),1.2);put(el,{x:0,y:lerp(110,0,e),s:lerp(1.14,1.025,e)});}
+
+function draw(t){
+  for(const k in SC){const [a,b]=SC[k];$(k).style.display=(t>=a/FPS-1e-6&&t<b/FPS-1e-6)?'block':'none';}
+  const n=t*FPS;
+  // ---- A ----
+  {
+    const cut=T('B'); // unused but keeps symmetry
+    const hp=prog(t,0,.8), he=backOut(hp,1.2);
+    let s=lerp(.9,1,he);
+    const xp=prog(t,2.2917,.5), xe=backOut(xp,1.15);
+    if(t>=2.2917) s=lerp(1,1.225,xe);
+    const card=$('Acard');
+    card.style.transform=`scale(${s.toFixed(4)})`;
+    card.style.borderRadius=(56*(1-clamp(xe))).toFixed(2)+'px';
+    card.style.boxShadow=t<2.2917?'0 30px 70px rgba(0,0,0,.25)':'none';
+    const bp=cubicOut(prog(t,.1,.95)), bl=lerp(34,0,bp);
+    $('Avid').style.filter=bl>0.01?`blur(${bl.toFixed(2)}px)`:'';
+    $('Avid').style.transform=`scale(${(1+.09*bl/34).toFixed(4)})`;
+    $('Ashade').style.opacity=(clamp(xe)*1).toFixed(3);
+    // chip tracks the chest (fitted from segmentation, source px * 1.25)
+    const cx=(396-0.4*n)*1.25, cy=(650+0.3*n)*1.25+40;
+    if(t>=1.0 && t<2.3) prog(t,1.0,1.3);
+    const c=popv(t,1.0,{y0:30,s0:.5,out:2.10,od:.18,oy:0,os:.7});
+    const ch=$('Achip');
+    ch.style.left=cx.toFixed(2)+'px';ch.style.top=cy.toFixed(2)+'px';
+    ch.style.opacity=c.o.toFixed(4);ch.style.visibility=c.o<=0.001?'hidden':'visible';
+    ch.style.transform=`translate(-50%,-50%) translateY(${c.y.toFixed(2)}px) scale(${c.s.toFixed(4)})`;
+    put('A1',popv(t,2.55,{y0:50}));
+    put('A2',popv(t,2.75,{y0:50}));
+    put('A3',popv(t,3.16,{y0:0,s0:.4,r0:-6}));
+    put('A4',popv(t,4.50,{y0:60,s0:.7}));
+    put('A5',popv(t,5.95,{y0:60,s0:.7}));
+  }
+  // ---- B ----
+  {
+    put('B1',popv(t,7.2083,{y0:40}));
+    put('B2',popv(t,8.35,{y0:0,s0:.4,r0:-5}));
+    const fin=[[-34,14,-5],[30,-10,4],[-14,6,-2],[0,0,0]], st=[7.40,8.95,10.15,11.25];
+    for(let i=0;i<4;i++){
+      const p=prog(t,st[i],.8), e=backOut(p*p*(3-2*p),1.3);
+      let o=t<st[i]?0:clamp((t-st[i])/.2);
+      put('P'+i,{o,x:fin[i][0],y:lerp(80,fin[i][1],e),r:lerp(fin[i][2]-8,fin[i][2],e),ry:lerp(-88,0,e),s:lerp(.92,1,e)});
+      $('P'+i).style.zIndex=i+1;
+    }
+    put('B3',popv(t,10.25,{y0:40}));
+  }
+  // ---- C ----
+  {
+    settle($('Cz'),t,T('C'));
+    const g=backOut(prog(t,12.7,.7),1.2); $('Cgrad').style.height=lerp(0,820,g).toFixed(2)+'px';
+    put('Cbar',popv(t,13.6,{y0:0,s0:0}));
+    put('C1',popv(t,13.75,{y0:40,s0:1,out:14.78}));
+    put('C2',popv(t,14.88,{y0:40,s0:1,out:15.95}));
+    put('C3',popv(t,16.05,{y0:40,s0:1}));
+  }
+  // ---- D ----
+  {
+    const a=T('D');
+    const e1=backOut(prog(t,a,.55),1.2), e2=backOut(prog(t,a+.06,.55),1.2);
+    put('Dtop',{y:lerp(-900,0,e1)}); put('Dbot',{y:lerp(900,0,e2)});
+    put('D1',popv(t,17.95,{y0:30}));
+    put('D2',popv(t,20.87,{y0:0,s0:.5}));
+  }
+  // ---- E ----
+  {
+    settle($('Ez'),t,T('E'));
+    put('E1',popv(t,23.10,{y0:0,s0:.3,r0:-120}));
+    put('E2',popv(t,23.22,{y0:0,x0:-50,s0:1}));
+    put('E3',popv(t,23.60,{y0:30,s0:.7}));
+    put('E4',popv(t,23.80,{y0:30,s0:.7}));
+  }
+  // ---- F ----
+  {
+    put('Fcut',popv(t,25.05,{y0:160,s0:.96,d:.6}));
+    put('Fvc',popv(t,25.30,{y0:50,s0:.7}));
+    put('F1',popv(t,25.80,{x0:-60,y0:0,s0:1}));
+    put('F2',popv(t,26.05,{x0:-60,y0:0,s0:1}));
+    put('F3',popv(t,27.35,{x0:-60,y0:0,s0:1}));
+    put('F4',popv(t,27.60,{x0:-60,y0:0,s0:1}));
+    put('U1',popv(t,26.15,{y0:40,s0:.6}));
+    put('U2',popv(t,26.55,{y0:40,s0:.6}));
+    put('U3',popv(t,27.50,{y0:40,s0:.6}));
+    const stars=[[560,770,110,26.0],[1000,830,76,26.35],[985,1190,66,27.75],[540,1650,92,28.1]];
+    stars.forEach(([x,y,w,a],i)=>{const v=popv(t,a,{y0:0,s0:0,r0:-90});v.x+=x-w/2;v.y+=y-w/2;put('S'+i,v);});
+  }
+  // ---- G ----
+  {
+    settle($('Gz'),t,T('G'));
+    put('G1',popv(t,29.40,{y0:0,s0:.3,r0:-90}));
+    put('G2',popv(t,29.55,{y0:0,x0:-50,s0:1}));
+  }
+  // ---- H ----
+  {
+    settle($('Hz'),t,T('H'));
+    put('H1',popv(t,33.12,{y0:40,out:34.75}));
+    put('H2',popv(t,34.92,{y0:40}));
+    put('H3',popv(t,35.45,{y0:0,s0:.5}));
+  }
+}
+let curSrc={};
+window.setFrame=async function(n){
+  const m=srcMap(n), ps=[];
+  for(const id in m){
+    const url=`renders/srcframes/f${String(m[id]).padStart(5,'0')}.jpg`;
+    if(curSrc[id]!==url){curSrc[id]=url;const im=$(id);im.src=url;ps.push(im.decode());}
+  }
+  await Promise.all(ps);
+};
+window.draw=draw;
+// moving if any animation window overlaps [a,b]
+window.moving=(a,b)=>{for(const [s,e] of WIN.values()) if(s<b && e>a) return true; return false;};
+window.primeAll=()=>{for(let i=0;i<888;i++) draw(i/FPS);};
+</script>
+</body></html>
