@@ -1,0 +1,5 @@
+# large media — originals live with the client; regenerate clips with scripts/prep-notes.md
+assets/raw/
+assets/raw-ai/
+assets/clips/
+.hyperframes/
