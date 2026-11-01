@@ -80,7 +80,7 @@ Gotchas: `ui/click-sequence.mp3` (17s) and `ui/highlighter-marker.mp3` (11s) are
 
 ## Full creator library — `sfx/pack/`, `sfx/reel-pack/`, `music/<genre>/`
 
-The creator's whole pack is in the repo with duplicates removed: **5025 SFX** in 72 categories (`sfx/pack/whoosh/`, `glitch/`, `cinematic-hub/`, `risers/`, `notifications/`, `meme-sfx/`…), **39 reel-cut SFX** (`sfx/reel-pack/`), and **391 music tracks** across 28 genres (`music/motivational/`, `music/mystery/`, `music/reel-bgm/`…). All MP3. See `library/README.md` for the category list and full track list, and `library/catalog.json` to search by name, including original filenames.
+The creator's whole pack is in the repo with duplicates removed: **5251 SFX** in 73 categories (`pec-premium/` = UI-heavy premium pack, `sfx/pack/whoosh/`, `glitch/`, `cinematic-hub/`, `risers/`, `notifications/`, `meme-sfx/`…), **39 reel-cut SFX** (`sfx/reel-pack/`), and **391 music tracks** across 28 genres (`music/motivational/`, `music/mystery/`, `music/reel-bgm/`…). All MP3. See `library/README.md` for the category list and full track list, and `library/catalog.json` to search by name, including original filenames.
 
 ## Folder structure (actual)
 
@@ -96,7 +96,7 @@ assets/
 │   │                   cinematic-whoosh.mp3  (creator pack)
 │   ├── ambient/        ambient-hum.mp3  tech-drone.mp3
 │   ├── kit/            creator starter kit — transitions/ impact/ risers/ ui/ foley/  (93 files)
-│   ├── pack/           full creator SFX pack, 72 category folders (5025 files)
+│   ├── pack/           full creator SFX pack, 73 category folders (5251 files, incl. pec-premium/)
 │   ├── reel-pack/      39 SFX cut from a pack-preview reel
 │   └── MANIFEST.md     (this file)
 ├── music/              music-bed-cinematic-tech.mp3 + <genre>/ folders (391 tracks)
