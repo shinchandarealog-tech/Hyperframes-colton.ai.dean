@@ -85,6 +85,7 @@ If either file is missing from the workspace root, stop and ask the user before 
 | `website-to-hyperframes` | `/website-to-hyperframes`  | Turning a URL into a composition (7-step capture-to-video pipeline)                       |
 | `make-a-video`           | `/make-a-video`            | Beginner-friendly end-to-end video creator (interview → scaffold → render)                 |
 | `short-form-video`       | `/short-form-video`        | 9:16 vertical talking-head + motion-graphic playbook (TikTok/Reels/Shorts)                 |
+| `premium-minimal-edit`   | `/premium-minimal-edit`    | Premium minimal educational style (paper textures, Inter + Playfair italic, blue line/illustration scenes) + plan-first edit workflow + method for training on any new style |
 | `feedback`               | `/feedback`                | Capture what worked/didn't on a finished video; updates `PREFERENCES.md`                   |
 | `study-creator`          | `/study-creator <url>`     | Study a reference creator's video; writes analysis + rolls up style fingerprint at ≥3 vids |
 
