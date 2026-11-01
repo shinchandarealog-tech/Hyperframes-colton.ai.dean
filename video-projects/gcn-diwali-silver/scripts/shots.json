@@ -132,9 +132,13 @@
   },
   {
    "t": 29.6,
-   "clip": "ai10-s",
-   "ms": 0.5,
-   "_vo": "चाहे दिवाली की पूजा हो (AI, baked text)"
+   "clip": "r20261023-0009",
+   "ms": 14,
+   "text": [
+    "दिवाली की पूजा"
+   ],
+   "text_delay": 0.15,
+   "_vo": "चाहे दिवाली की पूजा हो (REAL thali)"
   },
   {
    "t": 31.9,
@@ -171,9 +175,14 @@
   },
   {
    "t": 39.4,
-   "clip": "ai13-s",
-   "ms": 2.5,
-   "_vo": "चुनिए चाँदी की खूबसूरती और परंपरा (AI, baked text)"
+   "clip": "r20261101-0020",
+   "ms": 44,
+   "text": [
+    "चाँदी की खूबसूरती",
+    "और परंपरा"
+   ],
+   "text_delay": 0.15,
+   "_vo": "चाँदी की खूबसूरती और परंपरा (REAL)"
   },
   {
    "t": 41.45,
@@ -194,22 +203,29 @@
   },
   {
    "t": 47.85,
-   "clip": "ai15-s",
-   "ms": 1.0,
-   "tr": "zoom",
-   "_vo": "WHOLESALE (AI address card)"
-  },
-  {
-   "t": 51.6,
    "clip": "r20261023-0010",
    "ms": 13,
+   "tr": "zoom",
    "latin": true,
    "text": [
     "WHOLESALE",
-    "3rd Floor, New Chaurasia Complex, Near Axis ATM, Bakarganj, Patna"
+    "3rd Floor, New Chaurasia Complex"
    ],
    "text_delay": 0.1,
-   "_vo": "address cont. (REAL wholesale stock)"
+   "_vo": "WHOLESALE + address pt1 (REAL stock)"
+  },
+  {
+   "t": 51.6,
+   "clip": "r20261023-0005",
+   "ms": 1,
+   "tr": "push",
+   "latin": true,
+   "text": [
+    "Near Axis ATM",
+    "Bakarganj, Patna"
+   ],
+   "text_delay": 0.1,
+   "_vo": "address pt2 (REAL silver notes)"
   },
   {
    "t": 54.15,
