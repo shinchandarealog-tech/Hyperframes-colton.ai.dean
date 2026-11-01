@@ -48,7 +48,7 @@ for i, s in enumerate(shots):
         js.append(f'tl.fromTo("#{sid}-kb", {{scale:{z0}, x:0}}, {{scale:{z1}, x:{dx}, duration:{f(dur)}, ease:"none"}}, {start});')
     for h in s.get("hl", []):
         hid = f'hl{len(hl_html):02d}'
-        hl_html.append(f'    <div class="hl clip" id="{hid}" data-start="{f(h["t0"])}" data-duration="{f(h["t1"] - h["t0"])}" data-track-index="{6 + len(hl_html) % 2}" style="top:{h["top"]}px;height:{h["h"]}px"><i></i></div>')
+        hl_html.append(f'    <div class="hl clip" id="{hid}" data-start="{f(h["t0"])}" data-duration="{f(h["t1"] - h["t0"])}" data-track-index="{6 + len(hl_html) % 2}" style="top:{h["top"]}px;height:{h["h"]}px;left:{h.get("l",30)}px;right:{h.get("r",30)}px"><i></i></div>')
         js.append(f'tl.from("#{hid}", {{opacity:0, scale:1.06, duration:0.35, ease:"power2.out"}}, {f(h["t0"])});')
         js.append(f'tl.fromTo("#{hid} i", {{xPercent:-120}}, {{xPercent:420, duration:0.9, ease:"power2.inOut"}}, {f(h["t0"] + 0.15)});')
         js.append(f'tl.to("#{hid}", {{opacity:0, duration:0.25, ease:"power1.in"}}, {f(h["t1"] - 0.25)});')
@@ -106,6 +106,7 @@ js += [
     f'tl.from("#endcard .ec-info > *", {{y:24, opacity:0, duration:0.6, ease:"power2.out", stagger:0.12}}, {f(cfg["info_at"])});',
     f'tl.from("#ec-cta .w", {{y:30, opacity:0, filter:"blur(8px)", duration:0.6, ease:"back.out(1.4)", stagger:0.08}}, {f(cfg["cta_at"])});',
     f'tl.to("#logo-badge", {{opacity:0, duration:0.5, ease:"power1.in"}}, {f(E - 0.3)});',
+    *([f'tl.to("#logo-badge", {{y:{cfg["logo_lift"]["y"]}, duration:0.5, ease:"power2.inOut"}}, {f(cfg["logo_lift"]["t"])});'] if cfg.get("logo_lift") else []),
     f'tl.to("#fade-black", {{opacity:1, duration:0.9, ease:"power1.in"}}, {f(TOTAL - 0.9)});',
 ]
 # small logo: entrance + periodic shimmer

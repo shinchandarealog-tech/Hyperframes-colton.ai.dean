@@ -240,9 +240,9 @@
     <div class="leak" id="leak-a"></div>
     <div class="leak" id="leak-b"></div>
     <div id="scrim"></div>
-    <div class="hl clip" id="hl00" data-start="60.2" data-duration="3.3" data-track-index="6" style="top:496px;height:264px"><i></i></div>
-    <div class="hl clip" id="hl01" data-start="63.6" data-duration="3.6333" data-track-index="7" style="top:986px;height:264px"><i></i></div>
-    <div class="hl clip" id="hl02" data-start="67.4" data-duration="3.9" data-track-index="6" style="top:1458px;height:264px"><i></i></div>
+    <div class="hl clip" id="hl00" data-start="60.2" data-duration="3.3" data-track-index="6" style="top:433px;height:240px;left:90px;right:92px"><i></i></div>
+    <div class="hl clip" id="hl01" data-start="63.6" data-duration="3.6333" data-track-index="7" style="top:864px;height:240px;left:90px;right:92px"><i></i></div>
+    <div class="hl clip" id="hl02" data-start="67.4" data-duration="3.9" data-track-index="6" style="top:1281px;height:240px;left:90px;right:92px"><i></i></div>
     <div class="kp clip" id="kp00" data-start="0.2" data-duration="1.6667" data-track-index="4">
       <div class="kp-inner"><div class="l1"><span class="w">इस</span> <span class="w">दिवाली</span></div><div class="rule"></div></div>
     </div>
@@ -539,6 +539,7 @@
       tl.from("#endcard .ec-info > *", {y:24, opacity:0, duration:0.6, ease:"power2.out", stagger:0.12}, 77.6);
       tl.from("#ec-cta .w", {y:30, opacity:0, filter:"blur(8px)", duration:0.6, ease:"back.out(1.4)", stagger:0.08}, 76.2);
       tl.to("#logo-badge", {opacity:0, duration:0.5, ease:"power1.in"}, 70.9);
+      tl.to("#logo-badge", {y:-34, duration:0.5, ease:"power2.inOut"}, 57.9);
       tl.to("#fade-black", {opacity:1, duration:0.9, ease:"power1.in"}, 84.1);
       tl.fromTo("#logo-glint", {xPercent:-150}, {xPercent:300, duration:0.9, ease:"power1.inOut", immediateRender:false}, 2.5);
       tl.fromTo("#logo-glint", {xPercent:-150}, {xPercent:300, duration:0.9, ease:"power1.inOut", immediateRender:false}, 8.5);
