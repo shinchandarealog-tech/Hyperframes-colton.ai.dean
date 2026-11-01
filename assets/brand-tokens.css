@@ -1,16 +1,16 @@
 :root {
-  /* TODO: fill in your brand colors */
-  --brand-bg: ;
-  --brand-surface: ;
-  --brand-surface-2: ;
-  --brand-border: ;
-  --brand-accent: ;
-  --brand-accent-glow: ;
-  --brand-warn: ;
-  --brand-text: ;
-  --brand-text-dim: ;
+  /* Luxury jewellery starter palette, set during /setup (evolves via /feedback) */
+  --brand-bg: #0b0a08;          /* deep warm black */
+  --brand-surface: #16130f;
+  --brand-surface-2: #221d16;
+  --brand-border: rgba(201, 164, 92, 0.35);
+  --brand-accent: #c9a45c;      /* soft gold */
+  --brand-accent-glow: rgba(232, 201, 138, 0.55);
+  --brand-warn: #b5523b;
+  --brand-text: #f5efe3;        /* ivory */
+  --brand-text-dim: rgba(245, 239, 227, 0.65);
 
-  /* TODO: pick your typography */
   --font-mono: ui-monospace, Menlo, monospace;
-  --font-display: system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
 }

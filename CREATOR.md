@@ -20,29 +20,31 @@ When putting handles on-screen (lower-thirds, outros, end-cards), use the platfo
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Instagram Reels first.** Default: **9:16 vertical, 1080×1920, 30fps.**
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+**Jewellery brand content**: product showcases and brand reels. Default vibe: **luxury & elegant** (slow smooth moves, light sweeps/shimmer on metal and stones, serif type, generous breathing room). Note: this overrides MOTION_PHILOSOPHY.md's chrome/grid/fast-whip texture. Keep the discipline but use a softer luxury palette and pacing.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Faceless / product-led**: raw product footage plus a supplied voiceover.
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**Active mode: the user supplies a voiceover (which is also the script) and raw footage.** The voiceover is the source of truth: never cut it, re-time it, or change its pacing. Cut and sync the footage and text to it. **Captions: key phrases only** (minimal elegant text, not word-by-word karaoke).
+
+Reference modes:
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+Starter luxury palette in `assets/brand-tokens.css`: black `#0b0a08`, gold `#c9a45c`, ivory `#f5efe3`. Display font: Cormorant Garamond (serif); body: Inter. Logo: TBD (supplied per project).
 
 ## Inspiration creators
 
