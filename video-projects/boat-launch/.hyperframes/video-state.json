@@ -108,13 +108,14 @@
   },
   "renders": {
     "latest": {
-      "id": "f6c04506-063d-4961-b963-7dad0c2e0f12",
-      "completedAt": 1793509119571,
+      "id": "46825903-6e51-4050-a60d-2ff82e7cebe7",
+      "completedAt": 1793509820444,
       "output": "/home/user/Hyperframes-colton.ai.dean/video-projects/boat-launch/renders/sub240.mp4",
       "status": "completed",
-      "revision": "d3f371d4-f13d-4bd3-b207-965529fd6737"
+      "revision": "89446535-77a7-483d-be12-ce7db0c9d2c5"
     },
     "retainedRevisions": [
+      "89446535-77a7-483d-be12-ce7db0c9d2c5",
       "d3f371d4-f13d-4bd3-b207-965529fd6737"
     ]
   },
