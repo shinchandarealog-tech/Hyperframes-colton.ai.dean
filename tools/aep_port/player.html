@@ -1,0 +1,15 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>AE Port Player</title>
+<style>html,body{margin:0;background:transparent}canvas{display:block}</style></head>
+<body><canvas id="out"></canvas>
+<script src="player.js"></script>
+<script>
+window.setup = async (spec, opts) => {
+  window.engine = new AEPort.Engine(spec, opts);
+  const c = document.getElementById("out"); c.width = engine.root.w; c.height = engine.root.h;
+  for (const f of ['700 100px "Inter Display"', 'italic 400 100px "Playfair Display"']) { try { await document.fonts.load(f); } catch (e) {} }
+  engine.autofit();
+  return { w: c.width, h: c.height, fps: engine.root.fps, duration: spec.comps[String(spec.root)].duration };
+};
+window.frame = async (t) => { const c = document.getElementById("out"); await engine.renderFrame(t, c); return c.toDataURL("image/png"); };
+</script></body></html>

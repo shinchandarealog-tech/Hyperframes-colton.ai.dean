@@ -40,3 +40,7 @@ _reference/creator-library/**/source.webm
 _reference/creator-library/**/source.info.json
 _reference/creator-library/**/frames/
 
+
+# Licensed third-party templates (keep private, never commit)
+_reference/templates/**/*.aep
+_reference/templates/**/specs/
