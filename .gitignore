@@ -40,3 +40,7 @@ _reference/creator-library/**/source.webm
 _reference/creator-library/**/source.info.json
 _reference/creator-library/**/frames/
 
+
+# Saved music library — copyrighted tracks, not redistributable from a public repo (manifest is tracked)
+assets/music/library/*
+!assets/music/library/MANIFEST.md
