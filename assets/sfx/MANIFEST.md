@@ -49,6 +49,39 @@ All paths below are **relative to `assets/`** so they match `<audio src="...">` 
 - **Level discipline**: SFX should sit **-12 to -18 dB under the speaking voice**, music bed **-18 to -24 dB under**. Mix the voice as loudest element — never let SFX or music fight the user's speech.
 - **No double-hits**: on a single beat, pick ONE SFX (e.g. whoosh OR slam, not both). Layering is for specific craft moments, not every cut.
 
+
+## Creator starter kit — `sfx/kit/`
+
+93 sounds the creator picked themselves. They come from the Drive folder `sound effect important 2.0` plus the 10 sounds from a second Drive link, which were extracted from .mp4 to .mp3. Names were cleaned to kebab-case, and the original filename is noted in `library/catalog.json` (`kit` field). One exact duplicate was dropped: `Loading - Sound Effect.mp3` is identical to `number-increasing.mp3`.
+
+**Use these before reaching for the full Drive library.**
+
+### transitions/ — whooshes, swooshes, whips, glitch, flash
+
+`bass-whoosh.mp3` 2.86s · `deep-whoosh.mp3` 3.7s · `fast-glitch-1.mp3` 1.06s · `fast-swoosh.mp3` 0.56s · `fast-whip.wav` 1.6s · `fast-whoosh.mp3` 0.48s · `flash.mp3` 1.9s · `fly-by.mp3` 3.53s · `low-whoosh.mp3` 1.94s · `slow-down.mp3` 2.33s · `swoosh-short-2.mp3` 0.36s · `swoosh-short-3.mp3` 0.24s · `swoosh-short.mp3` 0.29s · `whoosh-main.wav` 0.31s
+
+### impact/ — hits, smashes, bass, snaps, blasts
+
+`bomb-blast.mp3` 6.6s · `brick-hit.mp3` 0.22s · `crack-crunch-celery.mp3` 0.6s · `dart-hard-hit-board-2.mp3` 0.34s · `dart-hard-hit-board.mp3` 0.39s · `deep-bass.mp3` 1.18s · `gun-clock.mp3` 2.16s · `impact-glass-smash.mp3` 1.42s · `impact-mirror-smash.mp3` 1.59s · `impact-pickaxe-2.mp3` 0.22s · `impact-pickaxe.mp3` 0.72s · `impact.wav` 2.85s · `ink-splash.mp3` 1.39s · `iron-man-blaster.mp3` 1.04s · `knife-scrape.mp3` 0.46s · `metallic-hit.mp3` 2.38s · `neck-break.mp3` 0.46s · `snap.mp3` 0.26s
+
+### risers/ — build-ups and risers into a reveal
+
+`buildup.mp3` 2.66s · `charge.mp3` 2.47s · `gear-riser.mp3` 2.38s · `number-increasing.mp3` 18.42s · `riser-3.mp3` 2.32s · `riser-base.mp3` 7.31s · `riser-question.mp3` 3.21s · `riser.mp3` 3.31s · `suspense-riser.mp3` 1.8s
+
+### ui/ — clicks, pops, beeps, dings, notifications, camera, pen
+
+`adding-machine.mp3` 0.27s · `alarm-beep.mp3` 0.39s · `apple-notification.mp3` 0.99s · `arcade-game-coin.mp3` 0.65s · `beep-sound.mp3` 2.57s · `beep.mp3` 0.15s · `bell-4.mp3` 2.6s · `button-mechanical-2.mp3` 0.1s · `button-mechanical-3.mp3` 0.1s · `button-mechanical.mp3` 0.27s · `camera-shutter.mp3` 0.34s · `camera.mp3` 0.42s · `chime-hit-bell.mp3` 0.94s · `chime-synth-high.mp3` 0.22s · `click-07.wav` 0.5s · `click-09.wav` 0.5s · `click-15.wav` 0.5s · `click-sequence-2.mp3` 0.25s · `click-sequence.mp3` 17.11s · `da-digital-click-1.mp3` 0.58s · `da-digital-click-2.mp3` 0.53s · `da-digital-click-8.mp3` 0.36s · `ding.mp3` 0.55s · `discord-join.mp3` 2.95s · `discord-leave.mp3` 2.38s · `elevator-bell-ding.mp3` 2.02s · `fairy-magic-sparkle.wav` 1.3s · `highlighter-marker.mp3` 11.11s · `iphone-receive.wav` 0.79s · `iphone-send.wav` 0.66s · `mouse-click-2.mp3` 0.37s · `mouth-pop.mp3` 0.15s · `multimedia-beep-2.mp3` 0.15s · `multimedia-beep-3.mp3` 0.15s · `multimedia-beep.mp3` 0.12s · `pen-click.mp3` 0.48s · `pop-2.mp3` 1.78s · `pop-loud.mp3` 0.17s · `pop-low.mp3` 0.15s · `radio-beep.mp3` 0.46s · `sfx-1.wav` 0.98s · `sfx-2.mp3` 1.27s · `sfx-3.mp3` 0.58s · `sfx-4.mp3` 4.0s · `snd-start.wav` 0.51s · `snd-stop.wav` 0.5s · `ui.wav` 0.08s
+
+### foley/ — real-world texture (crowd, heels, clock wind)
+
+`alarm-clock-wind-2.mp3` 0.82s · `alarm-clock-wind.mp3` 1.11s · `crowd-cheer-in-school-auditorium.mp3` 17.04s · `high-heels.mp3` 0.27s · `insect-claw-grab.mp3` 0.34s
+
+Gotchas: `ui/click-sequence.mp3` (17s) and `ui/highlighter-marker.mp3` (11s) are long takes, so set a short `data-duration`. `risers/number-increasing.mp3` (18s) is a counting/loading loop that you trim to the counter's length. `foley/crowd-cheer-in-school-auditorium.mp3` is 17s.
+
+## Full creator library (Google Drive, not in git)
+
+About 5,700 more SFX (the "SFX monster" pack: whoosh, glitch, cinematic hits, risers, notifications, meme SFX…) and about 400 music tracks by genre are indexed in `library/catalog.json`. Search and download single files with `node assets/library/fetch.mjs`. See `library/README.md`, which also covers music licensing (Epidemic Sound / Artlist).
+
 ## Folder structure (actual)
 
 ```
@@ -62,8 +95,10 @@ assets/
 │   ├── cinematic/      riser.mp3   sparkle.mp3  paper-flip.mp3  power-up.mp3
 │   │                   cinematic-whoosh.mp3  (creator pack)
 │   ├── ambient/        ambient-hum.mp3  tech-drone.mp3
+│   ├── kit/            creator starter kit — transitions/ impact/ risers/ ui/ foley/  (93 files)
 │   └── MANIFEST.md     (this file)
 ├── music/              music-bed-cinematic-tech.mp3
+├── library/            catalog.json + fetch.mjs + README.md — index of the full Drive library
 └── _inbox/             (staging — empty after sort)
 ```
 
