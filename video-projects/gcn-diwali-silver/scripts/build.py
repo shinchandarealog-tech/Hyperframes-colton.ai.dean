@@ -87,11 +87,11 @@ for i, s in enumerate(shots):
       <div class="kp-inner">{"".join(lines)}<div class="rule"></div></div>
     </div>''')
         js.append(f'tl.to("#scrim", {{opacity:1, duration:0.4, ease:"sine.out"}}, {k_start});')
-        js.append(f'tl.to("#scrim", {{opacity:0, duration:0.4, ease:"sine.in"}}, {f(t1 - 0.35)});')
+        js.append(f'tl.to("#scrim", {{opacity:0, duration:0.4, ease:"sine.in"}}, {f(t1 - 0.55)});')
         js.append(f'tl.from("#{kid} .w", {{y:36, opacity:0, filter:"blur(10px)", duration:0.55, ease:"power3.out", stagger:0.09}}, {f(k_start + 0.05)});')
         js.append(f'tl.from("#{kid} .rule", {{scaleX:0, opacity:0, duration:0.7, ease:"expo.out"}}, {f(k_start + 0.25)});')
         js.append(f'tl.from("#{kid} .kp-inner", {{scale:0.94, duration:1.2, ease:"sine.out"}}, {k_start});')
-        js.append(f'tl.to("#{kid} .kp-inner", {{opacity:0, filter:"blur(12px)", duration:0.4, ease:"power2.in"}}, {f(t1 - 0.35)});')
+        js.append(f'tl.to("#{kid} .kp-inner", {{opacity:0, filter:"blur(12px)", duration:0.4, ease:"power2.in"}}, {f(t1 - 0.55)});')
 
 # ---- end card ----
 E = END_T
@@ -207,10 +207,10 @@ page = f'''<!doctype html>
       #ec-line {{ width: 520px; height: 2px; margin: 40px 0 44px;
         background: linear-gradient(90deg, rgba(212,169,79,0), var(--gold), rgba(212,169,79,0)); }}
       .ec-info {{ display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; }}
-      .ec-phone {{ font-family: var(--font-info); font-weight: 600; font-size: 50px; color: #fff; letter-spacing: .02em;
+      .ec-phone {{ font-family: var(--font-info); font-weight: 600; font-size: 60px; color: #fff; letter-spacing: .02em;
         font-variant-numeric: tabular-nums; }}
-      .ec-phone small {{ display: block; font-weight: 500; font-size: 30px; color: var(--silver); opacity: .85; margin-top: 4px; }}
-      .ec-addr {{ font-family: var(--font-info); font-size: 28px; line-height: 1.45; color: var(--silver); opacity: .9; }}
+      .ec-phone small {{ display: block; font-weight: 500; font-size: 36px; color: var(--silver); opacity: .85; margin-top: 4px; }}
+      .ec-addr {{ font-family: var(--font-info); font-size: 32px; line-height: 1.45; color: var(--silver); opacity: .9; }}
       .ec-addr b {{ font-family: var(--font-brand); font-weight: 700; color: var(--gold); letter-spacing: .14em; font-size: 26px; display: block; }}
       #ec-cta {{ margin-top: 54px; font-family: var(--font-hi); font-size: 54px; line-height: 1.35; text-align: center; color: var(--flame);
         text-shadow: 0 0 24px rgba(255, 190, 90, .5); max-width: 880px; }}
