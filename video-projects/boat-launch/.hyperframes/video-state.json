@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "dc39c33d-7b70-45ca-8f16-42a258635524",
-  "currentRevision": "6fdacddd-ffff-4970-b23e-c769e75cc3f9",
+  "currentRevision": "d3f371d4-f13d-4bd3-b207-965529fd6737",
   "pendingChanges": false,
   "files": {
     "DESIGN.md": {
@@ -17,8 +17,8 @@
       "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/35/35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7"
     },
     "index.html": {
-      "hash": "f3e3ecac72c4ce4c68d2073e38886f8b4b47b29bfe643082eefb519a597d8ab9",
-      "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/f3/f3e3ecac72c4ce4c68d2073e38886f8b4b47b29bfe643082eefb519a597d8ab9"
+      "hash": "9f859c7ea8ae6d8830e9349cb5babc30f58c3d5187d96659abe805b9978e1380",
+      "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/9f/9f859c7ea8ae6d8830e9349cb5babc30f58c3d5187d96659abe805b9978e1380"
     },
     "meta.json": {
       "hash": "9628c9f1ea530eb2eefb78c184e2e3a49738a2b5582912a31b806bfefc529d0f",
@@ -29,8 +29,12 @@
       "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/a9/a93ba069068199e72c2a7711f0dc1d76cc6e22f6e26842462c5edf6a6947332f"
     },
     "scripts/build.sh": {
-      "hash": "77c11715d6d8342f9dd9b9cf1c83e26c9ba7ecf250eabc566ca020ca28b38b98",
-      "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/77/77c11715d6d8342f9dd9b9cf1c83e26c9ba7ecf250eabc566ca020ca28b38b98"
+      "hash": "823a1eb23960a38933447b77bec82a28df384e2f16f3cf904228057b444e48bb",
+      "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/82/823a1eb23960a38933447b77bec82a28df384e2f16f3cf904228057b444e48bb"
+    },
+    "scripts/jumpscan.mjs": {
+      "hash": "cfbe571996ac32c0a21c39d6169dd8fc41c9bbeae9c6ff195fabd9e56249932c",
+      "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/cf/cfbe571996ac32c0a21c39d6169dd8fc41c9bbeae9c6ff195fabd9e56249932c"
     }
   },
   "revisions": {
@@ -52,6 +56,29 @@
           "after": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/77/77c11715d6d8342f9dd9b9cf1c83e26c9ba7ecf250eabc566ca020ca28b38b98"
         }
       }
+    },
+    "d3f371d4-f13d-4bd3-b207-965529fd6737": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793508580299,
+      "endedAt": 1793508580315,
+      "files": {
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/f3/f3e3ecac72c4ce4c68d2073e38886f8b4b47b29bfe643082eefb519a597d8ab9",
+          "after": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/9f/9f859c7ea8ae6d8830e9349cb5babc30f58c3d5187d96659abe805b9978e1380"
+        },
+        "scripts/build.sh": {
+          "before": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/77/77c11715d6d8342f9dd9b9cf1c83e26c9ba7ecf250eabc566ca020ca28b38b98",
+          "after": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/82/823a1eb23960a38933447b77bec82a28df384e2f16f3cf904228057b444e48bb"
+        },
+        "scripts/jumpscan.mjs": {
+          "before": null,
+          "after": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/cf/cfbe571996ac32c0a21c39d6169dd8fc41c9bbeae9c6ff195fabd9e56249932c"
+        }
+      }
     }
   },
   "checks": {
@@ -66,9 +93,9 @@
   },
   "renders": {
     "latest": {
-      "id": "4df41552-dfd1-487b-9656-1ac4474f1fa1",
-      "completedAt": 1793507773363,
-      "output": "/home/user/Hyperframes-colton.ai.dean/video-projects/boat-launch/renders/draft30.mp4",
+      "id": "cf02265b-74f3-4350-be09-09ddedab251c",
+      "completedAt": 1793508410044,
+      "output": "/home/user/Hyperframes-colton.ai.dean/video-projects/boat-launch/renders/sub240.mp4",
       "status": "completed",
       "revision": null
     },

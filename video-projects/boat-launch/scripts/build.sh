@@ -10,15 +10,15 @@ SFX=../../assets/sfx
 MUSIC=../../assets/music/music-bed-cinematic-tech.mp3
 DUR=13
 SUB=8          # sub-frames captured per output frame (240 fps)
-SHUTTER=4      # sub-frames averaged per output frame (4/8 = 180° shutter)
+WEIGHTS="1 2 3 4 4 3 2 1"  # tapered 8-sample shutter: smooth trails, ~180° effective exposure
 mkdir -p renders
 
 video() {
   # 1. capture the GSAP timeline at 240 fps (8 sub-frames per 30 fps frame), near-lossless
   $HF render --fps $((30 * SUB)) --crf 8 --output renders/sub240.mp4 --quiet
-  # 2. average the first SHUTTER sub-frames of every frame (frame time → +180° shutter), keep 30 fps
+  # 2. average the 8 sub-frames of every frame with a tapered (triangular) shutter, keep 30 fps
   ffmpeg -v error -y -i renders/sub240.mp4 \
-    -vf "tmix=frames=${SHUTTER},select='eq(mod(n\,${SUB})\,$((SHUTTER - 1)))',setpts=N/30/TB" \
+    -vf "tmix=frames=${SUB}:weights='${WEIGHTS}',select='eq(mod(n\,${SUB})\,$((SUB - 1)))',setpts=N/30/TB" \
     -r 30 -an -c:v libx264 -preset slow -crf 10 -pix_fmt yuv420p renders/blurred.mp4
 }
 
