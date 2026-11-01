@@ -20,22 +20,22 @@ When putting handles on-screen (lower-thirds, outros, end-cards), use the platfo
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Cross-post to all three**: TikTok, Instagram Reels and YouTube Shorts. Default canvas is **9:16 vertical, 1080×1920, 30 fps**. Keep text inside the safe zone that works on all three (avoid the bottom ~320px and right ~140px, where the UI overlays sit).
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+**Real estate**: buying and selling homes, inspections vs. appraisals, contracts, and agent tips. Assume this niche unless told otherwise.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Both.** Some videos are face-cam talking heads with graphics on top, and some are faceless (motion graphics + TTS or screen recordings). Ask which mode at the start of each video if it isn't obvious.
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**Mixed — confirm per video.** When the user supplies their own speaking video, treat it as the source of truth (don't cut audio or change pacing unless asked). For faceless videos, build from scratch. The two modes:
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
