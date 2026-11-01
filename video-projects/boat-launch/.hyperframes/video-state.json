@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "dc39c33d-7b70-45ca-8f16-42a258635524",
-  "currentRevision": "d3f371d4-f13d-4bd3-b207-965529fd6737",
+  "currentRevision": "89446535-77a7-483d-be12-ce7db0c9d2c5",
   "pendingChanges": false,
   "files": {
     "DESIGN.md": {
@@ -17,8 +17,8 @@
       "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/35/35a6d4ea79ebe911f0d81705f7aace5d8ff0316b745b0311d56af50c9c237cb7"
     },
     "index.html": {
-      "hash": "9f859c7ea8ae6d8830e9349cb5babc30f58c3d5187d96659abe805b9978e1380",
-      "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/9f/9f859c7ea8ae6d8830e9349cb5babc30f58c3d5187d96659abe805b9978e1380"
+      "hash": "53498cdb6e6011e751c608914e18a7405c9145922fb38ca0a730166707bfb68b",
+      "content": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/53/53498cdb6e6011e751c608914e18a7405c9145922fb38ca0a730166707bfb68b"
     },
     "meta.json": {
       "hash": "9628c9f1ea530eb2eefb78c184e2e3a49738a2b5582912a31b806bfefc529d0f",
@@ -79,6 +79,21 @@
           "after": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/cf/cfbe571996ac32c0a21c39d6169dd8fc41c9bbeae9c6ff195fabd9e56249932c"
         }
       }
+    },
+    "89446535-77a7-483d-be12-ce7db0c9d2c5": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1793509273783,
+      "endedAt": 1793509273784,
+      "files": {
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/9f/9f859c7ea8ae6d8830e9349cb5babc30f58c3d5187d96659abe805b9978e1380",
+          "after": "/root/.cache/hyperframes/history/dc39c33d-7b70-45ca-8f16-42a258635524/blobs/53/53498cdb6e6011e751c608914e18a7405c9145922fb38ca0a730166707bfb68b"
+        }
+      }
     }
   },
   "checks": {
@@ -93,13 +108,15 @@
   },
   "renders": {
     "latest": {
-      "id": "cf02265b-74f3-4350-be09-09ddedab251c",
-      "completedAt": 1793508410044,
+      "id": "f6c04506-063d-4961-b963-7dad0c2e0f12",
+      "completedAt": 1793509119571,
       "output": "/home/user/Hyperframes-colton.ai.dean/video-projects/boat-launch/renders/sub240.mp4",
       "status": "completed",
-      "revision": null
+      "revision": "d3f371d4-f13d-4bd3-b207-965529fd6737"
     },
-    "retainedRevisions": []
+    "retainedRevisions": [
+      "d3f371d4-f13d-4bd3-b207-965529fd6737"
+    ]
   },
   "pendingArtifactCleanup": []
 }
