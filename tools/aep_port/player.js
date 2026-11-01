@@ -9,6 +9,7 @@
 const FONT_MAP = {
   "NHaasGroteskDSPro-75Bd": { family: "Inter Display", weight: 700, style: "normal" },
   "PlayfairDisplay-Italic": { family: "Playfair Display", weight: 400, style: "italic" },
+  "PlayfairDisplay-BoldItalic": { family: "Playfair Display", weight: 700, style: "italic" },
 };
 const INTERP = { 6612: "linear", 6613: "bezier", 6614: "hold" };
 
@@ -135,7 +136,7 @@ class PropRef {  // what an expression sees when it touches a property
   get value() { return this.prop.valueAt(this.t); }
   valueAtTime(t) { return this.prop.valueAt(unwrap(t)); }
   get numKeys() { return (this.prop.node.keys || []).length; }
-  key(i) { const k = this.prop.node.keys[i - 1]; return { time: k.t, value: k.v }; }
+  key(i) { const k = this.prop.node.keys[i - 1]; return { time: k.t, value: k.v, index: i }; }
   nearestKey(t) { const ks = this.prop.node.keys || []; let b = 0; ks.forEach((k, i) => { if (Math.abs(k.t - t) < Math.abs(ks[b].t - t)) b = i; }); return { time: ks[b].t, value: ks[b].v, index: b + 1 }; }
   valueOf() { return this.value; }
   toString() { return String(this.value); }
@@ -148,7 +149,7 @@ function runExpr(prop, t, extra) {
   let rng = mulberry(L.index * 7919 + 17);
   const ctx = Object.assign(Object.create(null), H, {
     time: t, thisComp: comp.api(t), thisLayer: L.api(t), thisProperty: new PropRef(prop, t),
-    get value() { return prop.raw(t); },
+    get value() { const r = prop.raw(t); if (L.text && prop === L.text.docProp) return L.text.rawDoc(t); return r; },
     valueAtTime: (tt) => prop.raw(unwrap(tt)),
     velocity: 0, speed: 0,
     index: L.index + 1, inPoint: L.inPoint, outPoint: L.outPoint, startTime: L.startTime,
@@ -156,6 +157,10 @@ function runExpr(prop, t, extra) {
     transform: L.api(t).transform, text: L.api(t).text,
     width: L.width, height: L.height,
     sourceRectAtTime: (tt, inc) => L.sourceRect(tt === undefined ? t : unwrap(tt)),
+    content: (n) => L.api(t).content(n),
+    get numKeys() { return (prop.node.keys || []).length; },
+    key: (i) => new PropRef(prop, t).key(unwrap(i)),
+    nearestKey: (tt) => new PropRef(prop, t).nearestKey(unwrap(tt)),
     timeToFrames: (tt = t, fps = comp.fps) => Math.floor(unwrap(tt) * fps + 1e-6),
     framesToTime: (f, fps = comp.fps) => unwrap(f) / fps,
     seedRandom: (s, timeless) => { rng = mulberry(Math.floor(unwrap(s)) * 9973 + (timeless ? 0 : Math.floor(t * comp.fps))); },
@@ -187,7 +192,7 @@ class Layer {
       const n = tr && findChild(tr, m); if (n) this.tr[m] = this.prop(n);
     }
     const fx = d.props.find((p) => p.match === "ADBE Effect Parade");
-    this.effects = (fx && fx.props || []).map((e) => ({ node: e, name: e.name, match: e.match,
+    this.effects = (fx && fx.props || []).filter((e) => !e.off).map((e) => ({ node: e, name: e.name, match: e.match,
       params: (e.props || []).filter((q) => q.match !== "ADBE Effect Built In Params") }));
     const ov = d.props.find((p) => p.match === "ADBE Layer Overrides");
     this.overrides = (ov && ov.props || []).filter((p) => !p.props).map((n) => ({ node: n, prop: this.prop(n) }));
@@ -196,6 +201,22 @@ class Layer {
     const src = d.source || {};
     this.kind = d.type === "TextLayer" ? "text" : d.type === "ShapeLayer" ? "shape" : src.kind === "CompItem" ? "comp" : src.color ? "solid" : "footage";
     this.width = src.w || comp.w; this.height = src.h || comp.h;
+    const root = d.props.find((p) => p.match === "ADBE Root Vectors Group");
+    const live = (ns) => (ns || []).filter((n) => !n.off).flatMap((n) => [n, ...live(n.props)]);
+    this.hasPaint = !!root && live(root.props).some((p) => p.match === "ADBE Vector Graphic - Fill" || p.match === "ADBE Vector Graphic - Stroke");
+  }
+  contentApi(t, node) {
+    const L = this, camel = (s) => s.replace(/\s+(.)/g, (m, c) => c.toUpperCase()).replace(/^./, (c) => c.toLowerCase());
+    const kids = () => { const ct = node.match === "ADBE Root Vectors Group" ? node : VEC(node, "ADBE Vectors Group"); return (ct && ct.props) || []; };
+    return new Proxy({}, { get(_, k) {
+      if (k === "content") return (n) => { const c = kids().find((x) => x.name === unwrap(n)) || (typeof unwrap(n) === "number" ? kids()[unwrap(n) - 1] : null);
+        if (!c) throw new Error("content " + n + " not found"); return L.contentApi(t, c); };
+      if (k === "transform") { const tr = VEC(node, "ADBE Vector Transform Group"); return tr ? L.contentApi(t, tr) : undefined; }
+      if (typeof k !== "string") return undefined;
+      const all = flatProps(node.props || []);
+      const q = (node.props || []).find((x) => camel(x.name) === k && !x.props) || all.find((x) => camel(x.name) === k && !x.props);
+      return q ? new PropRef(L.prop(q), t) : undefined;
+    } });
   }
   prop(n) { if (!this.props.has(n)) this.props.set(n, new Prop(this, n)); return this.props.get(n); }
   get source() { return this.d.source && this.d.source.id != null ? this.engine.comps[String(this.d.source.id)] : null; }
@@ -232,6 +253,8 @@ class Layer {
       text: L.text ? { sourceText: L.text.sourceText(t) } : undefined,
       sourceRectAtTime: (tt) => L.sourceRect(tt === undefined ? t : unwrap(tt)),
       toComp: (p) => L.matrix(t).apply(unwrap(p)),
+      get parent() { const P = L.d.parent != null ? L.comp.layers.find((l) => l.index === L.d.parent) : null; return P ? P.api(t) : null; },
+      content: (n) => { const root = L.d.props.find((p) => p.match === "ADBE Root Vectors Group"); return L.contentApi(t, root).content(n); },
     };
   }
   tv(m, t, dflt) { const p = this.tr[m]; return p ? p.valueAt(t) : dflt; }
@@ -247,7 +270,8 @@ class Layer {
     return m;
   }
   sourceRect(t) {
-    if (this.text) return this.text.bounds(this.localTime(t));
+    if (this.text) return this.text.bounds(t);
+    if (this.kind === "shape") return shapeBounds(this, t);
     return { left: 0, top: 0, width: this.width, height: this.height };
   }
   localTime(t) { return (t - this.startTime) * 100 / this.stretch; }
@@ -273,11 +297,11 @@ class TextLayer {
     this.grouping = more ? (findChild(more, "ADBE Text Anchor Point Option") || {}).value || 1 : 1;
     this.groupAlign = more ? (findChild(more, "ADBE Text Anchor Point Align") || {}).value || [0, 0] : [0, 0];
     const anims = findChild(node, "ADBE Text Animators");
-    this.animators = (anims && anims.props || []).map((a) => {
+    this.animators = (anims && anims.props || []).filter((a) => !a.off).map((a) => {
       const sels = findChild(a, "ADBE Text Selectors"), pr = findChild(a, "ADBE Text Animator Properties");
       const props = {};
       for (const p of (pr && pr.props) || []) if (p.mod || p.js || (p.keys && p.keys.length)) props[p.match] = layer.prop(p);
-      const selectors = ((sels && sels.props) || []).map((s) => {
+      const selectors = ((sels && sels.props) || []).filter((s) => !s.off).map((s) => {
         const all = flatProps(s.props); const get = (m) => all.find((x) => x.match === m);
         const P = (m) => (get(m) ? layer.prop(get(m)) : null);
         return { kind: s.match, start: P("ADBE Text Percent Start"), end: P("ADBE Text Percent End"), offset: P("ADBE Text Percent Offset"),
@@ -288,8 +312,16 @@ class TextLayer {
       return { name: a.name, props, selectors };
     });
   }
-  doc(t) { const d = this.docProp.valueAt(t); const o = this.layer.engine.textOverride(this.layer); return o != null ? Object.assign({}, d, { text: o }) : d; }
-  sourceText(t) { const d = this.doc(t); return d.text; }
+  rawDoc(t) { const d = this.docProp.raw(t); const o = this.layer.engine.textOverride(this.layer); return o != null ? Object.assign({}, d, { text: o }) : d; }
+  doc(t) {
+    if (!this.docProp.node.js) return this.rawDoc(t);
+    const v = this.docProp.valueAt(t), raw = this.rawDoc(t);
+    if (typeof v === "string" || v instanceof String) return Object.assign({}, raw, { text: String(v) });
+    if (v && typeof v === "object" && typeof v.text === "string") return Object.assign({}, raw, { text: v.text === this.docProp.node.value.text ? raw.text : v.text });
+    return raw;
+  }
+  sourceText(t) { const s = new String(this.rawDoc(t).text); const self = this;
+    s.valueAtTime = (tt) => self.doc(unwrap(tt)).text; s.value = String(s); return s; }
   font(d) { const f = FONT_MAP[d.font] || { family: "Inter Display", weight: 700, style: "normal" }; return `${f.style} ${f.weight} ${d.font_size}px "${f.family}"`; }
   layout(t) {
     const d = this.doc(t), ctx = this.layer.engine.measureCtx;
@@ -314,13 +346,14 @@ class TextLayer {
     const m = ctx.measureText("Hg");
     return { d, chars, lines: lines.length, words: word + 1, nonSpace: cx, ascent: m.actualBoundingBoxAscent, descent: m.actualBoundingBoxDescent };
   }
-  bounds(t) {
-    const L = this.layout(t); if (!L.chars.length) return { left: 0, top: 0, width: 0, height: 0 };
-    const capA = L.d.font_size * 0.72;
-    let x0 = Infinity, x1 = -Infinity;
-    for (const c of L.chars) { x0 = Math.min(x0, c.x); x1 = Math.max(x1, c.x + c.w); }
-    const top = -capA, bottom = (L.lines - 1) * (L.chars[L.chars.length - 1].y / Math.max(1, L.lines - 1) || 0) + L.descent * 0.3;
-    return { left: x0, top, width: x1 - x0, height: bottom - top };
+  bounds(t) {   // tight glyph bounds, like AE sourceRectAtTime on text
+    const L = this.layout(t); const mc = this.layer.engine.measureCtx; mc.font = this.font(L.d);
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (const c of L.chars) { if (c.word < 0) continue; const m = mc.measureText(c.ch);
+      x0 = Math.min(x0, c.x - m.actualBoundingBoxLeft); x1 = Math.max(x1, c.x + m.actualBoundingBoxRight);
+      y0 = Math.min(y0, c.y - m.actualBoundingBoxAscent); y1 = Math.max(y1, c.y + m.actualBoundingBoxDescent); }
+    if (x0 === Infinity) return { left: 0, top: 0, width: 0, height: 0 };
+    return { left: x0, top: y0, width: x1 - x0, height: y1 - y0 };
   }
   selectorAmount(s, t, unit, total) {
     if (s.kind === "ADBE Text Expressible Selector") {
@@ -359,12 +392,12 @@ class TextLayer {
       const g = groupBox[k] || (groupBox[k] = { x0: Infinity, x1: -Infinity, y: c.y }); g.x0 = Math.min(g.x0, c.x); g.x1 = Math.max(g.x1, c.x + c.w); }
     for (const c of L.chars) {
       if (c.word < 0) continue;
-      let px = 0, py = 0, sx = 100, sy = 100, rot = 0, op = 1, blur = 0;
+      let px = 0, py = 0, sx = 100, sy = 100, rot = 0, op = 1, blur = 0, col = fill.slice(0, 3);
       this.animators.forEach((a, ai) => {
         let amt = 0;
         a.selectors.forEach((s, si) => { const b = s.basedOn; const u = unitOf(c, b); if (u < 0) return;
           const v = this.selectorAmount(s, t, u, unitsFor(b)); amt = si === 0 ? v : s.mode === 3 ? amt * v : amt + v; });
-        amt = Math.max(0, Math.min(1, amt));
+        amt = Math.max(-1, Math.min(1, amt));
         if (amt === 0) return;
         const v = animVals[ai];
         const P = v["ADBE Text Position 3D"]; if (P) { px += P[0] * amt; py += P[1] * amt; }
@@ -372,6 +405,7 @@ class TextLayer {
         const R = v["ADBE Text Rotation"]; if (R !== undefined) rot += R * amt;
         const O = v["ADBE Text Opacity"]; if (O !== undefined) op *= (100 + (O - 100) * amt) / 100;
         const B = v["ADBE Text Blur"]; if (B) blur += (Array.isArray(B) ? B[0] : B) * amt;
+        const FC = v["ADBE Text Fill Color"]; if (FC) { const a = Math.max(0, amt); col = col.map((x, i) => x + ((FC[i] ?? x) - x) * a); }
       });
       if (op <= 0.001 || Math.abs(sx) < 1e-4 || Math.abs(sy) < 1e-4) continue;
       const k = this.grouping === 2 ? "w" + c.word : this.grouping === 3 ? "l" + c.line : this.grouping === 4 ? "a" : "c" + c.index;
@@ -382,7 +416,7 @@ class TextLayer {
       ctx.globalAlpha = opacity * op;
       const scale = Math.sqrt(Math.abs(M.a * M.d - M.b * M.c));
       ctx.filter = blur > 0.05 ? `blur(${(blur * 0.5 * scale).toFixed(2)}px)` : "none";
-      ctx.fillStyle = fillCss;
+      ctx.fillStyle = rgb(col);
       ctx.fillText(c.ch, 0, 0);
     }
     ctx.restore();
@@ -413,6 +447,15 @@ class Engine {
     this.spec = spec; this.opts = opts; this.comps = {};
     for (const [id, c] of Object.entries(spec.comps)) this.comps[id] = new Comp(this, c);
     this.root = this.comps[String(spec.root)];
+    // control overrides: "@<layer>/<effect>" -> value (sets the effect's first parameter, e.g. a colour or slider)
+    for (const [k, v] of Object.entries(opts.texts || {})) {
+      if (!k.startsWith("@")) continue;
+      const [ln, en] = k.slice(1).split("/");
+      let hit = 0;
+      for (const c of Object.values(this.comps)) for (const L of c.layers) if (L.name === ln) for (const e of L.effects) if (e.name === en && e.params[0]) {
+        e.params[0].value = v; delete e.params[0].keys; delete e.params[0].js; hit++; }
+      if (!hit) console.warn("control not found: " + k);
+    }
     const mc = document.createElement("canvas"); this.measureCtx = mc.getContext("2d");
     this.pool = []; this.mediaCache = new Map(); this.mediaWant = new Set();
   }
@@ -431,8 +474,12 @@ class Engine {
       let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
       const mc = this.measureCtx; mc.font = L.text.font(lay.d);
       for (const ch of lay.chars) { if (ch.word < 0) continue; const mm = mc.measureText(ch.ch);
-        for (const xx of [ch.x, ch.x + ch.w]) for (const yy of [ch.y - mm.actualBoundingBoxAscent, ch.y + mm.actualBoundingBoxDescent]) {
+        for (const xx of [Math.min(ch.x, ch.x - mm.actualBoundingBoxLeft), Math.max(ch.x + ch.w, ch.x + mm.actualBoundingBoxRight)]) for (const yy of [ch.y - mm.actualBoundingBoxAscent, ch.y + mm.actualBoundingBoxDescent]) {
           const q = M.apply([xx, yy]); x0 = Math.min(x0, q[0]); x1 = Math.max(x1, q[0]); y0 = Math.min(y0, q[1]); y1 = Math.max(y1, q[1]); } }
+      for (const S of c.layers) if (S.kind === "shape" && S.hasPaint && S.active(tEnd)) {   // e.g. auto-sized text boxes
+        const r = S.sourceRect(tEnd), SM = S.matrix(tEnd);
+        for (const q of [[r.left, r.top], [r.left + r.width, r.top], [r.left, r.top + r.height], [r.left + r.width, r.top + r.height]]) {
+          const z = SM.apply(q); x0 = Math.min(x0, z[0]); x1 = Math.max(x1, z[0]); y0 = Math.min(y0, z[1]); y1 = Math.max(y1, z[1]); } }
       const W = c.w, margin = Math.max(6, 0.03 * lay.d.font_size), need = (x1 - x0) + 2 * margin;
       const just = lay.d.justification;
       // vertical: grow only when glyphs (e.g. descenders) would be cut, keep the block centred
@@ -476,7 +523,9 @@ class Engine {
       const items = [...before.entries()].map(([L, b]) => ({ L, ...b }));
       const rows = [];
       for (const it of items.sort((p, q) => p.y - q.y)) {
-        const r = rows.find((r) => Math.abs(r.y - it.y) < 40); if (r) r.items.push(it); else rows.push({ y: it.y, items: [it] });
+        const same = (r) => Math.abs(r.y - it.y) < 40 && r.items.every((o) => o.L.d.parent === it.L.d.parent &&
+          Math.max(o.L.inPoint, it.L.inPoint) < Math.min(o.L.outPoint, it.L.outPoint));
+        const r = rows.find(same); if (r) r.items.push(it); else rows.push({ y: it.y, items: [it] });
       }
       for (const r of rows) {
         r.items.sort((p, q) => p.l - q.l);
@@ -484,7 +533,9 @@ class Engine {
         EPOCH++;
         const after = r.items.map((it) => { const M = it.L.matrix(tEnd), w = it.L.source.w, h = it.L.source.h;
           return { l: M.apply([0, h / 2])[0], r: M.apply([w, h / 2])[0] }; });
-        const just = (fitted.get(r.items[0].L.source.id) || {}).just;
+        const justs = r.items.map((it) => { const f = fitted.get(it.L.source.id); if (f) return f.just;
+          const tl = it.L.source.layers.find((q) => q.text); return tl ? tl.text.docProp.node.value.justification : null; });
+        const just = justs.every((j) => j === justs[0]) ? justs[0] : null;   // mixed alignment = keep the spine fixed
         // left-aligned rows keep the first chunk; right-aligned keep the last; centred keep the centre
         let cursor = after[0].l; const shifts = [0];
         for (let i = 1; i < r.items.length; i++) {
@@ -522,7 +573,7 @@ class Engine {
   }
 
   newCanvas(w, h) { const c = document.createElement("canvas"); c.width = Math.ceil(w); c.height = Math.ceil(h); return c; }
-  textOverride(layer) { const t = this.opts.texts || {}; const key = layer.comp.name + "/" + layer.name; return t[key] ?? null; }
+  textOverride(layer) { const t = this.opts.texts || {}; const key = layer.comp.name + "/" + layer.name; const v = t[key]; return typeof v === "string" ? v : null; }
   mediaFrame(name, local) {
     const m = (this.opts.media || {})[name]; if (!m) return null;
     const idx = Math.max(0, Math.min(m.frames - 1, Math.floor(local * m.fps + 1e-6)));
@@ -538,11 +589,15 @@ class Engine {
   // essential-property overrides: parent layer -> child comp control effects
   overridesFor(L, t) {
     if (!L.overrides.length) return null;
+    const child = L.source; const ctrls = [];
+    if (child) for (const l of child.layers) for (const e of l.effects) ctrls.push(e);
+    const isColor = (e) => e.match === "ADBE Color Control";
     const m = new Map();
     for (const o of L.overrides) {
-      const v = o.prop.valueAt(t);
-      const name = Array.isArray(v) && v.length === 4 ? "Text Color" : o.node.name;
-      m.set(name, v);
+      const v = o.prop.valueAt(t), col = Array.isArray(v) && v.length === 4;
+      let e = ctrls.find((x) => x.name === o.node.name && isColor(x) === col);
+      if (!e && col) e = ctrls.find((x) => isColor(x) && /text/i.test(x.name) && !/bg/i.test(x.name)) || ctrls.find(isColor);
+      if (e) m.set(e.name, v);
     }
     return m;
   }
@@ -552,59 +607,114 @@ class Engine {
     try {
       for (let i = comp.layers.length - 1; i >= 0; i--) {
         const L = comp.layers[i];
-        if (!L.active(t) || L.d.adjustment || L.d.guide || L.kind === "shape" || L.d.null) continue;
-        this.drawLayer(ctx, L, t);
+        if (!L.active(t) || L.d.adjustment || L.d.guide || L.d.null) continue;
+        const b = this.layerBuffer(L, t);
+        if (b) ctx.drawImage(b, 0, 0);
       }
     } finally { comp.ovStack.pop(); }
     return cv;
   }
-  drawLayer(ctx, L, t) {
+  // a layer rendered into comp space with its effects, opacity and track matte applied
+  layerBuffer(L, t) {
+    const key = EPOCH + "@" + t;
+    if (L._bufKey === key) return L._buf;
+    L._bufKey = key; L._buf = null;
+    const res = this._layerBuffer(L, t); L._buf = res; return res;
+  }
+  _layerBuffer(L, t) {
+    if (!(t >= L.inPoint - 1e-6 && t < L.outPoint - 1e-6)) return null;
+    if (L.kind === "shape" && !L.hasPaint) return null;
     let opacity = L.tv("ADBE Opacity", t, 100) / 100;
-    if (opacity <= 0) return;
+    if (opacity <= 0) return null;
+    const C = L.comp;
     let M = L.matrix(t);
-    let buf = null;
     const local = L.localTime(t);
+    // layer-space source (precomp / solid / media)
+    let src = null, lw = L.width, lh = L.height;
     if (L.kind === "comp") {
-      const src = L.source;
-      if (src && src.layers.length === 0) {
-        buf = this.newCanvas(src.w, src.h);
-        const im = this.mediaFrame(src.name, local);
-        if (im) { const c = buf.getContext("2d"); const s = Math.max(src.w / im.naturalWidth, src.h / im.naturalHeight);
-          const w = im.naturalWidth * s, h = im.naturalHeight * s; c.drawImage(im, (src.w - w) / 2, (src.h - h) / 2, w, h); }
-        else if (!(this.opts.media || {})[src.name]) { const c = buf.getContext("2d"); c.fillStyle = "#3a3a3a"; c.fillRect(0, 0, src.w, src.h); }
-      } else if (src) buf = this.renderComp(src, local, this.overridesFor(L, t));
+      const sc = L.source; lw = sc.w; lh = sc.h;
+      if (sc.layers.length === 0) {
+        src = this.newCanvas(sc.w, sc.h);
+        const im = this.mediaFrame(sc.name, local);
+        if (im) { const c = src.getContext("2d"); const k = Math.max(sc.w / im.naturalWidth, sc.h / im.naturalHeight);
+          const w = im.naturalWidth * k, h = im.naturalHeight * k; c.drawImage(im, (sc.w - w) / 2, (sc.h - h) / 2, w, h); }
+        else if (!(this.opts.media || {})[sc.name]) { const c = src.getContext("2d"); c.fillStyle = "#3a3a3a"; c.fillRect(0, 0, sc.w, sc.h); }
+      } else src = this.renderComp(sc, local, this.overridesFor(L, t));
     } else if (L.kind === "solid") {
-      buf = this.newCanvas(L.width, L.height); const c = buf.getContext("2d"); const col = L.d.source.color;
-      c.fillStyle = `rgb(${col.map((x) => Math.round(x * 255)).join(",")})`; c.fillRect(0, 0, L.width, L.height);
+      src = this.newCanvas(L.width, L.height); const c = src.getContext("2d"); const col = L.d.source.color;
+      c.fillStyle = rgb(col); c.fillRect(0, 0, L.width, L.height);
     }
-    // effects
-    let fillColor = null;
+    // Transform effect folds into the matrix; everything else is applied to pixels below
+    for (const e of L.effects) if (e.match === "ADBE Geometry2") {
+      const g = (m) => L.prop(e.params.find((p) => p.match === m)).valueAt(t);
+      const a = g("ADBE Geometry2-0001"), p = g("ADBE Geometry2-0002"), sh = g("ADBE Geometry2-0003"), sw = g("ADBE Geometry2-0004");
+      const uni = g("ADBE Geometry2-0011"), r = g("ADBE Geometry2-0007"), o = g("ADBE Geometry2-0008");
+      M = M.mul(Mat.T(p[0], p[1])).mul(Mat.R(r)).mul(Mat.S(sw / 100, (uni ? sw : sh) / 100)).mul(Mat.T(-a[0], -a[1]));
+      opacity *= o / 100;
+    }
+    const out = this.newCanvas(C.w, C.h), oc = out.getContext("2d");
+    if (src) {
+      // effects that spread (blur, glow) need room beyond the layer bounds, as in AE
+      let pad = 0;
+      for (const e of L.effects) {
+        const g = (m) => { const n = e.params.find((p) => p.match === m); return n ? L.prop(n).valueAt(t) : 0; };
+        if (e.match === "ADBE Glo2") pad = Math.max(pad, g("ADBE Glo2-0003") * 0.35 * 3);
+        if (e.match === "ADBE Box Blur2") pad = Math.max(pad, g("ADBE Box Blur2-0001") * Math.sqrt((g("ADBE Box Blur2-0002") || 1) / 3) * 3);
+      }
+      pad = Math.ceil(Math.min(pad, 600));
+      if (pad > 0) { const big = this.newCanvas(src.width + 2 * pad, src.height + 2 * pad); big.getContext("2d").drawImage(src, pad, pad); src = big; M = M.mul(Mat.T(-pad, -pad)); }
+      this.applyEffects(L, t, src, Mat.T(pad, pad), lw, lh, 1);
+      oc.setTransform(M.a, M.b, M.c, M.d, M.e, M.f); oc.imageSmoothingQuality = "high"; oc.drawImage(src, 0, 0);
+      oc.setTransform(1, 0, 0, 1, 0, 0);
+    } else if (L.kind === "text") {
+      L.text.draw(oc, t, M, 1);
+      this.applyEffects(L, t, out, M, C.w, C.h, Math.sqrt(Math.abs(M.a * M.d - M.b * M.c)));
+    } else if (L.kind === "shape") {
+      drawShapes(oc, L, t, M);
+      this.applyEffects(L, t, out, M, C.w, C.h, Math.sqrt(Math.abs(M.a * M.d - M.b * M.c)));
+    } else return null;
+    if (opacity < 1) { const tmp = this.newCanvas(C.w, C.h), tc = tmp.getContext("2d"); tc.globalAlpha = opacity; tc.drawImage(out, 0, 0);
+      oc.clearRect(0, 0, C.w, C.h); oc.drawImage(tmp, 0, 0); }
+    if (L.d.matte && L.d.matte.layer != null) {
+      const ML = C.layers.find((l) => l.index === L.d.matte.layer);
+      // chained mattes (matte layer is itself matted) are leftovers from duplicated layers in this pack:
+      // honouring them would hide every copy, so they are ignored (see README)
+      if (ML && ML.d.matte && ML.d.matte.layer != null) return out;
+      const mb = ML ? this.layerBuffer(ML, t) : null;
+      if (!mb) return null;
+      const type = String(L.d.matte.type);
+      oc.globalCompositeOperation = type === "5014" ? "destination-out" : "destination-in"; oc.drawImage(mb, 0, 0);
+      oc.globalCompositeOperation = "source-over";
+    }
+    return out;
+  }
+  // pixel effects. lw/lh = layer rect, M maps layer space onto this canvas, k = pixel scale
+  applyEffects(L, t, cv, M, lw, lh, k) {
+    const c = cv.getContext("2d");
     for (const e of L.effects) {
-      if (e.match === "ADBE Fill") {
-        const col = L.prop(e.params.find((p) => p.match === "ADBE Fill-0002")).valueAt(t);
-        const fop = e.params.find((p) => p.match === "ADBE Fill-0005"); fillColor = { col, op: fop ? L.prop(fop).valueAt(t) : 1 };
-      } else if (e.match === "ADBE Geometry2") {
-        const g = (m) => L.prop(e.params.find((p) => p.match === m)).valueAt(t);
-        const a = g("ADBE Geometry2-0001"), p = g("ADBE Geometry2-0002"), sh = g("ADBE Geometry2-0003"), sw = g("ADBE Geometry2-0004");
-        const uni = g("ADBE Geometry2-0011"), r = g("ADBE Geometry2-0007"), o = g("ADBE Geometry2-0008");
-        const sx = sw / 100, sy = (uni ? sw : sh) / 100;
-        M = M.mul(Mat.T(p[0], p[1])).mul(Mat.R(r)).mul(Mat.S(sx, sy)).mul(Mat.T(-a[0], -a[1]));
-        opacity *= o / 100;
+      const g = (m) => { const n = e.params.find((p) => p.match === m); return n ? L.prop(n).valueAt(t) : undefined; };
+      if (e.match === "ADBE Fill") recolor(cv, { col: g("ADBE Fill-0002"), op: g("ADBE Fill-0005") ?? 1 });
+      else if (e.match === "ADBE Box Blur2") {
+        const r = g("ADBE Box Blur2-0001") || 0, it = g("ADBE Box Blur2-0002") || 1;
+        if (r > 0.05) blurCanvas(cv, r * Math.sqrt(it / 3) * k);
+      } else if (e.match === "ADBE Glo2") {
+        const r = (g("ADBE Glo2-0003") || 0) * k, inten = g("ADBE Glo2-0004") ?? 1;
+        if (r > 0.5 && inten > 0) { const gl = this.newCanvas(cv.width, cv.height), gc = gl.getContext("2d");
+          gc.filter = `blur(${(r * 0.35).toFixed(1)}px)`; gc.globalAlpha = Math.min(1, 0.4 * inten); gc.drawImage(cv, 0, 0);
+          c.save(); c.globalCompositeOperation = "destination-over"; c.drawImage(gl, 0, 0); c.restore(); }
+      } else if (e.match === "ADBE Linear Wipe") {
+        const comp = g("ADBE Linear Wipe-0001") || 0, ang = (g("ADBE Linear Wipe-0002") || 0) * Math.PI / 180, fe = Math.max(0.01, g("ADBE Linear Wipe-0003") || 0);
+        if (comp <= 0) continue;
+        const dx = Math.sin(ang), dy = -Math.cos(ang), cx = lw / 2, cy = lh / 2;
+        const hx = Math.abs(lw / 2 * dx) + Math.abs(lh / 2 * dy), T = -hx + 2 * hx * comp / 100;
+        const m = this.newCanvas(cv.width, cv.height), mc = m.getContext("2d");
+        mc.setTransform(M.a, M.b, M.c, M.d, M.e, M.f);
+        const gr = mc.createLinearGradient(cx + dx * (T - fe / 2), cy + dy * (T - fe / 2), cx + dx * (T + fe / 2), cy + dy * (T + fe / 2));
+        gr.addColorStop(0, "rgba(0,0,0,0)"); gr.addColorStop(1, "rgba(0,0,0,1)");
+        mc.fillStyle = gr; mc.fillRect(-1e5, -1e5, 2e5, 2e5);
+        c.save(); c.globalCompositeOperation = "destination-in"; c.drawImage(m, 0, 0); c.restore();
       }
     }
-    if (L.kind === "text") {
-      // text renders straight into comp space; Fill recolours via a temp buffer
-      if (fillColor) {
-        const tmp = this.newCanvas(ctx.canvas.width, ctx.canvas.height), tc = tmp.getContext("2d");
-        L.text.draw(tc, t, M, 1); recolor(tmp, fillColor);
-        ctx.save(); ctx.globalAlpha = opacity; ctx.drawImage(tmp, 0, 0); ctx.restore();
-      } else L.text.draw(ctx, t, M, opacity);
-      return;
-    }
-    if (!buf) return;
-    if (fillColor) recolor(buf, fillColor);
-    ctx.save(); ctx.setTransform(M.a, M.b, M.c, M.d, M.e, M.f); ctx.globalAlpha = Math.min(1, opacity);
-    ctx.imageSmoothingQuality = "high"; ctx.drawImage(buf, 0, 0); ctx.restore();
   }
   async renderFrame(t, target) {
     EPOCH++;
@@ -612,6 +722,83 @@ class Engine {
     if (this.mediaWant.size) { await this.loadWanted(); EPOCH++; cv = this.renderComp(this.root, t, null); }
     const ctx = target.getContext("2d"); ctx.clearRect(0, 0, target.width, target.height); ctx.drawImage(cv, 0, 0);
   }
+}
+function rgb(col) { return `rgb(${col.slice(0, 3).map((x) => Math.round(Math.min(1, Math.max(0, x)) * 255)).join(",")})`; }
+function blurCanvas(cv, sigma) {
+  const tmp = document.createElement("canvas"); tmp.width = cv.width; tmp.height = cv.height;
+  const tc = tmp.getContext("2d"); tc.filter = `blur(${sigma.toFixed(2)}px)`; tc.drawImage(cv, 0, 0);
+  const c = cv.getContext("2d"); c.clearRect(0, 0, cv.width, cv.height); c.drawImage(tmp, 0, 0);
+}
+// ---------- shape layers: groups, rectangles, fill, stroke, offset paths ----------
+const VEC = (n, m) => (n.props || []).find((p) => p.match === m);
+function vecGroupMatrix(L, g, t) {
+  const tr = VEC(g, "ADBE Vector Transform Group"); if (!tr) return { m: Mat.T(0, 0), op: 1 };
+  const v = (m, d) => { const n = VEC(tr, m); return n ? L.prop(n).valueAt(t) : d; };
+  const a = v("ADBE Vector Anchor", [0, 0]), p = v("ADBE Vector Position", [0, 0]), s = v("ADBE Vector Scale", [100, 100]), r = v("ADBE Vector Rotation", 0);
+  return { m: Mat.T(p[0], p[1]).mul(Mat.R(r)).mul(Mat.S(s[0] / 100, s[1] / 100)).mul(Mat.T(-a[0], -a[1])), op: v("ADBE Vector Group Opacity", 100) / 100 };
+}
+function collectPaths(L, items, M, t, out) {   // geometry only, with offset paths applied
+  for (const it of items) {
+    if (it.off) continue;
+    if (it.match === "ADBE Vector Group") {
+      const { m } = vecGroupMatrix(L, it, t); const ct = VEC(it, "ADBE Vectors Group");
+      if (ct) collectPaths(L, ct.props || [], M.mul(m), t, out);
+    } else if (it.match === "ADBE Vector Shape - Rect") {
+      const v = (m, d) => { const n = VEC(it, m); return n ? L.prop(n).valueAt(t) : d; };
+      const sz = v("ADBE Vector Rect Size", [0, 0]), ps = v("ADBE Vector Rect Position", [0, 0]);
+      out.push({ cx: ps[0], cy: ps[1], w: sz[0], h: sz[1], r: v("ADBE Vector Rect Roundness", 0), M });
+    } else if (it.match === "ADBE Vector Filter - Offset") {
+      const n = VEC(it, "ADBE Vector Offset Amount"); const a = n ? L.prop(n).valueAt(t) : 0;
+      for (const p of out) { p.w += 2 * a; p.h += 2 * a; if (p.r > 0) p.r += a; }
+    }
+  }
+  return out;
+}
+function tracePath(ctx, p) {
+  ctx.setTransform(p.M.a, p.M.b, p.M.c, p.M.d, p.M.e, p.M.f);
+  const w = Math.max(0, p.w), h = Math.max(0, p.h), r = Math.max(0, Math.min(p.r, w / 2, h / 2));
+  ctx.beginPath(); ctx.roundRect(p.cx - w / 2, p.cy - h / 2, w, h, r);
+}
+function paintGroup(ctx, L, items, M, t, opacity) {
+  // paths above a paint operator are painted by it; items higher in the list draw on top
+  const ops = []; const acc = [];
+  for (const it of items) {
+    if (it.off) continue;
+    if (it.match === "ADBE Vector Group") {
+      const { m, op } = vecGroupMatrix(L, it, t); const ct = VEC(it, "ADBE Vectors Group");
+      ops.push({ kind: "group", it, M: M.mul(m), op });
+      if (ct) collectPaths(L, ct.props || [], M.mul(m), t, acc);
+    } else if (it.match === "ADBE Vector Shape - Rect" || it.match === "ADBE Vector Filter - Offset") collectPaths(L, [it], M, t, acc);
+    else if (it.match === "ADBE Vector Graphic - Fill" || it.match === "ADBE Vector Graphic - Stroke") ops.push({ kind: it.match, it, paths: acc.map((p) => ({ ...p })) });
+  }
+  for (let i = ops.length - 1; i >= 0; i--) {
+    const o = ops[i];
+    if (o.kind === "group") { const ct = VEC(o.it, "ADBE Vectors Group"); if (ct && o.op > 0) paintGroup(ctx, L, ct.props || [], o.M, t, opacity * o.op); continue; }
+    const v = (m, d) => { const n = VEC(o.it, m); return n ? L.prop(n).valueAt(t) : d; };
+    ctx.save();
+    if (o.kind === "ADBE Vector Graphic - Fill") {
+      const col = v("ADBE Vector Fill Color", [1, 1, 1, 1]); ctx.globalAlpha = opacity * v("ADBE Vector Fill Opacity", 100) / 100 * (col[3] ?? 1);
+      if (ctx.globalAlpha > 0) for (const p of o.paths) { tracePath(ctx, p); ctx.fillStyle = rgb(col); ctx.fill(); }
+    } else {
+      const col = v("ADBE Vector Stroke Color", [1, 1, 1, 1]), w = v("ADBE Vector Stroke Width", 0);
+      ctx.globalAlpha = opacity * v("ADBE Vector Stroke Opacity", 100) / 100 * (col[3] ?? 1);
+      const dn = VEC(o.it, "ADBE Vector Stroke Dashes"); let dash = [];
+      if (dn) { const dd = VEC(dn, "ADBE Vector Stroke Dash 1"), gg = VEC(dn, "ADBE Vector Stroke Gap 1");
+        const dv = dd && (dd.mod || dd.js) ? L.prop(dd).valueAt(t) : 0, gv = gg && (gg.mod || gg.js) ? L.prop(gg).valueAt(t) : 0;
+        if (dv > 0) dash = [dv, gv || dv]; }
+      if (w > 0 && ctx.globalAlpha > 0) for (const p of o.paths) { tracePath(ctx, p); ctx.setLineDash(dash); ctx.lineWidth = w; ctx.strokeStyle = rgb(col); ctx.stroke(); }
+    }
+    ctx.restore();
+  }
+}
+function drawShapes(ctx, L, t, M) { const root = L.d.props.find((p) => p.match === "ADBE Root Vectors Group"); if (root) paintGroup(ctx, L, root.props || [], M, t, 1); ctx.setTransform(1, 0, 0, 1, 0, 0); }
+function shapeBounds(L, t) {
+  const root = L.d.props.find((p) => p.match === "ADBE Root Vectors Group");
+  const ps = root ? collectPaths(L, root.props || [], Mat.T(0, 0), t, []) : [];
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (const p of ps) for (const [x, y] of [[-1, -1], [1, -1], [1, 1], [-1, 1]]) { const q = p.M.apply([p.cx + x * p.w / 2, p.cy + y * p.h / 2]);
+    x0 = Math.min(x0, q[0]); y0 = Math.min(y0, q[1]); x1 = Math.max(x1, q[0]); y1 = Math.max(y1, q[1]); }
+  return ps.length ? { left: x0, top: y0, width: x1 - x0, height: y1 - y0 } : { left: 0, top: 0, width: 0, height: 0 };
 }
 function recolor(canvas, { col, op }) {
   const c = canvas.getContext("2d"); c.save(); c.globalCompositeOperation = "source-atop"; c.globalAlpha = op;

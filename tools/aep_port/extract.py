@@ -32,6 +32,9 @@ def text_doc(td):
 
 def prop(p, depth=0):
     d = {"name": p.name, "match": p.match_name}
+    try:
+        if getattr(p, "enabled", True) is False: d["off"] = True   # eyeball / fx switch turned off
+    except Exception: pass
     kids = getattr(p, "properties", None)
     if kids is not None and not hasattr(p, "keyframes"):
         ch = [prop(c, depth + 1) for c in kids]

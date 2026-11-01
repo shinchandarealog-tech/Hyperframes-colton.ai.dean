@@ -27,11 +27,15 @@ python3 ../../../tools/aep_port/render.py "specs/Render - Hook 01.json" out/hook
     --texts my_hook.json --media "Media 01=clip.mp4" --fps 30 --shutter 180 --bg footage.mp4
 ```
 
-`texts.json` maps `"<chunk comp>/<layer>"` to new text. Use `\n` for line breaks:
+`texts.json` maps `"<chunk comp>/<layer>"` to new text. Use `\n` for line breaks. Keys starting with
+`@` set a control instead: `"@<layer>/<effect>"` sets that effect's first value (a colour, slider or checkbox):
 
 ```json
-{"Text 01/Text": "This home\nchanged how\nI see\nluxury.", "Text 02/Text": "Let's"}
+{"Text 01/Text": "This home\nchanged how\nI see\nluxury.", "Text 02/Text": "Let's",
+ "@Control Text 03/Text 03 Color": [0.878, 0.333, 0.227, 1]}
 ```
+
+`video-projects/template-library/CATALOG.md` lists every template's keys, original text, colours and media slots.
 
 Useful flags: `--stills 0.5,1.2` (PNG stills only), `--duration 4` (render fewer seconds),
 `--shutter 0` (no motion blur, matches the AE comp setting), `--bg "#101010"`.
@@ -47,19 +51,31 @@ Useful flags: `--stills 0.5,1.2` (PNG stills only), `--duration 4` (render fewer
   along the path.
 - **Text animators.** Range selectors (square, ramp up, ramp down, triangle, ease high/low) and
   expression selectors, based on characters, words or lines. Supports position, scale,
-  rotation, opacity and blur.
+  rotation, opacity, blur and fill colour.
 - **Essential Properties.** Overrides flow from the parent layer into the precomp's
   control effects.
+- **Shape layers.** Groups, rectangles (with roundness), fill, stroke (with dashes), offset paths and group
+  transforms. Items switched off in AE (eyeball / fx switch) stay off.
+- **Track mattes.** Alpha and inverted alpha. A matte layer can be hidden or visible, and matted layers can
+  matte others.
+- **Effects.** Fill, Transform, Fast Box Blur, Glow (approximate), Linear Wipe. Effects that spread
+  (blur, glow) get padded buffers so they are not clipped at the layer edge.
+- **Expression extras.** `text.sourceText` (typewriter, number counter), `key()` / `nearestKey()` / `numKeys`,
+  `content()` lookups on shape groups, `thisLayer.parent`, `sourceRectAtTime` (tight glyph bounds for text,
+  path bounds for shapes).
 - **Auto-fit.** Word chunks widen (and grow taller only if glyphs would be cut) to fit new text,
   keeping their alignment. Chunks that share a row reflow with the template's gaps, and rows
   are scaled to stay inside a 6% safe area.
 
-## Known gaps
+## Known gaps and judgement calls
 
+- **Chained mattes are ignored.** In Hook 03, six copies of a typewriter line are each matted by the layer
+  above, starting with a media layer that isn't on screen yet. Taken literally, every copy would be invisible,
+  so a matte whose matte layer is itself matted is skipped. Every other matte is honoured.
+- **Glow is approximate.** It's a blurred halo behind the layer. AE's threshold and colour options are not modelled.
 - **Fonts.** Neue Haas Grotesk Display is Adobe Fonts only. `FONT_MAP` in `player.js` substitutes
   Inter Display Bold. If you have the real font file, install it and change `FONT_MAP`.
-- **Unused features.** Shape-layer drawing, masks, track mattes, blend modes other than normal,
-  3D layers and `wiggle()` are not implemented, because the pilot templates don't use them.
-  Port more templates and add them as they come up.
+- **Unused features.** Layer masks, luma mattes, blend modes other than normal, 3D layers, bezier shape paths,
+  ellipses and `wiggle()` are not implemented, because none of the 20 templates use them.
 - **Licence.** The `.aep` and the extracted specs are licensed content. They are gitignored and
   must stay private.
