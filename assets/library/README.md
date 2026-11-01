@@ -1,6 +1,6 @@
 # Creator audio library
 
-The creator's full SFX + music pack (from their Google Drive), **imported into the repo, with duplicates removed**: 5025 SFX in `assets/sfx/pack/`, 39 SFX cut from a pack-preview reel in `assets/sfx/reel-pack/`, and 391 music tracks in `assets/music/<genre>/`.
+The creator's full SFX + music pack (from their Google Drive), **imported into the repo, with duplicates removed**: 5251 SFX in `assets/sfx/pack/`, 39 SFX cut from a pack-preview reel in `assets/sfx/reel-pack/`, and 391 music tracks in `assets/music/<genre>/`.
 
 - `catalog.json`: every file with its `path` (relative to `assets/`), `dur` (seconds), and `orig` (the original filename in the Drive pack).
 - `duplicates-removed.json`: the 717 files that were skipped as duplicates, and which kept file each one matches.
@@ -22,6 +22,7 @@ Copy the file into the project's `assets/` and reference it from an `<audio>` el
 - Source: the Drive folder's one-click zip (6,134 audio files), plus the 10 sounds from the second link and the reel from the third link. The Drive folders are listed in git history (`assets/library/catalog.json` before this import).
 - **Format:** WAV / AIFF / FLAC / M4A / MP4 were converted to **MP3 320 kbps**. MP3s were copied as-is. Names are kebab-case.
 - **Duplicates removed (717):** exact copies, the same file under a different name (very common in this pack, e.g. SoundSnap vs Epidemic vs `@adobebasics` re-uploads), and the same recording with a different trim or fade. Each candidate was confirmed by comparing waveforms. Different takes of similar sounds (`gear-metal-459` vs `460`, `typewriter-2` vs `3`) were **kept**.
+- **PEC Premium SFX.zip** (added later): 278 sounds → 226 imported into `sfx/pack/pec-premium/`. 52 were duplicates: 33 were already in the library and 19 were repeated inside the pack.
 - Not imported: 2 corrupt files (`Beep/BeepShort_S011SF.148.mp3`, `Percussion/MultimediaPercussive_S011TE.681.mp3`, which don't decode in the source), Sound Forge `.sfk` peak files, `.DS_Store`, and a tutorial video (`Everything You Need to Know About Sound Design in 2025!`).
 
 ## SFX pack categories (`assets/sfx/pack/`)
@@ -79,6 +80,7 @@ Copy the file into the project's `assets/` and reference it from an `<audio>` el
 | `paper-sound-effects` | 20 |
 | `pen-click` | 5 |
 | `percussion` | 213 |
+| `pec-premium` | 226 (PEC Premium SFX: UI, notifications, cash, wink, games, whooshes, risers, all-use) |
 | `phone` | 1 |
 | `pitched` | 24 |
 | `pop` | 6 |
