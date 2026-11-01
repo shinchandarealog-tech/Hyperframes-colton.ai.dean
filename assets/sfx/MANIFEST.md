@@ -78,9 +78,9 @@ All paths below are **relative to `assets/`** so they match `<audio src="...">` 
 
 Gotchas: `ui/click-sequence.mp3` (17s) and `ui/highlighter-marker.mp3` (11s) are long takes, so set a short `data-duration`. `risers/number-increasing.mp3` (18s) is a counting/loading loop that you trim to the counter's length. `foley/crowd-cheer-in-school-auditorium.mp3` is 17s.
 
-## Full creator library (Google Drive, not in git)
+## Full creator library — `sfx/pack/`, `sfx/reel-pack/`, `music/<genre>/`
 
-About 5,700 more SFX (the "SFX monster" pack: whoosh, glitch, cinematic hits, risers, notifications, meme SFX…) and about 400 music tracks by genre are indexed in `library/catalog.json`. Search and download single files with `node assets/library/fetch.mjs`. See `library/README.md`, which also covers music licensing (Epidemic Sound / Artlist).
+The creator's whole pack is in the repo with duplicates removed: **5025 SFX** in 72 categories (`sfx/pack/whoosh/`, `glitch/`, `cinematic-hub/`, `risers/`, `notifications/`, `meme-sfx/`…), **39 reel-cut SFX** (`sfx/reel-pack/`), and **391 music tracks** across 28 genres (`music/motivational/`, `music/mystery/`, `music/reel-bgm/`…). All MP3. See `library/README.md` for the category list and full track list, and `library/catalog.json` to search by name, including original filenames.
 
 ## Folder structure (actual)
 
@@ -96,9 +96,11 @@ assets/
 │   │                   cinematic-whoosh.mp3  (creator pack)
 │   ├── ambient/        ambient-hum.mp3  tech-drone.mp3
 │   ├── kit/            creator starter kit — transitions/ impact/ risers/ ui/ foley/  (93 files)
+│   ├── pack/           full creator SFX pack, 72 category folders (5025 files)
+│   ├── reel-pack/      39 SFX cut from a pack-preview reel
 │   └── MANIFEST.md     (this file)
-├── music/              music-bed-cinematic-tech.mp3
-├── library/            catalog.json + fetch.mjs + README.md — index of the full Drive library
+├── music/              music-bed-cinematic-tech.mp3 + <genre>/ folders (391 tracks)
+├── library/            catalog.json + duplicates-removed.json + README.md — index of the full library
 └── _inbox/             (staging — empty after sort)
 ```
 

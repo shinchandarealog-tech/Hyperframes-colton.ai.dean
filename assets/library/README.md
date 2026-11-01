@@ -1,610 +1,587 @@
-# Creator audio library (Google Drive index)
+# Creator audio library
 
-The creator's full audio library lives in **Google Drive**: about 5,700 SFX and 400 music tracks, several GB in total. It is **not stored in git**. This folder holds:
+The creator's full SFX + music pack (from their Google Drive), **imported into the repo, with duplicates removed**: 5025 SFX in `assets/sfx/pack/`, 39 SFX cut from a pack-preview reel in `assets/sfx/reel-pack/`, and 391 music tracks in `assets/music/<genre>/`.
 
-- `catalog.json`: one entry per file (Drive `id`, `name`, `folder`, `kind` = sfx/music, `dur` in seconds when known, `kit` = repo path if it's already local).
-- `fetch.mjs`: search the catalog and download single files on demand.
+- `catalog.json`: every file with its `path` (relative to `assets/`), `dur` (seconds), and `orig` (the original filename in the Drive pack).
+- `duplicates-removed.json`: the 717 files that were skipped as duplicates, and which kept file each one matches.
 
-## Usage (run from a project folder)
+**Check the curated sets first:** `assets/sfx/MANIFEST.md` (quick-pick table + the creator's starter kit in `sfx/kit/`). Dig into `sfx/pack/` when you need something specific.
+
+## Finding a sound
 
 ```bash
-node ../../assets/library/fetch.mjs search riser --kind sfx          # find sounds
-node ../../assets/library/fetch.mjs search --kind music --folder motivational
-node ../../assets/library/fetch.mjs folders --kind music             # list genres
-node ../../assets/library/fetch.mjs get <id> --to assets             # download into this project
+ls assets/sfx/pack/                       # categories
+ls assets/sfx/pack/whoosh/                # browse one
+grep -i 'cash' assets/library/catalog.json  # search names (current + original)
 ```
 
-**Check `assets/sfx/` first.** The most-used sounds are already in the repo: see `assets/sfx/MANIFEST.md`, and the creator's starter kit is in `assets/sfx/kit/`.
+Copy the file into the project's `assets/` and reference it from an `<audio>` element.
 
-## Sources
+## How it was built
 
-| # | Drive folder | What's in it |
-|---|---|---|
-| 1 | https://drive.google.com/drive/folders/1P-_8mPTYp-viA_VL1jbq07HhzD1mvk6x | SFX monster pack, music library by genre, reel BGM, `sound effect important 2.0` (→ starter kit) |
-| 2 | https://drive.google.com/drive/folders/1yczqC7xbnb7BA6C7Q10rrC29Zdbq3_9D | 10 sounds (charge, deep bass, flash, risers, snap…) → starter kit |
-| 3 | https://drive.google.com/drive/folders/1ef54jgBKat0-7nYcT79cz48sqt-Sxb2H | `20+ Sound Effects.mp4`: another creator's 48s pack-preview reel (overlapping, labelled). Reference only, not usable as clips |
+- Source: the Drive folder's one-click zip (6,134 audio files), plus the 10 sounds from the second link and the reel from the third link. The Drive folders are listed in git history (`assets/library/catalog.json` before this import).
+- **Format:** WAV / AIFF / FLAC / M4A / MP4 were converted to **MP3 320 kbps**. MP3s were copied as-is. Names are kebab-case.
+- **Duplicates removed (717):** exact copies, the same file under a different name (very common in this pack, e.g. SoundSnap vs Epidemic vs `@adobebasics` re-uploads), and the same recording with a different trim or fade. Each candidate was confirmed by comparing waveforms. Different takes of similar sounds (`gear-metal-459` vs `460`, `typewriter-2` vs `3`) were **kept**.
+- Not imported: 2 corrupt files (`Beep/BeepShort_S011SF.148.mp3`, `Percussion/MultimediaPercussive_S011TE.681.mp3`, which don't decode in the source), Sound Forge `.sfk` peak files, `.DS_Store`, and a tutorial video (`Everything You Need to Know About Sound Design in 2025!`).
 
-Excluded from the catalog: `.DS_Store`, `.sfk` peak files, and `SFX one click download pack 3.9 GB download.zip` (folder 1 root, a zipped copy of the pack).
-
-The folders must stay shared as **Anyone with the link → Viewer**, or `fetch.mjs get` will fail.
-
-## Licensing ⚠️
-
-- `ES_…` tracks are **Epidemic Sound** and `… Artlist` tracks are **Artlist**. They are only cleared for monetized posts while the publishing account holds an active subscription with that service. Confirm before using them in a published video.
-- The SFX packs come from mixed sources (Pixabay, Mixkit, SoundSnap-style naming, YouTube creator packs). Treat them as the creator's responsibility to clear.
-
-## SFX categories
+## SFX pack categories (`assets/sfx/pack/`)
 
 | Folder | Files |
 |---|---|
-| (root) | 11 |
-| Action Sound | 98 |
-| Alarm & Chime | 36 |
-| Ambience | 15 |
-| Animals | 54 |
-| Arcade Noises | 10 |
-| Beep | 196 |
-| Bell | 63 |
-| Bugs | 38 |
-| Button | 277 |
-| Camera | 42 |
-| Chime | 284 |
-| Cinematic hub | 216 |
-| Clicks | 27 |
-| Construction & Tools | 56 |
-| Crowd & People | 7 |
-| Digital | 27 |
-| ESFX | 16 |
-| Electric | 32 |
-| Epic Cinematic Trailer Impact - Pack 2 | 5 |
-| Evolve Audio - Epic Drama SFX | 10 |
-| Evolve Audio - Essential Transitions FREE | 6 |
-| Explosions | 25 |
-| FW sounds | 30 |
-| Fart | 22 |
-| Feeling | 6 |
-| Fire & Fireworks | 28 |
-| Firearms | 20 |
-| Food | 8 |
-| Games | 17 |
-| Gear | 147 |
-| Glitch | 89 |
-| Hits | 47 |
-| Horn | 20 |
-| Insta Reel background music/audio murse/Ping Boom Major_Minor | 12 |
-| Insta Reel background music/audio murse/Risers Deep Breath Major_Minor | 12 |
-| Keyboard & Mouse | 53 |
-| Logo Animation | 5 |
-| Mechanical | 10 |
-| Meme SFX | 89 |
-| Miscellaneous | 5 |
-| Money | 11 |
-| Musical | 96 |
-| Negative | 411 |
-| Notifications | 302 |
-| Paper Sound Effects | 29 |
-| Percussion | 232 |
-| Phone | 1 |
-| Positive | 126 |
-| Ringtones | 58 |
-| Risers | 25 |
-| Sci-Fi | 118 |
-| Sports | 2 |
-| Swishes | 16 |
-| Switch | 168 |
-| Swoosh | 34 |
-| Tone | 20 |
-| Transition Sound Effects | 142 |
-| Ui Sound | 32 |
-| Vehicles | 58 |
-| Vibes | 6 |
-| Water | 44 |
-| Whoosh | 193 |
-| Wind | 24 |
-| build up | 16 |
-| clock | 8 |
-| error | 2 |
-| i  phone | 17 |
-| knife | 5 |
-| liquid | 5 |
-| other | 30 |
-| pen click | 6 |
-| pop | 14 |
-| shining | 3 |
-| sound effect important 2.0 | 84 |
-| wooshes | 58 |
-| z_Other | 1175 |
+| `action-sound` | 83 |
+| `alarm-chime` | 31 |
+| `ambience` | 15 |
+| `animals` | 53 |
+| `arcade-noises` | 9 |
+| `beep` | 183 |
+| `bell` | 56 |
+| `bugs` | 37 |
+| `build-up` | 7 |
+| `button` | 272 |
+| `camera` | 38 |
+| `chime` | 227 |
+| `cinematic-hub` | 206 |
+| `clicks` | 22 |
+| `clock` | 7 |
+| `construction-tools` | 48 |
+| `crowd-people` | 7 |
+| `digital` | 24 |
+| `electric` | 31 |
+| `epic-cinematic-trailer-impact-pack-2` | 5 |
+| `error` | 2 |
+| `esfx` | 10 |
+| `evolve-audio-essential-transitions-free` | 6 |
+| `explosions` | 24 |
+| `fart` | 18 |
+| `feeling` | 6 |
+| `fire-fireworks` | 27 |
+| `firearms` | 20 |
+| `food` | 8 |
+| `fw-sounds` | 30 |
+| `games` | 14 |
+| `gear` | 147 |
+| `glitch` | 86 |
+| `hits` | 45 |
+| `horn` | 16 |
+| `i-phone` | 5 |
+| `keyboard-mouse` | 46 |
+| `knife` | 3 |
+| `liquid` | 5 |
+| `logo-animation` | 5 |
+| `mechanical` | 10 |
+| `meme-sfx` | 64 |
+| `miscellaneous` | 5 |
+| `money` | 9 |
+| `musical` | 92 |
+| `negative` | 355 |
+| `notifications` | 260 |
+| `other` | 1048 |
+| `paper-sound-effects` | 20 |
+| `pen-click` | 5 |
+| `percussion` | 213 |
+| `phone` | 1 |
+| `pitched` | 24 |
+| `pop` | 6 |
+| `positive` | 93 |
+| `ringtones` | 58 |
+| `risers` | 23 |
+| `sci-fi` | 117 |
+| `shining` | 3 |
+| `sports` | 2 |
+| `swishes` | 15 |
+| `switch` | 168 |
+| `swoosh` | 28 |
+| `tone` | 18 |
+| `transition-sound-effects` | 135 |
+| `ui-sound` | 29 |
+| `vehicles` | 56 |
+| `vibes` | 6 |
+| `water` | 42 |
+| `whoosh` | 168 |
+| `wind` | 24 |
+| `wooshes` | 44 |
 
-## Music by genre
+`pitched/` holds key-matched ping-booms and deep-breath risers (one per musical key). Use the one that matches the music bed's key.
 
-Lengths are listed only for tracks that were downloaded while the catalog was being built. Run `search` to get the ids.
+## Reel pack (`assets/sfx/reel-pack/`)
 
-### Adventure (31)
+Cut from a 48s pack-preview reel. Each label on screen was matched to its sound, and silence was trimmed. **⚠ = cut from a stretch where sounds overlap, so it may carry a little bleed from the neighbouring sound.** Prefer a `sfx/pack/` equivalent for hero moments.
 
-- andalucia-max-ll-musicbed-licensed — 3:38
-- ES_A Fly on the Wall - Raymond Grouse — 1:52
-- ES_A Million Upheavals - Edgar Hopp — 2:46
-- ES_A True Hero - Edgar Hopp — 3:59
-- ES_Across the Ocean - Bonnie Grace — 2:07
-- ES_Allegiances - Hampus Naeselius — 2:13
-- ES_Apollo - Dream Cave — 2:21
-- ES_Can_t Dampen My Spirit - Adriel Fair — 2:27
-- ES_Conquest - Dragon Tamer (1) — 2:39
-- ES_Crank It - Sage Oursler — 2:02
-- ES_Crusaders - Adriel Fair — 1:43
-- ES_Forever to Run - Howard Harper-Barnes — 2:34
-- ES_Globetrotter - Adriel Fair — 2:03
-- ES_Highland Hymn - Bonnie Grace — 3:08
-- ES_Keep Close to the Guide - Philip Ayers — 2:21
-- ES_Knight_s Templar - Adriel Fair — 1:34
-- ES_Look _ See - Max Anson — 1:52
-- ES_Medieval Adventure - Bonnie Grace — 2:01
-- ES_On a Hunt - Philip Ayers — 2:01
-- ES_Peacekeepers - Dream Cave — 2:06
-- ES_Plains of Illeyneth - Dragon Tamer — 3:13
-- ES_Playing With Thunder - Max Anson — 2:01
-- ES_Ropes Away - Adriel Fair — 1:43
-- ES_Skilled In The Arts - Yi Nantiro — 2:13
-- ES_The Eye of the Storm - Edward Karl Hanson — 1:55
-- ES_The Traveller - Christoffer Moe Ditlevsen — 2:53
-- ES_Truce No More - Dream Cave — 1:56
-- ES_Valley of Drakes - Dragon Tamer — 2:02
-- ES_Victory Theme - Max Anson (1) — 2:05
-- ES_Victory Theme - Max Anson — 2:05
-- galway-clover by c.k.-martin Artlist — 2:59
+`bloop-cartoon.mp3` 0.21s · `bubble-pop-2.mp3` ⚠ 1.36s · `bubble-pop.mp3` 0.44s · `camera-click.mp3` 0.24s · `camera-flash.mp3` 1.41s · `camera-rec.mp3` ⚠ 1.15s · `camera-shutter.mp3` 1.57s · `camera-transition.mp3` ⚠ 1.25s · `cash-register.mp3` 0.81s · `click-1.mp3` 0.91s · `click-2.mp3` 0.18s · `click-3.mp3` 0.18s · `click-glitch.mp3` ⚠ 1.25s · `clock-ticking.mp3` ⚠ 0.99s · `deep-riser.mp3` ⚠ 1.25s · `digital-counting.mp3` 0.81s · `ding.mp3` ⚠ 1.25s · `echo.mp3` ⚠ 1.25s · `evoy.mp3` 0.34s · `film-burn.mp3` ⚠ 1.25s · `gear-up.mp3` 0.6s · `marker.mp3` 0.89s · `mechanical-gear-up.mp3` ⚠ 1.44s · `mechanical-keyboard.mp3` ⚠ 1.07s · `message.mp3` 0.34s · `ni-interface.mp3` 0.89s · `ni-soft-ui.mp3` 0.97s · `overlay-switch.mp3` ⚠ 1.25s · `phill.mp3` 0.63s · `riser.mp3` ⚠ 1.25s · `slice.mp3` 0.73s · `soft-gear-up.mp3` 1.07s · `tick.mp3` 1.02s · `typing.mp3` 0.55s · `ui-6.mp3` 0.91s · `ui-bubble-pop.mp3` 0.1s · `ui-click.mp3` 0.24s · `ui-pop.mp3` 0.63s · `yt-click.mp3` 0.18s
 
-### Alternative (26)
+## Music (`assets/music/<genre>/`)
 
-- big-shot-instrumental-irontom-musicbed-licensed — 3:39
-- call-me-the-west-irontom-musicbed-licensed — 3:15
-- cheers by rex-banner Artlist — 1:56
-- ES_(Stay) True (Instrumental Version) - Lars Eriksson — 3:32
-- ES_A Most Violent Man - Lofive — 3:00
-- ES_Baby Don_t Care - Mike Stringer — 1:51
-- ES_Cassandra, I Really Know You - Marc Torch — 1:44
-- ES_Illusion (Instrumental Version) - Coma Svensson — 2:53
-- ES_Just Say When - The Grateful 7 — 1:56
-- ES_Smokey Goodbye - Modal Youth — 2:27
-- ES_The End of Me - Gaillardia — 2:46
-- ES_The Whole Nine Yards - Another Notion — 1:59
-- ES_We_re Not the Same (GOOD SONG) Audio Extracted_1 — 0:01
-- ES_We_re Not the Same (GOOD SONG) — 2:15
-- filthy-instrumental-moony-musicbed-licensed — 2:39
-- full-moon-instrumental-irontom-musicbed-licensed — 3:12
-- keep-movin-along---no-lead-vocals by milano Artlist — 2:08
-- let-em-talk-instrumental-lone-waves-musicbed-licensed — 3:06
-- loverboy-instrumental-irontom-musicbed-licensed — 3:38
-- never-wanted-your-love-instrumental-nevada-wild-musicbed-licensed — 3:23
-- perfect-day-for-a-party by custommelody Artlist — 1:51
-- rush-hour by dan-zeitune Artlist — 2:31
-- the-gemberzee-instrumental-lovedrug-musicbed-licensed — 3:34
-- way-back-when-before---instrumental-version by con-davison Artlist — 3:45
-- we’ll-keep-running---instrumental-version by to-the-valley Artlist — 2:51
-- when-a-dickhead-dies-instrumental-irontom-musicbed-licensed — 2:50
+### adventure (29)
 
-### Ambient (30)
+- `andalucia-max-ll-musicbed-licensed.mp3` — 3:38
+- `es-a-fly-on-the-wall-raymond-grouse.mp3` — 1:52
+- `es-a-million-upheavals-edgar-hopp.mp3` — 2:46
+- `es-a-true-hero-edgar-hopp.mp3` — 3:59
+- `es-across-the-ocean-bonnie-grace.mp3` — 2:07
+- `es-allegiances-hampus-naeselius.mp3` — 2:13
+- `es-apollo-dream-cave.mp3` — 2:21
+- `es-can-t-dampen-my-spirit-adriel-fair.mp3` — 2:27
+- `es-conquest-dragon-tamer-1.mp3` — 2:39
+- `es-crank-it-sage-oursler.mp3` — 2:02
+- `es-crusaders-adriel-fair.mp3` — 1:43
+- `es-forever-to-run-howard-harper-barnes.mp3` — 2:34
+- `es-globetrotter-adriel-fair.mp3` — 2:03
+- `es-highland-hymn-bonnie-grace.mp3` — 3:08
+- `es-keep-close-to-the-guide-philip-ayers.mp3` — 2:21
+- `es-knight-s-templar-adriel-fair.mp3` — 1:34
+- `es-look-see-max-anson.mp3` — 1:52
+- `es-medieval-adventure-bonnie-grace.mp3` — 2:01
+- `es-peacekeepers-dream-cave.mp3` — 2:06
+- `es-plains-of-illeyneth-dragon-tamer.mp3` — 3:13
+- `es-playing-with-thunder-max-anson.mp3` — 2:01
+- `es-ropes-away-adriel-fair.mp3` — 1:43
+- `es-skilled-in-the-arts-yi-nantiro.mp3` — 2:13
+- `es-the-eye-of-the-storm-edward-karl-hanson.mp3` — 1:55
+- `es-the-traveller-christoffer-moe-ditlevsen.mp3` — 2:53
+- `es-truce-no-more-dream-cave.mp3` — 1:56
+- `es-valley-of-drakes-dragon-tamer.mp3` — 2:02
+- `es-victory-theme-max-anson.mp3` — 2:05
+- `galway-clover-by-c-k-martin-artlist.mp3` — 2:59
 
-- boot-sequence by jimmy-svensson Artlist — 1:56
-- ES_A Closer Look - Charles Holme — 2:00
-- ES_And Behold - Awlee — 4:09
-- ES_Atlas Light - Farrell Wooten — 2:21
-- ES_Cold War Games - Gabriel Lewis — 2:21
-- ES_Detector - Max Anson — 1:46
-- ES_Digital Future - Christoffer Moe Ditlevsen — 2:18
-- ES_Divine Comedy - Oh the City — 3:11
-- ES_Enter the Realm of Shadows - Christoffer Moe Ditlevsen — 3:02
-- ES_Feeling New - Max Anson — 1:58
-- ES_Floating Variables - Isaac Larson — 0:33
-- ES_Forest Sunrise - Marten Moses — 1:50
-- ES_Formations - Van Sandano — 3:26
-- ES_In Cinemas - Pulsed — 1:55
-- ES_In Obscurity Lies the Gate - Christoffer Moe Ditlevsen — 2:46
-- ES_Leaving Traces - Gettz G — 2:29
-- ES_Path to the Abyss - Christoffer Moe Ditlevsen — 2:42
-- ES_Tension 2 - Fredrik Ekstrom — 1:42
-- ES_Thirty-Fourth Window - Heath Cantu — 1:46
-- ES_Trembling Anticipation - Dream Cave — 1:57
-- ES_True Stories - Farrell Wooten — 1:46
-- father-son-makeup-and-vanity-set-musicbed-licensed — 7:14
-- fearful-continuity by josh-mccausland Artlist (1) — 2:14
-- first-try by neon-ridge Artlist — 4:00
-- free-radicals by stanley-gurvich Artlist — 4:41
-- into-the-storm---no-drums by ian-post Artlist — 2:24
-- k.i.t.t.-vs.-k.a.r.r by ian-post Artlist — 1:21
-- mayhem by ian-post Artlist — 1:25
-- the-harvest by dan-mayo Artlist — 5:03
-- unknown-darkness by jimmy-svensson Artlist — 3:40
+### alternative (26)
 
-### Chamber Music (12)
+- `big-shot-instrumental-irontom-musicbed-licensed.mp3` — 3:39
+- `call-me-the-west-irontom-musicbed-licensed.mp3` — 3:15
+- `cheers-by-rex-banner-artlist.mp3` — 1:56
+- `es-a-most-violent-man-lofive.mp3` — 3:00
+- `es-baby-don-t-care-mike-stringer.mp3` — 1:51
+- `es-cassandra-i-really-know-you-marc-torch.mp3` — 1:44
+- `es-illusion-instrumental-version-coma-svensson.mp3` — 2:53
+- `es-just-say-when-the-grateful-7.mp3` — 1:56
+- `es-smokey-goodbye-modal-youth.mp3` — 2:27
+- `es-stay-true-instrumental-version-lars-eriksson.mp3` — 3:32
+- `es-the-end-of-me-gaillardia.mp3` — 2:46
+- `es-the-whole-nine-yards-another-notion.mp3` — 1:59
+- `es-we-re-not-the-same-good-song-audio-extracted-1.mp3` — 0:01
+- `es-we-re-not-the-same-good-song.mp3` — 2:15
+- `filthy-instrumental-moony-musicbed-licensed.mp3` — 2:39
+- `full-moon-instrumental-irontom-musicbed-licensed.mp3` — 3:12
+- `keep-movin-along-no-lead-vocals-by-milano-artlist.mp3` — 2:08
+- `let-em-talk-instrumental-lone-waves-musicbed-licensed.mp3` — 3:06
+- `loverboy-instrumental-irontom-musicbed-licensed.mp3` — 3:38
+- `never-wanted-your-love-instrumental-nevada-wild-musicbed-licensed.mp3` — 3:23
+- `perfect-day-for-a-party-by-custommelody-artlist.mp3` — 1:51
+- `rush-hour-by-dan-zeitune-artlist.mp3` — 2:31
+- `the-gemberzee-instrumental-lovedrug-musicbed-licensed.mp3` — 3:34
+- `way-back-when-before-instrumental-version-by-con-davison-artlist.mp3` — 3:45
+- `well-keep-running-instrumental-version-by-to-the-valley-artlist.mp3` — 2:51
+- `when-a-dickhead-dies-instrumental-irontom-musicbed-licensed.mp3` — 2:50
 
-- ES_A Delightful Evening - Francis Wells — 1:32
-- ES_A Swallow_s Escape - Fabien Tell — 1:36
-- ES_Errands - Fabien Tell — 1:41
-- ES_Fly Baby Fly - Fabien Tell (1) — 1:39
-- ES_Highest Gear - Brightarm Orchestra — 1:35
-- ES_Life in Pieces - Howard Harper-Barnes — 3:10
-- ES_Refined Enlightenment - Howard Harper-Barnes — 2:23
-- ES_Rememberance - Fabien Tell (1) — 1:35
-- ES_Sudden Escape - Brightarm Orchestra — 1:43
-- ES_We Must Be Prepared - Brightarm Orchestra — 1:53
-- immaterial by anbr Artlist — 4:10
-- run-with-the-wolves by ardie-son Artlist — 2:04
+### ambient (30)
 
-### Classical (15)
+- `boot-sequence-by-jimmy-svensson-artlist.mp3` — 1:56
+- `es-a-closer-look-charles-holme.mp3` — 2:00
+- `es-and-behold-awlee.mp3` — 4:09
+- `es-atlas-light-farrell-wooten.mp3` — 2:21
+- `es-cold-war-games-gabriel-lewis.mp3` — 2:21
+- `es-detector-max-anson.mp3` — 1:46
+- `es-digital-future-christoffer-moe-ditlevsen.mp3` — 2:18
+- `es-divine-comedy-oh-the-city.mp3` — 3:11
+- `es-enter-the-realm-of-shadows-christoffer-moe-ditlevsen.mp3` — 3:02
+- `es-feeling-new-max-anson.mp3` — 1:58
+- `es-floating-variables-isaac-larson.mp3` — 0:33
+- `es-forest-sunrise-marten-moses.mp3` — 1:50
+- `es-formations-van-sandano.mp3` — 3:26
+- `es-in-cinemas-pulsed.mp3` — 1:55
+- `es-in-obscurity-lies-the-gate-christoffer-moe-ditlevsen.mp3` — 2:46
+- `es-leaving-traces-gettz-g.mp3` — 2:29
+- `es-path-to-the-abyss-christoffer-moe-ditlevsen.mp3` — 2:42
+- `es-tension-2-fredrik-ekstrom.mp3` — 1:42
+- `es-thirty-fourth-window-heath-cantu.mp3` — 1:46
+- `es-trembling-anticipation-dream-cave.mp3` — 1:57
+- `es-true-stories-farrell-wooten.mp3` — 1:46
+- `father-son-makeup-and-vanity-set-musicbed-licensed.mp3` — 7:14
+- `fearful-continuity-by-josh-mccausland-artlist-1.mp3` — 2:14
+- `first-try-by-neon-ridge-artlist.mp3` — 4:00
+- `free-radicals-by-stanley-gurvich-artlist.mp3` — 4:41
+- `into-the-storm-no-drums-by-ian-post-artlist.mp3` — 2:24
+- `k-i-t-t-vs-k-a-r-r-by-ian-post-artlist.mp3` — 1:21
+- `mayhem-by-ian-post-artlist.mp3` — 1:25
+- `the-harvest-by-dan-mayo-artlist.mp3` — 5:03
+- `unknown-darkness-by-jimmy-svensson-artlist.mp3` — 3:40
 
-- ES_A Brand New Sunset (Modern Version) - Joe E. Lee — 2:12
-- ES_Agrumes - Ch@ntarelle — 2:48
-- ES_Fly Baby Fly - Fabien Tell — 1:39
-- ES_Kinderszenen, Op. 15_ No. 1, A Curious Story - Traditional — 1:52
-- ES_Paidias Pledge - Golden Anchor — 2:30
-- ES_Run and Hide - Philip Ayers — 2:04
-- ES_Suite Bergamasque, L. 75_ III_ Clair De Lune (Intro) - Traditional — 2:08
-- ES_The Barber of Seville - Traditional — 1:42
-- ES_The Farewell Serenade - Howard Harper-Barnes — 2:02
-- ES_The Nutcracker Op. 71, TH.14 _ Act 2 - No. 12D Trepak (Russian Dance) - Traditional — 1:05
-- ES_William Tell Overture - Traditional — 1:05
-- farewell by maya-belsitzman--matan-ephrat Artlist — 1:56
-- rain by anbr Artlist — 2:19
-- the-day-before by maya-belsitzman--matan-ephrat Artlist (1) — 1:48
-- this-way by biba-dupont Artlist — 1:42
+### chamber-music (11)
 
-### Clock Timed (3)
+- `es-a-delightful-evening-francis-wells.mp3` — 1:32
+- `es-a-swallow-s-escape-fabien-tell.mp3` — 1:36
+- `es-errands-fabien-tell.mp3` — 1:41
+- `es-highest-gear-brightarm-orchestra.mp3` — 1:35
+- `es-life-in-pieces-howard-harper-barnes.mp3` — 3:10
+- `es-refined-enlightenment-howard-harper-barnes.mp3` — 2:23
+- `es-rememberance-fabien-tell-1.mp3` — 1:35
+- `es-sudden-escape-brightarm-orchestra.mp3` — 1:43
+- `es-we-must-be-prepared-brightarm-orchestra.mp3` — 1:53
+- `immaterial-by-anbr-artlist.mp3` — 4:10
+- `run-with-the-wolves-by-ardie-son-artlist.mp3` — 2:04
 
-- ES_Abandoned Houses - Wendel Scherer — 1:54
-- ES_In Timely Manner - Guy Copeland — 1:49
-- ES_It Is Set - Wendel Scherer — 1:58
+### classical (15)
 
-### Drones (4)
+- `es-a-brand-new-sunset-modern-version-joe-e-lee.mp3` — 2:12
+- `es-agrumes-ch-ntarelle.mp3` — 2:48
+- `es-fly-baby-fly-fabien-tell.mp3` — 1:39
+- `es-kinderszenen-op-15-no-1-a-curious-story-traditional.mp3` — 1:52
+- `es-paidias-pledge-golden-anchor.mp3` — 2:30
+- `es-run-and-hide-philip-ayers.mp3` — 2:04
+- `es-suite-bergamasque-l-75-iii-clair-de-lune-intro-traditional.mp3` — 2:08
+- `es-the-barber-of-seville-traditional.mp3` — 1:42
+- `es-the-farewell-serenade-howard-harper-barnes.mp3` — 2:02
+- `es-the-nutcracker-op-71-th-14-act-2-no-12d-trepak-russian-dance-traditional.mp3` — 1:05
+- `es-william-tell-overture-traditional.mp3` — 1:05
+- `farewell-by-maya-belsitzman-matan-ephrat-artlist.mp3` — 1:56
+- `rain-by-anbr-artlist.mp3` — 2:19
+- `the-day-before-by-maya-belsitzman-matan-ephrat-artlist-1.mp3` — 1:48
+- `this-way-by-biba-dupont-artlist.mp3` — 1:42
 
-- ES_Did They Lose Us - Experia — 1:50
-- ES_Hidden Output - Ethan Sloan — 1:43
-- ES_Natural Cause - Ethan Sloan — 1:45
-- ES_Radiant Shore - Cobby Costa — 1:59
+### clock-timed (3)
 
-### Drum N bass (8)
+- `es-abandoned-houses-wendel-scherer.mp3` — 1:54
+- `es-in-timely-manner-guy-copeland.mp3` — 1:49
+- `es-it-is-set-wendel-scherer.mp3` — 1:58
 
-- ES_Catrine - Power Druid — 2:37
-- ES_Monologue - Splasher! — 2:25
-- ES_Now - AGST — 2:49
-- ES_Paradigm - Raccy — 3:08
-- ES_Paralysed - AGST — 3:53
-- ES_Wanna Go Back - Squiid — 2:51
-- ES_You Give Me Feelings - House Of Say — 3:30
-- ES_Zanobi - Catiso — 2:39
+### drones (4)
 
-### Eccentric (38)
+- `es-did-they-lose-us-experia.mp3` — 1:50
+- `es-hidden-output-ethan-sloan.mp3` — 1:43
+- `es-natural-cause-ethan-sloan.mp3` — 1:45
+- `es-radiant-shore-cobby-costa.mp3` — 1:59
 
-- ES_A Cradle Song - Mary Riddle — 2:25
-- ES_A Faint Touch - Ethan Sloan — 1:52
-- ES_Afternoon Tea Galore - Magnus Ringblom — 1:56
-- ES_Afternoon Tea In Polynesia 3 - Martin Gauffin — 2:15
-- ES_Appeased Soundscape 03 - August Wilhelmsson — 2:04
-- ES_Beach Grave - DJ DENZ The Rooster — 3:46
-- ES_Caught in the Net - Jon Bjork — 1:34
-- ES_Cinematic Latin Flavours 2 - Magnus Ringblom — 2:09
-- ES_Coconut Monkey - Anders Ekengren — 1:32
-- ES_Crossing States 3 - Magnus Ringblom — 2:13
-- ES_Dangerous Fling - Alexandra Woodward — 2:15
-- ES_Dizzy Mind - Stationary Sign — 2:02
-- ES_Duck Confit - Alexandra Woodward — 2:05
-- ES_Festive Riot - Harper Rey — 2:03
-- ES_Goofy Moments 17 - Magnus Ringblom — 2:01
-- ES_Hangover Weekend - Stationary Sign — 2:11
-- ES_High Heels Walkabout 1 - Magnus Ringblom — 1:53
-- ES_Latin Orchestra 2 - Magnus Ringblom — 2:07
-- ES_Lawnmower Trouble - Stationary Sign — 2:06
-- ES_Mambo Lounge 9 - Martin Gauffin — 2:21
-- ES_Mario Paint — 1:52
-- ES_Morning After 1 - Magnus Ringblom — 2:11
-- ES_National Anthem Sweden 8 - Traditional — 1:42
-- ES_Odd Coincidence - Kikoru — 2:06
-- ES_Playful Mischief - Josef Falkenskold — 1:50
-- ES_Second Toe To The Left 3 - Peter Sandberg — 1:57
-- ES_Simple Pleasantries 1 - Gavin Luke — 2:10
-- ES_Sneaking Into the Kitchen - Arthur Benson — 2:04
-- ES_The Juice Jam - Arthur Benson — 2:54
-- ES_The King of Thieves - Christoffer Moe Ditlevsen — 2:29
-- ES_The Kook - Marc Torch — 2:12
-- ES_Tiptoeing 2 - Valdemar Hansen — 2:08
-- ES_Tongue Twister - White Bones — 1:58
-- ES_Trainee Day - Stationary Sign — 2:04
-- ES_Whacky Theater 4 - Magnus Ringblom — 2:01
-- ES_Whimsical And Playful 2 - Gavin Luke — 2:20
-- ES_Wives Club 4 - Gunnar Johnsén — 2:16
-- ES_Work These Shoes - Medite — 2:12
+### drum-n-bass (8)
 
-### Experimental (15)
+- `es-catrine-power-druid.mp3` — 2:37
+- `es-monologue-splasher.mp3` — 2:25
+- `es-now-agst.mp3` — 2:49
+- `es-paradigm-raccy.mp3` — 3:08
+- `es-paralysed-agst.mp3` — 3:53
+- `es-wanna-go-back-squiid.mp3` — 2:51
+- `es-you-give-me-feelings-house-of-say.mp3` — 3:30
+- `es-zanobi-catiso.mp3` — 2:39
 
-- boom-clap-instrumental-chair-model-musicbed-licensed — 2:40
-- chocolate-brownie---instrumental-version by ian-post Artlist — 3:11
-- drift-instrumental-peached-musicbed-licensed — 3:30
-- entertain-you-instrumental-bronze-radio-return-musicbed-licensed — 3:37
-- ES_Dot. - Real Heroes — 2:14
-- ganga-sun---instrumental-version by omri-smadar Artlist — 5:22
-- healthier-instrumental-moony-musicbed-licensed — 2:33
-- hey-you-instrumental-chair-model-musicbed-licensed — 2:29
-- hot-for-a-min---instrumental-version by captain-qubz Artlist — 2:59
-- id-rather-cry---instrumental-version by jane--the-boy Artlist — 2:56
-- nonsense by raw Artlist — 3:24
-- poolside-retreat by marc-robillard Artlist — 1:32
-- rue-de-jaffa---instrumental-version by a.m.-beef Artlist — 3:30
-- we-the-ones-with-oohs-ahhs-instrumental-mf-graves-musicbed-licensed — 3:11
-- what-ya-want-instrumental-hipz-musicbed-licensed — 2:28
+### eccentric (36)
 
-### Extra (1)
+- `es-a-cradle-song-mary-riddle.mp3` — 2:25
+- `es-a-faint-touch-ethan-sloan.mp3` — 1:52
+- `es-afternoon-tea-galore-magnus-ringblom.mp3` — 1:56
+- `es-afternoon-tea-in-polynesia-3-martin-gauffin.mp3` — 2:15
+- `es-appeased-soundscape-03-august-wilhelmsson.mp3` — 2:04
+- `es-beach-grave-dj-denz-the-rooster.mp3` — 3:46
+- `es-caught-in-the-net-jon-bjork.mp3` — 1:34
+- `es-cinematic-latin-flavours-2-magnus-ringblom.mp3` — 2:09
+- `es-coconut-monkey-anders-ekengren.mp3` — 1:32
+- `es-crossing-states-3-magnus-ringblom.mp3` — 2:13
+- `es-dangerous-fling-alexandra-woodward.mp3` — 2:15
+- `es-dizzy-mind-stationary-sign.mp3` — 2:02
+- `es-duck-confit-alexandra-woodward.mp3` — 2:05
+- `es-festive-riot-harper-rey.mp3` — 2:03
+- `es-goofy-moments-17-magnus-ringblom.mp3` — 2:01
+- `es-hangover-weekend-stationary-sign.mp3` — 2:11
+- `es-high-heels-walkabout-1-magnus-ringblom.mp3` — 1:53
+- `es-latin-orchestra-2-magnus-ringblom.mp3` — 2:07
+- `es-lawnmower-trouble-stationary-sign.mp3` — 2:06
+- `es-mambo-lounge-9-martin-gauffin.mp3` — 2:21
+- `es-mario-paint.mp3` — 1:52
+- `es-national-anthem-sweden-8-traditional.mp3` — 1:42
+- `es-odd-coincidence-kikoru.mp3` — 2:06
+- `es-playful-mischief-josef-falkenskold.mp3` — 1:50
+- `es-second-toe-to-the-left-3-peter-sandberg.mp3` — 1:57
+- `es-sneaking-into-the-kitchen-arthur-benson.mp3` — 2:04
+- `es-the-juice-jam-arthur-benson.mp3` — 2:54
+- `es-the-king-of-thieves-christoffer-moe-ditlevsen.mp3` — 2:29
+- `es-the-kook-marc-torch.mp3` — 2:12
+- `es-tiptoeing-2-valdemar-hansen.mp3` — 2:08
+- `es-tongue-twister-white-bones.mp3` — 1:58
+- `es-trainee-day-stationary-sign.mp3` — 2:04
+- `es-whacky-theater-4-magnus-ringblom.mp3` — 2:01
+- `es-whimsical-and-playful-2-gavin-luke.mp3` — 2:20
+- `es-wives-club-4-gunnar-johnsen.mp3` — 2:16
+- `es-work-these-shoes-medite.mp3` — 2:12
 
-- ES_Accident Scene - SFX Producer — 0:45
+### experimental (15)
 
-### Funk (3)
+- `boom-clap-instrumental-chair-model-musicbed-licensed.mp3` — 2:40
+- `chocolate-brownie-instrumental-version-by-ian-post-artlist.mp3` — 3:11
+- `drift-instrumental-peached-musicbed-licensed.mp3` — 3:30
+- `entertain-you-instrumental-bronze-radio-return-musicbed-licensed.mp3` — 3:37
+- `es-dot-real-heroes.mp3` — 2:14
+- `ganga-sun-instrumental-version-by-omri-smadar-artlist.mp3` — 5:22
+- `healthier-instrumental-moony-musicbed-licensed.mp3` — 2:33
+- `hey-you-instrumental-chair-model-musicbed-licensed.mp3` — 2:29
+- `hot-for-a-min-instrumental-version-by-captain-qubz-artlist.mp3` — 2:59
+- `id-rather-cry-instrumental-version-by-jane-the-boy-artlist.mp3` — 2:56
+- `nonsense-by-raw-artlist.mp3` — 3:24
+- `poolside-retreat-by-marc-robillard-artlist.mp3` — 1:32
+- `rue-de-jaffa-instrumental-version-by-a-m-beef-artlist.mp3` — 3:30
+- `we-the-ones-with-oohs-ahhs-instrumental-mf-graves-musicbed-licensed.mp3` — 3:11
+- `what-ya-want-instrumental-hipz-musicbed-licensed.mp3` — 2:28
 
-- ES_My Rama Dama Doo - Sven Lindvall
-- ES_Rain Checking - OTE
-- ES_The Setup - Gerhard Feng
+### extra (1)
 
-### Funny (33)
+- `es-accident-scene-sfx-producer.mp3` — 0:45
 
-- (LOW) puddles
-- cat-walk by roie-shpigler Artlist
-- ES_A Dolphin Serenade - Josef Bel Habib
-- ES_A Tiny Tumble - Josef Falkenskold (1)
-- ES_Bathtub - Ballpoint
-- ES_Be Nice Twice - Mac Taboel
-- ES_Becoming Mr Bossa - Redeemin_
-- ES_Bird Watching - Justnormal
-- ES_Bop_It_-_Jules_Gaia
-- ES_Bringing the Groove - Arthur Benson
-- ES_Bubble Bee - The Fly Guy Five
-- ES_Feeling_Alright_-_Gavin_Luke
-- ES_Flying Pillows - Mike Franklyn
-- ES_Go After Them! - Harry Edvino
-- ES_I Could Stay Forever (Modern Version) - Joe E. Lee
-- ES_Incidental Encounter - Arthur Benson
-- ES_It_s Not Me - Arthur Benson
-- ES_Jubilation_-_Jules_Gaia
-- ES_Mama_Swing_-_Lucas_Pittman
-- ES_Midnight_Swing_-_Jules_Gaia
-- ES_Muffin Cuffin - Martin Klem
-- ES_People Falling Down - Arthur Benson
-- ES_Simple Pleasantries - Arthur Benson
-- ES_Skipping Class - Birdies
-- ES_The Director - Stationary Sign
-- ES_When the Final Bell Rings - Mike Franklyn
-- ES_Wild_Slide_-_Jules_Gaia
-- ES_Yellow Light - Arthur Benson
-- on-the-tip-of-my-toes by roie-shpigler Artlist
-- quick-party-before-the-end-of-the-world by francesco-dandrea Artlist
-- the-kings-parade by francesco-dandrea Artlist
-- wag-the-tail by roie-shpigler Artlist
-- white-russian-rag by the-bottlesnakes Artlist
+### funk (3)
 
-### Happy (14)
+- `es-my-rama-dama-doo-sven-lindvall.mp3` — 4:04
+- `es-rain-checking-ote.mp3` — 3:18
+- `es-the-setup-gerhard-feng.mp3` — 1:54
 
-- ES_A Tiny Tumble - Josef Falkenskold
-- ES_African Food Truck - Sahara Skylight
-- ES_Day at the Fair - The Fly Guy Five
-- ES_Dime a Dozen - Esme Cruz
-- ES_Forest Bugs - Stationary Sign
-- ES_In the Name of Z - Real Heroes
-- ES_Pigeons on a Train - Harry Edvino
-- evermore-feat-jordan-critz-roary-musicbed-licensed
-- flight-hannah-parrott-musicbed-licensed
-- Lie In The Sun
-- March of Toys
-- oasis by milano Artlist
-- temptation---instrumental-version by ride-free Artlist
-- wannabe---instrumental-version by g9 Artlist
+### funny (32)
 
-### Jazz (3)
+- `cat-walk-by-roie-shpigler-artlist.mp3` — 1:51
+- `es-a-dolphin-serenade-josef-bel-habib.mp3` — 2:03
+- `es-bathtub-ballpoint.mp3` — 2:33
+- `es-be-nice-twice-mac-taboel.mp3` — 2:03
+- `es-becoming-mr-bossa-redeemin.mp3` — 2:05
+- `es-bird-watching-justnormal.mp3` — 2:15
+- `es-bop-it-jules-gaia.mp3` — 2:50
+- `es-bringing-the-groove-arthur-benson.mp3` — 2:04
+- `es-bubble-bee-the-fly-guy-five.mp3` — 2:07
+- `es-feeling-alright-gavin-luke.mp3` — 2:17
+- `es-flying-pillows-mike-franklyn.mp3` — 1:53
+- `es-go-after-them-harry-edvino.mp3` — 2:01
+- `es-i-could-stay-forever-modern-version-joe-e-lee.mp3` — 2:07
+- `es-incidental-encounter-arthur-benson.mp3` — 2:26
+- `es-it-s-not-me-arthur-benson.mp3` — 2:01
+- `es-jubilation-jules-gaia.mp3` — 3:19
+- `es-mama-swing-lucas-pittman.mp3` — 2:52
+- `es-midnight-swing-jules-gaia.mp3` — 2:18
+- `es-muffin-cuffin-martin-klem.mp3` — 2:01
+- `es-people-falling-down-arthur-benson.mp3` — 2:29
+- `es-simple-pleasantries-arthur-benson.mp3` — 2:10
+- `es-skipping-class-birdies.mp3` — 2:08
+- `es-the-director-stationary-sign.mp3` — 2:16
+- `es-when-the-final-bell-rings-mike-franklyn.mp3` — 1:50
+- `es-wild-slide-jules-gaia.mp3` — 2:51
+- `es-yellow-light-arthur-benson.mp3` — 2:10
+- `low-puddles.mp3` — 1:47
+- `on-the-tip-of-my-toes-by-roie-shpigler-artlist.mp3` — 2:24
+- `quick-party-before-the-end-of-the-world-by-francesco-dandrea-artlist.mp3` — 2:03
+- `the-kings-parade-by-francesco-dandrea-artlist.mp3` — 2:24
+- `wag-the-tail-by-roie-shpigler-artlist.mp3` — 2:14
+- `white-russian-rag-by-the-bottlesnakes-artlist.mp3` — 2:52
 
-- ES_Common Language - Vendla
-- ES_Eye - Hara Noda
-- ES_Yurei - Sugoi
+### happy (14)
 
-### Jungle (7)
+- `es-a-tiny-tumble-josef-falkenskold.mp3` — 2:08
+- `es-african-food-truck-sahara-skylight.mp3` — 1:58
+- `es-day-at-the-fair-the-fly-guy-five.mp3` — 1:51
+- `es-dime-a-dozen-esme-cruz.mp3` — 1:54
+- `es-forest-bugs-stationary-sign.mp3` — 2:02
+- `es-in-the-name-of-z-real-heroes.mp3` — 1:47
+- `es-pigeons-on-a-train-harry-edvino.mp3` — 3:12
+- `evermore-feat-jordan-critz-roary-musicbed-licensed.mp3` — 4:09
+- `flight-hannah-parrott-musicbed-licensed.mp3` — 3:14
+- `lie-in-the-sun.mp3` — 2:29
+- `march-of-toys.mp3` — 2:46
+- `oasis-by-milano-artlist.mp3` — 2:10
+- `temptation-instrumental-version-by-ride-free-artlist.mp3` — 2:39
+- `wannabe-instrumental-version-by-g9-artlist.mp3` — 3:03
 
-- Energetic Percussion by Infraction [No Copyright Drum Music]   The Rhythm
-- ES_Encountering the Unknown - Zauana
-- ES_Hidden and Ready - Zauana
-- ES_In the Amazonas - Kikoru
-- ES_Snake Trails - Experia
-- ES_Through Deep Forests - Experia
-- ES_When Warriors Align - Zauana
+### jazz (3)
 
-### Master plan (5)
+- `es-common-language-vendla.mp3` — 4:37
+- `es-eye-hara-noda.mp3` — 3:30
+- `es-yurei-sugoi.mp3` — 5:36
 
-- come-in-instrumental-kaina-musicbed-licensed
-- continent by anbr Artlist
-- jane-austens-fight-club-steven-gutheinz-musicbed-licensed
-- solving-puzzles-alistair-sung-musicbed-licensed
-- TV Drama Theme
+### jungle (7)
 
-### Motivational (17)
+- `energetic-percussion-by-infraction-no-copyright-drum-music-the-rhythm.mp3` — 0:49
+- `es-encountering-the-unknown-zauana.mp3` — 2:20
+- `es-hidden-and-ready-zauana.mp3` — 2:13
+- `es-in-the-amazonas-kikoru.mp3` — 2:02
+- `es-snake-trails-experia.mp3` — 2:07
+- `es-through-deep-forests-experia.mp3` — 1:31
+- `es-when-warriors-align-zauana.mp3` — 2:30
 
-- avengers (artlist)
-- ES_And The Sky Shall Unfold 1 - Johannes Bornlöf
-- ES_Army of Angels - Edgar Hopp
-- ES_Dungeon - Dream Cave
-- ES_First Shooter - Bonnie Grace
-- ES_On a Hunt - Philip Ayers
-- ES_One Last Battle - Edgar Hopp
-- ES_Power Squad - Adriel Fair
-- ES_Roaming the Island - Adriel Fair
-- ES_Tense Excitement 1 - Johannes Bornlöf
-- ES_Termination 1 - Johannes Bornlöf
-- ES_Termination 2 - Johannes Bornlöf
-- ES_The Crew - Adriel Fair
-- ES_Treasure Hunter 5 - Johannes Bornlöf
-- ES_Unstoppable 3 - Johannes Bornlöf
-- ES_Watchdogs - Jo Wandrini
-- vortex by shahead-mostafafar Artlist
+### master-plan (5)
 
-### Mystery (18)
+- `come-in-instrumental-kaina-musicbed-licensed.mp3` — 5:34
+- `continent-by-anbr-artlist.mp3` — 1:28
+- `jane-austens-fight-club-steven-gutheinz-musicbed-licensed.mp3` — 3:00
+- `solving-puzzles-alistair-sung-musicbed-licensed.mp3` — 2:59
+- `tv-drama-theme.mp3` — 1:40
 
-- ES_Ancient Discoveries - Gabriel Lewis
-- ES_Backdoor Exit - Max Anson
-- ES_Carabiner - Max Anson
-- ES_Commando - Max Anson
-- ES_Desert Mirage - Colors of Illusion
-- ES_Destiny Unfolds - Max Anson
-- ES_Detective Work - V.V. Campos
-- ES_Electric Spark - Sight of Wonders
-- ES_Follow Every Move - Radio Night
-- ES_In the Outskirts of Buenos Aires - Harper Rey
-- ES_It_s Not Me - Arthur Benson
-- ES_Mysterious Madeleine - Lucas Pittman
-- ES_Mystery Box - Stationary Sign
-- ES_Mystical Tension - Dream Cave
-- ES_Nothing Can Conquer Us Now - Christian Andersen
-- ES_Private Detective - Ch@ntarelle
-- ES_The Unveiling - Christoffer Moe Ditlevsen
-- ES_Through Space and Time - Etienne Roussel
+### motivational (17)
 
-### Pop (21)
+- `avengers-artlist.mp3` — 4:15
+- `es-and-the-sky-shall-unfold-1-johannes-bornlof.mp3` — 2:21
+- `es-army-of-angels-edgar-hopp.mp3` — 2:22
+- `es-dungeon-dream-cave.mp3` — 2:32
+- `es-first-shooter-bonnie-grace.mp3` — 2:04
+- `es-on-a-hunt-philip-ayers.mp3` — 2:01
+- `es-one-last-battle-edgar-hopp.mp3` — 2:23
+- `es-power-squad-adriel-fair.mp3` — 2:05
+- `es-roaming-the-island-adriel-fair.mp3` — 1:34
+- `es-tense-excitement-1-johannes-bornlof.mp3` — 2:05
+- `es-termination-1-johannes-bornlof.mp3` — 1:36
+- `es-termination-2-johannes-bornlof.mp3` — 1:49
+- `es-the-crew-adriel-fair.mp3` — 1:40
+- `es-treasure-hunter-5-johannes-bornlof.mp3` — 2:10
+- `es-unstoppable-3-johannes-bornlof.mp3` — 1:40
+- `es-watchdogs-jo-wandrini.mp3` — 2:18
+- `vortex-by-shahead-mostafafar-artlist.mp3` — 2:37
 
-- anthem-of-a-quirky-hipster by rex-banner Artlist (1)
-- better-than-ever-instrumental-lady-bri-musicbed-licensed
-- breaking-out-instrumental-prty-anml-musicbed-licensed
-- ES_Being Nostalgic - FLYIN
-- ES_Don_t Bore Me Alberto! - Harry Edvino
-- ES_Mexican Standoff - Walt Adams
-- ES_New Dawn Is Rising (Instrumental Version) - Stonekeepers
-- ES_New Location - FLYIN
-- ES_Silver Bullet - Elliot Holmes
-- ES_Slap Act - White Bones
-- ES_Upbeat Electronic Pop (Indie Pop Version) - Gavin Luke
-- ES_Zoot Suit - Elliot Holmes
-- freewheel by rex-banner Artlist (1)
-- i-feel-free-instrumental-jamie-lono-musicbed-licensed (1)
-- i-got-it-instrumental-juliet-roberts-musicbed-licensed
-- locktup---instrumental-version by lone-wild Artlist
-- move-your-body by rocknstock Artlist (1)
-- ready-to-go-instrumental-louis-ii-musicbed-licensed
-- solid-gold-instrumental-goldenface-musicbed-licensed
-- solid-gold-with-oohs-ahhs-instrumental-goldenface-musicbed-licensed
-- work-feat-kvlvnv-instrumental-cass-xq-musicbed-licensed
+### mystery (17)
 
-### Quirky (7)
+- `es-ancient-discoveries-gabriel-lewis.mp3` — 3:20
+- `es-backdoor-exit-max-anson.mp3` — 2:04
+- `es-carabiner-max-anson.mp3` — 1:52
+- `es-commando-max-anson.mp3` — 2:15
+- `es-desert-mirage-colors-of-illusion.mp3` — 1:54
+- `es-destiny-unfolds-max-anson.mp3` — 2:05
+- `es-detective-work-v-v-campos.mp3` — 2:19
+- `es-electric-spark-sight-of-wonders.mp3` — 1:40
+- `es-follow-every-move-radio-night.mp3` — 2:03
+- `es-in-the-outskirts-of-buenos-aires-harper-rey.mp3` — 2:00
+- `es-mysterious-madeleine-lucas-pittman.mp3` — 2:02
+- `es-mystery-box-stationary-sign.mp3` — 1:58
+- `es-mystical-tension-dream-cave.mp3` — 2:31
+- `es-nothing-can-conquer-us-now-christian-andersen.mp3` — 1:47
+- `es-private-detective-ch-ntarelle.mp3` — 3:06
+- `es-the-unveiling-christoffer-moe-ditlevsen.mp3` — 3:31
+- `es-through-space-and-time-etienne-roussel.mp3` — 2:08
 
-- ES_A Tiny Tumble - Josef Falkenskold (1)
-- ES_Extra Fries - The Fly Guy Five
-- ES_Healthy Throat - Martin Landstrom
-- ES_How to Tango
-- ES_It_s Not Me - Arthur Benson
-- ES_Out of Order - The Fly Guy Five
-- ES_When the Cats Away - The Fly Guy Five
+### other-music (28)
 
-### Retro (8)
+- `late-night-snack-gunnar-olsen.mp3` — 3:19
+- `mixkit-aggressive-beast-roar-13.mp3` — 0:01
+- `mixkit-big-fire-spell-burning-1332.mp3` — 0:04
+- `mixkit-cinematic-drama-anticipation-795.mp3` — 0:10
+- `mixkit-cinematic-glass-hit-suspense-677.mp3` — 0:04
+- `mixkit-cinematic-orchestra-chaos-639.mp3` — 0:04
+- `mixkit-cinematic-transition-swoosh-heartbeat-trailer-488.mp3` — 0:08
+- `mixkit-cinematic-tunnel-reverb-woosh-1486.mp3` — 0:06
+- `mixkit-classic-alarm-995.mp3` — 0:05
+- `mixkit-clock-countdown-bleeps-916.mp3` — 0:05
+- `mixkit-crickets-and-insects-in-the-wild-ambience-39.mp3` — 0:26
+- `mixkit-eating-crispy-cookies-122.mp3` — 0:16
+- `mixkit-epic-orchestra-transition-2290.mp3` — 0:07
+- `mixkit-fast-small-sweep-transition-166.mp3` — 0:00
+- `mixkit-game-show-suspense-waiting-667.mp3` — 0:41
+- `mixkit-keyboard-typing-1386.mp3` — 0:26
+- `mixkit-light-rain-loop-2393.mp3` — 0:15
+- `mixkit-little-birds-singing-in-the-trees-17.mp3` — 0:08
+- `mixkit-rain-and-thunder-storm-2390.mp3` — 0:29
+- `mixkit-sad-game-over-trombone-471.mp3` — 0:05
+- `mixkit-swallowing-a-water-drink-in-the-throat-150.mp3` — 0:02
+- `mixkit-tick-tock-clock-timer-1045.mp3` — 0:16
+- `mixkit-vacuum-swoosh-transition-1465.mp3` — 0:02
+- `new-tires-silent-partner.mp3` — 2:06
+- `not-for-nothing-otis-mc-donald.mp3` — 1:58
+- `shoulder-closures-gunnar-olsen.mp3` — 2:38
+- `the-charmer-s-call-hanu-dixit.mp3` — 2:26
+- `tropic-fuse-french-fuse.mp3` — 1:49
 
-- a-moon-walk---instrumental-version by yehezkel-raz Artlist
-- do-you-instrumental-kena-musicbed-licensed
-- ES_Agent Getaway - Elliot Holmes
-- ES_Bubble Beam - Soara
-- ES_Kind of Real - Soara
-- ES_Megapixel - Lasse Lyx
-- lemon-popsicle by randy-sharp Artlist
-- starsky by alex-keren Artlist
+### pop (20)
 
-### Sad (21)
+- `anthem-of-a-quirky-hipster-by-rex-banner-artlist-1.mp3` — 1:00
+- `better-than-ever-instrumental-lady-bri-musicbed-licensed.mp3` — 3:18
+- `breaking-out-instrumental-prty-anml-musicbed-licensed.mp3` — 2:50
+- `es-being-nostalgic-flyin.mp3` — 2:21
+- `es-don-t-bore-me-alberto-harry-edvino.mp3` — 2:25
+- `es-mexican-standoff-walt-adams.mp3` — 1:54
+- `es-new-dawn-is-rising-instrumental-version-stonekeepers.mp3` — 2:58
+- `es-new-location-flyin.mp3` — 2:55
+- `es-silver-bullet-elliot-holmes.mp3` — 1:59
+- `es-slap-act-white-bones.mp3` — 2:06
+- `es-upbeat-electronic-pop-indie-pop-version-gavin-luke.mp3` — 1:44
+- `es-zoot-suit-elliot-holmes.mp3` — 1:44
+- `freewheel-by-rex-banner-artlist-1.mp3` — 1:28
+- `i-feel-free-instrumental-jamie-lono-musicbed-licensed-1.mp3` — 3:04
+- `i-got-it-instrumental-juliet-roberts-musicbed-licensed.mp3` — 2:03
+- `locktup-instrumental-version-by-lone-wild-artlist.mp3` — 3:51
+- `move-your-body-by-rocknstock-artlist-1.mp3` — 2:00
+- `ready-to-go-instrumental-louis-ii-musicbed-licensed.mp3` — 3:47
+- `solid-gold-instrumental-goldenface-musicbed-licensed.mp3` — 2:11
+- `work-feat-kvlvnv-instrumental-cass-xq-musicbed-licensed.mp3` — 2:43
 
-- calm-mind-(feat.-harshini-iyer)---no-lead-vocals by prashant-naidu Artlist
-- Domine
-- ES_A Common Memory - Trevor Kowalski
-- ES_A Whisper In The Dark - Gavin Luke
-- ES_Burned Letters - Johannes Bornlof
-- ES_Can You Hear Me - Breathing Tides
-- ES_Ether - Jakob Ahlbom
-- ES_Exile - Lo Mimieux
-- ES_Like Home - Jakob Ahlbom
-- ES_Miss Everything (Instrumental Version) - Mindme
-- ES_Onthou - Ever So Blue
-- ES_Sad News - Emily Rubye
-- ES_Secrets of the Earth - Lama House
-- ES_Shadowman_s Waltz - Franz Gordon
-- ES_Spring Queen - Dew Of Light
-- ES_Stay (Wide Open) (Instrumental Version) - Loving Caliber
-- ES_Valleys - Harbours _ Oceans
-- ES_Whisper of the Pines - Howard Harper-Barnes
-- Life
-- The Bannered Mare
-- Winter
+### quirky (5)
 
-### Samba (13)
+- `es-extra-fries-the-fly-guy-five.mp3` — 2:00
+- `es-healthy-throat-martin-landstrom.mp3` — 2:55
+- `es-how-to-tango.mp3` — 2:22
+- `es-out-of-order-the-fly-guy-five.mp3` — 1:50
+- `es-when-the-cats-away-the-fly-guy-five.mp3` — 1:57
 
-- ES_Balcony Music - Timothy Infinite
-- ES_Bateria Brasileira - Redeemin_
-- ES_HEIST MUSIC - NIGHTCAP
-- ES_Music Box - Rachel Meyer
-- ES_Samba Amigo - Tiki Tiki
-- ES_Samba del Sol - El Equipo Del Norte
-- ES_Samba No Pe - Ruben Cortes
-- ES_Samba Party - Tiki Tiki
-- ES_Samba Piano - El Equipo Del Norte
-- ES_Samba Triste (Instrumental Version) - Clara Mendes
-- ES_Samba Vibes - Riverworn
-- ES_The Music Box - Ave Air
-- ES_Turtleneck Music - Sarah, the Illstrumentalist
+### reel-bgm (15)
 
-### Spy (4)
+- `caleb-arredondo-feeling-blue.mp3` — 1:47
+- `echo-sax-end-looped-by-caleb-arredondo.mp3` — 5:05
+- `flawed-mangoes-dramamine-visualizer.mp3` — 3:25
+- `kendrick-lamar-instrumental-eduardo.mp3` — 4:35
+- `le-monde.mp3` — 2:14
+- `lindsey-stirling-carol-of-the-bells-official-music-video.mp3` — 3:06
+- `mary-j-blige-family-affair-instrumental.mp3` — 3:35
+- `nightcrawler-instrumental.mp3` — 1:00
+- `ogryzek-empire-slowed.mp3` — 1:55
+- `ogryzek-glory-slowed-reverb.mp3` — 2:29
+- `sae4-elveda.mp3` — 2:46
+- `synthwave-goose-blade-runner-2049.mp3` — 3:48
+- `until-i-found-you-stephen-sanchez-em-beihold-karaoke-version.mp3` — 3:06
+- `vj-x-narvent-memory-reboot-slowed.mp3` — 3:56
+- `whats-app-video-2025-05-07-at-3-21-03-pm-1.mp3` — 2:45
 
-- (MEIDUM) Spy Action Detective
-- cant-stop-with-oohs-ahhs-instrumental-reagan-james-musicbed-licensed
-- ES_A Deal With the Devil - White Bones
-- ES_Spy - spring gang
+### retro (8)
 
-### Suspense (1)
+- `a-moon-walk-instrumental-version-by-yehezkel-raz-artlist.mp3` — 8:26
+- `do-you-instrumental-kena-musicbed-licensed.mp3` — 2:18
+- `es-agent-getaway-elliot-holmes.mp3` — 1:45
+- `es-bubble-beam-soara.mp3` — 1:56
+- `es-kind-of-real-soara.mp3` — 2:08
+- `es-megapixel-lasse-lyx.mp3` — 2:05
+- `lemon-popsicle-by-randy-sharp-artlist.mp3` — 2:03
+- `starsky-by-alex-keren-artlist.mp3` — 3:39
 
-- ES_Charged - Alec Slayne
+### sad (21)
 
-### background music (12)
+- `calm-mind-feat-harshini-iyer-no-lead-vocals-by-prashant-naidu-artlist.mp3` — 4:39
+- `domine.mp3` — 5:08
+- `es-a-common-memory-trevor-kowalski.mp3` — 2:59
+- `es-a-whisper-in-the-dark-gavin-luke.mp3` — 2:19
+- `es-burned-letters-johannes-bornlof.mp3` — 3:01
+- `es-can-you-hear-me-breathing-tides.mp3` — 1:52
+- `es-ether-jakob-ahlbom.mp3` — 3:09
+- `es-exile-lo-mimieux.mp3` — 2:35
+- `es-like-home-jakob-ahlbom.mp3` — 2:34
+- `es-miss-everything-instrumental-version-mindme.mp3` — 2:58
+- `es-onthou-ever-so-blue.mp3` — 2:08
+- `es-sad-news-emily-rubye.mp3` — 2:09
+- `es-secrets-of-the-earth-lama-house.mp3` — 2:24
+- `es-shadowman-s-waltz-franz-gordon.mp3` — 2:42
+- `es-spring-queen-dew-of-light.mp3` — 2:53
+- `es-stay-wide-open-instrumental-version-loving-caliber.mp3` — 3:46
+- `es-valleys-harbours-oceans.mp3` — 3:05
+- `es-whisper-of-the-pines-howard-harper-barnes.mp3` — 2:24
+- `life.mp3` — 3:27
+- `the-bannered-mare.mp3` — 2:30
+- `winter.mp3` — 3:18
 
-- Caleb Arredondo Feeling Blue — 1:47
-- Echo Sax End Looped by Caleb Arredondo — 5:05
-- Flawed Mangoes Dramamine Visualizer — 3:25
-- Kendrick Lamar(Instrumental) - Eduardo — 4:35
-- Le Monde — 2:14
-- Mary J. Blige - Family Affair ( Instrumental ) — 3:35
-- Nightcrawler (Instrumental) — 1:00
-- SAE4 Elveda — 2:46
-- synthwave goose blade runner 2049 — 3:48
-- UNTIL I FOUND YOU - Stephen Sanchez & Em Beihold (Karaoke Version) — 3:06
-- VØJ Narvent Memory Reboot 4K Music Video — 3:56
-- WhatsApp Video 2025-05-07 at 3.21.03 PM (1) — 2:45
+### samba (13)
 
-### edits bgm (4)
+- `es-balcony-music-timothy-infinite.mp3` — 2:08
+- `es-bateria-brasileira-redeemin.mp3` — 2:07
+- `es-heist-music-nightcap.mp3` — 2:52
+- `es-music-box-rachel-meyer.mp3` — 1:39
+- `es-samba-amigo-tiki-tiki.mp3` — 2:06
+- `es-samba-del-sol-el-equipo-del-norte.mp3` — 2:58
+- `es-samba-no-pe-ruben-cortes.mp3` — 2:07
+- `es-samba-party-tiki-tiki.mp3` — 2:06
+- `es-samba-piano-el-equipo-del-norte.mp3` — 3:23
+- `es-samba-triste-instrumental-version-clara-mendes.mp3` — 3:08
+- `es-samba-vibes-riverworn.mp3` — 2:00
+- `es-the-music-box-ave-air.mp3` — 3:17
+- `es-turtleneck-music-sarah-the-illstrumentalist.mp3` — 2:11
 
-- Lindsey Stirling Carol of the Bells Official Music Video — 3:06
-- Ogryzek EMPIRE Slowed — 1:55
-- OGRYZEK GLORY SLOWED REVERB — 2:29
-- VØJ x Narvent Memory Reboot Slowed — 3:56
+### spy (4)
 
-### other Music (29)
+- `cant-stop-with-oohs-ahhs-instrumental-reagan-james-musicbed-licensed.mp3` — 3:08
+- `es-a-deal-with-the-devil-white-bones.mp3` — 1:49
+- `es-spy-spring-gang.mp3` — 2:57
+- `meidum-spy-action-detective.mp3` — 2:23
 
-- Late Night Snack - Gunnar Olsen
-- mixkit-aggressive-beast-roar-13
-- mixkit-big-fire-spell-burning-1332
-- mixkit-cinematic-drama-anticipation-795
-- mixkit-cinematic-glass-hit-suspense-677
-- mixkit-cinematic-orchestra-chaos-639
-- mixkit-cinematic-transition-swoosh-heartbeat-trailer-488
-- mixkit-cinematic-tunnel-reverb-woosh-1486
-- mixkit-classic-alarm-995
-- mixkit-clock-countdown-bleeps-916
-- mixkit-crickets-and-insects-in-the-wild-ambience-39
-- mixkit-eating-crispy-cookies-122
-- mixkit-epic-orchestra-transition-2290
-- mixkit-fast-laptop-keyboard-typing-1392
-- mixkit-fast-small-sweep-transition-166
-- mixkit-game-show-suspense-waiting-667
-- mixkit-keyboard-typing-1386
-- mixkit-light-rain-loop-2393
-- mixkit-little-birds-singing-in-the-trees-17
-- mixkit-rain-and-thunder-storm-2390
-- mixkit-sad-game-over-trombone-471
-- mixkit-swallowing-a-water-drink-in-the-throat-150
-- mixkit-tick-tock-clock-timer-1045
-- mixkit-vacuum-swoosh-transition-1465
-- New Tires - Silent Partner
-- Not For Nothing - Otis McDonald
-- Shoulder Closures - Gunnar Olsen
-- The Charmer_s Call - Hanu Dixit
-- Tropic Fuse - French Fuse
+### suspense (1)
+
+- `es-charged-alec-slayne.mp3` — 2:01
