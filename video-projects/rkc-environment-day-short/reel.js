@@ -34,7 +34,10 @@
     });
 
     const exit = (el, c) => {
-      if (c.out < END - 0.05) tl.to(el, { autoAlpha: 0, scale: 0.92, duration: 0.1, ease: "power2.in" }, c.out - 0.1);
+      if (c.out >= END - 0.05) return;
+      // seek-safe exit: card only hides (a transform tween here would re-capture rotationY); others shrink-fade
+      if (c.type === "card") tl.set(el, { autoAlpha: 0 }, c.out);
+      else tl.fromTo(el, { autoAlpha: 1, scale: 1 }, { autoAlpha: 0, scale: 0.92, duration: 0.1, ease: "power2.in", immediateRender: false }, c.out - 0.1);
     };
 
     cfg.cues.forEach((c) => {
