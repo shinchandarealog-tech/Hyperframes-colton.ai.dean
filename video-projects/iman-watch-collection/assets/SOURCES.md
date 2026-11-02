@@ -9,3 +9,5 @@
 | `photos/rolex.jpg` | Wikimedia Commons — File:Rolex_Submariner.JPG, by Eternalsleeper (cropped to centre watch) | CC BY-SA 3.0 | **Yes** — "Rolex photo: Eternalsleeper, CC BY-SA 3.0" |
 | `fonts/*.woff2` | Google Fonts — Inter, Playfair Display | SIL Open Font License | No |
 | `iman-edit.mp4` | Client raw footage (silences cut) | Client-owned | — |
+| `audio/music-bed.m4a` | Mixkit — "Piano Reflections" by Ahjay Stelino (https://assets.mixkit.co/music/22/22.mp3), trimmed to 33.4s, −26 dB, fades + end swell | Mixkit Stock Music Free License (commercial OK) | No |
+| `audio/*.mp3`, `audio/click.wav` (SFX) | Workspace SFX library (`assets/sfx/`, see MANIFEST.md) — Pixabay / Mixkit | Pixabay Content License / Mixkit SFX Free License (commercial OK) | No |

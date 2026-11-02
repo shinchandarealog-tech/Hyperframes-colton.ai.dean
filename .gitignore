@@ -45,3 +45,6 @@ _reference/creator-library/**/frames/
 video-projects/**/assets/**/*.mp4
 video-projects/**/assets/**/*.mov
 video-projects/**/.hyperframes/
+video-projects/**/assets/**/*.mp3
+video-projects/**/assets/**/*.m4a
+video-projects/**/assets/**/*.wav
