@@ -1,0 +1,98 @@
+<template id="captions-template">
+  <div data-composition-id="captions" data-width="1080" data-height="1920">
+    <!-- One lockup per phrase. data-in/data-out = group window (absolute s). data-t = word start (absolute s). -->
+    <div class="cg" data-in="0.00" data-out="1.85">
+      <div class="lk">
+        <div class="sat top"><span data-t="0.03">I</span> <span data-t="0.19">don't</span> <span data-t="0.48">go</span></div>
+        <div class="hero sans" data-t="0.77">anywhere</div>
+        <div class="sat bot"><span data-t="1.33">without</span> <span data-t="1.81">a</span></div>
+      </div>
+    </div>
+    <div class="cg" data-in="1.85" data-out="2.40">
+      <div class="lk">
+        <div class="sat top"><span>without a</span></div>
+        <div class="hero serif" data-t="1.89">watch.</div>
+      </div>
+    </div>
+    <div class="cg" data-in="2.40" data-out="5.10">
+      <div class="lk">
+        <div class="sat top"><span data-t="2.46">Even</span> <span data-t="2.65">if</span> <span data-t="2.74">I'm</span> <span data-t="2.87">going</span></div>
+        <div class="hero serif" data-t="3.11">abroad</div>
+        <div class="sat bot"><span data-t="3.44">literally</span> <span data-t="3.76">for</span> <span data-t="4.08">a</span> <span data-t="4.24">few</span> <span data-t="4.48">days,</span></div>
+      </div>
+    </div>
+    <div class="cg" data-in="5.10" data-out="6.25">
+      <div class="lk">
+        <div class="sat top"><span data-t="4.79">I'm</span> <span data-t="5.15">bringing</span> <span data-t="5.34">a</span></div>
+        <div class="hero sans sm" data-t="5.38">watch roll</div>
+        <div class="sat bot"><span data-t="5.80">with</span> <span data-t="5.99">me.</span></div>
+      </div>
+    </div>
+    <div class="cg" data-in="6.25" data-out="8.08">
+      <div class="lk">
+        <div class="sat top"><span data-t="6.29">Watches</span> <span data-t="6.55">are</span> <span data-t="6.69">something</span> <span data-t="7.11">that</span> <span data-t="7.34">I've</span> <span data-t="7.48">been</span></div>
+        <div class="hero serif" data-t="7.70">infatuated</div>
+      </div>
+    </div>
+    <div class="cg" data-in="8.08" data-out="10.60">
+      <div class="lk">
+        <div class="sat top"><span data-t="8.13">with</span> <span data-t="8.40">from</span> <span data-t="9.15">the</span> <span data-t="9.17">time</span> <span data-t="9.45">I</span> <span data-t="9.52">was</span></div>
+        <div class="hero sans" data-t="9.74">eight</div>
+        <div class="sat bot"><span data-t="10.08">years</span> <span data-t="10.43">old,</span></div>
+      </div>
+    </div>
+    <div class="cg" data-in="16.85" data-out="19.55">
+      <div class="lk">
+        <div class="sat top"><span data-t="16.90">and</span> <span data-t="17.07">my</span> <span data-t="17.18">watch</span> <span data-t="17.47">collecting</span></div>
+        <div class="hero serif" data-t="18.16">journey</div>
+        <div class="sat bot"><span data-t="18.59">really</span> <span data-t="18.77">started</span> <span data-t="19.20">when</span></div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="captions"] { position: absolute; inset: 0; pointer-events: none; }
+      [data-composition-id="captions"] .cg {
+        position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+        display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+        padding: 1040px 60px 0; box-sizing: border-box; opacity: 0;
+      }
+      [data-composition-id="captions"] .lk { display: flex; flex-direction: column; align-items: center; max-width: 960px; }
+      [data-composition-id="captions"] .sat {
+        font-family: var(--sans); font-weight: 500; font-size: 40px; line-height: 1.1; letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.86); text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55); white-space: nowrap;
+      }
+      [data-composition-id="captions"] .sat.top { align-self: flex-start; margin-left: 10px; margin-bottom: 2px; }
+      [data-composition-id="captions"] .sat.bot { align-self: flex-end; margin-right: 10px; margin-top: 4px; }
+      [data-composition-id="captions"] .sat span { display: inline-block; }
+      [data-composition-id="captions"] .hero {
+        color: #fff; line-height: 0.95; white-space: nowrap; text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      }
+      [data-composition-id="captions"] .hero.sans { font-family: var(--sans); font-weight: 800; font-size: 150px; letter-spacing: -0.035em; }
+      [data-composition-id="captions"] .hero.sans.sm { font-size: 128px; }
+      [data-composition-id="captions"] .hero.serif { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 160px; letter-spacing: -0.01em; padding: 0 12px; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const root = document.querySelector('[data-composition-id="captions"]');
+        const tl = gsap.timeline({ paused: true });
+        root.querySelectorAll(".cg").forEach((g) => {
+          const a = +g.dataset.in, b = +g.dataset.out;
+          tl.set(g, { opacity: 1 }, a);
+          tl.set(g, { opacity: 0 }, b);
+          g.querySelectorAll("[data-t]").forEach((el) => {
+            const t = Math.max(a, +el.dataset.t - 0.04);
+            if (el.classList.contains("hero")) {
+              tl.from(el, { opacity: 0, scale: 0.94, filter: "blur(6px)", duration: 0.4, ease: "expo.out" }, t);
+            } else {
+              tl.from(el, { opacity: 0, y: 14, duration: 0.25, ease: "power2.out" }, t);
+            }
+          });
+        });
+        tl.set({}, {}, 33.41);
+        window.__timelines["captions"] = tl;
+      })();
+    </script>
+  </div>
+</template>

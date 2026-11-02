@@ -1,0 +1,29 @@
+<template id="s2-plane-template">
+  <div data-composition-id="s2-plane" data-width="1080" data-height="1920">
+    <div class="sc">
+      <div class="push">
+        <video id="s2-v" data-start="0" data-duration="2.05" data-track-index="0" data-media-start="9.0" src="../assets/broll/plane-dusk-40102.mp4" muted playsinline></video>
+      </div>
+      <div class="shade"></div>
+    </div>
+    <style>
+      [data-composition-id="s2-plane"] { position: absolute; inset: 0; overflow: hidden; background: #0b0b0d; }
+      [data-composition-id="s2-plane"] .sc { position: absolute; inset: 0; overflow: hidden; }
+      [data-composition-id="s2-plane"] .push { position: absolute; left: -1166px; top: 0; width: 3413px; height: 1920px; transform-origin: 1706px 800px; }
+      [data-composition-id="s2-plane"] video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: contrast(1.05) saturate(0.9); }
+      [data-composition-id="s2-plane"] .shade { position: absolute; inset: 0; background: radial-gradient(ellipse 85% 70% at 50% 40%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.45) 100%); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const r = '[data-composition-id="s2-plane"]';
+        const tl = gsap.timeline({ paused: true });
+        tl.from(r + " .sc", { scale: 1.06, filter: "blur(8px)", duration: 0.35, ease: "expo.out" }, 0);
+        tl.fromTo(r + " .push", { scale: 1.0 }, { scale: 1.06, duration: 2.05, ease: "none" }, 0);
+        tl.set({}, {}, 2.05);
+        window.__timelines["s2-plane"] = tl;
+      })();
+    </script>
+  </div>
+</template>

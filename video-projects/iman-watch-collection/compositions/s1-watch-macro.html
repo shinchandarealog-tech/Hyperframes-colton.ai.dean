@@ -1,0 +1,31 @@
+<template id="s1-watch-macro-template">
+  <div data-composition-id="s1-watch-macro" data-width="1080" data-height="1920">
+    <div class="sc">
+      <div class="push">
+        <video id="s1-v" data-start="0" data-duration="1.20" data-track-index="0" data-media-start="2.0" src="../assets/broll/watch-macro-3673.mp4" muted playsinline></video>
+      </div>
+      <div class="shade"></div>
+    </div>
+    <style>
+      [data-composition-id="s1-watch-macro"] { position: absolute; inset: 0; overflow: hidden; background: #0b0b0d; }
+      [data-composition-id="s1-watch-macro"] .sc { position: absolute; inset: 0; overflow: hidden; }
+      [data-composition-id="s1-watch-macro"] .push { position: absolute; inset: 0; transform-origin: 50% 40%; }
+      [data-composition-id="s1-watch-macro"] video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.62) contrast(1.12) saturate(0.85); }
+      [data-composition-id="s1-watch-macro"] .shade { position: absolute; inset: 0;
+        background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.55) 100%),
+                    radial-gradient(ellipse 90% 22% at 50% 64%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const r = '[data-composition-id="s1-watch-macro"]';
+        const tl = gsap.timeline({ paused: true });
+        tl.from(r + " .sc", { scale: 1.06, filter: "blur(8px)", duration: 0.35, ease: "expo.out" }, 0);
+        tl.fromTo(r + " .push", { scale: 1.0 }, { scale: 1.08, duration: 1.2, ease: "none" }, 0);
+        tl.set({}, {}, 1.2);
+        window.__timelines["s1-watch-macro"] = tl;
+      })();
+    </script>
+  </div>
+</template>

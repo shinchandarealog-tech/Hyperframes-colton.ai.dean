@@ -1,0 +1,34 @@
+<template id="s5-pause-template">
+  <div data-composition-id="s5-pause" data-width="1080" data-height="1920">
+    <div class="sc">
+      <div class="lk">
+        <div class="sat"><span data-t="15.37">Saved</span> <span data-t="15.66">up</span> <span data-t="15.76">for</span></div>
+        <div class="hero" data-t="15.93">a couple weeks.</div>
+      </div>
+    </div>
+    <style>
+      [data-composition-id="s5-pause"] { position: absolute; inset: 0; background: #0b0b0d; }
+      [data-composition-id="s5-pause"] .sc { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 60px 120px; box-sizing: border-box; }
+      [data-composition-id="s5-pause"] .lk { display: flex; flex-direction: column; align-items: center; }
+      [data-composition-id="s5-pause"] .sat { align-self: flex-start; margin-left: 14px; font-family: var(--sans); font-weight: 500; font-size: 40px; color: rgba(255,255,255,0.8); }
+      [data-composition-id="s5-pause"] .sat span { display: inline-block; }
+      [data-composition-id="s5-pause"] .hero { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 128px; line-height: 1; color: #fff; white-space: nowrap; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const T0 = 15.30, root = document.querySelector('[data-composition-id="s5-pause"]');
+        const tl = gsap.timeline({ paused: true });
+        tl.from(root.querySelector(".lk"), { scale: 1.03, duration: 1.55, ease: "none" }, 0);
+        root.querySelectorAll("[data-t]").forEach((el) => {
+          const t = Math.max(0.05, +el.dataset.t - T0 - 0.04);
+          if (el.classList.contains("hero")) tl.from(el, { opacity: 0, y: 10, filter: "blur(8px)", duration: 0.5, ease: "expo.out" }, t);
+          else tl.from(el, { opacity: 0, y: 12, duration: 0.25, ease: "power2.out" }, t);
+        });
+        tl.set({}, {}, 1.55);
+        window.__timelines["s5-pause"] = tl;
+      })();
+    </script>
+  </div>
+</template>

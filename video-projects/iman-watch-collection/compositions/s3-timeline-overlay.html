@@ -1,0 +1,39 @@
+<template id="s3-timeline-overlay-template">
+  <div data-composition-id="s3-timeline-overlay" data-width="1080" data-height="1920">
+    <div class="tlw">
+      <div class="line"></div>
+      <div class="tick t1" style="left:220px"><div class="lab">FIRST WATCH</div><div class="mk"></div><div class="yr">8 YEARS</div></div>
+      <div class="tick t2 ghost" style="left:560px"><div class="lab">&nbsp;</div><div class="mk"></div><div class="yr">18 YEARS</div></div>
+      <div class="tick t3 ghost" style="left:900px"><div class="lab">&nbsp;</div><div class="mk"></div><div class="yr">TODAY</div></div>
+      <div class="dot"></div>
+    </div>
+    <style>
+      [data-composition-id="s3-timeline-overlay"] { position: absolute; inset: 0; pointer-events: none; }
+      [data-composition-id="s3-timeline-overlay"] .tlw { position: absolute; left: 0; top: 1470px; width: 1080px; height: 110px; }
+      [data-composition-id="s3-timeline-overlay"] .line { position: absolute; left: 60px; right: 60px; top: 48px; height: 2px; background: rgba(255,255,255,0.75); transform-origin: left center; }
+      [data-composition-id="s3-timeline-overlay"] .tick { position: absolute; top: 0; width: 240px; margin-left: -120px; text-align: center; font-family: var(--sans); color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+      [data-composition-id="s3-timeline-overlay"] .lab { font-size: 24px; font-weight: 700; letter-spacing: 0.14em; height: 30px; }
+      [data-composition-id="s3-timeline-overlay"] .mk { width: 2px; height: 22px; margin: 6px auto 0; background: rgba(255,255,255,0.85); }
+      [data-composition-id="s3-timeline-overlay"] .yr { font-size: 26px; font-weight: 500; letter-spacing: 0.08em; margin-top: 10px; }
+      [data-composition-id="s3-timeline-overlay"] .ghost { opacity: 0.4; }
+      [data-composition-id="s3-timeline-overlay"] .dot { position: absolute; left: 220px; top: 49px; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px rgba(255,255,255,0.9), 0 0 24px rgba(31,79,216,0.8); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const r = '[data-composition-id="s3-timeline-overlay"] ';
+        const tl = gsap.timeline({ paused: true });
+        // starts at 9.55 absolute; "eight" lands at 9.74 (local 0.19)
+        tl.from(r + ".line", { scaleX: 0, duration: 0.55, ease: "power3.inOut" }, 0.02);
+        tl.from(r + ".t2", { opacity: 0, duration: 0.3, ease: "power1.out" }, 0.30);
+        tl.from(r + ".t3", { opacity: 0, duration: 0.3, ease: "power1.out" }, 0.38);
+        tl.from(r + ".dot", { x: -160, opacity: 0, duration: 0.45, ease: "expo.out" }, 0.15);
+        tl.from(r + ".t1 .lab", { opacity: 0, y: 10, duration: 0.3, ease: "power2.out" }, 0.22);
+        tl.from(r + ".t1 .yr", { opacity: 0, y: -8, duration: 0.3, ease: "back.out(1.6)" }, 0.30);
+        tl.set({}, {}, 1.05);
+        window.__timelines["s3-timeline-overlay"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,69 @@
+<template id="s8-wrist-template">
+  <div data-composition-id="s8-wrist" data-width="1080" data-height="1920">
+    <div class="sc">
+      <div class="top">
+        <div class="sat"><span data-t="24.85">On</span> <span data-t="24.88">the</span> <span data-t="25.08">wrist</span> <span data-t="25.41">at</span> <span data-t="25.54">the</span> <span data-t="25.67">moment</span> <span data-t="26.06">is</span> <span data-t="26.20">my</span></div>
+        <div class="hero" data-t="26.51">favourite</div>
+        <div class="sat bot"><span data-t="26.86">piece</span> <span data-t="27.19">ever,</span></div>
+      </div>
+      <div class="inset">
+        <div class="push">
+          <video id="s8-v" data-start="0" data-duration="5.36" data-track-index="0" src="../assets/broll/wrist-nautilus.mp4" muted playsinline></video>
+        </div>
+      </div>
+      <svg class="call" width="1080" height="1920" viewBox="0 0 1080 1920">
+        <circle class="ring" cx="536" cy="1155" r="74" fill="none" stroke="#fff" stroke-width="3"/>
+        <path class="lead" d="M 528 1229 C 512 1320, 330 1330, 300 1412" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="tag">
+        <div class="brand">PATEK PHILIPPE</div>
+        <div class="box"><span class="name">Nautilus <span class="ref">5711R</span></span></div>
+      </div>
+    </div>
+    <style>
+      [data-composition-id="s8-wrist"] { position: absolute; inset: 0; overflow: hidden; background: #0b0b0d; font-family: var(--sans); color: #fff; }
+      [data-composition-id="s8-wrist"] .sc { position: absolute; inset: 0; }
+      [data-composition-id="s8-wrist"] .top { position: absolute; left: 0; right: 0; top: 330px; display: flex; flex-direction: column; align-items: center; }
+      [data-composition-id="s8-wrist"] .sat { align-self: flex-start; margin-left: 110px; font-weight: 500; font-size: 40px; color: rgba(255,255,255,0.82); }
+      [data-composition-id="s8-wrist"] .sat.bot { align-self: flex-end; margin: 4px 150px 0 0; }
+      [data-composition-id="s8-wrist"] .sat span { display: inline-block; }
+      [data-composition-id="s8-wrist"] .hero { font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 160px; line-height: 1; }
+      [data-composition-id="s8-wrist"] .inset { position: absolute; left: 40px; top: 720px; width: 1000px; height: 624px; border-radius: 40px; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+      [data-composition-id="s8-wrist"] .push { position: absolute; inset: 0; transform-origin: 49.6% 69.7%; }
+      [data-composition-id="s8-wrist"] video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      [data-composition-id="s8-wrist"] .call { position: absolute; left: 0; top: 0; }
+      [data-composition-id="s8-wrist"] .tag { position: absolute; left: 120px; top: 1420px; display: flex; flex-direction: column; align-items: flex-start; }
+      [data-composition-id="s8-wrist"] .brand { font-size: 32px; font-weight: 700; letter-spacing: 0.16em; margin: 0 0 10px 4px; }
+      [data-composition-id="s8-wrist"] .box { background: var(--blue); padding: 6px 22px 12px; transform-origin: left center; }
+      [data-composition-id="s8-wrist"] .name { display: inline-block; font-weight: 800; font-size: 76px; letter-spacing: -0.03em; line-height: 1.05; white-space: nowrap; }
+      [data-composition-id="s8-wrist"] .ref { font-weight: 500; letter-spacing: -0.01em; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script>
+      window.__timelines = window.__timelines || {};
+      (function () {
+        const T0 = 24.69, r = '[data-composition-id="s8-wrist"] ';
+        const root = document.querySelector('[data-composition-id="s8-wrist"]');
+        const ring = root.querySelector(".ring"), lead = root.querySelector(".lead");
+        const RL = ring.getTotalLength(), LL = lead.getTotalLength();
+        gsap.set(ring, { strokeDasharray: RL, strokeDashoffset: RL, rotation: -90, transformOrigin: "50% 50%" });
+        gsap.set(lead, { strokeDasharray: LL, strokeDashoffset: LL });
+        const tl = gsap.timeline({ paused: true });
+        tl.from(r + ".inset", { scale: 1.05, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "expo.out" }, 0);
+        tl.fromTo(r + ".push", { scale: 1.0 }, { scale: 1.07, duration: 5.36, ease: "none" }, 0);
+        root.querySelectorAll("[data-t]").forEach((el) => {
+          const t = Math.max(0.05, +el.dataset.t - T0 - 0.04);
+          if (el.classList.contains("hero")) tl.from(el, { opacity: 0, scale: 0.94, filter: "blur(6px)", duration: 0.4, ease: "expo.out" }, t);
+          else tl.from(el, { opacity: 0, y: 14, duration: 0.25, ease: "power2.out" }, t);
+        });
+        tl.to(ring, { strokeDashoffset: 0, duration: 0.5, ease: "power2.inOut" }, 27.25 - T0);
+        tl.to(lead, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out" }, 27.55 - T0);
+        tl.from(r + ".brand", { opacity: 0, y: 12, duration: 0.3, ease: "power2.out" }, 27.65 - T0);
+        tl.from(r + ".box", { scaleX: 0, duration: 0.45, ease: "expo.out" }, 28.42 - T0);
+        tl.from(r + ".name", { clipPath: "inset(0 100% 0 0)", duration: 0.6, ease: "power1.inOut" }, 28.50 - T0);
+        tl.set({}, {}, 5.36);
+        window.__timelines["s8-wrist"] = tl;
+      })();
+    </script>
+  </div>
+</template>
