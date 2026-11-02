@@ -1,7 +1,7 @@
 // Generates index.html (full, 74.27s) and compositions/short.html (42.57s) from ONE cue list.
 // Cue times are in FULL-master time (assets/full.mp4); the short version remaps them via RANGES.
 // Run: node scripts/build.mjs
-import { writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
+import { writeFileSync, readFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -61,9 +61,9 @@ function html(id, inner, cls, style, cue) {
 const END_FULL = 2228 / FPS;
 const FLASHES = [8.1667, 12.1, 20.2667, 28.6333, 37.6, 45.1333, 61.2333];
 const TEACHERS = [
-  { id: "t1", start: 0, end: 8.1667, matte: "assets/matte-t1.webm", matteStart: 0, scale: [1.32, 1.37], origin: "50% 0%" },
-  { id: "t2", start: 12.1, end: 20.2667, matte: "assets/matte-t2.webm", matteStart: 12.1, scale: [1.32, 1.37], origin: "50% 15%" },
-  { id: "t3", start: 61.2333, end: END_FULL, matte: "assets/matte-t3.webm", matteStart: 61.2, scale: [1.12, 1.17], origin: "50% 38%" },
+  { id: "t1", start: 0, end: 8.1667, matte: "assets/matte-t1.webm", matteStart: 0, scale: [1, 1], origin: "50% 0%" }, // zoom baked in footage (scripts/punchin.sh)
+  { id: "t2", start: 12.1, end: 20.2667, matte: "assets/matte-t2.webm", matteStart: 12.1, scale: [1, 1], origin: "50% 0%" },
+  { id: "t3", start: 61.2333, end: END_FULL, matte: "assets/matte-t3.webm", matteStart: 61.2, scale: [1, 1], origin: "50% 0%" },
 ];
 
 // Beat 1 · T1 hook — keyword behind head on frame 1 (ref A @0.0), Teen cheezein, GREEN behind head
@@ -158,14 +158,14 @@ cn("b7-c7", ["karna", "seekh", "rahe", "hain"], [59.75, 59.95, 60.24, 60.47], { 
 html("b7-ticks", [1, 2, 3].map((n) => `<span class="tk"><b>${n}</b>${ICON.check}</span>`).join(""), "ticks", "", { type: "ticks", t: 59.9, out: 61.2333 });
 
 // Beat 8 · T3 CTA — question behind head, comment bubble, follow card (ref B DM bubble @29.8, ref A caps CTA @22.5)
-cn("b8-c1", ["Aaj", "Environment", "Day", "par"], [61.32, 61.62, 62.3, 62.55], { y: 430, out: 64.3 });
-cn("b8-c2", ["apne", "bachche", "ko"], [63.05, 63.43, 63.73], { y: 520, out: 64.3 });
-kw("b8-kaunsi", "Kaunsi Seekh", { y: 700, size: 150, style: "yellow", layer: "behind", anim: "drop", t: 64.36, out: 66.05 });
+cn("b8-c1", ["Aaj", "Environment", "Day", "par"], [61.32, 61.62, 62.3, 62.55], { y: 370, out: 64.3 });
+cn("b8-c2", ["apne", "bachche", "ko"], [63.05, 63.43, 63.73], { y: 450, out: 64.3 });
+kw("b8-kaunsi", "Kaunsi Seekh", { y: 600, size: 150, style: "yellow", layer: "behind", anim: "drop", t: 64.36, out: 66.05 });
 cn("b8-c3", ["di", "hai?"], [65.17, 65.3], { y: 960, out: 66.05 });
 html("b8-bubble", `<div class="av"></div><div class="tx"><b>Comment</b> mein zaroor bataiye</div><div class="dots"><i></i><i></i><i></i></div>`, "bubble", "left:90px;top:1180px", { type: "obj", anim: "bubble", t: 66.12, out: 67.75, rot: 0 });
 cn("b8-c4", ["aur", "green", "future", "ke", "liye"], [67.8, 67.92, 68.21, 68.47, 68.62], { y: 1130, out: END_FULL, layer: "front" });
 html("b8-follow", `<div class="logo"><span>RKC</span></div><div class="fname">Rhyming Kid's Corner<small>Preschool</small></div><div class="fbtn">Follow</div>`, "follow", "left:90px;top:1230px", { type: "obj", anim: "bubble", t: 68.97, out: END_FULL, rot: 0 });
-kw("b8-name", "RHYMING KID'S CORNER", { y: 1500, size: 84, style: "brand", anim: "drop", t: 70.11, out: END_FULL, max: 1040 });
+kw("b8-name", "RHYMING KID'S CORNER", { y: 1500, size: 84, style: "white", anim: "drop", t: 70.11, out: END_FULL, max: 1040 });
 cn("b8-thanks", ["Thank", "you!"], [72.12, 72.4], { y: 1630, out: END_FULL });
 
 // SFX (full time) — subtle; ≤ ~5 per 10 s
@@ -180,6 +180,7 @@ const SFX = [
 
 // ───────────────────────── short-version remap ─────────────────────────
 // [fullStart, fullEnd, shortStart]
+const SFX_LEN = { "whoosh.mp3": 0.57, "pop.mp3": 0.72, "sparkle.mp3": 2.04 };
 const RANGES = [
   [0, 12.1, 0], [12.1, 19.9667, 12.1], [20.4267, 23.6933, 19.9667], [28.8133, 32.08, 23.2333],
   [47.6833, 55.8833, 26.5], [66.0333, 73.9, 34.7],
@@ -219,9 +220,9 @@ function page(version) {
     SHORT_EXTRA((cue, h) => { vCues.push(cue); vEls = [...vEls, { id: cue.id, layer: "front", html: h }]; });
     flashes = RANGES.slice(1).map((r) => r[2]);
     teachers = [
-      { id: "t1", start: 0, end: 8.1667, matte: "assets/matte-t1.webm", mediaStart: 0, scale: [1.32, 1.37], origin: "50% 0%" },
-      { id: "t2", start: 12.1, end: 19.9667, matte: "assets/matte-t2.webm", mediaStart: 0, scale: [1.32, 1.37], origin: "50% 15%" },
-      { id: "t3", start: 34.7, end: END_SHORT, matte: "assets/matte-t3.webm", mediaStart: 66.0333 - 61.2, scale: [1.12, 1.17], origin: "50% 38%" },
+      { id: "t1", start: 0, end: 8.1667, matte: "assets/matte-t1.webm", mediaStart: 0, scale: [1, 1], origin: "50% 0%" },
+      { id: "t2", start: 12.1, end: 19.9667, matte: "assets/matte-t2.webm", mediaStart: 0, scale: [1, 1], origin: "50% 0%" },
+      { id: "t3", start: 34.7, end: END_SHORT, matte: "assets/matte-t3.webm", mediaStart: 66.0333 - 61.2, scale: [1, 1], origin: "50% 0%" },
     ];
     sfx = SFX.map((s) => ({ ...s, t: remap(s.t + (s.f === "whoosh.mp3" ? 0.22 : 0)) })).filter((s) => s.t !== null && s.f !== "whoosh.mp3");
     sfx.push(...flashes.map((t) => ({ t: t - 0.22, f: "whoosh.mp3", v: 0.22 })));
@@ -233,7 +234,7 @@ function page(version) {
   const behind = vEls.filter((e) => e.layer === "behind").map((e) => e.html).join("\n        ");
   const front = vEls.filter((e) => e.layer !== "behind").map((e) => e.html).join("\n        ");
   const mattes = teachers.map((t) => `<video id="m-${t.id}" class="fill" src="${P}${t.matte}" muted playsinline data-start="${t.start}" data-duration="${(t.end - t.start).toFixed(4)}" data-media-start="${t.mediaStart.toFixed(4)}" data-track-index="${3 + teachers.indexOf(t)}"></video>`).join("\n        ");
-  const sfxHtml = sfx.map((s, i) => `<audio id="sfx-${i}" src="${P}assets/sfx/${s.f}" data-start="${snap(Math.max(0, s.t)).toFixed(4)}" data-duration="1.2" data-track-index="${20 + i}" data-volume="${s.v}"></audio>`).join("\n    ");
+  const sfxHtml = sfx.map((s, i) => `<audio id="sfx-${i}" src="${P}assets/sfx/${s.f}" data-start="${snap(Math.max(0, s.t)).toFixed(4)}" data-duration="${SFX_LEN[s.f]}" data-track-index="${20 + i}" data-volume="${s.v}"></audio>`).join("\n    ");
   const leaves = Array.from({ length: 14 }, (_, i) => `<div class="lf" style="color:${[G1, G2, Y2, P1][i % 4]}">${ICON.leaf}</div>`).join("");
 
   const cfg = { cues: vCues.map((c) => ({ ...c, t: snap(c.t), out: snap(c.out), times: c.times && c.times.map(snap), flip: c.flip && snap(c.flip) })), flashes, teachers, END };
@@ -244,7 +245,9 @@ function page(version) {
     <meta name="viewport" content="width=1080, height=1920" />
     <title>Rhyming Kid's Corner — Environment Day${isShort ? " (short)" : ""}</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
-    <link rel="stylesheet" href="${P}reel.css" />
+    <style>
+${readFileSync(join(ROOT, "reel.css"), "utf8")}
+    </style>
   </head>
   <body>
     <!-- GENERATED by scripts/build.mjs — edit the cue list there, not this file. -->
