@@ -1,7 +1,3 @@
-<!-- HYPERFRAMES_SETUP_INCOMPLETE -->
-<!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
-     and run onboarding before any video work. The setup skill removes it when finished. -->
-
 # Creator Profile — Client Editor
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
@@ -44,7 +40,7 @@ _(Reference — the two common modes:)_
 
 ## Brand identity
 
-**Per client.** Each project gets its own `assets/brand-tokens.css` (copied from the workspace default, then adjusted to the client's brand). The workspace default in `assets/brand-tokens.css` is a neutral starting point.
+**Per client.** Each project gets its own `assets/brand-tokens.css` (copied from the workspace default, then adjusted to the client's brand). The workspace default in `assets/brand-tokens.css` is the **premium minimal / Arthur Brooks look**: near-black #0B0B0D, white #FAFAFA, royal blue #1F4FD8 (flat cards #0A47FF), Inter + Playfair Display Italic. Text is white on footage, blue on white.
 
 ## Inspiration creators
 
