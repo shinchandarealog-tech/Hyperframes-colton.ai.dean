@@ -218,7 +218,7 @@ function page(version) {
     // bursts/sweeps whose start is inside a range are kept by the loop above
     vEls = els.filter((e) => keep.has(e.id));
     SHORT_EXTRA((cue, h) => { vCues.push(cue); vEls = [...vEls, { id: cue.id, layer: "front", html: h }]; });
-    flashes = RANGES.slice(1).map((r) => r[2]);
+    flashes = [8.1667, ...RANGES.slice(1).map((r) => r[2])]; // + in-range T1→kids cut
     teachers = [
       { id: "t1", start: 0, end: 8.1667, matte: "assets/matte-t1.webm", mediaStart: 0, scale: [1, 1], origin: "50% 0%" },
       { id: "t2", start: 12.1, end: 19.9667, matte: "assets/matte-t2.webm", mediaStart: 0, scale: [1, 1], origin: "50% 0%" },
@@ -233,7 +233,7 @@ function page(version) {
   const D = END.toFixed(4);
   const behind = vEls.filter((e) => e.layer === "behind").map((e) => e.html).join("\n        ");
   const front = vEls.filter((e) => e.layer !== "behind").map((e) => e.html).join("\n        ");
-  const mattes = teachers.map((t) => `<video id="m-${t.id}" class="fill" src="${P}${t.matte}" muted playsinline data-start="${t.start}" data-duration="${(t.end - t.start).toFixed(4)}" data-media-start="${t.mediaStart.toFixed(4)}" data-track-index="${3 + teachers.indexOf(t)}"></video>`).join("\n        ");
+  const mattes = teachers.map((t) => `<video id="m-${t.id}" class="fill" src="${P}${t.matte}" muted playsinline data-start="${t.start}" data-duration="${(t.end - t.start - 0.02).toFixed(4)}" data-media-start="${t.mediaStart.toFixed(4)}" data-track-index="${3 + teachers.indexOf(t)}"></video>`).join("\n        ");
   const sfxHtml = sfx.map((s, i) => `<audio id="sfx-${i}" src="${P}assets/sfx/${s.f}" data-start="${snap(Math.max(0, s.t)).toFixed(4)}" data-duration="${SFX_LEN[s.f]}" data-track-index="${20 + i}" data-volume="${s.v}"></audio>`).join("\n    ");
   const leaves = Array.from({ length: 14 }, (_, i) => `<div class="lf" style="color:${[G1, G2, Y2, P1][i % 4]}">${ICON.leaf}</div>`).join("");
 
