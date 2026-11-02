@@ -1,0 +1,410 @@
+[
+  {
+    "text": "What",
+    "start": 0.02,
+    "end": 0.29,
+    "id": "w0"
+  },
+  {
+    "text": "you",
+    "start": 0.29,
+    "end": 0.51,
+    "id": "w1"
+  },
+  {
+    "text": "find",
+    "start": 0.51,
+    "end": 0.8,
+    "id": "w2"
+  },
+  {
+    "text": "is",
+    "start": 0.8,
+    "end": 0.93,
+    "id": "w3"
+  },
+  {
+    "text": "that",
+    "start": 0.95,
+    "end": 1.23,
+    "id": "w4"
+  },
+  {
+    "text": "real",
+    "start": 1.23,
+    "end": 1.52,
+    "id": "w5"
+  },
+  {
+    "text": "masters",
+    "start": 1.52,
+    "end": 2.05,
+    "id": "w6"
+  },
+  {
+    "text": "who",
+    "start": 2.11,
+    "end": 2.16,
+    "id": "w7"
+  },
+  {
+    "text": "practice",
+    "start": 2.16,
+    "end": 2.6,
+    "id": "w8"
+  },
+  {
+    "text": "true",
+    "start": 2.6,
+    "end": 2.8,
+    "id": "w9"
+  },
+  {
+    "text": "gratitude,",
+    "start": 2.8,
+    "end": 3.7,
+    "id": "w10"
+  },
+  {
+    "text": "they'll",
+    "start": 3.71,
+    "end": 3.84,
+    "id": "w11"
+  },
+  {
+    "text": "wake",
+    "start": 3.84,
+    "end": 3.98,
+    "id": "w12"
+  },
+  {
+    "text": "up",
+    "start": 4.01,
+    "end": 4.14,
+    "id": "w13"
+  },
+  {
+    "text": "in",
+    "start": 4.16,
+    "end": 4.24,
+    "id": "w14"
+  },
+  {
+    "text": "the",
+    "start": 4.24,
+    "end": 4.32,
+    "id": "w15"
+  },
+  {
+    "text": "morning",
+    "start": 4.32,
+    "end": 4.64,
+    "id": "w16"
+  },
+  {
+    "text": "and",
+    "start": 4.66,
+    "end": 4.84,
+    "id": "w17"
+  },
+  {
+    "text": "they'll",
+    "start": 4.84,
+    "end": 5.29,
+    "id": "w18"
+  },
+  {
+    "text": "say,",
+    "start": 5.29,
+    "end": 5.64,
+    "id": "w19"
+  },
+  {
+    "text": "I'm",
+    "start": 5.64,
+    "end": 5.73,
+    "id": "w20"
+  },
+  {
+    "text": "really",
+    "start": 5.74,
+    "end": 5.95,
+    "id": "w21"
+  },
+  {
+    "text": "grateful",
+    "start": 5.95,
+    "end": 6.24,
+    "id": "w22"
+  },
+  {
+    "text": "for",
+    "start": 6.24,
+    "end": 6.35,
+    "id": "w23"
+  },
+  {
+    "text": "all",
+    "start": 6.35,
+    "end": 6.46,
+    "id": "w24"
+  },
+  {
+    "text": "the",
+    "start": 6.46,
+    "end": 6.57,
+    "id": "w25"
+  },
+  {
+    "text": "wonderful,",
+    "start": 6.57,
+    "end": 7,
+    "id": "w26"
+  },
+  {
+    "text": "beautiful,",
+    "start": 7,
+    "end": 7.4,
+    "id": "w27"
+  },
+  {
+    "text": "generative",
+    "start": 7.4,
+    "end": 7.8,
+    "id": "w28"
+  },
+  {
+    "text": "things",
+    "start": 7.8,
+    "end": 8,
+    "id": "w29"
+  },
+  {
+    "text": "that",
+    "start": 8.02,
+    "end": 8.19,
+    "id": "w30"
+  },
+  {
+    "text": "are",
+    "start": 8.19,
+    "end": 8.33,
+    "id": "w31"
+  },
+  {
+    "text": "going",
+    "start": 8.33,
+    "end": 8.57,
+    "id": "w32"
+  },
+  {
+    "text": "to",
+    "start": 8.57,
+    "end": 8.66,
+    "id": "w33"
+  },
+  {
+    "text": "happen",
+    "start": 8.66,
+    "end": 8.94,
+    "id": "w34"
+  },
+  {
+    "text": "today,",
+    "start": 8.95,
+    "end": 9.32,
+    "id": "w35"
+  },
+  {
+    "text": "and",
+    "start": 9.32,
+    "end": 9.45,
+    "id": "w36"
+  },
+  {
+    "text": "I'm",
+    "start": 9.45,
+    "end": 9.57,
+    "id": "w37"
+  },
+  {
+    "text": "also",
+    "start": 9.57,
+    "end": 9.73,
+    "id": "w38"
+  },
+  {
+    "text": "really",
+    "start": 9.73,
+    "end": 9.99,
+    "id": "w39"
+  },
+  {
+    "text": "grateful",
+    "start": 9.99,
+    "end": 10.33,
+    "id": "w40"
+  },
+  {
+    "text": "for",
+    "start": 10.33,
+    "end": 10.44,
+    "id": "w41"
+  },
+  {
+    "text": "the",
+    "start": 10.45,
+    "end": 10.59,
+    "id": "w42"
+  },
+  {
+    "text": "things",
+    "start": 10.59,
+    "end": 10.88,
+    "id": "w43"
+  },
+  {
+    "text": "I",
+    "start": 10.88,
+    "end": 10.92,
+    "id": "w44"
+  },
+  {
+    "text": "don't",
+    "start": 10.92,
+    "end": 11.16,
+    "id": "w45"
+  },
+  {
+    "text": "like",
+    "start": 11.16,
+    "end": 11.36,
+    "id": "w46"
+  },
+  {
+    "text": "today.",
+    "start": 11.38,
+    "end": 12.36,
+    "id": "w47"
+  },
+  {
+    "text": "I'm",
+    "start": 12.38,
+    "end": 12.53,
+    "id": "w48"
+  },
+  {
+    "text": "grateful",
+    "start": 12.53,
+    "end": 13,
+    "id": "w49"
+  },
+  {
+    "text": "for",
+    "start": 13,
+    "end": 13.17,
+    "id": "w50"
+  },
+  {
+    "text": "those",
+    "start": 13.17,
+    "end": 13.45,
+    "id": "w51"
+  },
+  {
+    "text": "things",
+    "start": 13.46,
+    "end": 13.81,
+    "id": "w52"
+  },
+  {
+    "text": "because",
+    "start": 13.81,
+    "end": 14.22,
+    "id": "w53"
+  },
+  {
+    "text": "I",
+    "start": 14.22,
+    "end": 14.28,
+    "id": "w54"
+  },
+  {
+    "text": "know",
+    "start": 14.28,
+    "end": 14.51,
+    "id": "w55"
+  },
+  {
+    "text": "retrospectively",
+    "start": 14.51,
+    "end": 15.39,
+    "id": "w56"
+  },
+  {
+    "text": "that",
+    "start": 15.39,
+    "end": 15.62,
+    "id": "w57"
+  },
+  {
+    "text": "that",
+    "start": 15.62,
+    "end": 15.85,
+    "id": "w58"
+  },
+  {
+    "text": "is",
+    "start": 15.85,
+    "end": 15.95,
+    "id": "w59"
+  },
+  {
+    "text": "going",
+    "start": 16.07,
+    "end": 16.25,
+    "id": "w60"
+  },
+  {
+    "text": "to",
+    "start": 16.25,
+    "end": 16.34,
+    "id": "w61"
+  },
+  {
+    "text": "be",
+    "start": 16.37,
+    "end": 16.6,
+    "id": "w62"
+  },
+  {
+    "text": "the",
+    "start": 16.6,
+    "end": 16.72,
+    "id": "w63"
+  },
+  {
+    "text": "source",
+    "start": 16.74,
+    "end": 17.01,
+    "id": "w64"
+  },
+  {
+    "text": "of",
+    "start": 17.01,
+    "end": 17.1,
+    "id": "w65"
+  },
+  {
+    "text": "my",
+    "start": 17.1,
+    "end": 17.19,
+    "id": "w66"
+  },
+  {
+    "text": "growth.",
+    "start": 17.19,
+    "end": 17.64,
+    "id": "w67"
+  }
+]

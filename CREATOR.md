@@ -48,7 +48,9 @@ _(Reference — the two common modes:)_
 
 ## Inspiration creators
 
-_(Studied creators live in [`_reference/creator-library/`](_reference/creator-library/). Paste a TikTok / Instagram Reel / YouTube Short URL and run `/study-creator <url>` to add one. At build time, name a creator — "build this like @handle" — to apply their style fingerprint to the visual layer. /setup seeds your first few here.)_
+See [`_reference/creator-library/INDEX.md`](_reference/creator-library/INDEX.md) for the full list. Add new creators via `/study-creator <url>` (links or uploaded files).
+
+- **@arthurcbrooks**: the user's main reference style (premium minimal educational). Use it for podcast/talking-head client clips unless the client wants something else. Fingerprint: [`style-distilled.md`](_reference/creator-library/arthurcbrooks/style-distilled.md); build with `/premium-minimal-edit`.
 
 ## Posting cadence & length defaults
 

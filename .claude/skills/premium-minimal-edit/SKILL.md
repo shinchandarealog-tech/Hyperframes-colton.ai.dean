@@ -98,6 +98,20 @@ Illustrations: generate as SVG/paths in-house (blue fill + turbulence mask) or s
 - First 1–2s: A-roll so the viewer meets the face, then the first visual must be a strong hook.
 - Rotate archetypes — never the same archetype twice in a row; balance face time vs cutaways (~40/60).
 
+### Calibration from the real channel (4 reels studied, 2026-11-02)
+
+The tutorial's paper-and-illustration scenes are the "animated" end of the style. The real @arthurcbrooks reels are **mostly A-roll + fast cutaways**, with the illustrated scenes used as accents. **Read `_reference/creator-library/arthurcbrooks/style-distilled.md` before planning.** It has the full scene-choice table and an **animation library (A01–A27)** to recommend from in the edit plan. Rules that override the defaults above:
+
+- **Text is white on footage, blue on white.** Blue only lives on paper/white cards, flat blue cards, lines, markers and callouts, never as caption color over footage.
+- **Font by meaning:** concrete nouns/facts → bold sans hero; emotion/abstract/names → Playfair italic hero. A sans-only version is valid too (reel DXcF).
+- **Captions sit center / lower-middle (over the chest), never at the bottom edge.** Satellites are tiny (20–30% of the hero). Words build **one at a time in fixed slots**: no re-flow, no karaoke color swap, no stroke or pill.
+- **Cut on the stressed word.** A cutaway every 1.5–3s; A-roll never more than ~6s without one. Mostly hard cuts; the variety comes from *where* you cut to.
+- **Breath cards** (black or white, one serif word, 0.5–1s) after big claims.
+- **Paintings are the #1 cutaway** for abstract nouns. Cinematic b-roll for concrete scenarios.
+- **Endings:** blue-on-white summary card, a painting bookend, or A-roll with a serif "Thank you". No CTA graphics.
+- Long-form/biographical clips: use the **life timeline** (A20) and **Polaroid collage** (A15) as the spine.
+- One-off accents (yellow highlighter, orange word, deep red illustration): max once per video.
+
 ---
 
 ## B. The edit workflow (plan first — this is the important part)
@@ -116,7 +130,7 @@ npx hyperframes transcribe assets/raw.mp4 --model small.en --json
 ### B3. Edit-plan document (deliver this BEFORE building anything)
 Write `video-projects/<slug>/EDIT_PLAN.html` (or publish as an artifact) with:
 - Header: clip, length, number of beats, a beat timeline bar.
-- **One card per beat** (a beat = one spoken thought, ~2–5s): timestamp range; **script on the right** (with an embedded player seeked to the beat); on the left a free-text notes box + **3 recommended designs (A/B/C)** — each with archetype name, one-line description of exactly what animates, and *why it fits* (using the scene-choice logic above + any studied references in `_reference/creator-library/`).
+- **One card per beat** (a beat = one spoken thought, ~2–5s): timestamp range; **script on the right** (with an embedded player seeked to the beat); on the left a free-text notes box + **3 recommended designs (A/B/C)** — each with archetype name, one-line description of exactly what animates, and *why it fits* (using the scene-choice logic above + any studied references in `_reference/creator-library/`). Cite the reference animation ID and source timestamp (e.g. "A04 paper graph — like DP7eSmPADaD @11.0s") and show a thumbnail from that reel's `frames/` folder when it exists locally.
 - Mark Claude's suggested pick, but the **user chooses**. A "copy plan" button that exports the choices as text.
 
 Then **stop and wait** for the user's filled-in plan. Do not build from your own picks unless they explicitly say "use your picks."

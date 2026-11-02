@@ -1,0 +1,1448 @@
+[
+  {
+    "text": "You",
+    "start": 0.08,
+    "end": 0.16,
+    "id": "w0"
+  },
+  {
+    "text": "need",
+    "start": 0.16,
+    "end": 0.37,
+    "id": "w1"
+  },
+  {
+    "text": "to",
+    "start": 0.37,
+    "end": 0.47,
+    "id": "w2"
+  },
+  {
+    "text": "be",
+    "start": 0.47,
+    "end": 0.57,
+    "id": "w3"
+  },
+  {
+    "text": "bored.",
+    "start": 0.57,
+    "end": 1.04,
+    "id": "w4"
+  },
+  {
+    "text": "You",
+    "start": 1.13,
+    "end": 1.27,
+    "id": "w5"
+  },
+  {
+    "text": "will",
+    "start": 1.27,
+    "end": 1.58,
+    "id": "w6"
+  },
+  {
+    "text": "have",
+    "start": 1.58,
+    "end": 1.84,
+    "id": "w7"
+  },
+  {
+    "text": "less",
+    "start": 2.1,
+    "end": 2.12,
+    "id": "w8"
+  },
+  {
+    "text": "meaning",
+    "start": 2.21,
+    "end": 2.75,
+    "id": "w9"
+  },
+  {
+    "text": "and",
+    "start": 2.75,
+    "end": 2.8,
+    "id": "w10"
+  },
+  {
+    "text": "you",
+    "start": 2.96,
+    "end": 3.08,
+    "id": "w11"
+  },
+  {
+    "text": "will",
+    "start": 3.08,
+    "end": 3.4,
+    "id": "w12"
+  },
+  {
+    "text": "be",
+    "start": 3.4,
+    "end": 3.52,
+    "id": "w13"
+  },
+  {
+    "text": "more",
+    "start": 3.52,
+    "end": 3.76,
+    "id": "w14"
+  },
+  {
+    "text": "depressed",
+    "start": 3.84,
+    "end": 4.64,
+    "id": "w15"
+  },
+  {
+    "text": "if",
+    "start": 4.72,
+    "end": 4.74,
+    "id": "w16"
+  },
+  {
+    "text": "you",
+    "start": 4.74,
+    "end": 4.89,
+    "id": "w17"
+  },
+  {
+    "text": "never",
+    "start": 4.89,
+    "end": 5.13,
+    "id": "w18"
+  },
+  {
+    "text": "are",
+    "start": 5.13,
+    "end": 5.29,
+    "id": "w19"
+  },
+  {
+    "text": "bored.",
+    "start": 5.29,
+    "end": 5.72,
+    "id": "w20"
+  },
+  {
+    "text": "I",
+    "start": 5.72,
+    "end": 5.8,
+    "id": "w21"
+  },
+  {
+    "text": "mean,",
+    "start": 5.8,
+    "end": 5.94,
+    "id": "w22"
+  },
+  {
+    "text": "I",
+    "start": 5.94,
+    "end": 5.97,
+    "id": "w23"
+  },
+  {
+    "text": "couldn't",
+    "start": 5.97,
+    "end": 6.22,
+    "id": "w24"
+  },
+  {
+    "text": "be",
+    "start": 6.22,
+    "end": 6.29,
+    "id": "w25"
+  },
+  {
+    "text": "clearer.",
+    "start": 6.29,
+    "end": 6.52,
+    "id": "w26"
+  },
+  {
+    "text": "Let",
+    "start": 6.77,
+    "end": 6.93,
+    "id": "w27"
+  },
+  {
+    "text": "me",
+    "start": 6.93,
+    "end": 7.07,
+    "id": "w28"
+  },
+  {
+    "text": "give",
+    "start": 7.13,
+    "end": 7.42,
+    "id": "w29"
+  },
+  {
+    "text": "you",
+    "start": 7.42,
+    "end": 7.48,
+    "id": "w30"
+  },
+  {
+    "text": "the",
+    "start": 7.84,
+    "end": 7.92,
+    "id": "w31"
+  },
+  {
+    "text": "good",
+    "start": 7.92,
+    "end": 8.25,
+    "id": "w32"
+  },
+  {
+    "text": "side",
+    "start": 8.25,
+    "end": 8.41,
+    "id": "w33"
+  },
+  {
+    "text": "of",
+    "start": 8.6,
+    "end": 8.74,
+    "id": "w34"
+  },
+  {
+    "text": "boredom",
+    "start": 8.74,
+    "end": 9.33,
+    "id": "w35"
+  },
+  {
+    "text": "in",
+    "start": 9.33,
+    "end": 9.49,
+    "id": "w36"
+  },
+  {
+    "text": "general.",
+    "start": 9.49,
+    "end": 10.4,
+    "id": "w37"
+  },
+  {
+    "text": "Boredom",
+    "start": 10.48,
+    "end": 11.1,
+    "id": "w38"
+  },
+  {
+    "text": "is",
+    "start": 11.1,
+    "end": 11.2,
+    "id": "w39"
+  },
+  {
+    "text": "a",
+    "start": 11.2,
+    "end": 11.56,
+    "id": "w40"
+  },
+  {
+    "text": "tendency",
+    "start": 11.56,
+    "end": 12.13,
+    "id": "w41"
+  },
+  {
+    "text": "for",
+    "start": 12.32,
+    "end": 12.49,
+    "id": "w42"
+  },
+  {
+    "text": "us",
+    "start": 12.5,
+    "end": 12.68,
+    "id": "w43"
+  },
+  {
+    "text": "to",
+    "start": 12.68,
+    "end": 12.96,
+    "id": "w44"
+  },
+  {
+    "text": "not",
+    "start": 12.96,
+    "end": 13.32,
+    "id": "w45"
+  },
+  {
+    "text": "be",
+    "start": 13.32,
+    "end": 13.5,
+    "id": "w46"
+  },
+  {
+    "text": "occupied",
+    "start": 13.51,
+    "end": 14.18,
+    "id": "w47"
+  },
+  {
+    "text": "otherwise,",
+    "start": 14.33,
+    "end": 15.04,
+    "id": "w48"
+  },
+  {
+    "text": "cognitively,",
+    "start": 15.12,
+    "end": 16.32,
+    "id": "w49"
+  },
+  {
+    "text": "which",
+    "start": 16.32,
+    "end": 16.75,
+    "id": "w50"
+  },
+  {
+    "text": "is",
+    "start": 16.75,
+    "end": 16.8,
+    "id": "w51"
+  },
+  {
+    "text": "over",
+    "start": 16.98,
+    "end": 17.27,
+    "id": "w52"
+  },
+  {
+    "text": "our",
+    "start": 17.27,
+    "end": 17.53,
+    "id": "w53"
+  },
+  {
+    "text": "thinking",
+    "start": 17.53,
+    "end": 18.23,
+    "id": "w54"
+  },
+  {
+    "text": "system",
+    "start": 18.23,
+    "end": 18.76,
+    "id": "w55"
+  },
+  {
+    "text": "to",
+    "start": 18.86,
+    "end": 18.91,
+    "id": "w56"
+  },
+  {
+    "text": "use",
+    "start": 18.91,
+    "end": 19.11,
+    "id": "w57"
+  },
+  {
+    "text": "a",
+    "start": 19.11,
+    "end": 19.17,
+    "id": "w58"
+  },
+  {
+    "text": "part",
+    "start": 19.17,
+    "end": 19.43,
+    "id": "w59"
+  },
+  {
+    "text": "of",
+    "start": 19.43,
+    "end": 19.56,
+    "id": "w60"
+  },
+  {
+    "text": "our",
+    "start": 19.56,
+    "end": 19.58,
+    "id": "w61"
+  },
+  {
+    "text": "brain",
+    "start": 19.94,
+    "end": 20.12,
+    "id": "w62"
+  },
+  {
+    "text": "that's",
+    "start": 20.21,
+    "end": 20.45,
+    "id": "w63"
+  },
+  {
+    "text": "called",
+    "start": 20.45,
+    "end": 20.78,
+    "id": "w64"
+  },
+  {
+    "text": "the",
+    "start": 20.78,
+    "end": 20.92,
+    "id": "w65"
+  },
+  {
+    "text": "default",
+    "start": 21.28,
+    "end": 21.32,
+    "id": "w66"
+  },
+  {
+    "text": "mode",
+    "start": 21.32,
+    "end": 21.54,
+    "id": "w67"
+  },
+  {
+    "text": "network.",
+    "start": 21.54,
+    "end": 22.12,
+    "id": "w68"
+  },
+  {
+    "text": "The",
+    "start": 22.2,
+    "end": 22.26,
+    "id": "w69"
+  },
+  {
+    "text": "default",
+    "start": 22.26,
+    "end": 22.59,
+    "id": "w70"
+  },
+  {
+    "text": "mode",
+    "start": 22.59,
+    "end": 22.78,
+    "id": "w71"
+  },
+  {
+    "text": "network",
+    "start": 22.78,
+    "end": 22.92,
+    "id": "w72"
+  },
+  {
+    "text": "is",
+    "start": 23.14,
+    "end": 23.2,
+    "id": "w73"
+  },
+  {
+    "text": "a",
+    "start": 23.2,
+    "end": 23.24,
+    "id": "w74"
+  },
+  {
+    "text": "bunch",
+    "start": 23.29,
+    "end": 23.44,
+    "id": "w75"
+  },
+  {
+    "text": "of",
+    "start": 23.44,
+    "end": 23.51,
+    "id": "w76"
+  },
+  {
+    "text": "structures",
+    "start": 23.51,
+    "end": 23.83,
+    "id": "w77"
+  },
+  {
+    "text": "in",
+    "start": 23.96,
+    "end": 24.05,
+    "id": "w78"
+  },
+  {
+    "text": "your",
+    "start": 24.05,
+    "end": 24.4,
+    "id": "w79"
+  },
+  {
+    "text": "brain",
+    "start": 24.4,
+    "end": 24.68,
+    "id": "w80"
+  },
+  {
+    "text": "that",
+    "start": 25.04,
+    "end": 25.19,
+    "id": "w81"
+  },
+  {
+    "text": "switch",
+    "start": 25.19,
+    "end": 25.59,
+    "id": "w82"
+  },
+  {
+    "text": "on",
+    "start": 25.83,
+    "end": 26.25,
+    "id": "w83"
+  },
+  {
+    "text": "when",
+    "start": 26.37,
+    "end": 26.51,
+    "id": "w84"
+  },
+  {
+    "text": "you",
+    "start": 26.51,
+    "end": 26.67,
+    "id": "w85"
+  },
+  {
+    "text": "don't",
+    "start": 26.73,
+    "end": 26.96,
+    "id": "w86"
+  },
+  {
+    "text": "have",
+    "start": 26.96,
+    "end": 27.08,
+    "id": "w87"
+  },
+  {
+    "text": "anything",
+    "start": 27.44,
+    "end": 27.65,
+    "id": "w88"
+  },
+  {
+    "text": "else",
+    "start": 27.65,
+    "end": 27.88,
+    "id": "w89"
+  },
+  {
+    "text": "to",
+    "start": 27.88,
+    "end": 27.99,
+    "id": "w90"
+  },
+  {
+    "text": "think",
+    "start": 27.99,
+    "end": 28.28,
+    "id": "w91"
+  },
+  {
+    "text": "about.",
+    "start": 28.28,
+    "end": 28.78,
+    "id": "w92"
+  },
+  {
+    "text": "We",
+    "start": 28.86,
+    "end": 28.91,
+    "id": "w93"
+  },
+  {
+    "text": "don't",
+    "start": 28.91,
+    "end": 29.24,
+    "id": "w94"
+  },
+  {
+    "text": "like",
+    "start": 29.24,
+    "end": 29.51,
+    "id": "w95"
+  },
+  {
+    "text": "it.",
+    "start": 29.51,
+    "end": 29.86,
+    "id": "w96"
+  },
+  {
+    "text": "My",
+    "start": 29.94,
+    "end": 29.97,
+    "id": "w97"
+  },
+  {
+    "text": "colleague",
+    "start": 29.97,
+    "end": 30.48,
+    "id": "w98"
+  },
+  {
+    "text": "in",
+    "start": 30.48,
+    "end": 30.59,
+    "id": "w99"
+  },
+  {
+    "text": "the",
+    "start": 30.59,
+    "end": 30.66,
+    "id": "w100"
+  },
+  {
+    "text": "psychology",
+    "start": 31.03,
+    "end": 31.33,
+    "id": "w101"
+  },
+  {
+    "text": "department",
+    "start": 31.33,
+    "end": 31.94,
+    "id": "w102"
+  },
+  {
+    "text": "here",
+    "start": 31.94,
+    "end": 32.12,
+    "id": "w103"
+  },
+  {
+    "text": "at",
+    "start": 32.2,
+    "end": 32.24,
+    "id": "w104"
+  },
+  {
+    "text": "Harvard,",
+    "start": 32.24,
+    "end": 32.78,
+    "id": "w105"
+  },
+  {
+    "text": "Dan",
+    "start": 32.78,
+    "end": 32.92,
+    "id": "w106"
+  },
+  {
+    "text": "Gilbert,",
+    "start": 33.28,
+    "end": 33.52,
+    "id": "w107"
+  },
+  {
+    "text": "he",
+    "start": 33.53,
+    "end": 33.67,
+    "id": "w108"
+  },
+  {
+    "text": "did",
+    "start": 33.67,
+    "end": 33.83,
+    "id": "w109"
+  },
+  {
+    "text": "experiments",
+    "start": 34.07,
+    "end": 34.66,
+    "id": "w110"
+  },
+  {
+    "text": "where",
+    "start": 34.74,
+    "end": 35.01,
+    "id": "w111"
+  },
+  {
+    "text": "people",
+    "start": 35.01,
+    "end": 35.42,
+    "id": "w112"
+  },
+  {
+    "text": "had",
+    "start": 35.42,
+    "end": 35.46,
+    "id": "w113"
+  },
+  {
+    "text": "to",
+    "start": 35.68,
+    "end": 35.78,
+    "id": "w114"
+  },
+  {
+    "text": "sit",
+    "start": 35.83,
+    "end": 36,
+    "id": "w115"
+  },
+  {
+    "text": "in",
+    "start": 36,
+    "end": 36.13,
+    "id": "w116"
+  },
+  {
+    "text": "a",
+    "start": 36.13,
+    "end": 36.19,
+    "id": "w117"
+  },
+  {
+    "text": "room",
+    "start": 36.19,
+    "end": 36.39,
+    "id": "w118"
+  },
+  {
+    "text": "for",
+    "start": 36.6,
+    "end": 36.68,
+    "id": "w119"
+  },
+  {
+    "text": "15",
+    "start": 36.68,
+    "end": 37.13,
+    "id": "w120"
+  },
+  {
+    "text": "minutes",
+    "start": 37.13,
+    "end": 37.68,
+    "id": "w121"
+  },
+  {
+    "text": "with",
+    "start": 37.76,
+    "end": 37.85,
+    "id": "w122"
+  },
+  {
+    "text": "instructions",
+    "start": 37.85,
+    "end": 38.38,
+    "id": "w123"
+  },
+  {
+    "text": "to",
+    "start": 38.38,
+    "end": 38.46,
+    "id": "w124"
+  },
+  {
+    "text": "do",
+    "start": 38.46,
+    "end": 38.48,
+    "id": "w125"
+  },
+  {
+    "text": "absolutely",
+    "start": 38.84,
+    "end": 38.98,
+    "id": "w126"
+  },
+  {
+    "text": "nothing",
+    "start": 38.98,
+    "end": 39.32,
+    "id": "w127"
+  },
+  {
+    "text": "and",
+    "start": 39.41,
+    "end": 39.52,
+    "id": "w128"
+  },
+  {
+    "text": "there",
+    "start": 39.52,
+    "end": 39.85,
+    "id": "w129"
+  },
+  {
+    "text": "was",
+    "start": 39.85,
+    "end": 40.05,
+    "id": "w130"
+  },
+  {
+    "text": "nothing",
+    "start": 40.05,
+    "end": 40.52,
+    "id": "w131"
+  },
+  {
+    "text": "in",
+    "start": 40.52,
+    "end": 40.65,
+    "id": "w132"
+  },
+  {
+    "text": "the",
+    "start": 40.65,
+    "end": 40.85,
+    "id": "w133"
+  },
+  {
+    "text": "room",
+    "start": 40.85,
+    "end": 41.05,
+    "id": "w134"
+  },
+  {
+    "text": "to",
+    "start": 41.05,
+    "end": 41.26,
+    "id": "w135"
+  },
+  {
+    "text": "do",
+    "start": 41.26,
+    "end": 41.41,
+    "id": "w136"
+  },
+  {
+    "text": "except",
+    "start": 41.5,
+    "end": 42,
+    "id": "w137"
+  },
+  {
+    "text": "there",
+    "start": 42,
+    "end": 42.22,
+    "id": "w138"
+  },
+  {
+    "text": "was",
+    "start": 42.59,
+    "end": 42.78,
+    "id": "w139"
+  },
+  {
+    "text": "a",
+    "start": 42.78,
+    "end": 42.87,
+    "id": "w140"
+  },
+  {
+    "text": "button",
+    "start": 42.87,
+    "end": 43.48,
+    "id": "w141"
+  },
+  {
+    "text": "in",
+    "start": 43.48,
+    "end": 43.57,
+    "id": "w142"
+  },
+  {
+    "text": "front",
+    "start": 43.58,
+    "end": 43.79,
+    "id": "w143"
+  },
+  {
+    "text": "of",
+    "start": 43.84,
+    "end": 43.93,
+    "id": "w144"
+  },
+  {
+    "text": "them",
+    "start": 43.93,
+    "end": 44.14,
+    "id": "w145"
+  },
+  {
+    "text": "that",
+    "start": 44.23,
+    "end": 44.33,
+    "id": "w146"
+  },
+  {
+    "text": "they",
+    "start": 44.33,
+    "end": 44.52,
+    "id": "w147"
+  },
+  {
+    "text": "could",
+    "start": 44.52,
+    "end": 44.76,
+    "id": "w148"
+  },
+  {
+    "text": "push",
+    "start": 44.76,
+    "end": 44.94,
+    "id": "w149"
+  },
+  {
+    "text": "and",
+    "start": 44.94,
+    "end": 45.05,
+    "id": "w150"
+  },
+  {
+    "text": "if",
+    "start": 45.05,
+    "end": 45.16,
+    "id": "w151"
+  },
+  {
+    "text": "they",
+    "start": 45.16,
+    "end": 45.25,
+    "id": "w152"
+  },
+  {
+    "text": "did,",
+    "start": 45.31,
+    "end": 45.36,
+    "id": "w153"
+  },
+  {
+    "text": "they",
+    "start": 45.45,
+    "end": 45.62,
+    "id": "w154"
+  },
+  {
+    "text": "gave",
+    "start": 45.62,
+    "end": 45.88,
+    "id": "w155"
+  },
+  {
+    "text": "themselves",
+    "start": 45.88,
+    "end": 46.54,
+    "id": "w156"
+  },
+  {
+    "text": "a",
+    "start": 46.54,
+    "end": 46.6,
+    "id": "w157"
+  },
+  {
+    "text": "painful",
+    "start": 46.6,
+    "end": 47.06,
+    "id": "w158"
+  },
+  {
+    "text": "electric",
+    "start": 47.06,
+    "end": 47.59,
+    "id": "w159"
+  },
+  {
+    "text": "shock.",
+    "start": 47.59,
+    "end": 48.07,
+    "id": "w160"
+  },
+  {
+    "text": "Sit",
+    "start": 48.25,
+    "end": 48.41,
+    "id": "w161"
+  },
+  {
+    "text": "there",
+    "start": 48.41,
+    "end": 48.83,
+    "id": "w162"
+  },
+  {
+    "text": "bored",
+    "start": 48.83,
+    "end": 49.24,
+    "id": "w163"
+  },
+  {
+    "text": "or",
+    "start": 49.33,
+    "end": 49.42,
+    "id": "w164"
+  },
+  {
+    "text": "get",
+    "start": 49.42,
+    "end": 49.67,
+    "id": "w165"
+  },
+  {
+    "text": "a",
+    "start": 49.67,
+    "end": 49.75,
+    "id": "w166"
+  },
+  {
+    "text": "shock.",
+    "start": 49.75,
+    "end": 50.47,
+    "id": "w167"
+  },
+  {
+    "text": "A",
+    "start": 50.47,
+    "end": 50.57,
+    "id": "w168"
+  },
+  {
+    "text": "big",
+    "start": 50.57,
+    "end": 50.69,
+    "id": "w169"
+  },
+  {
+    "text": "majority",
+    "start": 50.69,
+    "end": 51.14,
+    "id": "w170"
+  },
+  {
+    "text": "of",
+    "start": 51.14,
+    "end": 51.24,
+    "id": "w171"
+  },
+  {
+    "text": "the",
+    "start": 51.24,
+    "end": 51.28,
+    "id": "w172"
+  },
+  {
+    "text": "participants",
+    "start": 51.65,
+    "end": 52.12,
+    "id": "w173"
+  },
+  {
+    "text": "gave",
+    "start": 52.12,
+    "end": 52.21,
+    "id": "w174"
+  },
+  {
+    "text": "themselves",
+    "start": 52.43,
+    "end": 52.97,
+    "id": "w175"
+  },
+  {
+    "text": "shocks",
+    "start": 52.97,
+    "end": 53.36,
+    "id": "w176"
+  },
+  {
+    "text": "instead",
+    "start": 53.45,
+    "end": 53.64,
+    "id": "w177"
+  },
+  {
+    "text": "of",
+    "start": 53.64,
+    "end": 53.72,
+    "id": "w178"
+  },
+  {
+    "text": "thinking",
+    "start": 53.72,
+    "end": 54.04,
+    "id": "w179"
+  },
+  {
+    "text": "about",
+    "start": 54.04,
+    "end": 54.16,
+    "id": "w180"
+  },
+  {
+    "text": "nothing.",
+    "start": 54.38,
+    "end": 54.68,
+    "id": "w181"
+  },
+  {
+    "text": "Why",
+    "start": 54.77,
+    "end": 54.86,
+    "id": "w182"
+  },
+  {
+    "text": "is",
+    "start": 54.86,
+    "end": 54.98,
+    "id": "w183"
+  },
+  {
+    "text": "boredom",
+    "start": 54.98,
+    "end": 55.41,
+    "id": "w184"
+  },
+  {
+    "text": "so",
+    "start": 55.41,
+    "end": 55.48,
+    "id": "w185"
+  },
+  {
+    "text": "bad?",
+    "start": 55.7,
+    "end": 55.92,
+    "id": "w186"
+  },
+  {
+    "text": "Well,",
+    "start": 56.01,
+    "end": 56.31,
+    "id": "w187"
+  },
+  {
+    "text": "because",
+    "start": 56.31,
+    "end": 56.72,
+    "id": "w188"
+  },
+  {
+    "text": "the",
+    "start": 56.94,
+    "end": 57,
+    "id": "w189"
+  },
+  {
+    "text": "default",
+    "start": 57.09,
+    "end": 57.48,
+    "id": "w190"
+  },
+  {
+    "text": "mode",
+    "start": 57.48,
+    "end": 57.65,
+    "id": "w191"
+  },
+  {
+    "text": "network",
+    "start": 57.86,
+    "end": 58.26,
+    "id": "w192"
+  },
+  {
+    "text": "makes",
+    "start": 58.34,
+    "end": 58.62,
+    "id": "w193"
+  },
+  {
+    "text": "us",
+    "start": 58.62,
+    "end": 58.76,
+    "id": "w194"
+  },
+  {
+    "text": "think",
+    "start": 58.76,
+    "end": 59.06,
+    "id": "w195"
+  },
+  {
+    "text": "about",
+    "start": 59.42,
+    "end": 59.48,
+    "id": "w196"
+  },
+  {
+    "text": "things",
+    "start": 59.48,
+    "end": 59.92,
+    "id": "w197"
+  },
+  {
+    "text": "that",
+    "start": 60.01,
+    "end": 60.13,
+    "id": "w198"
+  },
+  {
+    "text": "might",
+    "start": 60.13,
+    "end": 60.4,
+    "id": "w199"
+  },
+  {
+    "text": "be",
+    "start": 60.4,
+    "end": 60.5,
+    "id": "w200"
+  },
+  {
+    "text": "kind",
+    "start": 60.5,
+    "end": 60.7,
+    "id": "w201"
+  },
+  {
+    "text": "of",
+    "start": 60.71,
+    "end": 60.72,
+    "id": "w202"
+  },
+  {
+    "text": "uncomfortable.",
+    "start": 61.09,
+    "end": 61.65,
+    "id": "w203"
+  },
+  {
+    "text": "When",
+    "start": 61.81,
+    "end": 61.92,
+    "id": "w204"
+  },
+  {
+    "text": "you",
+    "start": 61.92,
+    "end": 62.07,
+    "id": "w205"
+  },
+  {
+    "text": "think",
+    "start": 62.07,
+    "end": 62.33,
+    "id": "w206"
+  },
+  {
+    "text": "about",
+    "start": 62.33,
+    "end": 62.52,
+    "id": "w207"
+  },
+  {
+    "text": "nothing,",
+    "start": 62.88,
+    "end": 63.08,
+    "id": "w208"
+  },
+  {
+    "text": "well,",
+    "start": 63.17,
+    "end": 63.41,
+    "id": "w209"
+  },
+  {
+    "text": "your",
+    "start": 63.41,
+    "end": 63.63,
+    "id": "w210"
+  },
+  {
+    "text": "mind",
+    "start": 63.63,
+    "end": 63.84,
+    "id": "w211"
+  },
+  {
+    "text": "wanders",
+    "start": 63.84,
+    "end": 64.16,
+    "id": "w212"
+  },
+  {
+    "text": "and",
+    "start": 64.25,
+    "end": 64.36,
+    "id": "w213"
+  },
+  {
+    "text": "thinks",
+    "start": 64.36,
+    "end": 64.6,
+    "id": "w214"
+  },
+  {
+    "text": "about,",
+    "start": 64.6,
+    "end": 64.97,
+    "id": "w215"
+  },
+  {
+    "text": "for",
+    "start": 65,
+    "end": 65.1,
+    "id": "w216"
+  },
+  {
+    "text": "example,",
+    "start": 65.1,
+    "end": 65.52,
+    "id": "w217"
+  },
+  {
+    "text": "big",
+    "start": 65.6,
+    "end": 65.67,
+    "id": "w218"
+  },
+  {
+    "text": "questions",
+    "start": 65.67,
+    "end": 66.12,
+    "id": "w219"
+  },
+  {
+    "text": "of",
+    "start": 66.12,
+    "end": 66.22,
+    "id": "w220"
+  },
+  {
+    "text": "meaning",
+    "start": 66.22,
+    "end": 66.54,
+    "id": "w221"
+  },
+  {
+    "text": "in",
+    "start": 66.58,
+    "end": 66.6,
+    "id": "w222"
+  },
+  {
+    "text": "your",
+    "start": 66.69,
+    "end": 66.87,
+    "id": "w223"
+  },
+  {
+    "text": "life.",
+    "start": 66.87,
+    "end": 67.23,
+    "id": "w224"
+  },
+  {
+    "text": "What",
+    "start": 67.33,
+    "end": 67.44,
+    "id": "w225"
+  },
+  {
+    "text": "does",
+    "start": 67.44,
+    "end": 67.63,
+    "id": "w226"
+  },
+  {
+    "text": "my",
+    "start": 67.64,
+    "end": 67.74,
+    "id": "w227"
+  },
+  {
+    "text": "life",
+    "start": 67.74,
+    "end": 67.94,
+    "id": "w228"
+  },
+  {
+    "text": "mean?",
+    "start": 67.94,
+    "end": 68.32,
+    "id": "w229"
+  },
+  {
+    "text": "You",
+    "start": 68.41,
+    "end": 68.53,
+    "id": "w230"
+  },
+  {
+    "text": "go",
+    "start": 68.53,
+    "end": 68.67,
+    "id": "w231"
+  },
+  {
+    "text": "to",
+    "start": 68.67,
+    "end": 68.81,
+    "id": "w232"
+  },
+  {
+    "text": "kind",
+    "start": 68.81,
+    "end": 69.08,
+    "id": "w233"
+  },
+  {
+    "text": "of",
+    "start": 69.08,
+    "end": 69.12,
+    "id": "w234"
+  },
+  {
+    "text": "uncomfortable",
+    "start": 69.48,
+    "end": 70.05,
+    "id": "w235"
+  },
+  {
+    "text": "existential",
+    "start": 70.27,
+    "end": 70.9,
+    "id": "w236"
+  },
+  {
+    "text": "questions",
+    "start": 70.9,
+    "end": 71.52,
+    "id": "w237"
+  },
+  {
+    "text": "when",
+    "start": 71.61,
+    "end": 71.7,
+    "id": "w238"
+  },
+  {
+    "text": "you're",
+    "start": 71.7,
+    "end": 71.91,
+    "id": "w239"
+  },
+  {
+    "text": "bored.",
+    "start": 71.97,
+    "end": 72.32,
+    "id": "w240"
+  }
+]
