@@ -1,0 +1,764 @@
+[
+  {
+    "text": "I",
+    "start": 0.03,
+    "end": 0.08,
+    "id": "w0"
+  },
+  {
+    "text": "don't",
+    "start": 0.19,
+    "end": 0.41,
+    "id": "w1"
+  },
+  {
+    "text": "go",
+    "start": 0.48,
+    "end": 0.61,
+    "id": "w2"
+  },
+  {
+    "text": "anywhere",
+    "start": 0.77,
+    "end": 1.23,
+    "id": "w3"
+  },
+  {
+    "text": "without",
+    "start": 1.33,
+    "end": 1.81,
+    "id": "w4"
+  },
+  {
+    "text": "a",
+    "start": 1.81,
+    "end": 1.89,
+    "id": "w5"
+  },
+  {
+    "text": "watch.",
+    "start": 1.89,
+    "end": 2.46,
+    "id": "w6"
+  },
+  {
+    "text": "Even",
+    "start": 2.46,
+    "end": 2.65,
+    "id": "w7"
+  },
+  {
+    "text": "if",
+    "start": 2.65,
+    "end": 2.68,
+    "id": "w8"
+  },
+  {
+    "text": "I'm",
+    "start": 2.74,
+    "end": 2.87,
+    "id": "w9"
+  },
+  {
+    "text": "going",
+    "start": 2.87,
+    "end": 3.11,
+    "id": "w10"
+  },
+  {
+    "text": "abroad",
+    "start": 3.11,
+    "end": 3.44,
+    "id": "w11"
+  },
+  {
+    "text": "literally",
+    "start": 3.44,
+    "end": 3.76,
+    "id": "w12"
+  },
+  {
+    "text": "for",
+    "start": 3.76,
+    "end": 4.08,
+    "id": "w13"
+  },
+  {
+    "text": "a",
+    "start": 4.08,
+    "end": 4.24,
+    "id": "w14"
+  },
+  {
+    "text": "few",
+    "start": 4.24,
+    "end": 4.48,
+    "id": "w15"
+  },
+  {
+    "text": "days",
+    "start": 4.48,
+    "end": 4.79,
+    "id": "w16"
+  },
+  {
+    "text": "I'm",
+    "start": 4.79,
+    "end": 4.96,
+    "id": "w17"
+  },
+  {
+    "text": "bringing",
+    "start": 5.15,
+    "end": 5.34,
+    "id": "w18"
+  },
+  {
+    "text": "a",
+    "start": 5.34,
+    "end": 5.37,
+    "id": "w19"
+  },
+  {
+    "text": "watch",
+    "start": 5.38,
+    "end": 5.57,
+    "id": "w20"
+  },
+  {
+    "text": "roll",
+    "start": 5.73,
+    "end": 5.8,
+    "id": "w21"
+  },
+  {
+    "text": "with",
+    "start": 5.8,
+    "end": 5.99,
+    "id": "w22"
+  },
+  {
+    "text": "me.",
+    "start": 5.99,
+    "end": 6.19,
+    "id": "w23"
+  },
+  {
+    "text": "Watches",
+    "start": 6.29,
+    "end": 6.55,
+    "id": "w24"
+  },
+  {
+    "text": "are",
+    "start": 6.55,
+    "end": 6.69,
+    "id": "w25"
+  },
+  {
+    "text": "something",
+    "start": 6.69,
+    "end": 7.11,
+    "id": "w26"
+  },
+  {
+    "text": "that",
+    "start": 7.11,
+    "end": 7.17,
+    "id": "w27"
+  },
+  {
+    "text": "I've",
+    "start": 7.34,
+    "end": 7.48,
+    "id": "w28"
+  },
+  {
+    "text": "been",
+    "start": 7.48,
+    "end": 7.64,
+    "id": "w29"
+  },
+  {
+    "text": "infatuated",
+    "start": 7.7,
+    "end": 8.12,
+    "id": "w30"
+  },
+  {
+    "text": "with",
+    "start": 8.13,
+    "end": 8.4,
+    "id": "w31"
+  },
+  {
+    "text": "from",
+    "start": 8.4,
+    "end": 8.96,
+    "id": "w32"
+  },
+  {
+    "text": "the",
+    "start": 9.15,
+    "end": 9.17,
+    "id": "w33"
+  },
+  {
+    "text": "time",
+    "start": 9.17,
+    "end": 9.45,
+    "id": "w34"
+  },
+  {
+    "text": "I",
+    "start": 9.45,
+    "end": 9.52,
+    "id": "w35"
+  },
+  {
+    "text": "was",
+    "start": 9.52,
+    "end": 9.57,
+    "id": "w36"
+  },
+  {
+    "text": "eight",
+    "start": 9.74,
+    "end": 10.08,
+    "id": "w37"
+  },
+  {
+    "text": "years",
+    "start": 10.08,
+    "end": 10.43,
+    "id": "w38"
+  },
+  {
+    "text": "old",
+    "start": 10.43,
+    "end": 10.64,
+    "id": "w39"
+  },
+  {
+    "text": "that",
+    "start": 10.64,
+    "end": 10.92,
+    "id": "w40"
+  },
+  {
+    "text": "I",
+    "start": 10.92,
+    "end": 10.95,
+    "id": "w41"
+  },
+  {
+    "text": "bought",
+    "start": 11.02,
+    "end": 11.41,
+    "id": "w42"
+  },
+  {
+    "text": "my",
+    "start": 11.41,
+    "end": 11.55,
+    "id": "w43"
+  },
+  {
+    "text": "first",
+    "start": 11.55,
+    "end": 11.9,
+    "id": "w44"
+  },
+  {
+    "text": "Heimex",
+    "start": 11.9,
+    "end": 12.4,
+    "id": "w45"
+  },
+  {
+    "text": "from",
+    "start": 12.4,
+    "end": 12.58,
+    "id": "w46"
+  },
+  {
+    "text": "15",
+    "start": 12.58,
+    "end": 12.75,
+    "id": "w47"
+  },
+  {
+    "text": "pounds.",
+    "start": 12.88,
+    "end": 13.22,
+    "id": "w48"
+  },
+  {
+    "text": "I",
+    "start": 13.29,
+    "end": 13.31,
+    "id": "w49"
+  },
+  {
+    "text": "remember",
+    "start": 13.35,
+    "end": 13.68,
+    "id": "w50"
+  },
+  {
+    "text": "I",
+    "start": 13.68,
+    "end": 13.76,
+    "id": "w51"
+  },
+  {
+    "text": "got",
+    "start": 13.76,
+    "end": 13.78,
+    "id": "w52"
+  },
+  {
+    "text": "it",
+    "start": 13.93,
+    "end": 14,
+    "id": "w53"
+  },
+  {
+    "text": "from",
+    "start": 14.19,
+    "end": 14.23,
+    "id": "w54"
+  },
+  {
+    "text": "Argos",
+    "start": 14.23,
+    "end": 14.51,
+    "id": "w55"
+  },
+  {
+    "text": "here",
+    "start": 14.51,
+    "end": 14.61,
+    "id": "w56"
+  },
+  {
+    "text": "in",
+    "start": 14.77,
+    "end": 14.85,
+    "id": "w57"
+  },
+  {
+    "text": "London.",
+    "start": 14.85,
+    "end": 15.37,
+    "id": "w58"
+  },
+  {
+    "text": "Saved",
+    "start": 15.37,
+    "end": 15.59,
+    "id": "w59"
+  },
+  {
+    "text": "up",
+    "start": 15.66,
+    "end": 15.76,
+    "id": "w60"
+  },
+  {
+    "text": "for",
+    "start": 15.76,
+    "end": 15.93,
+    "id": "w61"
+  },
+  {
+    "text": "a",
+    "start": 15.93,
+    "end": 15.98,
+    "id": "w62"
+  },
+  {
+    "text": "couple",
+    "start": 15.98,
+    "end": 16.19,
+    "id": "w63"
+  },
+  {
+    "text": "weeks",
+    "start": 16.43,
+    "end": 16.62,
+    "id": "w64"
+  },
+  {
+    "text": "for",
+    "start": 16.62,
+    "end": 16.79,
+    "id": "w65"
+  },
+  {
+    "text": "it",
+    "start": 16.79,
+    "end": 16.9,
+    "id": "w66"
+  },
+  {
+    "text": "and",
+    "start": 16.9,
+    "end": 17.07,
+    "id": "w67"
+  },
+  {
+    "text": "my",
+    "start": 17.07,
+    "end": 17.17,
+    "id": "w68"
+  },
+  {
+    "text": "watch",
+    "start": 17.18,
+    "end": 17.47,
+    "id": "w69"
+  },
+  {
+    "text": "collecting",
+    "start": 17.47,
+    "end": 18.15,
+    "id": "w70"
+  },
+  {
+    "text": "journey",
+    "start": 18.16,
+    "end": 18.4,
+    "id": "w71"
+  },
+  {
+    "text": "really",
+    "start": 18.59,
+    "end": 18.77,
+    "id": "w72"
+  },
+  {
+    "text": "started",
+    "start": 18.77,
+    "end": 19.2,
+    "id": "w73"
+  },
+  {
+    "text": "when",
+    "start": 19.2,
+    "end": 19.44,
+    "id": "w74"
+  },
+  {
+    "text": "I",
+    "start": 19.44,
+    "end": 19.5,
+    "id": "w75"
+  },
+  {
+    "text": "was",
+    "start": 19.5,
+    "end": 19.63,
+    "id": "w76"
+  },
+  {
+    "text": "18",
+    "start": 19.73,
+    "end": 20.04,
+    "id": "w77"
+  },
+  {
+    "text": "and",
+    "start": 20.06,
+    "end": 20.23,
+    "id": "w78"
+  },
+  {
+    "text": "I",
+    "start": 20.23,
+    "end": 20.29,
+    "id": "w79"
+  },
+  {
+    "text": "bought",
+    "start": 20.29,
+    "end": 20.58,
+    "id": "w80"
+  },
+  {
+    "text": "my",
+    "start": 20.58,
+    "end": 20.83,
+    "id": "w81"
+  },
+  {
+    "text": "first",
+    "start": 20.83,
+    "end": 21.08,
+    "id": "w82"
+  },
+  {
+    "text": "Rolex",
+    "start": 21.08,
+    "end": 21.38,
+    "id": "w83"
+  },
+  {
+    "text": "so",
+    "start": 21.38,
+    "end": 21.5,
+    "id": "w84"
+  },
+  {
+    "text": "at",
+    "start": 21.5,
+    "end": 21.58,
+    "id": "w85"
+  },
+  {
+    "text": "this",
+    "start": 21.63,
+    "end": 21.86,
+    "id": "w86"
+  },
+  {
+    "text": "point",
+    "start": 21.86,
+    "end": 22.16,
+    "id": "w87"
+  },
+  {
+    "text": "I",
+    "start": 22.16,
+    "end": 22.19,
+    "id": "w88"
+  },
+  {
+    "text": "probably",
+    "start": 22.32,
+    "end": 22.8,
+    "id": "w89"
+  },
+  {
+    "text": "owned",
+    "start": 22.8,
+    "end": 23.2,
+    "id": "w90"
+  },
+  {
+    "text": "50",
+    "start": 23.37,
+    "end": 23.76,
+    "id": "w91"
+  },
+  {
+    "text": "plus",
+    "start": 23.76,
+    "end": 24.07,
+    "id": "w92"
+  },
+  {
+    "text": "watches.",
+    "start": 24.27,
+    "end": 24.71,
+    "id": "w93"
+  },
+  {
+    "text": "On",
+    "start": 24.85,
+    "end": 24.88,
+    "id": "w94"
+  },
+  {
+    "text": "the",
+    "start": 24.88,
+    "end": 25.08,
+    "id": "w95"
+  },
+  {
+    "text": "wrist",
+    "start": 25.08,
+    "end": 25.31,
+    "id": "w96"
+  },
+  {
+    "text": "at",
+    "start": 25.41,
+    "end": 25.54,
+    "id": "w97"
+  },
+  {
+    "text": "my",
+    "start": 25.54,
+    "end": 25.67,
+    "id": "w98"
+  },
+  {
+    "text": "moment",
+    "start": 25.67,
+    "end": 26.06,
+    "id": "w99"
+  },
+  {
+    "text": "is",
+    "start": 26.06,
+    "end": 26.2,
+    "id": "w100"
+  },
+  {
+    "text": "my",
+    "start": 26.2,
+    "end": 26.29,
+    "id": "w101"
+  },
+  {
+    "text": "favorite",
+    "start": 26.51,
+    "end": 26.86,
+    "id": "w102"
+  },
+  {
+    "text": "piece",
+    "start": 26.86,
+    "end": 27.19,
+    "id": "w103"
+  },
+  {
+    "text": "ever",
+    "start": 27.19,
+    "end": 27.45,
+    "id": "w104"
+  },
+  {
+    "text": "the",
+    "start": 27.45,
+    "end": 27.65,
+    "id": "w105"
+  },
+  {
+    "text": "Patek",
+    "start": 27.65,
+    "end": 27.97,
+    "id": "w106"
+  },
+  {
+    "text": "Philippe",
+    "start": 28,
+    "end": 28.5,
+    "id": "w107"
+  },
+  {
+    "text": "Nautilus",
+    "start": 28.5,
+    "end": 28.89,
+    "id": "w108"
+  },
+  {
+    "text": "5711R.",
+    "start": 29.05,
+    "end": 30.04,
+    "id": "w109"
+  },
+  {
+    "text": "If",
+    "start": 30.04,
+    "end": 30.08,
+    "id": "w110"
+  },
+  {
+    "text": "I",
+    "start": 30.08,
+    "end": 30.16,
+    "id": "w111"
+  },
+  {
+    "text": "had",
+    "start": 30.16,
+    "end": 30.35,
+    "id": "w112"
+  },
+  {
+    "text": "to",
+    "start": 30.35,
+    "end": 30.37,
+    "id": "w113"
+  },
+  {
+    "text": "have",
+    "start": 30.37,
+    "end": 30.54,
+    "id": "w114"
+  },
+  {
+    "text": "one",
+    "start": 30.54,
+    "end": 30.67,
+    "id": "w115"
+  },
+  {
+    "text": "watch",
+    "start": 30.67,
+    "end": 30.79,
+    "id": "w116"
+  },
+  {
+    "text": "for",
+    "start": 30.93,
+    "end": 31.01,
+    "id": "w117"
+  },
+  {
+    "text": "the",
+    "start": 31.01,
+    "end": 31.14,
+    "id": "w118"
+  },
+  {
+    "text": "rest",
+    "start": 31.14,
+    "end": 31.31,
+    "id": "w119"
+  },
+  {
+    "text": "of",
+    "start": 31.31,
+    "end": 31.38,
+    "id": "w120"
+  },
+  {
+    "text": "my",
+    "start": 31.38,
+    "end": 31.4,
+    "id": "w121"
+  },
+  {
+    "text": "life",
+    "start": 31.49,
+    "end": 31.64,
+    "id": "w122"
+  },
+  {
+    "text": "it",
+    "start": 31.64,
+    "end": 31.72,
+    "id": "w123"
+  },
+  {
+    "text": "would",
+    "start": 31.72,
+    "end": 31.93,
+    "id": "w124"
+  },
+  {
+    "text": "be",
+    "start": 31.93,
+    "end": 32.01,
+    "id": "w125"
+  },
+  {
+    "text": "this.",
+    "start": 32.01,
+    "end": 32.24,
+    "id": "w126"
+  }
+]

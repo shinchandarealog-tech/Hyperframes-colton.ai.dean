@@ -1,0 +1,21 @@
+/* Workspace default brand: "premium minimal" (Arthur Brooks reference look).
+   Per client: copy into video-projects/<slug>/assets/ and adjust there.
+   Rule: text is WHITE on footage, BLUE on white. Blue never goes over video. */
+:root {
+  --brand-bg: #0B0B0D;            /* near-black: A-roll world, breath cards */
+  --brand-surface: #FAFAFA;       /* white canvas: collages, timeline, summary cards */
+  --brand-surface-2: #ECECF2;     /* off-white paper (with grain texture) */
+  --brand-border: #D9D9E0;        /* thin rules, timeline line, photo borders */
+  --brand-accent: #1F4FD8;        /* royal blue: serif text on white, lines, markers, callouts */
+  --brand-accent-glow: rgba(31, 79, 216, 0.35);
+  --brand-accent-flat: #0A47FF;   /* electric blue: full-bleed claim cards */
+  --brand-warn: #FFF200;          /* highlighter yellow: max once per video */
+  --brand-text: #FFFFFF;          /* captions on footage */
+  --brand-text-dim: rgba(255, 255, 255, 0.72); /* satellite words */
+  --brand-ink: #0B0B0D;           /* text on white */
+
+  /* Typography: font by meaning */
+  --font-display: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;  /* facts, concrete nouns (700–800) */
+  --font-serif: "Playfair Display", Georgia, serif;                          /* feelings, names: ITALIC 700 */
+  --font-mono: ui-monospace, Menlo, monospace;
+}

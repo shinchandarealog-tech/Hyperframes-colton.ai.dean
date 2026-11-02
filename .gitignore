@@ -40,3 +40,7 @@ _reference/creator-library/**/source.webm
 _reference/creator-library/**/source.info.json
 _reference/creator-library/**/frames/
 
+
+# Client footage stays local (privacy + GitHub 100MB limit)
+video-projects/**/assets/*.mp4
+video-projects/**/assets/*.mov
