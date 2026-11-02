@@ -2,47 +2,49 @@
 <!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
      and run onboarding before any video work. The setup skill removes it when finished. -->
 
-# Creator Profile — _(your name)_
+# Creator Profile — Client Editor
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
 
-> 🚧 **This file is a blank template.** Run `/setup` (or just tell Claude "help me get set up") and it will fill these sections in from a short interview. You can also edit it by hand any time.
+> The user is a **freelance video editor working for clients**. The speaker, handles and niche change per project — always ask for them at the start of each video.
 
 ## Identity
 
-- **Name on-screen**: _(your display name)_
-- **Instagram**: _(@handle or "—")_
-- **TikTok**: _(handle or "—")_
-- **YouTube**: _(handle or "—")_
-- **X / other**: _(handle or "—")_
+- **Name on-screen**: **per client** — ask for the speaker's name at the start of every project. Never put the editor's own name on screen.
+- **Instagram**: per client (ask)
+- **TikTok**: per client (ask)
+- **YouTube**: per client (ask)
+- **X / other**: per client (ask)
 
-When putting handles on-screen (lower-thirds, outros, end-cards), use the platform-appropriate handle.
+When putting handles on-screen (lower-thirds, outros, end-cards), use the **client's** handle for that project, exactly as they give it. Record it in the project's `meta.json` / `DESIGN.md`. If unknown, leave handles off-screen and ask.
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Cross-post to all** — Instagram Reels, TikTok and YouTube Shorts. Default **9:16 vertical, 1080×1920, 30fps**. Keep key text inside the safe zone (avoid the bottom ~350px and right ~150px where platform UI sits).
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+**All niches** — varies per client. At the start of each project, confirm the client's niche and preferred style (e.g. `/premium-minimal-edit` for educational/podcast clips) instead of assuming.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Other people's clips** — mostly podcast / interview / talking-head footage of the client or a guest speaker. Usually landscape source that needs a 9:16 reframe on the speaker.
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**Mode: raw footage in → full edit out.** The user sends raw client footage; the assistant cuts silences/retakes (default: keep ~30ms padding around speech), reframes to 9:16, and builds the full visual layer, captions and sound design. Plan the edit first (edit-plan document) and get the user's picks before building. Do not change the meaning or order of what the speaker says without asking.
+
+_(Reference — the two common modes:)_
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+**Per client.** Each project gets its own `assets/brand-tokens.css` (copied from the workspace default, then adjusted to the client's brand). The workspace default in `assets/brand-tokens.css` is a neutral starting point.
 
 ## Inspiration creators
 
@@ -50,7 +52,7 @@ _(Studied creators live in [`_reference/creator-library/`](_reference/creator-li
 
 ## Posting cadence & length defaults
 
-- _Cadence_: _(TBD — set during /setup)_
+- _Cadence_: per client
 - _Default length_: 15–45s short-form vertical is a common sweet spot. Adjust per video.
 - _Default fps_: 30 (matches TikTok + Instagram defaults).
 
