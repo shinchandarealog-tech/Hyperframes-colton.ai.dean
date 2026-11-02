@@ -21,7 +21,7 @@
 
     // 2 · everything centred horizontally starts hidden
     gsap.set(".kw, .cn, .pill", { xPercent: -50 });
-    gsap.set(".kw, .cn, .cn .w, .obj, .pill, .badge, .nametag, .counter, .card3d, .bubble, .follow, .ticks, .burst .lf", { autoAlpha: 0 });
+    gsap.set(".kw, .cn, .cn .w, .obj, .pill, .badge, .nametag, .counter, .card3d, .bubble, .follow, .ticks, .burst .lf, .hid", { autoAlpha: 0 });
     gsap.set(["#sweep", "#flash"], { autoAlpha: 0 });
 
     // 3 · camera: punch-in + slow push on teacher shots (wrapper, never the <video>)
@@ -79,6 +79,29 @@
             tl.fromTo(dots, { y: 0 }, { y: -10, duration: 0.15, ease: "sine.inOut", stagger: 0.1, yoyo: true, repeat: 1, ...IR }, c.t + 0.45);
             for (let k = 1; k <= reps; k++) tl.fromTo(dots, { y: 0 }, { y: -10, duration: 0.15, ease: "sine.inOut", stagger: 0.1, yoyo: true, repeat: 1, ...IR }, c.t + 0.45 + k * 0.6);
           }
+        } else if (c.anim === "rise") {
+          tl.fromTo(el, { y: 420, rotation: r, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: "power3.out", ...IR }, c.t);
+        } else if (c.anim === "slam") {
+          tl.fromTo(el, { scale: 2.6, rotation: r - 8, autoAlpha: 0 }, { scale: 1, rotation: r, autoAlpha: 1, duration: 0.28, ease: "power4.in", ...IR }, c.t);
+          tl.fromTo(el, { scale: 1 }, { scale: 1.06, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.out", ...IR }, c.t + 0.28);
+        } else if (c.anim === "fade") {
+          tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, ease: "power1.out", ...IR }, c.t);
+        } else if (c.anim === "snap") {
+          tl.set(el, { autoAlpha: 1 }, c.t);
+        } else if (c.anim === "rows") {
+          tl.fromTo(el, { y: 80, scale: 0.9, autoAlpha: 0 }, { y: 0, scale: 1, autoAlpha: 1, duration: 0.4, ease: "back.out(1.5)", ...IR }, c.t);
+          const rows = el.querySelectorAll(".row");
+          (c.rowTimes || []).forEach((rt, i) => rows[i] && tl.fromTo(rows[i], { x: -40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.3, ease: "power3.out", ...IR }, rt));
+          if (!c.rowTimes) tl.fromTo(rows, { x: -40, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.3, ease: "power3.out", stagger: 0.15, ...IR }, c.t + 0.2);
+          (c.tickTimes || []).forEach((tt, i) => { const tk = rows[i] && rows[i].querySelector(".tick"); if (tk) tl.fromTo(tk, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, ease: "back.out(2.5)", ...IR }, tt); });
+        } else if (c.anim === "draw") {
+          tl.set(el, { autoAlpha: 1 }, c.t);
+          el.querySelectorAll("path, line, polyline").forEach((p) => {
+            const len = (p.getTotalLength && p.getTotalLength()) || 1000;
+            p.style.strokeDasharray = len;
+            tl.fromTo(p, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: c.dur || 0.5, ease: "power2.inOut", ...IR }, c.t);
+          });
+          el.querySelectorAll(".lbl").forEach((l, i) => tl.fromTo(l, { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: "power2.out", ...IR }, (c.lblTimes && c.lblTimes[i]) || c.t + 0.3));
         } else {
           tl.fromTo(el, { scale: 0, rotation: r - 25, autoAlpha: 0 }, { scale: 1, rotation: r, autoAlpha: 1, duration: 0.4, ease: "back.out(1.8)", ...IR }, c.t);
         }

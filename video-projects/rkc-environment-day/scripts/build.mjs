@@ -20,6 +20,7 @@ const ICON = {
   brush: `<svg viewBox="0 0 200 200"><rect x="92" y="10" width="22" height="110" rx="10" fill="${Y2}" stroke="#fff" stroke-width="6" transform="rotate(30 100 100)"/><path d="M58 128c14-10 34-6 40 8 6 16-6 38-40 52-6-22-16-48 0-60z" fill="${G2}" stroke="#fff" stroke-width="6"/></svg>`,
   bottlePlain: `<svg viewBox="0 0 240 300"><rect x="6" y="6" width="228" height="288" rx="26" fill="#fff"/><path d="M104 40h32v26c18 10 26 24 26 44v140c0 14-10 24-24 24h-36c-14 0-24-10-24-24V110c0-20 8-34 26-44z" fill="#E9EEF0" stroke="#9AA6AC" stroke-width="5"/><rect x="100" y="28" width="40" height="18" rx="5" fill="#9AA6AC"/><path d="M60 70l120 170M180 70L60 240" stroke="${P1}" stroke-width="16" stroke-linecap="round"/></svg>`,
   bottlePainted: `<svg viewBox="0 0 240 300"><rect x="6" y="6" width="228" height="288" rx="26" fill="#fff"/><path d="M104 40h32v26c18 10 26 24 26 44v140c0 14-10 24-24 24h-36c-14 0-24-10-24-24V110c0-20 8-34 26-44z" fill="${G2}" stroke="${G3}" stroke-width="5"/><path d="M80 120h80M80 150h80M80 180h80M80 210h80M80 240h80" stroke="${Y2}" stroke-width="12"/><path d="M118 70c-10-20 4-34 20-36-2 16-8 28-20 36z" fill="${G1}"/><rect x="100" y="28" width="40" height="18" rx="5" fill="${G3}"/><circle cx="196" cy="252" r="30" fill="${G2}" stroke="#fff" stroke-width="5"/><path d="M182 252l10 10 18-20" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  sun: `<svg viewBox="0 0 200 200"><g stroke="${Y2}" stroke-width="12" stroke-linecap="round">${[0,45,90,135,180,225,270,315].map((a)=>`<line x1="100" y1="14" x2="100" y2="40" transform="rotate(${a} 100 100)"/>`).join("")}</g><circle cx="100" cy="100" r="50" fill="${Y2}" stroke="#fff" stroke-width="7"/></svg>`,
   leaf: `<svg viewBox="0 0 60 60"><path d="M6 54C6 24 26 6 54 6c0 30-18 48-48 48z" fill="currentColor"/><path d="M8 52L40 20" stroke="#fff" stroke-width="3" opacity=".7"/></svg>`,
   check: `<svg viewBox="0 0 40 40"><path d="M9 21l7 7 15-16" stroke="${INK}" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
@@ -59,6 +60,9 @@ function html(id, inner, cls, style, cue) {
 // Shot map (full): T1 0–8.1667 | kids 8.1667–12.1 | T2 12.1–20.2667 | Tip1 planting 20.2667–28.6333 |
 // Tip2 dustbin 28.6333–37.6 | Tip3 bottle 37.6–45.1333 | artists 45.1333–61.2333 | T3 CTA 61.2333–74.2667
 const END_FULL = 2228 / FPS;
+// Per-beat design option, e.g. PICKS=ABCAABCA (default all A)
+const PICKS = (process.env.PICKS || "AAAAAAAA").toUpperCase().padEnd(8, "A").split("");
+const pick = (n) => PICKS[n - 1];
 const FLASHES = [8.1667, 12.1, 20.2667, 28.6333, 37.6, 45.1333, 61.2333];
 const TEACHERS = [
   { id: "t1", start: 0, end: 8.1667, matte: "assets/matte-t1.webm", matteStart: 0, scale: [1, 1], origin: "50% 0%" }, // zoom baked in footage (scripts/punchin.sh)
@@ -66,107 +70,324 @@ const TEACHERS = [
   { id: "t3", start: 61.2333, end: END_FULL, matte: "assets/matte-t3.webm", matteStart: 61.2, scale: [1, 1], origin: "50% 0%" },
 ];
 
-// Beat 1 · T1 hook — keyword behind head on frame 1 (ref A @0.0), Teen cheezein, GREEN behind head
-kw("b1-dharti", "Dharti", { y: 300, size: 230, style: "green", layer: "behind", anim: "slideL", t: 0, out: 1.55 });
-obj("b1-earth", "earth", { x: 880, y: 620, w: 190, rot: -8, t: 0.3, out: 1.55 });
-cn("b1-c1", ["ko", "agar", "bachana", "hai"], [0.49, 0.63, 0.91, 1.4], { y: 640, out: 1.55 });
-cn("b1-c2", ["to", "bachchon", "ko"], [1.61, 1.75, 2.04], { y: 640, out: 3.85 });
-kw("b1-teen", "Teen Cheezein", { y: 1080, size: 140, style: "yellow", anim: "drop", t: 2.47, out: 3.85 });
-cn("b1-c3", ["sikhana", "hai"], [3.01, 3.5], { y: 1230, out: 3.85 });
-cn("b1-c4", ["chhoti", "chhoti", "aadaton", "se", "hi"], [3.92, 4.25, 4.7, 5.15, 5.4], { y: 640, out: 5.66 });
-cn("b1-c5", ["future", "ko"], [5.69, 6.0], { y: 640, out: 6.65 });
-kw("b1-green", "GREEN", { y: 300, size: 290, style: "green", layer: "behind", anim: "drop", t: 6.27, out: 8.1667 });
-obj("b1-sprout", "sprout", { x: 175, y: 640, w: 200, rot: -6, t: 6.35, out: 8.1667, anim: "grow" });
-cn("b1-c6", ["banana", "hai"], [6.69, 7.05], { y: 640, out: 8.1667 });
+// Beat 1 · T1 hook — keyword behind head on frame 1 (ref A @0.0), Teen cheezein, GREEN behind head  [option A]
+if (pick(1) === "A") {
+  kw("b1-dharti", "Dharti", { y: 300, size: 230, style: "green", layer: "behind", anim: "slideL", t: 0, out: 1.55 });
+  obj("b1-earth", "earth", { x: 880, y: 620, w: 190, rot: -8, t: 0.3, out: 1.55 });
+  cn("b1-c1", ["ko", "agar", "bachana", "hai"], [0.49, 0.63, 0.91, 1.4], { y: 640, out: 1.55 });
+  cn("b1-c2", ["to", "bachchon", "ko"], [1.61, 1.75, 2.04], { y: 640, out: 3.85 });
+  kw("b1-teen", "Teen Cheezein", { y: 1080, size: 140, style: "yellow", anim: "drop", t: 2.47, out: 3.85 });
+  cn("b1-c3", ["sikhana", "hai"], [3.01, 3.5], { y: 1230, out: 3.85 });
+  cn("b1-c4", ["chhoti", "chhoti", "aadaton", "se", "hi"], [3.92, 4.25, 4.7, 5.15, 5.4], { y: 640, out: 5.66 });
+  cn("b1-c5", ["future", "ko"], [5.69, 6.0], { y: 640, out: 6.65 });
+  kw("b1-green", "GREEN", { y: 300, size: 290, style: "green", layer: "behind", anim: "drop", t: 6.27, out: 8.1667 });
+  obj("b1-sprout", "sprout", { x: 175, y: 640, w: 200, rot: -6, t: 6.35, out: 8.1667, anim: "grow" });
+  cn("b1-c6", ["banana", "hai"], [6.69, 7.05], { y: 640, out: 8.1667 });
+}
 
-// Beat 2 · kids shout — giant stacked words + leaf burst (ref B "Haan!" @3.3)
-kw("b2-happy", "Happy", { y: 200, size: 150, style: "yellow", anim: "pop", t: 8.27, out: 12.1 });
-kw("b2-env", "Environment", { y: 395, size: 150, style: "green", anim: "drop", t: 8.6, out: 12.1, max: 1060 });
-kw("b2-day", "Day!", { y: 600, size: 180, style: "brand", anim: "pop", t: 9.4, out: 12.1 });
-cues.push({ id: "b2-burst", type: "burst", t: 9.42, out: 10.8 });
+// Beat 2 · kids shout — giant stacked words + leaf burst (ref B "Haan!" @3.3)  [option A]
+if (pick(2) === "A") {
+  kw("b2-happy", "Happy", { y: 200, size: 150, style: "yellow", anim: "pop", t: 8.27, out: 12.1 });
+  kw("b2-env", "Environment", { y: 395, size: 150, style: "green", anim: "drop", t: 8.6, out: 12.1, max: 1060 });
+  kw("b2-day", "Day!", { y: 600, size: 180, style: "brand", anim: "pop", t: 9.4, out: 12.1 });
+  cues.push({ id: "b2-burst", type: "burst", t: 9.42, out: 10.8 });
+}
 
-// Beat 3 · T2 brand + "3" counter (ref A logo @9.0 + counter @18.0)
-cn("b3-c1", ["Aaj"], [12.15], { y: 860, out: 13.5 });
-kw("b3-brand1", "Rhyming Kid's", { y: 360, size: 150, style: "brand", layer: "behind", anim: "drop", t: 12.41, out: 15.05 });
-kw("b3-brand2", "Corner", { y: 720, size: 150, style: "brand", layer: "front", anim: "slideR", t: 12.95, out: 15.05 });
-cn("b3-c2", ["par", "hum", "sikhayenge"], [13.54, 13.76, 14.04], { y: 860, out: 15.05 });
-html("b3-counter", `<svg viewBox="0 0 300 300"><circle cx="150" cy="150" r="128" fill="rgba(22,36,15,.82)" stroke="rgba(255,255,255,.18)" stroke-width="16"/><circle class="ring" cx="150" cy="150" r="128" fill="none" stroke="${Y2}" stroke-width="16" stroke-linecap="round" transform="rotate(-90 150 150)" stroke-dasharray="804.25" stroke-dashoffset="804.25"/></svg><span class="num">0</span>`,
-  "counter", "left:390px;top:880px;width:300px;height:300px", { type: "counter", t: 15.12, out: 20.2667, to: 3 });
-kw("b3-tarike", "Simple Tarike", { y: 1290, size: 120, style: "white", anim: "drop", t: 15.41, out: 20.2667 });
-cn("b3-c3", ["apne", "bachchon", "ko"], [16.29, 16.63, 17.04], { y: 1420, out: 17.88 });
-pill("b3-nature", "Nature Friendly", { y: 1390, dot: G1, t: 17.92, out: 20.2667, size: 50 });
-cn("b3-c4", ["banane", "ke"], [18.92, 19.2], { y: 1530, out: 20.2667 });
+// Beat 3 · T2 brand + "3" counter (ref A logo @9.0 + counter @18.0)  [option A]
+if (pick(3) === "A") {
+  cn("b3-c1", ["Aaj"], [12.15], { y: 860, out: 13.5 });
+  kw("b3-brand1", "Rhyming Kid's", { y: 360, size: 150, style: "brand", layer: "behind", anim: "drop", t: 12.41, out: 15.05 });
+  kw("b3-brand2", "Corner", { y: 720, size: 150, style: "brand", layer: "front", anim: "slideR", t: 12.95, out: 15.05 });
+  cn("b3-c2", ["par", "hum", "sikhayenge"], [13.54, 13.76, 14.04], { y: 860, out: 15.05 });
+  html("b3-counter", `<svg viewBox="0 0 300 300"><circle cx="150" cy="150" r="128" fill="rgba(22,36,15,.82)" stroke="rgba(255,255,255,.18)" stroke-width="16"/><circle class="ring" cx="150" cy="150" r="128" fill="none" stroke="${Y2}" stroke-width="16" stroke-linecap="round" transform="rotate(-90 150 150)" stroke-dasharray="804.25" stroke-dashoffset="804.25"/></svg><span class="num">0</span>`,
+    "counter", "left:390px;top:880px;width:300px;height:300px", { type: "counter", t: 15.12, out: 20.2667, to: 3 });
+  kw("b3-tarike", "Simple Tarike", { y: 1290, size: 120, style: "white", anim: "drop", t: 15.41, out: 20.2667 });
+  cn("b3-c3", ["apne", "bachchon", "ko"], [16.29, 16.63, 17.04], { y: 1420, out: 17.88 });
+  pill("b3-nature", "Nature Friendly", { y: 1390, dot: G1, t: 17.92, out: 20.2667, size: 50 });
+  cn("b3-c4", ["banane", "ke"], [18.92, 19.2], { y: 1530, out: 20.2667 });
+}
 
-// Beat 4 · Tip 1 planting (one benefit = one shot, ref B @9.6)
-badge("b4-badge", 1, { t: 20.35, out: 28.6333 });
-cn("b4-c1", ["Bachche", "seekh", "rahe"], [20.3, 20.63, 20.85], { y: 1180, out: 22.4 });
-kw("b4-podha", "Podha Lagana", { y: 1330, size: 130, style: "yellow", anim: "drop", t: 20.99, out: 22.4 });
-cn("b4-c2", ["aur", "usko"], [22.48, 22.65], { y: 1180, out: 23.85 });
-kw("b4-naam", "Naam Dena", { y: 1330, size: 140, style: "white", anim: "slideL", t: 23.08, out: 23.85 });
-html("b4-tag", `<span>Mr. Green</span>`, "nametag", "left:640px;top:1440px", { type: "obj", anim: "pop", t: 23.2, out: 23.85, rot: -8 });
-cn("b4-c3", ["Jaise", "podha", "badhta", "hai"], [23.91, 24.21, 24.63, 25.0], { y: 1330, out: 25.55 });
-obj("b4-sprout", "sprout", { x: 540, y: 1130, w: 180, t: 24.21, out: 25.55, anim: "grow" });
-cn("b4-c4", ["bachchon", "ka", "nature", "ke", "saath"], [25.6, 25.74, 26.37, 26.81, 26.93], { y: 1180, out: 28.6333 });
-kw("b4-bond", "Bond", { y: 1340, size: 170, style: "green", anim: "pop", t: 27.21, out: 28.6333 });
-obj("b4-heart", "heartleaf", { x: 830, y: 1290, w: 150, rot: 10, t: 27.25, out: 28.6333 });
-cn("b4-c5", ["bhi", "badhta", "hai"], [27.48, 27.77, 28.02], { y: 1470, out: 28.6333 });
+// Beat 4 · Tip 1 planting (one benefit = one shot, ref B @9.6)  [option A]
+if (pick(4) === "A") {
+  badge("b4-badge", 1, { t: 20.35, out: 28.6333 });
+  cn("b4-c1", ["Bachche", "seekh", "rahe"], [20.3, 20.63, 20.85], { y: 1180, out: 22.4 });
+  kw("b4-podha", "Podha Lagana", { y: 1330, size: 130, style: "yellow", anim: "drop", t: 20.99, out: 22.4 });
+  cn("b4-c2", ["aur", "usko"], [22.48, 22.65], { y: 1180, out: 23.85 });
+  kw("b4-naam", "Naam Dena", { y: 1330, size: 140, style: "white", anim: "slideL", t: 23.08, out: 23.85 });
+  html("b4-tag", `<span>Mr. Green</span>`, "nametag", "left:640px;top:1440px", { type: "obj", anim: "pop", t: 23.2, out: 23.85, rot: -8 });
+  cn("b4-c3", ["Jaise", "podha", "badhta", "hai"], [23.91, 24.21, 24.63, 25.0], { y: 1330, out: 25.55 });
+  obj("b4-sprout", "sprout", { x: 540, y: 1130, w: 180, t: 24.21, out: 25.55, anim: "grow" });
+  cn("b4-c4", ["bachchon", "ka", "nature", "ke", "saath"], [25.6, 25.74, 26.37, 26.81, 26.93], { y: 1180, out: 28.6333 });
+  kw("b4-bond", "Bond", { y: 1340, size: 170, style: "green", anim: "pop", t: 27.21, out: 28.6333 });
+  obj("b4-heart", "heartleaf", { x: 830, y: 1290, w: 150, rot: 10, t: 27.25, out: 28.6333 });
+  cn("b4-c5", ["bhi", "badhta", "hai"], [27.48, 27.77, 28.02], { y: 1470, out: 28.6333 });
+}
 
-// Beat 5 · Tip 2 dustbin (3D-object drop like ref B map pin @9.8)
-badge("b5-badge", 2, { t: 28.7, out: 37.6 });
-cn("b5-c1", ["Apne", "aas", "paas", "ka"], [28.71, 28.82, 29.01, 29.2], { y: 330, out: 29.98 });
-kw("b5-kachra", "Kachra", { y: 480, size: 160, style: "white", anim: "slideR", t: 29.36, out: 29.98 });
-kw("b5-dustbin", "Dustbin", { y: 480, size: 170, style: "green", anim: "drop", t: 30.0, out: 32.25 });
-obj("b5-bin", "bin", { x: 880, y: 300, w: 170, rot: 8, t: 30.02, out: 32.25, anim: "dropBounce" });
-cn("b5-c2", ["mein", "daalna", "seekh", "rahe", "hain"], [30.72, 30.92, 31.42, 31.6, 31.8], { y: 640, out: 32.25 });
-cn("b5-c3", ["Jab", "bachche", "bachpan", "se"], [32.32, 32.45, 32.89, 33.14], { y: 290, out: 35.05 });
-cn("b5-c4", ["safai", "ki"], [33.45, 33.81], { y: 375, out: 35.05 });
-kw("b5-zimm", "Zimmedari", { y: 530, size: 150, style: "yellow", anim: "drop", t: 33.95, out: 35.05 });
-cn("b5-c5", ["tabhi", "to", "desh"], [35.12, 35.41, 35.49], { y: 330, out: 37.6 });
-kw("b5-swachh", "Swachh", { y: 480, size: 140, style: "white", anim: "slideL", t: 35.82, out: 36.3 });
-kw("b5-hara", "Hara-Bhara", { y: 480, size: 150, style: "green", anim: "drop", t: 36.33, out: 37.6 });
-cues.push({ id: "b5-sweep", type: "sweep", t: 36.33, out: 37.2 });
+// Beat 5 · Tip 2 dustbin (3D-object drop like ref B map pin @9.8)  [option A]
+if (pick(5) === "A") {
+  badge("b5-badge", 2, { t: 28.7, out: 37.6 });
+  cn("b5-c1", ["Apne", "aas", "paas", "ka"], [28.71, 28.82, 29.01, 29.2], { y: 330, out: 29.98 });
+  kw("b5-kachra", "Kachra", { y: 480, size: 160, style: "white", anim: "slideR", t: 29.36, out: 29.98 });
+  kw("b5-dustbin", "Dustbin", { y: 480, size: 170, style: "green", anim: "drop", t: 30.0, out: 32.25 });
+  obj("b5-bin", "bin", { x: 880, y: 300, w: 170, rot: 8, t: 30.02, out: 32.25, anim: "dropBounce" });
+  cn("b5-c2", ["mein", "daalna", "seekh", "rahe", "hain"], [30.72, 30.92, 31.42, 31.6, 31.8], { y: 640, out: 32.25 });
+  cn("b5-c3", ["Jab", "bachche", "bachpan", "se"], [32.32, 32.45, 32.89, 33.14], { y: 290, out: 35.05 });
+  cn("b5-c4", ["safai", "ki"], [33.45, 33.81], { y: 375, out: 35.05 });
+  kw("b5-zimm", "Zimmedari", { y: 530, size: 150, style: "yellow", anim: "drop", t: 33.95, out: 35.05 });
+  cn("b5-c5", ["tabhi", "to", "desh"], [35.12, 35.41, 35.49], { y: 330, out: 37.6 });
+  kw("b5-swachh", "Swachh", { y: 480, size: 140, style: "white", anim: "slideL", t: 35.82, out: 36.3 });
+  kw("b5-hara", "Hara-Bhara", { y: 480, size: 150, style: "green", anim: "drop", t: 36.33, out: 37.6 });
+  cues.push({ id: "b5-sweep", type: "sweep", t: 36.33, out: 37.2 });
+}
 
-// Beat 6 · Tip 3 bottle → canvas (tilted cards like ref B @18.0, before/after flip)
-badge("b6-badge", 3, { t: 37.66, out: 45.1333 });
-cn("b6-c1", ["Aapke", "ghar", "mein", "jo"], [37.66, 37.78, 37.96, 38.26], { y: 1220, out: 40.25 });
-kw("b6-plastic", "Plastic Bottle", { y: 1370, size: 120, style: "white", anim: "drop", t: 38.42, out: 40.25 });
-html("b6-card", `<div class="face front">${ICON.bottlePlain}</div><div class="face back">${ICON.bottlePainted}</div>`, "card3d", "left:760px;top:600px;width:240px;height:300px", { type: "card", t: 38.5, flip: 44.13, out: 45.1333, rot: 8 });
-pill("b6-kachra", "Kachra?", { x: 540, y: 1480, dot: P1, t: 39.2, out: 40.25 });
-cn("b6-c2", ["hamare"], [40.32], { y: 1220, out: 43.05 });
-kw("b6-brand", "Rhyming Kid's Corner", { y: 1360, size: 96, style: "brand", anim: "slideL", t: 40.61, out: 43.05, max: 1040 });
-cn("b6-c3", ["ke", "bachchon", "ke", "liye"], [41.78, 41.95, 42.46, 42.67], { y: 1480, out: 43.05 });
-cn("b6-c4", ["woh", "ek", "sundar", "sa"], [43.12, 43.41, 43.6, 43.9], { y: 1220, out: 45.1333 });
-kw("b6-canvas", "Canvas", { y: 1380, size: 190, style: "yellow", anim: "drop", t: 44.13, out: 45.1333 });
+// Beat 6 · Tip 3 bottle → canvas (tilted cards like ref B @18.0, before/after flip)  [option A]
+if (pick(6) === "A") {
+  badge("b6-badge", 3, { t: 37.66, out: 45.1333 });
+  cn("b6-c1", ["Aapke", "ghar", "mein", "jo"], [37.66, 37.78, 37.96, 38.26], { y: 1220, out: 40.25 });
+  kw("b6-plastic", "Plastic Bottle", { y: 1370, size: 120, style: "white", anim: "drop", t: 38.42, out: 40.25 });
+  html("b6-card", `<div class="face front">${ICON.bottlePlain}</div><div class="face back">${ICON.bottlePainted}</div>`, "card3d", "left:760px;top:600px;width:240px;height:300px", { type: "card", t: 38.5, flip: 44.13, out: 45.1333, rot: 8 });
+  pill("b6-kachra", "Kachra?", { x: 540, y: 1480, dot: P1, t: 39.2, out: 40.25 });
+  cn("b6-c2", ["hamare"], [40.32], { y: 1220, out: 43.05 });
+  kw("b6-brand", "Rhyming Kid's Corner", { y: 1360, size: 96, style: "brand", anim: "slideL", t: 40.61, out: 43.05, max: 1040 });
+  cn("b6-c3", ["ke", "bachchon", "ke", "liye"], [41.78, 41.95, 42.46, 42.67], { y: 1480, out: 43.05 });
+  cn("b6-c4", ["woh", "ek", "sundar", "sa"], [43.12, 43.41, 43.6, 43.9], { y: 1220, out: 45.1333 });
+  kw("b6-canvas", "Canvas", { y: 1380, size: 190, style: "yellow", anim: "drop", t: 44.13, out: 45.1333 });
+}
 
-// Beat 7 · artists → vases/pen stands → recycling (+ 1/2/3 ticks callback)
-cn("b7-c1", ["Is"], [45.32], { y: 1180, out: 47.65 });
-kw("b7-world", "World Environment Day", { y: 1330, size: 100, style: "green", anim: "drop", t: 45.37, out: 47.65, max: 1040 });
-obj("b7-earth", "earth", { x: 540, y: 1000, w: 150, t: 45.5, out: 47.65 });
-cn("b7-c2", ["hamare", "chhote", "chhote"], [47.72, 48.18, 48.55], { y: 1180, out: 49.85 });
-kw("b7-artists", "Artists", { y: 1340, size: 190, style: "yellow", anim: "drop", t: 48.98, out: 49.85 });
-obj("b7-brush", "brush", { x: 900, y: 960, w: 150, rot: 12, t: 49.0, out: 49.85 });
-cn("b7-c3", ["waste", "bottles", "ko"], [49.92, 50.21, 50.68], { y: 1180, out: 51.85 });
-kw("b7-paint", "Paint Karke", { y: 1340, size: 150, style: "white", anim: "slideR", t: 50.82, out: 51.85 });
-cn("b7-c4", ["unhe", "bana", "diya", "hai", "super", "cool"], [51.92, 52.21, 52.52, 52.84, 53.24, 53.65], { y: 1180, out: 56.05 });
-pill("b7-vases", "Flower Vases", { x: 540, y: 1290, dot: P1, t: 53.96, out: 56.05, size: 56 });
-pill("b7-pens", "Pen Stands", { x: 540, y: 1420, dot: Y2, t: 55.02, out: 56.05, size: 56 });
-cn("b7-c5", ["Isse", "woh", "sirf", "padh", "nahi", "rahe"], [56.12, 56.41, 56.6, 56.97, 57.2, 57.42], { y: 1300, out: 58.05 });
-cn("b7-c6", ["balki", "real", "life", "mein"], [58.12, 58.41, 58.65, 58.94], { y: 1180, out: 61.2333 });
-kw("b7-recycle", "Recycling", { y: 1340, size: 170, style: "green", anim: "drop", t: 59.12, out: 61.2333 });
-obj("b7-rec", "recycle", { x: 540, y: 1000, w: 170, t: 59.15, out: 61.2333, anim: "spin" });
-cn("b7-c7", ["karna", "seekh", "rahe", "hain"], [59.75, 59.95, 60.24, 60.47], { y: 1470, out: 61.2333 });
-html("b7-ticks", [1, 2, 3].map((n) => `<span class="tk"><b>${n}</b>${ICON.check}</span>`).join(""), "ticks", "", { type: "ticks", t: 59.9, out: 61.2333 });
+// Beat 7 · artists → vases/pen stands → recycling (+ 1/2/3 ticks callback)  [option A]
+if (pick(7) === "A") {
+  cn("b7-c1", ["Is"], [45.32], { y: 1180, out: 47.65 });
+  kw("b7-world", "World Environment Day", { y: 1330, size: 100, style: "green", anim: "drop", t: 45.37, out: 47.65, max: 1040 });
+  obj("b7-earth", "earth", { x: 540, y: 1000, w: 150, t: 45.5, out: 47.65 });
+  cn("b7-c2", ["hamare", "chhote", "chhote"], [47.72, 48.18, 48.55], { y: 1180, out: 49.85 });
+  kw("b7-artists", "Artists", { y: 1340, size: 190, style: "yellow", anim: "drop", t: 48.98, out: 49.85 });
+  obj("b7-brush", "brush", { x: 900, y: 960, w: 150, rot: 12, t: 49.0, out: 49.85 });
+  cn("b7-c3", ["waste", "bottles", "ko"], [49.92, 50.21, 50.68], { y: 1180, out: 51.85 });
+  kw("b7-paint", "Paint Karke", { y: 1340, size: 150, style: "white", anim: "slideR", t: 50.82, out: 51.85 });
+  cn("b7-c4", ["unhe", "bana", "diya", "hai", "super", "cool"], [51.92, 52.21, 52.52, 52.84, 53.24, 53.65], { y: 1180, out: 56.05 });
+  pill("b7-vases", "Flower Vases", { x: 540, y: 1290, dot: P1, t: 53.96, out: 56.05, size: 56 });
+  pill("b7-pens", "Pen Stands", { x: 540, y: 1420, dot: Y2, t: 55.02, out: 56.05, size: 56 });
+  cn("b7-c5", ["Isse", "woh", "sirf", "padh", "nahi", "rahe"], [56.12, 56.41, 56.6, 56.97, 57.2, 57.42], { y: 1300, out: 58.05 });
+  cn("b7-c6", ["balki", "real", "life", "mein"], [58.12, 58.41, 58.65, 58.94], { y: 1180, out: 61.2333 });
+  kw("b7-recycle", "Recycling", { y: 1340, size: 170, style: "green", anim: "drop", t: 59.12, out: 61.2333 });
+  obj("b7-rec", "recycle", { x: 540, y: 1000, w: 170, t: 59.15, out: 61.2333, anim: "spin" });
+  cn("b7-c7", ["karna", "seekh", "rahe", "hain"], [59.75, 59.95, 60.24, 60.47], { y: 1470, out: 61.2333 });
+  html("b7-ticks", [1, 2, 3].map((n) => `<span class="tk"><b>${n}</b>${ICON.check}</span>`).join(""), "ticks", "", { type: "ticks", t: 59.9, out: 61.2333 });
+}
 
-// Beat 8 · T3 CTA — question behind head, comment bubble, follow card (ref B DM bubble @29.8, ref A caps CTA @22.5)
-cn("b8-c1", ["Aaj", "Environment", "Day", "par"], [61.32, 61.62, 62.3, 62.55], { y: 370, out: 64.3 });
-cn("b8-c2", ["apne", "bachche", "ko"], [63.05, 63.43, 63.73], { y: 450, out: 64.3 });
-kw("b8-kaunsi", "Kaunsi Seekh", { y: 600, size: 150, style: "yellow", layer: "behind", anim: "drop", t: 64.36, out: 66.05 });
-cn("b8-c3", ["di", "hai?"], [65.17, 65.3], { y: 960, out: 66.05 });
-html("b8-bubble", `<div class="av"></div><div class="tx"><b>Comment</b> mein zaroor bataiye</div><div class="dots"><i></i><i></i><i></i></div>`, "bubble", "left:90px;top:1180px", { type: "obj", anim: "bubble", t: 66.12, out: 67.75, rot: 0 });
-cn("b8-c4", ["aur", "green", "future", "ke", "liye"], [67.8, 67.92, 68.21, 68.47, 68.62], { y: 1130, out: END_FULL, layer: "front" });
-html("b8-follow", `<div class="logo"><span>RKC</span></div><div class="fname">Rhyming Kid's Corner<small>Preschool</small></div><div class="fbtn">Follow</div>`, "follow", "left:90px;top:1230px", { type: "obj", anim: "bubble", t: 68.97, out: END_FULL, rot: 0 });
-kw("b8-name", "RHYMING KID'S CORNER", { y: 1500, size: 84, style: "white", anim: "drop", t: 70.11, out: END_FULL, max: 1040 });
-cn("b8-thanks", ["Thank", "you!"], [72.12, 72.4], { y: 1630, out: END_FULL });
+// Beat 8 · T3 CTA — question behind head, comment bubble, follow card (ref B DM bubble @29.8, ref A caps CTA @22.5)  [option A]
+if (pick(8) === "A") {
+  cn("b8-c1", ["Aaj", "Environment", "Day", "par"], [61.32, 61.62, 62.3, 62.55], { y: 370, out: 64.3 });
+  cn("b8-c2", ["apne", "bachche", "ko"], [63.05, 63.43, 63.73], { y: 450, out: 64.3 });
+  kw("b8-kaunsi", "Kaunsi Seekh", { y: 600, size: 150, style: "yellow", layer: "behind", anim: "drop", t: 64.36, out: 66.05 });
+  cn("b8-c3", ["di", "hai?"], [65.17, 65.3], { y: 960, out: 66.05 });
+  html("b8-bubble", `<div class="av"></div><div class="tx"><b>Comment</b> mein zaroor bataiye</div><div class="dots"><i></i><i></i><i></i></div>`, "bubble", "left:90px;top:1180px", { type: "obj", anim: "bubble", t: 66.12, out: 67.75, rot: 0 });
+  cn("b8-c4", ["aur", "green", "future", "ke", "liye"], [67.8, 67.92, 68.21, 68.47, 68.62], { y: 1130, out: END_FULL, layer: "front" });
+  html("b8-follow", `<div class="logo"><span>RKC</span></div><div class="fname">Rhyming Kid's Corner<small>Preschool</small></div><div class="fbtn">Follow</div>`, "follow", "left:90px;top:1230px", { type: "obj", anim: "bubble", t: 68.97, out: END_FULL, rot: 0 });
+  kw("b8-name", "RHYMING KID'S CORNER", { y: 1500, size: 84, style: "white", anim: "drop", t: 70.11, out: END_FULL, max: 1040 });
+  cn("b8-thanks", ["Thank", "you!"], [72.12, 72.4], { y: 1630, out: END_FULL });
+}
+
+const ROW = (t) => `<div class="row"><span class="box"><span class="tick">${ICON.check}</span></span>${t}</div>`;
+
+// ═════════ Beat 1 · B: B&W start → colour snaps on GREEN, front letter-drops ═════════
+if (pick(1) === "B") {
+  html("b1B-bw", "", "bwfx hid", "", { type: "obj", anim: "snap", t: 0, out: 6.27, rot: 0 });
+  kw("b1B-dharti", "Dharti", { y: 1100, size: 230, style: "green", anim: "drop", t: 0.07, out: 1.55 });
+  cn("b1B-c1", ["ko", "agar", "bachana", "hai"], [0.49, 0.63, 0.91, 1.4], { y: 1260, out: 1.55 });
+  cn("b1B-c2", ["to", "bachchon", "ko"], [1.61, 1.75, 2.04], { y: 940, out: 3.85 });
+  kw("b1B-teen", "Teen Cheezein", { y: 1100, size: 140, style: "yellow", anim: "drop", t: 2.47, out: 3.85 });
+  cn("b1B-c3", ["sikhana", "hai"], [3.01, 3.5], { y: 1250, out: 3.85 });
+  cn("b1B-c4", ["chhoti", "chhoti", "aadaton", "se", "hi"], [3.92, 4.25, 4.7, 5.15, 5.4], { y: 1100, out: 5.66 });
+  cn("b1B-c5", ["future", "ko"], [5.69, 6.0], { y: 940, out: 8.1667 });
+  kw("b1B-green", "GREEN", { y: 1110, size: 300, style: "green", anim: "pop", t: 6.27, out: 8.1667 });
+  cn("b1B-c6", ["banana", "hai"], [6.69, 7.05], { y: 1290, out: 8.1667 });
+}
+// ═════════ Beat 1 · C: earth globe rises behind head, sprout grows on "green" ═════════
+if (pick(1) === "C") {
+  obj("b1C-earth", "earth", { x: 540, y: 250, w: 400, t: 0.07, out: 8.1667, anim: "rise", layer: "behind" });
+  cn("b1C-c1", ["Dharti", "ko", "agar", "bachana", "hai"], [0.07, 0.49, 0.63, 0.91, 1.4], { y: 640, size: 60, out: 1.55 });
+  cn("b1C-c2", ["to", "bachchon", "ko"], [1.61, 1.75, 2.04], { y: 640, size: 60, out: 3.85 });
+  pill("b1C-teen", "3 Cheezein", { y: 1040, dot: Y2, t: 2.47, out: 3.85, size: 64 });
+  cn("b1C-c3", ["sikhana", "hai"], [3.01, 3.5], { y: 1200, out: 3.85 });
+  cn("b1C-c4", ["chhoti", "chhoti", "aadaton", "se", "hi"], [3.92, 4.25, 4.7, 5.15, 5.4], { y: 640, size: 60, out: 5.66 });
+  cn("b1C-c5", ["future", "ko"], [5.69, 6.0], { y: 640, size: 60, out: 6.65 });
+  obj("b1C-sprout", "sprout", { x: 540, y: 40, w: 220, t: 6.27, out: 8.1667, anim: "grow", layer: "behind" });
+  kw("b1C-green", "Green", { y: 1080, size: 200, style: "green", anim: "drop", t: 6.27, out: 8.1667 });
+  cn("b1C-c6", ["banana", "hai"], [6.69, 7.05], { y: 1230, out: 8.1667 });
+}
+// ═════════ Beat 2 · B: logo badge rises + "Environment Day!" ═════════
+if (pick(2) === "B") {
+  html("b2B-logo", `<b>RKC</b><small>PRESCHOOL</small>`, "logobadge hid", "left:390px;top:110px", { type: "obj", anim: "rise", t: 8.25, out: 12.1, rot: 0 });
+  kw("b2B-happy", "Happy", { y: 520, size: 110, style: "white", anim: "pop", t: 8.27, out: 12.1 });
+  kw("b2B-env", "Environment Day!", { y: 660, size: 120, style: "green", anim: "drop", t: 8.6, out: 12.1, max: 1040 });
+}
+// ═════════ Beat 2 · C: doodle sticker pack ═════════
+if (pick(2) === "C") {
+  obj("b2C-sun", "sun", { x: 170, y: 230, w: 210, rot: -10, t: 8.3, out: 12.1 });
+  obj("b2C-earth", "earth", { x: 910, y: 250, w: 200, rot: 8, t: 8.6, out: 12.1 });
+  obj("b2C-sprout", "sprout", { x: 190, y: 560, w: 170, rot: 6, t: 9.0, out: 12.1, anim: "grow" });
+  obj("b2C-rec", "recycle", { x: 890, y: 560, w: 170, t: 9.4, out: 12.1, anim: "spin" });
+  cn("b2C-c1", ["Happy", "Environment", "Day!"], [8.27, 8.6, 9.4], { y: 420, size: 74 });
+  cues[cues.length - 1].out = 12.1;
+}
+// ═════════ Beat 3 · shared brand open for B/C ═════════
+if (pick(3) !== "A") {
+  cn("b3X-c1", ["Aaj"], [12.15], { y: 860, out: 13.5 });
+  kw("b3X-brand1", "Rhyming Kid's", { y: 360, size: 150, style: "brand", layer: "behind", anim: "drop", t: 12.41, out: 15.05 });
+  kw("b3X-brand2", "Corner", { y: 720, size: 150, style: "brand", anim: "slideR", t: 12.95, out: 15.05 });
+  cn("b3X-c2", ["par", "hum", "sikhayenge"], [13.54, 13.76, 14.04], { y: 860, out: 15.05 });
+}
+// ═════════ Beat 3 · B: three pill tags preview the tips ═════════
+if (pick(3) === "B") {
+  kw("b3B-tarike", "3 Simple Tarike", { y: 880, size: 110, style: "white", anim: "drop", t: 15.12, out: 20.2667 });
+  pill("b3B-p1", "Podha Lagana", { y: 1040, dot: G1, t: 15.6, out: 20.2667, size: 56 });
+  pill("b3B-p2", "Kachra Dustbin Mein", { y: 1160, dot: Y2, t: 16.29, out: 20.2667, size: 56 });
+  pill("b3B-p3", "Bottle Recycling", { y: 1280, dot: P1, t: 17.04, out: 20.2667, size: 56 });
+  cn("b3B-c3", ["nature", "friendly", "banane", "ke"], [17.92, 18.27, 18.92, 19.2], { y: 1450, out: 20.2667 });
+}
+// ═════════ Beat 3 · C: glass checklist card ═════════
+if (pick(3) === "C") {
+  html("b3C-card", `<h4><em>3</em> Simple Tarike</h4>${ROW("Podha lagana")}${ROW("Kachra dustbin mein")}${ROW("Bottle recycling")}`, "checkcard hid", "left:90px;top:860px",
+    { type: "obj", anim: "rows", t: 15.12, out: 20.2667, rot: 0, rowTimes: [15.6, 16.29, 17.04] });
+  cn("b3C-c3", ["nature", "friendly", "banane", "ke"], [17.92, 18.27, 18.92, 19.2], { y: 1500, out: 20.2667 });
+}
+// ═════════ Beat 4 · B: curved callout line from label to the plant ═════════
+if (pick(4) === "B") {
+  badge("b4B-badge", 1, { t: 20.35, out: 28.6333 });
+  cn("b4B-c1", ["Bachche", "seekh", "rahe"], [20.3, 20.63, 20.85], { y: 900, out: 22.4 });
+  pill("b4B-p1", "Podha Lagana", { x: 330, y: 960, dot: G1, t: 20.99, out: 23.85, size: 58 });
+  html("b4B-line", `<svg viewBox="0 0 1080 1920"><path d="M330 1060 C 330 1300, 620 1300, 760 1480" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><circle cx="760" cy="1480" r="14" fill="#fff"/></svg>`, "callout hid", "",
+    { type: "obj", anim: "draw", t: 21.1, out: 23.85, rot: 0, dur: 0.6 });
+  cn("b4B-c2", ["aur", "usko"], [22.48, 22.65], { y: 900, out: 23.85 });
+  pill("b4B-p2", "+ Naam Dena", { x: 330, y: 1100, dot: Y2, t: 23.08, out: 23.85, size: 50 });
+  cn("b4B-c3", ["Jaise", "podha", "badhta", "hai"], [23.91, 24.21, 24.63, 25.0], { y: 1330, out: 25.55 });
+  cn("b4B-c4", ["bachchon", "ka", "nature", "ke", "saath"], [25.6, 25.74, 26.37, 26.81, 26.93], { y: 1180, out: 28.6333 });
+  kw("b4B-bond", "Bond", { y: 1340, size: 170, style: "green", anim: "pop", t: 27.21, out: 28.6333 });
+  cn("b4B-c5", ["bhi", "badhta", "hai"], [27.48, 27.77, 28.02], { y: 1470, out: 28.6333 });
+}
+// ═════════ Beat 4 · C: clean captions only (no graphics) ═════════
+if (pick(4) === "C") {
+  badge("b4C-badge", 1, { t: 20.35, out: 28.6333 });
+  cn("b4C-c1", ["Bachche", "seekh", "rahe"], [20.3, 20.63, 20.85], { y: 1180, out: 22.4 });
+  kw("b4C-podha", "Podha Lagana", { y: 1330, size: 130, style: "white", anim: "drop", t: 20.99, out: 22.4 });
+  cn("b4C-c2", ["aur", "usko"], [22.48, 22.65], { y: 1180, out: 23.85 });
+  kw("b4C-naam", "Naam Dena", { y: 1330, size: 140, style: "white", anim: "drop", t: 23.08, out: 23.85 });
+  cn("b4C-c3", ["Jaise", "podha", "badhta", "hai"], [23.91, 24.21, 24.63, 25.0], { y: 1330, out: 25.55 });
+  cn("b4C-c4", ["bachchon", "ka", "nature", "ke", "saath"], [25.6, 25.74, 26.37, 26.81, 26.93], { y: 1180, out: 28.6333 });
+  kw("b4C-bond", "Bond", { y: 1340, size: 170, style: "white", anim: "drop", t: 27.21, out: 28.6333 });
+  cn("b4C-c5", ["bhi", "badhta", "hai"], [27.48, 27.77, 28.02], { y: 1470, out: 28.6333 });
+}
+// ═════════ Beat 5 · shared first phase for B/C ═════════
+if (pick(5) !== "A") {
+  badge("b5X-badge", 2, { t: 28.7, out: 37.6 });
+  cn("b5X-c1", ["Apne", "aas", "paas", "ka"], [28.71, 28.82, 29.01, 29.2], { y: 330, out: 29.98 });
+  kw("b5X-kachra", "Kachra", { y: 480, size: 160, style: "white", anim: "slideR", t: 29.36, out: 29.98 });
+  kw("b5X-dustbin", "Dustbin", { y: 480, size: 170, style: "green", anim: "drop", t: 30.0, out: 32.25 });
+  cn("b5X-c2", ["mein", "daalna", "seekh", "rahe", "hain"], [30.72, 30.92, 31.42, 31.6, 31.8], { y: 640, out: 32.25 });
+  cn("b5X-c5", ["tabhi", "to", "desh"], [35.12, 35.41, 35.49], { y: 330, out: 37.6 });
+}
+// ═════════ Beat 5 · B: pill tags ═════════
+if (pick(5) === "B") {
+  pill("b5B-khud", "Khud", { x: 540, y: 760, dot: G1, t: 29.8, out: 32.25, size: 56 });
+  cn("b5B-c3", ["Jab", "bachche"], [32.32, 32.45], { y: 300, out: 35.05 });
+  pill("b5B-p1", "Bachpan se", { y: 420, dot: Y2, t: 32.89, out: 35.05, size: 58 });
+  pill("b5B-p2", "Safai ki", { y: 540, dot: G1, t: 33.45, out: 35.05, size: 58 });
+  pill("b5B-p3", "Zimmedari", { y: 660, dot: P1, t: 33.95, out: 35.05, size: 58 });
+  kw("b5B-swachh", "Swachh", { y: 480, size: 140, style: "white", anim: "slideL", t: 35.82, out: 36.3 });
+  kw("b5B-hara", "Hara-Bhara", { y: 480, size: 150, style: "green", anim: "drop", t: 36.33, out: 37.6 });
+}
+// ═════════ Beat 5 · C: rubber-stamp slam ═════════
+if (pick(5) === "C") {
+  obj("b5C-bin", "bin", { x: 880, y: 300, w: 170, rot: 8, t: 30.02, out: 32.25, anim: "dropBounce" });
+  cn("b5C-c3", ["Jab", "bachche", "bachpan", "se"], [32.32, 32.45, 32.89, 33.14], { y: 290, out: 35.05 });
+  cn("b5C-c4", ["safai", "ki"], [33.45, 33.81], { y: 375, out: 35.05 });
+  kw("b5C-zimm", "Zimmedari", { y: 530, size: 150, style: "yellow", anim: "drop", t: 33.95, out: 35.05 });
+  html("b5C-stamp", "SWACHH", "stamp hid", "left:170px;top:420px", { type: "obj", anim: "slam", t: 35.82, out: 37.6, rot: -8 });
+  kw("b5C-hara", "Hara-Bhara", { y: 720, size: 130, style: "green", anim: "drop", t: 36.33, out: 37.6 });
+}
+// ═════════ Beat 6 · shared middle for B/C ═════════
+if (pick(6) !== "A") {
+  badge("b6X-badge", 3, { t: 37.66, out: 45.1333 });
+  cn("b6X-c1", ["Aapke", "ghar", "mein", "jo"], [37.66, 37.78, 37.96, 38.26], { y: 1220, out: 40.25 });
+  kw("b6X-plastic", "Plastic Bottle", { y: 1370, size: 120, style: "white", anim: "drop", t: 38.42, out: 40.25 });
+  cn("b6X-c2", ["hamare"], [40.32], { y: 1220, out: 43.05 });
+  kw("b6X-brand", "Rhyming Kid's Corner", { y: 1360, size: 96, style: "brand", anim: "slideL", t: 40.61, out: 43.05, max: 1040 });
+  cn("b6X-c3", ["ke", "bachchon", "ke", "liye"], [41.78, 41.95, 42.46, 42.67], { y: 1460, out: 43.05 });
+  cn("b6X-c4", ["woh", "ek", "sundar", "sa"], [43.12, 43.41, 43.6, 43.9], { y: 1220, out: 45.1333 });
+}
+// ═════════ Beat 6 · B: "Kachra" struck through → rainbow "Canvas" ═════════
+if (pick(6) === "B") {
+  kw("b6B-kachra", "Kachra", { y: 1530, size: 110, style: "white", anim: "slideR", t: 39.2, out: 45.1333 });
+  html("b6B-strike", `<svg viewBox="0 0 1080 1920"><path d="M330 1535 L750 1515" fill="none" stroke="${P1}" stroke-width="16" stroke-linecap="round"/></svg>`, "callout hid", "",
+    { type: "obj", anim: "draw", t: 43.6, out: 45.1333, rot: 0, dur: 0.3 });
+  kw("b6B-canvas", "Canvas", { y: 1380, size: 200, style: "rainbow", anim: "drop", t: 44.13, out: 45.1333 });
+}
+// ═════════ Beat 6 · C: paint-stroke wipe behind "Canvas" ═════════
+if (pick(6) === "C") {
+  pill("b6C-kachra", "Kachra?", { x: 540, y: 1480, dot: P1, t: 39.2, out: 40.25 });
+  html("b6C-stroke", `<svg viewBox="0 0 1080 1920"><path d="M120 1385 C 360 1330, 700 1430, 960 1365" fill="none" stroke="${Y2}" stroke-width="190" stroke-linecap="round" opacity=".95"/></svg>`, "callout hid", "",
+    { type: "obj", anim: "draw", t: 43.85, out: 45.1333, rot: 0, dur: 0.35 });
+  kw("b6C-canvas", "Canvas", { y: 1390, size: 170, style: "white", anim: "pop", t: 44.13, out: 45.1333 });
+}
+// ═════════ Beat 7 · shared first four phases for B/C ═════════
+if (pick(7) !== "A") {
+  cn("b7X-c1", ["Is"], [45.32], { y: 1180, out: 47.65 });
+  kw("b7X-world", "World Environment Day", { y: 1330, size: 100, style: "green", anim: "drop", t: 45.37, out: 47.65, max: 1040 });
+  cn("b7X-c2", ["hamare", "chhote", "chhote"], [47.72, 48.18, 48.55], { y: 1180, out: 49.85 });
+  kw("b7X-artists", "Artists", { y: 1340, size: 190, style: "yellow", anim: "drop", t: 48.98, out: 49.85 });
+  cn("b7X-c3", ["waste", "bottles", "ko"], [49.92, 50.21, 50.68], { y: 1180, out: 51.85 });
+  kw("b7X-paint", "Paint Karke", { y: 1340, size: 150, style: "white", anim: "slideR", t: 50.82, out: 51.85 });
+  cn("b7X-c4", ["unhe", "bana", "diya", "hai", "super", "cool"], [51.92, 52.21, 52.52, 52.84, 53.24, 53.65], { y: 1180, out: 56.05 });
+  pill("b7X-vases", "Flower Vases", { x: 540, y: 1290, dot: P1, t: 53.96, out: 56.05, size: 56 });
+  pill("b7X-pens", "Pen Stands", { x: 540, y: 1420, dot: Y2, t: 55.02, out: 56.05, size: 56 });
+}
+// ═════════ Beat 7 · B: "padh rahe → seekh rahe" learning graph ═════════
+if (pick(7) === "B") {
+  html("b7B-graph", `<svg viewBox="0 0 900 420" width="900" height="420"><path d="M40 20 V380 H880" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="6"/><path d="M60 340 C 300 330, 520 250, 860 60" fill="none" stroke="${Y2}" stroke-width="12" stroke-linecap="round"/></svg>
+    <span class="lbl" style="left:40px;top:250px">Padh rahe</span><span class="lbl" style="right:-10px;top:-50px;color:${Y1}">Seekh rahe!</span>`, "graph hid", "left:90px;top:700px;width:900px;height:420px",
+    { type: "obj", anim: "draw", t: 56.12, out: 61.2333, rot: 0, dur: 1.6, lblTimes: [56.6, 58.12] });
+  cn("b7B-c5", ["Isse", "woh", "sirf", "padh", "nahi", "rahe"], [56.12, 56.41, 56.6, 56.97, 57.2, 57.42], { y: 1220, out: 58.05 });
+  cn("b7B-c6", ["balki", "real", "life", "mein"], [58.12, 58.41, 58.65, 58.94], { y: 1220, out: 61.2333 });
+  kw("b7B-recycle", "Recycling", { y: 1370, size: 160, style: "green", anim: "drop", t: 59.12, out: 61.2333 });
+  cn("b7B-c7", ["karna", "seekh", "rahe", "hain"], [59.75, 59.95, 60.24, 60.47], { y: 1490, out: 61.2333 });
+}
+// ═════════ Beat 7 · C: recap grid of the 3 tips ═════════
+if (pick(7) === "C") {
+  const tile = (n, img, label) => `<div class="tile"><img src="assets/${img}" alt=""/><b>${n}</b><span>${label}</span></div>`;
+  html("b7C-recap", tile(1, "recap-1.jpg", "Podha") + tile(2, "recap-2.jpg", "Safai") + tile(3, "recap-3.jpg", "Recycle"), "recap hid", "top:640px",
+    { type: "obj", anim: "pop", t: 56.12, out: 61.2333, rot: 0 });
+  cn("b7C-c5", ["Isse", "woh", "sirf", "padh", "nahi", "rahe"], [56.12, 56.41, 56.6, 56.97, 57.2, 57.42], { y: 1150, out: 58.05 });
+  cn("b7C-c6", ["balki", "real", "life", "mein"], [58.12, 58.41, 58.65, 58.94], { y: 1150, out: 61.2333 });
+  kw("b7C-recycle", "Recycling", { y: 1300, size: 170, style: "green", anim: "drop", t: 59.12, out: 61.2333 });
+  cn("b7C-c7", ["karna", "seekh", "rahe", "hain"], [59.75, 59.95, 60.24, 60.47], { y: 1430, out: 61.2333 });
+}
+// ═════════ Beat 8 · shared question open for B/C ═════════
+if (pick(8) !== "A") {
+  cn("b8X-c1", ["Aaj", "Environment", "Day", "par"], [61.32, 61.62, 62.3, 62.55], { y: 370, out: 64.3 });
+  cn("b8X-c2", ["apne", "bachche", "ko"], [63.05, 63.43, 63.73], { y: 450, out: 64.3 });
+}
+// ═════════ Beat 8 · B: big question card held to the end ═════════
+if (pick(8) === "B") {
+  html("b8B-q", `<div class="q">Aapne bachche ko <em>kaunsi seekh</em> di?</div><div class="hint">Comment mein bataiye</div>`, "qcard hid", "top:1130px",
+    { type: "obj", anim: "bubble", t: 64.36, out: END_FULL, rot: 0 });
+  cn("b8B-c4", ["aur", "green", "future", "ke", "liye"], [67.8, 67.92, 68.21, 68.47, 68.62], { y: 330, out: END_FULL });
+  kw("b8B-name", "RHYMING KID'S CORNER", { y: 450, size: 84, style: "white", anim: "drop", t: 68.97, out: END_FULL, max: 1040 });
+  pill("b8B-follow", "Follow karein", { y: 540, dot: G1, t: 69.6, out: END_FULL, size: 50 });
+  cn("b8B-thanks", ["Thank", "you!"], [72.12, 72.4], { y: 1530, out: END_FULL });
+}
+// ═════════ Beat 8 · C: dim to an end card ═════════
+if (pick(8) === "C") {
+  kw("b8C-kaunsi", "Kaunsi Seekh", { y: 600, size: 150, style: "yellow", layer: "behind", anim: "drop", t: 64.36, out: 66.05 });
+  cn("b8C-c3", ["di", "hai?"], [65.17, 65.3], { y: 960, out: 66.05 });
+  html("b8C-bubble", `<div class="av"></div><div class="tx"><b>Comment</b> mein zaroor bataiye</div><div class="dots"><i></i><i></i><i></i></div>`, "bubble", "left:90px;top:1180px", { type: "obj", anim: "bubble", t: 66.12, out: 67.75, rot: 0 });
+  html("b8C-dim", "", "dim hid", "", { type: "obj", anim: "fade", t: 67.8, out: END_FULL, rot: 0 });
+  html("b8C-logo", `<span>RKC</span>`, "endlogo hid", "top:600px", { type: "obj", anim: "pop", t: 68.0, out: END_FULL, rot: 0 });
+  cn("b8C-c4", ["aur", "green", "future", "ke", "liye"], [67.8, 67.92, 68.21, 68.47, 68.62], { y: 1000, out: END_FULL });
+  kw("b8C-name", "Rhyming Kid's Corner", { y: 1130, size: 96, style: "brand", anim: "drop", t: 70.11, out: END_FULL, max: 1000 });
+  html("b8C-follow", "Follow", "fbig hid", "left:350px;top:1250px", { type: "obj", anim: "pill", t: 68.97, out: END_FULL, rot: 0 });
+  cn("b8C-thanks", ["Thank", "you!"], [72.12, 72.4], { y: 1470, out: END_FULL });
+}
 
 // SFX (full time) — subtle; ≤ ~5 per 10 s
 const SFX = [
@@ -284,6 +505,7 @@ ${readFileSync(join(ROOT, "reel.css"), "utf8")}
 }
 
 mkdirSync(join(ROOT, "compositions"), { recursive: true });
+if (process.env.OUT_DIR) { writeFileSync(join(process.env.OUT_DIR, "index.html"), page("full")); console.log(`preview PICKS=${PICKS.join("")} → ${process.env.OUT_DIR}`); process.exit(0); }
 writeFileSync(join(ROOT, "index.html"), page("full"));
 // The short is its own sibling project (one root composition per project; assets duplicated, not symlinked).
 const SHORT = join(ROOT, "..", "rkc-environment-day-short");
