@@ -144,6 +144,16 @@ Beat 8 · 91.6–106.1s · CTA "Kaunsi seekh di hai? Comment… follow Rhyming K
 5. **Music/SFX**: add a light bed + whooshes/pops from `assets/sfx` under your audio (ducked), or keep only your original audio?
 
 ## Approved plan
-| Beat | Time (s) | Line / shot | Approved design | Ref timestamp |
+Picks (2026-11-02): close gaps + drop Teacher 2's first take (keep take 2), trim Teacher 3's silent 3.6 s head · style **hybrid** · **all beats option A** · full (74.3 s) **+ 42.6 s cut-down** (`../rkc-environment-day-short`). Music: none yet (SFX only); see the open question.
+Script fix: Teacher 1 says "bachchon ko **teen cheezein** sikhana hai" (not "chhote kadam").
+
+| Beat | Full time (s) | Line / shot | Approved design | Ref timestamp |
 |---|---|---|---|---|
-| (to fill after picks) | | | | |
+| 1 | 0–8.17 | T1 hook | "Dharti" behind head on frame 1 + earth, "Teen Cheezein", "GREEN" behind head + sprout | A @0.0, @2.0 |
+| 2 | 8.17–12.1 | kids shout | stacked "Happy / Environment / Day!" + leaf burst, flash in | B @3.0–3.6 |
+| 3 | 12.1–20.27 | T2 intro | "Rhyming Kid's" behind head + "Corner", 0→3 ring counter, "Simple Tarike", "Nature Friendly" pill | A @9.0, @18.0 |
+| 4 | 20.27–28.63 | Tip 1 planting | TARIKA 1/3 badge, "Podha Lagana", "Naam Dena" + Mr. Green tag, sprout, "Bond" + heart-leaf | B @9.6 |
+| 5 | 28.63–37.6 | Tip 2 dustbin | TARIKA 2/3, "Kachra"→"Dustbin" + bin drop, "Zimmedari", "Swachh"→"Hara-Bhara" + green sweep | B @9.8 |
+| 6 | 37.6–45.13 | Tip 3 bottle | TARIKA 3/3, tilted bottle card ✕ → flips to painted ✓ on "Canvas" | B @18.0 |
+| 7 | 45.13–61.23 | artists/recycling | "World Environment Day" + earth, "Artists", "Paint Karke", vases/pen-stand pills, "Recycling" + spin, 1✓2✓3✓ callback | B @21.3–25.6 |
+| 8 | 61.23–74.27 | T3 CTA | "Kaunsi Seekh" behind head, comment bubble, follow card, RHYMING KID'S CORNER, hold to end | B @29.8, A @22.5 |

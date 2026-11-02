@@ -1,0 +1,8 @@
+# large media (re-create from Drive source via scripts/prep.sh)
+assets/*.mp4
+assets/*.webm
+assets/*.mov
+assets/*.wav
+assets/src/
+assets/*.m4a
+.hyperframes/
