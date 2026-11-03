@@ -7,7 +7,7 @@
 **Studied:** 2026-11-03
 **Engagement (at time of study):** n/a
 **Type:** **Paid/brand integration** (Castrol Activ engine oil) disguised as an educational explainer about E20 petrol
-**Language:** Hindi voiceover. small.en produced only a repeated hallucination, so story beats come from on-screen text plus the Hindi transcript.
+**Language:** Hindi voiceover. Opening line (Hindi transcript): "Lots of people have questions about E20 petrol: does mileage drop, does performance suffer, does it hurt the engine…": a spoken question hook that matches the on-screen E20 → PETROL → ENGINE EFFECT? cards.
 **Sample rate:** 1fps, all 53 seconds reviewed. 25 detected cuts.
 
 ## Hook (0–2s)

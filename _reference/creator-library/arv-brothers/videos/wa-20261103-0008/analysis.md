@@ -80,4 +80,4 @@ Every technical part gets the same "AI hero render in a starfield, red acronym, 
 - AI skit actor
 
 ## Transcript
-See `transcript.json` (Hindi) in this folder, once the Hindi transcription pass completes.
+See `transcript.json` (Hindi) in this folder,.
