@@ -30,7 +30,7 @@
       .sub.white { color:#fff; } .sub.red { color:var(--red); text-shadow:0 0 20px rgba(224,22,43,.6),0 4px 0 #000; }
       .mask { position:absolute; z-index:4; backdrop-filter:blur(26px) brightness(.55); -webkit-backdrop-filter:blur(26px) brightness(.55);
               border-radius:40px;
-              -webkit-mask-image:radial-gradient(ellipse closest-side,#000 62%,transparent 100%); mask-image:radial-gradient(ellipse closest-side,#000 62%,transparent 100%); }
+              -webkit-mask-image:radial-gradient(ellipse closest-side,#000 84%,transparent 100%); mask-image:radial-gradient(ellipse closest-side,#000 84%,transparent 100%); }
       .flash { position:absolute; inset:0; z-index:9; background:radial-gradient(ellipse at 50% 40%,#fff 0%,rgba(255,255,255,.85) 45%,rgba(255,255,255,0) 100%); opacity:0; }
 
       /* ---------- Option A: Behind-Head Chrome ---------- */
@@ -55,9 +55,11 @@
       body.vB .tilt { transform:rotate(-7deg); display:flex; flex-direction:column; align-items:center; }
 
       /* ---------- Option C: HUD / Red Workshop ---------- */
-      body.vC .red.w { font-family:'Anton'; color:var(--red); transform:skewX(-10deg);
-        background:linear-gradient(180deg,#FF6B6B 0%,#E0162B 45%,#8E0012 100%); -webkit-background-clip:text; background-clip:text; color:transparent;
+      body.vC .red.w { font-family:'Anton'; transform:skewX(-10deg);
         filter:drop-shadow(0 6px 0 rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(0,0,0,.6)); }
+      /* gradient per letter: background-clip:text on the parent does not reach inline-block children */
+      body.vC .red.w .ch { background:linear-gradient(180deg,#FF6B6B 0%,#E0162B 45%,#8E0012 100%);
+        -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
       body.vC .white.w { font:800 italic 110px/1 'Barlow Condensed'; color:#fff; text-shadow:0 5px 0 rgba(0,0,0,.65),0 0 18px rgba(0,0,0,.6); }
       body.vC .hud { position:relative; display:flex; flex-direction:column; align-items:flex-start; align-self:flex-start;
         margin-left:20px; padding:18px 70px 20px 70px; background:linear-gradient(90deg,rgba(8,8,10,.92),rgba(8,8,10,.78) 70%,rgba(8,8,10,0));
@@ -81,8 +83,8 @@
       <div class="vw" id="plateWrap"><video id="plate" src="assets/source.mp4" muted playsinline data-start="0" data-duration="55.2" data-track-index="0"></video></div>
       <div class="vw" id="matteWrap"><video id="matte" src="assets/matte.webm" muted playsinline data-start="0" data-duration="55.2" data-track-index="1"></video></div>
       <audio id="vo" src="assets/source.mp4" data-start="0" data-duration="55.2" data-track-index="2" data-volume="1"></audio>
-      <div id="mask0" class="mask clip" data-start="5.75" data-duration="3.10" data-track-index="80" style="left:50px;top:1390px;width:980px;height:310px"></div>
-      <div id="mask1" class="mask clip" data-start="18.85" data-duration="3.30" data-track-index="81" style="left:70px;top:1360px;width:940px;height:270px"></div>
+      <div id="mask0" class="mask clip" data-start="5.75" data-duration="3.10" data-track-index="80" style="left:0px;top:1370px;width:1080px;height:350px"></div>
+      <div id="mask1" class="mask clip" data-start="18.85" data-duration="3.30" data-track-index="81" style="left:0px;top:1340px;width:1080px;height:310px"></div>
       <div id="mask2" class="mask clip" data-start="42.3" data-duration="8.65" data-track-index="82" style="left:190px;top:240px;width:710px;height:200px"></div>
       <div id="c0" class="card clip behind pos-top k-hero" data-kind="hero" data-start="0.27" data-duration="0.57" data-track-index="20"><div class="inner"><div class="w gold" style="font-size:330px">MG</div></div></div>
       <div id="c1s" class="card clip front pos-top subcard" data-kind="subcard" data-start="0.84" data-duration="0.84" data-track-index="61" style="padding-top:476px"><div class="inner"><div class="sub cyan big">launch</div></div></div><div id="c1" class="card clip behind pos-top k-hero" data-kind="hero" data-start="0.84" data-duration="0.84" data-track-index="21"><div class="inner"><div class="w gold" style="font-size:301px">BAWAAL</div></div></div>

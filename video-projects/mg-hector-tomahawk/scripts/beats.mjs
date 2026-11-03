@@ -10,7 +10,7 @@ export const BEATS = [
   { t: 1.9, end: 3.6, kind: "num", text: "1000+ KM", sub: "range" },                 // "ek hazaar se zyada km"
   { t: 3.6, end: 4.36, kind: "hero", text: "FULL CHARGE" },                           // "full charge mein"
   { t: 4.36, end: 5.37, kind: "hero", text: "HECTOR" },                               // "MG Hector"
-  { t: 5.37, end: 6.44, kind: "hero", text: "TOMAHAWK" },
+  { t: 5.37, end: 6.44, endB: 5.75, kind: "hero", text: "TOMAHAWK" },
   { t: 5.75, end: 6.44, kind: "stack", lines: ["PHEV"], ld: [0] },                 // covers burned caption               // "Tomahawk PHEV"
   // --- WHAT IS PHEV -------------------------------------------------------------------
   { t: 6.44, end: 8.8, kind: "stack", lines: ["PLUG-IN", "HYBRID", "ELECTRIC VEHICLE"], ld: [0.22, 0.68, 1.2] },
@@ -36,7 +36,7 @@ export const BEATS = [
   { t: 38.4, end: 39.25, kind: "hero", text: "ENJOY" },
   { t: 39.25, end: 41.4, kind: "hero", text: "CINEMATIC", sub: "shots" },
   // --- PAYOFF + OUTRO -----------------------------------------------------------------
-  { t: 42.35, end: 50.95, kind: "price", text: "₹25.69 L*", sub: "ex-showroom · approx", subB: "lakh* · ex-showroom approx" },
+  { t: 42.35, end: 50.95, kind: "price", text: "₹25.69 L*", sub: "ex-showroom · approx", subB: "ex-showroom approx" },
   { t: 50.95, end: 55.2, kind: "end", lines: ["HECTOR", "TOMAHAWK"], sub: "PHEV", ld: [0, 0.3] },
 ];
 
@@ -53,8 +53,8 @@ export const ZOOMS = [
 
 // Blur + darken patches over the burned-in captions of the source edit.
 export const MASKS = [
-  { t: 5.75, end: 8.85, x: 50, y: 1390, w: 980, h: 310 },     // "MG HECTOR TOMAHAWK PHEV"
-  { t: 18.85, end: 22.15, x: 70, y: 1360, w: 940, h: 270 },   // "V2H TECHNOLOGY"
+  { t: 5.75, end: 8.85, x: 0, y: 1370, w: 1080, h: 350 },     // "MG HECTOR TOMAHAWK PHEV"
+  { t: 18.85, end: 22.15, x: 0, y: 1340, w: 1080, h: 310 },   // "V2H TECHNOLOGY"
   { t: 42.3, end: 50.95, x: 190, y: 240, w: 710, h: 200 },   // "EX SHOWROOM PRIZE 25.69…"
 ];
 

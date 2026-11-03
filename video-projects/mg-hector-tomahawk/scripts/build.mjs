@@ -75,10 +75,10 @@ function cardHTML(b, i) {
     } else if (k === "price") {
       pos = "top";
       const [a, c] = b.text.split(".");
-      inner = `<div class="w chrome" style="font-size:230px">${esc(a)}<span class="y">.</span>${esc(c)}</div><div class="script">${esc(b.subB || b.sub)}</div>`;
+      inner = `<div class="w chrome" style="font-size:230px">${esc(a)}<span class="y">.</span>${esc(c)}</div><div class="script" style="font-size:66px">${esc(b.subB || b.sub)}</div>`;
     } else if (k === "end") {
       pos = "mid";
-      inner = `<div class="tilt">` + b.lines.concat([b.sub]).map((l, j) => `<div class="w two line" data-ld="${b.ld[j] ?? 0.6}" style="font-size:${fit(l, 0.5, 230)}px">${chars(l, seed + j, accentIdx(l))}</div>`).join("") + `</div>`;
+      inner = `<div class="tilt">` + b.lines.concat([b.sub]).map((l, j) => `<div class="w two line" data-ld="${b.ld[j] ?? 0.6}" style="font-size:${fit(l, 0.5, 190, 860)}px">${chars(l, seed + j, accentIdx(l))}</div>`).join("") + `</div>`;
     }
   }
 
@@ -101,7 +101,7 @@ function cardHTML(b, i) {
     }
   }
 
-  const dur = (b.end - b.t).toFixed(2);
+  const dur = ((V === "B" && b.endB) ? b.endB - b.t : b.end - b.t).toFixed(2);
   if (b.front) layer = "front";
   let subCard = "";
   if (layer === "behind" && b.sub) {
@@ -149,7 +149,7 @@ const html = `<!doctype html>
       .sub.white { color:#fff; } .sub.red { color:var(--red); text-shadow:0 0 20px rgba(224,22,43,.6),0 4px 0 #000; }
       .mask { position:absolute; z-index:4; backdrop-filter:blur(26px) brightness(.55); -webkit-backdrop-filter:blur(26px) brightness(.55);
               border-radius:40px;
-              -webkit-mask-image:radial-gradient(ellipse closest-side,#000 62%,transparent 100%); mask-image:radial-gradient(ellipse closest-side,#000 62%,transparent 100%); }
+              -webkit-mask-image:radial-gradient(ellipse closest-side,#000 84%,transparent 100%); mask-image:radial-gradient(ellipse closest-side,#000 84%,transparent 100%); }
       .flash { position:absolute; inset:0; z-index:9; background:radial-gradient(ellipse at 50% 40%,#fff 0%,rgba(255,255,255,.85) 45%,rgba(255,255,255,0) 100%); opacity:0; }
 
       /* ---------- Option A: Behind-Head Chrome ---------- */
@@ -174,9 +174,11 @@ const html = `<!doctype html>
       body.vB .tilt { transform:rotate(-7deg); display:flex; flex-direction:column; align-items:center; }
 
       /* ---------- Option C: HUD / Red Workshop ---------- */
-      body.vC .red.w { font-family:'Anton'; color:var(--red); transform:skewX(-10deg);
-        background:linear-gradient(180deg,#FF6B6B 0%,#E0162B 45%,#8E0012 100%); -webkit-background-clip:text; background-clip:text; color:transparent;
+      body.vC .red.w { font-family:'Anton'; transform:skewX(-10deg);
         filter:drop-shadow(0 6px 0 rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(0,0,0,.6)); }
+      /* gradient per letter: background-clip:text on the parent does not reach inline-block children */
+      body.vC .red.w .ch { background:linear-gradient(180deg,#FF6B6B 0%,#E0162B 45%,#8E0012 100%);
+        -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
       body.vC .white.w { font:800 italic 110px/1 'Barlow Condensed'; color:#fff; text-shadow:0 5px 0 rgba(0,0,0,.65),0 0 18px rgba(0,0,0,.6); }
       body.vC .hud { position:relative; display:flex; flex-direction:column; align-items:flex-start; align-self:flex-start;
         margin-left:20px; padding:18px 70px 20px 70px; background:linear-gradient(90deg,rgba(8,8,10,.92),rgba(8,8,10,.78) 70%,rgba(8,8,10,0));
