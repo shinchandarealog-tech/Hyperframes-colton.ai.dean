@@ -1,0 +1,2060 @@
+[
+  {
+    "text": "This",
+    "start": 0,
+    "end": 0.38,
+    "id": "w0"
+  },
+  {
+    "text": "is",
+    "start": 0.38,
+    "end": 0.57,
+    "id": "w1"
+  },
+  {
+    "text": "a",
+    "start": 0.57,
+    "end": 0.66,
+    "id": "w2"
+  },
+  {
+    "text": "powerful",
+    "start": 0.66,
+    "end": 1.41,
+    "id": "w3"
+  },
+  {
+    "text": "engine",
+    "start": 1.42,
+    "end": 2,
+    "id": "w4"
+  },
+  {
+    "text": "which",
+    "start": 2,
+    "end": 2.57,
+    "id": "w5"
+  },
+  {
+    "text": "has",
+    "start": 2.57,
+    "end": 2.92,
+    "id": "w6"
+  },
+  {
+    "text": "a",
+    "start": 2.92,
+    "end": 3,
+    "id": "w7"
+  },
+  {
+    "text": "premium-class",
+    "start": 3,
+    "end": 4.11,
+    "id": "w8"
+  },
+  {
+    "text": "motorcycle.",
+    "start": 4.11,
+    "end": 5,
+    "id": "w9"
+  },
+  {
+    "text": "This",
+    "start": 5,
+    "end": 5.32,
+    "id": "w10"
+  },
+  {
+    "text": "motorcycle",
+    "start": 5.32,
+    "end": 6.13,
+    "id": "w11"
+  },
+  {
+    "text": "has",
+    "start": 6.13,
+    "end": 6.36,
+    "id": "w12"
+  },
+  {
+    "text": "a",
+    "start": 6.37,
+    "end": 6.45,
+    "id": "w13"
+  },
+  {
+    "text": "liquid-cooled",
+    "start": 6.45,
+    "end": 7.49,
+    "id": "w14"
+  },
+  {
+    "text": "parallel",
+    "start": 7.49,
+    "end": 8.14,
+    "id": "w15"
+  },
+  {
+    "text": "twin",
+    "start": 8.14,
+    "end": 8.46,
+    "id": "w16"
+  },
+  {
+    "text": "engine.",
+    "start": 8.46,
+    "end": 9,
+    "id": "w17"
+  },
+  {
+    "text": "It",
+    "start": 9,
+    "end": 9.16,
+    "id": "w18"
+  },
+  {
+    "text": "generates",
+    "start": 9.16,
+    "end": 9.87,
+    "id": "w19"
+  },
+  {
+    "text": "83",
+    "start": 9.87,
+    "end": 10.34,
+    "id": "w20"
+  },
+  {
+    "text": "PSK",
+    "start": 10.34,
+    "end": 10.57,
+    "id": "w21"
+  },
+  {
+    "text": "power",
+    "start": 10.57,
+    "end": 11,
+    "id": "w22"
+  },
+  {
+    "text": "or",
+    "start": 11,
+    "end": 11.31,
+    "id": "w23"
+  },
+  {
+    "text": "108",
+    "start": 11.31,
+    "end": 12.72,
+    "id": "w24"
+  },
+  {
+    "text": "Nm",
+    "start": 12.72,
+    "end": 13.02,
+    "id": "w25"
+  },
+  {
+    "text": "torque.",
+    "start": 13.02,
+    "end": 14,
+    "id": "w26"
+  },
+  {
+    "text": "It",
+    "start": 14,
+    "end": 14.12,
+    "id": "w27"
+  },
+  {
+    "text": "has",
+    "start": 14.12,
+    "end": 14.3,
+    "id": "w28"
+  },
+  {
+    "text": "a",
+    "start": 14.3,
+    "end": 14.36,
+    "id": "w29"
+  },
+  {
+    "text": "270-degree",
+    "start": 14.36,
+    "end": 15.34,
+    "id": "w30"
+  },
+  {
+    "text": "crane",
+    "start": 15.35,
+    "end": 15.66,
+    "id": "w31"
+  },
+  {
+    "text": "shaft.",
+    "start": 15.66,
+    "end": 16,
+    "id": "w32"
+  },
+  {
+    "text": "This",
+    "start": 16,
+    "end": 16.28,
+    "id": "w33"
+  },
+  {
+    "text": "twin-cylinder",
+    "start": 16.28,
+    "end": 17.19,
+    "id": "w34"
+  },
+  {
+    "text": "engine",
+    "start": 17.19,
+    "end": 17.6,
+    "id": "w35"
+  },
+  {
+    "text": "has",
+    "start": 17.61,
+    "end": 17.82,
+    "id": "w36"
+  },
+  {
+    "text": "a",
+    "start": 17.82,
+    "end": 17.89,
+    "id": "w37"
+  },
+  {
+    "text": "rich",
+    "start": 17.89,
+    "end": 18.17,
+    "id": "w38"
+  },
+  {
+    "text": "exhaust",
+    "start": 18.17,
+    "end": 18.66,
+    "id": "w39"
+  },
+  {
+    "text": "note",
+    "start": 18.66,
+    "end": 19,
+    "id": "w40"
+  },
+  {
+    "text": "that",
+    "start": 19,
+    "end": 19.65,
+    "id": "w41"
+  },
+  {
+    "text": "helps.",
+    "start": 19.66,
+    "end": 20.99,
+    "id": "w42"
+  },
+  {
+    "text": "The",
+    "start": 21,
+    "end": 21.32,
+    "id": "w43"
+  },
+  {
+    "text": "engine",
+    "start": 21.32,
+    "end": 21.96,
+    "id": "w44"
+  },
+  {
+    "text": "has",
+    "start": 21.96,
+    "end": 22.28,
+    "id": "w45"
+  },
+  {
+    "text": "8",
+    "start": 22.28,
+    "end": 22.59,
+    "id": "w46"
+  },
+  {
+    "text": "valve",
+    "start": 22.6,
+    "end": 23.13,
+    "id": "w47"
+  },
+  {
+    "text": "set",
+    "start": 23.13,
+    "end": 23.44,
+    "id": "w48"
+  },
+  {
+    "text": "up.",
+    "start": 23.45,
+    "end": 24,
+    "id": "w49"
+  },
+  {
+    "text": "It",
+    "start": 24,
+    "end": 24.12,
+    "id": "w50"
+  },
+  {
+    "text": "has",
+    "start": 24.12,
+    "end": 24.31,
+    "id": "w51"
+  },
+  {
+    "text": "performance-focused",
+    "start": 24.31,
+    "end": 25.51,
+    "id": "w52"
+  },
+  {
+    "text": "engine",
+    "start": 25.51,
+    "end": 25.89,
+    "id": "w53"
+  },
+  {
+    "text": "with",
+    "start": 25.89,
+    "end": 26.14,
+    "id": "w54"
+  },
+  {
+    "text": "high-light.",
+    "start": 26.14,
+    "end": 27,
+    "id": "w55"
+  },
+  {
+    "text": "It",
+    "start": 27,
+    "end": 27.14,
+    "id": "w56"
+  },
+  {
+    "text": "has",
+    "start": 27.14,
+    "end": 27.35,
+    "id": "w57"
+  },
+  {
+    "text": "6",
+    "start": 27.35,
+    "end": 27.56,
+    "id": "w58"
+  },
+  {
+    "text": "speed",
+    "start": 27.56,
+    "end": 27.91,
+    "id": "w59"
+  },
+  {
+    "text": "gearbox",
+    "start": 27.91,
+    "end": 28.4,
+    "id": "w60"
+  },
+  {
+    "text": "set",
+    "start": 28.4,
+    "end": 28.6,
+    "id": "w61"
+  },
+  {
+    "text": "up.",
+    "start": 28.61,
+    "end": 29,
+    "id": "w62"
+  },
+  {
+    "text": "It",
+    "start": 29,
+    "end": 29.25,
+    "id": "w63"
+  },
+  {
+    "text": "has",
+    "start": 29.25,
+    "end": 29.61,
+    "id": "w64"
+  },
+  {
+    "text": "aggressive",
+    "start": 29.62,
+    "end": 30.86,
+    "id": "w65"
+  },
+  {
+    "text": "downshift",
+    "start": 30.86,
+    "end": 32,
+    "id": "w66"
+  },
+  {
+    "text": "and",
+    "start": 32,
+    "end": 32,
+    "id": "w67"
+  },
+  {
+    "text": "better",
+    "start": 32,
+    "end": 32,
+    "id": "w68"
+  },
+  {
+    "text": "control.",
+    "start": 32,
+    "end": 32,
+    "id": "w69"
+  },
+  {
+    "text": "It",
+    "start": 32,
+    "end": 32.15,
+    "id": "w70"
+  },
+  {
+    "text": "has",
+    "start": 32.15,
+    "end": 32.38,
+    "id": "w71"
+  },
+  {
+    "text": "anti-hooping",
+    "start": 32.38,
+    "end": 33.28,
+    "id": "w72"
+  },
+  {
+    "text": "clutch.",
+    "start": 33.28,
+    "end": 34,
+    "id": "w73"
+  },
+  {
+    "text": "This",
+    "start": 34,
+    "end": 34.38,
+    "id": "w74"
+  },
+  {
+    "text": "is",
+    "start": 34.38,
+    "end": 34.57,
+    "id": "w75"
+  },
+  {
+    "text": "a",
+    "start": 34.57,
+    "end": 34.66,
+    "id": "w76"
+  },
+  {
+    "text": "safety",
+    "start": 34.66,
+    "end": 35.23,
+    "id": "w77"
+  },
+  {
+    "text": "setup.",
+    "start": 35.23,
+    "end": 36,
+    "id": "w78"
+  },
+  {
+    "text": "It",
+    "start": 36,
+    "end": 36.08,
+    "id": "w79"
+  },
+  {
+    "text": "has",
+    "start": 36.08,
+    "end": 36.21,
+    "id": "w80"
+  },
+  {
+    "text": "traction",
+    "start": 36.21,
+    "end": 36.55,
+    "id": "w81"
+  },
+  {
+    "text": "control.",
+    "start": 36.55,
+    "end": 37,
+    "id": "w82"
+  },
+  {
+    "text": "It",
+    "start": 37,
+    "end": 37.1,
+    "id": "w83"
+  },
+  {
+    "text": "has",
+    "start": 37.1,
+    "end": 37.25,
+    "id": "w84"
+  },
+  {
+    "text": "grip",
+    "start": 37.25,
+    "end": 37.45,
+    "id": "w85"
+  },
+  {
+    "text": "conditioner",
+    "start": 37.45,
+    "end": 38,
+    "id": "w86"
+  },
+  {
+    "text": "and",
+    "start": 38,
+    "end": 38.25,
+    "id": "w87"
+  },
+  {
+    "text": "rear",
+    "start": 38.25,
+    "end": 38.58,
+    "id": "w88"
+  },
+  {
+    "text": "wheel-slip",
+    "start": 38.58,
+    "end": 39.39,
+    "id": "w89"
+  },
+  {
+    "text": "control.",
+    "start": 39.39,
+    "end": 40,
+    "id": "w90"
+  },
+  {
+    "text": "It",
+    "start": 40,
+    "end": 40.09,
+    "id": "w91"
+  },
+  {
+    "text": "also",
+    "start": 40.09,
+    "end": 40.26,
+    "id": "w92"
+  },
+  {
+    "text": "helps",
+    "start": 40.27,
+    "end": 40.49,
+    "id": "w93"
+  },
+  {
+    "text": "with",
+    "start": 40.49,
+    "end": 40.67,
+    "id": "w94"
+  },
+  {
+    "text": "braking.",
+    "start": 40.67,
+    "end": 42,
+    "id": "w95"
+  },
+  {
+    "text": "It",
+    "start": 42,
+    "end": 43.13,
+    "id": "w96"
+  },
+  {
+    "text": "has",
+    "start": 43.13,
+    "end": 44.84,
+    "id": "w97"
+  },
+  {
+    "text": "a",
+    "start": 44.84,
+    "end": 44.84,
+    "id": "w98"
+  },
+  {
+    "text": "mmk",
+    "start": 44.84,
+    "end": 44.85,
+    "id": "w99"
+  },
+  {
+    "text": "twin",
+    "start": 44.85,
+    "end": 44.88,
+    "id": "w100"
+  },
+  {
+    "text": "front",
+    "start": 44.88,
+    "end": 44.91,
+    "id": "w101"
+  },
+  {
+    "text": "disc",
+    "start": 44.91,
+    "end": 44.94,
+    "id": "w102"
+  },
+  {
+    "text": "and",
+    "start": 44.94,
+    "end": 45,
+    "id": "w103"
+  },
+  {
+    "text": "a",
+    "start": 45,
+    "end": 45.04,
+    "id": "w104"
+  },
+  {
+    "text": "260",
+    "start": 45.04,
+    "end": 45.46,
+    "id": "w105"
+  },
+  {
+    "text": "mmk",
+    "start": 45.46,
+    "end": 45.59,
+    "id": "w106"
+  },
+  {
+    "text": "rear",
+    "start": 45.59,
+    "end": 45.78,
+    "id": "w107"
+  },
+  {
+    "text": "disc.",
+    "start": 45.78,
+    "end": 46,
+    "id": "w108"
+  },
+  {
+    "text": "It",
+    "start": 46,
+    "end": 46.14,
+    "id": "w109"
+  },
+  {
+    "text": "has",
+    "start": 46.14,
+    "end": 46.35,
+    "id": "w110"
+  },
+  {
+    "text": "a",
+    "start": 46.35,
+    "end": 46.42,
+    "id": "w111"
+  },
+  {
+    "text": "Nissen",
+    "start": 46.42,
+    "end": 46.84,
+    "id": "w112"
+  },
+  {
+    "text": "caliper",
+    "start": 46.84,
+    "end": 47.33,
+    "id": "w113"
+  },
+  {
+    "text": "and",
+    "start": 47.33,
+    "end": 47.54,
+    "id": "w114"
+  },
+  {
+    "text": "a",
+    "start": 47.54,
+    "end": 47.6,
+    "id": "w115"
+  },
+  {
+    "text": "BOSK",
+    "start": 47.61,
+    "end": 47.89,
+    "id": "w116"
+  },
+  {
+    "text": "9.1",
+    "start": 47.89,
+    "end": 48.52,
+    "id": "w117"
+  },
+  {
+    "text": "ABS.",
+    "start": 48.52,
+    "end": 49,
+    "id": "w118"
+  },
+  {
+    "text": "It",
+    "start": 49,
+    "end": 49.04,
+    "id": "w119"
+  },
+  {
+    "text": "has",
+    "start": 49.04,
+    "end": 49.1,
+    "id": "w120"
+  },
+  {
+    "text": "safety",
+    "start": 49.1,
+    "end": 49.21,
+    "id": "w121"
+  },
+  {
+    "text": "for",
+    "start": 49.21,
+    "end": 49.26,
+    "id": "w122"
+  },
+  {
+    "text": "traction",
+    "start": 49.27,
+    "end": 49.42,
+    "id": "w123"
+  },
+  {
+    "text": "control",
+    "start": 49.42,
+    "end": 49.55,
+    "id": "w124"
+  },
+  {
+    "text": "and",
+    "start": 49.55,
+    "end": 49.64,
+    "id": "w125"
+  },
+  {
+    "text": "features",
+    "start": 49.64,
+    "end": 51.04,
+    "id": "w126"
+  },
+  {
+    "text": "features.",
+    "start": 51.05,
+    "end": 53,
+    "id": "w127"
+  },
+  {
+    "text": "It",
+    "start": 53,
+    "end": 53.15,
+    "id": "w128"
+  },
+  {
+    "text": "has",
+    "start": 53.15,
+    "end": 53.38,
+    "id": "w129"
+  },
+  {
+    "text": "4",
+    "start": 53.38,
+    "end": 53.61,
+    "id": "w130"
+  },
+  {
+    "text": "front",
+    "start": 53.61,
+    "end": 54,
+    "id": "w131"
+  },
+  {
+    "text": "Kb4",
+    "start": 54,
+    "end": 54.36,
+    "id": "w132"
+  },
+  {
+    "text": "and",
+    "start": 54.37,
+    "end": 54.59,
+    "id": "w133"
+  },
+  {
+    "text": "rear",
+    "start": 54.6,
+    "end": 54.91,
+    "id": "w134"
+  },
+  {
+    "text": "Kb2",
+    "start": 54.91,
+    "end": 55.28,
+    "id": "w135"
+  },
+  {
+    "text": "and",
+    "start": 55.28,
+    "end": 55.5,
+    "id": "w136"
+  },
+  {
+    "text": "shock",
+    "start": 55.51,
+    "end": 55.9,
+    "id": "w137"
+  },
+  {
+    "text": "suspension.",
+    "start": 55.9,
+    "end": 57,
+    "id": "w138"
+  },
+  {
+    "text": "It",
+    "start": 57,
+    "end": 57.17,
+    "id": "w139"
+  },
+  {
+    "text": "has",
+    "start": 57.17,
+    "end": 57.43,
+    "id": "w140"
+  },
+  {
+    "text": "a",
+    "start": 57.43,
+    "end": 57.51,
+    "id": "w141"
+  },
+  {
+    "text": "preload",
+    "start": 57.51,
+    "end": 58.11,
+    "id": "w142"
+  },
+  {
+    "text": "of",
+    "start": 58.11,
+    "end": 58.28,
+    "id": "w143"
+  },
+  {
+    "text": "adjust.",
+    "start": 58.28,
+    "end": 60,
+    "id": "w144"
+  },
+  {
+    "text": "It",
+    "start": 60,
+    "end": 60.16,
+    "id": "w145"
+  },
+  {
+    "text": "has",
+    "start": 60.16,
+    "end": 60.39,
+    "id": "w146"
+  },
+  {
+    "text": "riding",
+    "start": 60.39,
+    "end": 60.87,
+    "id": "w147"
+  },
+  {
+    "text": "features",
+    "start": 60.87,
+    "end": 61.5,
+    "id": "w148"
+  },
+  {
+    "text": "too.",
+    "start": 61.5,
+    "end": 62,
+    "id": "w149"
+  },
+  {
+    "text": "It",
+    "start": 62,
+    "end": 62.18,
+    "id": "w150"
+  },
+  {
+    "text": "has",
+    "start": 62.18,
+    "end": 62.45,
+    "id": "w151"
+  },
+  {
+    "text": "wire",
+    "start": 62.45,
+    "end": 62.81,
+    "id": "w152"
+  },
+  {
+    "text": "and",
+    "start": 62.81,
+    "end": 63.08,
+    "id": "w153"
+  },
+  {
+    "text": "eco-or",
+    "start": 63.08,
+    "end": 63.61,
+    "id": "w154"
+  },
+  {
+    "text": "sport",
+    "start": 63.62,
+    "end": 64.07,
+    "id": "w155"
+  },
+  {
+    "text": "riding",
+    "start": 64.07,
+    "end": 64.6,
+    "id": "w156"
+  },
+  {
+    "text": "mode.",
+    "start": 64.61,
+    "end": 65,
+    "id": "w157"
+  },
+  {
+    "text": "It",
+    "start": 65,
+    "end": 65.21,
+    "id": "w158"
+  },
+  {
+    "text": "has",
+    "start": 65.21,
+    "end": 65.55,
+    "id": "w159"
+  },
+  {
+    "text": "riding",
+    "start": 65.55,
+    "end": 66.2,
+    "id": "w160"
+  },
+  {
+    "text": "style,",
+    "start": 66.21,
+    "end": 67,
+    "id": "w161"
+  },
+  {
+    "text": "bike",
+    "start": 67,
+    "end": 67.19,
+    "id": "w162"
+  },
+  {
+    "text": "character,",
+    "start": 67.27,
+    "end": 68,
+    "id": "w163"
+  },
+  {
+    "text": "etc.",
+    "start": 68,
+    "end": 68,
+    "id": "w164"
+  },
+  {
+    "text": "It",
+    "start": 68,
+    "end": 68.16,
+    "id": "w165"
+  },
+  {
+    "text": "has",
+    "start": 68.16,
+    "end": 68.39,
+    "id": "w166"
+  },
+  {
+    "text": "long",
+    "start": 68.4,
+    "end": 68.71,
+    "id": "w167"
+  },
+  {
+    "text": "riding",
+    "start": 68.72,
+    "end": 69.19,
+    "id": "w168"
+  },
+  {
+    "text": "control.",
+    "start": 69.19,
+    "end": 70,
+    "id": "w169"
+  },
+  {
+    "text": "It",
+    "start": 70,
+    "end": 70.16,
+    "id": "w170"
+  },
+  {
+    "text": "has",
+    "start": 70.16,
+    "end": 70.41,
+    "id": "w171"
+  },
+  {
+    "text": "cruise",
+    "start": 70.41,
+    "end": 70.9,
+    "id": "w172"
+  },
+  {
+    "text": "control",
+    "start": 70.9,
+    "end": 71.48,
+    "id": "w173"
+  },
+  {
+    "text": "as",
+    "start": 71.48,
+    "end": 71.64,
+    "id": "w174"
+  },
+  {
+    "text": "well.",
+    "start": 71.64,
+    "end": 72,
+    "id": "w175"
+  },
+  {
+    "text": "It",
+    "start": 72,
+    "end": 72.18,
+    "id": "w176"
+  },
+  {
+    "text": "has",
+    "start": 72.18,
+    "end": 72.45,
+    "id": "w177"
+  },
+  {
+    "text": "4",
+    "start": 72.45,
+    "end": 72.71,
+    "id": "w178"
+  },
+  {
+    "text": "features",
+    "start": 72.72,
+    "end": 73.44,
+    "id": "w179"
+  },
+  {
+    "text": "as",
+    "start": 73.44,
+    "end": 73.61,
+    "id": "w180"
+  },
+  {
+    "text": "well.",
+    "start": 73.62,
+    "end": 74,
+    "id": "w181"
+  },
+  {
+    "text": "It",
+    "start": 74,
+    "end": 74.18,
+    "id": "w182"
+  },
+  {
+    "text": "has",
+    "start": 74.18,
+    "end": 74.45,
+    "id": "w183"
+  },
+  {
+    "text": "a",
+    "start": 74.45,
+    "end": 74.54,
+    "id": "w184"
+  },
+  {
+    "text": "4-meter",
+    "start": 74.54,
+    "end": 75.34,
+    "id": "w185"
+  },
+  {
+    "text": "round",
+    "start": 75.35,
+    "end": 75.8,
+    "id": "w186"
+  },
+  {
+    "text": "TFT",
+    "start": 75.8,
+    "end": 76.07,
+    "id": "w187"
+  },
+  {
+    "text": "display.",
+    "start": 76.07,
+    "end": 77,
+    "id": "w188"
+  },
+  {
+    "text": "It",
+    "start": 77,
+    "end": 77.08,
+    "id": "w189"
+  },
+  {
+    "text": "has",
+    "start": 77.08,
+    "end": 77.21,
+    "id": "w190"
+  },
+  {
+    "text": "classic",
+    "start": 77.21,
+    "end": 77.51,
+    "id": "w191"
+  },
+  {
+    "text": "design",
+    "start": 77.51,
+    "end": 77.77,
+    "id": "w192"
+  },
+  {
+    "text": "with",
+    "start": 77.77,
+    "end": 77.94,
+    "id": "w193"
+  },
+  {
+    "text": "modern",
+    "start": 77.94,
+    "end": 78.2,
+    "id": "w194"
+  },
+  {
+    "text": "digital",
+    "start": 78.2,
+    "end": 78.5,
+    "id": "w195"
+  },
+  {
+    "text": "features.",
+    "start": 78.5,
+    "end": 79,
+    "id": "w196"
+  },
+  {
+    "text": "It",
+    "start": 79,
+    "end": 79.15,
+    "id": "w197"
+  },
+  {
+    "text": "has",
+    "start": 79.15,
+    "end": 79.38,
+    "id": "w198"
+  },
+  {
+    "text": "a",
+    "start": 79.38,
+    "end": 79.45,
+    "id": "w199"
+  },
+  {
+    "text": "full",
+    "start": 79.45,
+    "end": 79.76,
+    "id": "w200"
+  },
+  {
+    "text": "LED",
+    "start": 79.76,
+    "end": 79.99,
+    "id": "w201"
+  },
+  {
+    "text": "lighting",
+    "start": 79.99,
+    "end": 80.61,
+    "id": "w202"
+  },
+  {
+    "text": "and",
+    "start": 80.62,
+    "end": 80.85,
+    "id": "w203"
+  },
+  {
+    "text": "USB",
+    "start": 80.85,
+    "end": 81.06,
+    "id": "w204"
+  },
+  {
+    "text": "charging.",
+    "start": 81.07,
+    "end": 82,
+    "id": "w205"
+  },
+  {
+    "text": "It",
+    "start": 82,
+    "end": 82.2,
+    "id": "w206"
+  },
+  {
+    "text": "has",
+    "start": 82.2,
+    "end": 82.5,
+    "id": "w207"
+  },
+  {
+    "text": "a",
+    "start": 82.5,
+    "end": 82.59,
+    "id": "w208"
+  },
+  {
+    "text": "tire",
+    "start": 82.6,
+    "end": 82.99,
+    "id": "w209"
+  },
+  {
+    "text": "or",
+    "start": 82.99,
+    "end": 83.19,
+    "id": "w210"
+  },
+  {
+    "text": "road",
+    "start": 83.19,
+    "end": 83.58,
+    "id": "w211"
+  },
+  {
+    "text": "presence",
+    "start": 83.58,
+    "end": 84.37,
+    "id": "w212"
+  },
+  {
+    "text": "too.",
+    "start": 84.37,
+    "end": 85,
+    "id": "w213"
+  },
+  {
+    "text": "It",
+    "start": 85,
+    "end": 85.15,
+    "id": "w214"
+  },
+  {
+    "text": "also",
+    "start": 85.15,
+    "end": 85.45,
+    "id": "w215"
+  },
+  {
+    "text": "has",
+    "start": 85.45,
+    "end": 85.68,
+    "id": "w216"
+  },
+  {
+    "text": "a",
+    "start": 85.68,
+    "end": 85.75,
+    "id": "w217"
+  },
+  {
+    "text": "fairly",
+    "start": 85.75,
+    "end": 86.2,
+    "id": "w218"
+  },
+  {
+    "text": "wet",
+    "start": 86.2,
+    "end": 86.46,
+    "id": "w219"
+  },
+  {
+    "text": "and",
+    "start": 86.46,
+    "end": 86.81,
+    "id": "w220"
+  },
+  {
+    "text": "sporty",
+    "start": 86.81,
+    "end": 87.5,
+    "id": "w221"
+  },
+  {
+    "text": "tire.",
+    "start": 87.51,
+    "end": 88,
+    "id": "w222"
+  },
+  {
+    "text": "It",
+    "start": 88,
+    "end": 88.09,
+    "id": "w223"
+  },
+  {
+    "text": "has",
+    "start": 88.09,
+    "end": 88.22,
+    "id": "w224"
+  },
+  {
+    "text": "18-inch",
+    "start": 88.23,
+    "end": 88.74,
+    "id": "w225"
+  },
+  {
+    "text": "and",
+    "start": 88.74,
+    "end": 88.88,
+    "id": "w226"
+  },
+  {
+    "text": "17-inch",
+    "start": 88.88,
+    "end": 89.38,
+    "id": "w227"
+  },
+  {
+    "text": "rear",
+    "start": 89.39,
+    "end": 89.58,
+    "id": "w228"
+  },
+  {
+    "text": "wheel.",
+    "start": 89.58,
+    "end": 90,
+    "id": "w229"
+  },
+  {
+    "text": "It",
+    "start": 90,
+    "end": 90.01,
+    "id": "w230"
+  },
+  {
+    "text": "has",
+    "start": 90.01,
+    "end": 90.03,
+    "id": "w231"
+  },
+  {
+    "text": "4-inch",
+    "start": 90.03,
+    "end": 90.08,
+    "id": "w232"
+  },
+  {
+    "text": "spokes",
+    "start": 90.08,
+    "end": 90.13,
+    "id": "w233"
+  },
+  {
+    "text": "and",
+    "start": 90.13,
+    "end": 90.15,
+    "id": "w234"
+  },
+  {
+    "text": "a",
+    "start": 90.15,
+    "end": 90.15,
+    "id": "w235"
+  },
+  {
+    "text": "wide",
+    "start": 90.15,
+    "end": 90.18,
+    "id": "w236"
+  },
+  {
+    "text": "tube.",
+    "start": 90.18,
+    "end": 93,
+    "id": "w237"
+  },
+  {
+    "text": "It",
+    "start": 93,
+    "end": 93.22,
+    "id": "w238"
+  },
+  {
+    "text": "has",
+    "start": 93.23,
+    "end": 93.57,
+    "id": "w239"
+  },
+  {
+    "text": "a",
+    "start": 93.57,
+    "end": 93.69,
+    "id": "w240"
+  },
+  {
+    "text": "ride",
+    "start": 93.69,
+    "end": 94.16,
+    "id": "w241"
+  },
+  {
+    "text": "time.",
+    "start": 94.16,
+    "end": 95,
+    "id": "w242"
+  },
+  {
+    "text": "It",
+    "start": 95,
+    "end": 95.18,
+    "id": "w243"
+  },
+  {
+    "text": "has",
+    "start": 95.18,
+    "end": 95.45,
+    "id": "w244"
+  },
+  {
+    "text": "a",
+    "start": 95.45,
+    "end": 95.54,
+    "id": "w245"
+  },
+  {
+    "text": "petrol-dized",
+    "start": 95.54,
+    "end": 96.61,
+    "id": "w246"
+  },
+  {
+    "text": "pole.",
+    "start": 96.62,
+    "end": 97,
+    "id": "w247"
+  },
+  {
+    "text": "It",
+    "start": 97,
+    "end": 97.18,
+    "id": "w248"
+  },
+  {
+    "text": "has",
+    "start": 97.18,
+    "end": 97.46,
+    "id": "w249"
+  },
+  {
+    "text": "a",
+    "start": 97.46,
+    "end": 97.55,
+    "id": "w250"
+  },
+  {
+    "text": "seat",
+    "start": 97.55,
+    "end": 97.92,
+    "id": "w251"
+  },
+  {
+    "text": "height",
+    "start": 97.92,
+    "end": 98.48,
+    "id": "w252"
+  },
+  {
+    "text": "of",
+    "start": 98.48,
+    "end": 98.66,
+    "id": "w253"
+  },
+  {
+    "text": "800",
+    "start": 98.66,
+    "end": 99.49,
+    "id": "w254"
+  },
+  {
+    "text": "mm.",
+    "start": 99.5,
+    "end": 100,
+    "id": "w255"
+  },
+  {
+    "text": "It",
+    "start": 100,
+    "end": 100.98,
+    "id": "w256"
+  },
+  {
+    "text": "has",
+    "start": 100.98,
+    "end": 102.43,
+    "id": "w257"
+  },
+  {
+    "text": "a",
+    "start": 102.43,
+    "end": 102.94,
+    "id": "w258"
+  },
+  {
+    "text": "top",
+    "start": 102.94,
+    "end": 103.16,
+    "id": "w259"
+  },
+  {
+    "text": "speed",
+    "start": 103.17,
+    "end": 103.56,
+    "id": "w260"
+  },
+  {
+    "text": "of",
+    "start": 103.56,
+    "end": 103.71,
+    "id": "w261"
+  },
+  {
+    "text": "210",
+    "start": 103.71,
+    "end": 104.42,
+    "id": "w262"
+  },
+  {
+    "text": "kmph.",
+    "start": 104.42,
+    "end": 104.99,
+    "id": "w263"
+  },
+  {
+    "text": "Overall,",
+    "start": 105,
+    "end": 105.58,
+    "id": "w264"
+  },
+  {
+    "text": "it",
+    "start": 105.59,
+    "end": 105.71,
+    "id": "w265"
+  },
+  {
+    "text": "has",
+    "start": 105.72,
+    "end": 105.92,
+    "id": "w266"
+  },
+  {
+    "text": "classic",
+    "start": 105.92,
+    "end": 106.37,
+    "id": "w267"
+  },
+  {
+    "text": "design",
+    "start": 106.38,
+    "end": 106.77,
+    "id": "w268"
+  },
+  {
+    "text": "with",
+    "start": 106.77,
+    "end": 107.02,
+    "id": "w269"
+  },
+  {
+    "text": "a",
+    "start": 107.02,
+    "end": 107.09,
+    "id": "w270"
+  },
+  {
+    "text": "classic",
+    "start": 107.09,
+    "end": 107.55,
+    "id": "w271"
+  },
+  {
+    "text": "design.",
+    "start": 107.55,
+    "end": 109,
+    "id": "w272"
+  },
+  {
+    "text": "It",
+    "start": 109,
+    "end": 109.16,
+    "id": "w273"
+  },
+  {
+    "text": "has",
+    "start": 109.16,
+    "end": 109.41,
+    "id": "w274"
+  },
+  {
+    "text": "twin-cylinder",
+    "start": 109.41,
+    "end": 110.47,
+    "id": "w275"
+  },
+  {
+    "text": "engine.",
+    "start": 110.47,
+    "end": 111,
+    "id": "w276"
+  },
+  {
+    "text": "Premium",
+    "start": 111,
+    "end": 111.59,
+    "id": "w277"
+  },
+  {
+    "text": "KYB",
+    "start": 111.6,
+    "end": 111.84,
+    "id": "w278"
+  },
+  {
+    "text": "suspension.",
+    "start": 111.85,
+    "end": 113,
+    "id": "w279"
+  },
+  {
+    "text": "Brake,",
+    "start": 113,
+    "end": 113.54,
+    "id": "w280"
+  },
+  {
+    "text": "POSC,",
+    "start": 113.54,
+    "end": 114,
+    "id": "w281"
+  },
+  {
+    "text": "ABS",
+    "start": 114,
+    "end": 114.24,
+    "id": "w282"
+  },
+  {
+    "text": "and",
+    "start": 114.24,
+    "end": 114.48,
+    "id": "w283"
+  },
+  {
+    "text": "modern",
+    "start": 114.48,
+    "end": 115,
+    "id": "w284"
+  },
+  {
+    "text": "electronic",
+    "start": 115,
+    "end": 115.47,
+    "id": "w285"
+  },
+  {
+    "text": "combination.",
+    "start": 115.47,
+    "end": 116,
+    "id": "w286"
+  },
+  {
+    "text": "It",
+    "start": 116,
+    "end": 116.25,
+    "id": "w287"
+  },
+  {
+    "text": "has",
+    "start": 116.26,
+    "end": 116.66,
+    "id": "w288"
+  },
+  {
+    "text": "a",
+    "start": 116.66,
+    "end": 116.79,
+    "id": "w289"
+  },
+  {
+    "text": "price",
+    "start": 116.79,
+    "end": 117.45,
+    "id": "w290"
+  },
+  {
+    "text": "of",
+    "start": 117.45,
+    "end": 117.71,
+    "id": "w291"
+  },
+  {
+    "text": "8.23",
+    "start": 117.71,
+    "end": 119.29,
+    "id": "w292"
+  },
+  {
+    "text": "Rs.",
+    "start": 119.29,
+    "end": 120,
+    "id": "w293"
+  },
+  {
+    "text": "It",
+    "start": 120,
+    "end": 120.08,
+    "id": "w294"
+  },
+  {
+    "text": "has",
+    "start": 120.08,
+    "end": 120.2,
+    "id": "w295"
+  },
+  {
+    "text": "8.23",
+    "start": 120.2,
+    "end": 120.68,
+    "id": "w296"
+  },
+  {
+    "text": "Lakh.",
+    "start": 120.68,
+    "end": 121,
+    "id": "w297"
+  },
+  {
+    "text": "It",
+    "start": 121,
+    "end": 121.08,
+    "id": "w298"
+  },
+  {
+    "text": "has",
+    "start": 121.08,
+    "end": 121.2,
+    "id": "w299"
+  },
+  {
+    "text": "a",
+    "start": 121.2,
+    "end": 121.23,
+    "id": "w300"
+  },
+  {
+    "text": "detailed",
+    "start": 121.24,
+    "end": 121.55,
+    "id": "w301"
+  },
+  {
+    "text": "description.",
+    "start": 121.55,
+    "end": 123,
+    "id": "w302"
+  },
+  {
+    "text": "If",
+    "start": 123,
+    "end": 123.06,
+    "id": "w303"
+  },
+  {
+    "text": "you",
+    "start": 123.06,
+    "end": 123.15,
+    "id": "w304"
+  },
+  {
+    "text": "want",
+    "start": 123.15,
+    "end": 123.26,
+    "id": "w305"
+  },
+  {
+    "text": "to",
+    "start": 123.27,
+    "end": 123.33,
+    "id": "w306"
+  },
+  {
+    "text": "check",
+    "start": 123.33,
+    "end": 123.48,
+    "id": "w307"
+  },
+  {
+    "text": "out",
+    "start": 123.48,
+    "end": 123.57,
+    "id": "w308"
+  },
+  {
+    "text": "the",
+    "start": 123.57,
+    "end": 123.66,
+    "id": "w309"
+  },
+  {
+    "text": "description",
+    "start": 123.66,
+    "end": 124,
+    "id": "w310"
+  },
+  {
+    "text": "of",
+    "start": 124,
+    "end": 124.15,
+    "id": "w311"
+  },
+  {
+    "text": "this",
+    "start": 124.15,
+    "end": 124.45,
+    "id": "w312"
+  },
+  {
+    "text": "video,",
+    "start": 124.45,
+    "end": 125,
+    "id": "w313"
+  },
+  {
+    "text": "you",
+    "start": 125,
+    "end": 125.12,
+    "id": "w314"
+  },
+  {
+    "text": "can",
+    "start": 125.12,
+    "end": 125.23,
+    "id": "w315"
+  },
+  {
+    "text": "find",
+    "start": 125.24,
+    "end": 125.39,
+    "id": "w316"
+  },
+  {
+    "text": "it",
+    "start": 125.4,
+    "end": 125.48,
+    "id": "w317"
+  },
+  {
+    "text": "on",
+    "start": 125.48,
+    "end": 125.56,
+    "id": "w318"
+  },
+  {
+    "text": "our",
+    "start": 125.56,
+    "end": 125.68,
+    "id": "w319"
+  },
+  {
+    "text": "website.",
+    "start": 125.68,
+    "end": 127,
+    "id": "w320"
+  },
+  {
+    "text": "If",
+    "start": 127,
+    "end": 127.07,
+    "id": "w321"
+  },
+  {
+    "text": "you",
+    "start": 127.07,
+    "end": 127.18,
+    "id": "w322"
+  },
+  {
+    "text": "want",
+    "start": 127.18,
+    "end": 127.33,
+    "id": "w323"
+  },
+  {
+    "text": "to",
+    "start": 127.33,
+    "end": 127.39,
+    "id": "w324"
+  },
+  {
+    "text": "watch",
+    "start": 127.4,
+    "end": 127.58,
+    "id": "w325"
+  },
+  {
+    "text": "more",
+    "start": 127.59,
+    "end": 127.74,
+    "id": "w326"
+  },
+  {
+    "text": "videos,",
+    "start": 127.74,
+    "end": 129,
+    "id": "w327"
+  },
+  {
+    "text": "like",
+    "start": 129,
+    "end": 129.25,
+    "id": "w328"
+  },
+  {
+    "text": "this",
+    "start": 129.26,
+    "end": 129.52,
+    "id": "w329"
+  },
+  {
+    "text": "video,",
+    "start": 129.52,
+    "end": 130,
+    "id": "w330"
+  },
+  {
+    "text": "subscribe",
+    "start": 130,
+    "end": 130.42,
+    "id": "w331"
+  },
+  {
+    "text": "to",
+    "start": 130.42,
+    "end": 130.51,
+    "id": "w332"
+  },
+  {
+    "text": "our",
+    "start": 130.51,
+    "end": 130.65,
+    "id": "w333"
+  },
+  {
+    "text": "channel.",
+    "start": 130.65,
+    "end": 131,
+    "id": "w334"
+  },
+  {
+    "text": "We",
+    "start": 131,
+    "end": 131.15,
+    "id": "w335"
+  },
+  {
+    "text": "will",
+    "start": 131.15,
+    "end": 131.45,
+    "id": "w336"
+  },
+  {
+    "text": "see",
+    "start": 131.45,
+    "end": 131.68,
+    "id": "w337"
+  },
+  {
+    "text": "you",
+    "start": 131.68,
+    "end": 131.91,
+    "id": "w338"
+  },
+  {
+    "text": "in",
+    "start": 131.91,
+    "end": 132.06,
+    "id": "w339"
+  },
+  {
+    "text": "the",
+    "start": 132.06,
+    "end": 132.29,
+    "id": "w340"
+  },
+  {
+    "text": "next",
+    "start": 132.29,
+    "end": 132.58,
+    "id": "w341"
+  },
+  {
+    "text": "video.",
+    "start": 132.59,
+    "end": 133,
+    "id": "w342"
+  }
+]
