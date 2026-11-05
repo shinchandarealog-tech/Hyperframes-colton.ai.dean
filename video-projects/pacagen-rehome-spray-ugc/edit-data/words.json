@@ -1,0 +1,537 @@
+[
+{
+"text": "If",
+"start": 0.11,
+"end": 0.13
+},
+{
+"text": "you're",
+"start": 0.13,
+"end": 0.43
+},
+{
+"text": "Googling",
+"start": 0.43,
+"end": 0.87
+},
+{
+"text": "rehoming",
+"start": 0.87,
+"end": 1.31
+},
+{
+"text": "your",
+"start": 1.31,
+"end": 1.53
+},
+{
+"text": "cat",
+"start": 1.53,
+"end": 1.69
+},
+{
+"text": "at",
+"start": 1.69,
+"end": 1.8
+},
+{
+"text": "2",
+"start": 1.8,
+"end": 1.96
+},
+{
+"text": "a.m.",
+"start": 1.96,
+"end": 2.48
+},
+{
+"text": "because",
+"start": 2.48,
+"end": 2.94
+},
+{
+"text": "of",
+"start": 2.94,
+"end": 3.07
+},
+{
+"text": "allergies,",
+"start": 3.07,
+"end": 3.8
+},
+{
+"text": "you",
+"start": 3.8,
+"end": 3.89
+},
+{
+"text": "need",
+"start": 3.89,
+"end": 4.06
+},
+{
+"text": "to",
+"start": 4.06,
+"end": 4.16
+},
+{
+"text": "watch",
+"start": 4.16,
+"end": 4.39
+},
+{
+"text": "this.",
+"start": 4.39,
+"end": 4.88
+},
+{
+"text": "Now,",
+"start": 4.88,
+"end": 5.1
+},
+{
+"text": "my",
+"start": 5.1,
+"end": 5.2
+},
+{
+"text": "situation",
+"start": 5.2,
+"end": 5.59
+},
+{
+"text": "is",
+"start": 5.59,
+"end": 5.68
+},
+{
+"text": "a",
+"start": 5.68,
+"end": 5.72
+},
+{
+"text": "little",
+"start": 5.72,
+"end": 5.99
+},
+{
+"text": "bit",
+"start": 5.99,
+"end": 6.12
+},
+{
+"text": "different",
+"start": 6.12,
+"end": 6.57
+},
+{
+"text": "because",
+"start": 6.57,
+"end": 6.96
+},
+{
+"text": "my",
+"start": 6.96,
+"end": 7.06
+},
+{
+"text": "friend",
+"start": 7.06,
+"end": 7.39
+},
+{
+"text": "moved",
+"start": 7.39,
+"end": 7.68
+},
+{
+"text": "out",
+"start": 7.68,
+"end": 7.77
+},
+{
+"text": "of",
+"start": 7.77,
+"end": 7.84
+},
+{
+"text": "my",
+"start": 7.84,
+"end": 7.98
+},
+{
+"text": "basement",
+"start": 7.98,
+"end": 8.67
+},
+{
+"text": "with",
+"start": 8.67,
+"end": 8.72
+},
+{
+"text": "her",
+"start": 8.72,
+"end": 8.9
+},
+{
+"text": "three",
+"start": 8.9,
+"end": 9.2
+},
+{
+"text": "cats,",
+"start": 9.2,
+"end": 9.56
+},
+{
+"text": "but",
+"start": 9.56,
+"end": 9.74
+},
+{
+"text": "the",
+"start": 9.74,
+"end": 9.92
+},
+{
+"text": "allergens",
+"start": 9.92,
+"end": 10.44
+},
+{
+"text": "didn't",
+"start": 10.44,
+"end": 10.82
+},
+{
+"text": "leave",
+"start": 10.82,
+"end": 11.12
+},
+{
+"text": "with",
+"start": 11.12,
+"end": 11.38
+},
+{
+"text": "them,",
+"start": 11.38,
+"end": 11.76
+},
+{
+"text": "and",
+"start": 11.76,
+"end": 12.05
+},
+{
+"text": "I",
+"start": 12.05,
+"end": 12.14
+},
+{
+"text": "still",
+"start": 12.14,
+"end": 12.63
+},
+{
+"text": "want",
+"start": 12.63,
+"end": 13.02
+},
+{
+"text": "to",
+"start": 13.02,
+"end": 13.21
+},
+{
+"text": "be",
+"start": 13.21,
+"end": 13.44
+},
+{
+"text": "able",
+"start": 13.44,
+"end": 13.63
+},
+{
+"text": "to",
+"start": 13.63,
+"end": 13.8
+},
+{
+"text": "visit",
+"start": 13.8,
+"end": 14.0
+},
+{
+"text": "her.",
+"start": 14.0,
+"end": 14.64
+},
+{
+"text": "Fel",
+"start": 14.64,
+"end": 14.86
+},
+{
+"text": "d",
+"start": 14.86,
+"end": 14.96
+},
+{
+"text": "1",
+"start": 14.96,
+"end": 15.15
+},
+{
+"text": "is",
+"start": 15.15,
+"end": 15.3
+},
+{
+"text": "the",
+"start": 15.3,
+"end": 15.52
+},
+{
+"text": "protein",
+"start": 15.52,
+"end": 16.04
+},
+{
+"text": "found",
+"start": 16.04,
+"end": 16.41
+},
+{
+"text": "in",
+"start": 16.41,
+"end": 16.56
+},
+{
+"text": "cat",
+"start": 16.56,
+"end": 16.79
+},
+{
+"text": "saliva",
+"start": 16.79,
+"end": 17.3
+},
+{
+"text": "and",
+"start": 17.3,
+"end": 17.45
+},
+{
+"text": "their",
+"start": 17.45,
+"end": 17.82
+},
+{
+"text": "skin",
+"start": 17.82,
+"end": 18.12
+},
+{
+"text": "oils,",
+"start": 18.12,
+"end": 18.57
+},
+{
+"text": "and",
+"start": 18.57,
+"end": 18.72
+},
+{
+"text": "it",
+"start": 18.72,
+"end": 18.88
+},
+{
+"text": "ends",
+"start": 18.88,
+"end": 19.2
+},
+{
+"text": "up",
+"start": 19.2,
+"end": 19.27
+},
+{
+"text": "on",
+"start": 19.27,
+"end": 19.36
+},
+{
+"text": "things",
+"start": 19.36,
+"end": 19.68
+},
+{
+"text": "that",
+"start": 19.68,
+"end": 19.68
+},
+{
+"text": "they",
+"start": 19.68,
+"end": 20.0
+},
+{
+"text": "touch.",
+"start": 20.0,
+"end": 20.6
+},
+{
+"text": "Pacagen",
+"start": 20.6,
+"end": 21.14
+},
+{
+"text": "says",
+"start": 21.14,
+"end": 21.45
+},
+{
+"text": "its",
+"start": 21.45,
+"end": 21.68
+},
+{
+"text": "brain",
+"start": 21.68,
+"end": 22.06
+},
+{
+"text": "neutralizes",
+"start": 22.06,
+"end": 22.95
+},
+{
+"text": "up",
+"start": 22.95,
+"end": 23.06
+},
+{
+"text": "to",
+"start": 23.06,
+"end": 23.48
+},
+{
+"text": "98%",
+"start": 23.48,
+"end": 23.74
+},
+{
+"text": "of",
+"start": 23.74,
+"end": 23.89
+},
+{
+"text": "active",
+"start": 23.89,
+"end": 24.31
+},
+{
+"text": "cat",
+"start": 24.31,
+"end": 24.76
+},
+{
+"text": "allergens.",
+"start": 24.76,
+"end": 25.6
+},
+{
+"text": "It",
+"start": 25.6,
+"end": 25.7
+},
+{
+"text": "doesn't",
+"start": 25.7,
+"end": 26.08
+},
+{
+"text": "medicate",
+"start": 26.21,
+"end": 26.67
+},
+{
+"text": "me",
+"start": 26.67,
+"end": 26.82
+},
+{
+"text": "it",
+"start": 26.82,
+"end": 26.97
+},
+{
+"text": "targets",
+"start": 26.97,
+"end": 27.49
+},
+{
+"text": "allergens",
+"start": 27.49,
+"end": 28.16
+},
+{
+"text": "in",
+"start": 28.16,
+"end": 28.31
+},
+{
+"text": "the",
+"start": 28.31,
+"end": 28.56
+},
+{
+"text": "environment",
+"start": 28.56,
+"end": 29.36
+},
+{
+"text": "and",
+"start": 29.36,
+"end": 29.48
+},
+{
+"text": "that's",
+"start": 29.48,
+"end": 29.84
+},
+{
+"text": "why",
+"start": 29.84,
+"end": 29.88
+},
+{
+"text": "I",
+"start": 29.88,
+"end": 29.88
+},
+{
+"text": "wanted",
+"start": 29.88,
+"end": 30.13
+},
+{
+"text": "to",
+"start": 30.13,
+"end": 30.24
+},
+{
+"text": "try",
+"start": 30.24,
+"end": 30.47
+},
+{
+"text": "it.",
+"start": 30.47,
+"end": 30.56
+}
+]
