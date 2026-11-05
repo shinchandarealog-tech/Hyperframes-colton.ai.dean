@@ -87,6 +87,7 @@ If either file is missing from the workspace root, stop and ask the user before 
 | `short-form-video`       | `/short-form-video`        | 9:16 vertical talking-head + motion-graphic playbook (TikTok/Reels/Shorts)                 |
 | `feedback`               | `/feedback`                | Capture what worked/didn't on a finished video; updates `PREFERENCES.md`                   |
 | `study-creator`          | `/study-creator <url>`     | Study a reference creator's video; writes analysis + rolls up style fingerprint at ≥3 vids |
+| `ugc-meta-edit`          | `/ugc-meta-edit`           | UGC talking-head ad for Meta: clean cut, matched B-roll over every jump cut, captions below the face, hook title, safe area, verify |
 
 Not present? `npx skills add heygen-com/hyperframes --yes` then reopen this directory.
 
