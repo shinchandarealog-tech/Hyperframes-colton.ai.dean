@@ -80,7 +80,7 @@ Place each B-roll start/end on word boundaries, snapped to 1/30s, and make sure 
 ```bash
 cd video-projects && HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init <slug> --example blank --resolution portrait --non-interactive --skip-transcribe
 ```
-Start from `.claude/skills/ugc-meta-edit/templates/index.html` (the approved rehome video). It has the talking head as a muted `<video>` plus an `<audio>` from the same file, B-roll `<video class="broll">` on track 1, the hook title, and the caption CSS. Change the durations, B-roll list, title text and `.cap { top }` (from the analyzer's suggestion). Cut each B-roll to exact length first (`-ss <in> -frames:v <n> -an -vf scale=1080:1920,fps=30`). Copy `.gitignore` from an existing project (media and renders stay out of git; keep `edit-data/` with the EDL, B-roll plan, words and captions).
+Start from `.claude/skills/ugc-meta-edit/templates/index.html` (the approved rehome video). It has the talking head as a muted `<video>` plus an `<audio>` from the same file, B-roll `<video class="broll">` on track 1, the hook title, and the caption CSS. Change the durations, B-roll list, title text and `.cap { top }` (from the analyzer's suggestion). Cut each B-roll to exact length first (`-ss <in> -frames:v <n> -an -vf scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30`), tone-mapping any HDR clip (see mistakes list). Copy `.gitignore` from an existing project (media and renders stay out of git; keep `edit-data/` with the EDL, B-roll plan, words and captions).
 
 **Captions:** write the script as 2-3 word lines (break on punctuation, keep names like "Fel d 1" together), then:
 ```bash
@@ -88,7 +88,7 @@ python3 -I ../../.claude/skills/ugc-meta-edit/scripts/build_captions.py edit-dat
 ```
 It checks every phrase against the transcript, starts captions at 0, snaps to frames and injects them into index.html. Captions under 0.35s are flagged; merge them into a neighbour.
 
-**Hook title** (only when the client wants one): cream `#F7F2B8` lowercase "pov: ..." text, **Poppins** 700 (Plus Jakarta Sans isn't auto-embedded), 74px, letter-spacing -0.065em, line-height 0.98, two forced lines (`<span class="ln">` with `white-space: nowrap`), left 65 / width 950 / top ~282, a soft dark text-shadow so it reads on white walls, and five small cream SVG stars around it but off her face. Static, shown for the first spoken line (~4-5s). Take the wording from the brief's hook options when possible.
+**Hook title** (only when the client wants one): **a new line for every video, and not always "pov:"** (e.g. "antihistamines vs. this spray: two different jobs"); cream `#F7F2B8` lowercase text, **Poppins** 700 (Plus Jakarta Sans isn't auto-embedded), 74px (drop to ~64px for a long first line), letter-spacing -0.065em, line-height 0.98, two forced lines (`<span class="ln">` with `white-space: nowrap`), left 65 / width 950 / top ~282, a soft dark text-shadow so it reads on white walls, and five small cream SVG stars around it but off her face. Static, shown for the first spoken line (~4-5s). Take the wording from the brief's hook options when possible.
 
 ### 5. Check before rendering
 ```bash
@@ -111,6 +111,9 @@ You need: 0 black/frozen events, loudness about -16 LUFS, every jump cut "covere
 - When the user gives feedback, apply it, re-verify, and save any new lasting rule to `PREFERENCES.md`.
 
 ## Mistakes already made (don't repeat)
+- iPhone HDR B-roll (`color_transfer=arib-std-b67`, bt2020) sends the renderer down a very slow HDR path (13+ min, half done) and can wash out colours. Check every cut clip with ffprobe and tone-map HDR ones to SDR bt709 when cutting: `-vf "zscale=t=linear:npl=203,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p,..." -color_primaries bt709 -color_trc bt709 -colorspace bt709`.
+- A 0.001s rounding gap between two B-roll clips (start + duration a hair short of the next start) shows one frame of the speaker. Set each duration to exactly `next_start - start`; verify_render.py flags it as a 1-frame shot.
+- Stars on a full-width title land on the letters: keep stars in the side margins.
 - Mid-frame captions landed on her mouth when she leaned in; moving them above her head was rejected. Below the chin is correct.
 - A 1-frame face flash between two B-roll clips: B-roll boundaries must touch exactly (snap both to the same frame).
 - A 0.4s speaker flash between B-roll clips: extend the previous clip instead.

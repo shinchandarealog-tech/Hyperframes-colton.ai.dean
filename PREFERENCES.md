@@ -40,6 +40,8 @@ _(style, color, sync tightness, word-by-word vs. phrase chunks — populated by 
 
 - **When the client wants a hook title** (Pacagen reference style): cream `#F7F2B8` lowercase "pov: …" text, bold geometric sans (Poppins 700, tight -0.065em tracking), two lines, small cream stars around it, soft dark shadow so it reads on light backgrounds. Static, no animation. Sits in the headroom above her head inside the safe area (top ≈282px), shown for the first spoken line (~4–5s). Captions still run underneath from the first word. (2026-11-05)
 
+- **Hook titles: a fresh line for every video, not always "pov:".** Vary the format (comparisons, questions, statements, POV), using the brief's hook ideas where they fit. (2026-11-05)
+
 ## Footage fixes
 
 - **Check the talking head for a tilted camera** (headboard, door frames, wall lines) and level it with a small rotation inside the existing zoom crop, so there are no black corners. (2026-10-21)
