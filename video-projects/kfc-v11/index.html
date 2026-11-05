@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!--
+      KFC "v11" — 9:16 · 15 s · 450 frames @ 30 fps.
+      Source of truth: the "KFC v11 Render Spec" doc. Every frame number below
+      is copied from that spec. Beats hard-cut on a 120 BPM grid (spec rule —
+      overrides the workspace's whip-transition default).
+      Client assets not yet supplied are drawn as labelled PLACEHOLDER stand-ins.
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter Tight"; font-weight: 800; font-style: normal; src: url("assets/fonts/InterTight-800.woff2") format("woff2"); }
+      :root {
+        --bg: #f6f5f1;
+        --ink: #111111;
+        --ink-muted: rgba(17, 17, 17, 0.55);
+        --card: #ffffff;
+        --hair: rgba(17, 17, 17, 0.08);
+        --track: #e6e4df;
+        --accent: #e4002b; /* placeholder — confirm against KFC brand guide. Never text. */
+        --f-display: "Inter Tight", "Inter", sans-serif;
+        --f-ui: "Inter", sans-serif;
+        --f-mono: "JetBrains Mono", monospace;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); color: var(--ink); }
+
+      /* ---------- background: bg fill + 120px grid, ink 5% ---------- */
+      #bg { position: absolute; inset: 0; background: var(--bg); }
+      #grid {
+        position: absolute; left: 0; top: 0; width: 1080px; height: 2040px;
+        background-image:
+          linear-gradient(to right, rgba(17,17,17,.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(17,17,17,.05) 1px, transparent 1px);
+        background-size: 120px 120px;
+      }
+
+      .beat { position: absolute; inset: 0; overflow: hidden; }
+      .abs { position: absolute; }
+
+      /* ---------- type ---------- */
+      .t { position: absolute; line-height: 1; white-space: nowrap; }
+      .bl { top: calc(var(--b) - 0.86em); } /* place by baseline: style="--b:430px" */
+      .cx { left: 0; width: 1080px; text-align: center; }
+      .hero  { font: 800 150px/1 var(--f-display); letter-spacing: -0.04em; }
+      .h1    { font: 800 88px/1.05 var(--f-display); letter-spacing: -0.035em; }
+      .h2    { font: 800 64px/1.1 var(--f-display); letter-spacing: -0.03em; }
+      .ui    { font: 600 40px/1.2 var(--f-ui); letter-spacing: -0.01em; }
+      .desc  { font: 500 36px/1.25 var(--f-ui); color: var(--ink-muted); }
+      .label { font: 500 32px/1 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); }
+      .t.h1, .t.h2, .t.ui, .t.desc { line-height: 1; }
+      .tnum { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+
+      /* mask reveal: word in an overflow-hidden box, inner slides up */
+      .mw { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.04em 0.02em 0.16em; margin: -0.04em -0.02em -0.16em; }
+      .mi { display: inline-block; will-change: transform; }
+
+      /* ---------- shapes ---------- */
+      .pill-w { position: absolute; background: var(--card); border: 2px solid var(--hair); border-radius: 999px; box-shadow: 0 12px 32px rgba(17,17,17,.08); }
+      .pill-ink { position: absolute; background: var(--ink); color: var(--bg); border-radius: 999px; }
+      .card { position: absolute; background: var(--card); border: 2px solid var(--hair); border-radius: 48px; box-shadow: 0 24px 60px rgba(17,17,17,.10); }
+      .flexc { display: flex; align-items: center; justify-content: center; }
+      .adot { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: var(--accent); }
+
+      /* cursor: tip sits at the element's origin; scale pivots on the tip */
+      .cursor { position: absolute; left: 0; top: 0; width: 0; height: 0; transform-origin: 0 0; z-index: 50; }
+      .cursor svg { position: absolute; left: -6px; top: -6px; overflow: visible; filter: drop-shadow(0 6px 16px rgba(0,0,0,.18)); }
+      .cursor .sm { position: absolute; left: 0; top: 0; transform: scale(0.7778); transform-origin: 0 0; } /* 56px arrow */
+      .burst { position: absolute; width: 0; height: 0; z-index: 49; }
+      .burst .arm { position: absolute; left: 0; top: -2px; width: 46px; height: 4px; transform-origin: 0 50%; }
+      .burst .tk { position: absolute; left: 14px; top: 0; width: 28px; height: 4px; border-radius: 2px; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+
+      .ph { /* placeholder tag on stand-in client assets */
+        position: absolute; font: 500 22px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase;
+        color: var(--ink); background: rgba(255,255,255,.92); border: 2px dashed rgba(17,17,17,.35);
+        border-radius: 999px; padding: 10px 18px; white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+
+      <!-- ============ BACKGROUND (all 450 frames) ============ -->
+      <div id="bg" class="clip" data-start="0" data-duration="15" data-track-index="0">
+        <div id="grid"></div>
+      </div>
+
+      <!-- ============ BEAT 1 · HOOK (0–59) ============ -->
+      <div id="b1" class="beat clip" data-start="0" data-duration="2" data-track-index="1">
+        <div id="b1-toast" class="pill-w" style="left:160px;top:304px;width:760px;height:112px;display:flex;align-items:center;padding-left:88px">
+          <div class="adot" style="left:48px;top:44px"></div>
+          <span class="ui" style="line-height:1">1 new update available</span>
+        </div>
+        <div id="b1-btn" class="pill-ink flexc" style="left:260px;top:812px;width:560px;height:176px">
+          <span class="h1" style="font-size:96px;line-height:1">Hungry?</span>
+        </div>
+        <div id="b1-burst" class="burst" style="left:640px;top:940px"></div>
+        <div id="b1-cur" class="cursor"></div>
+      </div>
+
+      <!-- ============ BEAT 2 · REVEAL (60–119) ============ -->
+      <div id="b2" class="beat clip" data-start="2" data-duration="2" data-track-index="1">
+        <div id="b2-intro" class="pill-w flexc" style="left:340px;top:296px;width:400px;height:88px">
+          <span class="ui" style="line-height:1">Introducing</span>
+        </div>
+        <div id="b2-title" class="t hero cx" style="top:445px">
+          <span class="mw"><span class="mi">The</span></span> <span class="mw"><span class="mi">Bucket</span></span>
+        </div>
+        <div id="b2-tag" class="pill-ink flexc" style="left:435px;top:642px;width:210px;height:96px">
+          <span style="font:600 52px/1 var(--f-mono)">v11</span>
+        </div>
+        <div id="b2-shadow" class="abs" style="left:260px;top:1668px;width:560px;height:64px;border-radius:50%;background:rgba(17,17,17,.18);filter:blur(24px)"></div>
+        <div id="b2-bucket" class="abs" style="left:240px;top:890px;width:600px;height:820px">
+          <div id="b2-bucket-in" class="abs" style="inset:0;transform-origin:50% 100%">
+            <svg id="b2-bucket-svg" width="600" height="820" viewBox="0 0 600 820"></svg>
+            <div class="ph" data-layout-ignore style="left:50%;top:560px;transform:translateX(-50%)">Placeholder · bucket hero</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ BEAT 3 · CRUNCH ENGINE (120–179) ============ -->
+      <div id="b3" class="beat clip" data-start="4" data-duration="2" data-track-index="1">
+        <div id="b3-label" class="t label bl" style="left:80px;--b:300px">01 / Features</div>
+        <div class="abs" style="left:80px;top:340px;width:920px;height:760px;border-radius:48px;overflow:hidden;box-shadow:0 24px 60px rgba(17,17,17,.10)">
+          <div id="b3-img" class="abs" style="inset:0;transform-origin:62% 46%">
+            <svg width="920" height="760" viewBox="0 0 920 760" style="display:block">
+              <defs>
+                <filter id="crisp" x="0" y="0" width="100%" height="100%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.018 0.026" numOctaves="5" seed="11" result="n" />
+                  <feColorMatrix in="n" type="saturate" values="0" result="g" />
+                  <feComponentTransfer in="g" result="c">
+                    <feFuncR type="table" tableValues="0.20 0.30 0.48 0.70 0.86 0.95 1" />
+                    <feFuncG type="table" tableValues="0.08 0.13 0.24 0.42 0.60 0.76 0.88" />
+                    <feFuncB type="table" tableValues="0.02 0.03 0.06 0.12 0.22 0.36 0.52" />
+                    <feFuncA type="table" tableValues="1 1" />
+                  </feComponentTransfer>
+                </filter>
+                <radialGradient id="vig" cx="62%" cy="46%" r="70%">
+                  <stop offset="0" stop-color="#fff" stop-opacity=".18" />
+                  <stop offset=".6" stop-color="#000" stop-opacity="0" />
+                  <stop offset="1" stop-color="#000" stop-opacity=".45" />
+                </radialGradient>
+              </defs>
+              <rect width="920" height="760" filter="url(#crisp)" />
+              <rect width="920" height="760" fill="url(#vig)" />
+            </svg>
+          </div>
+          <div class="ph" data-layout-ignore style="left:40px;top:40px">Placeholder · macro drumstick</div>
+        </div>
+        <div id="b3-card" data-layout-allow-overflow class="card" style="left:100px;top:920px;width:880px;height:280px">
+          <div class="t h2 bl" style="left:54px;--b:88px">Crunch Engine</div>
+          <div id="b3-track" class="abs" style="left:683px;top:26px;width:150px;height:84px;border-radius:999px;background:var(--track)">
+            <div id="b3-knob" class="abs" style="left:8px;top:8px;width:68px;height:68px;border-radius:50%;background:#fff;box-shadow:0 4px 10px rgba(17,17,17,.18)"></div>
+          </div>
+          <div id="b3-wave" class="abs" style="left:54px;top:128px;width:788px;height:100px;display:flex;align-items:center;gap:12px"></div>
+        </div>
+      </div>
+
+      <!-- ============ BEAT 4 · 11 HERBS & SPICES (180–239) ============ -->
+      <div id="b4" class="beat clip" data-start="6" data-duration="2" data-track-index="1">
+        <div id="b4-label" class="t label bl" style="left:80px;--b:300px">02 / Features</div>
+        <div id="b4-title" class="t h1 cx bl" style="--b:430px">
+          <span class="mw"><span class="mi">11</span></span> <span class="mw"><span class="mi">herbs</span></span> <span class="mw"><span class="mi">&amp;</span></span> <span class="mw"><span class="mi">spices</span></span>
+        </div>
+        <div id="b4-dots"></div>
+        <div class="abs" style="left:160px;top:978px;width:760px;height:24px;border-radius:999px;background:var(--track);overflow:hidden">
+          <div id="b4-fill" class="abs" style="left:0;top:0;width:0;height:24px;border-radius:999px;background:var(--ink)"></div>
+        </div>
+        <div id="b4-count" class="t ui bl tnum" style="left:160px;--b:1060px">Loading flavour… 0/11</div>
+        <div id="b4-pct" class="t bl tnum" style="right:160px;--b:1060px;font:500 32px/1 var(--f-mono)">0%</div>
+        <div id="b4-lock" class="abs flexc" style="left:0;top:1124px;width:1080px;height:64px;gap:18px">
+          <svg width="64" height="64" viewBox="0 0 64 64" style="overflow:visible">
+            <path id="b4-shackle" d="M21 30 V21 a11 11 0 0 1 22 0 V30" fill="none" stroke="#111" stroke-width="6" stroke-linecap="round" />
+            <rect x="12" y="28" width="40" height="32" rx="7" fill="#111" />
+            <circle cx="32" cy="43" r="4" fill="#f6f5f1" />
+          </svg>
+          <span class="ui" style="line-height:1">recipe: still encrypted</span>
+        </div>
+      </div>
+
+      <!-- ============ BEAT 5 · MULTIPLAYER MODE (240–299) ============ -->
+      <div id="b5" class="beat clip" data-start="8" data-duration="2" data-track-index="1">
+        <div id="b5-label" class="t label bl" style="left:80px;--b:300px">03 / Features</div>
+        <div id="b5-grp" class="abs" style="inset:0;transform-origin:540px 720px">
+          <div class="abs" style="left:220px;top:400px;width:640px;height:640px;border-radius:50%;box-shadow:0 30px 70px rgba(17,17,17,.20);background:repeating-conic-gradient(#e4002b 0 9deg,#fff 9deg 18deg)">
+            <div id="b5-food" class="abs" style="left:44px;top:44px;width:552px;height:552px;border-radius:50%;overflow:hidden;background:#6b3d16;box-shadow:inset 0 0 40px rgba(0,0,0,.45)"></div>
+            <div class="ph" data-layout-ignore style="left:50%;top:50%;transform:translate(-50%,-50%)">Placeholder · bucket top-down</div>
+          </div>
+          <div id="b5-cursors"></div>
+        </div>
+        <div id="b5-title" class="t h1 cx bl" style="--b:1140px;font-size:96px">
+          <span class="mw"><span class="mi">Multiplayer</span></span> <span class="mw"><span class="mi">mode</span></span>
+        </div>
+        <div id="b5-sub" class="t ui cx bl" style="--b:1210px;color:var(--ink-muted)">built for sharing</div>
+      </div>
+
+      <!-- ============ BEAT 6 · STATUS (300–344) ============ -->
+      <div id="b6" class="beat clip" data-start="10" data-duration="1.5" data-track-index="1">
+        <div id="b6-live" class="pill-w" style="left:350px;top:286px;width:380px;height:88px;display:flex;align-items:center;padding-left:72px">
+          <div id="b6-dot" class="adot" style="left:36px;top:32px"></div>
+          <span class="ui" style="line-height:1">Live status</span>
+        </div>
+        <div id="b6-card" class="card" style="left:80px;top:400px;width:920px;height:560px">
+          <div class="t bl" style="left:62px;--b:74px;font:500 36px/1 var(--f-ui);color:var(--ink-muted)">Craving level</div>
+          <div id="b6-num" class="t bl tnum" style="left:62px;--b:238px;font:800 160px/1 var(--f-display);letter-spacing:-0.04em">0%</div>
+          <svg class="abs" style="left:62px;top:288px;overflow:visible" width="792" height="220" viewBox="0 0 792 220">
+            <path id="b6-area" fill="rgba(17,17,17,.06)" d="" />
+            <path id="b6-line" fill="none" stroke="#111" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" pathLength="1" stroke-dasharray="1" d="" />
+            <circle id="b6-end" r="12" fill="#e4002b" />
+          </svg>
+        </div>
+        <div id="b6-head" class="t h1 cx bl" style="--b:1080px">
+          <span class="mw"><span class="mi">Craving</span></span> <span class="mw"><span class="mi">detected.</span></span>
+        </div>
+        <div id="b6-status" class="pill-w flexc" style="left:260px;top:1130px;width:560px;height:100px;border:3px solid var(--ink);box-shadow:none">
+          <span style="font:700 44px/1 var(--f-ui)">Status: STARVING</span>
+        </div>
+      </div>
+
+      <!-- ============ BEAT 7 · PRICING (345–389) ============ -->
+      <div id="b7" class="beat clip" data-start="11.5" data-duration="1.5" data-track-index="1">
+        <div id="b7-title" class="t h1 cx bl" style="--b:370px">
+          <span class="mw"><span class="mi">Choose</span></span> <span class="mw"><span class="mi">your</span></span> <span class="mw"><span class="mi">plan</span></span>
+        </div>
+        <div id="b7-solo" class="card" style="left:90px;top:420px;width:900px;height:190px;border-radius:40px">
+          <div class="t h2 bl" style="left:54px;--b:88px">Solo</div>
+          <div class="t desc bl" style="left:54px;--b:142px">just you</div>
+          <div class="abs flexc" style="right:54px;top:0;height:100%;font:700 52px/1 var(--f-ui)">[PRICE]</div>
+        </div>
+        <div id="b7-duo" class="card" style="left:90px;top:640px;width:900px;height:190px;border-radius:40px">
+          <div class="t h2 bl" style="left:54px;--b:88px">Duo</div>
+          <div class="t desc bl" style="left:54px;--b:142px">you + 1</div>
+          <div class="abs flexc" style="right:54px;top:0;height:100%;font:700 52px/1 var(--f-ui)">[PRICE]</div>
+        </div>
+        <div id="b7-squad" class="card" style="left:70px;top:880px;width:940px;height:230px;border-radius:40px;border:4px solid var(--ink)">
+          <div class="t h2 bl" style="left:52px;--b:86px">Squad</div>
+          <div class="t desc bl" style="left:52px;--b:140px">the whole gang</div>
+          <div class="abs flexc" style="right:52px;top:0;height:100%;font:700 52px/1 var(--f-ui)">[PRICE]</div>
+          <div class="pill-ink flexc" style="left:616px;top:-34px;width:280px;height:60px;font:700 30px/1 var(--f-ui)">Most popular</div>
+        </div>
+        <div id="b7-burst" class="burst" style="left:660px;top:1040px"></div>
+        <div id="b7-cur" class="cursor"></div>
+      </div>
+
+      <!-- ============ BEAT 8 · END CARD (390–449) ============ -->
+      <div id="b8" class="beat clip" data-start="13" data-duration="2" data-track-index="1">
+        <div id="b8-logo" class="abs flexc" style="left:380px;top:320px;width:320px;height:320px;border-radius:40px;border:3px dashed rgba(17,17,17,.35);background:rgba(255,255,255,.6)">
+          <span style="font:500 26px/1.3 var(--f-mono);letter-spacing:.1em;text-align:center;color:var(--ink-muted)">CLIENT<br />LOGO</span>
+        </div>
+        <div id="b8-head" class="t cx bl" style="--b:790px;font:800 120px/1 var(--f-display);letter-spacing:-0.04em">
+          <span class="mw"><span class="mi">v11</span></span> <span class="mw"><span class="mi">is</span></span> <span class="mw"><span class="mi">live.</span></span>
+        </div>
+        <div id="b8-btn" class="pill-ink flexc" style="left:220px;top:860px;width:640px;height:160px;overflow:hidden">
+          <span class="h2" style="line-height:1">Order now →</span>
+          <div id="b8-shine" class="abs" style="left:260px;top:-20px;width:120px;height:200px;background:#fff;opacity:.35;transform:skewX(-20deg)"></div>
+        </div>
+        <div id="b8-app1" class="abs flexc" style="left:120px;top:1035px;width:400px;height:110px;border-radius:28px;border:3px dashed rgba(17,17,17,.35);background:var(--card);font:500 28px/1 var(--f-mono);letter-spacing:.06em">[ORDER APP]</div>
+        <div id="b8-app2" class="abs flexc" style="left:560px;top:1035px;width:400px;height:110px;border-radius:28px;border:3px dashed rgba(17,17,17,.35);background:var(--card);font:500 28px/1 var(--f-mono);letter-spacing:.06em">[ORDER APP]</div>
+        <div id="b8-burst" class="burst" style="left:700px;top:980px"></div>
+        <div id="b8-cur" class="cursor"></div>
+      </div>
+
+      <!-- ============ AUDIO (cue sheet, global frames ÷ 30) ============
+           Stand-ins from the workspace SFX library until the licensed 120 BPM
+           track + real SFX arrive. Music duck at f150 not applied (static volumes). -->
+      <audio id="a-music" data-start="0" data-duration="15" data-track-index="10" src="assets/music/music-bed-cinematic-tech.mp3" data-volume="0.18"></audio>
+      <audio id="a-ping" data-start="0" data-duration="0.5" data-track-index="11" src="assets/sfx/notification.mp3" data-volume="0.35"></audio>
+      <audio id="a-click1" data-start="1.5" data-duration="0.4" data-track-index="12" src="assets/sfx/click.wav" data-volume="0.6"></audio>
+      <audio id="a-whoosh" data-start="2.4" data-duration="0.57" data-track-index="13" src="assets/sfx/whoosh.mp3" data-volume="0.4"></audio>
+      <audio id="a-bass" data-start="3" data-duration="1.1" data-track-index="14" src="assets/sfx/bass-drop.mp3" data-volume="0.55"></audio>
+      <audio id="a-crunch" data-start="5" data-duration="0.2" data-track-index="15" src="assets/sfx/hard-cut.mp3" data-volume="0.7"></audio>
+      <div id="tick-audio"></div>
+      <audio id="a-lock" data-start="7.5" data-duration="0.5" data-track-index="27" src="assets/sfx/slam.mp3" data-volume="0.3"></audio>
+      <audio id="a-pop1" data-start="8.8" data-duration="0.3" data-track-index="28" src="assets/sfx/pop.mp3" data-volume="0.4"></audio>
+      <audio id="a-pop2" data-start="8.9333" data-duration="0.3" data-track-index="29" src="assets/sfx/pop.mp3" data-volume="0.4"></audio>
+      <audio id="a-pop3" data-start="9.0667" data-duration="0.3" data-track-index="30" src="assets/sfx/pop.mp3" data-volume="0.4"></audio>
+      <audio id="a-pop4" data-start="9.2" data-duration="0.3" data-track-index="31" src="assets/sfx/pop.mp3" data-volume="0.4"></audio>
+      <audio id="a-count" data-start="10.1333" data-duration="0.6" data-track-index="32" src="assets/sfx/keyboard-typing.mp3" data-volume="0.3"></audio>
+      <audio id="a-blip" data-start="11" data-duration="0.4" data-track-index="33" src="assets/sfx/zap.mp3" data-volume="0.35"></audio>
+      <audio id="a-click2" data-start="12.5" data-duration="0.4" data-track-index="34" src="assets/sfx/click.wav" data-volume="0.6"></audio>
+      <audio id="a-ching" data-start="12.5667" data-duration="1" data-track-index="35" src="assets/sfx/sparkle.mp3" data-volume="0.35"></audio>
+      <audio id="a-click3" data-start="14.5" data-duration="0.4" data-track-index="36" src="assets/sfx/click.wav" data-volume="0.6"></audio>
+      <audio id="a-hit" data-start="14.5" data-duration="0.5" data-track-index="37" src="assets/sfx/bass-drop.mp3" data-volume="0.4"></audio>
+      <!-- 11 ticks, 0.08 s apart from global f192 (tracks 16–26) -->
+      <audio id="a-tick0" data-start="6.4" data-duration="0.08" data-track-index="16" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick1" data-start="6.48" data-duration="0.08" data-track-index="17" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick2" data-start="6.56" data-duration="0.08" data-track-index="18" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick3" data-start="6.64" data-duration="0.08" data-track-index="19" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick4" data-start="6.72" data-duration="0.08" data-track-index="20" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick5" data-start="6.8" data-duration="0.08" data-track-index="21" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick6" data-start="6.88" data-duration="0.08" data-track-index="22" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick7" data-start="6.96" data-duration="0.08" data-track-index="23" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick8" data-start="7.04" data-duration="0.08" data-track-index="24" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick9" data-start="7.12" data-duration="0.08" data-track-index="25" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+      <audio id="a-tick10" data-start="7.2" data-duration="0.08" data-track-index="26" src="assets/sfx/click.wav" data-volume="0.25"></audio>
+    </div>
+
+    <script>
+      (() => {
+        // ---------- frame math (spec: 30 fps, 120 BPM, 1 beat = 15 frames) ----------
+        const START = [0, 60, 120, 180, 240, 300, 345, 390]; // beat start, global frames
+        const T = (b, f) => (START[b - 1] + f) / 30; // beat-local frame -> seconds
+        const D = (f) => f / 30;
+
+        // spec's five named eases
+        const SNAP = "expo.out", TRAVEL = "power3.inOut", SPRING = "back.out(1.6)", EXIT = "expo.in", DRIFT = "sine.inOut";
+
+        // seeded PRNG (mulberry32) — determinism
+        let seed = 0x6b6663;
+        const rand = () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+
+        const $ = (s) => document.querySelector(s);
+        const NS = "http://www.w3.org/2000/svg";
+
+        // ---------- build repeated DOM (synchronous) ----------
+        const CURSOR_SVG = '<svg width="60" height="86" viewBox="-6 -6 60 86"><path d="M0 0 L0 65 L15 50 L25 72 L35 67 L25 45 L45 45 Z" fill="#111" stroke="#fff" stroke-width="8" stroke-linejoin="round" paint-order="stroke"/></svg>';
+        ["#b1-cur", "#b7-cur", "#b8-cur"].forEach((s) => ($(s).innerHTML = CURSOR_SVG));
+
+        // click bursts: 3 accent ticks at -135°, -90°, -45° from the tip
+        document.querySelectorAll(".burst").forEach((b) => {
+          b.innerHTML = [-135, -90, -45].map((a) => `<div class="arm" style="transform:rotate(${a}deg)"><div class="tk"></div></div>`).join("");
+        });
+
+        // Beat 2 stand-in bucket: tapered red/white stripes + food above the rim
+        (() => {
+          const svg = $("#b2-bucket-svg");
+          let h = "";
+          const food = [[150, 120, 110, 80, "#c98a35"], [300, 95, 120, 90, "#d99a42"], [450, 125, 105, 78, "#bf7d2e"], [225, 160, 120, 60, "#e0a84e"], [380, 165, 115, 58, "#c88633"]];
+          food.forEach(([cx, cy, rx, ry, c]) => (h += `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${c}"/>`));
+          for (let i = 0; i < 40; i++) h += `<circle cx="${(60 + rand() * 480).toFixed(1)}" cy="${(60 + rand() * 140).toFixed(1)}" r="${(4 + rand() * 9).toFixed(1)}" fill="#8a531d" opacity=".55"/>`;
+          const N = 9;
+          for (let k = 0; k < N; k++) {
+            const t0 = 30 + (540 / N) * k, t1 = t0 + 540 / N, b0 = 100 + (400 / N) * k, b1 = b0 + 400 / N;
+            h += `<polygon points="${t0},220 ${t1},220 ${b1},800 ${b0},800" fill="${k % 2 ? "#ffffff" : "#e4002b"}"/>`;
+          }
+          h += `<polygon points="30,220 570,220 500,800 100,800" fill="none" stroke="rgba(17,17,17,.12)" stroke-width="3"/>`;
+          h += `<linearGradient id="bshade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".18"/><stop offset=".35" stop-color="#000" stop-opacity="0"/><stop offset=".7" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></linearGradient>`;
+          h += `<polygon points="30,220 570,220 500,800 100,800" fill="url(#bshade)"/>`;
+          h += `<rect x="12" y="186" width="576" height="52" rx="14" fill="#fff" stroke="rgba(17,17,17,.14)" stroke-width="3"/>`;
+          svg.innerHTML = h;
+        })();
+
+        // Beat 3 waveform: 40 bars, 8px wide, 12px gaps, idle 8px
+        const bars = [];
+        for (let i = 0; i < 40; i++) {
+          const d = document.createElement("div");
+          d.style.cssText = "width:8px;height:8px;border-radius:4px;background:#111;flex:none";
+          $("#b3-wave").appendChild(d);
+          bars.push([d, Math.round(30 + rand() * 70)]);
+        }
+
+        // Beat 4 dots: rows 4/4/3, 112px, 3px ink stroke, mono numbers
+        const DOTS = [];
+        [[560, [324, 468, 612, 756]], [704, [324, 468, 612, 756]], [848, [396, 540, 684]]].forEach(([y, xs]) => xs.forEach((x) => DOTS.push([x, y])));
+        DOTS.forEach(([x, y], n) => {
+          const d = document.createElement("div");
+          d.className = "abs";
+          d.style.cssText = `left:${x - 56}px;top:${y - 56}px;width:112px;height:112px;border-radius:50%;border:3px solid #111;`;
+          d.innerHTML = `<div class="b4-fill-dot abs" style="inset:-3px;border-radius:50%;background:#111"></div><div class="b4-num abs flexc" style="inset:0;font:500 36px/1 var(--f-mono);color:#111">${n + 1}</div>`;
+          $("#b4-dots").appendChild(d);
+        });
+
+        // Beat 5 overhead food (stand-in) + four named cursors
+        (() => {
+          const f = $("#b5-food");
+          let h = "";
+          for (let i = 0; i < 14; i++) {
+            const a = rand() * Math.PI * 2, r = rand() * 200, w = 130 + rand() * 70, hh = 90 + rand() * 50;
+            const c = ["#c98a35", "#d99a42", "#bf7d2e", "#e0a84e"][i % 4];
+            h += `<div class="abs" style="left:${(276 + Math.cos(a) * r - w / 2).toFixed(0)}px;top:${(276 + Math.sin(a) * r - hh / 2).toFixed(0)}px;width:${w.toFixed(0)}px;height:${hh.toFixed(0)}px;border-radius:50%;background:radial-gradient(circle at 35% 30%, #f0c070, ${c} 55%, #7a4416);transform:rotate(${(rand() * 180).toFixed(0)}deg);box-shadow:0 6px 14px rgba(0,0,0,.35)"></div>`;
+          }
+          f.innerHTML = h;
+        })();
+        const MP = [
+          ["Aman", -120, 140, 330, 480, 4, false],
+          ["Priya", 1200, 140, 720, 500, 8, false],
+          ["Bhaiya", -120, 1900, 320, 900, 12, false],
+          ["You", 1200, 1900, 740, 880, 16, true],
+        ];
+        MP.forEach(([name, , , , , , you], i) => {
+          const c = document.createElement("div");
+          c.className = "cursor";
+          c.id = "b5-c" + i;
+          const tag = you
+            ? `background:#111;color:#f6f5f1;border:2px solid #111`
+            : `background:#fff;color:#111;border:2px solid rgba(17,17,17,.08);box-shadow:0 8px 20px rgba(17,17,17,.08)`;
+          c.innerHTML = `<div class="sm">${CURSOR_SVG}</div><div class="abs" style="left:36px;top:56px;padding:12px 20px;border-radius:999px;font:600 32px/1 var(--f-ui);white-space:nowrap;${tag}">${name}</div>`;
+          $("#b5-cursors").appendChild(c);
+        });
+
+        // Beat 6 line chart geometry (plot box 792 × 220)
+        const PTS = [[0, 0.1], [0.14, 0.12], [0.28, 0.1], [0.42, 0.25], [0.57, 0.3], [0.71, 0.45], [0.85, 0.68], [1, 0.92]].map(([x, y]) => [x * 792, 220 - y * 220]);
+        const line = "M" + PTS.map((p) => p.map((v) => v.toFixed(1)).join(" ")).join(" L");
+        $("#b6-line").setAttribute("d", line);
+        $("#b6-area").setAttribute("d", line + " L792 220 L0 220 Z");
+        $("#b6-end").setAttribute("cx", PTS[7][0]);
+        $("#b6-end").setAttribute("cy", PTS[7][1].toFixed(1));
+
+        // ---------- shared moves ----------
+        const tl = gsap.timeline({ paused: true });
+
+        const mask = (sel, b, f, stag = 4) =>
+          tl.fromTo(`${sel} .mi`, { yPercent: 110 }, { yPercent: 0, duration: D(12), ease: SNAP, stagger: D(stag) }, T(b, f));
+        const pop = (sel, b, f, ease = SPRING) =>
+          tl.fromTo(sel, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: D(8), ease }, T(b, f));
+        const click = (cur, burst, b, f) => {
+          tl.to(cur, { scale: 0.85, duration: D(3), ease: EXIT }, T(b, f));
+          tl.to(cur, { scale: 1, duration: D(6), ease: SPRING }, T(b, f + 3));
+          tl.fromTo(`${burst} .tk`, { scaleX: 0, opacity: 1 }, { scaleX: 1, duration: D(4), ease: SNAP }, T(b, f));
+          tl.to(`${burst} .tk`, { opacity: 0, duration: D(6), ease: "none" }, T(b, f + 4));
+        };
+        const press = (sel, b, f) => {
+          tl.to(sel, { scale: 0.92, duration: D(4), ease: EXIT }, T(b, f));
+          tl.to(sel, { scale: 1, duration: D(10), ease: SPRING }, T(b, f + 4));
+        };
+        const travel = (sel, from, to, b, f, frames, ease = TRAVEL) =>
+          tl.fromTo(sel, { x: from[0], y: from[1] }, { x: to[0], y: to[1], duration: D(frames), ease }, T(b, f));
+        const fadeIn = (sel, b, f, frames = 8) => tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: D(frames), ease: SNAP }, T(b, f));
+        const rise = (sel, dy, b, f, frames) =>
+          tl.fromTo(sel, { y: dy, opacity: 0 }, { y: 0, opacity: 1, duration: D(frames), ease: SNAP }, T(b, f));
+
+        // Background: grid drifts up 40px across all 450 frames, linear
+        tl.fromTo("#grid", { y: 0 }, { y: -40, duration: 15, ease: "none" }, 0);
+
+        // ---------- Beat 1 · Hook ----------
+        tl.fromTo("#b1-toast", { y: -80, opacity: 0 }, { y: 0, opacity: 1, duration: D(10), ease: SNAP }, T(1, 0));
+        pop("#b1-btn", 1, 4);
+        // curved path (quadratic) (1000,1720) → ctrl (980,1180) → (640,940), f12–40
+        tl.set("#b1-cur", { x: 1000, y: 1720 }, 0);
+        const p1 = { t: 0 };
+        tl.fromTo(p1, { t: 0 }, {
+          t: 1, duration: D(28), ease: TRAVEL,
+          onUpdate: () => {
+            const t = p1.t, u = 1 - t;
+            gsap.set("#b1-cur", { x: u * u * 1000 + 2 * u * t * 980 + t * t * 640, y: u * u * 1720 + 2 * u * t * 1180 + t * t * 940 });
+          },
+        }, T(1, 12));
+        click("#b1-cur", "#b1-burst", 1, 45);
+        press("#b1-btn", 1, 45);
+
+        // ---------- Beat 2 · Reveal ----------
+        rise("#b2-intro", 30, 2, 0, 8);
+        mask("#b2-title", 2, 6);
+        tl.fromTo("#b2-tag", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: D(8), ease: "back.out(2.2)" }, T(2, 24));
+        tl.fromTo("#b2-bucket", { y: 1100 }, { y: 0, duration: D(26), ease: SNAP }, T(2, 14)); // centre y 2400 → 1300
+        tl.fromTo("#b2-bucket-in", { scaleX: 0.92, rotation: -2 }, { scaleX: 1, rotation: 0, duration: D(46), ease: DRIFT }, T(2, 14)); // flat-PNG fake turn
+        tl.fromTo("#b2-shadow", { opacity: 0 }, { opacity: 1, duration: D(26), ease: SNAP }, T(2, 14));
+
+        // ---------- Beat 3 · Crunch Engine ----------
+        fadeIn("#b3-label", 3, 0);
+        tl.fromTo("#b3-img", { scale: 1 }, { scale: 1.15, duration: D(60), ease: DRIFT }, T(3, 0));
+        tl.fromTo("#b3-card", { x: 1100 }, { x: 0, duration: D(16), ease: SPRING }, T(3, 8));
+        tl.to("#b3-knob", { x: 66, duration: D(6), ease: SNAP }, T(3, 30));
+        tl.to("#b3-track", { backgroundColor: "#e4002b", duration: D(6), ease: SNAP }, T(3, 30));
+        bars.forEach(([el, h]) => {
+          tl.to(el, { height: h, duration: D(2), ease: "power2.out" }, T(3, 30));
+          tl.to(el, { height: 8, duration: D(16), ease: SNAP }, T(3, 32));
+        });
+
+        // ---------- Beat 4 · 11 herbs & spices ----------
+        fadeIn("#b4-label", 4, 0);
+        mask("#b4-title", 4, 0, 3);
+        tl.fromTo("#b4-dots > div", { opacity: 0 }, { opacity: 1, duration: D(8), ease: SNAP }, T(4, 2)); // empty slots
+        const dotF = (n) => 12 + 2.4 * n; // dot n pops at f12 + 2.4n (0.08 s stagger)
+        tl.fromTo(".b4-fill-dot", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: D(8), ease: SPRING, stagger: 0.08 }, T(4, 12));
+        tl.fromTo(".b4-num", { color: "#111111" }, { color: "#f6f5f1", duration: D(8), ease: SNAP, stagger: 0.08 }, T(4, 12));
+        for (let n = 0; n < 11; n++) tl.to("#b4-fill", { width: (760 * (n + 1)) / 11, duration: D(6), ease: SNAP }, T(4, dotF(n)));
+        const p4 = { f: 0 };
+        tl.fromTo(p4, { f: 0 }, {
+          f: 60, duration: D(60), ease: "none",
+          onUpdate: () => {
+            let k = 0;
+            for (let n = 0; n < 11; n++) if (p4.f >= dotF(n)) k++;
+            $("#b4-count").textContent = `Loading flavour… ${k}/11`;
+            $("#b4-pct").textContent = `${Math.round((k / 11) * 100)}%`;
+          },
+        }, T(4, 0));
+        fadeIn("#b4-lock", 4, 36, 8);
+        tl.fromTo("#b4-shackle", { y: -18 }, { y: 2, duration: D(4), ease: EXIT }, T(4, 45));
+        tl.to("#b4-shackle", { y: 0, duration: D(6), ease: SPRING }, T(4, 49));
+
+        // ---------- Beat 5 · Multiplayer mode ----------
+        fadeIn("#b5-label", 5, 0);
+        tl.fromTo("#b5-grp", { rotation: 0 }, { rotation: 5, duration: D(60), ease: DRIFT }, T(5, 0));
+        MP.forEach(([, sx, sy, ex, ey, f], i) => travel("#b5-c" + i, [sx, sy], [ex, ey], 5, f, 20, "back.out(1.4)"));
+        mask("#b5-title", 5, 22);
+        rise("#b5-sub", 20, 5, 30, 10);
+
+        // ---------- Beat 6 · Status (45 frames) ----------
+        pop("#b6-live", 6, 0);
+        tl.fromTo("#b6-dot", { scale: 1 }, { scale: 1.4, duration: D(7.5), ease: DRIFT, yoyo: true, repeat: 5 }, T(6, 0));
+        rise("#b6-card", 80, 6, 0, 10);
+        const p6 = { v: 0 };
+        tl.fromTo(p6, { v: 0 }, { v: 100, duration: D(18), ease: SNAP, onUpdate: () => ($("#b6-num").textContent = Math.round(p6.v) + "%") }, T(6, 4));
+        tl.fromTo("#b6-line", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: D(24), ease: TRAVEL }, T(6, 6));
+        tl.fromTo("#b6-area", { opacity: 0 }, { opacity: 1, duration: D(8), ease: TRAVEL }, T(6, 24));
+        tl.fromTo("#b6-end", { scale: 0, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: D(8), ease: SPRING }, T(6, 30));
+        mask("#b6-head", 6, 12);
+        pop("#b6-status", 6, 22);
+        tl.to("#b6-status", { keyframes: { x: [0, -14, 12, -8, 5, 0] }, duration: D(10), ease: "none" }, T(6, 30));
+
+        // ---------- Beat 7 · Pricing (45 frames) ----------
+        mask("#b7-title", 7, 0);
+        rise("#b7-solo", 120, 7, 2, 12);
+        rise("#b7-duo", 120, 7, 6, 12);
+        rise("#b7-squad", 120, 7, 10, 12);
+        travel("#b7-cur", [1100, 1500], [660, 1040], 7, 8, 18);
+        click("#b7-cur", "#b7-burst", 7, 30);
+        tl.to("#b7-squad", { scale: 1.05, duration: D(8), ease: SPRING }, T(7, 30));
+        tl.to(["#b7-solo", "#b7-duo"], { opacity: 0.4, duration: D(8), ease: TRAVEL }, T(7, 30));
+
+        // ---------- Beat 8 · End card ----------
+        tl.fromTo("#b8-logo", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: D(14), ease: SNAP }, T(8, 0));
+        mask("#b8-head", 8, 8);
+        pop("#b8-btn", 8, 12);
+        tl.fromTo("#b8-shine", { x: -420 }, { x: 420, duration: D(14), ease: TRAVEL }, T(8, 20));
+        rise(["#b8-app1", "#b8-app2"], 20, 8, 20, 10);
+        travel("#b8-cur", [1100, 1500], [700, 980], 8, 22, 18);
+        click("#b8-cur", "#b8-burst", 8, 45);
+        press("#b8-btn", 8, 45);
+        // f46–59 hold
+
+        tl.to({}, { duration: 15 }, 0); // duration anchor: timeline fills its 15 s slot
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

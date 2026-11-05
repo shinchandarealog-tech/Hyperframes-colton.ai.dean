@@ -1,0 +1,18 @@
+:root {
+  /* Workspace default palette, taken from the KFC "v11" render spec:
+     off-white canvas, one ink colour for all type, a single red accent
+     that never touches text. Client projects override these per spec. */
+  --brand-bg: #F6F5F1;
+  --brand-surface: #FFFFFF;
+  --brand-surface-2: #E6E4DF;            /* toggle / progress tracks */
+  --brand-border: rgba(17, 17, 17, 0.08); /* card hairline */
+  --brand-accent: #E4002B;               /* never used for text */
+  --brand-accent-glow: rgba(228, 0, 43, 0.35);
+  --brand-warn: #E4002B;
+  --brand-text: #111111;
+  --brand-text-dim: rgba(17, 17, 17, 0.55);
+
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-display: "Inter Tight", "Inter", system-ui, sans-serif;
+  --font-ui: "Inter", system-ui, sans-serif;
+}
