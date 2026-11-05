@@ -1,0 +1,12 @@
+/* My Watch Story — tokens from the storyboard brief */
+:root {
+  --brand-bg: #000000;
+  --brand-surface: rgba(12, 11, 12, 0.58);   /* card fill: dark see-through */
+  --brand-border: rgba(255, 255, 255, 0.86); /* card outline: thin white */
+  --brand-accent: #e3ad97;                    /* soft rose gold (5711R) */
+  --brand-accent-glow: rgba(227, 173, 151, 0.55);
+  --brand-text: #ffffff;
+  --brand-text-dim: rgba(255, 255, 255, 0.45);
+  --font-display: "Playfair Display", serif;  /* high-contrast serif + italic */
+  --font-ui: "Inter", sans-serif;             /* clean sans semibold */
+}

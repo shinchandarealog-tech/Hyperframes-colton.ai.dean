@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>My Watch Story</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="assets/brand-tokens.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative; width: 1080px; height: 1920px; overflow: hidden;
+        background: #000; color: #fff;
+        font-family: "Inter", sans-serif;
+        font-variant-numeric: lining-nums;
+        font-feature-settings: "lnum" 1;
+        --rose: #e3ad97;
+        --rose-glow: rgba(227, 173, 151, 0.55);
+        --dim: rgba(255, 255, 255, 0.45);
+        --card-fill: rgba(12, 11, 12, 0.58);
+        --card-line: rgba(255, 255, 255, 0.86);
+      }
+
+      /* ---------- the 16:9 shot ---------- */
+      #shot {
+        position: absolute; left: 0; top: 656px; width: 1080px; height: 608px;
+        overflow: hidden; background: #000;
+      }
+      #cam { position: absolute; inset: 0; transform-origin: 50% 30%; }
+      #cam video, #cam img {
+        position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+      }
+      #grain {
+        position: absolute; inset: -40px; opacity: 0; pointer-events: none;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 1.6 -0.3'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+        background-size: 240px 240px;
+      }
+
+      /* ---------- header ---------- */
+      #header {
+        position: absolute; left: 0; top: 250px; width: 1080px;
+        display: flex; flex-direction: column; align-items: center;
+      }
+      #kicker {
+        font-family: "Inter", sans-serif; font-weight: 600; font-size: 26px;
+        letter-spacing: 0.34em; padding-left: 0.34em; line-height: 1;
+      }
+      #h1 {
+        margin-top: 26px; font-family: "Playfair Display", serif; font-weight: 700;
+        font-size: 100px; line-height: 1; letter-spacing: -0.01em;
+      }
+      #h2 {
+        position: relative; margin-top: 6px; font-family: "Playfair Display", serif;
+        font-style: italic; font-weight: 400; font-size: 92px; line-height: 1.05;
+      }
+      .w { display: inline-block; }
+      #h2-under {
+        position: absolute; left: 4px; right: 4px; bottom: -6px; height: 3px;
+        background: var(--rose); border-radius: 2px; transform-origin: left center;
+        box-shadow: 0 0 14px var(--rose-glow); transform: scaleX(0);
+      }
+
+      /* ---------- story timeline ---------- */
+      #track { position: absolute; left: 170px; top: 556px; width: 740px; height: 60px; }
+      #track-base, #track-fill {
+        position: absolute; left: 0; top: 8px; width: 740px; height: 2px; border-radius: 1px;
+        transform-origin: left center;
+      }
+      #track-base { background: rgba(255, 255, 255, 0.3); }
+      #track-fill { background: var(--rose); box-shadow: 0 0 10px var(--rose-glow); transform: scaleX(0); }
+      .dot {
+        position: absolute; top: 0; width: 18px; height: 18px; margin-left: -9px;
+        border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.8); background: #000;
+      }
+      .dot-halo {
+        position: absolute; top: 0; width: 18px; height: 18px; margin-left: -9px;
+        border-radius: 50%; border: 2px solid var(--rose); opacity: 0;
+      }
+      .dot-label {
+        position: absolute; top: 32px; width: 200px; margin-left: -100px; text-align: center;
+        font-weight: 600; font-size: 20px; letter-spacing: 0.2em; padding-left: 0.2em;
+        line-height: 1; color: #fff; opacity: 0.45;
+      }
+
+      /* ---------- captions ---------- */
+      #captions {
+        position: absolute; left: 130px; top: 1294px; width: 820px; height: 230px;
+      }
+      .cap {
+        position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+        text-align: center; font-weight: 600; font-size: 60px; line-height: 1.16;
+        letter-spacing: -0.01em; opacity: 0;
+      }
+      .cap em {
+        font-family: "Playfair Display", serif; font-style: italic; font-weight: 400;
+        font-size: 68px; letter-spacing: 0;
+      }
+
+      /* ---------- overlays (canvas coordinates) ---------- */
+      #ov { position: absolute; inset: 0; pointer-events: none; }
+      #ov svg.full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+      .card {
+        position: absolute; border: 1.5px solid var(--card-line); border-radius: 18px;
+        background: var(--card-fill); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+        overflow: hidden; opacity: 0;
+      }
+      .caps {
+        font-weight: 600; font-size: 18px; letter-spacing: 0.22em; line-height: 1; color: rgba(255,255,255,0.78);
+      }
+      .serif { font-family: "Playfair Display", serif; }
+      .watch-card { display: flex; align-items: center; gap: 20px; padding: 20px 26px 20px 22px; }
+      .watch-card svg { width: 70px; height: 96px; flex: none; overflow: visible; }
+      .watch-card .name { font-family: "Playfair Display", serif; font-size: 54px; line-height: 1; margin-top: 10px; }
+      .watch-card .age { font-size: 22px; font-weight: 500; line-height: 1; margin-top: 10px; color: rgba(255,255,255,0.86); }
+      .glint {
+        position: absolute; top: -20%; left: 0; width: 90px; height: 140%;
+        background: linear-gradient(100deg, rgba(255,255,255,0) 0%, rgba(244,214,200,0.0) 20%, rgba(244,214,200,0.55) 50%, rgba(244,214,200,0) 80%);
+        transform: translateX(-140px) skewX(-14deg);
+      }
+      .tag-label {
+        position: absolute; font-weight: 600; font-size: 24px; letter-spacing: 0.24em; line-height: 1;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="35.8"
+         data-width="1080" data-height="1920">
+
+      <!-- media -->
+      <div id="shot">
+        <div id="cam">
+          <video id="footage" src="assets/footage.mp4" data-start="0" data-duration="35.3"
+                 data-track-index="0" muted playsinline></video>
+          <img id="hold" class="clip" src="assets/lastframe.jpg" alt=""
+               data-start="35.283" data-duration="0.517" data-track-index="1" />
+        </div>
+        <div id="grain"></div>
+      </div>
+      <audio id="vo" src="assets/footage.mp4" data-start="0" data-duration="35.3"
+             data-track-index="2" data-volume="1"></audio>
+
+      <!-- SFX: whooshes on card slides -->
+      <audio id="sfx-wh1" src="assets/whoosh.mp3" data-start="11.78" data-duration="0.57" data-track-index="3" data-volume="0.28"></audio>
+      <audio id="sfx-wh2" src="assets/whoosh.mp3" data-start="16.48" data-duration="0.57" data-track-index="4" data-volume="0.28"></audio>
+      <audio id="sfx-wh3" src="assets/whoosh.mp3" data-start="21.23" data-duration="0.57" data-track-index="5" data-volume="0.28"></audio>
+      <!-- SFX: glint ping on final punch-in -->
+      <audio id="sfx-ping" src="assets/glint-ping.wav" data-start="34.9" data-duration="0.9" data-track-index="6" data-volume="0.55"></audio>
+      <!-- SFX: 14 soft watch ticks are generated below (tracks 10-23) -->
+      <div id="ticks"></div>
+
+      <!-- header -->
+      <div id="header">
+        <div id="kicker"><span class="w">MY</span> <span class="w">WATCH</span> <span class="w">STORY</span></div>
+        <div id="h1"><span class="w">50+</span> <span class="w">WATCHES.</span></div>
+        <div id="h2"><span class="w">One</span> <span class="w">favorite.</span><div id="h2-under"></div></div>
+      </div>
+
+      <!-- story timeline -->
+      <div id="track">
+        <div id="track-base"></div>
+        <div id="track-fill"></div>
+        <div class="dot-halo" id="halo0" style="left:0px"></div>
+        <div class="dot-halo" id="halo1" style="left:246.67px"></div>
+        <div class="dot-halo" id="halo2" style="left:493.33px"></div>
+        <div class="dot-halo" id="halo3" style="left:740px"></div>
+        <div class="dot" id="dot0" style="left:0px"></div>
+        <div class="dot" id="dot1" style="left:246.67px"></div>
+        <div class="dot" id="dot2" style="left:493.33px"></div>
+        <div class="dot" id="dot3" style="left:740px"></div>
+        <div class="dot-label" id="lab0" style="left:0px">AGE 8</div>
+        <div class="dot-label" id="lab1" style="left:246.67px">AGE 18</div>
+        <div class="dot-label" id="lab2" style="left:493.33px">50+</div>
+        <div class="dot-label" id="lab3" style="left:740px">THE ONE</div>
+      </div>
+
+      <!-- overlays -->
+      <div id="ov">
+        <svg class="full" viewBox="0 0 1080 1920">
+          <defs>
+            <mask id="fly-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920">
+              <path id="fly-reveal" d="M 52 1010 Q 150 700 418 752" fill="none" stroke="#fff"
+                    stroke-width="16" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" />
+            </mask>
+          </defs>
+          <!-- B02 flight path -->
+          <g id="fly" opacity="0">
+            <path d="M 52 1010 Q 150 700 418 752" fill="none" stroke="#e3ad97" stroke-width="4.5"
+                  stroke-linecap="round" stroke-dasharray="0.1 14" mask="url(#fly-mask)" />
+            <circle cx="52" cy="1010" r="6" fill="#e3ad97" />
+            <g id="plane"><g transform="translate(-16 -16) scale(1.333)">
+              <path fill="#fff" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+            </g></g>
+          </g>
+          <!-- B02 watch-roll ring -->
+          <ellipse id="roll-ring" cx="368" cy="1158" rx="112" ry="62" fill="none" stroke="#e3ad97"
+                   stroke-width="3.5" pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1"
+                   transform="rotate(-8 368 1158)" opacity="0" />
+          <!-- B08 ring round the lifted watch -->
+          <g id="pk-ring-g" opacity="0">
+            <circle id="pk-ring" cx="0" cy="0" r="74" fill="none" stroke="#e3ad97" stroke-width="3.5"
+                    pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" transform="rotate(-90)" />
+          </g>
+          <!-- B08 favorite piece line -->
+          <line id="fav-line" x1="42" y1="728" x2="300" y2="728" stroke="#e3ad97" stroke-width="2.5"
+                stroke-linecap="round" pathLength="1" stroke-dasharray="1 1.2" stroke-dashoffset="1.1" />
+          <!-- B09 glint -->
+          <g id="glint-g" opacity="0">
+            <circle r="54" fill="url(#glow)" />
+            <path d="M0 -62 L7 -7 L62 0 L7 7 L0 62 L-7 7 L-62 0 L-7 -7 Z" fill="#fff4ee" />
+          </g>
+          <defs>
+            <radialGradient id="glow">
+              <stop offset="0" stop-color="#fff1ea" stop-opacity="0.9" />
+              <stop offset="0.35" stop-color="#e3ad97" stop-opacity="0.45" />
+              <stop offset="1" stop-color="#e3ad97" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+        </svg>
+
+        <!-- B02 labels -->
+        <div class="tag-label" id="lbl-abroad" style="left:250px; top:706px;">ABROAD</div>
+        <div class="card" id="lbl-roll" style="left:248px; top:1030px; padding:12px 20px; border-radius:14px;">
+          <div class="caps" style="font-size:22px; color:#fff;">WATCH ROLL</div>
+        </div>
+
+        <!-- B03 Timex card -->
+        <div class="card watch-card" id="card-timex" style="left:36px; top:700px;">
+          <svg viewBox="0 0 70 96" class="watch-ico">
+            <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw" pathLength="1" d="M24 26 L26 4 L44 4 L46 26" />
+              <path class="draw" pathLength="1" d="M24 70 L26 92 L44 92 L46 70" />
+              <circle class="draw" pathLength="1" cx="35" cy="48" r="23" />
+              <path class="draw" pathLength="1" d="M58 44 L62 44 L62 52 L58 52" />
+              <path class="draw" pathLength="1" d="M35 48 L35 34 M35 48 L44 53" stroke="#e3ad97" />
+            </g>
+          </svg>
+          <div>
+            <div class="caps">MY FIRST WATCH</div>
+            <div class="name">Timex</div>
+            <div class="age">age 8</div>
+          </div>
+        </div>
+
+        <!-- B04 price tag -->
+        <div id="tag" style="position:absolute; left:850px; top:686px; width:0; height:0; opacity:0;">
+          <div id="tag-swing" style="position:absolute; left:0; top:0; width:0; height:0;">
+            <svg style="position:absolute; left:-80px; top:-10px; overflow:visible" width="160" height="190" viewBox="0 0 160 190">
+              <circle cx="80" cy="10" r="5" fill="#e3ad97" />
+              <path d="M80 10 L80 58" stroke="#e3ad97" stroke-width="2" />
+              <path d="M80 50 L132 76 L132 172 Q132 180 124 180 L36 180 Q28 180 28 172 L28 76 Z"
+                    fill="rgba(12,11,12,0.6)" stroke="rgba(255,255,255,0.86)" stroke-width="1.5" stroke-linejoin="round" />
+              <circle cx="80" cy="72" r="6" fill="none" stroke="#e3ad97" stroke-width="2" />
+            </svg>
+            <div class="serif" style="position:absolute; left:-80px; top:94px; width:160px; text-align:center; font-size:52px; line-height:1;">£15</div>
+          </div>
+        </div>
+
+        <!-- B04 map pin -->
+        <div id="pin" style="position:absolute; left:150px; top:834px; width:0; height:0;">
+          <div id="pin-shadow" style="position:absolute; left:-22px; top:-6px; width:44px; height:12px; border-radius:50%; background:rgba(0,0,0,0.45); opacity:0;"></div>
+          <svg id="pin-body" style="position:absolute; left:-24px; top:-66px; overflow:visible; opacity:0;" width="48" height="66" viewBox="0 0 48 66">
+            <path d="M24 64 C24 64 4 38 4 24 A20 20 0 0 1 44 24 C44 38 24 64 24 64 Z" fill="#e3ad97" stroke="#fff" stroke-width="1.5" />
+            <circle cx="24" cy="24" r="7.5" fill="#fff" />
+          </svg>
+        </div>
+        <div id="pin-text" style="position:absolute; left:30px; top:852px; width:240px; text-align:center; opacity:0;">
+          <div style="font-weight:600; font-size:26px; letter-spacing:0.24em; padding-left:0.24em; line-height:1;">ARGOS</div>
+          <div class="serif" style="font-style:italic; font-size:34px; line-height:1; margin-top:8px;">London</div>
+        </div>
+
+        <!-- B05 saving-up card -->
+        <div class="card" id="card-save" style="left:28px; top:690px; padding:20px 22px 22px;">
+          <div class="caps">SAVING UP</div>
+          <div class="serif" style="font-size:44px; line-height:1; margin:10px 0 16px;">Two weeks</div>
+          <div id="cal" style="display:grid; grid-template-columns:repeat(7, 34px); gap:5px;"></div>
+        </div>
+
+        <!-- B06 Rolex card -->
+        <div class="card watch-card" id="card-rolex" style="left:614px; top:700px;">
+          <svg viewBox="0 0 70 96" class="watch-ico">
+            <g fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path class="draw" pathLength="1" d="M24 26 L26 4 L44 4 L46 26" />
+              <path class="draw" pathLength="1" d="M24 70 L26 92 L44 92 L46 70" />
+              <circle class="draw" pathLength="1" cx="35" cy="48" r="23" />
+              <path class="draw" pathLength="1" d="M58 44 L62 44 L62 52 L58 52" />
+              <path class="draw" pathLength="1" d="M35 48 L35 34 M35 48 L44 53" stroke="#e3ad97" />
+            </g>
+          </svg>
+          <div>
+            <div class="caps">MY FIRST ROLEX</div>
+            <div class="name">Rolex</div>
+            <div class="age">age 18</div>
+          </div>
+          <div class="glint" id="rolex-glint"></div>
+        </div>
+
+        <!-- B07 counter -->
+        <div id="counter" style="position:absolute; left:44px; top:676px; width:380px; opacity:0;">
+          <div class="serif" style="font-size:156px; line-height:1; font-variant-numeric:lining-nums tabular-nums; white-space:nowrap;"><span id="count">0</span><span id="plus" style="display:inline-block; opacity:0; color:#fff;">+</span></div>
+          <div id="dials" style="display:grid; grid-template-columns:repeat(5, 32px); gap:12px; margin-top:14px;"></div>
+        </div>
+
+        <!-- B08 favorite + Patek label -->
+        <div class="caps" id="fav-text" style="position:absolute; left:42px; top:694px; font-size:22px; color:#fff; opacity:0;">FAVORITE PIECE</div>
+        <div class="card" id="card-patek" style="left:30px; top:752px; padding:20px 24px 22px;">
+          <div class="caps" id="pk-1" style="font-size:24px; color:#fff;">PATEK PHILIPPE</div>
+          <div class="serif" id="pk-2" style="font-style:italic; font-size:66px; line-height:1; margin-top:12px;">Nautilus</div>
+          <div class="serif" id="pk-3" style="font-size:44px; line-height:1; margin-top:10px; letter-spacing:0.04em;">5711R</div>
+        </div>
+
+        <!-- B09 the one -->
+        <div id="one" style="position:absolute; left:40px; top:668px; width:240px; text-align:center; opacity:0;">
+          <div class="serif" id="one-num" style="font-size:230px; line-height:0.9; font-weight:700;">1</div>
+          <div style="font-weight:600; font-size:24px; letter-spacing:0.26em; padding-left:0.26em; margin-top:4px; line-height:1;">ONE WATCH</div>
+        </div>
+      </div>
+
+      <!-- captions -->
+      <div id="captions"></div>
+    </div>
+
+    <script>
+      (function () {
+        const FPS = 60;
+        const DUR = 35.8;
+        const tl = gsap.timeline({ paused: true });
+        const $ = (s) => document.querySelector(s);
+        const $$ = (s) => Array.from(document.querySelectorAll(s));
+
+        /* ===== generated DOM (synchronous, before timeline build) ===== */
+        // 14 calendar cells with an X each
+        const cal = $("#cal");
+        for (let i = 0; i < 14; i++) {
+          const c = document.createElement("div");
+          c.style.cssText = "width:34px;height:34px;border:1.2px solid rgba(255,255,255,0.4);border-radius:6px;position:relative;";
+          c.innerHTML = '<svg class="x" viewBox="0 0 34 34" style="position:absolute;inset:0;opacity:0"><path d="M10 10 L24 24 M24 10 L10 24" stroke="#e3ad97" stroke-width="3" stroke-linecap="round"/></svg>';
+          cal.appendChild(c);
+        }
+        // 10 mini dials
+        const dials = $("#dials");
+        for (let i = 0; i < 10; i++) {
+          const a = (i * 47) % 360, b = (i * 131 + 90) % 360; // deterministic hand angles
+          const d = document.createElement("div");
+          d.className = "mini";
+          d.style.cssText = "width:32px;height:32px;opacity:0;";
+          d.innerHTML = '<svg viewBox="0 0 32 32" width="32" height="32"><circle cx="16" cy="16" r="13" fill="rgba(12,11,12,0.5)" stroke="rgba(255,255,255,0.85)" stroke-width="1.6"/>' +
+            '<path d="M16 16 L16 8" stroke="#fff" stroke-width="1.6" stroke-linecap="round" transform="rotate(' + a + ' 16 16)"/>' +
+            '<path d="M16 16 L16 10.5" stroke="#e3ad97" stroke-width="1.8" stroke-linecap="round" transform="rotate(' + b + ' 16 16)"/></svg>';
+          dials.appendChild(d);
+        }
+        // 14 tick SFX (audio clips must exist in the DOM)
+        const TICK0 = 16.80, TICK_STEP = 0.10;
+        const ticks = $("#ticks");
+        for (let i = 0; i < 14; i++) {
+          const au = document.createElement("audio");
+          au.id = "sfx-tick" + i;
+          au.src = "assets/tick.wav";
+          au.setAttribute("data-start", (TICK0 + i * TICK_STEP).toFixed(3));
+          au.setAttribute("data-duration", "0.08");
+          au.setAttribute("data-track-index", String(10 + i));
+          au.setAttribute("data-volume", "0.42");
+          ticks.appendChild(au);
+        }
+        // captions — times snapped to the audio (see STORYBOARD notes)
+        const CAPS = [
+          [0.03, 0.94, "I don’t go <em>anywhere</em>"],
+          [0.94, 2.43, "without a <em>watch</em>."],
+          [2.43, 3.38, "Even if I’m going <em>abroad</em>"],
+          [3.38, 4.98, "literally for a few <em>days</em>,"],
+          [4.98, 6.72, "I’m bringing a <em>watch roll</em> with me."],
+          [6.72, 7.50, "<em>Watches</em> are something"],
+          [7.50, 8.90, "I’ve been <em>infatuated</em> with"],
+          [8.90, 10.85, "from the time I was <em>eight</em> years old,"],
+          [10.85, 12.77, "when I bought my first <em>Timex</em>."],
+          [12.82, 13.65, "From <em>£15</em>,"],
+          [13.65, 14.55, "I <em>remember</em> I got it"],
+          [14.55, 16.60, "from <em>Argos</em> here in London."],
+          [16.65, 18.35, "Saved up for a couple of <em>weeks</em> for it."],
+          [18.37, 19.39, "And my watch collecting <em>journey</em>"],
+          [19.39, 20.70, "really started when I was <em>18</em>"],
+          [20.70, 22.10, "and I bought my first <em>Rolex</em>."],
+          [22.13, 22.90, "So, at this <em>point</em>,"],
+          [22.90, 24.93, "I’ve <em>probably</em> owned"],
+          [24.93, 26.20, "<em>50 plus</em> watches."],
+          [26.74, 27.72, "On the <em>wrist</em> at the moment"],
+          [27.72, 29.20, "is my <em>favorite</em> piece ever,"],
+          [29.20, 30.40, "the <em>Patek Philippe</em>"],
+          [30.40, 32.20, "Nautilus <em>5711R</em>."],
+          [32.95, 33.95, "If I had to have <em>one watch</em>"],
+          [33.95, 34.62, "for the rest of my <em>life</em>,"],
+          [34.62, DUR, "it would be <em>this</em>."],
+        ];
+        const capWrap = $("#captions");
+        const capEls = CAPS.map((c, i) => {
+          const el = document.createElement("div");
+          el.className = "cap";
+          el.id = "cap" + i;
+          el.innerHTML = "<span>" + c[2] + "</span>";
+          capWrap.appendChild(el);
+          return el;
+        });
+
+        /* ===== helpers ===== */
+        const snap = (t) => Math.round(t * FPS) / FPS;
+        const F = (n) => n / FPS; // frames -> seconds
+        const at = (t) => snap(t);
+
+        /* ===== camera ===== */
+        const cam = $("#cam");
+        // B01 slow push 100 -> 108
+        tl.fromTo(cam, { scale: 1 }, { scale: 1.08, duration: 2.333, ease: "sine.inOut" }, 0);
+        tl.set(cam, { scale: 1 }, at(2.333)); // hard cut to Cam B
+        // B08 punch to 125% on the lifted watch. Top-anchored so the burned-in
+        // lower third (source y >= 900px, 28.0-32.55s) stays out of frame.
+        tl.set(cam, { transformOrigin: "0% 0%" }, at(27.0));
+        tl.to(cam, { scale: 1.25, duration: F(12), ease: "power2.out" }, at(27.2));
+        tl.to(cam, { scale: 1, duration: F(18), ease: "power2.inOut" }, at(32.6));
+        // B09 hard punch to 135% on "this"
+        tl.set(cam, { transformOrigin: "50% 68%", scale: 1.35 }, at(34.9));
+
+        // B03 flashback grain
+        const grain = $("#grain");
+        tl.to(grain, { opacity: 0.22, duration: F(12), ease: "power1.out" }, at(6.75));
+        tl.fromTo(grain, { x: 0, y: 0 }, { x: 37 * 24, y: 23 * 24, duration: 6.0, ease: "steps(144)" }, at(6.75));
+        tl.set(grain, { opacity: 0 }, at(12.767));
+
+        /* ===== header (word by word) ===== */
+        tl.from("#kicker .w", { opacity: 0, y: 14, duration: F(10), ease: "power2.out", stagger: 0.09 }, at(0.12));
+        tl.from("#h1 .w", { opacity: 0, y: 22, duration: F(12), ease: "power3.out", stagger: 0.12 }, at(0.55));
+        tl.from("#h2 .w", { opacity: 0, y: 22, duration: F(12), ease: "expo.out", stagger: 0.12 }, at(1.0));
+
+        /* ===== story timeline ===== */
+        tl.from("#track-base", { scaleX: 0, duration: 0.9, ease: "power2.out" }, at(0.85));
+        [0, 1, 2, 3].forEach((i) => {
+          const t = 0.85 + [0, 0.16, 0.36, 0.62][i];
+          tl.from("#dot" + i, { opacity: 0, scale: 0.4, duration: F(10), ease: "power2.out" }, at(t));
+          tl.from("#lab" + i, { opacity: 0, y: 8, duration: F(10), ease: "power2.out" }, at(t + 0.05));
+        });
+        const FILL = [0, 1 / 3, 2 / 3, 1];
+        function lightDot(i, t, fillFrom) {
+          if (i > 0) tl.to("#track-fill", { scaleX: FILL[i], duration: 0.33, ease: "power2.inOut" }, at(t - 0.3));
+          tl.to("#dot" + i, { backgroundColor: "#e3ad97", borderColor: "#e3ad97",
+            boxShadow: "0 0 16px rgba(227,173,151,0.85)", duration: F(10), ease: "power2.out" }, at(t));
+          tl.to("#lab" + i, { opacity: 1, duration: F(10), ease: "power2.out" }, at(t));
+          tl.fromTo("#halo" + i, { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.6, duration: 0.6, ease: "power2.out", immediateRender: false }, at(t));
+        }
+        lightDot(0, 9.95);   // "eight"
+        lightDot(1, 20.32);  // "18"
+        lightDot(2, 24.96);  // "50 plus"
+        lightDot(3, 33.42);  // "one watch"
+        tl.to("#h2-under", { scaleX: 1, duration: F(14), ease: "power2.out" }, at(33.52));
+
+        /* ===== captions ===== */
+        CAPS.forEach((c, i) => {
+          const el = capEls[i];
+          tl.fromTo(el, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: F(9), ease: "power2.out" }, at(c[0]));
+          if (i === 22) {
+            tl.to(el, { opacity: 0, y: -8, duration: F(15), ease: "power1.in" }, at(32.2)); // fade in the pause
+          } else if (i < CAPS.length - 1) {
+            tl.set(el, { opacity: 0 }, at(c[1]));
+          }
+        });
+
+        /* ===== B02 flight path + watch roll ===== */
+        const P0 = [52, 1010], P1 = [150, 700], P2 = [418, 752];
+        const fly = { p: 0 };
+        const plane = $("#plane");
+        function placePlane() {
+          const t = fly.p, u = 1 - t;
+          const x = u * u * P0[0] + 2 * u * t * P1[0] + t * t * P2[0];
+          const y = u * u * P0[1] + 2 * u * t * P1[1] + t * t * P2[1];
+          const dx = 2 * u * (P1[0] - P0[0]) + 2 * t * (P2[0] - P1[0]);
+          const dy = 2 * u * (P1[1] - P0[1]) + 2 * t * (P2[1] - P1[1]);
+          const ang = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+          plane.setAttribute("transform", "translate(" + x.toFixed(2) + " " + y.toFixed(2) + ") rotate(" + ang.toFixed(2) + ")");
+          $("#fly-reveal").setAttribute("stroke-dashoffset", (1 - t).toFixed(4));
+        }
+        placePlane();
+        tl.to("#fly", { opacity: 1, duration: F(8), ease: "power1.out" }, at(3.02));
+        tl.to(fly, { p: 1, duration: 1.15, ease: "power2.inOut", onUpdate: placePlane }, at(3.05));
+        tl.fromTo("#lbl-abroad", { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: F(12), ease: "power3.out" }, at(3.2));
+        tl.to(["#fly", "#lbl-abroad"], { opacity: 0, duration: F(14), ease: "power1.inOut" }, at(5.2));
+
+        tl.to("#roll-ring", { opacity: 1, duration: F(4) }, at(5.58));
+        tl.to("#roll-ring", { attr: { "stroke-dashoffset": 0 }, duration: F(14), ease: "power2.out" }, at(5.58));
+        // the one bounce: WATCH ROLL label pops with overshoot
+        tl.fromTo("#lbl-roll", { opacity: 0, scale: 0.6, transformOrigin: "50% 100%" },
+          { opacity: 1, scale: 1, duration: F(16), ease: "back.out(2.6)" }, at(5.66));
+        tl.to(["#roll-ring", "#lbl-roll"], { opacity: 0, duration: F(14), ease: "power1.inOut" }, at(6.62));
+
+        /* ===== B03 Timex card ===== */
+        tl.fromTo("#card-timex", { opacity: 0, x: -90 }, { opacity: 1, x: 0, duration: F(12), ease: "power3.out" }, at(11.82));
+        tl.fromTo("#card-timex .draw", { attr: { "stroke-dasharray": "1 1", "stroke-dashoffset": 1 } },
+          { attr: { "stroke-dashoffset": 0 }, duration: 0.4, ease: "power2.out", stagger: 0.05 }, at(11.95));
+        tl.set("#card-timex", { opacity: 0 }, at(12.767)); // leaves with the hard cut
+
+        /* ===== B04 price tag + map pin ===== */
+        tl.set("#tag", { opacity: 1 }, at(12.98));
+        tl.fromTo("#tag-swing", { rotation: -62, opacity: 0 },
+          { keyframes: [
+              { rotation: 9, opacity: 1, duration: 0.26, ease: "power2.out" },
+              { rotation: -4, duration: 0.24, ease: "sine.inOut" },
+              { rotation: 1.5, duration: 0.22, ease: "sine.inOut" },
+              { rotation: 0, duration: 0.2, ease: "sine.out" } ] }, at(12.98));
+        tl.to("#tag", { opacity: 0, duration: F(12), ease: "power1.in" }, at(16.3));
+
+        // the one bounce: map pin drops with a single bounce
+        tl.set("#pin-body", { opacity: 1 }, at(14.58));
+        tl.fromTo("#pin-body", { y: -150 }, { keyframes: [
+            { y: 0, duration: F(11), ease: "power2.in" },
+            { y: -20, duration: F(6), ease: "power2.out" },
+            { y: 0, duration: F(6), ease: "power2.in" } ] }, at(14.58));
+        tl.fromTo("#pin-shadow", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: F(11), ease: "power2.in" }, at(14.58));
+        tl.fromTo("#pin-text", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: F(12), ease: "power3.out" }, at(14.86));
+        tl.to(["#pin-body", "#pin-shadow", "#pin-text"], { opacity: 0, duration: F(10), ease: "power1.in" }, at(16.32));
+
+        /* ===== B05 saving-up card ===== */
+        tl.fromTo("#card-save", { opacity: 0, x: -90 }, { opacity: 1, x: 0, duration: F(12), ease: "power3.out" }, at(16.5));
+        $$("#cal .x").forEach((x, i) => {
+          tl.fromTo(x, { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" },
+            { opacity: 1, scale: 1, duration: F(5), ease: "power2.out" }, at(TICK0 + i * TICK_STEP));
+        });
+        tl.to("#card-save", { opacity: 0, x: -30, duration: F(14), ease: "power2.in" }, at(19.7));
+
+        /* ===== B06 Rolex card ===== */
+        tl.fromTo("#card-rolex", { opacity: 0, x: 90 }, { opacity: 1, x: 0, duration: F(12), ease: "power3.out" }, at(21.27));
+        tl.fromTo("#card-rolex .draw", { attr: { "stroke-dasharray": "1 1", "stroke-dashoffset": 1 } },
+          { attr: { "stroke-dashoffset": 0 }, duration: 0.35, ease: "power2.out", stagger: 0.04 }, at(21.38));
+        tl.fromTo("#rolex-glint", { x: -140 }, { x: 460, duration: 0.5, ease: "power1.inOut" }, at(21.55));
+        tl.set("#card-rolex", { opacity: 0 }, at(22.133)); // leaves with the hard cut
+
+        /* ===== B07 counter ===== */
+        const cnt = { v: 0 };
+        const countEl = $("#count");
+        const drawCount = () => { countEl.textContent = String(Math.round(cnt.v)); };
+        tl.fromTo("#counter", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: F(10), ease: "power2.out" }, at(22.15));
+        tl.fromTo(cnt, { v: 0 }, { v: 50, duration: 24.95 - 22.2, ease: "power2.out", onUpdate: drawCount }, at(22.2));
+        $$("#dials .mini").forEach((d, i) => {
+          tl.fromTo(d, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: F(10), ease: "power2.out" }, at(22.3 + i * 0.255));
+        });
+        tl.fromTo("#plus", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: F(8), ease: "expo.out" }, at(24.95));
+        tl.set("#counter", { opacity: 0 }, at(26.433)); // leaves with the hard cut
+
+        /* ===== B08 the Patek ===== */
+        // ring follows the lifted watch (coordinates measured at 125%)
+        tl.set("#pk-ring-g", { attr: { transform: "translate(513 852)" }, opacity: 1 }, at(27.3));
+        tl.to("#pk-ring", { attr: { "stroke-dashoffset": 0 }, duration: F(14), ease: "power2.out" }, at(27.3));
+        tl.to("#pk-ring-g", { attr: { transform: "translate(470 830)" }, duration: 0.3, ease: "sine.inOut" }, at(27.3));
+        tl.to("#pk-ring-g", { attr: { transform: "translate(392 838)" }, duration: 0.4, ease: "sine.inOut" }, at(27.6));
+        tl.to("#pk-ring-g", { opacity: 0, duration: F(12), ease: "power1.in" }, at(28.12));
+
+        tl.to("#fav-line", { attr: { "stroke-dashoffset": 0 }, duration: F(16), ease: "power2.out" }, at(27.86));
+        tl.fromTo("#fav-text", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: F(12), ease: "power3.out" }, at(27.92));
+
+        tl.fromTo("#card-patek", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: F(12), ease: "power3.out" }, at(29.38));
+        tl.fromTo("#pk-1", { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: F(12), ease: "power2.out" }, at(29.42));
+        tl.fromTo("#pk-2", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: F(12), ease: "expo.out" }, at(30.42));
+        tl.fromTo("#pk-3", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: F(12), ease: "power3.out" }, at(30.98));
+        tl.to(["#card-patek", "#fav-text", "#fav-line"], { opacity: 0, duration: F(18), ease: "power1.in" }, at(32.2));
+
+        /* ===== B09 the one ===== */
+        tl.fromTo("#one", { opacity: 0 }, { opacity: 1, duration: F(6), ease: "power2.out" }, at(33.38));
+        tl.fromTo("#one-num", { scale: 1.9, transformOrigin: "50% 60%" }, { scale: 1, duration: F(10), ease: "expo.out" }, at(33.38));
+        // glint on the watch at the final punch
+        tl.set("#glint-g", { attr: { transform: "translate(548 1040) scale(0.2) rotate(0)" } }, at(34.9));
+        tl.to("#glint-g", { opacity: 1, duration: F(5), ease: "power2.out" }, at(34.92));
+        tl.to("#glint-g", { attr: { transform: "translate(548 1040) scale(1) rotate(45)" }, duration: F(14), ease: "power2.out" }, at(34.92));
+        tl.to("#glint-g", { opacity: 0, attr: { transform: "translate(548 1040) scale(0.6) rotate(90)" }, duration: F(14), ease: "power2.in" }, at(35.16));
+
+        // pad to full duration
+        tl.to({}, { duration: DUR }, 0);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
