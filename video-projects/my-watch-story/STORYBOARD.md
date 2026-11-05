@@ -32,3 +32,14 @@ y 0–864 and the old bars never show. The zoom eases back out at 32.6 s, after 
 ## Caption note
 Three Whisper passes (small, segment, medium) hear "on the wrist **at my** moment". The captions
 say "at the moment", as the brief suggests. Listen at ~27.0 s to confirm.
+
+## v2 — 3D rebuild
+Real 3D (three.js r147, `assets/scene3d.js`, HDRI-lit PBR, rendered on `#gl` over the shot):
+spinning Timex (leather strap) and Rolex (fluted bezel, Oyster links) in their cards, 3D plane on a
+3D dotted flight path, torus rings round the watch roll and the lifted 5711R (ring keyframes measured
+from the rendered footage), swinging extruded price tag with 3D "£15", lathed rose-gold map pin with one
+bounce, extruded Playfair counter 0→50 + "+", ten spinning mini watches, extruded "1".
+2.5D: header words flip up, timeline stands up from flat and dots spin when lit, cards swing in on a
+hinge, calendar cells flip, captions tilt up. Argos logo (Simple Icons) under the pin; 5711R photo
+(cropped from the footage) on the Patek card. Look unchanged: white + one rose-gold accent.
+Assets and licences: see CREDITS.md.
