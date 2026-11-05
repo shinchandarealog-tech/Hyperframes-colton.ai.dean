@@ -1,0 +1,10 @@
+b01|[Nov-5 folder] whisker_block_powder.mov|0.0|8.9|11.9
+b02|[Nov-5 folder] showing_product_on_counter.mov|2.0|11.9|14.0
+b03|[Nov-5 folder] IMG_0138_1if9T.mov|0.0|15.533|17.1
+b04|[Nov-5 folder] IMG_0131_1DRWi.MOV|2.0|17.1|19.233
+b05|[Nov-5 folder] IMG_1110_1ymGU.MOV|0.3|19.233|22.733
+b06|[Nov-5 folder] IMG_0170_1ts09.mov|0.5|25.133|26.5
+b07|[Nov-5 folder] Lint_rolling_Cat_hair.MOV|2.0|26.5|28.433
+b08|[Nov-5 folder] showing_the_back_side_of_package_1.mov|0.0|28.433|31.9
+b09|[Nov-5 folder] IMG_0114_1r9WG.mov|2.5|35.633|37.6
+b10|[Nov-5 folder] Cat_hair_everywhere_grabbing_the_hair.MOV|1.0|37.6|39.467
