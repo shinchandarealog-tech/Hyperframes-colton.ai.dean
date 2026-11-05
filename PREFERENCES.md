@@ -22,6 +22,8 @@ _(scene length, cuts vs. transitions, breathing room — populated by /feedback 
 
 - **UGC ads = simple, light editing.** Talking head plus real B-roll, jump cuts to trim pauses, ~2–3s per shot, with B-roll on each claim. No motion graphics, overlays, zoom punch-ins, stickers, logos or end cards. Don't apply the `MOTION_PHILOSOPHY.md` motion-graphics look to UGC work. (2026-10-21)
 - **Raw UGC footage: the creator's speech is the script, and I do the cleanup edit.** Cut every dead space, flub, stumble, false start and repeated take, keeping only the best clean take of each line. The result must flow smoothly with no awkward pauses, while keeping natural breaths so it doesn't sound robotic. (Overrides the "don't cut their audio" rule in `CLAUDE.md` for raw footage the user hands over to edit.) (2026-10-21)
+- **Hide every jump cut in the talking head under B-roll** that matches the line being said, and avoid sub-0.5s flashes of the speaker between B-roll clips. (2026-11-05)
+- **Never use B-roll where a different person (not the speaker) is visible.** Hands-only product shots are fine. (2026-11-05)
 - **B-roll must match the line it covers.** Each clip should show what's being said at that moment; never use a random filler shot. (2026-10-21)
 
 ## Captions
@@ -32,6 +34,7 @@ _(style, color, sync tightness, word-by-word vs. phrase chunks — populated by 
 - **Meta ad style captions:** small native-looking sans (≈40px cap height at 1080w), medium–semibold, sentence case, **2–3 word chunks** (fast swaps that follow her speech), hard swaps. No pill background, heavy stroke, karaoke pop or emoji. This overrides the karaoke/"pop, don't polite-caption" defaults in `/short-form-video` and `MOTION_PHILOSOPHY.md`. (2026-10-21)
 - **Captions always stay inside the Meta Reels/Stories safe area** (1080×1920): keep the top 14% (0–270px), bottom 35% (1250–1920px) and 6% each side (65px) clear. Every caption line must fit inside **x 65–1015, y 270–1250**, and long chunks must wrap inside that box, never past it. Default anchor: centered, ~50% height (y≈960). Check this on every frame during the every-frame review. (2026-10-21)
 - **Caption position stays fixed around the middle of the frame for the whole video**, including over product close-ups. Never move captions to the top or bottom per shot. (2026-10-21)
+- **Captions must never cover the speaker's face** and run from the very first word (including under a hook title). If her face reaches mid-frame, use one fixed position in the headroom above her head instead (still inside the safe area). (2026-11-05)
 
 ## Footage fixes
 
