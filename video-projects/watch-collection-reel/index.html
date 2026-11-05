@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@500;600;800&display=swap" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #050507; }
+      #root { position: relative; width: 1080px; height: 1920px; }
+      #stage { position: absolute; inset: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="35.3" data-width="1080" data-height="1920">
+      <!-- Every layer (face, grade, captions, callouts) is drawn by reel-engine.js from reel-config.js -->
+      <div id="stage">
+        <div class="re-face">
+          <video id="face-video" src="assets/footage.mp4" muted playsinline data-start="0" data-duration="35.3" data-track-index="0"></video>
+        </div>
+      </div>
+      <audio id="face-audio" src="assets/footage.mp4" data-start="0" data-duration="35.3" data-track-index="2" data-volume="1"></audio>
+    </div>
+    <script src="reel-data.js"></script>
+    <script src="reel-engine.js"></script>
+    <script src="reel-config.js"></script>
+    <script>
+      const DATA = window.REEL_DATA;
+      const cfg = window.REEL_CONFIG || ReelEngine.defaultConfig("editorial", DATA);
+      const engine = ReelEngine.create(document.getElementById("stage"), DATA, cfg, {
+        video: document.getElementById("face-video"),
+      });
+      const proxy = { t: 0 };
+      const tl = gsap.timeline({ paused: true });
+      // One linear tween drives the whole reel: engine.render(t) is a pure function of time.
+      tl.to(proxy, { t: DATA.duration, duration: DATA.duration, ease: "none", onUpdate: () => engine.render(proxy.t) }, 0);
+      tl.set({}, {}, DATA.duration);
+      engine.render(0);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

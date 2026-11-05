@@ -1,0 +1,643 @@
+<title>Reel Style Builder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@500;600;800&display=swap">
+<style>
+/* Layout: an editing-bay split — the 9:16 monitor on the left (sticky on top on phones), the inspector on the right. */
+:root {
+  --ink: #0d0e11;
+  --panel: #15171c;
+  --raise: #1d2027;
+  --line: #2a2e37;
+  --fg: #ecebe6;
+  --muted: #8f929c;
+  --tally: #ff5a47;
+  --ok: #4fd18b;
+  --f-ui: "IBM Plex Sans", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --f-mark: "Instrument Serif", Georgia, serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { background: var(--ink); color: var(--fg); font: 14px/1.45 var(--f-ui); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--tally); outline-offset: 2px; }
+
+.app { display: grid; grid-template-columns: minmax(300px, 440px) minmax(0, 1fr); gap: 28px; max-width: 1240px; margin: 0 auto;
+  padding-block: 20px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* ---------- monitor ---------- */
+.monitor { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); align-self: start; display: flex; flex-direction: column; gap: 12px; }
+.head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.mark { font: italic 30px/1 var(--f-mark); letter-spacing: -.01em; margin: 0; }
+.mark span { font-style: normal; color: var(--muted); font: 500 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; margin-left: 8px; vertical-align: middle; }
+.tally { display: inline-flex; align-items: center; gap: 6px; font: 500 11px/1 var(--f-mono); letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
+.tally i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+.tally.live i { background: var(--tally); box-shadow: 0 0 10px var(--tally); }
+
+.screen-wrap { position: relative; width: 100%; aspect-ratio: 9 / 16; max-width: 100%; border-radius: 18px; overflow: hidden; background: #000;
+  box-shadow: 0 0 0 1px var(--line), 0 30px 60px rgba(0,0,0,.5); }
+.screen-wrap .re-stage { position: absolute; left: 0; top: 0; }
+.guides { position: absolute; inset: 0; pointer-events: none; display: none; }
+.guides.on { display: block; }
+.guides .zone { position: absolute; background: rgba(255, 90, 71, .16); border: 1px dashed rgba(255, 90, 71, .7); }
+.guides .lbl { position: absolute; font: 500 10px/1 var(--f-mono); color: #ffd0ca; letter-spacing: .08em; text-transform: uppercase; padding: 4px; }
+.tap { position: absolute; inset: 0; background: none; border: 0; }
+.bigplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; border-radius: 50%;
+  background: rgba(0,0,0,.55); border: 1.5px solid rgba(255,255,255,.4); display: grid; place-items: center; pointer-events: none; transition: opacity .2s; }
+.bigplay svg { width: 26px; height: 26px; fill: #fff; margin-left: 4px; }
+.playing .bigplay, .played .bigplay { opacity: 0; }
+
+.transport { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 10px; }
+.btn-icon { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); display: grid; place-items: center; }
+.btn-icon svg { width: 16px; height: 16px; fill: var(--fg); }
+.tc { font: 500 13px/1 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--fg); min-width: 92px; }
+.tc small { color: var(--muted); font-size: 11px; }
+.scrub { position: relative; height: 38px; }
+.scrub input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: pointer; }
+.track { position: absolute; left: 0; right: 0; top: 50%; height: 26px; transform: translateY(-50%); border-radius: 6px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+.track .shot { position: absolute; top: 0; bottom: 0; border-right: 1px solid var(--ink); }
+.track .shot.front { background: #1c2230; }
+.track .shot.side { background: #252032; }
+.track .call { position: absolute; top: 3px; height: 5px; border-radius: 3px; background: var(--tally); opacity: .85; }
+.track .ck { position: absolute; bottom: 3px; width: 2px; height: 6px; background: var(--muted); opacity: .6; }
+.track .ck.key { background: #fff; height: 9px; opacity: .9; }
+.head-pos { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--tally); box-shadow: 0 0 8px var(--tally); }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font: 11px/1 var(--f-mono); color: var(--muted); }
+.legend b { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+
+/* ---------- inspector ---------- */
+.inspector { min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; padding: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; scrollbar-width: none; }
+.tabs button { flex: 0 0 auto; padding: 8px 14px; border-radius: 8px; border: 0; background: none; color: var(--muted); font-weight: 500; }
+.tabs button[aria-selected="true"] { background: var(--raise); color: var(--fg); box-shadow: inset 0 0 0 1px var(--line); }
+.pane { display: none; flex-direction: column; gap: 18px; }
+.pane.on { display: flex; }
+.sec { display: flex; flex-direction: column; gap: 12px; padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+.sec h2 { margin: 0; font: 600 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.sec p.hint { margin: 0; color: var(--muted); font-size: 13px; max-width: 62ch; }
+
+.presets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.preset { text-align: left; padding: 0; border-radius: 12px; border: 1px solid var(--line); background: var(--raise); overflow: hidden; display: flex; flex-direction: column; }
+.preset[aria-pressed="true"] { border-color: var(--fg); box-shadow: 0 0 0 1px var(--fg); }
+.swatch { height: 92px; display: grid; place-items: center; padding: 8px; text-align: center; line-height: 1; }
+.sw-ed { background: #0c0c0f; }
+.sw-ed small { display: block; font: 400 13px 'Inter', sans-serif; color: #fff; margin-bottom: 4px; }
+.sw-ed em { font: italic 34px 'Instrument Serif', serif; color: #6d60ff; }
+.sw-go { background: radial-gradient(circle at 50% 60%, #3a2410, #0b0806); }
+.sw-go small { display: block; font: 600 12px 'Poppins', sans-serif; color: #fff; margin-bottom: 2px; }
+.sw-go b { font: 800 30px 'Poppins', sans-serif; background: linear-gradient(#ffe48a, #ffb81c 60%, #d07000); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 10px rgba(255,184,28,.6)); }
+.sw-ka { background: #10141c; }
+.sw-ka b { font: 900 21px 'Montserrat', sans-serif; color: #fff; text-shadow: 2px 2px 0 #000, -2px 2px 0 #000; }
+.sw-ka b span { color: #3b82f6; }
+.preset .meta { padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.preset .meta strong { font-weight: 600; }
+.preset .meta span { font: 11px/1.3 var(--f-mono); color: var(--muted); }
+
+.row { display: grid; grid-template-columns: 140px minmax(0, 1fr) 56px; align-items: center; gap: 12px; }
+.row label { color: var(--fg); }
+.row output { font: 12px var(--f-mono); color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.row.two { grid-template-columns: 140px minmax(0, 1fr); }
+input[type="range"] { width: 100%; accent-color: var(--tally); }
+select, input[type="text"], input[type="number"] { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--raise); min-width: 0; }
+.toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.switch { position: relative; width: 40px; height: 24px; flex: 0 0 auto; }
+.switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.switch span { position: absolute; inset: 0; border-radius: 12px; background: var(--line); transition: background .15s; pointer-events: none; }
+.switch span::after { content: ""; position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--fg); transition: transform .15s; }
+.switch input:checked + span { background: var(--tally); }
+.switch input:checked + span::after { transform: translateX(16px); }
+.switch input:focus-visible + span { outline: 2px solid var(--tally); outline-offset: 2px; }
+
+.colors { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip-c { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.chip-c[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--fg); }
+input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--raise); padding: 2px; }
+
+.seg { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--raise); border: 1px solid var(--line); gap: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: none; padding: 6px 12px; border-radius: 7px; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--ink); }
+
+/* shots */
+.shots { display: flex; flex-direction: column; gap: 10px; }
+.shotcard { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--raise); }
+.shotcard.cur { border-color: var(--tally); }
+.shotcard .thumb { width: 64px; aspect-ratio: 9 / 16; border-radius: 6px; background: #000; overflow: hidden; position: relative; border: 0; padding: 0; }
+.shotcard .thumb span { position: absolute; inset: auto 0 4px; font: 500 9px var(--f-mono); text-align: center; color: #fff; }
+.shotcard .ctrls { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.shotcard .ctrls .row { grid-template-columns: 70px minmax(0, 1fr) 44px; }
+.shotcard h3 { margin: 0; font: 500 12px var(--f-mono); color: var(--muted); }
+.shotcard h3 b { color: var(--fg); font-weight: 500; }
+
+/* words */
+.chunks { display: flex; flex-direction: column; gap: 6px; max-height: 520px; overflow-y: auto; padding-right: 4px; }
+.chunk { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 10px; align-items: start; padding: 6px 4px; border-radius: 8px; }
+.chunk.cur { background: var(--raise); }
+.chunk .ts { font: 11px var(--f-mono); color: var(--muted); background: none; border: 0; padding: 5px 0; text-align: left; font-variant-numeric: tabular-nums; }
+.chunk .ws { display: flex; flex-wrap: wrap; gap: 4px; }
+.wd { border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 3px 7px; font-size: 13px; }
+.wd.key { background: var(--fg); color: var(--ink); border-color: var(--fg); font-weight: 600; }
+.wd.never { text-decoration: line-through; color: var(--muted); }
+.wd.edited { border-style: dashed; border-color: var(--tally); }
+.wd input { width: 9ch; padding: 0; border: 0; background: none; }
+
+/* callouts */
+.calls { display: flex; flex-direction: column; gap: 10px; }
+.callcard { display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--raise); }
+.callcard .top { display: flex; align-items: center; gap: 10px; justify-content: space-between; flex-wrap: wrap; }
+.callcard .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.callcard .grid label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+.btn { padding: 9px 14px; border-radius: 9px; border: 1px solid var(--line); background: var(--raise); font-weight: 500; }
+.btn.primary { background: var(--tally); border-color: var(--tally); color: #fff; }
+.btn.ghost { background: none; }
+.btn.small { padding: 5px 10px; font-size: 12px; }
+
+/* save bar */
+.savebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+.savebar .status { flex: 1 1 200px; color: var(--muted); font-size: 13px; min-width: 0; }
+.savebar .status b { color: var(--ok); font-weight: 500; }
+
+@media (max-width: 820px) {
+  .app { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 10px 40px; }
+  .monitor { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); padding-block: 8px 10px; margin-inline: -4px; padding-inline: 4px; }
+  .screen-wrap { width: auto; height: min(46vh, 520px); margin: 0 auto; }
+  .head .tally { display: none; }
+  .mark { font-size: 24px; }
+  .legend { display: none; }
+  .presets { grid-template-columns: minmax(0, 1fr); }
+  .preset { flex-direction: row; }
+  .swatch { width: 120px; height: auto; min-height: 72px; flex: 0 0 auto; }
+  .row { grid-template-columns: 110px minmax(0, 1fr) 48px; }
+  .row.two { grid-template-columns: 110px minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="app" id="app">
+  <section class="monitor" aria-label="Preview">
+    <div class="head">
+      <h1 class="mark">Reel Builder <span>watch collection · 35s</span></h1>
+      <div class="tally" id="tally"><i></i><span id="tallyTxt">Paused</span></div>
+    </div>
+    <div class="screen-wrap" id="screen">
+      <div id="stage"></div>
+      <div class="guides" id="guides">
+        <div class="zone" style="left:0;right:0;bottom:0;height:20%"><div class="lbl">Reels caption + buttons</div></div>
+        <div class="zone" style="right:0;width:12%;top:48%;bottom:20%"><div class="lbl" style="writing-mode:vertical-rl">Action rail</div></div>
+        <div class="zone" style="left:0;right:0;top:0;height:7%"><div class="lbl">Top bar</div></div>
+      </div>
+      <button class="tap" id="tap" aria-label="Play or pause"></button>
+      <div class="bigplay" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></div>
+    </div>
+    <div class="transport">
+      <button class="btn-icon" id="playBtn" aria-label="Play"><svg viewBox="0 0 24 24" id="playIco"><path d="M6 4l15 8-15 8z"/></svg></button>
+      <button class="btn-icon" id="muteBtn" aria-label="Mute"><svg viewBox="0 0 24 24" id="muteIco"><path d="M4 9h4l5-4v14l-5-4H4z M16 8.5a5 5 0 010 7l-1.2-1.2a3.3 3.3 0 000-4.6z"/></svg></button>
+      <div class="scrub">
+        <div class="track" id="track"><div class="head-pos" id="headPos"></div></div>
+        <input type="range" id="scrub" min="0" max="35.3" step="0.0333" value="0" aria-label="Scrub timeline">
+      </div>
+      <div class="tc" id="tc">00:00<small>:00</small></div>
+    </div>
+    <div class="legend"><span><b style="background:#1c2230"></b>Front cam</span><span><b style="background:#252032"></b>Side cam</span><span><b style="background:var(--tally)"></b>Callout</span><span><b style="background:#fff"></b>Key word</span></div>
+  </section>
+
+  <section class="inspector">
+    <div class="tabs" role="tablist" id="tabs">
+      <button role="tab" aria-selected="true" data-tab="style">Style</button>
+      <button role="tab" aria-selected="false" data-tab="captions">Captions</button>
+      <button role="tab" aria-selected="false" data-tab="words">Words</button>
+      <button role="tab" aria-selected="false" data-tab="callouts">Callouts</button>
+      <button role="tab" aria-selected="false" data-tab="framing">Framing</button>
+      <button role="tab" aria-selected="false" data-tab="look">Look</button>
+    </div>
+
+    <div class="pane on" data-pane="style">
+      <div class="sec">
+        <h2>Style preset</h2>
+        <p class="hint">Each preset comes from a reel you studied. Switching keeps your framing, word edits and callouts.</p>
+        <div class="presets" id="presets">
+          <button class="preset" data-preset="editorial" aria-pressed="false"><div class="swatch sw-ed"><div><small>it's in posting</small><em>the video</em></div></div><div class="meta"><strong>Editorial</strong><span>from @simar-visuals</span></div></button>
+          <button class="preset" data-preset="gold" aria-pressed="false"><div class="swatch sw-go"><div><small>discipline is the</small><b>Secret</b></div></div><div class="meta"><strong>Gold Hero</strong><span>from @vyron-media</span></div></button>
+          <button class="preset" data-preset="karaoke" aria-pressed="false"><div class="swatch sw-ka"><b>MY FIRST <span>ROLEX</span></b></div><div class="meta"><strong>Bold Karaoke</strong><span>workspace default</span></div></button>
+        </div>
+      </div>
+      <div class="sec">
+        <h2>Accent color</h2>
+        <div class="colors" id="colors"></div>
+        <div class="row two"><label for="txtColor">Text color</label><input type="color" id="txtColor" data-path="text"></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="captions">
+      <div class="sec">
+        <h2>Captions</h2>
+        <div class="toggle"><label for="capOn">Show captions</label><span class="switch"><input type="checkbox" id="capOn" data-path="captions.on"><span></span></span></div>
+        <div class="row"><label for="capY">Height on screen</label><input type="range" id="capY" min="25" max="80" step="1" data-path="captions.y"><output data-for="capY" data-unit="%"></output></div>
+        <div class="row"><label for="capScale">Size</label><input type="range" id="capScale" min="0.6" max="1.6" step="0.05" data-path="captions.scale"><output data-for="capScale" data-unit="×"></output></div>
+        <div class="row"><label for="capMax">Words per line</label><input type="range" id="capMax" min="2" max="8" step="1" data-path="captions.maxWords"><output data-for="capMax"></output></div>
+        <div class="toggle"><label for="capUpper">ALL CAPS</label><span class="switch"><input type="checkbox" id="capUpper" data-path="captions.uppercase"><span></span></span></div>
+        <div class="row two"><label for="capReveal">Reveal</label><select id="capReveal" data-path="captions.reveal"><option value="word">Word by word</option><option value="chunk">Whole line at once</option></select></div>
+      </div>
+      <div class="sec">
+        <h2>Key words</h2>
+        <p class="hint">One word per line gets the hero treatment. Pick which words in the Words tab.</p>
+        <div class="toggle"><label for="capAuto">Pick key words automatically</label><span class="switch"><input type="checkbox" id="capAuto" data-path="captions.autoKey"><span></span></span></div>
+        <div class="row two"><label for="keyStyle">Treatment</label><select id="keyStyle" data-path="captions.keyStyle"><option value="serif">Big italic serif</option><option value="block">Highlight block</option><option value="glow">Glow slam</option><option value="color">Color pop</option></select></div>
+        <div class="toggle"><label for="keyLine">Key word on its own line</label><span class="switch"><input type="checkbox" id="keyLine" data-path="captions.keyLine"><span></span></span></div>
+        <div class="row"><label for="keySize">Key word size</label><input type="range" id="keySize" min="60" max="200" step="2" data-path="captions.keySize"><output data-for="keySize" data-unit="px"></output></div>
+      </div>
+      <div class="sec">
+        <h2>Fonts</h2>
+        <div class="row two"><label for="bodyFont">Body font</label><select id="bodyFont" data-path="captions.bodyFont"></select></div>
+        <div class="row"><label for="bodyWeight">Body weight</label><input type="range" id="bodyWeight" min="300" max="900" step="100" data-path="captions.bodyWeight"><output data-for="bodyWeight"></output></div>
+        <div class="row"><label for="bodySize">Body size</label><input type="range" id="bodySize" min="28" max="110" step="2" data-path="captions.bodySize"><output data-for="bodySize" data-unit="px"></output></div>
+        <div class="row two"><label for="keyFont">Key word font</label><select id="keyFont" data-path="captions.keyFont"></select></div>
+        <div class="toggle"><label for="keyItalic">Italic key words</label><span class="switch"><input type="checkbox" id="keyItalic" data-path="captions.keyItalic"><span></span></span></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="words">
+      <div class="sec">
+        <h2>Words</h2>
+        <div class="seg" id="wordMode"><button data-mode="key" aria-pressed="true">Pick key words</button><button data-mode="fix" aria-pressed="false">Fix spelling</button></div>
+        <p class="hint" id="wordHint">Tap a word to cycle: auto → <b>key</b> → never key. Tap a timestamp to jump there.</p>
+        <div class="chunks" id="chunks"></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="callouts">
+      <div class="sec">
+        <h2>Callouts</h2>
+        <p class="hint">Pop-up cards for the moments that matter. Times are in seconds. Number titles like “50+” count up.</p>
+        <div class="row two"><label for="callStyle">Card style</label><select id="callStyle" data-path="calloutStyle"><option value="glass">Glass</option><option value="editorial">Paper card</option></select></div>
+        <div class="calls" id="calls"></div>
+        <div><button class="btn" id="addCall">Add callout at playhead</button></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="framing">
+      <div class="sec">
+        <h2>Framing per shot</h2>
+        <p class="hint">Your footage is 16:9, so each camera angle gets its own 9:16 crop. Slide to keep your face and the watch in frame.</p>
+        <div class="shots" id="shots"></div>
+      </div>
+      <div class="sec">
+        <h2>Camera moves</h2>
+        <div class="toggle"><label for="punch">Punch-in on key words</label><span class="switch"><input type="checkbox" id="punch" data-path="look.punch"><span></span></span></div>
+        <div class="toggle"><label for="kb">Slow push-in on each shot</label><span class="switch"><input type="checkbox" id="kb" data-path="look.kenBurns"><span></span></span></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="look">
+      <div class="sec">
+        <h2>Look</h2>
+        <div class="row two"><label for="grade">Color grade</label><select id="grade" data-path="look.grade"><option value="neutral">Neutral pop</option><option value="warm">Warm cinematic</option><option value="cool">Cool editorial</option><option value="mono">Black and white</option><option value="none">Original</option></select></div>
+        <div class="row"><label for="vig">Vignette</label><input type="range" id="vig" min="0" max="1" step="0.05" data-path="look.vignette"><output data-for="vig"></output></div>
+        <div class="row"><label for="fade">Bottom fade</label><input type="range" id="fade" min="0" max="1" step="0.05" data-path="look.bottomFade"><output data-for="fade"></output></div>
+        <div class="row"><label for="grain">Film grain</label><input type="range" id="grain" min="0" max="0.25" step="0.01" data-path="look.grain"><output data-for="grain"></output></div>
+        <div class="toggle"><label for="prog">Progress bar on top</label><span class="switch"><input type="checkbox" id="prog" data-path="look.progress"><span></span></span></div>
+      </div>
+      <div class="sec">
+        <h2>Preview only</h2>
+        <div class="toggle"><label for="guidesOn">Show Reels safe zones</label><span class="switch"><input type="checkbox" id="guidesOn"><span></span></span></div>
+      </div>
+    </div>
+
+    <div class="savebar">
+      <div class="status" id="status">Changes show up live. When it looks right, save it and tell Claude “render it”.</div>
+      <button class="btn ghost" id="resetBtn">Reset</button>
+      <button class="btn" id="copyBtn">Copy settings</button>
+      <button class="btn primary" id="saveBtn">Save for render</button>
+    </div>
+  </section>
+</div>
+
+<script src="reel-data.js"></script>
+<script src="reel-engine.js"></script>
+<script>
+(function () {
+  "use strict";
+  var D = window.REEL_DATA, E = window.ReelEngine, FPS = 30;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var LS_KEY = "reel-builder-draft-v1";
+
+  var cfg = E.defaultConfig("editorial", D);
+  try { var d = JSON.parse(localStorage.getItem(LS_KEY) || "null"); if (d && d.config && d.config.version === 1) cfg = d.config; } catch (e) {}
+
+  /* ---------- stage ---------- */
+  var video = document.createElement("video");
+  video.src = "footage-preview.mp4"; video.playsInline = true; video.preload = "auto";
+  video.setAttribute("playsinline", "");
+  var stage = $("#stage"), screen = $("#screen");
+  var engine = E.create(stage, D, cfg, { video: video });
+
+  function fit() {
+    var w = screen.clientWidth;
+    stage.style.transform = "scale(" + (w / E.STAGE_W) + ")";
+  }
+  new ResizeObserver(fit).observe(screen); fit();
+
+  var lastChunk = -1, lastShot = -1;
+  function frame() {
+    var t = video.currentTime || 0;
+    engine.render(t);
+    $("#scrub").value = t;
+    $("#headPos").style.left = (t / D.duration * 100) + "%";
+    var s = Math.floor(t), f = Math.floor((t - s) * FPS);
+    $("#tc").innerHTML = pad(Math.floor(s / 60)) + ":" + pad(s % 60) + "<small>:" + pad(f) + "</small>";
+    var ci = chunkIndexAt(t);
+    if (ci !== lastChunk) { lastChunk = ci; $$(".chunk").forEach(function (el, i) { el.classList.toggle("cur", i === ci); }); }
+    var si = shotIndexAt(t);
+    if (si !== lastShot) { lastShot = si; $$(".shotcard").forEach(function (el, i) { el.classList.toggle("cur", i === si); }); }
+  }
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function chunkIndexAt(t) { var ch = engine.chunks(); for (var i = 0; i < ch.length; i++) if (t >= ch[i].s - 0.08 && t < ch[i].show) return i; return -1; }
+  function shotIndexAt(t) { for (var i = 0; i < D.shots.length; i++) if (t < D.shots[i].e) return i; return D.shots.length - 1; }
+
+  var raf = 0;
+  function loop() { frame(); if (!video.paused) raf = requestAnimationFrame(loop); }
+  function setPlaying(p) {
+    if (p) $("#app").classList.add("played");
+    $("#app").classList.toggle("playing", p);
+    $("#tally").classList.toggle("live", p);
+    $("#tallyTxt").textContent = p ? "Playing" : "Paused";
+    $("#playIco").innerHTML = p ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>' : '<path d="M6 4l15 8-15 8z"/>';
+    $("#playBtn").setAttribute("aria-label", p ? "Pause" : "Play");
+  }
+  function toggle() {
+    if (video.paused) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); } else video.pause();
+  }
+  video.addEventListener("play", function () { setPlaying(true); cancelAnimationFrame(raf); loop(); });
+  video.addEventListener("pause", function () { setPlaying(false); frame(); });
+  video.addEventListener("seeked", frame);
+  video.addEventListener("loadeddata", frame);
+  video.addEventListener("ended", function () { setPlaying(false); });
+  $("#tap").addEventListener("click", toggle);
+  $("#playBtn").addEventListener("click", toggle);
+  $("#muteBtn").addEventListener("click", function () {
+    video.muted = !video.muted;
+    $("#muteIco").innerHTML = video.muted ? '<path d="M4 9h4l5-4v14l-5-4H4z M16 9l5 6M21 9l-5 6" stroke="#ecebe6" stroke-width="1.8" fill="#ecebe6"/>' : '<path d="M4 9h4l5-4v14l-5-4H4z M16 8.5a5 5 0 010 7l-1.2-1.2a3.3 3.3 0 000-4.6z"/>';
+    $("#muteBtn").setAttribute("aria-label", video.muted ? "Unmute" : "Mute");
+  });
+  $("#scrub").addEventListener("input", function (e) { seek(+e.target.value); });
+  function seek(t) { video.currentTime = Math.max(0, Math.min(D.duration - 0.05, t)); frame(); }
+  document.addEventListener("keydown", function (e) {
+    if (e.target.matches("input,select,textarea")) return;
+    if (e.code === "Space") { e.preventDefault(); toggle(); }
+    if (e.key === "ArrowLeft") seek(video.currentTime - 1 / FPS * (e.shiftKey ? 30 : 1));
+    if (e.key === "ArrowRight") seek(video.currentTime + 1 / FPS * (e.shiftKey ? 30 : 1));
+  });
+
+  /* ---------- timeline track ---------- */
+  function drawTrack() {
+    var tr = $("#track"), head = $("#headPos");
+    tr.textContent = "";
+    D.shots.forEach(function (s) {
+      var el = document.createElement("div"); el.className = "shot " + s.angle;
+      el.style.left = (s.s / D.duration * 100) + "%"; el.style.width = ((s.e - s.s) / D.duration * 100) + "%"; tr.appendChild(el);
+    });
+    engine.chunks().forEach(function (c) {
+      var el = document.createElement("div"); el.className = "ck" + (c.key.size ? " key" : "");
+      el.style.left = (c.s / D.duration * 100) + "%"; tr.appendChild(el);
+    });
+    cfg.callouts.forEach(function (c) {
+      if (!c.on) return;
+      var el = document.createElement("div"); el.className = "call";
+      el.style.left = (c.start / D.duration * 100) + "%"; el.style.width = (c.dur / D.duration * 100) + "%"; tr.appendChild(el);
+    });
+    tr.appendChild(head);
+  }
+
+  /* ---------- config plumbing ---------- */
+  function getPath(o, p) { return p.split(".").reduce(function (a, k) { return a == null ? a : a[k]; }, o); }
+  function setPath(o, p, v) { var ks = p.split("."), last = ks.pop(); ks.reduce(function (a, k) { return a[k]; }, o)[last] = v; }
+
+  var saveTimer = 0;
+  function commit(opts) {
+    engine.setConfig(cfg);
+    frame();
+    drawTrack();
+    if (!opts || !opts.keepWords) renderWords();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      try { localStorage.setItem(LS_KEY, JSON.stringify({ config: cfg })); } catch (e) {}
+    }, 300);
+    setStatus("Unsaved changes. Save for render when you're happy.");
+  }
+
+  function syncControls() {
+    $$("[data-path]").forEach(function (el) {
+      var v = getPath(cfg, el.dataset.path);
+      if (el.type === "checkbox") el.checked = !!v; else el.value = v;
+    });
+    $$("output[data-for]").forEach(function (o) { var i = document.getElementById(o.dataset.for); o.textContent = fmt(i.value) + (o.dataset.unit || ""); });
+    $$(".preset").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.preset === cfg.preset)); });
+    drawColors();
+  }
+  function fmt(v) { var n = +v; return Math.abs(n) < 10 && n % 1 ? n.toFixed(2).replace(/0$/, "") : String(n); }
+
+  $$("[data-path]").forEach(function (el) {
+    el.addEventListener("input", function () {
+      var v = el.type === "checkbox" ? el.checked : (el.type === "range" || el.type === "number") ? +el.value : el.value;
+      setPath(cfg, el.dataset.path, v);
+      var o = $('output[data-for="' + el.id + '"]'); if (o) o.textContent = fmt(el.value) + (o.dataset.unit || "");
+      commit();
+    });
+  });
+
+  /* fonts */
+  E.FONTS.forEach(function (f) {
+    ["#bodyFont", "#keyFont"].forEach(function (s) { var o = document.createElement("option"); o.value = f; o.textContent = f; $(s).appendChild(o); });
+  });
+
+  /* presets */
+  $$(".preset").forEach(function (b) {
+    b.addEventListener("click", function () { cfg = E.applyPreset(cfg, b.dataset.preset); syncControls(); commit(); renderCalls(); });
+  });
+
+  /* accent colors */
+  var SWATCHES = ["#4b3cf0", "#3b82f6", "#ffb81c", "#ff5a47", "#4fd18b", "#e0399b", "#ffffff"];
+  function drawColors() {
+    var box = $("#colors"); box.textContent = "";
+    SWATCHES.forEach(function (c) {
+      var b = document.createElement("button"); b.className = "chip-c"; b.style.background = c;
+      b.setAttribute("aria-label", "Accent " + c); b.setAttribute("aria-pressed", String(cfg.accent.toLowerCase() === c));
+      b.addEventListener("click", function () { cfg.accent = c; drawColors(); $("#accentPick").value = c; commit({ keepWords: true }); });
+      box.appendChild(b);
+    });
+    var pick = document.createElement("input"); pick.type = "color"; pick.id = "accentPick"; pick.value = cfg.accent; pick.setAttribute("aria-label", "Custom accent color");
+    pick.addEventListener("input", function () { cfg.accent = pick.value; $$(".chip-c").forEach(function (x) { x.setAttribute("aria-pressed", "false"); }); commit({ keepWords: true }); });
+    box.appendChild(pick);
+  }
+
+  /* tabs */
+  $$("#tabs button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      $$("#tabs button").forEach(function (x) { x.setAttribute("aria-selected", String(x === b)); });
+      $$(".pane").forEach(function (p) { p.classList.toggle("on", p.dataset.pane === b.dataset.tab); });
+    });
+  });
+
+  /* ---------- words ---------- */
+  var wordMode = "key";
+  $$("#wordMode button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      wordMode = b.dataset.mode;
+      $$("#wordMode button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+      $("#wordHint").innerHTML = wordMode === "key"
+        ? "Tap a word to cycle: auto → <b>key</b> → never key. Tap a timestamp to jump there."
+        : "Tap a word to retype it, then press Enter. Edited words get a dashed outline.";
+    });
+  });
+  function renderWords() {
+    var box = $("#chunks"), st = box.scrollTop; box.textContent = "";
+    engine.chunks().forEach(function (c, ci) {
+      var row = document.createElement("div"); row.className = "chunk" + (ci === lastChunk ? " cur" : "");
+      var ts = document.createElement("button"); ts.className = "ts"; ts.textContent = c.s.toFixed(1) + "s";
+      ts.addEventListener("click", function () { seek(c.s); });
+      var ws = document.createElement("div"); ws.className = "ws";
+      c.idx.forEach(function (i) {
+        var b = document.createElement("button"), forced = cfg.keyWords[i];
+        b.className = "wd" + (c.key.has(i) ? " key" : "") + (forced === false ? " never" : "") + (cfg.textEdits[i] != null ? " edited" : "");
+        b.textContent = E.wordText(cfg, D.words, i);
+        b.title = forced === true ? "Always key" : forced === false ? "Never key" : "Auto";
+        b.addEventListener("click", function () {
+          if (wordMode === "key") {
+            var cur = cfg.keyWords[i];
+            if (cur === undefined) cfg.keyWords[i] = true; else if (cur === true) cfg.keyWords[i] = false; else delete cfg.keyWords[i];
+            commit(); seek(D.words[i].s);
+          } else {
+            var orig = b.textContent; var inp = document.createElement("input"); inp.type = "text"; inp.value = orig; inp.setAttribute("aria-label", "Edit word");
+            b.textContent = ""; b.appendChild(inp); inp.focus(); inp.select();
+            var done = function () {
+              var v = inp.value.trim();
+              if (v && v !== D.words[i].t) cfg.textEdits[i] = v; else delete cfg.textEdits[i];
+              commit();
+            };
+            inp.addEventListener("keydown", function (e) { if (e.key === "Enter") inp.blur(); if (e.key === "Escape") { inp.value = orig; inp.blur(); } });
+            inp.addEventListener("blur", done, { once: true });
+            inp.addEventListener("click", function (e) { e.stopPropagation(); });
+          }
+        });
+        ws.appendChild(b);
+      });
+      row.appendChild(ts); row.appendChild(ws); box.appendChild(row);
+    });
+    box.scrollTop = st;
+  }
+
+  /* ---------- callouts ---------- */
+  function renderCalls() {
+    var box = $("#calls"); box.textContent = "";
+    cfg.callouts.forEach(function (co, k) {
+      var card = document.createElement("div"); card.className = "callcard";
+      card.innerHTML =
+        '<div class="top"><span class="toggle" style="gap:10px"><span class="switch"><input type="checkbox" id="co-on-' + k + '"><span></span></span><label for="co-on-' + k + '">Show</label></span>' +
+        '<span style="display:flex;gap:6px"><button class="btn small" data-act="jump">Preview</button><button class="btn small ghost" data-act="del">Delete</button></span></div>' +
+        '<div class="grid">' +
+        '<label>Label<input type="text" id="co-label-' + k + '"></label>' +
+        '<label>Title<input type="text" id="co-title-' + k + '"></label>' +
+        '<label>Starts at (s)<input type="number" step="0.1" min="0" max="35" id="co-start-' + k + '"></label>' +
+        '<label>Length (s)<input type="number" step="0.1" min="0.5" max="8" id="co-dur-' + k + '"></label>' +
+        '<label>Type<select id="co-kind-' + k + '"><option value="card">Card</option><option value="stat">Big number</option></select></label>' +
+        '<label>Height (%)<input type="number" step="1" min="5" max="85" id="co-y-' + k + '"></label>' +
+        '</div>';
+      var map = { on: "co-on-", label: "co-label-", title: "co-title-", start: "co-start-", dur: "co-dur-", kind: "co-kind-", y: "co-y-" };
+      Object.keys(map).forEach(function (key) {
+        var el = $("#" + map[key] + k, card);
+        if (el.type === "checkbox") el.checked = co[key]; else el.value = co[key];
+        el.addEventListener("input", function () {
+          co[key] = el.type === "checkbox" ? el.checked : el.type === "number" ? +el.value : el.value;
+          commit({ keepWords: true });
+        });
+      });
+      $('[data-act="jump"]', card).addEventListener("click", function () { seek(co.start - 0.3); var p = video.play(); if (p && p.catch) p.catch(function () {}); });
+      $('[data-act="del"]', card).addEventListener("click", function () { cfg.callouts.splice(k, 1); renderCalls(); commit({ keepWords: true }); });
+      box.appendChild(card);
+    });
+  }
+  $("#addCall").addEventListener("click", function () {
+    cfg.callouts.push({ on: true, kind: "card", start: +(video.currentTime || 0).toFixed(1), dur: 2.2, label: "#00" + (cfg.callouts.length + 1), title: "New callout", y: 41 });
+    renderCalls(); commit({ keepWords: true });
+  });
+
+  /* ---------- framing ---------- */
+  function renderShots() {
+    var box = $("#shots"); box.textContent = "";
+    D.shots.forEach(function (s, i) {
+      var fr = cfg.framing[i];
+      var card = document.createElement("div"); card.className = "shotcard";
+      card.innerHTML =
+        '<button class="thumb" aria-label="Jump to shot ' + (i + 1) + '"><span>' + s.s.toFixed(1) + 's</span></button>' +
+        '<div class="ctrls"><h3><b>Shot ' + (i + 1) + '</b> · ' + (s.angle === "side" ? "Side cam" : "Front cam") + ' · ' + s.s.toFixed(1) + '–' + s.e.toFixed(1) + 's</h3>' +
+        '<div class="row"><label for="fx-' + i + '">Left/right</label><input type="range" id="fx-' + i + '" min="0.32" max="0.68" step="0.005"><output></output></div>' +
+        '<div class="row"><label for="fz-' + i + '">Zoom</label><input type="range" id="fz-' + i + '" min="1" max="1.8" step="0.01"><output></output></div></div>';
+      var fx = $("#fx-" + i, card), fz = $("#fz-" + i, card), outs = $$("output", card);
+      fx.value = fr.x; fz.value = fr.zoom; outs[0].textContent = Math.round(fr.x * 100) + "%"; outs[1].textContent = (+fr.zoom).toFixed(2) + "×";
+      fx.addEventListener("input", function () { fr.x = +fx.value; outs[0].textContent = Math.round(fr.x * 100) + "%"; if (!inShot(i)) seek((s.s + s.e) / 2); commit({ keepWords: true }); });
+      fz.addEventListener("input", function () { fr.zoom = +fz.value; outs[1].textContent = fr.zoom.toFixed(2) + "×"; if (!inShot(i)) seek((s.s + s.e) / 2); commit({ keepWords: true }); });
+      $(".thumb", card).addEventListener("click", function () { seek(s.s + 0.5); });
+      box.appendChild(card);
+    });
+  }
+  function inShot(i) { var t = video.currentTime, s = D.shots[i]; return t >= s.s && t < s.e; }
+
+  /* guides */
+  $("#guidesOn").addEventListener("input", function (e) { $("#guides").classList.toggle("on", e.target.checked); });
+
+  /* ---------- save / copy / reset ---------- */
+  function setStatus(html) { $("#status").innerHTML = html; }
+  var dbP = window.claude && window.claude.use ? window.claude.use("db") : Promise.resolve(null);
+  dbP.then(function (db) {
+    if (!db) return;
+    return db.doc("reel/config").get().then(function (snap) {
+      var data = snap && (typeof snap.data === "function" ? snap.data() : snap.data);
+      if (data && data.config && data.config.version === 1) {
+        var local = null; try { local = JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch (e) {}
+        if (!local) { cfg = data.config; syncControls(); commit(); renderCalls(); renderShots(); setStatus("Loaded your saved style from " + new Date(data.savedAt).toLocaleString() + "."); }
+      }
+    });
+  }).catch(function () {});
+
+  $("#saveBtn").addEventListener("click", function () {
+    var btn = $("#saveBtn"); btn.disabled = true; btn.textContent = "Saving…";
+    dbP.then(function (db) {
+      if (!db) throw { code: "unavailable" };
+      return db.doc("reel/config").set({ config: cfg, savedAt: new Date().toISOString() });
+    }).then(function () {
+      setStatus("<b>Saved.</b> Go back to Claude and say “render it”.");
+    }).catch(function () {
+      setStatus("Saving isn't available in this view. Use Copy settings and paste them to Claude instead.");
+    }).then(function () { btn.disabled = false; btn.textContent = "Save for render"; });
+  });
+  $("#copyBtn").addEventListener("click", function () {
+    var txt = JSON.stringify(cfg);
+    var ok = function () { setStatus("<b>Copied.</b> Paste the settings into your chat with Claude."); };
+    try {
+      navigator.clipboard.writeText(txt).then(ok, fallback);
+    } catch (e) { fallback(); }
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = txt; ta.style.cssText = "position:fixed;left:-9999px"; document.body.appendChild(ta);
+      ta.select(); var done = false; try { done = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      setStatus(done ? "<b>Copied.</b> Paste the settings into your chat with Claude." : "Copy was blocked here. Use Save for render instead.");
+    }
+  });
+  var resetArmed = false;
+  $("#resetBtn").addEventListener("click", function () {
+    if (!resetArmed) { resetArmed = true; $("#resetBtn").textContent = "Tap again to reset"; setTimeout(function () { resetArmed = false; $("#resetBtn").textContent = "Reset"; }, 3000); return; }
+    resetArmed = false; $("#resetBtn").textContent = "Reset";
+    cfg = E.defaultConfig(cfg.preset, D); syncControls(); commit(); renderCalls(); renderShots();
+    setStatus("Reset to the " + E.PRESETS[cfg.preset].name + " defaults.");
+  });
+
+  /* boot */
+  syncControls(); renderCalls(); renderShots(); drawTrack(); renderWords(); frame();
+  setStatus("Changes show up live. When it looks right, tap <b>Save for render</b> and tell Claude “render it”.");
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(frame);
+})();
+</script>
