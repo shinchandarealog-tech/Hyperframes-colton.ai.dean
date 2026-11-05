@@ -34,7 +34,7 @@ _(style, color, sync tightness, word-by-word vs. phrase chunks — populated by 
 - **Meta ad style captions:** small native-looking sans (≈40px cap height at 1080w), medium–semibold, sentence case, **2–3 word chunks** (fast swaps that follow her speech), hard swaps. No pill background, heavy stroke, karaoke pop or emoji. This overrides the karaoke/"pop, don't polite-caption" defaults in `/short-form-video` and `MOTION_PHILOSOPHY.md`. (2026-10-21)
 - **Captions always stay inside the Meta Reels/Stories safe area** (1080×1920): keep the top 14% (0–270px), bottom 35% (1250–1920px) and 6% each side (65px) clear. Every caption line must fit inside **x 65–1015, y 270–1250**, and long chunks must wrap inside that box, never past it. Default anchor: centered, ~50% height (y≈960). Check this on every frame during the every-frame review. (2026-10-21)
 - **Caption position stays fixed around the middle of the frame for the whole video**, including over product close-ups. Never move captions to the top or bottom per shot. (2026-10-21)
-- **Captions must never cover the speaker's face** and run from the very first word (including under a hook title). If her face reaches mid-frame, use one fixed position in the headroom above her head instead (still inside the safe area). (2026-11-05)
+- **Captions must never cover the speaker's face** and run from the very first word (including under a hook title). Keep them at one fixed position **just below her chin** (measure the lowest chin point across the video; e.g. y≈1165 when she leans in), still inside the safe area. Never move them up into the headroom above her head. (2026-11-05)
 
 ## Footage fixes
 
