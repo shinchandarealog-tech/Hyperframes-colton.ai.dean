@@ -9,3 +9,5 @@ b08|[Nov-5 folder] showing_product_on_counter_2.mov|0.0|21.933|23.867
 b09|[Nov-5 folder] IMG_1108_1HIby.MOV|0.3|23.867|26.9
 b10|[Nov-5 folder] cat_eating.MOV|1.0|30.0|31.0
 b11|[Nov-5 folder] IMG_1110_1ymGU.MOV|0.3|32.3|34.967
+b12|[Nov-5 folder] IMG_0165 (her on couch reading, cat beside)|60.0|33.967|38.033
+b13|[Nov-5 folder] showing_product_on_counter.mov|0.4|38.033|39.667
