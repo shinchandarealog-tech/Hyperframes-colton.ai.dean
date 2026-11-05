@@ -20,29 +20,31 @@ When putting handles on-screen (lower-thirds, outros, end-cards), use the platfo
 
 ## Platform priority
 
-_(Which platform(s) matter most, and the default aspect ratio. Most short-form creators default to **9:16 vertical, 1080×1920**. Set during /setup.)_
+**Instagram Reels first** (cross-post to TikTok/Shorts optional). Default canvas: **9:16 vertical, 1080×1920, 30fps**. Keep captions/text inside Reels safe zones (avoid bottom ~20% UI and right-side action rail).
 
 ## Content niche
 
-_(What you make videos about — e.g. AI tools, fitness, cooking, finance, comedy. Set during /setup. When planning a new video, the assistant assumes this niche unless told otherwise.)_
+**AI / tech** — AI tools, tech tips, automation.
 
 ## On-camera mix
 
-_(Do you appear on camera, go faceless, or both? Set during /setup.)_
+**Face-cam** — appears on camera in own recorded footage.
 
 - **Face-cam** → use `/short-form-video` face-mode choreography (BOTTOM / FULLSCREEN modes).
 - **Faceless** → motion graphics + AI TTS narration (`npx hyperframes tts`) or screen-recordings.
 
 ## Workflow — division of labor
 
-_(Set during /setup. Two common modes:)_
+**Mode: records + pre-edits own speaking video.** The footage is the source of truth — build captions + motion graphics on top. **Never cut the audio, remove pauses, restructure speech, or change pacing.** Sync visuals to the footage timing.
+
+Reference (both modes):
 
 - **You record + pre-edit your own speaking video** → it's the source of truth; the assistant builds the visual layer on top and does NOT cut your audio, remove pauses, or change your pacing.
 - **You build from scratch with the assistant** → motion graphics, TTS narration, screen-recordings assembled together.
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+Starting look: **dark + electric-blue accent, white text** (see `assets/brand-tokens.css`). Evolves via `/feedback`.
 
 ## Inspiration creators
 
