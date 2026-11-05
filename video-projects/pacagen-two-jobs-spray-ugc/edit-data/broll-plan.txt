@@ -1,0 +1,11 @@
+b01|[pills folder] allergy pills|0.2|5.3|7.633
+b02|[Nov-5 folder] IMG_0114_1r9WG.mov|1.0|7.633|10.933
+b03|[Nov-5 folder] IMG_0138_1K_BG.mov|0.0|13.333|15.7
+b04|[Nov-5 folder] Grooming_on_bed.mov|1.0|15.7|17.633
+b05|[Nov-5 folder] cat_in_house_-_filler_video.mov|0.3|17.633|19.2
+b06|[Nov-5 folder] IMG_0130_1IcmO.MOV|0.5|19.2|20.333
+b07|[Nov-5 folder] IMG_0147_1otHI.MOV|5.0|20.333|21.933
+b08|[Nov-5 folder] showing_product_on_counter_2.mov|0.0|21.933|23.867
+b09|[Nov-5 folder] IMG_1108_1HIby.MOV|0.3|23.867|26.9
+b10|[Nov-5 folder] cat_eating.MOV|1.0|30.0|31.0
+b11|[Nov-5 folder] IMG_1110_1ymGU.MOV|0.3|32.3|34.967
