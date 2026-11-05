@@ -538,9 +538,9 @@
         /* ===== B07 counter ===== */
         const cnt = { v: 0 };
         const countEl = $("#count");
-        const drawCount = () => { countEl.textContent = String(Math.round(cnt.v)); };
+        const drawCount = () => { countEl.textContent = String(Math.floor(cnt.v + 1e-6)); };
         tl.fromTo("#counter", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: F(10), ease: "power2.out" }, at(22.15));
-        tl.fromTo(cnt, { v: 0 }, { v: 50, duration: 24.95 - 22.2, ease: "power2.out", onUpdate: drawCount }, at(22.2));
+        tl.fromTo(cnt, { v: 0 }, { v: 50, duration: 24.95 - 22.2, ease: "power1.out", onUpdate: drawCount }, at(22.2));
         $$("#dials .mini").forEach((d, i) => {
           tl.fromTo(d, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: F(10), ease: "power2.out" }, at(22.3 + i * 0.255));
         });
@@ -568,10 +568,10 @@
         tl.fromTo("#one", { opacity: 0 }, { opacity: 1, duration: F(6), ease: "power2.out" }, at(33.38));
         tl.fromTo("#one-num", { scale: 1.9, transformOrigin: "50% 60%" }, { scale: 1, duration: F(10), ease: "expo.out" }, at(33.38));
         // glint on the watch at the final punch
-        tl.set("#glint-g", { attr: { transform: "translate(548 1040) scale(0.2) rotate(0)" } }, at(34.9));
+        tl.set("#glint-g", { attr: { transform: "translate(548 1040) scale(0.2) rotate(-20)" } }, at(34.9));
         tl.to("#glint-g", { opacity: 1, duration: F(5), ease: "power2.out" }, at(34.92));
-        tl.to("#glint-g", { attr: { transform: "translate(548 1040) scale(1) rotate(45)" }, duration: F(14), ease: "power2.out" }, at(34.92));
-        tl.to("#glint-g", { opacity: 0, attr: { transform: "translate(548 1040) scale(0.6) rotate(90)" }, duration: F(14), ease: "power2.in" }, at(35.16));
+        tl.to("#glint-g", { attr: { transform: "translate(548 1040) scale(1) rotate(0)" }, duration: F(14), ease: "power2.out" }, at(34.92));
+        tl.to("#glint-g", { opacity: 0, attr: { transform: "translate(548 1040) scale(0.6) rotate(15)" }, duration: F(14), ease: "power2.in" }, at(35.16));
 
         // pad to full duration
         tl.to({}, { duration: DUR }, 0);
