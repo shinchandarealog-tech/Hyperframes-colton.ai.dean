@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #face,
+      .broll {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+      }
+      #face {
+        z-index: 1;
+      }
+      .broll {
+        z-index: 2;
+      }
+      /* Captions: single color, Meta safe area (x 65–1015, y 270–1250) */
+      .cap {
+        position: absolute;
+        z-index: 3;
+        left: 65px;
+        width: 950px;
+        top: 1165px;
+        text-align: center;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 54px;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        text-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.7),
+          0 0 12px rgba(0, 0, 0, 0.45),
+          0 0 2px rgba(0, 0, 0, 0.6);
+      }
+    
+      /* Hook title: cream, tight geometric lowercase, static, above her head (inside Meta safe area) */
+      #hook {
+        position: absolute;
+        z-index: 4;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      #hook .title {
+        position: absolute;
+        left: 65px;
+        width: 950px;
+        top: 282px;
+        text-align: center;
+        font-family: "Poppins", Inter, sans-serif;
+        font-weight: 700;
+        font-size: 74px;
+        line-height: 0.98;
+        letter-spacing: -0.065em;
+        color: #f7f2b8;
+        text-shadow:
+          0 2px 6px rgba(0, 0, 0, 0.45),
+          0 0 16px rgba(0, 0, 0, 0.3),
+          0 0 2px rgba(0, 0, 0, 0.5);
+      }
+      #hook .ln {
+        display: block;
+        white-space: nowrap;
+      }
+      #hook .star {
+        position: absolute;
+      }
+      #hook .star svg {
+        width: 100%;
+        height: 100%;
+        fill: #f7f2b8;
+        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.45));
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="30.833"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- Talking head: creator's own cut (InShot), conformed to 1080x1920 @30fps, loudness-normalized -->
+      <video id="face" data-start="0" data-duration="30.833" data-track-index="0" src="assets/talking-head.mp4" muted playsinline></video>
+      <audio id="voice" data-start="0" data-duration="30.833" data-track-index="3" src="assets/talking-head.mp4" data-volume="1"></audio>
+
+      <!-- B-roll: straight cuts, matched to her lines, covering both jump cuts (12.43s, 18.77s); no shots of the other woman; ends on the cat per brief -->
+      <video id="b01" class="broll" data-start="6.933" data-duration="2.6" data-track-index="1" src="assets/broll/b01.mp4" muted playsinline></video>
+      <video id="b02" class="broll" data-start="9.533" data-duration="3.267" data-track-index="1" src="assets/broll/b02.mp4" muted playsinline></video>
+      <video id="b03" class="broll" data-start="18.533" data-duration="2.0" data-track-index="1" src="assets/broll/b03.mp4" muted playsinline></video>
+      <video id="b04" class="broll" data-start="20.533" data-duration="1.867" data-track-index="1" src="assets/broll/b04.mp4" muted playsinline></video>
+      <video id="b05" class="broll" data-start="22.4" data-duration="3.067" data-track-index="1" src="assets/broll/b05.mp4" muted playsinline></video>
+      <video id="b06" class="broll" data-start="26.8" data-duration="1.267" data-track-index="1" src="assets/broll/b06.mp4" muted playsinline></video>
+      <video id="b07" class="broll" data-start="28.067" data-duration="1.766" data-track-index="1" src="assets/broll/b07.mp4" muted playsinline></video>
+      <video id="b08" class="broll" data-start="29.833" data-duration="1.0" data-track-index="1" src="assets/broll/b08.mp4" muted playsinline></video>
+
+      <!-- Hook title (0 to end of first line) -->
+      <div id="hook" class="clip" data-start="0" data-duration="4.833" data-track-index="5">
+        <div class="title"><span class="ln">pov: you’re googling</span><span class="ln">‘rehoming my cat’ at 2am</span></div>
+        <div class="star" style="left:120px;top:275px;width:46px;height:46px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:905px;top:272px;width:38px;height:38px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:62px;top:395px;width:34px;height:34px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:960px;top:405px;width:44px;height:44px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:978px;top:330px;width:30px;height:30px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+      </div>
+
+      <!-- Captions -->
+      <div id="cap-01" class="clip cap" data-start="0.0" data-duration="0.833" data-track-index="2">If you&#x27;re googling</div>
+      <div id="cap-02" class="clip cap" data-start="0.833" data-duration="0.8" data-track-index="2">rehoming your cat</div>
+      <div id="cap-03" class="clip cap" data-start="1.633" data-duration="0.8" data-track-index="2">at 2am</div>
+      <div id="cap-04" class="clip cap" data-start="2.433" data-duration="1.3" data-track-index="2">because of allergies,</div>
+      <div id="cap-05" class="clip cap" data-start="3.733" data-duration="0.367" data-track-index="2">you need to</div>
+      <div id="cap-06" class="clip cap" data-start="4.1" data-duration="0.733" data-track-index="2">watch this.</div>
+      <div id="cap-07" class="clip cap" data-start="4.833" data-duration="0.7" data-track-index="2">Now, my situation</div>
+      <div id="cap-08" class="clip cap" data-start="5.533" data-duration="0.4" data-track-index="2">is a little</div>
+      <div id="cap-09" class="clip cap" data-start="5.933" data-duration="0.6" data-track-index="2">bit different</div>
+      <div id="cap-10" class="clip cap" data-start="6.533" data-duration="0.8" data-track-index="2">because my friend</div>
+      <div id="cap-11" class="clip cap" data-start="7.333" data-duration="0.467" data-track-index="2">moved out of</div>
+      <div id="cap-12" class="clip cap" data-start="7.8" data-duration="0.833" data-track-index="2">my basement</div>
+      <div id="cap-13" class="clip cap" data-start="8.633" data-duration="0.867" data-track-index="2">with her three cats,</div>
+      <div id="cap-14" class="clip cap" data-start="9.5" data-duration="0.9" data-track-index="2">but the allergens</div>
+      <div id="cap-15" class="clip cap" data-start="10.4" data-duration="0.667" data-track-index="2">didn&#x27;t leave</div>
+      <div id="cap-16" class="clip cap" data-start="11.067" data-duration="0.633" data-track-index="2">with them,</div>
+      <div id="cap-17" class="clip cap" data-start="11.7" data-duration="0.867" data-track-index="2">and I still</div>
+      <div id="cap-18" class="clip cap" data-start="12.567" data-duration="0.833" data-track-index="2">want to be</div>
+      <div id="cap-19" class="clip cap" data-start="13.4" data-duration="1.2" data-track-index="2">able to visit her.</div>
+      <div id="cap-20" class="clip cap" data-start="14.6" data-duration="0.5" data-track-index="2">Fel d 1</div>
+      <div id="cap-21" class="clip cap" data-start="15.1" data-duration="0.9" data-track-index="2">is the protein</div>
+      <div id="cap-22" class="clip cap" data-start="16.0" data-duration="1.267" data-track-index="2">found in cat saliva</div>
+      <div id="cap-23" class="clip cap" data-start="17.267" data-duration="1.266" data-track-index="2">and their skin oils,</div>
+      <div id="cap-24" class="clip cap" data-start="18.533" data-duration="0.7" data-track-index="2">and it ends up</div>
+      <div id="cap-25" class="clip cap" data-start="19.233" data-duration="0.4" data-track-index="2">on things</div>
+      <div id="cap-26" class="clip cap" data-start="19.633" data-duration="0.9" data-track-index="2">that they touch.</div>
+      <div id="cap-27" class="clip cap" data-start="20.533" data-duration="0.867" data-track-index="2">Pacagen says</div>
+      <div id="cap-28" class="clip cap" data-start="21.4" data-duration="1.5" data-track-index="2">its spray neutralizes</div>
+      <div id="cap-29" class="clip cap" data-start="22.9" data-duration="0.8" data-track-index="2">up to 98%</div>
+      <div id="cap-30" class="clip cap" data-start="23.7" data-duration="0.567" data-track-index="2">of active</div>
+      <div id="cap-31" class="clip cap" data-start="24.267" data-duration="1.266" data-track-index="2">cat allergens.</div>
+      <div id="cap-32" class="clip cap" data-start="25.533" data-duration="0.634" data-track-index="2">It doesn&#x27;t</div>
+      <div id="cap-33" class="clip cap" data-start="26.167" data-duration="0.6" data-track-index="2">medicate me,</div>
+      <div id="cap-34" class="clip cap" data-start="26.767" data-duration="1.333" data-track-index="2">it targets allergens</div>
+      <div id="cap-35" class="clip cap" data-start="28.1" data-duration="1.2" data-track-index="2">in the environment,</div>
+      <div id="cap-36" class="clip cap" data-start="29.3" data-duration="0.533" data-track-index="2">and that&#x27;s why</div>
+      <div id="cap-37" class="clip cap" data-start="29.833" data-duration="1.0" data-track-index="2">I wanted to try it.</div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      // UGC edit: straight cuts, static hook title, hard caption swaps only.
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
