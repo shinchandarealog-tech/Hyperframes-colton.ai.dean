@@ -32,10 +32,13 @@ The client (Pacagen via Zagged) approves simple, native-looking UGC: a real pers
 Tell the user a time estimate before starting. A typical 30-50s video takes about 20-25 minutes with a direct final render, or about 35-50 minutes with a draft round. If they're in a hurry, skip the plan/approval step, pick sensible defaults, say what you picked, and render the final directly.
 
 ### 1. Get the files
-Drive links must be "Anyone with the link - Viewer". Download into the scratchpad, not the repo (`pip install -q gdown` first):
+Drive links must be "Anyone with the link - Viewer". Download into the scratchpad, not the repo, **directly from `drive.usercontent.google.com` with curl. Don't use gdown**: it redirects to `doc-*.googleusercontent.com`, which the session proxy blocks (403). curl uses the proxy and works for files of any size (a 1.2 GB talking head took ~1 min):
 ```bash
-python3 -m gdown <FILE_ID>        # talking head, reference video, brief .docx
+curl -sSL -o head-raw.mp4 -w "%{http_code} %{size_download}\n" \
+  "https://drive.usercontent.google.com/download?id=<FILE_ID>&export=download&confirm=t"
+file head-raw.mp4        # must say ISO Media / MP4; "HTML document" means the file isn't shared publicly
 ```
+The Drive connector (`get_file_metadata`) is handy for the file's name and size, but don't download video through it (base64 into context).
 **B-roll: start from the library, not a folder download.** `_reference/broll-library/LIBRARY.md` lists every Pacagen B-roll clip on Drive with what it shows, who is in it (`none` / `A` / `B`), good in-points (`@N`) and HDR notes. Plan the B-roll from it, then download **only the clips you picked**:
 ```bash
 python3 -I _reference/broll-library/fetch_broll.py --find cat bed          # search
@@ -47,7 +50,11 @@ Look at the contact sheet before using a clip. If the user sends a **new** B-rol
 ```bash
 ffmpeg -i head.mp4 -vn -ac 1 -ar 16000 head.wav
 WHISPER=~/.cache/hyperframes/whisper/whisper.cpp/build/bin/whisper-cli
-MODEL=~/.cache/hyperframes/whisper/models/ggml-small.en.bin   # run `npx hyperframes transcribe` once if missing
+MODEL=~/.cache/hyperframes/whisper/models/ggml-small.en.bin
+# Missing model? Fetch it with curl. `npx hyperframes transcribe` ignores the proxy and fails with ENOTFOUND huggingface.co.
+# Needs huggingface.co + us.aws.cdn.hf.co on the environment allowlist (if curl gets a 403, ask to add them).
+# If whisper-cli itself is missing, run `npx hyperframes transcribe` once to build it (it builds before failing on the model).
+[ -s $MODEL ] || curl -sSL --create-dirs -o $MODEL https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en.bin
 $WHISPER -m $MODEL -f head.wav -ml 1 -sow -t 4 -np --prompt "Pacagen, Fel d 1, allergist" > words.txt
 ```
 Convert to `words.json` ([{text,start,end}]) and run:

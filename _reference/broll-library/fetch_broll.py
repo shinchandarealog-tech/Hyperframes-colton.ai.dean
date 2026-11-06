@@ -9,7 +9,8 @@ Usage (from the repo root):
 "spraying sunlight", "whisker block powder"). Each file is saved as
 <out_dir>/<safe name>.<ext> and skipped if already there. Prints duration and
 whether the clip is HDR (HDR clips must be tone-mapped when cut).
-Needs: pip install gdown; ffmpeg/ffprobe.
+Downloads with curl from drive.usercontent.google.com (gdown's redirect host is blocked
+by the session proxy). Needs: curl, ffmpeg/ffprobe.
 """
 import json
 import os
@@ -58,7 +59,6 @@ def main():
         items.remove("--sheet")
         sheet = True
     os.makedirs(out, exist_ok=True)
-    import gdown
     got = []
     for q in items:
         hits = find(q)
@@ -73,7 +73,17 @@ def main():
             base = base.replace(".", f"_{c['id'][:5]}.", 1)
         dst = os.path.join(out, base)
         if not os.path.exists(dst):
-            gdown.download(id=c["id"], output=dst, quiet=True)
+            url = f"https://drive.usercontent.google.com/download?id={c['id']}&export=download&confirm=t"
+            r = subprocess.run(["curl", "-sSL", "-o", dst, "-w", "%{http_code}", url], capture_output=True, text=True)
+            html = False
+            if os.path.exists(dst):
+                with open(dst, "rb") as fh:
+                    html = fh.read(15).lower().startswith((b"<!doctype", b"<html"))
+            if r.stdout != "200" or html:
+                print(f"! '{q}': download failed (HTTP {r.stdout or r.stderr.strip()}{', got HTML: not shared?' if html else ''})")
+                if os.path.exists(dst):
+                    os.remove(dst)
+                continue
         dur, hdr = probe(dst)
         print(f"{dst}  {dur and round(dur, 1)}s  {'HDR -> tone-map' if hdr else 'SDR'}  people={c['people']}  {c['notes']}")
         got.append(dst)
