@@ -40,6 +40,8 @@ _(style, color, sync tightness, word-by-word vs. phrase chunks — populated by 
 
 - **When the client wants a hook title** (Pacagen reference style): cream `#F7F2B8` lowercase "pov: …" text, bold geometric sans (Poppins 700, tight -0.065em tracking), two lines, small cream stars around it, soft dark shadow so it reads on light backgrounds. Static, no animation. Sits in the headroom above her head inside the safe area (top ≈282px), shown for the first spoken line (~4–5s). Captions still run underneath from the first word. (2026-11-05)
 
+- **The hook title must not cover her face.** When there's little headroom, shrink the title (~58px) and pin it to the top safe line (top ≈272px) so it sits on her hair, above the eyebrows. Check the frames where she leans in. (2026-11-06)
+
 - **Hook titles: a fresh line for every video, not always "pov:".** Vary the format (comparisons, questions, statements, POV), using the brief's hook ideas where they fit. (2026-11-05)
 
 ## Footage fixes
@@ -56,7 +58,9 @@ _(preferred / avoid — populated by /feedback over time)_
 
 _(music vibe, voiceover style, SFX, mix — populated by /feedback over time)_
 
-- **UGC: creator's original voice only, with no BGM and no SFX.** Keep the natural room tone and don't add whooshes, pops or a music bed. (2026-10-21)
+- **UGC: no SFX.** Keep the natural room tone; no whooshes or pops. (2026-10-21)
+- **UGC: add a soft, warm "bedside" music bed by default** (slow pad + gentle pluck, original track from `edit-data/music-bed.py`, no licensing issues). Level it at **about -30 LUFS, ~14 dB under the voice (-16 LUFS)**. At -38 LUFS (22 dB under) it was too quiet. It must be clearly audible in her pauses but never compete with her words. Fade in at the start, fade out at the end, and match its length to the full video including the CTA. (2026-11-06; replaces the earlier voice-only rule)
+- **CTA: if her video has no CTA and the client sends a separate CTA video,** pick the one line that fits this script best and tell the user which one you picked plus 1-2 alternatives. Use **her audio only** (cut on silences, loudness matched to her voice at -16 LUFS), placed right after her last line. Put B-roll over the whole CTA: keep the last cat shot running into it, then cut to the product (e.g. `showing product on counter` @0.4) on the "take a look at Pacagen" part. Caption the CTA in the same style. (2026-11-06)
 
 ## Brand
 
