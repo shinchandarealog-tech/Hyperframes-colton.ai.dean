@@ -6,13 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "preflight": "node scripts/preflight.mjs",
-    "preflight:all": "for d in video-projects/*/; do node scripts/preflight.mjs \"$d\" || true; done"
+    "preflight:all": "for d in video-projects/*/; do node scripts/preflight.mjs \"$d\" || true; done",
+    "editor": "node scripts/editor/server.mjs",
+    "test:editor": "node scripts/editor/test/touch.test.cjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "hyperframes": "0.9.19",
     "playwright": "^1.59.1"
   }
 }

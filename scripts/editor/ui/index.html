@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Reel Editor</title>
+    <link rel="stylesheet" href="/ui/editor.css" />
+    <script src="/vendor/player.js"></script>
+  </head>
+  <body>
+    <header class="bar">
+      <button id="undo" class="btn" disabled aria-label="Undo"><span class="ico">↶</span><span class="lbl">Undo</span></button>
+      <button id="redo" class="btn" disabled aria-label="Redo"><span class="ico">↷</span><span class="lbl">Redo</span></button>
+      <div id="status" class="status" role="status">Loading…</div>
+      <button id="safe" class="btn toggle" aria-pressed="false"><span class="ico">▣</span><span class="lbl">Safe zone</span></button>
+      <button id="fit" class="btn" aria-label="Fit to screen"><span class="ico">⤢</span><span class="lbl">Fit</span></button>
+    </header>
+
+    <main id="stage">
+      <div id="zoomer">
+        <hyperframes-player
+          id="player"
+          src="/project/index.html"
+          runtime-src="/vendor/runtime.js"
+          disable-click-to-play
+        ></hyperframes-player>
+      </div>
+      <div id="overlay" aria-label="Preview — tap something to edit it">
+        <div id="frame">
+          <div id="safezone" hidden>
+            <div class="shade top"></div>
+            <div class="shade bottom"></div>
+            <div class="shade left"></div>
+            <div class="shade right"></div>
+            <div class="safe-rect"></div>
+            <div class="centre v"></div>
+            <div class="centre h"></div>
+          </div>
+          <div id="outlines"></div>
+          <div id="guide-x" class="guide x" hidden></div>
+          <div id="guide-y" class="guide y" hidden></div>
+        </div>
+        <div id="selbox" hidden>
+          <div class="h corner tl" data-h="tl"></div>
+          <div class="h corner tr" data-h="tr"></div>
+          <div class="h corner bl" data-h="bl"></div>
+          <div class="h corner br" data-h="br"></div>
+          <div class="rot-stem"></div>
+          <div class="h rot" data-h="rot">⟳</div>
+          <div id="badge" class="badge" hidden></div>
+        </div>
+        <div id="texted" contenteditable="true" spellcheck="true" hidden></div>
+      </div>
+      <div id="hint" class="hint">Tap a caption, title or sticker to edit it</div>
+    </main>
+
+    <section id="panel" hidden aria-label="Style">
+      <div class="row text-only">
+        <label class="field grow">
+          <span>Font</span>
+          <select id="p-font"></select>
+        </label>
+      </div>
+      <div class="row">
+        <span class="lab" id="p-size-lab">Size</span>
+        <button class="btn sq" id="p-size-minus" aria-label="Smaller">−</button>
+        <input id="p-size" type="range" min="10" max="200" step="1" />
+        <button class="btn sq" id="p-size-plus" aria-label="Bigger">+</button>
+        <span class="val" id="p-size-val"></span>
+      </div>
+      <div class="row colour-row">
+        <span class="lab">Colour</span>
+        <div class="swatches" id="p-swatches"></div>
+        <label class="swatch custom" aria-label="Pick any colour"><input id="p-color" type="color" /></label>
+      </div>
+      <div class="row toggles">
+        <button class="btn toggle text-only" id="p-bold" aria-pressed="false"><b>B</b>&nbsp;Bold</button>
+        <button class="btn toggle" id="p-outline" aria-pressed="false">Outline</button>
+        <button class="btn toggle" id="p-shadow" aria-pressed="false">Shadow</button>
+      </div>
+      <div class="row">
+        <span class="lab">Opacity</span>
+        <input id="p-opacity" type="range" min="0" max="100" step="1" />
+        <span class="val" id="p-opacity-val"></span>
+      </div>
+      <div class="row actions">
+        <button class="btn text-only" id="p-edit">✎ Text</button>
+        <button class="btn" id="p-reset">Reset</button>
+        <button class="btn danger" id="p-delete">🗑 Delete</button>
+        <button class="btn primary" id="p-done">Done</button>
+      </div>
+    </section>
+
+    <footer class="transport">
+      <button id="play" class="btn play" aria-label="Play">▶</button>
+      <input id="scrub" type="range" min="0" max="1" step="0.0333" value="0" aria-label="Playhead" />
+      <span id="time" class="time">0:00.0</span>
+    </footer>
+
+    <script type="module" src="/ui/editor.js"></script>
+  </body>
+</html>

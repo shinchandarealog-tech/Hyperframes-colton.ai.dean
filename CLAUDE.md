@@ -30,6 +30,7 @@ Follow these every time the user asks for a new feature in the reel builder (edi
 2. **One project data, preview = export.** Every change made in the editor must be saved into the same project data the final render reads (`edit-data/` + `index.html`). No preview-only state. The exported video must always match the preview exactly.
 3. **Touch first.** The user edits on an iPad and an Android phone, no laptop. Big tap targets (≥ 44 px), drag with one finger, pinch to zoom, no hover-only controls, works in Safari (iPadOS) and Chrome (Android). Keyboard shortcuts are a bonus only.
 4. **Everything undoable.** Every edit goes through an undo/redo history with visible Undo / Redo buttons.
+   - **Touch editor** (`scripts/editor/`, see its README): `npm run editor -- video-projects/<project>` serves a tap-to-edit preview built on the real Hyperframes player. Edits are saved to `edit-data/edits.json` and written into `index.html` (managed `hf-editor` style block + changed text). If you regenerate a project's `index.html`, run `node scripts/editor/server.mjs video-projects/<project> --apply` afterwards so the user's editor changes come back. Never hand-edit inside the `hf-editor:start/end` markers.
 5. **Don't break what works.** After building: run lint + preflight, test the feature (Playwright with touch emulation: iPad + Android phone), render a short test clip, and tell the user in simple words what was added and how to use it.
 
 ## CREATOR.md + PREFERENCES.md — READ BOTH BEFORE EVERY VIDEO TASK
