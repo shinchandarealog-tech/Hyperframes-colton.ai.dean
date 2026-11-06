@@ -142,7 +142,8 @@ hyperframes/
 │   └── music/                                 ← royalty-free music bed
 ├── video-projects/                           ← YOUR active projects, one folder each
 └── _reference/
-    └── creator-library/                      ← style fingerprints from creators you study (/study-creator)
+    ├── creator-library/                      ← style fingerprints from creators you study (/study-creator)
+    └── broll-library/                        ← every Pacagen B-roll clip on Drive + what it shows; fetch only what you need
 ```
 
 Each project under `video-projects/<name>/` is a self-contained Hyperframes project:

@@ -32,13 +32,16 @@ The client (Pacagen via Zagged) approves simple, native-looking UGC: a real pers
 Tell the user a time estimate before starting. A typical 30-50s video takes about 20-25 minutes with a direct final render, or about 35-50 minutes with a draft round. If they're in a hurry, skip the plan/approval step, pick sensible defaults, say what you picked, and render the final directly.
 
 ### 1. Get the files
-Drive links must be "Anyone with the link - Viewer". Download into the scratchpad, not the repo:
+Drive links must be "Anyone with the link - Viewer". Download into the scratchpad, not the repo (`pip install -q gdown` first):
 ```bash
-pip install -q gdown
-python3 -m gdown <FILE_ID>                       # single file (talking head, reference, brief .docx)
-python3 -m gdown --folder <FOLDER_URL> -O broll/  # B-roll folder
+python3 -m gdown <FILE_ID>        # talking head, reference video, brief .docx
 ```
-The Pacagen B-roll folders (SPRAY / SUPPLEMENT / CLEANING_AIR PURIFIERS, plus the pills / 3pm fog / dry mouth set) may already be in the scratchpad from earlier sessions; reuse before re-downloading. Read a brief .docx by unzipping `word/document.xml`.
+**B-roll: start from the library, not a folder download.** `_reference/broll-library/LIBRARY.md` lists every Pacagen B-roll clip on Drive with what it shows, who is in it (`none` / `A` / `B`), good in-points (`@N`) and HDR notes. Plan the B-roll from it, then download **only the clips you picked**:
+```bash
+python3 -I _reference/broll-library/fetch_broll.py --find cat bed          # search
+python3 -I _reference/broll-library/fetch_broll.py <scratch>/broll IMG_0114 "spraying sunlight" --sheet
+```
+Look at the contact sheet before using a clip. If the user sends a **new** B-roll folder, list it (`gdown.download_folder(url, skip_download=True)`; a folder over 50 files needs listing per subfolder), add it to `FOLDERS` + notes in `build_library.py`, add the listing to `drive-listing.json`, run `build_library.py`, and commit, so later sessions know it. Read a brief .docx by unzipping `word/document.xml`.
 
 ### 2. Transcribe and analyze her footage
 ```bash
@@ -72,7 +75,7 @@ Make contact sheets (6 thumbnails per clip) and look at every candidate. For eac
 | supplement switch / how it works | `supplement in front of cat`, `putting supplement in food` @16, `eating + supplement`, `supplement in front of bed` |
 | ending (rehome angle) | the cat, last ~1s |
 
-Clips that show a **different woman**: spraying sheets / scratcher / pillows / stools / dining chairs / carpet entryway / coffee table / bed / stairs / desk chair, `laundry 3`. Don't use them. The empty sofa read as "plain B-roll" and was rejected.
+People in B-roll are marked in the library: `A` (pacagen-main batch: spraying sheets / scratcher / pillows / stools / dining chairs / carpet entryway / coffee table / bed / stairs / desk chair, `laundry 3`) and `B` (the Nov-5 creator: lint rolling, showing each product, IMG_0165 couch, IMG_1108-1110 spraying). Use a person clip only when that person is the speaker. The empty sofa read as "plain B-roll" and was rejected.
 
 Place each B-roll start/end on word boundaries, snapped to 1/30s, and make sure each jump-cut frame falls inside a B-roll clip.
 
