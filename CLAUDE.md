@@ -21,6 +21,17 @@ Then **invoke the `/setup` skill** (`.claude/skills/setup/SKILL.md`) and follow 
 
 ---
 
+## Rules for building any new reel-builder / editor feature (from the user)
+
+Follow these every time the user asks for a new feature in the reel builder (editor UI, tooling, scripts):
+
+1. **Read first, explain, reuse.** Before writing code, read the existing code and explain to the user in 3–4 simple lines how the preview, the beats, and the render work right now. Extend what's there — never rebuild from scratch.
+   - Today: each project's `index.html` is the single source of truth. The Studio preview (`npx hyperframes preview`) and the final render (`npx hyperframes render`) both play that same file. The "beats" live in `edit-data/` (`broll-plan.txt` = B-roll beats, `captions.json` = caption beats, built from `words.json` by `build_captions.py`) and are written into `index.html` as timed clips (`data-start` / `data-duration`).
+2. **One project data, preview = export.** Every change made in the editor must be saved into the same project data the final render reads (`edit-data/` + `index.html`). No preview-only state. The exported video must always match the preview exactly.
+3. **Touch first.** The user edits on an iPad and an Android phone, no laptop. Big tap targets (≥ 44 px), drag with one finger, pinch to zoom, no hover-only controls, works in Safari (iPadOS) and Chrome (Android). Keyboard shortcuts are a bonus only.
+4. **Everything undoable.** Every edit goes through an undo/redo history with visible Undo / Redo buttons.
+5. **Don't break what works.** After building: run lint + preflight, test the feature (Playwright with touch emulation: iPad + Android phone), render a short test clip, and tell the user in simple words what was added and how to use it.
+
 ## CREATOR.md + PREFERENCES.md — READ BOTH BEFORE EVERY VIDEO TASK
 
 **`CREATOR.md`** holds the user's identity, handles, niche, platform priority, on-camera mode, and the division of labor. **`PREFERENCES.md`** holds the user's accumulated taste — what they like, what they don't, what to never repeat (populated over time via `/feedback`).
