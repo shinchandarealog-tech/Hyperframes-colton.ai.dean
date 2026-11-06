@@ -92,6 +92,14 @@ cd video-projects && HYPERFRAMES_SKIP_SKILLS=1 npx hyperframes init <slug> --exa
 ```
 Start from `.claude/skills/ugc-meta-edit/templates/index.html` (the approved rehome video). It has the talking head as a muted `<video>` plus an `<audio>` from the same file, B-roll `<video class="broll">` on track 1, the hook title, and the caption CSS. Change the durations, B-roll list, title text and `.cap { top }` (from the analyzer's suggestion). Cut each B-roll to exact length first (`-ss <in> -frames:v <n> -an -vf scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30`), tone-mapping any HDR clip (see mistakes list). Copy `.gitignore` from an existing project (media and renders stay out of git; keep `edit-data/` with the EDL, B-roll plan, words and captions).
 
+**GSAP must be local, not from the CDN.** The render browser can't reach `cdn.jsdelivr.net` through the session proxy, so the template loads `assets/gsap.min.js`. Copy it into the project (npm works through the proxy; the file is small, so commit it):
+```bash
+# from the project folder: copy it from an existing project...
+cp ../pacagen-cats-gone-spray-ugc/assets/gsap.min.js assets/
+# ...or, if none has it, pull it from npm:
+(cd <scratch> && npm pack gsap@3.14.2 --silent && tar xzf gsap-3.14.2.tgz package/dist/gsap.min.js) && cp <scratch>/package/dist/gsap.min.js assets/
+```
+
 **Captions:** write the script as 2-3 word lines (break on punctuation, keep names like "Fel d 1" together), then:
 ```bash
 python3 -I ../../.claude/skills/ugc-meta-edit/scripts/build_captions.py edit-data/words.json phrases.txt <duration> fix.json
@@ -130,3 +138,4 @@ You need: 0 black/frozen events, loudness about -16 LUFS, every jump cut "covere
 - Title wrapped to 3 lines and sat on her forehead: force 2 lines, move it up, check it on a snapshot.
 - Using the B-roll folder without looking: other people appear in many spray clips.
 - Yellow hook captions vs white body captions: one caption color only.
+- GSAP loaded from `cdn.jsdelivr.net`: the render stopped with `sub_timeline_script_failure ... ERR_TUNNEL_CONNECTION_FAILED` (`Cannot read properties of null (reading 'timeline')`). Load `assets/gsap.min.js` instead (step 4).
