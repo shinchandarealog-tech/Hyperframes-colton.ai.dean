@@ -1,0 +1,12 @@
+# id|clip|in|start|end   (output timeline, seconds; jump cuts at 17.833, 22.8, 25.833)
+b01|IMG_0130.MOV|0.5|5.433|9.033
+b02|Cat_waiting_at_door.MOV|1.2|9.033|11.0
+b03|Cat_hair_everywhere_grabbing_the_hair.MOV|1.0|11.0|13.233
+b04|spraying_sunlight.mov|2.4|15.8|17.767
+b05|spray_on_guest_bed.mov|1.0|17.767|20.0
+b06|IMG_1110.MOV|0.3|20.0|22.6
+b07|showing_the_back_side_of_package_1.mov|0.4|22.6|25.4
+b08|IMG_1108.MOV|0.3|25.4|27.633
+b09|cat_in_house_-_filler_video.mov|0.3|29.0|31.333
+b10|Grooming_on_bed.mov|1.0|32.4|35.0
+b11|IMG_0147.MOV|5.0|35.0|37.733

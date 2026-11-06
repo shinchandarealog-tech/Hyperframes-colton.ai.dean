@@ -23,8 +23,9 @@ LIB = json.load(open(os.path.join(HERE, "library.json")))["clips"]
 
 
 def find(q):
-    q = q.lower().strip()
-    exact = [c for c in LIB if c["id"] == q or c["path"].lower() == q
+    raw = q.strip()
+    q = raw.lower()
+    exact = [c for c in LIB if c["id"] == raw or c["path"].lower() == q
              or os.path.splitext(c["path"].lower())[0].strip() == q]
     if exact:
         return [e for e in exact if not e["duplicate_name"]] or exact
