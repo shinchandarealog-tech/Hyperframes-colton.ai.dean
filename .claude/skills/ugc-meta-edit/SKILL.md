@@ -14,11 +14,12 @@ The client (Pacagen via Zagged) approves simple, native-looking UGC: a real pers
 | Area | Rule |
 |---|---|
 | Editing | Light. Talking head + real B-roll. Plain straight cuts only - no transition effects, zooms, stickers, logos, motion graphics or end cards. |
-| Audio | Her voice only. No music or SFX unless the user asks. If asked: soft bed ~22 dB under the voice (see `video-projects/pacagen-supplement-ugc/edit-data/music-bed.py`). |
+| Audio | Her voice (-16 LUFS) plus a **soft, warm music bed by default** at **about -30 LUFS (~14 dB under her voice)**. Generate it with `video-projects/pacagen-bedding-spray-ugc/edit-data/music-bed.py <out.wav> <total_duration>`, then gain it to -30 LUFS. -38 LUFS was too quiet ("very little sound"). It must be audible in her pauses but never compete with her words. No SFX. |
 | Captions | White `#FFFFFF` for the whole video, soft dark shadow, Inter 600 54px, sentence case, **2-3 words per caption** (fast swaps), no pills, strokes, karaoke or emoji. Start at frame 0 (even under a hook title). |
 | Caption position | **One fixed spot just below her chin** for the whole video, never on her face, never above her head, never moving per shot. |
 | B-roll | Must show what she is saying at that moment. **Must cover every jump cut** in her footage. **Never a different person** in frame (hands-only shots are fine). No speaker flash shorter than 0.5s between two B-roll clips. If nothing fits a line, stay on her. |
 | Footage | Level a tilted camera (small rotate inside the crop). Conform to 1080x1920, 30fps CFR. Loudness about -16 LUFS. |
+| CTA | If her video has no CTA and the client sends a CTA video (several alternative lines), see step 4b. |
 | Brief | Check claims against the brief. Pacagen: say "**up to** 98%", spray lasts "up to 2 months", no medical claims ("treats/cures allergies", "fight allergies"). Rehome angle: end on the cat. Never mix spray and supplement mechanisms. |
 
 ## Meta safe area (1080x1920)
@@ -106,7 +107,13 @@ python3 -I ../../.claude/skills/ugc-meta-edit/scripts/build_captions.py edit-dat
 ```
 It checks every phrase against the transcript, starts captions at 0, snaps to frames and injects them into index.html. Captions under 0.35s are flagged; merge them into a neighbour.
 
-**Hook title** (only when the client wants one): **a new line for every video, and not always "pov:"** (e.g. "antihistamines vs. this spray: two different jobs"); cream `#F7F2B8` lowercase text, **Poppins** 700 (Plus Jakarta Sans isn't auto-embedded), 74px (drop to ~64px for a long first line), letter-spacing -0.065em, line-height 0.98, two forced lines (`<span class="ln">` with `white-space: nowrap`), left 65 / width 950 / top ~282, a soft dark text-shadow so it reads on white walls, and five small cream SVG stars around it but off her face. Static, shown for the first spoken line (~4-5s). Take the wording from the brief's hook options when possible.
+**Hook title** (only when the client wants one): **a new line for every video, and not always "pov:"** (e.g. "antihistamines vs. this spray: two different jobs"); cream `#F7F2B8` lowercase text, **Poppins** 700 (Plus Jakarta Sans isn't auto-embedded), 74px (drop to ~64px for a long first line), letter-spacing -0.065em, line-height 0.98, two forced lines (`<span class="ln">` with `white-space: nowrap`), left 65 / width 950 / top ~282. **It must not cover her face:** when her head is close to the top of the frame, drop to ~58px and pin it to top 272 so it sits on her hair, above the eyebrows, and check snapshots where she leans in. Use a soft dark text-shadow so it reads on white walls, and five small cream SVG stars around it but off her face. Static, shown for the first spoken line (~4-5s). Take the wording from the brief's hook options when possible.
+
+### 4b. CTA from a separate video (when her script has none)
+The client may send a CTA video in which she reads several alternative CTA lines. Transcribe it, find each line's edges with silencedetect / an RMS envelope (whisper word times run ~0.3-0.6s early), and pick the **one** line that fits this script (e.g. after "...at my friend's house." -> "If this sounds like your house, take a look at Pacagen."). Tell the user which one you picked plus 1-2 alternatives.
+- **Audio only:** cut the line with ~0.25s of lead silence (`-ss <start> -t <dur> -vn`), gain it to -16 LUFS, add a 15ms fade in and a 30ms fade out, and save it as `assets/cta-01.m4a`. Add it as `<audio id="cta" data-start="<end of her video>">` and extend the root duration and the music bed to cover it.
+- **B-roll over all of it**, since there's no face video there: keep the last cat shot running through the first half, then cut to the product (`showing product on counter` @0.4, only the first ~1.5s; a person appears in the background later) on "take a look at Pacagen". No other people in frame.
+- Add the CTA words to `words.json` (timed from the envelope) and the lines to `phrases.txt`, then re-run `build_captions.py` with the new duration.
 
 ### 5. Check before rendering
 ```bash
@@ -130,6 +137,9 @@ You need: 0 black/frozen events, loudness about -16 LUFS, every jump cut "covere
 
 ## Mistakes already made (don't repeat)
 - iPhone HDR B-roll (`color_transfer=arib-std-b67`, bt2020) sends the renderer down a very slow HDR path (13+ min, half done) and can wash out colours. Check every cut clip with ffprobe and tone-map HDR ones to SDR bt709 when cutting: `-vf "zscale=t=linear:npl=203,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p,..." -color_primaries bt709 -color_trc bt709 -colorspace bt709`.
+- Detecting HDR in a shell loop with `ffprobe ... -of csv=p=0` returns `arib-std-b67,` (trailing comma), so an `= arib-std-b67` test silently fails and the clip isn't tone-mapped. Match with `case "$tr" in arib-std-b67*|smpte2084*)` or use `fetch_broll.py`'s HDR flag.
+- Selfie-mode talking heads can be mirrored (the bottle label reads backwards). Check one frame and `hflip` if needed.
+- Music bed at -38 LUFS (22 dB under) was "very little sound". Use about -30 LUFS.
 - A 0.001s rounding gap between two B-roll clips (start + duration a hair short of the next start) shows one frame of the speaker. Set each duration to exactly `next_start - start`; verify_render.py flags it as a 1-frame shot.
 - Stars on a full-width title land on the letters: keep stars in the side margins.
 - Mid-frame captions landed on her mouth when she leaned in; moving them above her head was rejected. Below the chin is correct.
