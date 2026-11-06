@@ -1,0 +1,13 @@
+# id start dur src in   (src: library clip name or "self" = her own raw footage, raw seconds)
+b01 3.533 1.9 hairgrab 1.0 | the hair can carry allergens
+b02 8.0 2.433 grooming 7.6 | Fel d 1 is found in cat saliva
+b03 10.433 2.5 couchcat 0.2 | settle into fabrics, including the couch
+b04 12.933 2.2 bedcat 0.5 | bedding, and the places cats spend their time
+b05 18.5 2.5 hairbed 4.4 | however the cat allergen is still here
+b06 21.0 2.0 purifiers 0.3 | I have air purifiers
+b07 25.567 1.533 laundry 0.0 | cleaning, filtering the air
+b08 27.1 2.733 sprayclose 0.2 | and breaking down the allergens are different jobs
+b09 32.167 2.133 self 121.6 | it breaks down those allergens that are still
+b10 34.3 1.9 self 133.5 | all over the surfaces in my house
+b11 39.133 2.467 self 142.5 | on the fabrics where the cats used to spend all their time
+b12 41.6 1.6 spraysun 3.2 | plus it dries clear with no residue
