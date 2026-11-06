@@ -71,11 +71,11 @@
         position: absolute;
         left: 65px;
         width: 950px;
-        top: 282px;
+        top: 272px;
         text-align: center;
         font-family: "Poppins", Inter, sans-serif;
         font-weight: 700;
-        font-size: 74px;
+        font-size: 58px;
         line-height: 0.98;
         letter-spacing: -0.065em;
         color: #f7f2b8;
@@ -112,6 +112,9 @@
       <video id="face" data-start="0" data-duration="37.733" data-track-index="0" src="assets/talking-head.mp4" muted playsinline></video>
       <audio id="voice" data-start="0" data-duration="37.733" data-track-index="3" src="assets/talking-head.mp4" data-volume="1"></audio>
 
+      <!-- Soft original music bed (edit-data/music-bed.py), ~22 dB under the voice (-38 LUFS vs -16) -->
+      <audio id="music" data-start="0" data-duration="37.733" data-track-index="4" src="assets/music-bed-soft.m4a" data-volume="1"></audio>
+
       <!-- B-roll: straight cuts matched to her lines; covers all 3 jump cuts (17.833, 22.8, 25.833); only hands or the speaker herself; ends on a cat -->
       <video id="b01" class="broll" data-start="5.433" data-duration="3.6" data-track-index="1" src="assets/broll/b01.mp4" muted playsinline></video>
       <video id="b02" class="broll" data-start="9.033" data-duration="1.967" data-track-index="1" src="assets/broll/b02.mp4" muted playsinline></video>
@@ -128,11 +131,11 @@
       <!-- Hook title (0 to end of first line) -->
       <div id="hook" class="clip" data-start="0" data-duration="5.433" data-track-index="5">
         <div class="title"><span class="ln">the cat’s off the bed.</span><span class="ln">the allergens aren’t.</span></div>
-        <div class="star" style="left:120px;top:275px;width:46px;height:46px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
-        <div class="star" style="left:905px;top:272px;width:38px;height:38px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
-        <div class="star" style="left:62px;top:395px;width:34px;height:34px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
-        <div class="star" style="left:960px;top:405px;width:44px;height:44px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
-        <div class="star" style="left:978px;top:330px;width:30px;height:30px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:170px;top:270px;width:46px;height:46px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:860px;top:268px;width:38px;height:38px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:150px;top:345px;width:34px;height:34px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:905px;top:350px;width:44px;height:44px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
+        <div class="star" style="left:950px;top:305px;width:30px;height:30px"><svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg></div>
       </div>
 
       <!-- Captions -->
