@@ -257,6 +257,26 @@
 {
 "text": "my friend's house.",
 "start": 36.933,
-"end": 37.733
+"end": 38.0
+},
+{
+"text": "If this sounds",
+"start": 38.0,
+"end": 38.633
+},
+{
+"text": "like your house,",
+"start": 38.633,
+"end": 39.467
+},
+{
+"text": "take a look",
+"start": 39.467,
+"end": 39.867
+},
+{
+"text": "at Pacagen.",
+"start": 39.867,
+"end": 40.633
 }
 ]
