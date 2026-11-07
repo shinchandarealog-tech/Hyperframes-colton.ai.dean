@@ -1,0 +1,6 @@
+# Generated media (rebuild: edit-data/prep_clips.sh <dir of client AI clips c01..c26>,
+# python3 -I edit-data/music_bed.py 42.6 + loudnorm -27, vo-norm = loudnorm -16 of assets/vo.mp3)
+assets/clips/
+assets/*.wav
+.hyperframes/
+renders/

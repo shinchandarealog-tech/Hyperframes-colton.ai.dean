@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="hi" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Mukta"; font-weight: 800; src: url("assets/fonts/mukta-devanagari-800-normal.woff2") format("woff2"); unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF; }
+      @font-face { font-family: "Mukta"; font-weight: 800; src: url("assets/fonts/mukta-latin-800-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+      @font-face { font-family: "Mukta"; font-weight: 700; src: url("assets/fonts/mukta-devanagari-700-normal.woff2") format("woff2"); unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FF; }
+      @font-face { font-family: "Mukta"; font-weight: 700; src: url("assets/fonts/mukta-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+      @font-face { font-family: "Teko"; font-weight: 600; src: url("assets/fonts/teko-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F; }
+      @font-face { font-family: "Teko"; font-weight: 600; src: url("assets/fonts/teko-devanagari-600-normal.woff2") format("woff2"); unicode-range: U+0900-097F, U+20B9; }
+
+      :root {
+        --leaf: #3e9b2f; --deep: #1e5a1a; --white: #ffffff; --turmeric: #f5b82e;
+        --red: #d7262e; --wa: #25d366;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d1a0b; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0d1a0b; font-family: "Mukta", sans-serif; }
+
+      /* video wrappers (non-timed). Transforms go on the wrapper, never on the video. */
+      .vw { position: absolute; inset: 0; overflow: hidden; }
+      .vw video { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #w04 { filter: grayscale(1) contrast(1.25) brightness(1.08); }
+      #red4 { position: absolute; inset: 0; background: #d3141f; mix-blend-mode: multiply; z-index: 5; }
+      #w07a { z-index: 3; }
+      #w07b { z-index: 2; }
+      #glow7 { position: absolute; top: 0; left: -260px; width: 260px; height: 1920px; z-index: 6;
+        background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(255,250,225,0.95), rgba(255,240,190,0.45) 45%, rgba(255,240,190,0) 75%); mix-blend-mode: screen; }
+
+      /* bottom shade for headline readability (localized, not full-frame) */
+      #shade { position: absolute; left: 0; right: 0; top: 1050px; height: 870px; z-index: 8; pointer-events: none;
+        background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.6) 100%); }
+
+      .hl { position: absolute; left: 60px; right: 60px; z-index: 20; text-align: center; color: var(--white);
+        font-weight: 800; line-height: 1.12; text-wrap: balance;
+        text-shadow: 0 6px 18px rgba(0,0,0,0.55), 0 2px 4px rgba(0,0,0,0.7), 0 0 2px rgba(0,0,0,0.6); }
+      .pillrow { position: absolute; left: 60px; right: 60px; z-index: 20; display: flex; justify-content: center; }
+      .pill { display: inline-block; background: var(--deep); color: var(--white); font-weight: 700; font-size: 66px; line-height: 1.15;
+        padding: 14px 40px 12px; border-radius: 999px; box-shadow: 0 10px 30px rgba(0,0,0,0.35); border: 4px solid var(--leaf); text-align: center; }
+      .pill.light { background: var(--white); color: var(--deep); }
+      .num { font-family: "Teko", sans-serif; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 0.9; }
+
+      /* persistent brand elements */
+      .badge { position: absolute; top: 280px; right: 48px; width: 220px; padding: 14px 18px 10px; background: rgba(255,255,255,0.94);
+        border-radius: 26px; z-index: 40; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+      .badge img { display: block; width: 100%; }
+      #strip { position: absolute; left: 0; right: 0; top: 1690px; height: 104px; z-index: 40; background: var(--deep);
+        border-top: 6px solid var(--leaf); display: flex; align-items: center; justify-content: center; overflow: hidden;
+        color: var(--white); font-weight: 700; font-size: 46px; letter-spacing: 0.01em; }
+      #strip .dot { color: var(--turmeric); margin: 0 18px; }
+      #shine { position: absolute; top: -10px; left: -300px; width: 180px; height: 130px; transform: skewX(-20deg);
+        background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.35), rgba(255,255,255,0)); }
+
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 60; pointer-events: none; }
+      #redflash { position: absolute; inset: 0; background: var(--red); opacity: 0; z-index: 60; pointer-events: none; }
+
+      /* S1 */
+      #t1a { top: 1220px; font-size: 168px; }
+      #t1b { top: 1430px; font-size: 80px; }
+      /* S2 */
+      #t2y { top: 380px; font-size: 250px; color: var(--turmeric); }
+      #t2b { top: 640px; font-size: 92px; }
+      #dim2 { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 4; }
+      /* S3 */
+      #t3r { top: 470px; }
+      #t3r .pill { background: #fff; color: var(--red); border-color: var(--red); font-family: "Teko", sans-serif; font-size: 170px; padding: 18px 50px 0; line-height: 1; }
+      #t3b { top: 740px; font-size: 84px; }
+      #vig3 { position: absolute; inset: 0; z-index: 4; background: radial-gradient(ellipse 75% 60% at 50% 50%, rgba(215,38,46,0) 55%, rgba(215,38,46,0.55) 100%); }
+      /* S4 */
+      #t4a { top: 1250px; font-size: 70px; }
+      #t4b { top: 1350px; font-size: 112px; }
+      /* S5 */
+      #t5 { top: 1300px; font-size: 140px; }
+      /* S6 */
+      #logoCard { position: absolute; left: 270px; width: 540px; top: 330px; padding: 26px 36px 18px; background: rgba(255,255,255,0.96);
+        border-radius: 36px; z-index: 22; box-shadow: 0 18px 50px rgba(0,0,0,0.35); }
+      #logoCard img { display: block; width: 100%; }
+      .leafp { position: absolute; width: 60px; height: 60px; left: 510px; top: 470px; z-index: 21; }
+      #t6a { top: 1300px; font-size: 76px; }
+      #t6b { top: 1410px; font-size: 128px; color: var(--turmeric); }
+      /* S7 */
+      #t7a { top: 1490px; }
+      #t7a .pill { font-size: 60px; }
+      #t7b { top: 1440px; font-size: 128px; }
+      #bar7 { position: absolute; left: 240px; width: 600px; top: 1610px; height: 18px; border-radius: 9px; background: rgba(255,255,255,0.35); z-index: 20; overflow: hidden; }
+      #bar7 i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: var(--turmeric); transform-origin: left center; transform: scaleX(0); }
+      /* S8 */
+      #streak8 { position: absolute; top: -200px; left: -700px; width: 420px; height: 2400px; z-index: 6; transform: rotate(18deg);
+        background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.85), rgba(255,255,255,0)); mix-blend-mode: screen; }
+      .spark { position: absolute; z-index: 7; width: 70px; height: 70px; }
+      #t8 { top: 1460px; }
+      /* S9 */
+      #t9a, #t9b, #t9c { top: 1480px; }
+      /* S10 */
+      #grid10 { position: absolute; inset: 0; z-index: 2; background: var(--deep); overflow: hidden; }
+      #tiles { position: absolute; left: 0; top: -120px; width: 1080px; height: 2160px; background-image: url("assets/people-grid.jpg"); background-size: 360px 360px; background-repeat: repeat;
+        transform-origin: 495px 855px; }
+            #scrim10 { position: absolute; inset: 0; z-index: 3; background: radial-gradient(ellipse 80% 45% at 50% 47%, rgba(10,30,8,0.93), rgba(10,30,8,0.7) 70%, rgba(10,30,8,0.5)); opacity: 0; }
+      #t10n { top: 650px; font-size: 270px; color: var(--turmeric); }
+      #t10b { top: 960px; font-size: 80px; }
+      /* S11 */
+      #t11 { top: 1330px; font-size: 128px; }
+      /* S12a */
+      #t12a { top: 470px; }
+      #t12b { top: 600px; }
+      #t12a .pill, #t12b .pill { font-size: 60px; }
+      /* S12b end card */
+      #end { position: absolute; inset: 0; z-index: 30; background: radial-gradient(ellipse 90% 70% at 50% 40%, #ffffff 0%, #f3f8ef 55%, #dcebd3 100%); }
+      #endLogo { position: absolute; left: 230px; width: 620px; top: 300px; }
+      #t12c { top: 790px; font-size: 84px; color: var(--deep); text-shadow: none; }
+      #wa { position: absolute; left: 160px; width: 760px; top: 1120px; height: 170px; border-radius: 999px; background: var(--wa);
+        display: flex; align-items: center; justify-content: center; gap: 26px; color: #fff; font-weight: 800; font-size: 72px;
+        box-shadow: 0 16px 40px rgba(37,211,102,0.45), inset 0 -8px 0 rgba(0,0,0,0.12); }
+      #wa svg { width: 96px; height: 96px; }
+      #tap { position: absolute; left: 640px; top: 1150px; width: 110px; height: 110px; border-radius: 50%; border: 8px solid #fff;
+        background: rgba(255,255,255,0.25); z-index: 33; opacity: 0; }
+      #arrow { position: absolute; left: 490px; top: 1350px; width: 100px; height: 120px; z-index: 32; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="42.3" data-width="1080" data-height="1920">
+
+      <!-- ===== Video layer (non-timed wrappers, timed videos) ===== -->
+      <div class="vw" id="w01"><video id="v01" data-start="0" data-duration="3.0" data-track-index="0" src="assets/clips/s01.mp4" muted playsinline></video></div>
+      <div class="vw" id="w02"><video id="v02" data-start="3.0" data-duration="1.48" data-track-index="1" src="assets/clips/s02.mp4" muted playsinline></video></div>
+      <div class="vw" id="w03"><video id="v03" data-start="4.48" data-duration="1.87" data-track-index="0" src="assets/clips/s03.mp4" muted playsinline></video></div>
+      <div class="vw" id="w04"><video id="v04" data-start="6.35" data-duration="2.75" data-track-index="1" src="assets/clips/s04.mp4" muted playsinline></video></div>
+      <div class="vw" id="w05"><video id="v05" data-start="9.1" data-duration="2.55" data-track-index="0" src="assets/clips/s05.mp4" muted playsinline></video></div>
+      <div class="vw" id="w06"><video id="v06" data-start="11.65" data-duration="4.85" data-track-index="1" src="assets/clips/s06.mp4" muted playsinline></video></div>
+      <div class="vw" id="w07a"><video id="v07a" data-start="16.5" data-duration="3.1" data-track-index="0" src="assets/clips/s07a.mp4" muted playsinline></video></div>
+      <div class="vw" id="w07b"><video id="v07b" data-start="18.1" data-duration="2.7" data-track-index="1" src="assets/clips/s07b.mp4" muted playsinline></video></div>
+      <div class="vw" id="w08"><video id="v08" data-start="20.8" data-duration="2.3" data-track-index="0" src="assets/clips/s08.mp4" muted playsinline></video></div>
+      <div class="vw" id="w09a"><video id="v09a" data-start="23.1" data-duration="1.9" data-track-index="1" src="assets/clips/s09a.mp4" muted playsinline></video></div>
+      <div class="vw" id="w09b"><video id="v09b" data-start="25.0" data-duration="1.85" data-track-index="0" src="assets/clips/s09b.mp4" muted playsinline></video></div>
+      <div class="vw" id="w09c"><video id="v09c" data-start="26.85" data-duration="2.2" data-track-index="1" src="assets/clips/s09c.mp4" muted playsinline></video></div>
+      <div class="vw" id="w11"><video id="v11" data-start="33.25" data-duration="1.5" data-track-index="0" src="assets/clips/s11.mp4" muted playsinline></video></div>
+      <div class="vw" id="w12a"><video id="v12a" data-start="34.75" data-duration="3.1" data-track-index="1" src="assets/clips/s12a.mp4" muted playsinline></video></div>
+
+      <!-- per-scene grade/effect layers -->
+      <div id="dim2" class="clip" data-start="3.0" data-duration="1.48" data-track-index="2"></div>
+      <div id="vig3" class="clip" data-start="4.48" data-duration="1.87" data-track-index="3"></div>
+      <div id="red4" class="clip" data-start="6.35" data-duration="2.75" data-track-index="2"></div>
+      <div id="glow7" class="clip" data-start="18.1" data-duration="1.6" data-track-index="2"></div>
+      <div id="streak8" class="clip" data-start="20.8" data-duration="0.6" data-track-index="3"></div>
+      <svg class="spark clip" id="sp1" data-start="20.95" data-duration="2.15" data-track-index="4" viewBox="0 0 100 100" style="left:250px;top:430px"><path d="M50 0 C55 40 60 45 100 50 C60 55 55 60 50 100 C45 60 40 55 0 50 C40 45 45 40 50 0Z" fill="#fff"/></svg>
+      <svg class="spark clip" id="sp2" data-start="21.1" data-duration="2.0" data-track-index="5" viewBox="0 0 100 100" style="left:760px;top:560px;width:54px;height:54px"><path d="M50 0 C55 40 60 45 100 50 C60 55 55 60 50 100 C45 60 40 55 0 50 C40 45 45 40 50 0Z" fill="#fff"/></svg>
+      <svg class="spark clip" id="sp3" data-start="21.3" data-duration="1.8" data-track-index="6" viewBox="0 0 100 100" style="left:300px;top:900px;width:46px;height:46px"><path d="M50 0 C55 40 60 45 100 50 C60 55 55 60 50 100 C45 60 40 55 0 50 C40 45 45 40 50 0Z" fill="#fff"/></svg>
+      <svg class="spark clip" id="sp4" data-start="21.5" data-duration="1.6" data-track-index="7" viewBox="0 0 100 100" style="left:700px;top:1000px;width:62px;height:62px"><path d="M50 0 C55 40 60 45 100 50 C60 55 55 60 50 100 C45 60 40 55 0 50 C40 45 45 40 50 0Z" fill="#fff"/></svg>
+
+      <!-- S10 people grid -->
+      <div id="grid10" class="clip" data-start="29.05" data-duration="4.2" data-track-index="2">
+        <div id="tiles"></div>
+        <div id="scrim10"></div>
+      </div>
+
+      <div id="shade"></div>
+
+      <!-- ===== Text layer ===== -->
+      <div id="t1a" class="hl clip" data-start="0.1" data-duration="2.9" data-track-index="8">सफेद दाग?</div>
+      <div id="t1b" class="hl clip" data-start="0.75" data-duration="2.25" data-track-index="9">इलाज कराते-कराते थक गए?</div>
+
+      <div id="t2y" class="hl num clip" data-start="3.05" data-duration="1.43" data-track-index="8">2019</div>
+      <div id="t2b" class="hl clip" data-start="3.3" data-duration="1.18" data-track-index="9">साल बीत गए…</div>
+
+      <div id="t3r" class="pillrow clip" data-start="4.55" data-duration="1.8" data-track-index="8"><span class="pill num" id="t3num">₹10,000</span></div>
+      <div id="t3b" class="hl clip" data-start="4.65" data-duration="1.7" data-track-index="9">कई जगह पैसे खर्च…</div>
+
+      <div id="t4a" class="hl clip" data-start="6.7" data-duration="2.4" data-track-index="8">पर क्या…</div>
+      <div id="t4b" class="hl clip" data-start="7.68" data-duration="1.42" data-track-index="9">सही समाधान नहीं मिला?</div>
+
+      <div id="t5" class="hl clip" data-start="9.42" data-duration="2.23" data-track-index="8">अब निराश नहीं!</div>
+
+      <div id="logoCard" class="clip" data-start="11.9" data-duration="1.95" data-track-index="8"><img src="assets/logo-card.png" alt="Janhit Herbal Care"></div>
+      <svg class="leafp clip" id="lf1" data-start="12.1" data-duration="1.2" data-track-index="10" viewBox="0 0 60 60"><path d="M5 55 C5 20 25 5 55 5 C55 35 40 55 5 55Z" fill="#3e9b2f"/></svg>
+      <svg class="leafp clip" id="lf2" data-start="12.1" data-duration="1.2" data-track-index="11" viewBox="0 0 60 60"><path d="M5 55 C5 20 25 5 55 5 C55 35 40 55 5 55Z" fill="#6cc452"/></svg>
+      <svg class="leafp clip" id="lf3" data-start="12.1" data-duration="1.2" data-track-index="12" viewBox="0 0 60 60"><path d="M5 55 C5 20 25 5 55 5 C55 35 40 55 5 55Z" fill="#3e9b2f"/></svg>
+      <svg class="leafp clip" id="lf4" data-start="12.1" data-duration="1.2" data-track-index="13" viewBox="0 0 60 60"><path d="M5 55 C5 20 25 5 55 5 C55 35 40 55 5 55Z" fill="#8ad46a"/></svg>
+      <svg class="leafp clip" id="lf5" data-start="12.1" data-duration="1.2" data-track-index="14" viewBox="0 0 60 60"><path d="M5 55 C5 20 25 5 55 5 C55 35 40 55 5 55Z" fill="#3e9b2f"/></svg>
+      <svg class="leafp clip" id="lf6" data-start="12.1" data-duration="1.2" data-track-index="15" viewBox="0 0 60 60"><path d="M5 55 C5 20 25 5 55 5 C55 35 40 55 5 55Z" fill="#6cc452"/></svg>
+      <div id="t6a" class="hl clip" data-start="13.57" data-duration="2.93" data-track-index="9">कई मरीजों की त्वचा में</div>
+      <div id="t6b" class="hl clip" data-start="14.87" data-duration="1.63" data-track-index="16">प्राकृतिक सुधार</div>
+
+      <div id="t7a" class="pillrow clip" data-start="16.75" data-duration="2.1" data-track-index="8"><span class="pill">सही आयुर्वेदिक देखभाल</span></div>
+      <div id="t7b" class="hl clip" data-start="18.87" data-duration="1.93" data-track-index="9">धीरे-धीरे</div>
+      <div id="bar7" class="clip" data-start="18.95" data-duration="1.85" data-track-index="16"><i></i></div>
+
+      <div id="t8" class="pillrow clip" data-start="21.0" data-duration="2.1" data-track-index="8"><span class="pill">त्वचा की रंगत वापस</span></div>
+
+      <div id="t9a" class="pillrow clip" data-start="23.4" data-duration="1.6" data-track-index="8"><span class="pill">अनुभवी वैद्य जी</span></div>
+      <div id="t9b" class="pillrow clip" data-start="25.15" data-duration="1.7" data-track-index="9"><span class="pill">समस्या की जड़ समझकर</span></div>
+      <div id="t9c" class="pillrow clip" data-start="27.0" data-duration="2.05" data-track-index="8"><span class="pill">शुद्ध जड़ी-बूटियाँ</span></div>
+
+      <div id="t10n" class="hl num clip" data-start="30.2" data-duration="3.05" data-track-index="9">0</div>
+      <div id="t10b" class="hl clip" data-start="31.33" data-duration="1.92" data-track-index="8">लोगों ने Janhit पर विश्वास दिखाया</div>
+
+      <div id="t11" class="hl clip" data-start="33.44" data-duration="1.31" data-track-index="9">अब आपकी बारी है</div>
+
+      <div id="t12a" class="pillrow clip" data-start="34.96" data-duration="2.89" data-track-index="8"><span class="pill">आज ही सही सलाह लें</span></div>
+      <div id="t12b" class="pillrow clip" data-start="36.41" data-duration="1.44" data-track-index="16"><span class="pill light">खुद फर्क महसूस करें!</span></div>
+
+      <!-- S12b end card -->
+      <div id="end" class="clip" data-start="37.85" data-duration="4.45" data-track-index="2">
+        <img id="endLogo" src="assets/logo-end.png" alt="Janhit Herbal Care">
+        <div id="t12c" class="hl">अभी WhatsApp बटन दबाकर पूरी जानकारी लें</div>
+        <div id="wa">
+          <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="#fff" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.8-3.9-1.8-6 0-6 4.9-10.8 11-10.8s11 4.8 11 10.8-4.9 10.9-11 10.9zm6-8.1c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.7s1.2 3.2 1.4 3.4c.2.2 2.4 3.6 5.8 5 .8.3 1.4.5 1.9.7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
+          <span>WhatsApp करें</span>
+        </div>
+        <svg id="arrow" viewBox="0 0 100 120" aria-hidden="true"><path d="M50 110 L10 62 H34 V10 H66 V62 H90 Z" fill="#1e5a1a"/></svg>
+        <div id="tap"></div>
+      </div>
+
+      <!-- ===== Persistent brand layer ===== -->
+      <div id="badge" class="badge clip" data-start="0" data-duration="11.92" data-track-index="17"><img src="assets/logo.png" alt="Janhit Herbal Care"></div>
+      <div id="badge2" class="badge clip" data-start="13.85" data-duration="24.0" data-track-index="17"><img src="assets/logo-b.png" alt="Janhit Herbal Care"></div>
+      <div id="strip" class="clip" data-start="0" data-duration="42.3" data-track-index="18"><div id="shine"></div><span>2 लाख+ लोगों का भरोसा</span><span class="dot">•</span><span>100% आयुर्वेदिक</span></div>
+
+      <div id="flash"></div>
+      <div id="redflash"></div>
+
+      <!-- ===== Audio ===== -->
+      <audio id="vo" data-start="0" data-duration="40.83" data-track-index="30" src="assets/vo-norm.wav" data-volume="1"></audio>
+      <audio id="music" data-start="0" data-duration="42.3" data-track-index="31" src="assets/music-bed.wav" data-volume="1"></audio>
+      <audio id="sx1" data-start="2.9" data-duration="0.57" data-track-index="32" src="assets/whoosh.mp3" data-volume="0.35"></audio>
+      <audio id="sx2" data-start="6.25" data-duration="0.57" data-track-index="32" src="assets/whoosh.mp3" data-volume="0.35"></audio>
+      <audio id="sx3" data-start="24.9" data-duration="0.57" data-track-index="32" src="assets/whoosh.mp3" data-volume="0.3"></audio>
+      <audio id="sx4" data-start="26.75" data-duration="0.57" data-track-index="32" src="assets/whoosh.mp3" data-volume="0.3"></audio>
+      <audio id="sx5" data-start="33.15" data-duration="0.57" data-track-index="32" src="assets/whoosh.mp3" data-volume="0.35"></audio>
+      <audio id="sx6" data-start="11.95" data-duration="0.72" data-track-index="33" src="assets/pop.mp3" data-volume="0.45"></audio>
+      <audio id="sx7" data-start="20.85" data-duration="2.0" data-track-index="33" src="assets/sparkle.mp3" data-volume="0.3"></audio>
+      <audio id="sx8" data-start="38.15" data-duration="0.72" data-track-index="33" src="assets/pop.mp3" data-volume="0.4"></audio>
+      <audio id="sx9" data-start="38.95" data-duration="0.46" data-track-index="34" src="assets/click.wav" data-volume="0.35"></audio>
+      <audio id="sx10" data-start="39.75" data-duration="0.46" data-track-index="34" src="assets/click.wav" data-volume="0.35"></audio>
+      <audio id="sx11" data-start="40.55" data-duration="0.46" data-track-index="34" src="assets/click.wav" data-volume="0.35"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Indian digit grouping: 200000 -> 2,00,000
+      function inr(n) {
+        const s = String(Math.round(n));
+        if (s.length <= 3) return s;
+        const last3 = s.slice(-3);
+        const rest = s.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ",");
+        return rest + "," + last3;
+      }
+      // stepped counter: discrete tl.set text updates, so seeking renders the right value without callbacks
+      function steps(sel, from, to, at, dur, n, fmt, ease) {
+        for (let i = 0; i <= n; i++) {
+          const x = i / n, v = from + (to - from) * ease(x);
+          tl.set(sel, { textContent: fmt(v, i === n) }, at + dur * x);
+        }
+      }
+      function flash(at, el = "#flash", peak = 0.85) {
+        tl.fromTo(el, { opacity: 0 }, { opacity: peak, duration: 0.08, ease: "none", immediateRender: false }, at);
+        tl.to(el, { opacity: 0, duration: 0.22, ease: "power1.out" }, at + 0.08);
+      }
+      function shake(sel, at, amp = 14, n = 8) {
+        const kf = [];
+        for (let i = 0; i < n; i++) kf.push({ x: (i % 2 ? -1 : 1) * amp * (1 - i / n), y: (i % 3 - 1) * amp * 0.4 * (1 - i / n), duration: 0.04 });
+        kf.push({ x: 0, y: 0, duration: 0.04 });
+        tl.to(sel, { keyframes: kf, ease: "none" }, at);
+      }
+      function whipIn(sel, at, dx = 180) {
+        tl.fromTo(sel, { x: dx, filter: "blur(26px)" }, { x: 0, filter: "blur(0px)", duration: 0.32, ease: "power3.out", immediateRender: false }, at);
+      }
+
+      // persistent brand
+      tl.from("#badge", { y: -30, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.15);
+      tl.from("#strip", { yPercent: 100, opacity: 0, duration: 0.5, ease: "power3.out" }, 0.2);
+      [3.2, 12.4, 21.3, 30.6].forEach((t) => tl.fromTo("#shine", { x: 0 }, { x: 1700, duration: 1.1, ease: "power1.inOut", immediateRender: false }, t));
+
+      // S1 hook 0–3.0
+      tl.fromTo("#w01", { scale: 1.15 }, { scale: 1.0, duration: 0.8, ease: "power3.out" }, 0);
+      tl.from("#t1a", { scale: 1.8, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 0.1);
+      tl.from("#t1b", { y: 40, opacity: 0, duration: 0.35, ease: "power2.out" }, 0.77);
+      shake("#w01", 2.12, 14);
+      flash(2.93);
+
+      // S2 years 3.0–4.48
+      tl.fromTo("#w02", { scale: 1.08 }, { scale: 1.0, duration: 1.48, ease: "none", immediateRender: false }, 3.0);
+      tl.fromTo("#dim2", { opacity: 0 }, { opacity: 0.3, duration: 1.4, ease: "none", immediateRender: false }, 3.0);
+      tl.from("#t2y", { y: -60, opacity: 0, duration: 0.3, ease: "expo.out" }, 3.05);
+      steps("#t2y", 2019, 2026, 3.3, 0.9, 7, (v) => String(Math.round(v)), (x) => x);
+      tl.from("#t2b", { x: -50, opacity: 0, duration: 0.35, ease: "power3.out" }, 3.31);
+
+      // S3 money 4.48–6.35
+      tl.fromTo("#w03", { scale: 1.12 }, { scale: 1.0, duration: 0.5, ease: "power2.out", immediateRender: false }, 4.48);
+      tl.from("#t3r", { scale: 0.4, opacity: 0, duration: 0.3, ease: "back.out(2.2)" }, 4.55);
+      steps("#t3num", 10000, 100000, 4.7, 1.2, 24, (v, last) => "₹" + inr(Math.round(v / 500) * 500) + (last ? "+" : ""), (x) => x * x);
+      tl.from("#t3b", { y: 30, opacity: 0, duration: 0.3, ease: "power2.out" }, 4.65);
+      shake("#w03", 5.3, 10);
+      shake("#t3r", 5.9, 12, 6);
+      flash(6.28, "#redflash", 0.7);
+
+      // S4 red 6.35–9.1
+      tl.fromTo("#w04", { scale: 1.0 }, { scale: 1.1, duration: 2.75, ease: "none", immediateRender: false }, 6.35);
+      tl.from("#t4a", { opacity: 0, y: 24, duration: 0.3, ease: "power2.out" }, 6.72);
+      tl.from("#t4b", { scale: 1.5, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, 7.7);
+      flash(9.02, "#flash", 0.95);
+
+      // S5 turn 9.1–11.65
+      tl.fromTo("#w05", { scale: 1.12 }, { scale: 1.0, duration: 1.2, ease: "power2.out", immediateRender: false }, 9.1);
+      tl.from("#t5", { scale: 0.5, opacity: 0, duration: 0.45, ease: "back.out(2.4)" }, 9.45);
+      flash(11.58, "#flash", 0.8);
+
+      // S6 brand 11.65–16.5
+      tl.fromTo("#w06", { scale: 1.06 }, { scale: 1.0, duration: 4.85, ease: "none", immediateRender: false }, 11.65);
+      tl.from("#logoCard", { scale: 2.2, opacity: 0, duration: 0.28, ease: "power4.in" }, 11.92);
+      shake("#logoCard", 12.2, 8, 5);
+      tl.to("#logoCard", { x: 382, y: -155, scale: 0.407, duration: 0.5, ease: "power3.inOut" }, 13.35);
+      const angles = [-150, -110, -60, -20, 30, 160];
+      angles.forEach((a, i) => {
+        const r = 330 + (i % 3) * 60, rad = (a * Math.PI) / 180;
+        tl.fromTo("#lf" + (i + 1), { x: 0, y: 0, rotation: 0, opacity: 1, scale: 0.6 },
+          { x: Math.cos(rad) * r, y: Math.sin(rad) * r * 0.7, rotation: a, scale: 1.1, opacity: 0, duration: 1.1, ease: "power2.out", immediateRender: false }, 12.12);
+      });
+      tl.from("#t6a", { y: 40, opacity: 0, duration: 0.35, ease: "power3.out" }, 13.57);
+      tl.from("#t6b", { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 14.87);
+
+      // S7 result 16.5–20.8
+      tl.fromTo("#w07a", { scale: 1.0 }, { scale: 1.08, duration: 3.1, ease: "none", immediateRender: false }, 16.5);
+      tl.from("#t7a", { y: 40, opacity: 0, duration: 0.35, ease: "power2.out" }, 16.75);
+      tl.fromTo("#w07a", { clipPath: "inset(0 0 0 0%)" }, { clipPath: "inset(0 0 0 100%)", duration: 1.3, ease: "power1.inOut", immediateRender: false }, 18.25);
+      tl.fromTo("#glow7", { x: 0 }, { x: 1340, duration: 1.3, ease: "power1.inOut", immediateRender: false }, 18.25);
+      tl.from("#t7b", { scale: 0.6, opacity: 0, duration: 0.4, ease: "back.out(2)" }, 18.87);
+      tl.to("#bar7 i", { scaleX: 1, duration: 1.7, ease: "power1.inOut" }, 18.95);
+
+      // S8 glow 20.8–23.1
+      tl.fromTo("#w08", { scale: 1.1 }, { scale: 1.0, duration: 0.7, ease: "power2.out", immediateRender: false }, 20.8);
+      tl.fromTo("#streak8", { x: 0 }, { x: 2200, duration: 0.55, ease: "power2.inOut", immediateRender: false }, 20.8);
+      ["#sp1", "#sp2", "#sp3", "#sp4"].forEach((s, i) => {
+        const st = [20.95, 21.1, 21.3, 21.5][i];
+        tl.fromTo(s, { scale: 0, rotation: 0, opacity: 1 }, { scale: 1, rotation: 90, duration: 0.45, ease: "back.out(2)", immediateRender: false }, st);
+        tl.to(s, { scale: 0.5, opacity: 0.4, rotation: 180, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 }, st + 0.5);
+      });
+      tl.from("#t8", { y: 40, opacity: 0, duration: 0.35, ease: "power3.out" }, 21.0);
+
+      // S9 vaidya → roots → herbs 23.1–29.05
+      whipIn("#w09a", 23.1, 220);
+      tl.from("#t9a", { x: -120, opacity: 0, duration: 0.35, ease: "power3.out" }, 23.4);
+      whipIn("#w09b", 25.0);
+      tl.from("#t9b", { x: 120, opacity: 0, duration: 0.35, ease: "power3.out" }, 25.15);
+      whipIn("#w09c", 26.85);
+      tl.fromTo("#w09c", { scale: 1.0 }, { scale: 1.08, duration: 2.2, ease: "none", immediateRender: false }, 26.85);
+      tl.from("#t9c", { y: 50, opacity: 0, duration: 0.35, ease: "back.out(1.6)" }, 27.0);
+      flash(28.98, "#flash", 0.7);
+
+      // S10 2 lakh 29.05–33.25
+      tl.fromTo("#tiles", { scale: 12 }, { scale: 1, duration: 1.4, ease: "power3.inOut", immediateRender: false }, 29.05);
+      tl.fromTo("#tiles", { y: 0 }, { y: -40, duration: 2.8, ease: "none", immediateRender: false }, 30.45);
+      tl.fromTo("#scrim10", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out", immediateRender: false }, 30.1);
+      tl.from("#t10n", { scale: 0.5, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 30.2);
+      steps("#t10n", 0, 200000, 30.3, 1.3, 32, (v, last) => inr(Math.round(v / 100) * 100) + (last ? "+" : ""), (x) => 1 - (1 - x) * (1 - x));
+      tl.from("#t10b", { y: 40, opacity: 0, duration: 0.35, ease: "power3.out" }, 31.33);
+
+      // S11 your turn 33.25–34.75
+      whipIn("#w11", 33.25, 240);
+      tl.from("#t11", { scale: 1.6, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, 33.44);
+
+      // S12a phone 34.75–37.85
+      tl.fromTo("#w12a", { scale: 1.0 }, { scale: 1.1, duration: 3.1, ease: "none", immediateRender: false }, 34.75);
+      tl.from("#t12a", { y: -40, opacity: 0, duration: 0.35, ease: "power3.out" }, 34.96);
+      tl.from("#t12b", { scale: 0.6, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 36.41);
+      flash(37.78, "#flash", 0.9);
+
+      // S12b end card 37.85–42.3 (final scene)
+      tl.from("#endLogo", { scale: 0.6, opacity: 0, duration: 0.45, ease: "back.out(1.8)" }, 37.9);
+      tl.from("#t12c", { y: 40, opacity: 0, duration: 0.4, ease: "power3.out" }, 38.07);
+      tl.from("#wa", { scale: 0, opacity: 0, duration: 0.45, ease: "back.out(2.2)" }, 38.15);
+      tl.from("#arrow", { y: 40, opacity: 0, duration: 0.35, ease: "power2.out" }, 38.5);
+      tl.to("#arrow", { y: 22, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 7 }, 38.85);
+      [38.95, 39.75, 40.55].forEach((t) => {
+        tl.fromTo("#tap", { scale: 0.5, opacity: 1 }, { scale: 1.6, opacity: 0, duration: 0.55, ease: "power2.out", immediateRender: false }, t);
+        tl.fromTo("#wa", { scale: 0.94 }, { scale: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, t);
+      });
+
+      tl.set({}, {}, 42.3);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
