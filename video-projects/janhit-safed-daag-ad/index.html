@@ -23,8 +23,13 @@
       /* video wrappers (non-timed). Transforms go on the wrapper, never on the video. */
       .vw { position: absolute; inset: 0; overflow: hidden; }
       .vw video { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
-      #w04 { filter: grayscale(1) contrast(1.25) brightness(1.08); }
-      #red4 { position: absolute; inset: 0; background: #d3141f; mix-blend-mode: multiply; z-index: 5; }
+      /* beat 4 red: reference-style posterized clip snaps in, glitch exit */
+      #w04r { z-index: 5; }
+      #glBlocks { position: absolute; inset: 0; z-index: 58; opacity: 0; background: url("assets/glitch-blocks.png") 0 0 / 1080px 1920px no-repeat; pointer-events: none; }
+      #glLine { position: absolute; left: 0; right: 0; top: 900px; height: 8px; z-index: 58; opacity: 0; pointer-events: none;
+        background: #fff6d8; box-shadow: 0 0 24px 10px rgba(255,190,90,0.85); }
+      #glBlue { position: absolute; inset: 0; z-index: 57; opacity: 0; background: #19a7ff; mix-blend-mode: color; pointer-events: none; }
+      #glRed { position: absolute; inset: 0; z-index: 57; opacity: 0; background: #ff1a22; mix-blend-mode: color; pointer-events: none; }
       #w07a { z-index: 3; }
       #w07b { z-index: 2; }
       #glow7 { position: absolute; top: 0; left: -260px; width: 260px; height: 1920px; z-index: 6;
@@ -128,6 +133,7 @@
       <div class="vw" id="w02"><video id="v02" data-start="3.0" data-duration="1.48" data-track-index="1" src="assets/clips/s02.mp4" muted playsinline></video></div>
       <div class="vw" id="w03"><video id="v03" data-start="4.48" data-duration="1.87" data-track-index="0" src="assets/clips/s03.mp4" muted playsinline></video></div>
       <div class="vw" id="w04"><video id="v04" data-start="6.35" data-duration="2.75" data-track-index="1" src="assets/clips/s04.mp4" muted playsinline></video></div>
+      <div class="vw" id="w04r"><video id="v04r" data-start="6.68" data-duration="2.42" data-media-start="0.33" data-track-index="3" src="assets/clips/s04red.mp4" muted playsinline></video></div>
       <div class="vw" id="w05"><video id="v05" data-start="9.1" data-duration="2.55" data-track-index="0" src="assets/clips/s05.mp4" muted playsinline></video></div>
       <div class="vw" id="w06"><video id="v06" data-start="11.65" data-duration="4.85" data-track-index="1" src="assets/clips/s06.mp4" muted playsinline></video></div>
       <div class="vw" id="w07a"><video id="v07a" data-start="16.5" data-duration="3.1" data-track-index="0" src="assets/clips/s07a.mp4" muted playsinline></video></div>
@@ -142,7 +148,6 @@
       <!-- per-scene grade/effect layers -->
       <div id="dim2" class="clip" data-start="3.0" data-duration="1.48" data-track-index="2"></div>
       <div id="vig3" class="clip" data-start="4.48" data-duration="1.87" data-track-index="3"></div>
-      <div id="red4" class="clip" data-start="6.35" data-duration="2.75" data-track-index="2"></div>
       <div id="glow7" class="clip" data-start="18.1" data-duration="1.6" data-track-index="2"></div>
       <div id="streak8" class="clip" data-start="20.8" data-duration="0.6" data-track-index="3"></div>
       <svg class="spark clip" id="sp1" data-start="20.95" data-duration="2.15" data-track-index="4" viewBox="0 0 100 100" style="left:250px;top:430px"><path d="M50 0 C55 40 60 45 100 50 C60 55 55 60 50 100 C45 60 40 55 0 50 C40 45 45 40 50 0Z" fill="#fff"/></svg>
@@ -218,6 +223,10 @@
       <div id="badge2" class="badge clip" data-start="13.85" data-duration="24.0" data-track-index="17"><img src="assets/logo-b.png" alt="Janhit Herbal Care"></div>
       <div id="strip" class="clip" data-start="0" data-duration="42.3" data-track-index="18"><div id="shine"></div><span>2 लाख+ लोगों का भरोसा</span><span class="dot">•</span><span>100% आयुर्वेदिक</span></div>
 
+      <div id="glBlocks"></div>
+      <div id="glLine"></div>
+      <div id="glBlue"></div>
+      <div id="glRed"></div>
       <div id="flash"></div>
       <div id="redflash"></div>
 
@@ -296,10 +305,25 @@
       flash(6.28, "#redflash", 0.7);
 
       // S4 red 6.35–9.1
-      tl.fromTo("#w04", { scale: 1.0 }, { scale: 1.1, duration: 2.75, ease: "none", immediateRender: false }, 6.35);
       tl.from("#t4a", { opacity: 0, y: 24, duration: 0.3, ease: "power2.out" }, 6.72);
       tl.from("#t4b", { scale: 1.5, opacity: 0, duration: 0.3, ease: "back.out(1.8)" }, 7.7);
-      flash(9.02, "#flash", 0.95);
+      // glitch exit (reference): white block breakup, light line, blue then red colour frames
+      const F = 1 / 30;
+      tl.set("#glBlocks", { opacity: 1, x: 0 }, 8.87);
+      tl.set("#glBlocks", { x: -60, y: 30 }, 8.87 + F);
+      tl.set("#glBlocks", { opacity: 0, x: 0, y: 0 }, 8.87 + 2 * F);
+      tl.set("#glLine", { opacity: 1, top: 900 }, 8.87 + 2 * F);
+      tl.set("#glLine", { top: 1240 }, 8.87 + 3 * F);
+      tl.set("#glLine", { top: 620 }, 8.87 + 4 * F);
+      tl.set("#glBlocks", { opacity: 1, x: 90, y: -60 }, 8.87 + 5 * F);
+      tl.set("#glLine", { opacity: 0 }, 8.87 + 5 * F);
+      tl.set("#glBlocks", { opacity: 0, x: 0, y: 0 }, 9.1);
+      tl.set("#glBlue", { opacity: 0.75 }, 9.1);
+      tl.set("#glLine", { opacity: 1, top: 1080 }, 9.1);
+      tl.set("#glBlue", { opacity: 0 }, 9.1 + 2 * F);
+      tl.set("#glLine", { opacity: 0 }, 9.1 + 2 * F);
+      tl.set("#glRed", { opacity: 0.7 }, 9.1 + 2 * F);
+      tl.set("#glRed", { opacity: 0 }, 9.1 + 4 * F);
 
       // S5 turn 9.1–11.65
       tl.fromTo("#w05", { scale: 1.12 }, { scale: 1.0, duration: 1.2, ease: "power2.out", immediateRender: false }, 9.1);

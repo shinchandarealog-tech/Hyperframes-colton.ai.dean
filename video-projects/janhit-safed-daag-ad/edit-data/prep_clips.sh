@@ -32,3 +32,5 @@ prep s09c c24 0.0 2.50 2.50 &
 prep s11 c22 1.6 3.40 1.80 &
 prep s12a c13 1.0 4.40 3.40 495:880:112:20 &
 wait
+# Beat 4 reference-style red: blocky posterized red version of s04 (3 tones), hard-snapped in the composition
+ffmpeg -v error -y -i $OUT/s04.mp4 -vf "format=gray,eq=contrast=1.25,scale=90:160:flags=area,scale=1080:1920:flags=neighbor,format=rgb24,lutrgb=r='if(gt(val\,150)\,214\,if(gt(val\,78)\,150\,62))':g='if(gt(val\,150)\,14\,if(gt(val\,78)\,8\,6))':b='if(gt(val\,150)\,26\,if(gt(val\,78)\,16\,10))',format=yuv420p" -c:v libx264 -preset medium -crf 19 -movflags +faststart $OUT/s04red.mp4
