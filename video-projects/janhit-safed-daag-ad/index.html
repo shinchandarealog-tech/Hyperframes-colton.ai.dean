@@ -44,7 +44,7 @@
       .num { font-family: "Teko", sans-serif; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 0.9; }
 
       /* persistent brand elements */
-      .badge { position: absolute; top: 280px; right: 48px; width: 220px; padding: 14px 18px 10px; background: rgba(255,255,255,0.94);
+      .badge { position: absolute; top: 40px; right: 40px; width: 220px; padding: 14px 18px 10px; background: rgba(255,255,255,0.94);
         border-radius: 26px; z-index: 40; box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
       .badge img { display: block; width: 100%; }
       #strip { position: absolute; left: 0; right: 0; top: 1690px; height: 104px; z-index: 40; background: var(--deep);
@@ -279,7 +279,6 @@
       tl.fromTo("#w01", { scale: 1.15 }, { scale: 1.0, duration: 0.8, ease: "power3.out" }, 0);
       tl.from("#t1a", { scale: 1.8, opacity: 0, duration: 0.35, ease: "back.out(2)" }, 0.1);
       tl.from("#t1b", { y: 40, opacity: 0, duration: 0.35, ease: "power2.out" }, 0.77);
-      shake("#w01", 2.12, 14);
       flash(2.93);
 
       // S2 years 3.0–4.48
@@ -294,8 +293,6 @@
       tl.from("#t3r", { scale: 0.4, opacity: 0, duration: 0.3, ease: "back.out(2.2)" }, 4.55);
       steps("#t3num", 10000, 100000, 4.7, 1.2, 24, (v, last) => "₹" + inr(Math.round(v / 500) * 500) + (last ? "+" : ""), (x) => x * x);
       tl.from("#t3b", { y: 30, opacity: 0, duration: 0.3, ease: "power2.out" }, 4.65);
-      shake("#w03", 5.3, 10);
-      shake("#t3r", 5.9, 12, 6);
       flash(6.28, "#redflash", 0.7);
 
       // S4 red 6.35–9.1
@@ -312,8 +309,7 @@
       // S6 brand 11.65–16.5
       tl.fromTo("#w06", { scale: 1.06 }, { scale: 1.0, duration: 4.85, ease: "none", immediateRender: false }, 11.65);
       tl.from("#logoCard", { scale: 2.2, opacity: 0, duration: 0.28, ease: "power4.in" }, 11.92);
-      shake("#logoCard", 12.2, 8, 5);
-      tl.to("#logoCard", { x: 382, y: -155, scale: 0.407, duration: 0.5, ease: "power3.inOut" }, 13.35);
+      tl.to("#logoCard", { x: 390, y: -395, scale: 0.407, duration: 0.5, ease: "power3.inOut" }, 13.35);
       const angles = [-150, -110, -60, -20, 30, 160];
       angles.forEach((a, i) => {
         const r = 330 + (i % 3) * 60, rad = (a * Math.PI) / 180;
