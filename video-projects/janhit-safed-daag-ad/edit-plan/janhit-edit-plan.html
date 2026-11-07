@@ -1,0 +1,267 @@
+<title>Janhit Ad Edit Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: a vertical script sheet. Each beat is a row: VO line + timecode on top, three 9:16 option cards to pick from, then a notes box. */
+:root{
+  --bg:#F4F6F1; --surface:#FFFFFF; --ink:#1B2418; --muted:#5E6A59; --line:#D9DFD3;
+  --leaf:#3E8E2A; --leaf-soft:#E3F0DC; --leaf-ink:#24601A; --warn:#9A5B00; --warn-soft:#FBF0DC;
+  --f-body:"Mukta","Nirmala UI","Noto Sans Devanagari",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121711; --surface:#1B2219; --ink:#E7EDE3; --muted:#9CA996; --line:#2E392B;
+  --leaf:#6CC452; --leaf-soft:#22351C; --leaf-ink:#9FE08A; --warn:#F2B860; --warn-soft:#3A2D16; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121711; --surface:#1B2219; --ink:#E7EDE3; --muted:#9CA996; --line:#2E392B;
+  --leaf:#6CC452; --leaf-soft:#22351C; --leaf-ink:#9FE08A; --warn:#F2B860; --warn-soft:#3A2D16; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding-block:28px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:10px}
+h1{font-size:clamp(28px,4.4vw,42px);line-height:1.1;font-weight:800;margin:0;text-wrap:balance}
+.lede{color:var(--muted);max-width:68ch;margin:0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.prog{font-weight:700}
+.prog b{color:var(--leaf-ink)}
+.meter{flex:1 1 160px;height:6px;background:var(--line);border-radius:3px;overflow:hidden;min-width:120px}
+.meter i{display:block;height:100%;background:var(--leaf);width:0;transition:width .3s}
+.save{font-size:13px;color:var(--muted)}
+.btn{font:inherit;font-weight:700;font-size:14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;cursor:pointer}
+.btn:focus-visible,.opt:focus-visible,textarea:focus-visible{outline:3px solid var(--leaf);outline-offset:2px}
+.notice{background:var(--warn-soft);color:var(--ink);border-radius:10px;padding:12px 14px;font-size:15px}
+.notice strong{color:var(--warn)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.legend div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px;min-width:0}
+.legend h3{margin:0 0 4px;font-size:15px}
+.beat{display:flex;flex-direction:column;gap:14px;padding-top:22px;border-top:2px solid var(--line)}
+.bhead{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline}
+.bnum{font-family:var(--f-mono);font-size:13px;color:var(--leaf-ink);background:var(--leaf-soft);border-radius:6px;padding:2px 8px}
+.tc{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.vo{font-size:clamp(20px,2.6vw,26px);font-weight:700;line-height:1.3;margin:0;flex-basis:100%;text-wrap:balance}
+.gist{color:var(--muted);margin:0;font-size:15px;flex-basis:100%}
+.opts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.opts{grid-template-columns:1fr}}
+.opt{all:unset;box-sizing:border-box;cursor:pointer;background:var(--surface);border:2px solid var(--line);border-radius:12px;display:grid;grid-template-columns:118px minmax(0,1fr);gap:12px;padding:10px;position:relative;transition:border-color .15s}
+.opt:hover{border-color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--leaf);background:var(--leaf-soft)}
+.thumb{width:118px;aspect-ratio:9/16;max-width:100%;border-radius:8px;object-fit:cover;background:var(--line);display:block}
+.otext{display:flex;flex-direction:column;gap:6px;min-width:0;font-size:14px;line-height:1.45}
+.otop{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.letter{font-weight:800;font-size:18px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--line);flex:none}
+.opt[aria-checked="true"] .letter{background:var(--leaf);border-color:var(--leaf);color:var(--surface)}
+.rec{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--leaf-ink);border:1px solid var(--leaf);border-radius:999px;padding:1px 8px}
+.otitle{font-weight:800;font-size:15px}
+.row{color:var(--muted)}
+.row b{color:var(--ink);font-weight:700}
+.ost{font-weight:700}
+.caveat{color:var(--warn);font-size:13px}
+label.nl{font-weight:700;font-size:14px}
+textarea{font:inherit;font-size:15px;width:100%;box-sizing:border-box;min-height:64px;resize:vertical;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);padding:10px 12px}
+.foot{color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Janhit Herbal Care: सफेद दाग ad, edit plan v2</h1>
+    <p class="lede">13 decisions: one for the look of the whole video, then 12 beats timed to the 40.8s voiceover. Each has 3 designs built from your AI clips. Tap a card to pick it and add a note if you want something changed. Your picks save as you go, and I'll read them straight from this page.</p>
+  </header>
+
+  <div class="bar" role="status">
+    <span class="prog"><b id="nPicked">0</b> / 13 picked</span>
+    <span class="meter" aria-hidden="true"><i id="meter"></i></span>
+    <span class="save" id="saveState">Connecting…</span>
+    <button class="btn" id="copyBtn" type="button">Copy my picks</button>
+  </div>
+  <div class="notice" id="offline" hidden><strong>Picks are only saved in this browser.</strong> Sign in to claude.ai to save them where I can read them, or tap “Copy my picks” and paste the text in chat.</div>
+
+  <section class="legend" aria-label="How to read the options">
+    <div><h3>A: closest to the reference</h3>Fast, bright, an effect in every shot, like the video the client sent.</div>
+    <div><h3>B: different clip</h3>Same energy, built around another of your clips for that line.</div>
+    <div><h3>C: graphic-led</h3>Leans on typography and motion graphics over the clip.</div>
+  </section>
+
+  <div id="beats"></div>
+
+  <p class="foot">Clip IDs (c01–c26) are your uploads in the order you sent them. Many clips have text burned in after the first 1–3 seconds, so every option uses only the clean part or crops the text out. Crops are noted because they look slightly softer.</p>
+</div>
+
+<script>
+const BEATS = [
+ {id:"b00", n:"Look", tc:"whole video", vo:"Look of the whole video", gist:"Applies to every beat. The reference keeps the logo and a claim strip on screen the whole time.",
+  o:[
+   {t:"Reference style", img:"t/b6a.jpg", rec:true, clip:"Logo top-left on every frame, black strip at the bottom with one claim line", fx:"Bright, punchy grade on all clips (more contrast and colour than v1). Energetic Indian-pop music bed under the VO.", txt:"Strip: “2 लाख+ लोगों का भरोसा • 100% आयुर्वेदिक”"},
+   {t:"Brand green", img:"t/b6a.jpg", clip:"Small logo top-right, brand-green strip with white text", fx:"Same bright grade. Softer devotional music with a tabla pulse.", txt:"Strip: same line, or tell me yours in the note"},
+   {t:"Subtitles, no strip", img:"t/b6a.jpg", clip:"Logo top-left only, no fixed strip", fx:"Bold Hindi subtitles of the VO, 2–4 words at a time, in the lower third", txt:"Subtitles follow the voiceover word for word", cav:"Busier frame. The reference doesn't subtitle the VO."}
+  ]},
+ {id:"b01", n:"Beat 1", tc:"0.0–2.7s", vo:"सफेद दाग का इलाज कराते-कराते थक चुके हैं?", gist:"Hook. Show the problem in the first frame.",
+  o:[
+   {t:"Patches up close", img:"t/b1a.jpg", rec:true, clip:"c16 0–1.9s (woman with visible patches, at a window), slowed to fill 2.7s", fx:"Punch-in zoom 115%→100%, slight camera shake on “थक चुके”", txt:"“सफेद दाग?” slams in big, then “इलाज कराते-कराते थक गए?”"},
+   {t:"Mirror, two cuts", img:"t/b1b.jpg", clip:"c06 0–1.3s (over the shoulder into the mirror) → c03 0–1.4s (hand mirror)", fx:"White flash cut between the two shots", txt:"“इलाज कराते-कराते थक गए?”"},
+   {t:"Skin macro type", img:"t/b1c.jpg", clip:"c15 0–1.3s (skin macro) → c16", fx:"Letters of “सफेद दाग” drop in one by one over the macro, whip-blur into c16", txt:"“सफेद दाग” huge, then the question"}
+  ]},
+ {id:"b02", n:"Beat 2", tc:"3.3–4.3s", vo:"साल बीत गए", gist:"Time passing. The reference uses a clock overlay here.",
+  o:[
+   {t:"Clock overlay", img:"t/b2a.jpg", rec:true, clip:"c16 continues (1.0–1.9s)", fx:"White clock grows from small to big while the hands spin fast, like the reference", txt:"“साल बीत गए…”"},
+   {t:"Year counter", img:"t/b2b.jpg", clip:"c25 0–1.0s (woman at a dim window)", fx:"Big year counter rolls 2019 → 2026, light in the room shifts", txt:"“2019 → 2026”"},
+   {t:"Mirror + clock", img:"t/b2c.jpg", clip:"c03 0.5–1.9s (hand mirror)", fx:"Clock overlay + colour slowly drains to grey", txt:"“साल बीत गए…”"}
+  ]},
+ {id:"b03", n:"Beat 3", tc:"4.6–6.0s", vo:"कई जगह पैसे खर्च हो गए", gist:"Money and clinics wasted.",
+  o:[
+   {t:"Bills + ₹ counter", img:"t/b3a.jpg", rec:true, clip:"c04 1.5–3.0s, cropped onto the clinic slips (her burned-in text is cut out)", fx:"Red “₹” counter races ₹10,000 → ₹1,00,000+, slips shake", txt:"“₹1,00,000+ खर्च”", cav:"Crop: slightly softer image."},
+   {t:"Clinic queues", img:"t/b3b.jpg", clip:"c01 0–0.9s (dark crowd), slowed", fx:"“क्लिनिक 1, 2, 3…” stamps in one after another", txt:"“कई जगह… कई डॉक्टर”", cav:"Very short clean window, slowed to fill."},
+   {t:"₹ burst", img:"t/b3c.jpg", clip:"c04 crop, wider", fx:"Red ₹ symbols burst outward, screen shake, quick zoom", txt:"“पैसे खर्च… पर फर्क नहीं”"}
+  ]},
+ {id:"b04", n:"Beat 4", tc:"6.7–8.8s", vo:"पर क्या सफेद दाग का सही समाधान नहीं मिला?", gist:"Lowest point. The reference turns the whole frame red here.",
+  o:[
+   {t:"Red mirror", img:"t/b4a.jpg", rec:true, clip:"c03 0–1.9s (hand mirror, sad face)", fx:"Painterly red grade like the reference, slow push-in", txt:"“सही समाधान नहीं मिला?”"},
+   {t:"Red, over the shoulder", img:"t/b4b.jpg", clip:"c06 0–1.3s, slowed", fx:"Red grade + dark vignette", txt:"“सही समाधान नहीं मिला?”"},
+   {t:"Split screen", img:"t/b4c.jpg", clip:"c03 on top, c15 skin macro below", fx:"Red duotone, a big “?” stamps in the middle", txt:"“समाधान?”"}
+  ]},
+ {id:"b05", n:"Beat 5", tc:"9.4–11.4s", vo:"अब और निराश होने की ज़रूरत नहीं है!", gist:"Turn from sad to hopeful.",
+  o:[
+   {t:"Light finds her", img:"t/b5a.jpg", rec:true, clip:"c25 1.5–3.8s (sunlight hits her face, she smiles)", fx:"Paper-tear wipe out of the red beat, red drains into warm colour", txt:"“अब निराश नहीं!”"},
+   {t:"Banyan light", img:"t/b5b.jpg", clip:"c26 0–2.0s (banyan tree, light rays)", fx:"Paper-tear wipe, sun rays brighten", txt:"“अब निराश होने की ज़रूरत नहीं!”"},
+   {t:"Tulsi smile", img:"t/b5c.jpg", clip:"c23 2.0–4.0s (older woman with tulsi, smiles)", fx:"White flash in from the red", txt:"“अब निराश नहीं!”"}
+  ]},
+ {id:"b06", n:"Beat 6", tc:"11.9–16.3s", vo:"Janhit Herbal Care के साथ कई मरीजों की त्वचा में प्राकृतिक सुधार देखा गया है", gist:"Brand reveal. The reference shows the logo on white mid-video.",
+  o:[
+   {t:"Logo on white", img:"t/b6a.jpg", rec:true, clip:"Logo on white (1.6s) → c20 (yellow background, smiling) 2.8s", fx:"White flash, leaves of the logo grow in one by one, logo bounces in, light streak into c20", txt:"“Janhit Herbal Care” → “प्राकृतिक सुधार”"},
+   {t:"Vaidya under the banyan", img:"t/b6b.jpg", clip:"c21 0–4.0s (sage grinding herbs under a banyan)", fx:"Logo stamps in at the top with leaf particles", txt:"“Janhit Herbal Care के साथ”"},
+   {t:"Logo from the roots", img:"t/b6c.jpg", clip:"c26 2.0–4.0s (glowing roots) → c19 family laughing", fx:"The glow in the roots forms the logo, then cut to the family", txt:"“प्राकृतिक सुधार”"}
+  ]},
+ {id:"b07", n:"Beat 7", tc:"16.7–20.7s", vo:"जहाँ सही आयुर्वेदिक देखभाल से दाग धीरे-धीरे कम होने लगे", gist:"The result. This is what v1 was missing most.",
+  o:[
+   {t:"Light-sweep reveal", img:"t/b7a.jpg", rec:true, clip:"c16 (patches) → c09 0–1.9s (clear skin, similar close-up)", fx:"A soft light sweeps across the face and dissolves the patchy shot into the clear one, progress line fills underneath", txt:"“सही आयुर्वेदिक देखभाल” → “धीरे-धीरे”", cav:"These are two different women. Meta restricts before/after on health ads, so it stays a soft, slow dissolve."},
+   {t:"Herbs, no result", img:"t/b7b.jpg", clip:"Your herb image on white → c24 grinding", fx:"Leaves fly in around the bowl, zoom into the powder", txt:"“सही आयुर्वेदिक देखभाल”", cav:"Safest for Meta, but no visible result."},
+   {t:"Leaf mask", img:"t/b7c.jpg", clip:"c15 0–1.3s (skin macro) → c09", fx:"Green leaf shapes grow over the skin and wipe into clear skin", txt:"“दाग धीरे-धीरे कम”"}
+  ]},
+ {id:"b08", n:"Beat 8", tc:"21.0–22.9s", vo:"और त्वचा की रंगत वापस लौटने लगी", gist:"Glow. The reference uses a smiling girl on yellow.",
+  o:[
+   {t:"Yellow smile", img:"t/b8a.jpg", rec:true, clip:"c20 1.5–4.0s (yellow background, smiles, touches hair)", fx:"Light streak flash in, small sparkles on the skin", txt:"“रंगत वापस”"},
+   {t:"Eyes open, smile", img:"t/b8b.jpg", clip:"c09 0.8–1.9s, slowed", fx:"Warm glow bloom, slow push-in", txt:"“त्वचा की रंगत वापस”"},
+   {t:"Sunlit smile", img:"t/b8c.jpg", clip:"c25 2.5–4.0s", fx:"Lens flare sweep", txt:"“रंगत वापस”"}
+  ]},
+ {id:"b09", n:"Beat 9", tc:"23.3–28.8s", vo:"हमारे अनुभवी वैद्य जी आपकी समस्या की जड़ को समझकर शुद्ध जड़ी-बूटियों से तैयार करते हैं", gist:"Trust: the vaidya and the herbs. 5.5s, so three quick shots.",
+  o:[
+   {t:"Vaidya → roots → mortar", img:"t/b9a.jpg", rec:true, clip:"c12 (consultation, cropped above its caption) → c26 glowing roots on “जड़” → c24 grinding herbs", fx:"Blur whips between shots, labels slide in", txt:"“अनुभवी वैद्य जी” → “समस्या की जड़” → “शुद्ध जड़ी-बूटियाँ”", cav:"c12 is cropped to remove its caption."},
+   {t:"Sage + hands", img:"t/b9b.jpg", clip:"c21 (sage under banyan, wide to close) → c14 0–2.9s hands at the mortar", fx:"Slow push, then a whip into the hands", txt:"“अनुभवी वैद्य जी” → “शुद्ध जड़ी-बूटियाँ”"},
+   {t:"Herb table + labels", img:"t/b9c.jpg", clip:"c08 0–1.9s herb table → c24 → your herb image on white", fx:"Herb labels pop on with pointer lines", txt:"“जड़ी-बूटियों से तैयार”"}
+  ]},
+ {id:"b10", n:"Beat 10", tc:"29.2–33.1s", vo:"2 लाख से ज़्यादा लोगों ने Janhit पर विश्वास दिखाकर अपना इलाज किया", gist:"Social proof with a big number.",
+  o:[
+   {t:"Photo wall + counter", img:"t/b10a.jpg", rec:true, clip:"c11 0–4.0s (wall of portraits pulls back)", fx:"Green counter rolls 0 → 2,00,000+ on top", txt:"“2,00,000+ लोगों का भरोसा”"},
+   {t:"Faces multiply", img:"t/b10b.jpg", clip:"Your 16-face image: starts on one face, zooms out, tiles multiply", fx:"Counter rolls up as the grid grows", txt:"“2 लाख+ लोगों ने Janhit पर विश्वास दिखाया”"},
+   {t:"Happy families", img:"t/b10c.jpg", clip:"c19 family dinner → c17 family in the garden", fx:"Counter in a green badge at the bottom", txt:"“2 लाख+ मरीज़”"}
+  ]},
+ {id:"b11", n:"Beat 11", tc:"33.4–34.5s", vo:"अब आपकी बारी है", gist:"Turn to the viewer.",
+  o:[
+   {t:"Looks at you", img:"t/b11a.jpg", rec:true, clip:"c09 1.0–1.9s (looks into camera)", fx:"Zoom punch, text slams in", txt:"“अब आपकी बारी है”"},
+   {t:"Handshake", img:"t/b11b.jpg", clip:"c22 2.0–3.5s (handshake, confident)", fx:"Quick whip in", txt:"“अब आपकी बारी”"},
+   {t:"Older woman smiles", img:"t/b11c.jpg", clip:"c23 3.0–4.0s", fx:"Zoom punch", txt:"“अब आपकी बारी है”"}
+  ]},
+ {id:"b12", n:"Beat 12", tc:"35.0–40.9s (hold to ~42s)", vo:"आज ही सही सलाह लें और खुद फर्क महसूस करें! अभी WhatsApp बटन दबाकर पूरी जानकारी लें", gist:"Call to action. Ends on the logo, no black tail like v1.",
+  o:[
+   {t:"Phone → button card", img:"t/b12a.jpg", rec:true, clip:"c13 (WhatsApp chat on phone, cropped above caption) 2.5s → end card", fx:"End card: logo, green WhatsApp button pops, finger-tap pulse, arrow pointing down", txt:"“आज ही सही सलाह लें” → “WhatsApp बटन दबाएँ”"},
+   {t:"Over-the-shoulder → card", img:"t/b12b.jpg", clip:"c02 0–2.5s (cropped) → end card in brand green", fx:"Phone screen zooms to fill the frame, becomes the end card", txt:"“पूरी जानकारी के लिए WhatsApp करें”"},
+   {t:"Herb product card", img:"t/b12c.jpg", clip:"Your herb image on white as the end card", fx:"Bowl slides in, logo above, WhatsApp button pulses below", txt:"“अभी WhatsApp करें”"}
+  ]}
+];
+
+const state = {}; // id -> {choice, note}
+let db = null, offline = false;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(){
+  const root = $("#beats");
+  root.innerHTML = BEATS.map(b => `
+   <section class="beat" id="${b.id}">
+     <div class="bhead"><span class="bnum">${esc(b.n)}</span><span class="tc">${esc(b.tc)}</span>
+       <p class="vo" lang="hi">${esc(b.vo)}</p><p class="gist">${esc(b.gist)}</p></div>
+     <div class="opts" role="radiogroup" aria-label="${esc(b.n)} options">
+       ${b.o.map((o,i)=>{const L="ABC"[i];return `
+       <button type="button" class="opt" role="radio" aria-checked="false" data-b="${b.id}" data-c="${L}" id="${b.id}-${L}">
+         <img class="thumb" src="${o.img}" alt="" loading="lazy">
+         <span class="otext">
+           <span class="otop"><span class="letter">${L}</span><span class="otitle">${esc(o.t)}</span>${o.rec?'<span class="rec">Recommended</span>':''}</span>
+           <span class="row"><b>Shots:</b> ${esc(o.clip)}</span>
+           <span class="row"><b>Effect:</b> ${esc(o.fx)}</span>
+           <span class="ost" lang="hi">${esc(o.txt)}</span>
+           ${o.cav?`<span class="caveat">${esc(o.cav)}</span>`:''}
+         </span>
+       </button>`}).join("")}
+     </div>
+     <label class="nl" for="${b.id}-note">Notes for ${esc(b.n.toLowerCase())}</label>
+     <textarea id="${b.id}-note" data-b="${b.id}" placeholder="Optional: mix options, change text, use a different clip…"></textarea>
+   </section>`).join("");
+  root.addEventListener("click", e => {
+    const opt = e.target.closest(".opt"); if(!opt) return;
+    const id = opt.dataset.b, c = opt.dataset.c;
+    state[id] = {...(state[id]||{}), choice: state[id]?.choice===c ? null : c};
+    paint(); save(id);
+  });
+  const timers = {};
+  root.addEventListener("input", e => {
+    const ta = e.target.closest("textarea"); if(!ta) return;
+    const id = ta.dataset.b;
+    state[id] = {...(state[id]||{}), note: ta.value};
+    clearTimeout(timers[id]); setSave("Saving…");
+    timers[id] = setTimeout(()=>save(id), 700);
+  });
+}
+
+function paint(){
+  let n = 0;
+  for(const b of BEATS){
+    const ch = state[b.id]?.choice;
+    if(ch) n++;
+    for(const L of "ABC"){ const el = document.getElementById(`${b.id}-${L}`); el && el.setAttribute("aria-checked", String(ch===L)); }
+    const ta = document.getElementById(`${b.id}-note`);
+    if(ta && document.activeElement!==ta) ta.value = state[b.id]?.note || "";
+  }
+  $("#nPicked").textContent = n;
+  $("#meter").style.width = (n/BEATS.length*100)+"%";
+}
+
+function setSave(t){ $("#saveState").textContent = t; }
+
+async function save(id){
+  const body = {choice: state[id]?.choice || null, note: state[id]?.note || ""};
+  if(db){
+    try{ await db.collection("picks").doc(id).set(body); setSave("Saved"); }
+    catch(err){ setSave("Couldn't save. Use “Copy my picks”."); }
+  } else {
+    try{ localStorage.setItem("janhit-picks", JSON.stringify(state)); setSave("Saved in this browser"); }catch(_){ setSave("Not saved. Use “Copy my picks”."); }
+  }
+}
+
+function goOffline(){
+  offline = true; $("#offline").hidden = false;
+  try{ Object.assign(state, JSON.parse(localStorage.getItem("janhit-picks")||"{}")); }catch(_){}
+  paint(); setSave("Saved in this browser");
+}
+
+$("#copyBtn").addEventListener("click", async () => {
+  const txt = BEATS.map(b => `${b.n} (${b.tc}): ${state[b.id]?.choice || "not picked"}${state[b.id]?.note ? " | note: "+state[b.id].note : ""}`).join("\n");
+  try{ await navigator.clipboard.writeText(txt); setSave("Copied"); }
+  catch(_){ const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); setSave("Press Ctrl/Cmd+C to copy"); setTimeout(()=>ta.remove(),8000); }
+});
+
+render(); paint();
+
+(async () => {
+  const timer = setTimeout(goOffline, 10000);
+  try{
+    db = window.claude?.use ? await window.claude.use("db") : null;
+  }catch(_){ db = null; }
+  if(!db){ clearTimeout(timer); goOffline(); return; }
+  db.collection("picks").onSnapshot(snap => {
+    clearTimeout(timer);
+    for(const d of snap.docs){ const v = d.data(); state[d.id] = {choice: v?.choice || null, note: v?.note || ""}; }
+    paint(); setSave("Saved");
+  }, () => { clearTimeout(timer); db = null; goOffline(); });
+})();
+</script>
