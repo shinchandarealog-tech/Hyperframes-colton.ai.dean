@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Generates index.html for the NS Brothers DAV winter-uniform reel (Apple-UI styling).
 
-All timings are seconds on the voiceover (assets/voiceover.mp3, 68.52s).
+All timings are seconds on the voiceover (assets/voiceover.mp3, 70.27s).
 Edit the tables below and re-run: python3 scripts/build.py
 """
 from pathlib import Path
 
-DURATION = 69.2
-VO_DURATION = 68.6
+DURATION = 71.0
+VO_DURATION = 70.3
 X = 0.45  # transition overlap: incoming scene starts this much before its cut
 X_QUICK = 0.3  # shorter overlap into the quick item shots so each item stays readable
 QUICK = ("tracksuit", "caps", "shoes")
@@ -21,76 +21,76 @@ def ov(sid):
 #         photo | poster | textcard | maps | call | outro
 #   poster tag = (big label, small label); textcard tag = (kicker, headline, subline)
 SCENES = [
-    ("storefront", 0.0, 5.0, "video", "storefront", 0.0, None, None),
-    ("seniors", 5.0, 8.15, "poster", "poster-tracksuit-tall", 0, "zoom", ("Warm & Smart", "PREMIUM FLEECE TRACKSUIT")),
-    ("jacket", 8.15, 12.1, "video", "jacket", 3.55, "slideL", "DAV Winter Jacket"),
-    ("juniors", 12.1, 14.55, "poster", "poster-tracksuit-wide", 0, "slideUp", ("DAV Tracksuit", "SIZE 22–34 · FLEECE FABRIC")),
-    ("uniformset", 14.55, 18.2, "poster", "poster-68-kids", 0, "zoom", ("Class VI – VIII", "")),
-    ("blazer", 18.2, 20.9, "video", "blazer", 0.6, "slideL", "DAV Blazer"),
-    ("jacketfront", 20.9, 25.1, "photo", "jacket-front", 0, "zoom", "Winter Essentials"),
-    ("sweaters", 25.1, 27.3, "poster", "poster-sweaters", 0, "slideUp", ("Half & Full Sleeve", "NAVY BLUE · WOOL")),
-    ("tracksuit", 27.3, 28.8, "video", "tracksuit", 1.2, "slideL", None),
-    ("caps", 28.8, 30.3, "textcard", "shot-everything", 0, "slideL", ("STYLISH", "Winter Caps.", "Warm. Comfortable. School-ready.")),
-    ("nurkids", 30.3, 34.6, "poster", "poster-nur-kids", 0, "zoom", ("Class Nur – II", "WARM & SMART")),
-    ("oneroof", 34.6, 36.6, "tour", "shot-oneroof", 0, "slideR", None),
-    ("shoes", 36.6, 38.4, "tour", "shot-shoes", 0, "slideL", None),
-    ("counter", 38.4, 42.7, "tour", "shot-counter", 0, "zoom", None),
-    ("recap", 42.7, 46.45, "tour", "shot-everything", 0, "slideUp", None),
-    ("shopping", 46.45, 49.4, "tour", "shot-shopping", 0, "zoom", None),
-    ("visit", 49.4, 51.45, "video", "storefront", 3.65, "slideUp", None),
-    ("address", 51.45, 54.45, "maps", None, 0, "zoom", None),
-    ("phone", 54.45, 64.75, "call", None, 0, "slideUp", None),
-    ("brand", 64.75, DURATION, "outro", None, 0, "zoom", None),
+    ("storefront", 0.0, 5.05, "video", "storefront", 0.0, None, None),
+    ("seniors", 5.05, 8.3, "poster", "poster-tracksuit-tall", 0, "zoom", ("Warm & Smart", "PREMIUM FLEECE TRACKSUIT")),
+    ("jacket", 8.3, 12.3, "video", "jacket", 3.55, "slideL", "DAV Winter Jacket"),
+    ("juniors", 12.3, 14.9, "poster", "poster-tracksuit-wide2", 0, "slideUp", ("DAV Tracksuit", "SIZE 22–34 · FLEECE FABRIC")),
+    ("uniformset", 14.9, 19.0, "poster", "poster-68-kids", 0, "zoom", ("Class VI – VIII", "")),
+    ("blazer", 19.0, 21.55, "video", "blazer", 0.6, "slideL", "DAV Blazer"),
+    ("jacketfront", 21.55, 25.75, "photo", "jacket-front", 0, "zoom", "Winter Essentials"),
+    ("sweaters", 25.75, 27.75, "poster", "poster-sweaters", 0, "slideUp", ("Half & Full Sleeve", "NAVY BLUE · WOOL")),
+    ("tracksuit", 27.75, 29.25, "video", "tracksuit", 1.2, "slideL", None),
+    ("caps", 29.25, 30.55, "textcard", "shot-everything", 0, "slideL", ("STYLISH", "Winter Caps.", "Warm. Comfortable. School-ready.")),
+    ("nurkids", 30.55, 35.85, "poster", "poster-nur-kids", 0, "zoom", ("Class Nur – II", "WARM & SMART")),
+    ("oneroof", 35.85, 38.0, "tour", "shot-oneroof", 0, "slideR", None),
+    ("shoes", 38.0, 40.15, "tour", "shot-shoes", 0, "slideL", None),
+    ("counter", 40.15, 44.0, "tour", "shot-counter", 0, "zoom", None),
+    ("recap", 44.0, 47.9, "tour", "shot-everything", 0, "slideUp", None),
+    ("shopping", 47.9, 50.6, "tour", "shot-shopping", 0, "zoom", None),
+    ("visit", 50.6, 52.7, "video", "storefront", 3.65, "slideUp", None),
+    ("address", 52.7, 55.75, "maps", None, 0, "zoom", None),
+    ("phone", 55.75, 66.45, "call", None, 0, "slideUp", None),
+    ("brand", 66.45, DURATION, "outro", None, 0, "zoom", None),
 ]
 
 # Phrase captions — text from the script, timed to the voiceover.
 # Words wrapped in *asterisks* are highlighted.
 CAPTIONS = [
-    (0.05, 2.0, "*D.A.V. Public School* ke students ke liye"),
-    (2.0, 4.85, "aa gaya hai *winter shopping* ka perfect time!"),
-    (5.1, 8.05, "Apne bachchon ko dijiye *smart look* aur *thand se bachav*"),
-    (8.3, 12.05, "*NS Brothers* ki D.A.V. school uniform aur *winter collection* ke saath"),
-    (12.27, 14.5, "Yahan milegi *D.A.V. school ki uniform*"),
-    (18.2, 20.75, "ke saath *winter wear* ki bhi poori taiyari hai"),
-    (21.03, 24.95, "Thand badhne se pehle, bachchon ke *winter essentials* zaroor taiyar kar lein!"),
-    (30.4, 32.25, "jo bachchon ko *thand se bachane* ke saath"),
-    (32.3, 34.55, "unke school look ko bhi banayein *smart*"),
-    (34.74, 36.5, "Aur baat sirf *uniform* tak hi nahi!"),
-    (38.4, 42.6, "jo daily school wear ko banayein *comfortable* aur *complete*"),
-    (46.5, 49.3, "bachchon ki school shopping karein *ek hi jagah!*"),
-    (49.55, 51.4, "Aaj hi visit karein *NS Brothers!*"),
+    (0.05, 2.05, "*D.A.V. Public School* ke students ke liye"),
+    (2.1, 4.9, "aa gaya hai *winter shopping* ka perfect time!"),
+    (5.1, 8.15, "Apne bachchon ko dijiye *smart look* aur *thand se bachav*"),
+    (8.45, 12.15, "*NS Brothers* ki D.A.V. school *winter collection* ke saath"),
+    (12.47, 14.8, "Yahan milegi *D.A.V. school ki uniform*"),
+    (19.0, 21.3, "ke saath *winter wear* ki bhi poori taiyari hai"),
+    (21.67, 25.6, "Thand badhne se pehle, bachchon ke *winter essentials* zaroor taiyar kar lein!"),
+    (30.6, 33.3, "jo bachchon ko *thand se bachane* ke saath"),
+    (33.5, 35.55, "unke school look ko bhi banayein *smart*"),
+    (36.1, 37.9, "Aur baat sirf *uniform* tak hi nahi!"),
+    (40.2, 43.9, "jo daily school wear ko banayein *comfortable* aur *complete*"),
+    (47.95, 50.5, "bachchon ki school shopping karein *ek hi jagah!*"),
+    (50.63, 52.55, "Aaj hi visit karein *NS Brothers!*"),
 ]
 
 # Item widgets — land exactly on the spoken word, over the matching shot.
 ITEMS = [
-    ("sweaters", 25.9, "Winter Sweaters", "Half & full sleeve · Wool"),
-    ("tracksuit", 27.35, "Fleece Tracksuits", "Warm · Sky blue & navy"),
-    ("shoes", 37.4, "Shoes & Socks", "Comfortable · Everyday"),
+    ("sweaters", 26.9, "Winter Sweaters", "Half & full sleeve · Wool"),
+    ("tracksuit", 27.8, "Fleece Tracksuits", "Warm · Sky blue & navy"),
+    ("shoes", 38.65, "Shoes & Socks", "Comfortable · Everyday"),
 ]
 
 # Reminders-style checklists that tick word by word: (scene id, heading, [(time, label), ...])
 CHIPS = [
     ("uniformset", "Complete D.A.V. Uniform",
-     [(15.0, "Shirt"), (15.88, "Tie"), (16.35, "Trousers"), (16.96, "Blazer"), (17.68, "Skirt")]),
+     [(15.38, "Shirt"), (16.01, "Tie"), (16.42, "Trousers"), (17.16, "Blazer"), (17.84, "Divider Skirt")]),
     ("recap", "This Winter",
-     [(43.45, "Uniform"), (44.4, "Sweater"), (45.0, "Shoes"), (45.8, "Cap")]),
+     [(45.0, "Uniform"), (46.12, "Sweater"), (46.9, "Shoes"), (47.6, "Cap")]),
 ]
 
 ADDRESS_LINES = [
-    (51.54, "Near Punjab National Bank"),
-    (53.0, "Chandauthi More"),
-    (53.92, "Gaya, Bihar"),
+    (52.75, "Near Punjab National Bank"),
+    (54.42, "Chandauthi More"),
+    (55.3, "Gaya, Bihar"),
 ]
 
-BRAND_WORDS = [(66.13, "Quality."), (66.85, "Style."), (67.6, "Trust.")]
+BRAND_WORDS = [(67.88, "Quality."), (68.56, "Style."), (69.28, "Trust.")]
 
 # (src, start, duration, volume)
 SFX = (
     [("whoosh.mp3", s[1] - ov(s[0]), 0.6, 0.16) for s in SCENES[1:] if s[0] not in QUICK]
     + [("pop.mp3", t - 0.05, 0.7, 0.25) for _, t, _, _ in ITEMS]
-    + [("pop.mp3", 28.85, 0.7, 0.25)]
+    + [("pop.mp3", 29.3, 0.7, 0.25)]
     + [("pop.mp3", t - 0.03, 0.7, 0.16) for _, _, chips in CHIPS for t, _ in chips]
-    + [("sparkle.mp3", 51.5, 2.0, 0.3), ("slam.mp3", 64.85, 1.2, 0.2), ("pop.mp3", 0.3, 0.7, 0.35)]
+    + [("sparkle.mp3", 52.75, 2.0, 0.3), ("slam.mp3", 66.55, 1.2, 0.2), ("pop.mp3", 0.3, 0.7, 0.35)]
 )
 
 CHECK_SVG = '<svg width="30" height="30" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
@@ -303,30 +303,30 @@ def build():
         "tl.from('#logo', {scale:0.6, opacity:0, filter:'blur(10px)', duration:0.7, ease:'back.out(1.6)'}, 0.15);",
         "tl.from('#notif', {y:-300, scale:0.92, opacity:0, duration:0.8, ease:'back.out(1.3)'}, 0.3);",
         # maps
-        "tl.from('#pin', {y:-500, duration:0.7, ease:'bounce.out'}, 51.2);",
-        "tl.fromTo('#pulse', {scale:0.3, opacity:0.9}, {scale:1.5, opacity:0, duration:0.9, repeat:2, ease:'power1.out'}, 51.85);",
-        "tl.from('#map-label', {opacity:0, y:14, duration:0.4, ease:'power2.out'}, 51.8);",
-        "tl.from('#sheet', {y:900, duration:0.7, ease:'power3.out'}, 51.4);",
-        "tl.from('#directions', {scale:0.9, opacity:0, duration:0.5, ease:'back.out(1.8)'}, 52.4);",
+        "tl.from('#pin', {y:-500, duration:0.7, ease:'bounce.out'}, 52.45);",
+        "tl.fromTo('#pulse', {scale:0.3, opacity:0.9}, {scale:1.5, opacity:0, duration:0.9, repeat:2, ease:'power1.out'}, 53.1);",
+        "tl.from('#map-label', {opacity:0, y:14, duration:0.4, ease:'power2.out'}, 53.05);",
+        "tl.from('#sheet', {y:900, duration:0.7, ease:'power3.out'}, 52.65);",
+        "tl.from('#directions', {scale:0.9, opacity:0, duration:0.5, ease:'back.out(1.8)'}, 53.65);",
     ]
     for j, (t, _) in enumerate(ADDRESS_LINES):
         js.append(blur_in(f"#al{j}", t, 16, 0.5))
     js += [
         # call screen
-        blur_in("#ph-info", 54.55, 16, 0.5),
-        "tl.from('#ph-avatar', {scale:0.6, opacity:0, duration:0.7, ease:'back.out(1.7)'}, 54.8);",
-        blur_in("#ph-name", 55.05, 20, 0.6),
-        blur_in("#ph-sub", 55.3, 14, 0.5),
-        "tl.from('#ph-list', {y:60, opacity:0, scale:0.96, duration:0.6, ease:'power3.out'}, 56.6);",
-        blur_in("#ph-n1 .num-v", 56.95, 16, 0.5),
-        blur_in("#ph-n2 .num-v", 61.0, 16, 0.5),
-        "tl.from('#ph-btns', {y:80, opacity:0, duration:0.7, ease:'back.out(1.5)'}, 61.9);",
-        "tl.fromTo('#ring', {scale:1, opacity:0.8}, {scale:1.7, opacity:0, duration:1.1, repeat:2, ease:'power1.out'}, 62.4);",
-        "tl.fromTo('#call', {scale:1}, {scale:1.03, duration:10.3, ease:'none'}, 54.45);",
+        blur_in("#ph-info", 55.85, 16, 0.5),
+        "tl.from('#ph-avatar', {scale:0.6, opacity:0, duration:0.7, ease:'back.out(1.7)'}, 56.1);",
+        blur_in("#ph-name", 56.35, 20, 0.6),
+        blur_in("#ph-sub", 56.6, 14, 0.5),
+        "tl.from('#ph-list', {y:60, opacity:0, scale:0.96, duration:0.6, ease:'power3.out'}, 57.7);",
+        blur_in("#ph-n1 .num-v", 58.05, 16, 0.5),
+        blur_in("#ph-n2 .num-v", 61.1, 16, 0.5),
+        "tl.from('#ph-btns', {y:80, opacity:0, duration:0.7, ease:'back.out(1.5)'}, 62.7);",
+        "tl.fromTo('#ring', {scale:1, opacity:0.8}, {scale:1.7, opacity:0, duration:1.1, repeat:2, ease:'power1.out'}, 63.2);",
+        "tl.fromTo('#call', {scale:1}, {scale:1.03, duration:10.7, ease:'none'}, 55.75);",
         # keynote outro
-        "tl.from('#br-ns', {scale:0.88, opacity:0, filter:'blur(24px)', duration:0.9, ease:'power3.out'}, 64.75);",
-        blur_in("#br-meta", 68.0, 14, 0.5),
-        "tl.fromTo('#outro', {scale:1}, {scale:1.04, duration:4.45, ease:'none'}, 64.75);",
+        "tl.from('#br-ns', {scale:0.88, opacity:0, filter:'blur(24px)', duration:0.9, ease:'power3.out'}, 66.5);",
+        blur_in("#br-meta", 69.6, 14, 0.5),
+        "tl.fromTo('#outro', {scale:1}, {scale:1.04, duration:4.55, ease:'none'}, 66.45);",
         f"tl.to('#fade', {{opacity:1, duration:0.45, ease:'power1.in'}}, {DURATION - 0.5:.2f});",
     ]
     for j, (t, _) in enumerate(BRAND_WORDS):
