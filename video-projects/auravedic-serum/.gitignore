@@ -1,0 +1,5 @@
+assets/*.mp4
+assets/*.wav
+assets/raw/
+renders/
+.hyperframes/

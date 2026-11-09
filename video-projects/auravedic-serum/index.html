@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #1a0f08; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #1a0f08; }
+
+      /* ---------- footage ---------- */
+      .shot { position: absolute; inset: 0; overflow: hidden; will-change: transform, filter; }
+      .push { position: absolute; inset: 0; transform-origin: 50% 50%; }
+      .shot video { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+
+      /* ---------- type card ---------- */
+      #card {
+        position: absolute; inset: 0; z-index: 20;
+        background: radial-gradient(ellipse 70% 45% at 50% 50%, #5a3414 0%, #2a170b 45%, #1a0f08 80%);
+      }
+      #card .scene-content {
+        width: 100%; height: 100%; padding: 0 90px;
+        display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px;
+        text-align: center;
+      }
+      #card .q { font-family: "Bebas Neue", sans-serif; font-size: 104px; letter-spacing: 0.04em; color: #f3e6cf; }
+      .gold {
+        font-family: "Bebas Neue", sans-serif; color: #e8b54a;
+        background: linear-gradient(180deg, #fff4dc 0%, #f1cf7a 38%, #e8b54a 55%, #a8721f 100%);
+        -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 0 18px rgba(232, 181, 74, 0.45)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+      }
+      #card .a { font-size: 178px; line-height: 0.92; letter-spacing: 0.02em; }
+      #card .flare {
+        position: absolute; left: 140px; right: 140px; top: 1160px; height: 4px; border-radius: 4px;
+        background: radial-gradient(ellipse at center, #fff4dc 0%, #e8b54a 35%, rgba(232, 181, 74, 0) 75%);
+      }
+      .pt { position: absolute; border-radius: 50%; background: #f1cf7a; box-shadow: 0 0 10px #e8b54a; }
+
+      /* ---------- overlay type ---------- */
+      .ov { position: absolute; z-index: 30; left: 0; width: 1080px; text-align: center; }
+      .cream {
+        font-family: "Bebas Neue", sans-serif; color: #f3e6cf;
+        text-shadow: 0 4px 18px rgba(0, 0, 0, 0.75), 0 0 3px rgba(0, 0, 0, 0.6);
+      }
+      #hook { top: 290px; padding: 0 80px; }
+      #hook div { font-size: 116px; line-height: 0.98; letter-spacing: 0.02em; }
+
+      #symptoms { top: 1190px; display: flex; flex-direction: column; align-items: center; gap: 0; }
+      #symptoms div { font-size: 168px; line-height: 0.95; letter-spacing: 0.04em; }
+
+      #ring-wrap { top: 0; height: 1920px; pointer-events: none; }
+      #ring {
+        position: absolute; left: 160px; top: 580px; width: 760px; height: 760px; border-radius: 50%;
+        border: 3px solid rgba(232, 181, 74, 0.9);
+        box-shadow: 0 0 30px rgba(232, 181, 74, 0.55), inset 0 0 30px rgba(232, 181, 74, 0.3);
+      }
+      #ring::after {
+        content: ""; position: absolute; width: 22px; height: 22px; border-radius: 50%;
+        top: -12px; left: 369px; background: #fff4dc; box-shadow: 0 0 22px 6px #e8b54a;
+      }
+      .ing { top: 1400px; }
+      .ing .name {
+        font-family: "Playfair Display", serif; font-style: italic; font-weight: 600; font-size: 104px;
+      }
+      .ing .idx {
+        margin-top: 14px; font-family: Inter, sans-serif; font-weight: 600; font-size: 30px;
+        letter-spacing: 0.32em; color: #f3e6cf; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+      }
+
+      #feeds { top: 300px; }
+      #feeds div { font-size: 132px; letter-spacing: 0.03em; line-height: 1; }
+
+      #tagline { top: 1260px; display: flex; flex-direction: column; align-items: center; }
+      #tagline div { font-size: 156px; line-height: 0.95; letter-spacing: 0.03em; }
+
+      #cta { top: 1430px; display: flex; flex-direction: column; align-items: center; gap: 26px; }
+      #cta .pill {
+        font-family: Inter, sans-serif; font-weight: 800; font-size: 46px; letter-spacing: 0.14em;
+        color: #1a0f08; padding: 22px 64px; border-radius: 999px;
+        background: linear-gradient(180deg, #fff4dc 0%, #f1cf7a 45%, #e8b54a 100%);
+        box-shadow: 0 0 34px rgba(232, 181, 74, 0.55), 0 8px 20px rgba(0, 0, 0, 0.5);
+      }
+      #cta .url {
+        font-family: "Playfair Display", serif; font-style: italic; font-weight: 600; font-size: 66px;
+        color: #f3e6cf; text-shadow: 0 3px 14px rgba(0, 0, 0, 0.85);
+      }
+
+      /* ---------- finishing layers ---------- */
+      #flash {
+        position: absolute; inset: 0; z-index: 40; opacity: 0; pointer-events: none;
+        background: radial-gradient(circle at 50% 50%, #fffaf0 0%, #f1cf7a 45%, #e8b54a 100%);
+      }
+      #vignette {
+        position: absolute; inset: 0; z-index: 35; pointer-events: none;
+        background: radial-gradient(ellipse 85% 70% at 50% 48%, rgba(0, 0, 0, 0) 55%, rgba(10, 5, 2, 0.55) 100%);
+      }
+      #grain {
+        position: absolute; inset: -40px; z-index: 36; pointer-events: none; opacity: 0.08; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="30" data-width="1080" data-height="1920">
+      <!-- ================= FOOTAGE (track 1, sequential) ================= -->
+      <div class="shot" id="w-c01" style="z-index:1"><div class="push"><video id="c01" data-start="0" data-duration="2.2" data-media-start="1.2" data-track-index="1" src="assets/c01.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c02" style="z-index:2"><div class="push"><video id="c02" data-start="2.2" data-duration="2.95" data-media-start="2.2" data-track-index="1" src="assets/c02.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c03" style="z-index:3"><div class="push"><video id="c03" data-start="7.5" data-duration="2.1" data-media-start="2.3" data-track-index="1" src="assets/c03.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c04" style="z-index:4"><div class="push"><video id="c04" data-start="9.6" data-duration="0.95" data-media-start="3.0" data-track-index="1" src="assets/c04.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c05" style="z-index:5"><div class="push"><video id="c05" data-start="10.55" data-duration="2.65" data-media-start="0.9" data-track-index="1" src="assets/c05.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c06" style="z-index:6"><div class="push"><video id="c06" data-start="13.2" data-duration="1.05" data-media-start="0.5" data-track-index="1" src="assets/c06.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c07" style="z-index:7"><div class="push"><video id="c07" data-start="14.25" data-duration="0.85" data-media-start="0.5" data-track-index="1" src="assets/c07.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c08" style="z-index:8"><div class="push"><video id="c08" data-start="15.1" data-duration="0.75" data-media-start="0.5" data-track-index="1" src="assets/c08.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c09" style="z-index:9"><div class="push"><video id="c09" data-start="15.85" data-duration="1.0" data-media-start="0.5" data-track-index="1" src="assets/c09.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c10" style="z-index:10"><div class="push"><video id="c10" data-start="16.85" data-duration="3.05" data-media-start="2.6" data-track-index="1" src="assets/c10.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c11" style="z-index:11"><div class="push"><video id="c11" data-start="19.9" data-duration="1.35" data-media-start="4.0" data-track-index="1" src="assets/c11.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c12" style="z-index:12"><div class="push"><video id="c12" data-start="21.25" data-duration="1.2" data-media-start="3.6" data-track-index="1" src="assets/c12.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-c13" style="z-index:13"><div class="push"><video id="c13" data-start="22.45" data-duration="7.55" data-media-start="0" data-track-index="1" src="assets/c13x.mp4" muted playsinline></video></div></div>
+
+      <!-- ================= TYPE CARD: IT STARTS AT THE ROOT ================= -->
+      <div id="card" class="clip" data-start="5.15" data-duration="2.35" data-track-index="2">
+        <div id="particles"></div>
+        <div class="flare"></div>
+        <div class="scene-content">
+          <div class="q" id="card-q">THE REAL PROBLEM?</div>
+          <div class="gold a" id="card-a1">IT STARTS</div>
+          <div class="gold a" id="card-a2">AT THE ROOT.</div>
+        </div>
+      </div>
+
+      <!-- ================= OVERLAY TYPE ================= -->
+      <div id="hook" class="ov clip" data-start="0.15" data-duration="2.05" data-track-index="3">
+        <div class="cream" id="hook-1">STILL FINDING THIS</div>
+        <div class="cream" id="hook-2">EVERY MORNING?</div>
+      </div>
+
+      <div id="symptoms" class="ov clip" data-start="2.3" data-duration="2.85" data-track-index="3">
+        <div class="cream" id="sy-1">THIN.</div>
+        <div class="cream" id="sy-2">WEAK.</div>
+        <div class="cream" id="sy-3">FALLING.</div>
+      </div>
+
+      <div id="ring-wrap" class="ov clip" data-start="13.2" data-duration="3.65" data-track-index="3"><div id="ring"></div></div>
+      <div id="ing-1" class="ov ing clip" data-start="13.2" data-duration="1.05" data-track-index="4"><div class="name gold">Rosemary</div><div class="idx">01 / 04</div></div>
+      <div id="ing-2" class="ov ing clip" data-start="14.25" data-duration="0.85" data-track-index="4"><div class="name gold">Bhringraj</div><div class="idx">02 / 04</div></div>
+      <div id="ing-3" class="ov ing clip" data-start="15.1" data-duration="0.75" data-track-index="4"><div class="name gold">Anagain</div><div class="idx">03 / 04</div></div>
+      <div id="ing-4" class="ov ing clip" data-start="15.85" data-duration="1.0" data-track-index="4"><div class="name gold">Procapil</div><div class="idx">04 / 04</div></div>
+
+      <div id="feeds" class="ov clip" data-start="17.0" data-duration="2.9" data-track-index="3">
+        <div class="gold" id="feeds-1">FEEDS EVERY ROOT</div>
+      </div>
+
+      <div id="tagline" class="ov clip" data-start="19.95" data-duration="2.5" data-track-index="3">
+        <div class="gold" id="tag-1">STRONGER ROOTS.</div>
+        <div class="gold" id="tag-2">FULLER HAIR.</div>
+      </div>
+
+      <div id="cta" class="ov clip" data-start="23.95" data-duration="6.05" data-track-index="3">
+        <div class="pill" id="cta-pill">SHOP NOW</div>
+        <div class="url" id="cta-url">auravedic.com</div>
+      </div>
+
+      <!-- ================= FINISHING ================= -->
+      <div id="vignette"></div>
+      <div id="grain"></div>
+      <div id="flash"></div>
+
+      <!-- ================= SOUND ================= -->
+      <audio id="mix" data-start="0" data-duration="30" data-track-index="10" src="assets/soundtrack.wav" data-volume="1"></audio>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // ---------- seeded particles for the type card ----------
+        function mulberry32(a) { return function () { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+        const rnd = mulberry32(85);
+        const pc = document.getElementById("particles");
+        for (let i = 0; i < 46; i++) {
+          const d = document.createElement("div");
+          const s = 3 + rnd() * 7;
+          d.className = "pt";
+          d.style.width = d.style.height = s + "px";
+          d.style.left = rnd() * 1080 + "px";
+          d.style.top = 200 + rnd() * 1520 + "px";
+          d.style.opacity = (0.35 + rnd() * 0.6).toFixed(2);
+          pc.appendChild(d);
+          tl.fromTo(d, { y: 0 }, { y: -(80 + rnd() * 160), x: (rnd() - 0.5) * 60, duration: 2.35, ease: "none" }, 5.15);
+        }
+
+        // ---------- slow push-in on every shot ----------
+        const shots = [
+          ["c01", 0, 2.2], ["c02", 2.2, 2.95], ["c03", 7.5, 2.1], ["c04", 9.6, 0.95], ["c05", 10.55, 2.65],
+          ["c06", 13.2, 1.05], ["c07", 14.25, 0.85], ["c08", 15.1, 0.75], ["c09", 15.85, 1.0], ["c10", 16.85, 3.05],
+          ["c11", 19.9, 1.35], ["c12", 21.25, 1.2], ["c13", 22.45, 7.55],
+        ];
+        shots.forEach(([id, s, d]) => {
+          const amt = id === "c13" ? 1.05 : 1.07;
+          tl.fromTo("#w-" + id + " .push", { scale: 1.0 }, { scale: amt, duration: d, ease: "none" }, s);
+        });
+
+        // ---------- transition helpers (motion masks every cut) ----------
+        const W = (id) => "#w-" + id;
+        function whip(outSel, inSel, T, dir) {
+          tl.to(outSel, { y: dir * 300, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
+          tl.fromTo(inSel, { y: -dir * 300, filter: "blur(22px)" }, { y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+        }
+        function whipX(outSel, inSel, T, dir) {
+          tl.to(outSel, { x: dir * 320, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
+          tl.fromTo(inSel, { x: -dir * 320, filter: "blur(22px)" }, { x: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+        }
+        function zoom(outSel, inSel, T) {
+          tl.to(outSel, { scale: 1.28, filter: "blur(16px)", duration: 0.16, ease: "power2.in" }, T - 0.16);
+          tl.fromTo(inSel, { scale: 0.86, filter: "blur(16px)" }, { scale: 1, filter: "blur(0px)", duration: 0.26, ease: "expo.out" }, T);
+        }
+        function flash(T, peak) {
+          tl.fromTo("#flash", { opacity: 0 }, { opacity: peak, duration: 0.12, ease: "power2.in", immediateRender: false }, T - 0.12);
+          tl.to("#flash", { opacity: 0, duration: 0.4, ease: "power2.out" }, T);
+        }
+
+        zoom(W("c01"), W("c02"), 2.2);
+        // into the type card: zoom-out + soft gold flash
+        tl.to(W("c02"), { scale: 1.3, filter: "blur(18px)", duration: 0.18, ease: "power2.in" }, 4.97);
+        tl.fromTo("#card", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 5.15);
+        // card -> product: vertical whip down
+        tl.to("#card", { y: 320, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, 7.36);
+        tl.fromTo(W("c03"), { y: -320, filter: "blur(22px)" }, { y: 0, filter: "blur(0px)", duration: 0.26, ease: "power3.out" }, 7.5);
+        zoom(W("c03"), W("c04"), 9.6);
+        whip(W("c04"), W("c05"), 10.55, 1);
+        flash(13.2, 0.75);
+        zoom(W("c06"), W("c07"), 14.25);
+        zoom(W("c07"), W("c08"), 15.1);
+        zoom(W("c08"), W("c09"), 15.85);
+        whip(W("c09"), W("c10"), 16.85, 1);
+        flash(19.9, 0.85);
+        whipX(W("c11"), W("c12"), 21.25, -1);
+        flash(22.45, 0.9);
+
+        // ---------- HOOK (problem = cream) ----------
+        tl.from("#hook-1", { y: 40, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power3.out" }, 0.15);
+        tl.from("#hook-2", { y: 40, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power2.out" }, 0.75);
+        tl.to("#hook", { scale: 1.2, opacity: 0, filter: "blur(14px)", duration: 0.16, ease: "power2.in" }, 2.04);
+
+        // ---------- THIN / WEAK / FALLING synced to VO (2.32 / 3.20 / 4.14) ----------
+        tl.from("#sy-1", { scale: 1.6, opacity: 0, filter: "blur(16px)", duration: 0.28, ease: "expo.out" }, 2.3);
+        tl.from("#sy-2", { scale: 1.6, opacity: 0, filter: "blur(16px)", duration: 0.28, ease: "expo.out" }, 3.18);
+        tl.from("#sy-3", { y: -60, opacity: 0, filter: "blur(16px)", duration: 0.4, ease: "back.out(1.6)" }, 4.12);
+        tl.to("#sy-3", { y: 26, duration: 0.6, ease: "power1.in" }, 4.52);
+        tl.to("#symptoms", { scale: 1.25, opacity: 0, filter: "blur(16px)", duration: 0.18, ease: "power2.in" }, 4.97);
+
+        // ---------- CARD: THE REAL PROBLEM? / IT STARTS AT THE ROOT. ----------
+        tl.from("#card-q", { y: 30, opacity: 0, scaleX: 1.25, duration: 0.5, ease: "power3.out" }, 5.3);
+        tl.to("#card-q", { opacity: 0.45, duration: 0.3, ease: "power1.out" }, 6.4);
+        tl.from("#card-a1", { scale: 1.35, opacity: 0, filter: "blur(18px)", duration: 0.35, ease: "expo.out" }, 6.45);
+        tl.from("#card-a2", { y: 50, opacity: 0, filter: "blur(12px)", duration: 0.4, ease: "power4.out" }, 6.75);
+        tl.from("#card .flare", { scaleX: 0, opacity: 0, duration: 0.5, ease: "power2.out" }, 6.75);
+
+        // ---------- INGREDIENT RING + NAMES (13.24 / 14.34 / 15.18 / 15.90) ----------
+        tl.from("#ring", { scale: 0.6, opacity: 0, duration: 0.45, ease: "back.out(1.4)" }, 13.25);
+        tl.fromTo("#ring", { rotation: 0 }, { rotation: 300, duration: 3.6, ease: "none" }, 13.25);
+        [["#ing-1", 13.3], ["#ing-2", 14.3], ["#ing-3", 15.14], ["#ing-4", 15.88]].forEach(([sel, t], i) => {
+          tl.from(sel + " .name", { y: 36, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: i % 2 ? "power3.out" : "expo.out" }, t);
+          tl.from(sel + " .idx", { opacity: 0, scaleX: 1.4, duration: 0.3, ease: "power2.out" }, t + 0.06);
+        });
+        tl.to("#ring", { scale: 1.6, opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 16.69);
+        tl.to("#ing-4", { y: 200, opacity: 0, filter: "blur(16px)", duration: 0.14, ease: "power2.in" }, 16.71);
+
+        // ---------- FEEDS EVERY ROOT (synced to "har root ko nourish kare") ----------
+        tl.from("#feeds-1", { y: -50, opacity: 0, filter: "blur(14px)", duration: 0.5, ease: "power3.out" }, 17.4);
+
+        // ---------- STRONGER ROOTS. FULLER HAIR. (20.00 / 21.24) ----------
+        tl.from("#tag-1", { scale: 1.4, opacity: 0, filter: "blur(16px)", duration: 0.4, ease: "expo.out" }, 19.98);
+        tl.from("#tag-2", { scale: 1.4, opacity: 0, filter: "blur(16px)", duration: 0.4, ease: "expo.out" }, 21.22);
+
+        // ---------- CTA (Abhi order karein @24.04, auravedic.com @24.88) ----------
+        tl.from("#cta-pill", { y: 50, scale: 0.85, opacity: 0, duration: 0.5, ease: "back.out(1.7)" }, 24.0);
+        tl.from("#cta-url", { y: 30, opacity: 0, filter: "blur(8px)", duration: 0.5, ease: "power3.out" }, 24.85);
+        tl.fromTo("#cta-pill", { boxShadow: "0 0 34px rgba(232,181,74,0.55), 0 8px 20px rgba(0,0,0,0.5)" },
+          { boxShadow: "0 0 64px rgba(255,230,160,0.9), 0 8px 20px rgba(0,0,0,0.5)", duration: 0.7, ease: "sine.inOut", yoyo: true, repeat: 3 }, 25.6);
+
+        // ---------- grain shimmer ----------
+        tl.fromTo("#grain", { x: 0, y: 0 }, { x: 37, y: -29, duration: 30, ease: "steps(180)" }, 0);
+
+        window.__timelines["main"] = tl;
+      </script>
+    </div>
+  </body>
+</html>
