@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arya · Video Editor</title>
+<meta name="description" content="Arya edits short-form videos: UGC ads and Reels with clean cuts, matching B-roll and captions that keep people watching.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="inner">
+    <a class="logo" href="#top">Arya<span aria-hidden="true"> ✦</span></a>
+    <nav aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="inner hero-grid">
+      <div class="hero-copy">
+        <span class="doodle d1" aria-hidden="true">✦</span>
+        <p class="eyebrow">Video editor · Short-form</p>
+        <h1>I edit short videos people <mark>actually watch</mark></h1>
+        <p class="lede">UGC ads and Reels with clean cuts, matching B-roll and captions that keep people watching.</p>
+        <div class="ctas">
+          <a class="pill" href="#work">See my work</a>
+          <a class="pill ghost" href="#contact">Work with me</a>
+        </div>
+      </div>
+      <figure class="reel">
+        <span class="tag">my showreel ♡</span>
+        <div class="vid" data-src="videos/showreel.mp4" data-poster="videos/showreel.jpg" data-autoplay>
+          <span class="placeholder" aria-hidden="true"><span class="play"></span></span>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="inner">
+      <span class="doodle d2" aria-hidden="true">✿</span>
+      <p class="eyebrow">Selected work</p>
+      <h2>Recent edits</h2>
+      <div class="cards">
+        <article class="card">
+          <button class="vid" type="button" data-src="videos/rehome-spray.mp4" data-poster="videos/rehome-spray.jpg" aria-label="Play Rehome Spray">
+            <span class="placeholder" aria-hidden="true"><span class="hook">pov: you're googling</span><span class="play"></span></span>
+          </button>
+          <h3>Rehome Spray</h3>
+          <p>UGC ad · Meta</p>
+        </article>
+        <article class="card">
+          <button class="vid" type="button" data-src="videos/alpaca-story.mp4" data-poster="videos/alpaca-story.jpg" aria-label="Play The Alpaca Story">
+            <span class="placeholder alt" aria-hidden="true"><span class="play"></span></span>
+          </button>
+          <h3>The Alpaca Story</h3>
+          <p>UGC ad · Storytelling</p>
+        </article>
+        <article class="card">
+          <button class="vid" type="button" data-src="videos/pacagen-spray.mp4" data-poster="videos/pacagen-spray.jpg" aria-label="Play Pacagen Spray">
+            <span class="placeholder" aria-hidden="true"><span class="play"></span></span>
+          </button>
+          <h3>Pacagen Spray</h3>
+          <p>UGC ad · Meta</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="inner">
+      <p class="eyebrow">What I do</p>
+      <div class="services">
+        <div class="svc"><h3>UGC ad edits</h3><p>Talking-head ads for Meta and TikTok, with clean cuts and B-roll over every jump cut.</p></div>
+        <div class="svc pink"><h3>Captions &amp; hooks</h3><p>Easy-to-read captions and a hook title that stops the scroll in the first second.</p></div>
+        <div class="svc"><h3>Reels &amp; Shorts</h3><p>Vertical edits for creators, paced to keep people watching and kept inside each app's safe area.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="inner about">
+      <div class="avatar" aria-hidden="true">A</div>
+      <div>
+        <p class="eyebrow">Hi, I'm Arya</p>
+        <h2>Nice to meet you ♡</h2>
+        <p>I edit short-form videos for brands and creators. I care about clean cuts, B-roll that matches what's being said, and captions people can actually read.</p>
+      </div>
+      <span class="doodle d3" aria-hidden="true">✦</span>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="inner">
+      <div class="contact">
+        <h2>Let's make something cute</h2>
+        <p>Need an editor for your next ad or Reel?</p>
+        <div class="email-row">
+          <a class="pill pink" href="mailto:arya@gmail.com">arya@gmail.com</a>
+          <button class="pill ghost-light" type="button" id="copy-email">Copy email</button>
+        </div>
+        <div class="socials">
+          <a href="https://instagram.com/arya" target="_blank" rel="noopener">Instagram @arya</a>
+          <a href="https://tiktok.com/@arya" target="_blank" rel="noopener">TikTok @arya</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><div class="inner">© 2026 Arya · Made with love and lots of B-roll</div></footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="close" type="button" aria-label="Close video">×</button>
+  <video id="lightbox-video" controls playsinline></video>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
