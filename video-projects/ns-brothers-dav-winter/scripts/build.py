@@ -22,9 +22,9 @@ def ov(sid):
 #   poster tag = (big label, small label); textcard tag = (kicker, headline, subline)
 SCENES = [
     ("storefront", 0.0, 5.0, "video", "storefront", 0.0, None, None),
-    ("seniors", 5.0, 8.15, "poster", "poster-912-kids", 0, "zoom", ("Class IX – XII", "SMART & WARM")),
+    ("seniors", 5.0, 8.15, "poster", "poster-tracksuit-tall", 0, "zoom", ("Warm & Smart", "PREMIUM FLEECE TRACKSUIT")),
     ("jacket", 8.15, 12.1, "video", "jacket", 3.55, "slideL", "DAV Winter Jacket"),
-    ("juniors", 12.1, 14.55, "poster", "poster-35-kids", 0, "slideUp", ("Class III – V", "DAV SCHOOL UNIFORM")),
+    ("juniors", 12.1, 14.55, "poster", "poster-tracksuit-wide", 0, "slideUp", ("DAV Tracksuit", "SIZE 22–34 · FLEECE FABRIC")),
     ("uniformset", 14.55, 18.2, "poster", "poster-68-kids", 0, "zoom", ("Class VI – VIII", "")),
     ("blazer", 18.2, 20.9, "video", "blazer", 0.6, "slideL", "DAV Blazer"),
     ("jacketfront", 20.9, 25.1, "photo", "jacket-front", 0, "zoom", "Winter Essentials"),
