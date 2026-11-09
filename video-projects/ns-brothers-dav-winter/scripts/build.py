@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generates index.html for the NS Brothers DAV winter-uniform reel.
+"""Generates index.html for the NS Brothers DAV winter-uniform reel (Apple-UI styling).
 
 All timings are seconds on the voiceover (assets/voiceover.mp3, 68.52s).
 Edit the tables below and re-run: python3 scripts/build.py
@@ -18,29 +18,29 @@ def ov(sid):
 
 # (id, start, end, kind, source, media_start, transition, tag)
 #   kind: video | tour (store-tour clip, cropped to hide burned-in badge/watermark)
-#         photo | poster | textcard | address | phone | brand
-#   poster tag = (big label, small label); textcard tag = (headline, subline)
+#         photo | poster | textcard | maps | call | outro
+#   poster tag = (big label, small label); textcard tag = (kicker, headline, subline)
 SCENES = [
     ("storefront", 0.0, 5.0, "video", "storefront", 0.0, None, None),
-    ("seniors", 5.0, 8.15, "poster", "poster-912-kids", 0, "fade", ("CLASS IX – XII", "SMART & WARM")),
+    ("seniors", 5.0, 8.15, "poster", "poster-912-kids", 0, "zoom", ("Class IX – XII", "SMART & WARM")),
     ("jacket", 8.15, 12.1, "video", "jacket", 3.55, "slideL", "DAV Winter Jacket"),
-    ("juniors", 12.1, 14.55, "poster", "poster-35-kids", 0, "slideUp", ("CLASS III – V", "DAV SCHOOL UNIFORM")),
-    ("uniformset", 14.55, 18.2, "poster", "poster-68-kids", 0, "fade", ("CLASS VI – VIII", "")),
+    ("juniors", 12.1, 14.55, "poster", "poster-35-kids", 0, "slideUp", ("Class III – V", "DAV SCHOOL UNIFORM")),
+    ("uniformset", 14.55, 18.2, "poster", "poster-68-kids", 0, "zoom", ("Class VI – VIII", "")),
     ("blazer", 18.2, 20.9, "video", "blazer", 0.6, "slideL", "DAV Blazer"),
-    ("jacketfront", 20.9, 25.1, "photo", "jacket-front", 0, "fade", "Winter Essentials"),
-    ("sweaters", 25.1, 27.3, "poster", "poster-sweaters", 0, "slideUp", ("HALF & FULL SLEEVE", "NAVY BLUE · WOOL")),
+    ("jacketfront", 20.9, 25.1, "photo", "jacket-front", 0, "zoom", "Winter Essentials"),
+    ("sweaters", 25.1, 27.3, "poster", "poster-sweaters", 0, "slideUp", ("Half & Full Sleeve", "NAVY BLUE · WOOL")),
     ("tracksuit", 27.3, 28.8, "video", "tracksuit", 1.2, "slideL", None),
-    ("caps", 28.8, 30.3, "textcard", "shot-everything", 0, "slideL", ("Winter Caps", "Warm · Comfortable · School-ready")),
-    ("nurkids", 30.3, 34.6, "poster", "poster-nur-kids", 0, "fade", ("CLASS NUR – II", "WARM & SMART")),
+    ("caps", 28.8, 30.3, "textcard", "shot-everything", 0, "slideL", ("STYLISH", "Winter Caps.", "Warm. Comfortable. School-ready.")),
+    ("nurkids", 30.3, 34.6, "poster", "poster-nur-kids", 0, "zoom", ("Class Nur – II", "WARM & SMART")),
     ("oneroof", 34.6, 36.6, "tour", "shot-oneroof", 0, "slideR", None),
     ("shoes", 36.6, 38.4, "tour", "shot-shoes", 0, "slideL", None),
-    ("counter", 38.4, 42.7, "tour", "shot-counter", 0, "fade", None),
+    ("counter", 38.4, 42.7, "tour", "shot-counter", 0, "zoom", None),
     ("recap", 42.7, 46.45, "tour", "shot-everything", 0, "slideUp", None),
-    ("shopping", 46.45, 49.4, "tour", "shot-shopping", 0, "fade", None),
+    ("shopping", 46.45, 49.4, "tour", "shot-shopping", 0, "zoom", None),
     ("visit", 49.4, 51.45, "video", "storefront", 3.65, "slideUp", None),
-    ("address", 51.45, 54.45, "address", None, 0, "fade", None),
-    ("phone", 54.45, 64.75, "phone", None, 0, "slideUp", None),
-    ("brand", 64.75, DURATION, "brand", None, 0, "fade", None),
+    ("address", 51.45, 54.45, "maps", None, 0, "zoom", None),
+    ("phone", 54.45, 64.75, "call", None, 0, "slideUp", None),
+    ("brand", 64.75, DURATION, "outro", None, 0, "zoom", None),
 ]
 
 # Phrase captions — text from the script, timed to the voiceover.
@@ -61,18 +61,18 @@ CAPTIONS = [
     (49.55, 51.4, "Aaj hi visit karein *NS Brothers!*"),
 ]
 
-# Big item labels — land exactly on the spoken word, over the matching shot.
+# Item widgets — land exactly on the spoken word, over the matching shot.
 ITEMS = [
-    ("sweaters", 25.9, "WINTER SWEATERS"),
-    ("tracksuit", 27.35, "FLEECE TRACKSUITS"),
-    ("shoes", 37.4, "SHOES & SOCKS"),
+    ("sweaters", 25.9, "Winter Sweaters", "Half & full sleeve · Wool"),
+    ("tracksuit", 27.35, "Fleece Tracksuits", "Warm · Sky blue & navy"),
+    ("shoes", 37.4, "Shoes & Socks", "Comfortable · Everyday"),
 ]
 
-# Chip rows that build word by word: (scene id, heading, [(time, label), ...])
+# Reminders-style checklists that tick word by word: (scene id, heading, [(time, label), ...])
 CHIPS = [
     ("uniformset", "Complete D.A.V. Uniform",
      [(15.0, "Shirt"), (15.88, "Tie"), (16.35, "Trousers"), (16.96, "Blazer"), (17.68, "Skirt")]),
-    ("recap", "Is Winter",
+    ("recap", "This Winter",
      [(43.45, "Uniform"), (44.4, "Sweater"), (45.0, "Shoes"), (45.8, "Cap")]),
 ]
 
@@ -82,16 +82,38 @@ ADDRESS_LINES = [
     (53.92, "Gaya, Bihar"),
 ]
 
-BRAND_WORDS = [(66.13, "Quality"), (66.85, "Style"), (67.6, "Trust")]
+BRAND_WORDS = [(66.13, "Quality."), (66.85, "Style."), (67.6, "Trust.")]
 
 # (src, start, duration, volume)
 SFX = (
-    [("whoosh.mp3", s[1] - ov(s[0]), 0.6, 0.18) for s in SCENES[1:] if s[0] not in QUICK]
-    + [("pop.mp3", t - 0.05, 0.7, 0.25) for _, t, _ in ITEMS]
+    [("whoosh.mp3", s[1] - ov(s[0]), 0.6, 0.16) for s in SCENES[1:] if s[0] not in QUICK]
+    + [("pop.mp3", t - 0.05, 0.7, 0.25) for _, t, _, _ in ITEMS]
     + [("pop.mp3", 28.85, 0.7, 0.25)]
     + [("pop.mp3", t - 0.03, 0.7, 0.16) for _, _, chips in CHIPS for t, _ in chips]
-    + [("sparkle.mp3", 51.5, 2.0, 0.3), ("slam.mp3", 64.85, 1.2, 0.22), ("pop.mp3", 0.25, 0.7, 0.35)]
+    + [("sparkle.mp3", 51.5, 2.0, 0.3), ("slam.mp3", 64.85, 1.2, 0.2), ("pop.mp3", 0.3, 0.7, 0.35)]
 )
+
+CHECK_SVG = '<svg width="30" height="30" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+SNOW_SVG = ('<svg width="54" height="54" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">'
+            '<path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7M9 4l3 2 3-2M9 20l3-2 3 2"/></svg>')
+PHONE_SVG = ('<svg width="80" height="80" viewBox="0 0 24 24"><path fill="#fff" d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 '
+             '11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1z"/></svg>')
+MSG_SVG = ('<svg width="76" height="76" viewBox="0 0 24 24"><path fill="#fff" d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.6 3.4 6L4.5 21l4.2-2.3c1 .2 2.1.3 3.3.3 '
+           '5.5 0 10-3.6 10-8s-4.5-8-10-8z"/></svg>')
+
+
+def streets_svg():
+    # Hand-placed street grid in Apple Maps dark style; deterministic.
+    minor = [(0, 260, 1080, 300), (0, 980, 1080, 940), (120, 0, 180, 1920), (860, 0, 820, 1920), (0, 1240, 1080, 1290),
+             (360, 0, 330, 1100), (700, 300, 740, 1300), (0, 420, 1080, 470)]
+    major = [(0, 640, 1080, 640), (540, 0, 540, 1300), (0, 120, 1080, 820)]
+    blocks = "".join(f'<line x1="{a}" y1="{b}" x2="{c}" y2="{d}" stroke="#2a3149" stroke-width="22"/>' for a, b, c, d in minor)
+    roads = "".join(f'<line x1="{a}" y1="{b}" x2="{c}" y2="{d}" stroke="#3b4566" stroke-width="44"/>' for a, b, c, d in major)
+    park = '<rect x="600" y="700" width="230" height="200" rx="30" fill="#1f3a2c"/><rect x="190" y="320" width="130" height="90" rx="20" fill="#26304a"/>'
+    labels = ('<text x="80" y="620" fill="#8b95b3" font-family="Inter" font-weight="600" font-size="30">Chandauthi More</text>'
+              '<text x="575" y="200" fill="#8b95b3" font-family="Inter" font-weight="600" font-size="28" transform="rotate(90 575 200)">Gaya Road</text>'
+              '<text x="620" y="810" fill="#6fae8a" font-family="Inter" font-weight="600" font-size="26">Park</text>')
+    return f'<svg class="streets" width="1080" height="1920" viewBox="0 0 1080 1920">{park}{blocks}{roads}{labels}</svg>'
 
 
 def fmt(t):
@@ -114,6 +136,8 @@ def scene_html(i, sc):
     track = 1 + (i % 2)
     z = 10 + i
     timed = f'data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track}"'
+    clip_attrs = f'data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track + 2}"'
+    tag_html = (f'<span class="tdot"></span>{tag}') if isinstance(tag, str) else ""
     body = ""
     if kind in ("video", "tour"):
         crop = " tour" if kind == "tour" else ""
@@ -121,21 +145,18 @@ def scene_html(i, sc):
             f'<div class="kb" id="kb-{sid}"><div class="crop{crop}">'
             f'<video id="v-{sid}" src="assets/{src}-hd.mp4" {timed} data-media-start="{fmt(mstart)}" muted playsinline></video>'
             f"</div></div>"
-            f'<div class="shade clip" id="sh-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track + 2}"></div>'
+            f'<div class="shade clip" id="sh-{sid}" {clip_attrs}></div>'
         )
         if tag:
-            body += (
-                f'<div class="tag clip" id="tag-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track + 4}">'
-                f"{tag}</div>"
-            )
+            body += f'<div class="tag glass-lite clip" id="tag-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track + 4}">{tag_html}</div>'
     elif kind == "textcard":
-        head, sub = tag
+        kicker, head, sub = tag
         body = (
             f'<div class="kb" id="kb-{sid}"><div class="crop tour blurred">'
             f'<video id="v-{sid}" src="assets/{src}-hd.mp4" {timed} data-media-start="{fmt(mstart)}" muted playsinline></video>'
             f"</div></div>"
-            f'<div class="clip textcard" id="tc-{sid}" data-start="{fmt(cs)}" data-duration="{fmt(dur)}" data-track-index="{track + 2}">'
-            f'<div class="tc-kicker" id="tck-{sid}">STYLISH</div>'
+            f'<div class="clip textcard" id="tc-{sid}" {clip_attrs}>'
+            f'<div class="tc-kicker" id="tck-{sid}">{kicker}</div>'
             f'<div class="tc-head" id="tch-{sid}">{head}</div>'
             f'<div class="tc-sub" id="tcs-{sid}">{sub}</div></div>'
         )
@@ -144,7 +165,7 @@ def scene_html(i, sc):
             f'<div class="clip photo" id="p-{sid}" {timed}>'
             f'<div class="kb" id="kb-{sid}"><img src="assets/{src}.jpg" alt=""></div>'
             f'<div class="shade"></div>'
-            f'<div class="tag" id="tag-{sid}">{tag}</div></div>'
+            f'<div class="tag glass-lite" id="tag-{sid}">{tag_html}</div></div>'
         )
     elif kind == "poster":
         cls, sub = tag
@@ -153,51 +174,60 @@ def scene_html(i, sc):
             f'<div class="clip poster" id="p-{sid}" {timed}>'
             f'<img class="poster-bg" src="assets/{src}.jpg" alt="">'
             f'<div class="poster-content">'
-            f'<div class="pill school" id="ps-{sid}">DAV PUBLIC SCHOOL · GAYA JI</div>'
+            f'<div class="pill glass-lite" id="ps-{sid}">DAV PUBLIC SCHOOL · GAYA JI</div>'
             f'<div class="card" id="pc-{sid}"><img src="assets/{src}.jpg" alt=""></div>'
             f'<div class="poster-label" id="pl-{sid}"><span class="cls">{cls}</span>{sub_html}</div>'
             f"</div></div>"
         )
-    elif kind == "address":
+    elif kind == "maps":
         lines = "".join(
             f'<div class="addr-line" id="al{j}"><span class="dot"></span>{t}</div>' for j, (_, t) in enumerate(ADDRESS_LINES)
         )
         body = (
-            f'<div class="clip graphic address" id="g-{sid}" {timed}>'
-            f'<div class="addr-content">'
-            f'<svg id="pin" viewBox="0 0 100 130" width="170" height="221"><path d="M50 4C25 4 6 23 6 48c0 33 44 76 44 76s44-43 44-76C94 23 75 4 50 4z" fill="#A9D2F5"/><circle cx="50" cy="48" r="17" fill="#0A1236"/></svg>'
-            f'<div class="visit" id="ad-visit">VISIT</div>'
-            f'<div class="brand" id="ad-brand">NS BROTHERS</div>'
-            f'<div class="city" id="ad-city">GAYA</div>'
+            f'<div class="clip maps" id="g-{sid}" {timed}>'
+            f'<div class="kb" id="kb-{sid}">{streets_svg()}'
+            f'<div class="pin-wrap"><div class="pulse" id="pulse"></div>'
+            f'<svg id="pin" width="140" height="190" viewBox="0 0 140 190"><path d="M70 186L52 128h36z" fill="#ff453a"/>'
+            f'<circle cx="70" cy="70" r="64" fill="#ff453a" stroke="#fff" stroke-width="6"/>'
+            f'<text x="70" y="88" text-anchor="middle" fill="#fff" font-family="Inter" font-weight="800" font-size="50">NS</text></svg></div>'
+            f'<div class="map-label" id="map-label">NS Brothers</div></div>'
+            f'<div class="sheet" id="sheet"><div class="grabber"></div>'
+            f'<div class="sh-title">NS Brothers</div><div class="sh-sub">School Uniform Store · Open today</div>'
             f'<div class="addr-lines">{lines}</div>'
-            f"</div></div>"
+            f'<div class="directions" id="directions">Directions</div></div>'
+            f"</div>"
         )
-    elif kind == "phone":
+    elif kind == "call":
         body = (
-            f'<div class="clip graphic phone" id="g-{sid}" {timed}>'
-            f'<div class="ph-content">'
-            f'<div class="ph-call" id="ph-info">ZYADA JAANKARI KE LIYE</div>'
-            f'<div class="ph-brand" id="ph-ns">CALL</div><div class="ph-brand" id="ph-bro">NOW</div>'
-            f'<div class="ph-num" id="ph-n1">+91 94708 54055</div>'
-            f'<div class="ph-num" id="ph-n2">+91 75418 54737</div>'
-            f'<div class="ph-addr" id="ph-addr">NS Brothers · Chandauthi More, Gaya</div>'
-            f"</div></div>"
+            f'<div class="clip graphic" id="g-{sid}" {timed}>'
+            f'<div class="call" id="call">'
+            f'<div class="call-info" id="ph-info">Zyada jaankari ke liye</div>'
+            f'<div class="avatar" id="ph-avatar">NS</div>'
+            f'<div class="call-name" id="ph-name">NS Brothers</div>'
+            f'<div class="call-sub" id="ph-sub">School Dress · Gaya</div>'
+            f'<div class="num-list glass" id="ph-list">'
+            f'<div class="num-row" id="ph-n1"><span class="num-k">mobile</span><span class="num-v">+91 94708 54055</span></div>'
+            f'<div class="num-row" id="ph-n2"><span class="num-k">mobile</span><span class="num-v">+91 75418 54737</span></div></div>'
+            f'<div class="call-btns" id="ph-btns">'
+            f'<div><div class="cbtn msg"><div class="face">{MSG_SVG}</div></div><div class="cbtn-label">Message</div></div>'
+            f'<div><div class="cbtn dial"><div class="ring" id="ring"></div><div class="face">{PHONE_SVG}</div></div><div class="cbtn-label">Call</div></div>'
+            f"</div></div></div>"
         )
-    elif kind == "brand":
-        words = "".join(
-            f'<span class="bw" id="bw{j}">{w}</span>' + ('<span class="bdot">·</span>' if j < len(BRAND_WORDS) - 1 else "")
-            for j, (_, w) in enumerate(BRAND_WORDS)
-        )
+    elif kind == "outro":
+        words = "".join(f'<span class="bw" id="bw{j}">{w}</span>' for j, (_, w) in enumerate(BRAND_WORDS))
         body = (
-            f'<div class="clip graphic brandcard" id="g-{sid}" {timed}>'
-            f'<div class="ph-content">'
-            f'<div class="ph-brand" id="br-ns">NS</div><div class="ph-brand" id="br-bro">BROTHERS</div>'
+            f'<div class="clip graphic" id="g-{sid}" {timed}>'
+            f'<div class="outro" id="outro">'
+            f'<div class="keynote" id="br-ns">NS Brothers.</div>'
             f'<div class="br-words">{words}</div>'
-            f'<div class="ph-sd" id="br-sd">SCHOOL DRESS</div>'
-            f'<div class="ph-addr" id="br-addr">Chandauthi More, Gaya</div>'
+            f'<div class="br-meta" id="br-meta">School Dress · Chandauthi More, Gaya</div>'
             f"</div></div>"
         )
     return f'<div class="scene" id="w-{sid}" style="z-index:{z}">{body}</div>'
+
+
+def blur_in(sel, t, y=24, dur=0.6):
+    return f"tl.from('{sel}', {{y:{y}, opacity:0, filter:'blur(14px)', duration:{dur}, ease:'power3.out'}}, {t:.2f});"
 
 
 def build():
@@ -205,30 +235,37 @@ def build():
     scenes = "\n      ".join(scene_html(i, s) for i, s in enumerate(SCENES))
 
     title = (
-        '<div class="clip title" id="title" data-start="0" data-duration="5" data-track-index="9" style="z-index:12">'
-        '<div class="t-ns" id="t-ns">NS BROTHERS</div>'
-        '<div class="t-sd" id="t-sd">SCHOOL DRESS · GAYA</div>'
-        '<div class="t-dav" id="t-dav">D.A.V. WINTER UNIFORM 2026-27</div></div>'
+        '<div class="clip notif glass" id="notif" data-start="0" data-duration="5" data-track-index="9">'
+        '<div class="app-icon">NS</div><div class="nf-text">'
+        '<div class="nf-top"><span class="nf-app">NS Brothers</span><span class="nf-time">now</span></div>'
+        '<div class="nf-body">D.A.V. Winter Uniform 2026-27 is now in store</div></div></div>'
     )
     caps = "\n      ".join(
         f'<div class="caption clip" id="cap{i}" data-start="{fmt(s)}" data-duration="{fmt(e - s)}" data-track-index="20">'
-        f'<span class="cap-box">{caption_html(t)}</span></div>'
+        f'<span class="cap-box glass-lite">{caption_html(t)}</span></div>'
         for i, (s, e, t) in enumerate(CAPTIONS)
     )
     items = "\n      ".join(
         f'<div class="item clip" id="item-{sid}" data-start="{fmt(t)}" '
         f'data-duration="{fmt(by_id[sid][2] - t)}" data-track-index="{21 + n % 2}">'
-        f'<span class="item-box">{label}</span></div>'
-        for n, (sid, t, label) in enumerate(ITEMS)
+        f'<div class="item-box glass"><div class="item-icon">{SNOW_SVG}</div>'
+        f'<div class="item-txt"><span class="item-title">{label}</span><span class="item-sub">{sub}</span></div></div></div>'
+        for n, (sid, t, label, sub) in enumerate(ITEMS)
     )
-    chips = "\n      ".join(
-        f'<div class="chips clip" id="chips-{sid}" data-start="{fmt(by_id[sid][1])}" '
-        f'data-duration="{fmt(by_id[sid][2] - by_id[sid][1])}" data-track-index="{23 + n}">'
-        f'<div class="chips-head" id="chh-{sid}">{head}</div><div class="chip-row">'
-        + "".join(f'<span class="chip" id="chip-{sid}-{j}">{label}</span>' for j, (_, label) in enumerate(row))
-        + "</div></div>"
-        for n, (sid, head, row) in enumerate(CHIPS)
-    )
+    lists = []
+    for n, (sid, head, row) in enumerate(CHIPS):
+        dim = '<div class="dim"></div>' if sid == "recap" else ""
+        rows = "".join(
+            f'<div class="cl-row" id="clr-{sid}-{j}"><div class="cl-circle"><div class="cl-fill" id="clf-{sid}-{j}">{CHECK_SVG}</div></div>'
+            f'<span class="cl-label">{label}</span></div>'
+            for j, (_, label) in enumerate(row)
+        )
+        lists.append(
+            f'<div class="clip" id="list-{sid}" data-start="{fmt(by_id[sid][1])}" data-duration="{fmt(by_id[sid][2] - by_id[sid][1])}" '
+            f'data-track-index="{23 + n}" style="position:absolute;inset:0;z-index:205">{dim}'
+            f'<div class="checklist glass" id="chips-{sid}"><div class="cl-head" id="chh-{sid}">{head}</div>{rows}</div></div>'
+        )
+    chips = "\n      ".join(lists)
     audio = "\n      ".join(
         f'<audio id="sfx{i}" src="assets/{s}" data-start="{fmt(max(st, 0))}" data-duration="{fmt(d)}" '
         f'data-track-index="{40 + i % 4}" data-volume="{v}"></audio>'
@@ -238,72 +275,71 @@ def build():
     # Timeline JS
     js = []
     trans = {
-        "slideL": ("{x:1080, filter:'blur(10px)'}", "{x:0, filter:'blur(0px)'}", "power2.inOut"),
-        "slideR": ("{x:-1080, filter:'blur(10px)'}", "{x:0, filter:'blur(0px)'}", "power2.inOut"),
-        "slideUp": ("{y:1920, filter:'blur(10px)'}", "{y:0, filter:'blur(0px)'}", "power2.inOut"),
-        "fade": ("{scale:1.08, opacity:0}", "{scale:1, opacity:1}", "sine.inOut"),
+        "slideL": ("{x:1080, filter:'blur(8px)'}", "{x:0, filter:'blur(0px)'}", "power3.inOut"),
+        "slideR": ("{x:-1080, filter:'blur(8px)'}", "{x:0, filter:'blur(0px)'}", "power3.inOut"),
+        "slideUp": ("{y:1920, filter:'blur(8px)'}", "{y:0, filter:'blur(0px)'}", "power3.inOut"),
+        "zoom": ("{scale:0.88, opacity:0, filter:'blur(16px)'}", "{scale:1, opacity:1, filter:'blur(0px)'}", "power3.out"),
     }
     for i, (sid, start, end, kind, src, ms, tr, tag) in enumerate(SCENES):
         cs = start if i == 0 else start - ov(sid)
         if tr:
             frm, to, ease = trans[tr]
-            js.append(f"tl.fromTo('#w-{sid}', {frm}, {{...{to}, duration:{ov(sid)}, ease:'{ease}'}}, {cs:.2f});")
-            js.append(f"tl.fromTo('#flash', {{opacity:0}}, {{opacity:0.08, duration:0.15, yoyo:true, repeat:1, ease:'sine.inOut'{'' if i == 1 else ', immediateRender:false'}}}, {start - 0.15:.2f});")
-        if kind in ("video", "tour", "photo", "textcard"):
+            js.append(f"tl.fromTo('#w-{sid}', {frm}, {{...{to}, duration:{ov(sid) + 0.1:.2f}, ease:'{ease}'}}, {cs:.2f});")
+        if kind in ("video", "tour", "photo", "textcard", "maps"):
             js.append(f"tl.fromTo('#kb-{sid}', {{scale:1}}, {{scale:1.07, duration:{end - cs:.2f}, ease:'none'}}, {cs:.2f});")
-            if tag and kind != "textcard":
-                js.append(f"tl.from('#tag-{sid}', {{x:-40, opacity:0, duration:0.6, ease:'power2.out'}}, {start + 0.15:.2f});")
+        if isinstance(tag, str):
+            js.append(f"tl.from('#tag-{sid}', {{x:-30, opacity:0, filter:'blur(10px)', duration:0.6, ease:'back.out(1.4)'}}, {start + 0.15:.2f});")
         if kind == "textcard":
-            js.append(f"tl.from('#tck-{sid}', {{y:20, opacity:0, duration:0.4, ease:'power2.out'}}, {start - 0.05:.2f});")
-            js.append(f"tl.from('#tch-{sid}', {{y:30, opacity:0, duration:0.45, ease:'power2.out'}}, {start + 0.05:.2f});")
-            js.append(f"tl.from('#tcs-{sid}', {{y:20, opacity:0, duration:0.4, ease:'power2.out'}}, {start + 0.35:.2f});")
+            js.append(blur_in(f"#tck-{sid}", start - 0.05, 16, 0.5))
+            js.append(f"tl.from('#tch-{sid}', {{scale:0.86, opacity:0, filter:'blur(20px)', duration:0.6, ease:'power3.out'}}, {start + 0.05:.2f});")
+            js.append(blur_in(f"#tcs-{sid}", start + 0.35, 16, 0.5))
         if kind == "poster":
-            js.append(f"tl.from('#ps-{sid}', {{y:-60, opacity:0, duration:0.4, ease:'power3.out'}}, {start + 0.05:.2f});")
-            js.append(f"tl.fromTo('#pc-{sid}', {{rotation:-1.5}}, {{rotation:1, scale:1.04, duration:{end - cs:.2f}, ease:'none'}}, {cs:.2f});")
-            js.append(f"tl.from('#pl-{sid}', {{y:40, opacity:0, duration:0.5, ease:'power2.out'}}, {start + 0.15:.2f});")
+            js.append(blur_in(f"#ps-{sid}", start + 0.05, -20, 0.5))
+            js.append(f"tl.fromTo('#pc-{sid}', {{scale:0.94}}, {{scale:1.03, duration:{end - cs:.2f}, ease:'power1.out'}}, {cs:.2f});")
+            js.append(blur_in(f"#pl-{sid}", start + 0.15, 30, 0.6))
 
     js += [
-        # opener title
-        "tl.from('#t-ns', {y:30, opacity:0, duration:0.8, ease:'power2.out'}, 0.25);",
-        "tl.from('#t-sd', {y:30, opacity:0, duration:0.4, ease:'power2.out'}, 0.7);",
-        "tl.from('#t-dav', {y:20, opacity:0, duration:0.6, ease:'power2.out'}, 3.0);",
-        # address
-        "tl.from('#pin', {y:-400, duration:0.6, ease:'bounce.out'}, 51.3);",
-        "tl.from('#ad-visit', {opacity:0, y:20, duration:0.3, ease:'power2.out'}, 51.45);",
-        "tl.from('#ad-brand', {opacity:0, y:30, duration:0.4, ease:'power2.out'}, 51.5);",
-        "tl.from('#ad-city', {opacity:0, y:30, duration:0.5, ease:'power2.out'}, 51.7);",
-        "tl.fromTo('#pin', {rotation:-4}, {rotation:4, duration:1.0, yoyo:true, repeat:2, ease:'sine.inOut'}, 51.9);",
+        # opener: iOS notification
+        "tl.from('#notif', {y:-300, scale:0.92, opacity:0, duration:0.8, ease:'back.out(1.3)'}, 0.3);",
+        # maps
+        "tl.from('#pin', {y:-500, duration:0.7, ease:'bounce.out'}, 51.2);",
+        "tl.fromTo('#pulse', {scale:0.3, opacity:0.9}, {scale:1.5, opacity:0, duration:0.9, repeat:2, ease:'power1.out'}, 51.85);",
+        "tl.from('#map-label', {opacity:0, y:14, duration:0.4, ease:'power2.out'}, 51.8);",
+        "tl.from('#sheet', {y:900, duration:0.7, ease:'power3.out'}, 51.4);",
+        "tl.from('#directions', {scale:0.9, opacity:0, duration:0.5, ease:'back.out(1.8)'}, 52.4);",
     ]
     for j, (t, _) in enumerate(ADDRESS_LINES):
-        js.append(f"tl.from('#al{j}', {{x:-80, opacity:0, duration:0.45, ease:'power2.out'}}, {t:.2f});")
+        js.append(blur_in(f"#al{j}", t, 16, 0.5))
     js += [
-        # phone
-        "tl.from('#ph-info', {opacity:0, y:24, duration:0.5, ease:'power2.out'}, 54.55);",
-        "tl.from('#ph-ns', {y:-120, opacity:0, duration:0.6, ease:'power3.out'}, 55.0);",
-        "tl.from('#ph-bro', {y:120, opacity:0, duration:0.6, ease:'power3.out'}, 55.15);",
-        "tl.from('#ph-n1', {y:30, opacity:0, duration:0.5, ease:'power2.out'}, 56.95);",
-        "tl.from('#ph-n2', {y:30, opacity:0, duration:0.5, ease:'power2.out'}, 61.0);",
-        "tl.from('#ph-addr', {opacity:0, y:20, duration:0.4, ease:'power2.out'}, 61.8);",
-        "tl.fromTo('#g-phone .ph-content', {scale:1}, {scale:1.04, duration:10.75, ease:'none'}, 54.0);",
-        # brand outro
-        "tl.from('#br-ns', {y:-120, opacity:0, duration:0.6, ease:'power3.out'}, 64.8);",
-        "tl.from('#br-bro', {y:120, opacity:0, duration:0.6, ease:'power3.out'}, 64.95);",
-        "tl.from('#br-sd', {y:20, opacity:0, duration:0.5, ease:'power2.out'}, 68.0);",
-        "tl.from('#br-addr', {opacity:0, y:20, duration:0.4, ease:'power2.out'}, 68.2);",
-        "tl.from('.bdot', {opacity:0, duration:0.3, stagger:0.7}, 66.5);",
-        "tl.fromTo('#g-brand .ph-content', {scale:1}, {scale:1.04, duration:4.9, ease:'none'}, 64.3);",
+        # call screen
+        blur_in("#ph-info", 54.55, 16, 0.5),
+        "tl.from('#ph-avatar', {scale:0.6, opacity:0, duration:0.7, ease:'back.out(1.7)'}, 54.8);",
+        blur_in("#ph-name", 55.05, 20, 0.6),
+        blur_in("#ph-sub", 55.3, 14, 0.5),
+        "tl.from('#ph-list', {y:60, opacity:0, scale:0.96, duration:0.6, ease:'power3.out'}, 56.6);",
+        blur_in("#ph-n1 .num-v", 56.95, 16, 0.5),
+        blur_in("#ph-n2 .num-v", 61.0, 16, 0.5),
+        "tl.from('#ph-btns', {y:80, opacity:0, duration:0.7, ease:'back.out(1.5)'}, 61.9);",
+        "tl.fromTo('#ring', {scale:1, opacity:0.8}, {scale:1.7, opacity:0, duration:1.1, repeat:2, ease:'power1.out'}, 62.4);",
+        "tl.fromTo('#call', {scale:1}, {scale:1.03, duration:10.3, ease:'none'}, 54.45);",
+        # keynote outro
+        "tl.from('#br-ns', {scale:0.88, opacity:0, filter:'blur(24px)', duration:0.9, ease:'power3.out'}, 64.75);",
+        blur_in("#br-meta", 68.0, 14, 0.5),
+        "tl.fromTo('#outro', {scale:1}, {scale:1.04, duration:4.45, ease:'none'}, 64.75);",
         f"tl.to('#fade', {{opacity:1, duration:0.45, ease:'power1.in'}}, {DURATION - 0.5:.2f});",
     ]
     for j, (t, _) in enumerate(BRAND_WORDS):
-        js.append(f"tl.from('#bw{j}', {{y:24, opacity:0, duration:0.45, ease:'power2.out'}}, {t:.2f});")
+        js.append(blur_in(f"#bw{j}", t, 20, 0.55))
     for i, (s, e, t) in enumerate(CAPTIONS):
-        js.append(f"tl.from('#cap{i} .cap-box', {{y:24, opacity:0, duration:0.45, ease:'power2.out'}}, {s:.2f});")
-    for sid, t, _ in ITEMS:
-        js.append(f"tl.from('#item-{sid} .item-box', {{y:30, opacity:0, duration:0.35, ease:'power2.out'}}, {t:.2f});")
+        js.append(blur_in(f"#cap{i} .cap-box", s, 20, 0.5))
+    for sid, t, _, _ in ITEMS:
+        js.append(f"tl.from('#item-{sid} .item-box', {{y:80, scale:0.9, opacity:0, filter:'blur(12px)', duration:0.55, ease:'back.out(1.5)'}}, {t:.2f});")
     for sid, _, row in CHIPS:
-        js.append(f"tl.from('#chh-{sid}', {{y:20, opacity:0, duration:0.4, ease:'power2.out'}}, {by_id[sid][1]:.2f});")
+        s0 = by_id[sid][1]
+        js.append(f"tl.from('#chips-{sid}', {{y:120, opacity:0, scale:0.95, duration:0.6, ease:'back.out(1.3)'}}, {s0 - 0.2:.2f});")
         for j, (t, _) in enumerate(row):
-            js.append(f"tl.from('#chip-{sid}-{j}', {{y:24, opacity:0, duration:0.35, ease:'power2.out'}}, {t - 0.05:.2f});")
+            js.append(f"tl.from('#clr-{sid}-{j}', {{x:-30, opacity:0, duration:0.35, ease:'power2.out'}}, {s0 + 0.05 * j:.2f});")
+            js.append(f"tl.from('#clf-{sid}-{j}', {{scale:0, duration:0.4, ease:'back.out(2.4)'}}, {t - 0.05:.2f});")
     js.append(f"tl.set({{}}, {{}}, {DURATION});")
 
     template = Path(__file__).with_name("template.html").read_text()
