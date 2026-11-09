@@ -60,7 +60,8 @@
         content: ""; position: absolute; width: 22px; height: 22px; border-radius: 50%;
         top: -12px; left: 369px; background: #fff4dc; box-shadow: 0 0 22px 6px #e8b54a;
       }
-      .ing { top: 1400px; }
+      .ing { top: 1470px; }
+      #ing-scrim { position: absolute; z-index: 29; left: 0; top: 1240px; width: 1080px; height: 680px; background: linear-gradient(180deg, rgba(26,15,8,0) 0%, rgba(26,15,8,0.82) 45%, rgba(26,15,8,0.92) 100%); }
       .ing .name {
         font-family: "Playfair Display", serif; font-style: italic; font-weight: 600; font-size: 104px;
       }
@@ -142,6 +143,7 @@
         <div class="cream" id="sy-3">FALLING.</div>
       </div>
 
+      <div id="ing-scrim" class="clip" data-start="13.2" data-duration="3.65" data-track-index="5"></div>
       <div id="ring-wrap" class="ov clip" data-start="13.2" data-duration="3.65" data-track-index="3"><div id="ring"></div></div>
       <div id="ing-1" class="ov ing clip" data-start="13.2" data-duration="1.05" data-track-index="4"><div class="name gold">Rosemary</div><div class="idx">01 / 04</div></div>
       <div id="ing-2" class="ov ing clip" data-start="14.25" data-duration="0.85" data-track-index="4"><div class="name gold">Bhringraj</div><div class="idx">02 / 04</div></div>
@@ -204,16 +206,16 @@
         // ---------- transition helpers (motion masks every cut) ----------
         const W = (id) => "#w-" + id;
         function whip(outSel, inSel, T, dir) {
-          tl.to(outSel, { y: dir * 300, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
-          tl.fromTo(inSel, { y: -dir * 300, filter: "blur(22px)" }, { y: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+          tl.to(outSel, { y: dir * 300, scale: 1.25, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
+          tl.fromTo(inSel, { y: -dir * 300, scale: 1.25, filter: "blur(22px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
         }
         function whipX(outSel, inSel, T, dir) {
-          tl.to(outSel, { x: dir * 320, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
-          tl.fromTo(inSel, { x: -dir * 320, filter: "blur(22px)" }, { x: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+          tl.to(outSel, { x: dir * 320, scale: 1.4, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
+          tl.fromTo(inSel, { x: -dir * 320, scale: 1.4, filter: "blur(22px)" }, { x: 0, scale: 1, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
         }
         function zoom(outSel, inSel, T) {
           tl.to(outSel, { scale: 1.28, filter: "blur(16px)", duration: 0.16, ease: "power2.in" }, T - 0.16);
-          tl.fromTo(inSel, { scale: 0.86, filter: "blur(16px)" }, { scale: 1, filter: "blur(0px)", duration: 0.26, ease: "expo.out" }, T);
+          tl.fromTo(inSel, { scale: 1.22, filter: "blur(16px)" }, { scale: 1, filter: "blur(0px)", duration: 0.26, ease: "expo.out" }, T);
         }
         function flash(T, peak) {
           tl.fromTo("#flash", { opacity: 0 }, { opacity: peak, duration: 0.12, ease: "power2.in", immediateRender: false }, T - 0.12);
@@ -226,7 +228,7 @@
         tl.fromTo("#card", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 5.15);
         // card -> product: vertical whip down
         tl.to("#card", { y: 320, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, 7.36);
-        tl.fromTo(W("c03"), { y: -320, filter: "blur(22px)" }, { y: 0, filter: "blur(0px)", duration: 0.26, ease: "power3.out" }, 7.5);
+        tl.fromTo(W("c03"), { y: -320, scale: 1.25, filter: "blur(22px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: 0.26, ease: "power3.out" }, 7.5);
         zoom(W("c03"), W("c04"), 9.6);
         whip(W("c04"), W("c05"), 10.55, 1);
         flash(13.2, 0.75);
@@ -264,6 +266,8 @@
           tl.from(sel + " .name", { y: 36, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: i % 2 ? "power3.out" : "expo.out" }, t);
           tl.from(sel + " .idx", { opacity: 0, scaleX: 1.4, duration: 0.3, ease: "power2.out" }, t + 0.06);
         });
+        tl.from("#ing-scrim", { opacity: 0, duration: 0.3, ease: "power1.out" }, 13.2);
+        tl.to("#ing-scrim", { opacity: 0, duration: 0.14, ease: "power2.in" }, 16.71);
         tl.to("#ring", { scale: 1.6, opacity: 0, filter: "blur(10px)", duration: 0.16, ease: "power2.in" }, 16.69);
         tl.to("#ing-4", { y: 200, opacity: 0, filter: "blur(16px)", duration: 0.14, ease: "power2.in" }, 16.71);
 
