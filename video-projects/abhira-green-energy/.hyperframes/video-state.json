@@ -1,7 +1,7 @@
 {
   "version": 1,
   "historyId": "4f9bb8b8-d40c-43c8-904b-a47e970e8310",
-  "currentRevision": "2262920c-f322-491e-afc4-0d7d44669540",
+  "currentRevision": "3f050219-a42f-4c53-9e94-61e383782163",
   "pendingChanges": false,
   "files": {
     "DESIGN.md": {
@@ -29,8 +29,8 @@
       "content": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/35/35b0024a3bd37a01d5914b80775243432b11727f67577c9fa5d7a8ef92315013"
     },
     "edit-data/build.py": {
-      "hash": "96176ead9d778ec40f157344385e3557896d0aa9649a824df6b2faaceef393bb",
-      "content": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/96/96176ead9d778ec40f157344385e3557896d0aa9649a824df6b2faaceef393bb"
+      "hash": "d8781a8241ddc4b5751a72ffdc52775e187dc116fbe1e6af3a5c260c6c9683f3",
+      "content": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/d8/d8781a8241ddc4b5751a72ffdc52775e187dc116fbe1e6af3a5c260c6c9683f3"
     },
     "edit-data/cuts.txt": {
       "hash": "ef3e0ecfe69d7d014aa7e0a0883abf40bde2a27711d81c2fabca0b6aea75dbd0",
@@ -53,8 +53,8 @@
       "content": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
     },
     "index.html": {
-      "hash": "d81c06b471058db9583b946f109e3b2945f2122d434780c7fc3f1d1971f960f5",
-      "content": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/d8/d81c06b471058db9583b946f109e3b2945f2122d434780c7fc3f1d1971f960f5"
+      "hash": "db4413e22a52722e1b370784e94104aebd7b428cfe00a1822fc73be3adc3a685",
+      "content": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/db/db4413e22a52722e1b370784e94104aebd7b428cfe00a1822fc73be3adc3a685"
     },
     "meta.json": {
       "hash": "8660b4a02b031f3ff7b10c65c2dae570f1f793071799d2a0f0316de238341e2b",
@@ -190,6 +190,25 @@
           "after": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/d8/d81c06b471058db9583b946f109e3b2945f2122d434780c7fc3f1d1971f960f5"
         }
       }
+    },
+    "3f050219-a42f-4c53-9e94-61e383782163": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1794239629843,
+      "endedAt": 1794239631845,
+      "files": {
+        "edit-data/build.py": {
+          "before": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/96/96176ead9d778ec40f157344385e3557896d0aa9649a824df6b2faaceef393bb",
+          "after": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/d8/d8781a8241ddc4b5751a72ffdc52775e187dc116fbe1e6af3a5c260c6c9683f3"
+        },
+        "index.html": {
+          "before": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/d8/d81c06b471058db9583b946f109e3b2945f2122d434780c7fc3f1d1971f960f5",
+          "after": "/root/.cache/hyperframes/history/4f9bb8b8-d40c-43c8-904b-a47e970e8310/blobs/db/db4413e22a52722e1b370784e94104aebd7b428cfe00a1822fc73be3adc3a685"
+        }
+      }
     }
   },
   "checks": {
@@ -204,15 +223,15 @@
   },
   "renders": {
     "latest": {
-      "id": "5b2b8482-54d5-44c2-89b3-3e14c58721d5",
-      "completedAt": 1794239300365,
-      "output": "/workspace/Hyperframes-colton.ai.dean/video-projects/abhira-green-energy/renders/abhira-draft.mp4",
+      "id": "0d99e2b7-1639-401b-8e92-806cb95befc2",
+      "completedAt": 1794240177140,
+      "output": "/workspace/Hyperframes-colton.ai.dean/video-projects/abhira-green-energy/renders/abhira-final.mp4",
       "status": "completed",
-      "revision": "2262920c-f322-491e-afc4-0d7d44669540"
+      "revision": "3f050219-a42f-4c53-9e94-61e383782163"
     },
     "retainedRevisions": [
-      "2262920c-f322-491e-afc4-0d7d44669540",
-      "6a493a4e-b6ff-4109-bded-52c54e85a923"
+      "3f050219-a42f-4c53-9e94-61e383782163",
+      "2262920c-f322-491e-afc4-0d7d44669540"
     ]
   },
   "pendingArtifactCleanup": []
