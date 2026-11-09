@@ -59,9 +59,9 @@
       .poster-label .sub { color: var(--sky); font-weight: 600; font-size: 34px; letter-spacing: 4px; }
 
       /* iOS notification (opener) */
-      .notif { position: absolute; top: 120px; left: 40px; right: 40px; display: flex; gap: 28px; align-items: center;
+      .notif { position: absolute; top: 270px; left: 40px; right: 40px; display: flex; gap: 28px; align-items: center;
         padding: 30px 34px; border-radius: 52px; z-index: 215; }
-      .app-icon { flex: none; width: 112px; height: 112px; border-radius: 26px; background: linear-gradient(160deg, #22379c, #0a1236);
+      .app-icon { flex: none; width: 112px; height: 112px; border-radius: 26px; background: #fff;
         display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 800; font-size: 46px; letter-spacing: -1px;
         border: 1.5px solid rgba(255,255,255,0.25); }
       .nf-text { flex: 1; display: flex; flex-direction: column; gap: 6px; }
@@ -135,7 +135,7 @@
       /* iPhone call screen */
       .call { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; padding: 200px 60px 0; }
       .call-info { font-weight: 600; font-size: 36px; letter-spacing: 6px; color: var(--sky); text-transform: uppercase; }
-      .avatar { margin-top: 70px; width: 260px; height: 260px; border-radius: 50%; background: linear-gradient(160deg, #6d7a99, #3a4560);
+      .avatar { margin-top: 70px; width: 260px; height: 260px; border-radius: 50%; background: #fff;
         display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 110px; color: var(--white); }
       .call-name { margin-top: 40px; font-weight: 700; font-size: 92px; letter-spacing: -3px; color: var(--white); }
       .call-sub { font-weight: 500; font-size: 40px; color: var(--label-2); margin-top: 6px; }
@@ -159,6 +159,10 @@
       .br-words .bw:nth-child(2) { color: var(--sky); }
       .br-meta { margin-top: 70px; font-weight: 500; font-size: 38px; color: var(--label-2); }
 
+      /* Persistent brand logo, top-right */
+      #logo { position: absolute; top: 56px; right: 48px; width: 170px; height: 170px; border-radius: 50%; z-index: 250;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 0 4px rgba(255,255,255,0.85); }
+      .app-icon img, .avatar img { width: 100%; height: 100%; border-radius: inherit; display: block; }
       #flash { position: absolute; inset: 0; background: var(--white); opacity: 0; z-index: 300; pointer-events: none; }
       #fade { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 310; pointer-events: none; }
     </style>
@@ -169,6 +173,7 @@
       {{TITLE}}
       {{CAPTIONS}}
       {{ITEMS}}
+      <img id="logo" class="clip" src="assets/logo.png" alt="" data-start="0" data-duration="{{DURATION}}" data-track-index="26">
       <div id="flash"></div>
       <div id="fade"></div>
       <audio id="vo" src="assets/voiceover.mp3" data-start="0" data-duration="{{VO_DURATION}}" data-track-index="30" data-volume="1"></audio>

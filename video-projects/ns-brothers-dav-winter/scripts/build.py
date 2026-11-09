@@ -202,7 +202,7 @@ def scene_html(i, sc):
             f'<div class="clip graphic" id="g-{sid}" {timed}>'
             f'<div class="call" id="call">'
             f'<div class="call-info" id="ph-info">Zyada jaankari ke liye</div>'
-            f'<div class="avatar" id="ph-avatar">NS</div>'
+            f'<div class="avatar" id="ph-avatar"><img src="assets/logo.png" alt=""></div>'
             f'<div class="call-name" id="ph-name">NS Brothers</div>'
             f'<div class="call-sub" id="ph-sub">School Dress · Gaya</div>'
             f'<div class="num-list glass" id="ph-list">'
@@ -236,7 +236,7 @@ def build():
 
     title = (
         '<div class="clip notif glass" id="notif" data-start="0" data-duration="5" data-track-index="9">'
-        '<div class="app-icon">NS</div><div class="nf-text">'
+        '<div class="app-icon"><img src="assets/logo.png" alt=""></div><div class="nf-text">'
         '<div class="nf-top"><span class="nf-app">NS Brothers</span><span class="nf-time">now</span></div>'
         '<div class="nf-body">D.A.V. Winter Uniform 2026-27 is now in store</div></div></div>'
     )
@@ -300,6 +300,7 @@ def build():
 
     js += [
         # opener: iOS notification
+        "tl.from('#logo', {scale:0.6, opacity:0, filter:'blur(10px)', duration:0.7, ease:'back.out(1.6)'}, 0.15);",
         "tl.from('#notif', {y:-300, scale:0.92, opacity:0, duration:0.8, ease:'back.out(1.3)'}, 0.3);",
         # maps
         "tl.from('#pin', {y:-500, duration:0.7, ease:'bounce.out'}, 51.2);",
