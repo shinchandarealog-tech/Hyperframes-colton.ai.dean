@@ -179,7 +179,26 @@ Upload them to one Google Drive folder and send me the link. I'll pull them stra
 
 ---
 
-## 6. What I build in the edit (so you know what *not* to generate)
+## 6. Voiceover: yes, short and intimate
+
+**Voice:** female, late 20s to early 30s, warm and close to the mic, like a friend, not an announcer. Hushed and empathetic on the hook, confident by the CTA. About 55 words in 30s, leaving room to breathe.
+
+| Time | English | Hinglish |
+|---|---|---|
+| 0.0–2.0 | Still finding this… every morning? | Roz subah… yehi dekhti ho? |
+| 2.0–4.0 | Thin. Weak. Falling. | Patle. Kamzor. Jhadte baal. |
+| 4.0–5.5 | The truth? It starts at the root. | Asli problem? Jadon mein hai. |
+| 5.5–8.5 | Auravedic Hair Growth Serum. | Auravedic Hair Growth Serum. |
+| 8.5–13.5 | Just a few drops, massaged into your scalp. | Bas kuch drops, scalp pe halke haathon se massage. |
+| 13.5–17.5 | Rosemary. Bhringraj. Anagain. Procapil. | Rosemary. Bhringraj. Anagain. Procapil. |
+| 17.5–20.5 | Going deep, to feed every root. | Seedha jadon tak, har root ko nourish kare. |
+| 20.5–24.5 | *(no VO: music swells, let the smile land)* | *(no VO)* |
+| 24.5–27.0 | Stronger roots. Fuller hair. | Strong roots. Fuller hair. |
+| 27.0–30.0 | Shop now at auravedic.com. | Abhi order karein, auravedic.com pe. |
+
+**How to record:** ElevenLabs (best Hindi/Hinglish voices; export WAV), or record on your phone in a quiet room with soft furnishings, 15cm from the mouth, 3 takes. I'll clean it, time it to the cuts and mix it over the music.
+
+## 7. What I build in the edit (so you know what *not* to generate)
 
 - All kinetic typography: the hook line, THIN/WEAK/FALLING, IT STARTS AT THE ROOT, ingredient names, STRONGER ROOTS/FULLER HAIR, URL/CTA
 - Real-label composite on P1/P2 if Veo warps it
