@@ -14,29 +14,12 @@
       .push { position: absolute; inset: 0; transform-origin: 50% 50%; }
       .shot video { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
 
-      /* ---------- type card ---------- */
-      #card {
-        position: absolute; inset: 0; z-index: 20;
-        background: radial-gradient(ellipse 70% 45% at 50% 50%, #5a3414 0%, #2a170b 45%, #1a0f08 80%);
-      }
-      #card .scene-content {
-        width: 100%; height: 100%; padding: 0 90px;
-        display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 28px;
-        text-align: center;
-      }
-      #card .q { font-family: "Bebas Neue", sans-serif; font-size: 104px; letter-spacing: 0.04em; color: #f3e6cf; }
       .gold {
         font-family: "Bebas Neue", sans-serif; color: #e8b54a;
         background: linear-gradient(180deg, #fff4dc 0%, #f1cf7a 38%, #e8b54a 55%, #a8721f 100%);
         -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         filter: drop-shadow(0 0 18px rgba(232, 181, 74, 0.45)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
       }
-      #card .a { font-size: 178px; line-height: 0.92; letter-spacing: 0.02em; }
-      #card .flare {
-        position: absolute; left: 140px; right: 140px; top: 1160px; height: 4px; border-radius: 4px;
-        background: radial-gradient(ellipse at center, #fff4dc 0%, #e8b54a 35%, rgba(232, 181, 74, 0) 75%);
-      }
-      .pt { position: absolute; border-radius: 50%; background: #f1cf7a; box-shadow: 0 0 10px #e8b54a; }
 
       /* ---------- overlay type ---------- */
       .ov { position: absolute; z-index: 30; left: 0; width: 1080px; text-align: center; }
@@ -70,6 +53,8 @@
         letter-spacing: 0.32em; color: #f3e6cf; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
       }
 
+      #rootline { top: 250px; display: flex; flex-direction: column; align-items: center; }
+      #rootline div { font-size: 150px; line-height: 0.95; letter-spacing: 0.03em; }
       #feeds { top: 300px; }
       #feeds div { font-size: 132px; letter-spacing: 0.03em; line-height: 1; }
 
@@ -106,30 +91,28 @@
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="30" data-width="1080" data-height="1920">
       <!-- ================= FOOTAGE (track 1, sequential) ================= -->
-      <div class="shot" id="w-c01" style="z-index:1"><div class="push"><video id="c01" data-start="0" data-duration="2.2" data-media-start="1.2" data-track-index="1" src="assets/c01.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c02" style="z-index:2"><div class="push"><video id="c02" data-start="2.2" data-duration="2.95" data-media-start="2.2" data-track-index="1" src="assets/c02.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c03" style="z-index:3"><div class="push"><video id="c03" data-start="7.5" data-duration="2.1" data-media-start="2.3" data-track-index="1" src="assets/c03.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c04" style="z-index:4"><div class="push"><video id="c04" data-start="9.6" data-duration="0.95" data-media-start="3.0" data-track-index="1" src="assets/c04.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c05" style="z-index:5"><div class="push"><video id="c05" data-start="10.55" data-duration="2.65" data-media-start="0.9" data-track-index="1" src="assets/c05.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c06" style="z-index:6"><div class="push"><video id="c06" data-start="13.2" data-duration="1.05" data-media-start="0.5" data-track-index="1" src="assets/c06.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c07" style="z-index:7"><div class="push"><video id="c07" data-start="14.25" data-duration="0.85" data-media-start="0.5" data-track-index="1" src="assets/c07.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c08" style="z-index:8"><div class="push"><video id="c08" data-start="15.1" data-duration="0.75" data-media-start="0.5" data-track-index="1" src="assets/c08.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c09" style="z-index:9"><div class="push"><video id="c09" data-start="15.85" data-duration="1.0" data-media-start="0.5" data-track-index="1" src="assets/c09.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c10" style="z-index:10"><div class="push"><video id="c10" data-start="16.85" data-duration="3.05" data-media-start="2.6" data-track-index="1" src="assets/c10.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c11" style="z-index:11"><div class="push"><video id="c11" data-start="19.9" data-duration="1.35" data-media-start="4.0" data-track-index="1" src="assets/c11.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c12" style="z-index:12"><div class="push"><video id="c12" data-start="21.25" data-duration="1.2" data-media-start="3.6" data-track-index="1" src="assets/c12.mp4" muted playsinline></video></div></div>
-      <div class="shot" id="w-c13" style="z-index:13"><div class="push"><video id="c13" data-start="22.45" data-duration="7.55" data-media-start="0" data-track-index="1" src="assets/c13x.mp4" muted playsinline></video></div></div>
-
-      <!-- ================= TYPE CARD: IT STARTS AT THE ROOT ================= -->
-      <div id="card" class="clip" data-start="5.15" data-duration="2.35" data-track-index="2">
-        <div id="particles"></div>
-        <div class="flare"></div>
-        <div class="scene-content">
-          <div class="q" id="card-q">THE REAL PROBLEM?</div>
-          <div class="gold a" id="card-a1">IT STARTS</div>
-          <div class="gold a" id="card-a2">AT THE ROOT.</div>
-        </div>
-      </div>
+      <div class="shot" id="w-s01" style="z-index:1"><div class="push" style="transform-origin:50% 50%"><video id="s01" data-start="0.0" data-duration="2.2" data-media-start="1.2" data-track-index="1" src="assets/c01.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s02" style="z-index:2"><div class="push" style="transform-origin:50% 45%"><video id="s02" data-start="2.2" data-duration="0.98" data-media-start="2.2" data-track-index="1" src="assets/c02.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s03" style="z-index:3"><div class="push" style="transform-origin:50% 40%"><video id="s03" data-start="3.18" data-duration="0.94" data-media-start="3.4" data-track-index="1" src="assets/c02.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s04" style="z-index:4"><div class="push" style="transform-origin:50% 38%"><video id="s04" data-start="4.12" data-duration="1.03" data-media-start="4.4" data-track-index="1" src="assets/c02.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s05" style="z-index:5"><div class="push" style="transform-origin:50% 55%"><video id="s05" data-start="5.15" data-duration="1.25" data-media-start="0.3" data-track-index="1" src="assets/c05.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s06" style="z-index:6"><div class="push" style="transform-origin:50% 60%"><video id="s06" data-start="6.4" data-duration="1.1" data-media-start="0.0" data-track-index="1" src="assets/c10.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s07" style="z-index:7"><div class="push" style="transform-origin:50% 50%"><video id="s07" data-start="7.5" data-duration="0.84" data-media-start="2.3" data-track-index="1" src="assets/c03.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s08" style="z-index:8"><div class="push" style="transform-origin:50% 62%"><video id="s08" data-start="8.34" data-duration="1.26" data-media-start="3.6" data-track-index="1" src="assets/c03.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s09" style="z-index:9"><div class="push" style="transform-origin:50% 50%"><video id="s09" data-start="9.6" data-duration="0.95" data-media-start="3.0" data-track-index="1" src="assets/c04.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s10" style="z-index:10"><div class="push" style="transform-origin:50% 50%"><video id="s10" data-start="10.55" data-duration="1.35" data-media-start="0.9" data-track-index="1" src="assets/c05.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s11" style="z-index:11"><div class="push" style="transform-origin:50% 45%"><video id="s11" data-start="11.9" data-duration="1.3" data-media-start="2.3" data-track-index="1" src="assets/c05.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s12" style="z-index:12"><div class="push" style="transform-origin:50% 50%"><video id="s12" data-start="13.2" data-duration="1.05" data-media-start="0.5" data-track-index="1" src="assets/c06.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s13" style="z-index:13"><div class="push" style="transform-origin:50% 50%"><video id="s13" data-start="14.25" data-duration="0.85" data-media-start="0.5" data-track-index="1" src="assets/c07.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s14" style="z-index:14"><div class="push" style="transform-origin:50% 50%"><video id="s14" data-start="15.1" data-duration="0.75" data-media-start="0.5" data-track-index="1" src="assets/c08.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s15" style="z-index:15"><div class="push" style="transform-origin:50% 50%"><video id="s15" data-start="15.85" data-duration="1.0" data-media-start="0.5" data-track-index="1" src="assets/c09.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s16" style="z-index:16"><div class="push" style="transform-origin:50% 50%"><video id="s16" data-start="16.85" data-duration="1.65" data-media-start="2.6" data-track-index="1" src="assets/c10.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s17" style="z-index:17"><div class="push" style="transform-origin:40% 70%"><video id="s17" data-start="18.5" data-duration="1.4" data-media-start="4.3" data-track-index="1" src="assets/c10.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s18" style="z-index:18"><div class="push" style="transform-origin:50% 50%"><video id="s18" data-start="19.9" data-duration="1.35" data-media-start="4.0" data-track-index="1" src="assets/c11.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s19" style="z-index:19"><div class="push" style="transform-origin:50% 50%"><video id="s19" data-start="21.25" data-duration="1.2" data-media-start="3.6" data-track-index="1" src="assets/c12.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s20" style="z-index:20"><div class="push" style="transform-origin:50% 50%"><video id="s20" data-start="22.45" data-duration="1.55" data-media-start="0.0" data-track-index="1" src="assets/c13x.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s21" style="z-index:21"><div class="push" style="transform-origin:50% 55%"><video id="s21" data-start="24.0" data-duration="0.9" data-media-start="4.6" data-track-index="1" src="assets/c03.mp4" muted playsinline></video></div></div>
+      <div class="shot" id="w-s22" style="z-index:22"><div class="push" style="transform-origin:50% 50%"><video id="s22" data-start="24.9" data-duration="5.1" data-media-start="2.5" data-track-index="1" src="assets/c13x.mp4" muted playsinline></video></div></div>
 
       <!-- ================= OVERLAY TYPE ================= -->
       <div id="hook" class="ov clip" data-start="0.15" data-duration="2.05" data-track-index="3">
@@ -141,6 +124,11 @@
         <div class="cream" id="sy-1">THIN.</div>
         <div class="cream" id="sy-2">WEAK.</div>
         <div class="cream" id="sy-3">FALLING.</div>
+      </div>
+
+      <div id="rootline" class="ov clip" data-start="6.4" data-duration="1.1" data-track-index="3">
+        <div class="gold" id="rl-1">IT STARTS</div>
+        <div class="gold" id="rl-2">AT THE ROOT.</div>
       </div>
 
       <div id="ing-scrim" class="clip" data-start="13.2" data-duration="3.65" data-track-index="5"></div>
@@ -176,69 +164,95 @@
         window.__timelines = window.__timelines || {};
         const tl = gsap.timeline({ paused: true });
 
-        // ---------- seeded particles for the type card ----------
-        function mulberry32(a) { return function () { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
-        const rnd = mulberry32(85);
-        const pc = document.getElementById("particles");
-        for (let i = 0; i < 46; i++) {
-          const d = document.createElement("div");
-          const s = 3 + rnd() * 7;
-          d.className = "pt";
-          d.style.width = d.style.height = s + "px";
-          d.style.left = rnd() * 1080 + "px";
-          d.style.top = 200 + rnd() * 1520 + "px";
-          d.style.opacity = (0.35 + rnd() * 0.6).toFixed(2);
-          pc.appendChild(d);
-          tl.fromTo(d, { y: 0 }, { y: -(80 + rnd() * 160), x: (rnd() - 0.5) * 60, duration: 2.35, ease: "none" }, 5.15);
-        }
-
-        // ---------- slow push-in on every shot ----------
+        // ---------- slow push-in on every shot (from its framing scale) ----------
         const shots = [
-          ["c01", 0, 2.2], ["c02", 2.2, 2.95], ["c03", 7.5, 2.1], ["c04", 9.6, 0.95], ["c05", 10.55, 2.65],
-          ["c06", 13.2, 1.05], ["c07", 14.25, 0.85], ["c08", 15.1, 0.75], ["c09", 15.85, 1.0], ["c10", 16.85, 3.05],
-          ["c11", 19.9, 1.35], ["c12", 21.25, 1.2], ["c13", 22.45, 7.55],
+          ["s01", 0.0, 2.2, 1.0],
+          ["s02", 2.2, 0.98, 1.0],
+          ["s03", 3.18, 0.94, 1.25],
+          ["s04", 4.12, 1.03, 1.45],
+          ["s05", 5.15, 1.25, 1.3],
+          ["s06", 6.4, 1.1, 1.0],
+          ["s07", 7.5, 0.84, 1.0],
+          ["s08", 8.34, 1.26, 1.35],
+          ["s09", 9.6, 0.95, 1.0],
+          ["s10", 10.55, 1.35, 1.0],
+          ["s11", 11.9, 1.3, 1.2],
+          ["s12", 13.2, 1.05, 1.0],
+          ["s13", 14.25, 0.85, 1.0],
+          ["s14", 15.1, 0.75, 1.0],
+          ["s15", 15.85, 1.0, 1.0],
+          ["s16", 16.85, 1.65, 1.0],
+          ["s17", 18.5, 1.4, 1.3],
+          ["s18", 19.9, 1.35, 1.0],
+          ["s19", 21.25, 1.2, 1.0],
+          ["s20", 22.45, 1.55, 1.0],
+          ["s21", 24.0, 0.9, 1.15],
+          ["s22", 24.9, 5.1, 1.0],
         ];
-        shots.forEach(([id, s, d]) => {
-          const amt = id === "c13" ? 1.05 : 1.07;
-          tl.fromTo("#w-" + id + " .push", { scale: 1.0 }, { scale: amt, duration: d, ease: "none" }, s);
+        shots.forEach(([id, s, d, b]) => {
+          tl.fromTo("#w-" + id + " .push", { scale: b }, { scale: b * 1.07, duration: d, ease: "none" }, s);
         });
 
-        // ---------- transition helpers (motion masks every cut) ----------
+        // ---------- transition library (motion masks every cut) ----------
         const W = (id) => "#w-" + id;
-        function whip(outSel, inSel, T, dir) {
-          tl.to(outSel, { y: dir * 300, scale: 1.25, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
-          tl.fromTo(inSel, { y: -dir * 300, scale: 1.25, filter: "blur(22px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+        function flashAt(T, peak, up = 0.1, down = 0.35) {
+          tl.fromTo("#flash", { opacity: 0 }, { opacity: peak, duration: up, ease: "power2.in", immediateRender: false }, T - up);
+          tl.to("#flash", { opacity: 0, duration: down, ease: "power2.out" }, T);
         }
-        function whipX(outSel, inSel, T, dir) {
-          tl.to(outSel, { x: dir * 320, scale: 1.4, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
-          tl.fromTo(inSel, { x: -dir * 320, scale: 1.4, filter: "blur(22px)" }, { x: 0, scale: 1, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+        function zoom(o, i, T) {
+          tl.to(o, { scale: 1.28, filter: "blur(16px)", duration: 0.16, ease: "power2.in" }, T - 0.16);
+          tl.fromTo(i, { scale: 1.22, filter: "blur(16px)" }, { scale: 1, filter: "blur(0px)", duration: 0.26, ease: "expo.out" }, T);
         }
-        function zoom(outSel, inSel, T) {
-          tl.to(outSel, { scale: 1.28, filter: "blur(16px)", duration: 0.16, ease: "power2.in" }, T - 0.16);
-          tl.fromTo(inSel, { scale: 1.22, filter: "blur(16px)" }, { scale: 1, filter: "blur(0px)", duration: 0.26, ease: "expo.out" }, T);
+        function zoomthru(o, i, T) {
+          tl.to(o, { scale: 2.4, filter: "blur(26px)", duration: 0.22, ease: "power3.in" }, T - 0.22);
+          tl.fromTo(i, { scale: 1.5, filter: "blur(22px)" }, { scale: 1, filter: "blur(0px)", duration: 0.4, ease: "expo.out" }, T);
+          flashAt(T, 0.35, 0.08, 0.25);
         }
-        function flash(T, peak) {
-          tl.fromTo("#flash", { opacity: 0 }, { opacity: peak, duration: 0.12, ease: "power2.in", immediateRender: false }, T - 0.12);
-          tl.to("#flash", { opacity: 0, duration: 0.4, ease: "power2.out" }, T);
+        function punch(o, i, T) {
+          tl.to(o, { scale: 1.08, duration: 0.08, ease: "power2.in" }, T - 0.08);
+          tl.fromTo(i, { scale: 1.12, filter: "blur(8px)" }, { scale: 1, filter: "blur(0px)", duration: 0.2, ease: "expo.out" }, T);
+          flashAt(T, 0.22, 0.04, 0.16);
+        }
+        function whip(o, i, T) {
+          tl.to(o, { y: 300, scale: 1.25, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
+          tl.fromTo(i, { y: -300, scale: 1.25, filter: "blur(22px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+        }
+        function whipx(o, i, T, dir = -1) {
+          tl.to(o, { x: dir * 320, scale: 1.4, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, T - 0.14);
+          tl.fromTo(i, { x: -dir * 320, scale: 1.4, filter: "blur(22px)" }, { x: 0, scale: 1, filter: "blur(0px)", duration: 0.24, ease: "power3.out" }, T);
+        }
+        const whipxr = (o, i, T) => whipx(o, i, T, 1);
+        function spin(o, i, T) {
+          tl.to(o, { rotation: 12, scale: 1.45, filter: "blur(20px)", duration: 0.15, ease: "power2.in" }, T - 0.15);
+          tl.fromTo(i, { rotation: -12, scale: 1.45, filter: "blur(20px)" }, { rotation: 0, scale: 1, filter: "blur(0px)", duration: 0.28, ease: "power3.out" }, T);
+        }
+        function flash(o, i, T) {
+          tl.to(o, { scale: 1.15, filter: "blur(10px)", duration: 0.12, ease: "power2.in" }, T - 0.12);
+          tl.fromTo(i, { scale: 1.1 }, { scale: 1, duration: 0.4, ease: "expo.out" }, T);
+          flashAt(T, 0.85, 0.12, 0.4);
         }
 
-        zoom(W("c01"), W("c02"), 2.2);
-        // into the type card: zoom-out + soft gold flash
-        tl.to(W("c02"), { scale: 1.3, filter: "blur(18px)", duration: 0.18, ease: "power2.in" }, 4.97);
-        tl.fromTo("#card", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 5.15);
-        // card -> product: vertical whip down
-        tl.to("#card", { y: 320, filter: "blur(22px)", duration: 0.14, ease: "power2.in" }, 7.36);
-        tl.fromTo(W("c03"), { y: -320, scale: 1.25, filter: "blur(22px)" }, { y: 0, scale: 1, filter: "blur(0px)", duration: 0.26, ease: "power3.out" }, 7.5);
-        zoom(W("c03"), W("c04"), 9.6);
-        whip(W("c04"), W("c05"), 10.55, 1);
-        flash(13.2, 0.75);
-        zoom(W("c06"), W("c07"), 14.25);
-        zoom(W("c07"), W("c08"), 15.1);
-        zoom(W("c08"), W("c09"), 15.85);
-        whip(W("c09"), W("c10"), 16.85, 1);
-        flash(19.9, 0.85);
-        whipX(W("c11"), W("c12"), 21.25, -1);
-        flash(22.45, 0.9);
+        zoom(W("s01"), W("s02"), 2.2);
+        punch(W("s02"), W("s03"), 3.18);
+        punch(W("s03"), W("s04"), 4.12);
+        whip(W("s04"), W("s05"), 5.15);
+        zoomthru(W("s05"), W("s06"), 6.4);
+        flash(W("s06"), W("s07"), 7.5);
+        punch(W("s07"), W("s08"), 8.34);
+        zoom(W("s08"), W("s09"), 9.6);
+        whip(W("s09"), W("s10"), 10.55);
+        spin(W("s10"), W("s11"), 11.9);
+        flash(W("s11"), W("s12"), 13.2);
+        zoom(W("s12"), W("s13"), 14.25);
+        zoom(W("s13"), W("s14"), 15.1);
+        zoom(W("s14"), W("s15"), 15.85);
+        whip(W("s15"), W("s16"), 16.85);
+        punch(W("s16"), W("s17"), 18.5);
+        flash(W("s17"), W("s18"), 19.9);
+        whipx(W("s18"), W("s19"), 21.25);
+        flash(W("s19"), W("s20"), 22.45);
+        whipxr(W("s20"), W("s21"), 24.0);
+        whipx(W("s21"), W("s22"), 24.9);
 
         // ---------- HOOK (problem = cream) ----------
         tl.from("#hook-1", { y: 40, opacity: 0, filter: "blur(10px)", duration: 0.45, ease: "power3.out" }, 0.15);
@@ -250,14 +264,12 @@
         tl.from("#sy-2", { scale: 1.6, opacity: 0, filter: "blur(16px)", duration: 0.28, ease: "expo.out" }, 3.18);
         tl.from("#sy-3", { y: -60, opacity: 0, filter: "blur(16px)", duration: 0.4, ease: "back.out(1.6)" }, 4.12);
         tl.to("#sy-3", { y: 26, duration: 0.6, ease: "power1.in" }, 4.52);
-        tl.to("#symptoms", { scale: 1.25, opacity: 0, filter: "blur(16px)", duration: 0.18, ease: "power2.in" }, 4.97);
+        tl.to("#symptoms", { y: 260, opacity: 0, filter: "blur(16px)", duration: 0.14, ease: "power2.in" }, 5.01);
 
-        // ---------- CARD: THE REAL PROBLEM? / IT STARTS AT THE ROOT. ----------
-        tl.from("#card-q", { y: 30, opacity: 0, scaleX: 1.25, duration: 0.5, ease: "power3.out" }, 5.3);
-        tl.to("#card-q", { opacity: 0.45, duration: 0.3, ease: "power1.out" }, 6.4);
-        tl.from("#card-a1", { scale: 1.35, opacity: 0, filter: "blur(18px)", duration: 0.35, ease: "expo.out" }, 6.45);
-        tl.from("#card-a2", { y: 50, opacity: 0, filter: "blur(12px)", duration: 0.4, ease: "power4.out" }, 6.75);
-        tl.from("#card .flare", { scaleX: 0, opacity: 0, duration: 0.5, ease: "power2.out" }, 6.75);
+        // ---------- IT STARTS AT THE ROOT (on the roots shot, synced to "Jadon mein hai" 6.54) ----------
+        tl.from("#rl-1", { scale: 1.35, opacity: 0, filter: "blur(18px)", duration: 0.3, ease: "expo.out" }, 6.5);
+        tl.from("#rl-2", { y: 50, opacity: 0, filter: "blur(12px)", duration: 0.32, ease: "power4.out" }, 6.8);
+        tl.to("#rootline", { scale: 1.25, opacity: 0, filter: "blur(16px)", duration: 0.14, ease: "power2.in" }, 7.36);
 
         // ---------- INGREDIENT RING + NAMES (13.24 / 14.34 / 15.18 / 15.90) ----------
         tl.from("#ring", { scale: 0.6, opacity: 0, duration: 0.45, ease: "back.out(1.4)" }, 13.25);
