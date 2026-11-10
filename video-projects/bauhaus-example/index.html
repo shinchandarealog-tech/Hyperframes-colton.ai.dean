@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Jost"; font-weight: 700; src: url(assets/fonts/jost-700.woff2) format("woff2"); }
+      @font-face { font-family: "Jost"; font-weight: 800; src: url(assets/fonts/jost-800.woff2) format("woff2"); }
+      @font-face { font-family: "Jost"; font-weight: 900; src: url(assets/fonts/jost-900.woff2) format("woff2"); }
+      @font-face { font-family: "UnifrakturMaguntia"; font-weight: 400; src: url(assets/fonts/unifraktur-400.woff2) format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #F2EBDD; font-family: "Jost", sans-serif; }
+      .abs { position: absolute; }
+      .full { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+
+      /* ---------- Bauhaus base ---------- */
+      #paper { z-index: 0; background-color: #F2EBDD;
+        background-image: radial-gradient(rgba(0,0,0,.035) 1px, transparent 1px), radial-gradient(rgba(0,0,0,.025) 1px, transparent 1px);
+        background-size: 5px 5px, 7px 7px; background-position: 0 0, 2px 3px; }
+      .gv { position: absolute; top: 0; width: 2px; height: 1920px; background: rgba(17,17,17,.14); z-index: 1; transform-origin: top; }
+      .gh { position: absolute; left: 0; height: 2px; width: 1080px; background: rgba(17,17,17,.14); z-index: 1; transform-origin: left; }
+
+      /* ---------- Act 1: ornate ---------- */
+      #damask { z-index: 2; background: url(assets/damask.jpg) 0 0 / 1242px 2226px no-repeat; }
+      #damaskShade { z-index: 2; background: radial-gradient(ellipse at 50% 45%, rgba(40,10,5,0) 35%, rgba(20,5,2,.75) 100%); }
+
+      /* Speaker stage: video transform never changes, only the clip window does (keeps captions under the chin) */
+      #stage { z-index: 3; clip-path: inset(561px 315px 271px 315px); filter: sepia(.55) saturate(.9) contrast(1.05) brightness(.95); }
+      #thwrap { position: absolute; left: 113px; top: 420px; width: 790px; height: 1404px; }
+      #th, #thLast { position: absolute; left: 0; top: 0; width: 790px; height: 1404px; object-fit: cover; }
+      #thLast { opacity: 0; }
+      #wsWrap { position: absolute; left: 300px; top: 540px; width: 480px; height: 1130px; overflow: hidden; }
+      #ws { position: absolute; left: -60px; top: 0; width: 680px; height: 1300px; object-fit: cover; }
+
+      #winBorder { z-index: 4; left: 150px; top: 420px; width: 780px; height: 1090px; border: 10px solid #111; opacity: 0; }
+
+      .fp { position: absolute; z-index: 5; left: 110px; top: 330px; width: 860px; height: 1541px;
+        background: url(assets/frame.png) 0 0 / 860px 1541px no-repeat; }
+      #fpT { clip-path: inset(0 0 1304px 0); }
+      #fpB { clip-path: inset(1310px 0 0 0); }
+      #fpL { clip-path: inset(237px 645px 231px 0); }
+      #fpR { clip-path: inset(237px 0 231px 645px); }
+
+      /* Act 1 headline slot */
+      #y1919 { z-index: 4; left: 0; top: 40px; width: 1080px; text-align: center; font-family: "UnifrakturMaguntia", serif;
+        font-size: 210px; line-height: 1; color: #D9B45A; text-shadow: 0 6px 0 #2a0a05, 0 10px 30px rgba(0,0,0,.6); }
+      #weimar { z-index: 4; left: 0; top: 262px; width: 1080px; text-align: center; font-family: "Playfair Display", serif; font-style: italic;
+        font-size: 46px; color: #F3DFA8; text-shadow: 0 3px 8px rgba(0,0,0,.8); }
+      #redDot { z-index: 6; left: 380px; top: 30px; width: 320px; height: 320px; border-radius: 50%; background: #E1251B; }
+      #bauhausWord { z-index: 6; left: 0; top: 118px; width: 1080px; text-align: center; font-weight: 900; font-size: 136px; letter-spacing: .02em;
+        line-height: 1; color: #F2EBDD; text-shadow: 7px 7px 0 #111; }
+      #artRow { z-index: 6; left: 0; top: 90px; width: 1080px; height: 200px; display: flex; align-items: center; justify-content: center; gap: 0; }
+      #art { font-family: "Playfair Display", serif; font-style: italic; font-weight: 700; font-size: 132px; color: #D9B45A; text-shadow: 0 5px 14px rgba(0,0,0,.7); }
+      #lineSlot { position: relative; width: 150px; height: 190px; }
+      #goldLine { position: absolute; left: 66px; top: 0; width: 18px; height: 190px; background: #D9B45A; box-shadow: 0 0 18px rgba(217,180,90,.6); transform-origin: top; }
+      #eraser { position: absolute; left: 56px; top: -10px; width: 38px; height: 210px; background: #111; transform-origin: top; }
+      #plus { position: absolute; left: 0; top: 10px; width: 150px; text-align: center; font-weight: 900; font-size: 150px; line-height: 170px; color: #E1251B; text-shadow: 5px 5px 0 #111; }
+      #design { font-weight: 900; font-size: 116px; color: #F2EBDD; letter-spacing: .01em; text-shadow: 6px 6px 0 #111; }
+      #grain { z-index: 10; pointer-events: none; opacity: .5;
+        background-image: radial-gradient(rgba(255,240,200,.06) 1px, transparent 1px), radial-gradient(rgba(0,0,0,.08) 1px, transparent 1px);
+        background-size: 3px 3px, 5px 5px; background-position: 0 0, 1px 2px; }
+
+      /* ---------- Act 2: Bauhaus shapes + headline slot ---------- */
+      .shape { position: absolute; z-index: 6; }
+      #sCircle { left: 45px; top: 405px; width: 190px; height: 190px; border-radius: 50%; background: #E1251B; }
+      #sTri { left: 800px; top: 1130px; width: 0; height: 0; border-left: 125px solid transparent; border-right: 125px solid transparent; border-bottom: 216px solid #F5C400; }
+      #sSquare { left: 75px; top: 1370px; width: 180px; height: 180px; background: #1F4E9C; }
+
+      .hl { position: absolute; z-index: 6; left: 0; width: 1080px; text-align: center; font-weight: 900; text-transform: uppercase; line-height: 1; color: #111; }
+      #hShapes { top: 165px; font-size: 104px; letter-spacing: -.01em; }
+      #hFunction { top: 285px; font-size: 104px; color: #1F4E9C; letter-spacing: -.01em; }
+      #hInfl { top: 175px; font-size: 44px; font-weight: 700; letter-spacing: .32em; }
+      #hModern { top: 240px; font-size: 150px; letter-spacing: -.02em; }
+      #hModern span { display: inline-block; }
+      #hSimp { top: 230px; height: 150px; display: flex; align-items: center; justify-content: center; gap: 34px; font-size: 128px; color: #1F4E9C; }
+      #chk { width: 128px; height: 128px; background: #1F4E9C; position: relative; flex: none; }
+      #chk:after { content: ""; position: absolute; left: 30px; top: 18px; width: 40px; height: 72px; border-right: 18px solid #F2EBDD; border-bottom: 18px solid #F2EBDD; transform: rotate(45deg); }
+      #hCraft { top: 245px; font-size: 102px; letter-spacing: -.02em; }
+      #slash { position: absolute; z-index: 7; left: 40px; top: 285px; width: 1000px; height: 30px; background: #E1251B; transform-origin: left center; transform: rotate(-7deg); }
+      #carveC { z-index: 7; left: 600px; top: 1150px; width: 420px; height: 420px; border-radius: 50%; overflow: hidden; border: 12px solid #111; background: #111; }
+      #carve { position: absolute; left: -40px; top: -60px; width: 500px; height: 890px; object-fit: cover; }
+      #hToday { top: 210px; height: 140px; }
+      #hToday span { display: inline-block; background: #F5C400; padding: 10px 40px 4px; font-size: 120px; box-shadow: 10px 10px 0 #111; }
+      #tiles { z-index: 6; left: 90px; top: 140px; width: 900px; height: 190px; display: flex; gap: 30px; }
+      .tile { width: 280px; height: 190px; border: 8px solid #111; background: #F2EBDD center / cover no-repeat; position: relative; overflow: hidden; }
+      #hProducts { top: 345px; font-size: 56px; letter-spacing: .04em; }
+
+      /* ---------- Panels ---------- */
+      .panel { z-index: 8; background: #F2EBDD; opacity: 0; overflow: hidden; }
+      .panel .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(17,17,17,.10) 2px, transparent 2px), linear-gradient(90deg, rgba(17,17,17,.10) 2px, transparent 2px); background-size: 180px 180px; }
+      /* timeline */
+      #tSirf { left: 0; top: 190px; width: 1080px; text-align: center; font-weight: 700; font-size: 52px; letter-spacing: .3em; color: #111; }
+      #tNum { left: 0; top: 250px; width: 1080px; text-align: center; font-weight: 900; font-size: 330px; line-height: 1; color: #111; font-variant-numeric: tabular-nums; }
+      #tSaal { left: 0; top: 590px; width: 1080px; text-align: center; font-weight: 900; font-size: 64px; letter-spacing: .5em; color: #E1251B; }
+      #tBarBg { left: 180px; top: 780px; width: 720px; height: 14px; background: rgba(17,17,17,.15); }
+      #tBar { left: 180px; top: 780px; width: 720px; height: 14px; background: #111; transform-origin: left; }
+      .tDot { position: absolute; top: 762px; width: 50px; height: 50px; border-radius: 50%; background: #111; }
+      .tYear { position: absolute; top: 835px; width: 200px; text-align: center; font-weight: 800; font-size: 54px; color: #111; }
+      .ring { position: absolute; left: 805px; top: 717px; width: 140px; height: 140px; border-radius: 50%; border: 18px solid #F5C400; opacity: 0; }
+      #tNow { left: 720px; top: 910px; padding: 6px 22px 2px; background: #F5C400; font-weight: 900; font-size: 64px; color: #111; box-shadow: 8px 8px 0 #111; }
+      /* logos */
+      #logoRow { left: 60px; top: 430px; width: 960px; display: flex; justify-content: space-between; }
+      .logo { width: 290px; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+      .mark { width: 220px; height: 220px; position: relative; }
+      .wm { width: 200px; height: 26px; background: #111; }
+      .wm2 { width: 120px; height: 16px; background: rgba(17,17,17,.45); margin-top: -14px; }
+      #m1 { border-radius: 50%; background: #111; overflow: hidden; }
+      #m1:after { content: ""; position: absolute; left: 110px; top: 0; width: 110px; height: 110px; background: #F5C400; }
+      #m2:before { content: ""; position: absolute; left: 35px; top: 35px; width: 150px; height: 150px; background: #1F4E9C; transform: rotate(45deg); }
+      #m2:after { content: ""; position: absolute; left: 85px; top: 85px; width: 50px; height: 50px; border-radius: 50%; background: #F2EBDD; }
+      #m3:before { content: ""; position: absolute; left: 10px; top: 10px; border-left: 100px solid transparent; border-right: 100px solid transparent; border-bottom: 172px solid #E1251B; }
+      #m3:after { content: ""; position: absolute; left: 0; top: 194px; width: 220px; height: 18px; background: #111; }
+      /* scale */
+      #pivot { left: 430px; top: 760px; width: 0; height: 0; border-left: 110px solid transparent; border-right: 110px solid transparent; border-bottom: 200px solid #111; }
+      #beam { left: 110px; top: 738px; width: 860px; height: 24px; background: #111; transform-origin: 430px 12px; }
+      .blk { position: absolute; left: 0; width: 330px; height: 112px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 50px; letter-spacing: .02em; }
+      #bSimp { top: -112px; background: #1F4E9C; color: #F2EBDD; }
+      #bEff { top: -224px; background: #F5C400; color: #111; }
+      #detail { position: absolute; left: 650px; top: -200px; width: 200px; height: 200px; }
+      #detail img { width: 200px; height: 200px; }
+      #detail div { position: absolute; left: 0; top: -58px; width: 200px; text-align: center; font-family: "Playfair Display", serif; font-style: italic; font-weight: 700; font-size: 50px; color: #8A6A1E; }
+
+      /* ---------- Full-screen B-roll (oversized 115% from top-left to push the Flow watermark off-frame) ---------- */
+      .bw { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; z-index: 9; }
+      .bw video { position: absolute; left: 0; top: 0; width: 1242px; height: 2208px; object-fit: cover; }
+      .tag { position: absolute; z-index: 9; left: 80px; top: 300px; padding: 12px 26px 6px; background: #111; color: #F2EBDD; font-weight: 800; font-size: 48px; letter-spacing: .06em; opacity: 0; }
+      .tag b { color: #F5C400; margin-right: 16px; }
+
+      /* ---------- Outro ---------- */
+      #oLine1 { top: 150px; font-size: 76px; letter-spacing: -.01em; }
+      #oLine2 { top: 250px; height: 80px; display: flex; align-items: center; justify-content: center; gap: 22px; font-size: 64px; font-weight: 800; text-transform: none; color: #E1251B; }
+      #oArrow { width: 0; height: 0; border-left: 26px solid transparent; border-right: 26px solid transparent; border-top: 40px solid #111; }
+
+      /* ---------- Captions: one style, fixed just below the chin ---------- */
+      #caps { position: absolute; z-index: 11; left: 65px; top: 1040px; width: 950px; height: 110px; }
+      .cap { position: absolute; left: 0; top: 0; width: 950px; text-align: center; opacity: 0; }
+      .cap span { display: inline-block; background: #F5C400; color: #111; font-weight: 800; font-size: 56px; line-height: 1.1; padding: 10px 24px 6px; box-shadow: 6px 6px 0 #111; }
+
+      #weimar, #redDot, #bauhausWord, #artRow, #plus, .shape, .hl, #slash, #carveC, #tiles, .tag, #winBorder { opacity: 0; }
+      #wipe { z-index: 12; left: 0; top: 0; width: 1080px; height: 1920px; background: #111; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="34" data-width="1080" data-height="1920">
+      <div id="paper" class="full"></div>
+      <div class="gv" style="left:180px"></div><div class="gv" style="left:360px"></div><div class="gv" style="left:540px"></div>
+      <div class="gv" style="left:720px"></div><div class="gv" style="left:900px"></div>
+      <div class="gh" style="top:420px"></div><div class="gh" style="top:1510px"></div>
+
+      <div id="damask" class="full"></div>
+      <div id="damaskShade" class="full"></div>
+
+      <div id="stage" class="full">
+        <div id="thwrap">
+          <video id="th" data-start="0" data-duration="31.06" data-track-index="0" src="assets/talking-head-cut.mp4" muted playsinline></video>
+          <img id="thLast" src="assets/stills/last.jpg" alt="" />
+        </div>
+        <div id="wsWrap">
+          <video id="ws" data-start="0.75" data-duration="1.5" data-media-start="1.2" data-track-index="1" src="assets/workshop.mp4" muted playsinline></video>
+        </div>
+      </div>
+      <div id="winBorder" class="abs"></div>
+
+      <div id="fpT" class="fp"></div><div id="fpB" class="fp"></div><div id="fpL" class="fp"></div><div id="fpR" class="fp"></div>
+
+      <!-- Act 1 headline slot -->
+      <div id="y1919" class="abs">1919</div>
+      <div id="weimar" class="abs">Weimar, Germany</div>
+      <div id="redDot" class="abs"></div>
+      <div id="bauhausWord" class="abs">BAUHAUS</div>
+      <div id="artRow" class="abs">
+        <div id="art">Art</div>
+        <div id="lineSlot"><div id="goldLine"></div><div id="eraser"></div><div id="plus">+</div></div>
+        <div id="design">DESIGN</div>
+      </div>
+
+      <!-- Act 2 shapes + headlines -->
+      <div id="sCircle" class="shape"></div>
+      <div id="sTri" class="shape"></div>
+      <div id="sSquare" class="shape"></div>
+      <div id="hShapes" class="hl">Clean shapes</div>
+      <div id="hFunction" class="hl">+ Function</div>
+      <div id="hInfl" class="hl">Influenced by</div>
+      <div id="hModern" class="hl"></div>
+      <div id="hSimp" class="hl"><div id="chk"></div><div>Simplicity</div></div>
+      <div id="hCraft" class="hl">Craftsmanship</div>
+      <div id="slash" class="abs"></div>
+      <div id="carveC" class="abs">
+        <video id="carve" data-start="15.4" data-duration="2.29" data-media-start="0.6" data-track-index="2" src="assets/carving.mp4" muted playsinline></video>
+      </div>
+      <div id="hToday" class="hl"><span>Aaj</span></div>
+      <div id="tiles" class="abs">
+        <div class="tile" id="tile1" style="background-image:url(assets/stills/laptop.jpg)"></div>
+        <div class="tile" id="tile2"><div style="position:absolute;left:30px;top:45px;width:80px;height:80px;border-radius:50%;background:#E1251B"></div><div style="position:absolute;left:125px;top:45px;width:0;height:0;border-left:40px solid transparent;border-right:40px solid transparent;border-bottom:80px solid #F5C400"></div><div style="position:absolute;left:180px;top:45px;width:76px;height:80px;background:#1F4E9C"></div></div>
+        <div class="tile" id="tile3" style="background-image:url(assets/stills/building.jpg)"></div>
+      </div>
+      <div id="hProducts" class="hl">Products of modernism</div>
+      <div id="oLine1" class="hl">Simplicity jeet gayi.</div>
+      <div id="oLine2" class="hl"><div>Par kya humne kuch khoya?</div><div id="oArrow"></div></div>
+
+      <!-- Panel: 14 years -->
+      <div id="pTime" class="panel full">
+        <div class="grid"></div>
+        <div id="tSirf" class="abs">SIRF</div>
+        <div id="tNum" class="abs">0</div>
+        <div id="tSaal" class="abs">SAAL</div>
+        <div id="tBarBg" class="abs"></div>
+        <div id="tBar" class="abs"></div>
+        <div class="tDot" style="left:155px"></div><div class="tDot" id="tDotEnd" style="left:875px"></div>
+        <div class="tYear" style="left:80px">1919</div><div class="tYear" style="left:800px">1933</div>
+        <div class="ring" id="r1"></div><div class="ring" id="r2"></div><div class="ring" id="r3"></div>
+        <div id="tNow" class="abs">2026</div>
+      </div>
+
+      <!-- Panel: simple logos -->
+      <div id="pLogos" class="panel full">
+        <div class="grid"></div>
+        <div id="logoRow" class="abs">
+          <div class="logo" id="lg1"><div class="mark" id="m1"></div><div class="wm"></div><div class="wm2"></div></div>
+          <div class="logo" id="lg2"><div class="mark" id="m2"></div><div class="wm"></div><div class="wm2"></div></div>
+          <div class="logo" id="lg3"><div class="mark" id="m3"></div><div class="wm"></div><div class="wm2"></div></div>
+        </div>
+      </div>
+
+      <!-- Panel: the balance -->
+      <div id="pScale" class="panel full">
+        <div class="grid"></div>
+        <div id="pivot" class="abs"></div>
+        <div id="beam" class="abs">
+          <div id="bSimp" class="blk">SIMPLICITY</div>
+          <div id="bEff" class="blk">EFFICIENCY</div>
+          <div id="detail"><div>Detail</div><img src="assets/stills/flourish.png" alt="" /></div>
+        </div>
+      </div>
+
+      <!-- Full-screen B-roll -->
+      <div class="bw" id="chairW"><video id="chair" data-start="7.35" data-duration="2.15" data-media-start="1.4" data-track-index="3" src="assets/chair.mp4" muted playsinline></video></div>
+      <div class="bw" id="lapW"><video id="lap" data-start="21.35" data-duration="1.1" data-media-start="2.0" data-track-index="3" src="assets/laptop.mp4" muted playsinline></video></div>
+      <div class="bw" id="bldW"><video id="bld" data-start="23.3" data-duration="1.65" data-media-start="1.6" data-track-index="3" src="assets/building.mp4" muted playsinline></video></div>
+      <div class="tag" id="tag1"><b>01</b>CLEAN LAYOUTS</div>
+      <div class="tag" id="tag2"><b>02</b>SIMPLE LOGOS</div>
+      <div class="tag" id="tag3"><b>03</b>MINIMAL BUILDINGS</div>
+
+      <div id="grain" class="full"></div>
+      <div id="caps"></div>
+      <div id="wipe" class="abs"></div>
+
+      <!-- Audio -->
+      <audio id="voice" data-start="0" data-duration="31.06" data-track-index="10" src="assets/talking-head-cut.mp4" data-volume="1"></audio>
+      <audio id="bed" data-start="0" data-duration="34" data-track-index="11" src="assets/music.mp3" data-volume="0.1"></audio>
+      <audio id="sx1" data-start="2.2" data-duration="1.2" data-track-index="12" src="assets/sfx/slam.mp3" data-volume="0.35"></audio>
+      <audio id="sx2" data-start="5.75" data-duration="1.0" data-track-index="13" src="assets/sfx/swipe.mp3" data-volume="0.25"></audio>
+      <audio id="sx3" data-start="6.1" data-duration="0.45" data-track-index="14" src="assets/sfx/click.wav" data-volume="0.35"></audio>
+      <audio id="sx4" data-start="6.85" data-duration="1.3" data-track-index="12" src="assets/sfx/paper-flip.mp3" data-volume="0.4"></audio>
+      <audio id="sx5" data-start="9.3" data-duration="0.57" data-track-index="13" src="assets/sfx/whoosh.mp3" data-volume="0.25"></audio>
+      <audio id="sx6" data-start="9.55" data-duration="0.45" data-track-index="14" src="assets/sfx/click.wav" data-volume="0.3"></audio>
+      <audio id="sx7" data-start="9.75" data-duration="0.45" data-track-index="15" src="assets/sfx/click.wav" data-volume="0.3"></audio>
+      <audio id="sx8" data-start="9.95" data-duration="0.45" data-track-index="16" src="assets/sfx/click.wav" data-volume="0.3"></audio>
+      <audio id="sx9" data-start="12.45" data-duration="0.7" data-track-index="12" src="assets/sfx/keyboard-typing.mp3" data-volume="0.2"></audio>
+      <audio id="sx10" data-start="14.6" data-duration="0.7" data-track-index="13" src="assets/sfx/pop.mp3" data-volume="0.3"></audio>
+      <audio id="sx11" data-start="15.4" data-duration="0.57" data-track-index="14" src="assets/sfx/whoosh.mp3" data-volume="0.2"></audio>
+      <audio id="sx12" data-start="16.75" data-duration="1.0" data-track-index="15" src="assets/sfx/swipe.mp3" data-volume="0.3"></audio>
+      <audio id="sx13" data-start="17.55" data-duration="0.57" data-track-index="16" src="assets/sfx/whoosh.mp3" data-volume="0.2"></audio>
+      <audio id="sx14" data-start="19.55" data-duration="2.0" data-track-index="12" src="assets/sfx/boom.mp3" data-volume="0.3"></audio>
+      <audio id="sx15" data-start="21.2" data-duration="1.0" data-track-index="13" src="assets/sfx/swipe.mp3" data-volume="0.18"></audio>
+      <audio id="sx16" data-start="22.3" data-duration="0.57" data-track-index="14" src="assets/sfx/whoosh.mp3" data-volume="0.18"></audio>
+      <audio id="sx17" data-start="23.15" data-duration="1.0" data-track-index="15" src="assets/sfx/swipe.mp3" data-volume="0.18"></audio>
+      <audio id="sx18" data-start="25.1" data-duration="0.45" data-track-index="16" src="assets/sfx/click.wav" data-volume="0.3"></audio>
+      <audio id="sx19" data-start="25.4" data-duration="0.45" data-track-index="17" src="assets/sfx/click.wav" data-volume="0.3"></audio>
+      <audio id="sx20" data-start="25.7" data-duration="0.45" data-track-index="18" src="assets/sfx/click.wav" data-volume="0.3"></audio>
+      <audio id="sx21" data-start="27.25" data-duration="0.7" data-track-index="12" src="assets/sfx/pop.mp3" data-volume="0.3"></audio>
+      <audio id="sx22" data-start="28.45" data-duration="0.7" data-track-index="13" src="assets/sfx/pop.mp3" data-volume="0.3"></audio>
+      <audio id="sx23" data-start="29.7" data-duration="1.15" data-track-index="14" src="assets/sfx/bass-drop.mp3" data-volume="0.35"></audio>
+      <audio id="sx24" data-start="30.05" data-duration="0.57" data-track-index="15" src="assets/sfx/whoosh.mp3" data-volume="0.25"></audio>
+      <audio id="sx25" data-start="31.1" data-duration="2.0" data-track-index="16" src="assets/sfx/sparkle.mp3" data-volume="0.2"></audio>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const $ = (s) => document.querySelector(s);
+
+        // ---------- Captions (Hinglish, Roman script, 2–3 words) ----------
+        const CAPS = [
+          [0.10, 0.72, "1919 mein"], [0.72, 1.32, "Germany mein"], [1.32, 1.78, "ek school"], [1.78, 2.25, "shuru hua tha"],
+          [2.25, 3.0, "Bauhaus."], [3.05, 3.55, "The idea"], [3.55, 4.25, "was simple,"], [4.25, 5.05, "art aur design"],
+          [5.05, 5.65, "ke beech ki"], [5.65, 6.6, "line hata do."], [6.65, 7.35, "Bauhaus ne"], [7.35, 8.15, "curves, detail"],
+          [8.15, 8.65, "aur decoration"], [8.65, 9.15, "hata ke"], [9.15, 9.85, "clean shapes"], [9.85, 10.65, "aur function"],
+          [10.65, 11.45, "pe focus kiya."], [11.5, 12.45, "It was heavily"], [12.45, 13.05, "influenced by"], [13.05, 13.75, "modernism,"],
+          [13.8, 14.6, "appreciated for"], [14.6, 15.35, "its simplicity,"], [15.4, 16.15, "but criticized"], [16.15, 16.75, "for erasing"],
+          [16.75, 17.6, "craftsmanship."], [17.7, 18.55, "Sirf 14 saal"], [18.55, 19.55, "chala, par uska"], [19.55, 19.95, "impact"],
+          [19.95, 20.65, "aaj bhi hai."], [20.75, 21.35, "Aaj aap"], [21.35, 22.4, "clean layouts,"], [22.45, 23.25, "simple logos"],
+          [23.3, 24.0, "aur minimal"], [24.0, 25.0, "buildings dekhte ho,"], [25.05, 25.4, "they are all"], [25.4, 25.95, "products of"],
+          [25.95, 26.9, "modernism,"], [27.0, 28.1, "where simplicity,"], [28.15, 29.35, "where efficiency"], [29.4, 30.05, "often wins"],
+          [30.05, 31.0, "over detail."]
+        ];
+        const capsEl = $("#caps");
+        CAPS.forEach(([s, e, t], i) => {
+          const d = document.createElement("div");
+          d.className = "cap"; d.id = "cap" + i;
+          d.innerHTML = "<span>" + t + "</span>";
+          capsEl.appendChild(d);
+          tl.set(d, { opacity: 1 }, s);
+          tl.set(d, { opacity: 0 }, e);
+        });
+
+        // MODERNISM letters
+        const mEl = $("#hModern");
+        "MODERNISM".split("").forEach((c) => { const s = document.createElement("span"); s.textContent = c; mEl.appendChild(s); });
+
+        // Coloured bar wipe that hides a cut at time t
+        function wipe(t, color) {
+          tl.set("#wipe", { x: -1200, backgroundColor: color }, t - 0.17);
+          tl.to("#wipe", { x: 0, duration: 0.17, ease: "power2.in" }, t - 0.17);
+          tl.to("#wipe", { x: 1200, duration: 0.22, ease: "power2.out" }, t);
+        }
+
+        // Initial hidden state for everything that enters later
+        gsap.set(".gv", { scaleY: 0 });
+        gsap.set(".gh", { scaleX: 0 });
+        gsap.set("#wipe", { x: -1200 });
+        gsap.set("#eraser", { scaleY: 0 });
+
+        // ================= ACT 1 — ORNATE =================
+        tl.fromTo("#y1919", { scale: 1.04 }, { scale: 1, duration: 2.2, ease: "sine.out" }, 0);
+        tl.fromTo(".fp", { scale: 1 }, { scale: 1.015, duration: 6.8, ease: "sine.inOut", transformOrigin: "50% 40%" }, 0);
+        tl.fromTo("#damask", { scale: 1 }, { scale: 1.04, duration: 6.8, ease: "sine.inOut" }, 0);
+        // "Germany mein ek school" — the portrait becomes the 1919 workshop
+        tl.fromTo("#weimar", { opacity: 0, y: -20, rotation: -4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.6, ease: "back.out(2)" }, 0.75);
+        tl.fromTo("#wsWrap", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "sine.out" }, 0.75);
+        tl.to("#wsWrap", { opacity: 0, duration: 0.08 }, 2.17);
+
+        // "Bauhaus" — a red circle punches through the old world
+        tl.to(["#y1919", "#weimar"], { y: 520, rotation: 18, opacity: 0, duration: 0.35, ease: "power2.in", stagger: 0.03 }, 2.25);
+        tl.set("#redDot", { opacity: 1 }, 2.25); tl.fromTo("#redDot", { scale: 0 }, { scale: 1, duration: 0.28, ease: "back.out(2.4)" }, 2.25);
+        tl.fromTo("#bauhausWord", { opacity: 0, scale: 2.2 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power4.in" }, 2.3);
+        tl.fromTo("#root", { x: 0 }, { x: 10, duration: 0.04, yoyo: true, repeat: 3, ease: "none" }, 2.48);
+        tl.set("#root", { x: 0 }, 2.66);
+
+        // "The idea was simple: art aur design…"
+        tl.to(["#redDot", "#bauhausWord"], { scale: 0, opacity: 0, duration: 0.2, ease: "power2.in" }, 3.0);
+        tl.set("#artRow", { opacity: 1 }, 3.2);
+        tl.set("#plus", { opacity: 0 }, 3.2);
+        tl.from("#art", { x: -500, opacity: 0, duration: 0.6, ease: "expo.out" }, 3.25);
+        tl.from("#goldLine", { scaleY: 0, duration: 0.5, ease: "power3.out" }, 3.6);
+        tl.from("#design", { x: 500, opacity: 0, duration: 0.6, ease: "expo.out" }, 4.55);
+        // "…line hata do" — line erased, words collide
+        tl.to("#eraser", { scaleY: 1, duration: 0.3, ease: "power2.inOut" }, 5.75);
+        tl.set("#goldLine", { opacity: 0 }, 6.05);
+        tl.to("#eraser", { scaleY: 0, transformOrigin: "bottom", duration: 0.12, ease: "power2.in" }, 6.05);
+        tl.to("#art", { x: 30, duration: 0.18, ease: "expo.in" }, 6.08);
+        tl.to("#design", { x: -30, duration: 0.18, ease: "expo.in" }, 6.08);
+        tl.fromTo("#plus", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(3)" }, 6.24);
+
+        // "Bauhaus ne…" — the frame breaks apart, the wallpaper drains
+        tl.to("#fpT", { y: -700, rotation: -14, duration: 0.5, ease: "power2.in" }, 6.9);
+        tl.to("#fpB", { y: 900, rotation: 10, duration: 0.5, ease: "power2.in" }, 6.95);
+        tl.to("#fpL", { x: -700, rotation: -20, duration: 0.5, ease: "power2.in" }, 6.92);
+        tl.to("#fpR", { x: 700, rotation: 18, duration: 0.5, ease: "power2.in" }, 6.97);
+        tl.to("#artRow", { y: -400, opacity: 0, duration: 0.35, ease: "power2.in" }, 6.9);
+        tl.to("#damask", { opacity: 0, duration: 0.45, ease: "power1.in" }, 6.95);
+        tl.to("#damaskShade", { opacity: 0, duration: 0.45 }, 6.95);
+        tl.to("#grain", { opacity: 0.12, duration: 0.45 }, 6.95);
+        tl.to("#stage", { filter: "sepia(0) saturate(1) contrast(1) brightness(1)", duration: 0.45 }, 6.95);
+        wipe(7.35, "#E1251B");
+        // chair morph plays 7.35–9.5 full-screen (ornaments fly off on "decoration hata ke")
+
+        // ================= ACT 2 — BAUHAUS =================
+        tl.set("#stage", { clipPath: "inset(430px 160px 420px 160px)" }, 7.4);
+        wipe(9.5, "#1F4E9C");
+        tl.to(".gv", { scaleY: 1, duration: 0.5, ease: "power3.out", stagger: 0.05 }, 9.5);
+        tl.to(".gh", { scaleX: 1, duration: 0.5, ease: "power3.out", stagger: 0.08 }, 9.55);
+        tl.fromTo("#winBorder", { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.3, ease: "expo.out" }, 9.5);
+        tl.set("#sCircle", { opacity: 1 }, 9.55); tl.fromTo("#sCircle", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2.5)" }, 9.55);
+        tl.set("#sTri", { opacity: 1 }, 9.75); tl.fromTo("#sTri", { y: -260, rotation: -30 }, { y: 0, rotation: 0, duration: 0.3, ease: "bounce.out" }, 9.75);
+        tl.set("#sSquare", { opacity: 1 }, 9.95); tl.fromTo("#sSquare", { x: -300 }, { x: 0, duration: 0.3, ease: "expo.out" }, 9.95);
+        tl.fromTo("#hShapes", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 9.6);
+        tl.fromTo("#hFunction", { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 9.95);
+
+        // "heavily influenced by modernism"
+        tl.to(["#hShapes", "#hFunction"], { opacity: 0, y: -40, duration: 0.2, ease: "power2.in" }, 11.45);
+        tl.fromTo("#hInfl", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 11.6);
+        tl.set("#hModern", { opacity: 1 }, 12.45);
+        tl.from("#hModern span", { opacity: 0, y: 30, duration: 0.08, ease: "steps(2)", stagger: 0.07 }, 12.45);
+        tl.to("#sCircle", { x: 18, y: 12, duration: 2.0, ease: "sine.inOut" }, 11.5);
+        tl.to("#sSquare", { rotation: 8, duration: 2.0, ease: "sine.inOut" }, 11.5);
+
+        // "appreciated for its simplicity"
+        tl.to(["#hInfl", "#hModern"], { opacity: 0, y: -40, duration: 0.2, ease: "power2.in" }, 13.75);
+        tl.set("#hSimp", { opacity: 1 }, 13.95);
+        tl.from("#chk", { scale: 0, rotation: -90, duration: 0.4, ease: "back.out(2)" }, 13.95);
+        tl.from("#hSimp > div:last-child", { x: 160, opacity: 0, duration: 0.45, ease: "expo.out" }, 14.15);
+        tl.to("#hSimp", { scale: 1.06, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.inOut" }, 14.65);
+
+        // "but criticized for erasing craftsmanship"
+        tl.to("#hSimp", { opacity: 0, y: -40, duration: 0.2, ease: "power2.in" }, 15.3);
+        tl.set("#carveC", { opacity: 1 }, 15.4); tl.fromTo("#carveC", { scale: 0, rotation: -40 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(1.6)" }, 15.4);
+        tl.fromTo("#hCraft", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 15.55);
+        tl.set("#slash", { opacity: 1 }, 16.8); tl.fromTo("#slash", { scaleX: 0 }, { scaleX: 1, duration: 0.22, ease: "power4.out" }, 16.8);
+        tl.to("#hCraft", { opacity: 0.35, duration: 0.2 }, 16.95);
+
+        // "Sirf 14 saal chala… impact aaj bhi hai" — timeline panel
+        wipe(17.7, "#F5C400");
+        tl.set("#pTime", { opacity: 1 }, 17.7);
+        tl.set(["#hCraft", "#slash", "#carveC"], { opacity: 0 }, 17.7);
+        tl.from(["#tSirf", "#tSaal"], { opacity: 0, y: 30, duration: 0.3, ease: "power2.out", stagger: 0.15 }, 17.8);
+        tl.from("#tBar", { scaleX: 0, duration: 1.1, ease: "power1.inOut" }, 17.85);
+        const counter = { v: 0 };
+        tl.to(counter, { v: 14, duration: 1.1, ease: "power1.inOut", onUpdate: () => { $("#tNum").textContent = Math.round(counter.v); } }, 17.85);
+        tl.from(".tYear", { opacity: 0, y: 20, duration: 0.3, stagger: 0.8, ease: "power2.out" }, 17.85);
+        tl.fromTo("#tNum", { scale: 1 }, { scale: 1.08, duration: 0.12, yoyo: true, repeat: 1 }, 18.95);
+        ["#r1", "#r2", "#r3"].forEach((r, i) => {
+          tl.fromTo(r, { scale: 0, opacity: 1 }, { immediateRender: false, scale: 9 - i * 2, opacity: 0, duration: 1.0, ease: "power2.out" }, 19.55 + i * 0.12);
+        });
+        tl.from("#tNow", { opacity: 0, scale: 0, rotation: -10, duration: 0.35, ease: "back.out(2.5)" }, 19.95);
+
+        // "Aaj aap…" back to him
+        wipe(20.65, "#E1251B");
+        tl.set("#pTime", { opacity: 0 }, 20.65);
+        tl.fromTo("#hToday", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 20.7);
+
+        // Rule of three: layouts / logos / buildings
+        wipe(21.35, "#111");
+        tl.set("#hToday", { opacity: 0 }, 21.35);
+        tl.set("#tag1", { opacity: 1 }, 21.4); tl.fromTo("#tag1", { x: -400 }, { x: 0, duration: 0.3, ease: "expo.out" }, 21.4);
+        tl.set("#tag1", { opacity: 0 }, 22.45);
+        wipe(22.45, "#1F4E9C");
+        tl.set("#pLogos", { opacity: 1 }, 22.45);
+        tl.from("#lg1", { y: 300, opacity: 0, duration: 0.3, ease: "expo.out" }, 22.5);
+        tl.from("#lg2", { scale: 0, rotation: 90, duration: 0.3, ease: "back.out(2)" }, 22.6);
+        tl.from("#lg3", { y: -300, opacity: 0, duration: 0.3, ease: "bounce.out" }, 22.7);
+        tl.set("#tag2", { opacity: 1 }, 22.5); tl.fromTo("#tag2", { x: -400 }, { x: 0, duration: 0.3, ease: "expo.out" }, 22.5);
+        tl.set("#tag2", { opacity: 0 }, 23.3);
+        wipe(23.3, "#F5C400");
+        tl.set("#pLogos", { opacity: 0 }, 23.3);
+        tl.set("#tag3", { opacity: 1 }, 23.35); tl.fromTo("#tag3", { x: -400 }, { x: 0, duration: 0.3, ease: "expo.out" }, 23.35);
+        tl.set("#tag3", { opacity: 0 }, 24.95);
+
+        // "they are all products of modernism"
+        wipe(24.95, "#E1251B");
+        tl.set("#tiles", { opacity: 1 }, 24.95);
+        tl.from("#tile1", { scale: 0, duration: 0.25, ease: "back.out(2)" }, 25.1);
+        tl.from("#tile2", { scale: 0, duration: 0.25, ease: "back.out(2)" }, 25.4);
+        tl.from("#tile3", { scale: 0, duration: 0.25, ease: "back.out(2)" }, 25.7);
+        tl.fromTo("#hProducts", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 25.95);
+
+        // "simplicity, efficiency often wins over detail" — the balance
+        wipe(27.0, "#1F4E9C");
+        tl.set("#pScale", { opacity: 1 }, 27.0);
+        tl.set(["#tiles", "#hProducts"], { opacity: 0 }, 27.0);
+        tl.set("#beam", { rotation: 9 }, 27.0);
+        tl.from("#pivot", { y: 300, duration: 0.3, ease: "expo.out" }, 27.0);
+        tl.from("#detail", { scale: 0, duration: 0.3, ease: "back.out(2)" }, 27.05);
+        tl.from("#bSimp", { y: -900, duration: 0.3, ease: "power3.in" }, 27.0);
+        tl.to("#beam", { rotation: 0, duration: 0.45, ease: "back.out(2.5)" }, 27.3);
+        tl.from("#bEff", { y: -900, duration: 0.3, ease: "power3.in" }, 28.2);
+        tl.to("#beam", { rotation: -9, duration: 0.45, ease: "back.out(2.5)" }, 28.5);
+        tl.to("#beam", { rotation: -24, duration: 0.3, ease: "back.out(3)" }, 29.7);
+        tl.to("#detail", { x: 600, y: -1300, rotation: 540, duration: 0.8, ease: "power2.in" }, 30.05);
+
+        // ================= OUTRO =================
+        wipe(31.06, "#111");
+        tl.set("#pScale", { opacity: 0 }, 31.06);
+        tl.set("#thLast", { opacity: 1 }, 31.0);
+        tl.fromTo("#oLine1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 31.2);
+        tl.fromTo("#oLine2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 31.6);
+        tl.fromTo("#oArrow", { y: -8 }, { y: 8, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 32.0);
+        tl.to("#sCircle", { x: 0, y: 0, scale: 1.08, duration: 2.8, ease: "sine.inOut" }, 31.1);
+        tl.to("#sTri", { rotation: 12, duration: 2.8, ease: "sine.inOut" }, 31.1);
+        tl.to("#sSquare", { rotation: 0, duration: 2.8, ease: "sine.inOut" }, 31.1);
+
+        tl.set({}, {}, 34);
+        window.__timelines["main"] = tl;
+      </script>
+    </div>
+  </body>
+</html>
