@@ -308,16 +308,20 @@
       store.scale.setScalar(Math.max(0.001, E.outExpo(seg(t, 7.0, 7.45))));
       const hp = seg(t, 7.05, 7.5);
       home.position.y = (1 - E.outC(hp)) * 0.8 + wob(t, 7.5, 9, 0.03, 18) + 0.02 * Math.sin(t * 3);
-      const u = E.inOutS(seg(t, 7.3, 9.7));
+      const u = E.inOutS(seg(t, 7.2, 9.75));
       path.getPointAt(u, p); path.getTangentAt(Math.min(0.999, u + 0.001), tg);
       sc.position.copy(p).setY(0.02);
       sc.rotation.y = Math.atan2(-tg.z, tg.x);
       sc.scale.setScalar(1.6 * Math.max(0.001, E.outExpo(seg(t, 7.1, 7.5))));
       // camera: overview → chase → dive to the home pin
-      const ov = V(-0.5, 6.0, 6.2), chase = V(p.x + 1.1, 2.7, p.z + 2.9), dive = V(1.35, 0.9, -1.35);
-      const toChase = E.inOutS(seg(t, 7.0, 7.9)), toDive = E.inC(seg(t, 9.65, 10.15));
+      // camera follows a smoothed version of the route (no whip at corners), from higher up
+      const sm = new T.Vector3(), q = new T.Vector3();
+      for (let k = -6; k <= 6; k++) { path.getPointAt(clamp(u + k * 0.035, 0, 1), q); sm.add(q); }
+      sm.multiplyScalar(1 / 13);
+      const ov = V(-0.5, 6.0, 6.2), chase = V(sm.x + 1.4, 3.5, sm.z + 3.7), dive = V(1.45, 1.2, -1.1);
+      const toChase = E.inOutS(seg(t, 7.0, 8.1)), toDive = E.inOutS(seg(t, 9.4, 10.15));
       camP.copy(ov).lerp(chase, toChase).lerp(dive, toDive);
-      look.set(lerp(-0.6, p.x, toChase), 0, lerp(1.2, p.z - 0.7, toChase));
+      look.set(lerp(-0.6, sm.x, toChase), 0, lerp(1.2, sm.z - 0.5, toChase));
       look.lerp(V(1.2, 0.4, -2.2), toDive);
       camera.position.copy(camP); camera.lookAt(look);
       st.dof.focus = camP.distanceTo(p);   // tilt-shift: sharp on the scooter, city falls off
