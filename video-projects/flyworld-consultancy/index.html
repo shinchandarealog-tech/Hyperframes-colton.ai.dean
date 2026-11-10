@@ -30,13 +30,13 @@
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="74.4" data-width="1080" data-height="1920">
       <div id="w0" class="shot" style="z-index:10">
-        <video id="v0" src="assets/s01-office-sign.mp4" muted playsinline data-start="0.0" data-duration="3.15" data-track-index="20"></video>
+        <video id="v0" src="assets/s01-office-logo.mp4" muted playsinline data-start="0.0" data-duration="3.15" data-track-index="20"></video>
       </div>
       <div id="w1" class="shot" style="z-index:11">
-        <video id="v1" src="assets/s02-office-desks.mp4" muted playsinline data-start="2.65" data-duration="2.4" data-track-index="21"></video>
+        <video id="v1" src="assets/s02-office-sign.mp4" muted playsinline data-start="2.65" data-duration="2.4" data-track-index="21"></video>
       </div>
       <div id="w2" class="shot" style="z-index:12">
-        <video id="v2" src="assets/s03-office-logo.mp4" muted playsinline data-start="4.55" data-duration="2.4" data-track-index="20"></video>
+        <video id="v2" src="assets/s03-office-desks.mp4" muted playsinline data-start="4.55" data-duration="2.4" data-track-index="20"></video>
       </div>
       <div id="w3" class="shot" style="z-index:13">
         <video id="v3" src="assets/s04-dream.mp4" muted playsinline data-start="6.45" data-duration="4.7" data-track-index="21"></video>
@@ -88,7 +88,7 @@
       </div>
       <div id="vignette" class="clip" data-start="0" data-duration="74.4" data-track-index="5"></div>
       <div id="flash" class="clip" data-start="0" data-duration="74.4" data-track-index="6"></div>
-      <div id="chip1" class="chip clip" data-start="0.5" data-duration="5.9" data-track-index="7"><span class="pin"></span>OUR OFFICE <span class="gold">· NAWADA, BIHAR</span></div>
+      <div id="chip1" class="chip clip" data-start="0" data-duration="6.4" data-track-index="7"><span class="pin"></span>OUR OFFICE <span class="gold">· NAWADA, BIHAR</span></div>
       <div id="chip2" class="chip clip" data-start="64.6" data-duration="2.6" data-track-index="8"><span class="pin"></span>NAWADA, <span class="gold">BIHAR</span></div>
       <div id="logo" class="clip" data-start="0" data-duration="74.4" data-track-index="9"><img src="assets/logo.png" alt="Fly World Consultancy" /></div>
       <audio id="vo" src="assets/voiceover.mp3" data-start="0" data-duration="72.91" data-track-index="30" data-volume="1"></audio>
@@ -114,8 +114,7 @@
     <script>
       window.__timelines = window.__timelines || {};
       const tl = gsap.timeline({ paused: true });
-      tl.from("#logo", { scale: 0.6, opacity: 0, duration: 0.6, ease: "back.out(1.7)" }, 0.15);
-      tl.from("#chip1", { y: 60, opacity: 0, duration: 0.5, ease: "power3.out" }, 0.5);
+      
       tl.to("#chip1", { y: 40, opacity: 0, duration: 0.3, ease: "power2.in" }, 6.1);
       tl.from("#chip2", { y: 60, opacity: 0, duration: 0.5, ease: "power3.out" }, 64.6);
       tl.to("#chip2", { opacity: 0, duration: 0.25 }, 66.95);

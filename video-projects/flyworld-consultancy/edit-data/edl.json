@@ -1,18 +1,18 @@
 [
  {
-  "name": "s01-office-sign",
+  "name": "s01-office-logo",
   "start": 0.0,
   "dur": 3.15,
   "file_dur": 3.167
  },
  {
-  "name": "s02-office-desks",
+  "name": "s02-office-sign",
   "start": 2.65,
   "dur": 2.4,
   "file_dur": 2.4
  },
  {
-  "name": "s03-office-logo",
+  "name": "s03-office-desks",
   "start": 4.55,
   "dur": 2.4,
   "file_dur": 2.4
