@@ -92,9 +92,49 @@
     Object.assign(key.shadow.camera, { left: -s, right: s, top: s, bottom: -s, near: 0.1, far: 30 });
     scene.add(key);
     scene.add(key.target);
+    // Depth of field: scene -> multisampled target with depth, then a disc-blur pass whose
+    // radius grows with distance from the focus plane (like a real lens).
+    const dof = { enabled: !!opts.dof, focus: 5, range: 2.5, maxBlur: opts.dof?.maxBlur ?? 14 };
+    let rt, post, postCam, postMat;
+    if (dof.enabled) {
+      rt = new T.WebGLRenderTarget(1080, 1920, { samples: 4, type: T.HalfFloatType });
+      rt.depthTexture = new T.DepthTexture(1080, 1920);
+      postMat = new T.ShaderMaterial({
+        uniforms: { tColor: { value: rt.texture }, tDepth: { value: rt.depthTexture }, focus: { value: 5 }, range: { value: 2.5 },
+          maxBlur: { value: dof.maxBlur }, near: { value: camera.near }, far: { value: camera.far }, res: { value: new T.Vector2(1080, 1920) } },
+        vertexShader: "varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }",
+        fragmentShader: `
+          uniform sampler2D tColor; uniform sampler2D tDepth; uniform float focus, range, maxBlur, near, far; uniform vec2 res; varying vec2 vUv;
+          float lin(float d){ float z = d * 2.0 - 1.0; return 2.0 * near * far / (far + near - z * (far - near)); }
+          float coc(vec2 uv){ return clamp(abs(lin(texture2D(tDepth, uv).x) - focus) / range, 0.0, 1.0) * maxBlur; }
+          void main(){
+            float c0 = coc(vUv); vec4 acc = texture2D(tColor, vUv); float w = 1.0;
+            for (int i = 1; i < 32; i++) {
+              float a = float(i) * 2.39996; float r = sqrt(float(i) / 31.0);
+              vec2 uv = vUv + vec2(cos(a), sin(a)) * r * c0 / res;
+              float ci = coc(uv);
+              float wi = smoothstep(0.0, 1.0, ci / max(c0, 0.001) + 0.15);   // keep sharp foreground edges from bleeding
+              acc += texture2D(tColor, uv) * wi; w += wi;
+            }
+            gl_FragColor = acc / w;
+            #include <tonemapping_fragment>
+            #include <colorspace_fragment>
+          }`,
+        depthTest: false, depthWrite: false, toneMapped: true,
+      });
+      post = new T.Scene(); post.add(new T.Mesh(new T.PlaneGeometry(2, 2), postMat));
+      postCam = new T.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    }
     return {
-      renderer, scene, camera, key, hemi,
-      render() { refreshFonts(); renderer.render(scene, camera); },
+      renderer, scene, camera, key, hemi, dof,
+      render() {
+        refreshFonts();
+        if (!dof.enabled) { renderer.render(scene, camera); return; }
+        postMat.uniforms.focus.value = dof.focus; postMat.uniforms.range.value = dof.range; postMat.uniforms.maxBlur.value = dof.maxBlur;
+        postMat.uniforms.near.value = camera.near; postMat.uniforms.far.value = camera.far;
+        renderer.setRenderTarget(rt); renderer.render(scene, camera);
+        renderer.setRenderTarget(null); renderer.render(post, postCam);
+      },
     };
   }
 

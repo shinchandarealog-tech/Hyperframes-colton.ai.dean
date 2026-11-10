@@ -33,10 +33,16 @@
       #vignette { position: absolute; inset: 0; z-index: 89; pointer-events: none;
         background: radial-gradient(ellipse 85% 72% at 50% 48%, rgba(28,26,18,0) 55%, rgba(28,26,18,0.2) 100%); }
 
-      #s1 { z-index: 1; } #s2 { z-index: 2; } #s3 { z-index: 3; } #s4 { z-index: 4; } #s5 { z-index: 5; }
-      #s6 { z-index: 6; } #s7 { z-index: 7; } #s8 { z-index: 8; } #s9 { z-index: 9; }
+      #v1w { z-index: 10; } #s1 { z-index: 11; } #s2 { z-index: 20; } #s3 { z-index: 30; } #s4 { z-index: 40; } #s5 { z-index: 50; }
+      #v6w { z-index: 60; } #s6 { z-index: 61; } #v7w { z-index: 70; } #s7 { z-index: 71; } #s8 { z-index: 80; } #s9 { z-index: 90; }
+      #vignette { z-index: 189 !important; } #grain { z-index: 190 !important; }
+      .vwrap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; }
+      .vwrap video { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #s1-shade { left: 0; top: 0; width: 1080px; height: 640px; background: linear-gradient(180deg, rgba(10, 18, 28, 0.55), rgba(10, 18, 28, 0)); }
+      #s7-tint { left: 0; top: 0; width: 1080px; height: 1920px; background: rgba(12, 131, 31, 0.82); }
 
-      #s1-time { right: 70px; top: 190px; text-align: right; font-family: var(--font-display); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
+      #s1-time { right: 70px; top: 190px; text-align: right; font-family: var(--font-display); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--cream); text-shadow: 0 6px 30px rgba(0, 0, 0, 0.45); }
+      #s1-time small { display: block; font-family: var(--font-ui); font-weight: 700; font-size: 44px; letter-spacing: 0; margin-top: 16px; }
       #s1-time .big { font-size: 210px; }
       #s1-time .pm { font-size: 84px; margin-left: 10px; }
       #s4-total { left: 0; top: 200px; width: 1080px; text-align: center; }
@@ -52,11 +58,12 @@
       #s5-n span { position: absolute; left: 0; top: 0; opacity: 0; white-space: nowrap; }
       #s5-bar { position: absolute; left: 48px; bottom: 34px; width: 864px; height: 18px; border-radius: 9px; background: rgba(28, 26, 18, 0.08); overflow: hidden; }
       #s5-fill { position: absolute; left: 0; top: 0; height: 18px; width: 864px; border-radius: 9px; background: var(--green); transform-origin: 0 50%; }
-      #s6-time { left: 0; top: 140px; width: 1080px; text-align: center; font-family: var(--font-display); font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+      #s6-time { left: 0; top: 140px; width: 1080px; text-align: center; font-family: var(--font-display); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--cream); text-shadow: 0 6px 30px rgba(0, 0, 0, 0.5); }
+      #s6-shade { left: 0; top: 0; width: 1080px; height: 620px; background: linear-gradient(180deg, rgba(28, 22, 10, 0.6), rgba(28, 22, 10, 0)); }
       #s6-time .big { position: relative; display: inline-block; font-size: 210px; }
       #s6-time .pm { font-size: 86px; margin-left: 12px; }
       #s6-time .d { position: absolute; left: 0; top: 0; opacity: 0; }
-      #s7 .gl { filter: blur(12px) brightness(0.95); transform: scale(1.06); }
+      #v7w video { transform: scale(1.04); }
       #s7-list { left: 0; top: 0; width: 1080px; }
       #s7-list div { position: absolute; left: 0; width: 1080px; height: 220px; line-height: 220px; text-align: center;
         font-family: var(--font-display); font-weight: 800; font-size: 150px; letter-spacing: -0.04em; color: var(--cream); }
@@ -71,12 +78,14 @@
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="17" data-width="1080" data-height="1920">
+    <div id="root" data-composition-id="main" data-start="0" data-duration="18" data-width="1080" data-height="1920">
 
+      <!-- AI shot 1: fridge (Veo) -->
+      <div id="v1w" class="vwrap"><video id="v1" data-start="0" data-duration="2.0" data-track-index="3" src="assets/video/ai1-fridge.mp4" muted playsinline></video></div>
       <section id="s1" class="clip scene" data-start="0" data-duration="1.75" data-track-index="1">
         <div class="cam abs" style="inset: 0">
-          <canvas id="gl1" class="gl" width="1080" height="1920"></canvas>
-          <div id="s1-time" class="abs shadowtext"><span class="big">7<span id="s1-colon">:</span>50</span><span class="pm">PM</span></div>
+          <div id="s1-shade" class="abs"></div>
+          <div id="s1-time" class="abs"><span class="big">7<span id="s1-colon">:</span>50</span><span class="pm">PM</span><small>Guests at 8:00</small></div>
         </div>
       </section>
 
@@ -100,21 +109,24 @@
         </div>
       </section>
 
-      <section id="s6" class="clip scene" data-start="9.8" data-duration="1.85" data-track-index="2">
+      <!-- AI shot 2: front door hand-off (Veo) -->
+      <div id="v6w" class="vwrap"><video id="v6" data-start="9.82" data-duration="2.66" data-track-index="4" src="assets/video/ai2-door.mp4" muted playsinline></video></div>
+      <section id="s6" class="clip scene" data-start="9.8" data-duration="2.85" data-track-index="2">
         <div class="cam abs" style="inset: 0">
-          <canvas id="gl6" class="gl" width="1080" height="1920"></canvas>
-          <div id="s6-time" class="abs shadowtext"><span class="big"><span style="opacity: 0">7:59</span><span class="d" id="s6-t58">7:58</span><span class="d" id="s6-t59">7:59</span></span><span class="pm">PM</span></div>
+          <div id="s6-shade" class="abs"></div>
+          <div id="s6-time" class="abs"><span class="big"><span style="opacity: 0">7:59</span><span class="d" id="s6-t58">7:58</span><span class="d" id="s6-t59">7:59</span></span><span class="pm">PM</span></div>
         </div>
       </section>
 
-      <section id="s7" class="clip scene" data-start="11.35" data-duration="1.8" data-track-index="1">
-        <canvas id="gl7" class="gl" width="1080" height="1920"></canvas>
+      <!-- AI shot 3: floating groceries (Veo), blurred + tinted under the word stack, sharp under the slogan -->
+      <div id="v7w" class="vwrap"><video id="v7" data-start="12.35" data-duration="3.4" data-track-index="5" src="assets/video/ai3-groceries.mp4" muted playsinline></video></div>
+      <section id="s7" class="clip scene" data-start="12.35" data-duration="1.8" data-track-index="1">
+        <div id="s7-tint" class="abs"></div>
         <div id="s7-list" class="abs"></div>
         <div id="s7-box" class="abs"><i style="left: -18px; top: -18px"></i><i style="right: -18px; top: -18px"></i><i style="left: -18px; bottom: -18px"></i><i style="right: -18px; bottom: -18px"></i></div>
       </section>
 
-      <section id="s8" class="clip scene" data-start="12.85" data-duration="1.9" data-track-index="2">
-        <canvas id="gl8" class="gl" width="1080" height="1920"></canvas>
+      <section id="s8" class="clip scene" data-start="13.85" data-duration="1.9" data-track-index="2">
         <div id="s8-txt" class="abs">
           <div id="s8-pre">Everything in</div>
           <div id="s8-ten">10</div>
@@ -122,7 +134,7 @@
         </div>
       </section>
 
-      <section id="s9" class="clip scene" data-start="14.45" data-duration="2.55" data-track-index="1">
+      <section id="s9" class="clip scene" data-start="15.45" data-duration="2.55" data-track-index="1">
         <canvas id="gl9" class="gl" width="1080" height="1920"></canvas>
         <div id="s9-cta" class="abs">Download now</div>
       </section>
@@ -131,7 +143,7 @@
       <div id="grain"></div>
 
       <!-- Audio: original music bed + SFX (royalty-free) -->
-      <audio id="a-music" data-start="0" data-duration="17" data-track-index="10" src="assets/audio/music.mp3" data-volume="0.8"></audio>
+      <audio id="a-music" data-start="0" data-duration="18" data-track-index="10" src="assets/audio/music.mp3" data-volume="0.8"></audio>
       <audio id="a-hum" data-start="0" data-duration="1.6" data-track-index="11" src="assets/audio/fridge-hum.wav" data-volume="0.35"></audio>
       <audio id="a-tick1" data-start="0.25" data-duration="0.06" data-track-index="12" src="assets/audio/tick.wav" data-volume="0.5"></audio>
       <audio id="a-tick2" data-start="0.75" data-duration="0.06" data-track-index="12" src="assets/audio/tick.wav" data-volume="0.5"></audio>
@@ -147,12 +159,12 @@
       <audio id="a-ching" data-start="6.58" data-duration="1.2" data-track-index="18" src="assets/audio/cha-ching.wav" data-volume="0.55"></audio>
       <audio id="a-zip" data-start="7.15" data-duration="1.06" data-track-index="19" src="assets/audio/swipe.mp3" data-volume="0.4"></audio>
       <audio id="a-bell" data-start="10.0" data-duration="2.0" data-track-index="20" src="assets/audio/doorbell.wav" data-volume="0.8"></audio>
-      <audio id="a-w1" data-start="11.68" data-duration="0.3" data-track-index="21" src="assets/audio/click.wav" data-volume="0.35"></audio>
-      <audio id="a-w2" data-start="11.93" data-duration="0.3" data-track-index="22" src="assets/audio/click.wav" data-volume="0.35"></audio>
-      <audio id="a-w3" data-start="12.18" data-duration="0.3" data-track-index="21" src="assets/audio/click.wav" data-volume="0.35"></audio>
-      <audio id="a-w4" data-start="12.48" data-duration="0.3" data-track-index="22" src="assets/audio/click.wav" data-volume="0.4"></audio>
-      <audio id="a-slam" data-start="13.0" data-duration="1.22" data-track-index="23" src="assets/audio/slam.mp3" data-volume="0.6"></audio>
-      <audio id="a-sparkle" data-start="14.8" data-duration="2.04" data-track-index="24" src="assets/audio/sparkle.mp3" data-volume="0.4"></audio>
+      <audio id="a-w1" data-start="12.68" data-duration="0.3" data-track-index="21" src="assets/audio/click.wav" data-volume="0.35"></audio>
+      <audio id="a-w2" data-start="12.93" data-duration="0.3" data-track-index="22" src="assets/audio/click.wav" data-volume="0.35"></audio>
+      <audio id="a-w3" data-start="13.18" data-duration="0.3" data-track-index="21" src="assets/audio/click.wav" data-volume="0.35"></audio>
+      <audio id="a-w4" data-start="13.48" data-duration="0.3" data-track-index="22" src="assets/audio/click.wav" data-volume="0.4"></audio>
+      <audio id="a-slam" data-start="14.0" data-duration="1.22" data-track-index="23" src="assets/audio/slam.mp3" data-volume="0.6"></audio>
+      <audio id="a-sparkle" data-start="15.8" data-duration="2.04" data-track-index="24" src="assets/audio/sparkle.mp3" data-volume="0.4"></audio>
     </div>
 
     <script src="assets/js/kit.js"></script>
@@ -166,14 +178,15 @@
 
         // 3D beats: one WebGL stage per beat, driven by a proxy tween over its clip window
         const BEATS = [
-          ["gl1", "fridge", 0, 1.75], ["gl2", "phone", 1.4, 3.25], ["gl3", "app", 2.8, 5.15], ["gl4", "cart", 4.9, 7.15],
-          ["gl5", "map", 6.85, 10.15], ["gl6", "door", 9.8, 11.65], ["gl7", "float", 11.35, 13.15], ["gl8", "burst", 12.85, 14.75], ["gl9", "logo", 14.45, 17.0],
+          // [canvas, scene, clip start, clip end, offset] — offset maps comp time back to the scene's own clock
+          ["gl2", "phone", 1.4, 3.25, 0], ["gl3", "app", 2.8, 5.15, 0], ["gl4", "cart", 4.9, 7.15, 0],
+          ["gl5", "map", 6.85, 10.15, 0], ["gl9", "logo", 15.45, 18.0, 1.0],
         ];
-        BEATS.forEach(([id, name, a, b]) => {
+        BEATS.forEach(([id, name, a, b, off]) => {
           const draw = SCENES[name](document.getElementById(id));
           const P = { t: a };
-          draw(a);
-          tl.fromTo(P, { t: a }, { t: b, duration: b - a, ease: "none", immediateRender: false, onUpdate: () => draw(P.t) }, a);
+          draw(a - off);
+          tl.fromTo(P, { t: a }, { t: b, duration: b - a, ease: "none", immediateRender: false, onUpdate: () => draw(P.t - off) }, a);
         });
 
         function steps(container, values, times) {
@@ -186,57 +199,66 @@
         tl.from("#s1-time .big", { y: 70, opacity: 0, duration: 0.4, ease: "expo.out" }, 0.45);
         tl.from("#s1-time .pm", { x: 40, opacity: 0, duration: 0.35, ease: "power3.out" }, 0.58);
         tl.set("#s1-colon", { opacity: 0 }, 1.0); tl.set("#s1-colon", { opacity: 1 }, 1.25);
-        tl.to("#s1 .cam", { x: -760, filter: "blur(28px)", duration: 0.25, ease: "power2.in" }, 1.4);
+        tl.from("#s1-time small", { y: 20, opacity: 0, duration: 0.35, ease: "power2.out" }, 0.7);
+        tl.fromTo("#v1w", { scale: 1.0 }, { scale: 1.06, duration: 1.4, ease: "sine.out" }, 0);
+        tl.to(["#s1 .cam", "#v1w"], { x: -760, filter: "blur(28px)", duration: 0.25, ease: "power2.in" }, 1.4);
         // B2 whip in
         tl.fromTo("#s2 .cam", { x: 900, filter: "blur(30px)" }, { x: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, 1.42);
         // B3 iris out of the icon
         tl.fromTo("#s3", { clipPath: "circle(0px at 540px 960px)" }, { clipPath: "circle(1200px at 540px 960px)", duration: 0.32, ease: "power3.out" }, 2.92);
         // B4 push up + counter
-        tl.fromTo("#s4", { y: 1920 }, { y: 0, duration: 0.38, ease: "power3.out" }, 4.9);
+        // zoom-through: app pushes past camera with blur, cart resolves from soft focus
+        tl.to("#s3", { scale: 1.35, filter: "blur(16px)", duration: 0.3, ease: "power2.in" }, 4.88);
+        tl.fromTo("#s4", { opacity: 0, scale: 0.88, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, 4.92);
         tl.from("#s4-total .lbl", { y: 30, opacity: 0, duration: 0.3, ease: "power2.out" }, 5.1);
         const vals = ["₹0"], times = [5.1];
         function ramp(a, b, t0, n) { for (let k = 1; k <= n; k++) { vals.push("₹" + Math.round(a + (b - a) * (k / n))); times.push(+(t0 + k * F).toFixed(4)); } }
         ramp(0, 32, 5.46, 4); ramp(32, 52, 5.71, 4); ramp(52, 102, 5.96, 4); ramp(102, 486, 6.21, 8);
         const nums = steps($("#s4-num"), vals, times);
-        tl.fromTo(nums[nums.length - 1], { scale: 1.25 }, { scale: 1, duration: 0.3, ease: "back.out(3)", immediateRender: false }, 6.49);
+        tl.fromTo(nums[nums.length - 1], { scale: 1.12 }, { scale: 1, duration: 0.4, ease: "expo.out", immediateRender: false }, 6.49);
         // B5 iris from the button, ETA card, zoom-through
-        tl.fromTo("#s5", { clipPath: "circle(0px at 540px 1500px)" }, { clipPath: "circle(2200px at 540px 1500px)", duration: 0.42, ease: "power3.inOut" }, 6.85);
-        tl.from("#s5-eta", { y: -140, opacity: 0, duration: 0.4, ease: "back.out(1.4)" }, 7.05);
+        tl.to("#s4", { scale: 1.3, filter: "blur(16px)", duration: 0.3, ease: "power2.in" }, 6.85);
+        tl.fromTo("#s5", { opacity: 0, scale: 0.88, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 6.9);
+        tl.from("#s5-eta", { y: -90, opacity: 0, duration: 0.55, ease: "expo.out" }, 7.05);
         const etaV = [], etaT = [];
         for (let m = 10; m >= 1; m--) { etaV.push(m + " min"); etaT.push(+(7.1 + (10 - m) * 0.27).toFixed(3)); }
         steps($("#s5-n"), etaV, etaT);
         tl.fromTo("#s5-fill", { scaleX: 0.08 }, { scaleX: 0.97, duration: 2.5, ease: "none" }, 7.15);
         tl.to("#s5-zoom", { scale: 1.6, filter: "blur(18px)", duration: 0.3, ease: "power3.in" }, 9.8);
-        // B6 zoom-through in + time flip
-        tl.fromTo("#s6", { opacity: 0, scale: 1.4, filter: "blur(20px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, 9.82);
+        // B6 (AI door clip) zoom-through in + time flip
+        tl.fromTo(["#s6", "#v6w"], { opacity: 0, scale: 1.4, filter: "blur(20px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, 9.82);
         tl.from("#s6-time .big", { y: -60, opacity: 0, duration: 0.35, ease: "expo.out" }, 10.0);
         tl.from("#s6-time .pm", { x: 40, opacity: 0, duration: 0.3, ease: "power3.out" }, 10.08);
         tl.set("#s6-t58", { opacity: 1 }, 9.82);
         tl.set("#s6-t58", { opacity: 0 }, 10.35); tl.set("#s6-t59", { opacity: 1 }, 10.35);
-        tl.fromTo("#s6-t59", { scale: 1.2, color: "#0c831f" }, { scale: 1, color: "#1c1a12", duration: 0.35, ease: "back.out(2.5)", immediateRender: false }, 10.35);
-        // B7 push in + word stack
-        tl.fromTo("#s7", { x: 1080 }, { x: 0, duration: 0.3, ease: "power4.out" }, 11.35);
-        tl.to("#s6 .cam", { x: -420, filter: "blur(16px)", duration: 0.3, ease: "power2.in" }, 11.35);
+        tl.fromTo("#s6-t59", { scale: 1.1, color: "#f8cb46" }, { scale: 1, color: "#fff7e2", duration: 0.45, ease: "expo.out", immediateRender: false }, 10.35);
+        // B7 push in (groceries clip, blurred + green tint) + word stack
+        tl.fromTo(["#s7", "#v7w"], { x: 1080 }, { x: 0, duration: 0.3, ease: "power4.out" }, 12.35);
+        tl.fromTo("#v7w", { filter: "blur(16px)" }, { filter: "blur(16px)", duration: 0.01, ease: "none" }, 12.35);
+        tl.to(["#s6 .cam", "#v6w"], { x: -420, filter: "blur(16px)", duration: 0.3, ease: "power2.in" }, 12.35);
         const words = ["Milk", "Snacks", "Gifts", "Medicines", "Everything"], list = $("#s7-list");
         const wEls = words.map((w, i) => { const d = document.createElement("div"); d.textContent = w; d.style.top = 850 + i * 220 + "px"; list.appendChild(d); return d; });
-        tl.from("#s7-box", { scale: 1.25, opacity: 0, duration: 0.3, ease: "back.out(2)" }, 11.45);
-        wEls.forEach((el, i) => tl.set(el, { opacity: i === 0 ? 1 : 0.3, filter: i === 0 ? "blur(0px)" : "blur(4px)" }, 11.35));
-        [11.68, 11.93, 12.18, 12.48].forEach((t, k) => {
+        tl.from("#s7-box", { scale: 1.15, opacity: 0, duration: 0.4, ease: "expo.out" }, 12.45);
+        wEls.forEach((el, i) => tl.set(el, { opacity: i === 0 ? 1 : 0.3, filter: i === 0 ? "blur(0px)" : "blur(4px)" }, 12.35));
+        [12.68, 12.93, 13.18, 13.48].forEach((t, k) => {
           const a = k + 1;
           tl.to(list, { y: -220 * a, duration: 0.18, ease: "power3.inOut" }, t - 0.06);
           tl.to(wEls[a - 1], { opacity: 0.3, filter: "blur(4px)", duration: 0.15, ease: "power2.out" }, t - 0.06);
           tl.to(wEls[a], { opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power2.out" }, t - 0.04);
-          tl.fromTo("#s7-box", { scale: 1.06 }, { scale: 1, duration: 0.18, ease: "back.out(3)", immediateRender: false }, t);
+          tl.fromTo("#s7-box", { scale: 1.04 }, { scale: 1, duration: 0.22, ease: "expo.out", immediateRender: false }, t);
         });
-        // B8 morph from the box + slam
-        tl.fromTo("#s8", { clipPath: "inset(860px 80px 860px 80px round 10px)" }, { clipPath: "inset(0px 0px 0px 0px round 0px)", duration: 0.22, ease: "expo.out" }, 12.85);
-        tl.from("#s8-pre", { y: 50, opacity: 0, duration: 0.3, ease: "power3.out" }, 12.9);
-        tl.fromTo("#s8-ten", { scale: 1.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "expo.out" }, 13.0);
-        tl.from("#s8-min", { scale: 0.5, opacity: 0, duration: 0.35, ease: "back.out(2.2)" }, 13.12);
-        [-16, 13, -9, 6, -3, 0].forEach((x, i) => tl.to("#s8-txt", { x: x, duration: 0.035, ease: "none" }, 13.04 + i * 0.035));
-        // B9 iris + CTA
-        tl.fromTo("#s9", { clipPath: "circle(0px at 540px 960px)" }, { clipPath: "circle(1200px at 540px 960px)", duration: 0.3, ease: "power3.inOut" }, 14.45);
-        tl.fromTo("#s9-cta", { clipPath: "inset(0px 100% 0px 0px round 65px)" }, { clipPath: "inset(0px 0% 0px 0px round 65px)", duration: 0.22, ease: "power2.out" }, 14.86);
+        // B8: tint + words dissolve, groceries come into focus, slogan slams
+        tl.to("#s7", { opacity: 0, duration: 0.22, ease: "power2.inOut" }, 13.86);
+        tl.to("#v7w", { filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 13.86);
+        tl.from("#s8-pre", { y: 50, opacity: 0, duration: 0.3, ease: "power3.out" }, 13.9);
+        tl.fromTo("#s8-ten", { scale: 1.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "expo.out" }, 14.0);
+        tl.from("#s8-min", { scale: 0.7, opacity: 0, filter: "blur(10px)", duration: 0.4, ease: "expo.out" }, 14.12);
+        [-16, 13, -9, 6, -3, 0].forEach((x, i) => tl.to("#s8-txt", { x: x, duration: 0.035, ease: "none" }, 14.04 + i * 0.035));
+        tl.fromTo("#v7w", { scale: 1 }, { scale: 1.06, duration: 1.5, ease: "sine.out", immediateRender: false }, 13.9);
+        // B9 zoom-through + CTA
+        tl.to(["#s8", "#v7w"], { scale: 1.3, filter: "blur(16px)", duration: 0.3, ease: "power2.in" }, 15.42);
+        tl.fromTo("#s9", { opacity: 0, scale: 0.9, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, 15.45);
+        tl.fromTo("#s9-cta", { clipPath: "inset(0px 100% 0px 0px round 65px)" }, { clipPath: "inset(0px 0% 0px 0px round 65px)", duration: 0.22, ease: "power2.out" }, 15.86);
 
         window.__timelines["main"] = tl;
       })();

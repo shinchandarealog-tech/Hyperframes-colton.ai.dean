@@ -10,7 +10,7 @@ import wave
 import numpy as np
 
 SR = 44100
-DUR = 17.0
+DUR = 18.0
 N = int(SR * DUR)
 rng = np.random.default_rng(7)
 OUT = "assets/audio/"
@@ -145,9 +145,9 @@ CHORDS = [  # (start, end, bass root, triad)
     (4.0, 6.0, "B1", ["D4", "F#4", "B4"]),
     (6.0, 8.0, "G1", ["D4", "G4", "B4"]),
     (8.0, 10.0, "A1", ["C#4", "E4", "A4"]),
-    (10.0, 11.5, "D2", ["D4", "F#4", "A4"]),
-    (11.5, 13.0, "G1", ["D4", "G4", "B4"]),
-    (13.0, 14.5, "D2", ["D4", "F#4", "A4"]),
+    (10.0, 12.5, "D2", ["D4", "F#4", "A4"]),
+    (12.5, 14.0, "G1", ["D4", "G4", "B4"]),
+    (14.0, 15.5, "D2", ["D4", "F#4", "A4"]),
 ]
 
 
@@ -163,7 +163,7 @@ place(music, pad([note("D3"), note("A3")], 1.6, 0.6, attack=0.3, decay=2.0), 0.0
 
 for b in range(int(DUR / 0.5)):
     t = b * 0.5
-    if t < 1.5 or t >= 14.5:
+    if t < 1.5 or t >= 15.5:
         continue
     beat_in_bar = b % 4
     build = 8.0 <= t < 10.0
@@ -192,7 +192,7 @@ for b in range(int(DUR / 0.5)):
 # plucked melody (D major pentatonic) from 3.0
 MEL = ["A4", "B4", "D5", "B4", "A4", "F#4", "E4", "F#4"]
 MEL_HI = ["D5", "E5", "F#5", "E5", "D5", "B4", "A4", "B4"]
-for k in range(int((14.5 - 3.0) / 0.25)):
+for k in range(int((15.5 - 3.0) / 0.25)):
     t = 3.0 + k * 0.25
     if 9.75 <= t < 10.0:
         continue
@@ -210,20 +210,20 @@ music[int(9.875 * SR): int(10.0 * SR)] *= 0.15  # tiny breath before the hit
 place(music, crash(1.6, 1.0), 10.0)
 
 # mini build into the slogan drop
-place(music, riser(1.0, 0.8), 12.0)
-music[int(12.92 * SR): int(13.0 * SR)] *= 0.2
-place(music, boom(0.9), 13.0)
-place(music, crash(1.4, 1.1), 13.0)
+place(music, riser(1.0, 0.8), 13.0)
+music[int(13.92 * SR): int(14.0 * SR)] *= 0.2
+place(music, boom(0.9), 14.0)
+place(music, crash(1.4, 1.1), 14.0)
 
 # resolve on the logo: long D major pad + one last motif
-place(music, pad([note("D3"), note("F#4"), note("A4"), note("D5")], 2.6, 1.1, attack=0.05, decay=1.6), 14.5)
-place(music, crash(2.0, 0.6), 14.5)
+place(music, pad([note("D3"), note("F#4"), note("A4"), note("D5")], 2.6, 1.1, attack=0.05, decay=1.6), 15.5)
+place(music, crash(2.0, 0.6), 15.5)
 for k, n in enumerate(["A4", "D5", "F#5", "A5"]):
-    place(music, pluck(note(n), 1.6, bright=0.998), 14.5 + k * 0.125, 0.45)
+    place(music, pluck(note(n), 1.6, bright=0.998), 15.5 + k * 0.125, 0.45)
 
 # fade the tail into the end of the video
 fade = np.ones(N)
-fs = int(16.2 * SR)
+fs = int(17.2 * SR)
 fade[fs:] = np.linspace(1, 0, N - fs)
 music *= fade
 
@@ -238,7 +238,7 @@ def save(name, x, peak=0.89):
         w.writeframes(pcm.tobytes())
 
 
-save("music.wav", music)
+save("music.wav", music)  # 18s: doorbell hit 10.0, slogan drop 14.0, logo resolve 15.5
 
 # ---------- custom SFX ----------
 # fridge hum (1.6s)

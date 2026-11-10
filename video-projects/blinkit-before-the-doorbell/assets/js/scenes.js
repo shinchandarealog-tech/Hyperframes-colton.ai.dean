@@ -63,7 +63,8 @@
 
   // ============ B2 · phone + glossy icon (1.5–3.0) ============
   S.phone = function (cv) {
-    const st = stage(cv, { bg: "#fbeec8", hemi: 0.65, key: 2.0, keyPos: [2.5, 4.5, 6], fov: 30, shadowSize: 2.5 });
+    const st = stage(cv, { bg: "#fbeec8", hemi: 0.65, key: 2.0, keyPos: [2.5, 4.5, 6], fov: 30, shadowSize: 2.5, dof: { maxBlur: 10 } });
+    st.dof.focus = 5.2; st.dof.range = 2.2;
     const { scene, camera } = st;
     const back = mesh(new T.PlaneGeometry(14, 14), M.clay("#fbeec8", 0.95), false, true); back.position.z = -0.7; scene.add(back);
     const phone = new T.Group(); scene.add(phone);
@@ -107,7 +108,7 @@
       phone.getWorldQuaternion(q0);
       const f = E.inC(seg(t, 2.36, 2.78));
       icon.userData.face.material.opacity = 1 - seg(t, 2.46, 2.6);
-      const pop = 1 - 0.1 * press + 0.08 * E.outBack(seg(t, 2.16, 2.36)) * (1 - f);
+      const pop = 1 - 0.06 * press;
       icon.position.set(lerp(tmp.x, 0, f), lerp(tmp.y, -0.15, f), lerp(tmp.z, 4.96, f));
       icon.quaternion.copy(q0).slerp(q1, E.outC(seg(t, 2.36, 2.7)));
       icon.scale.setScalar(pop * lerp(1, 4, f));
@@ -123,7 +124,8 @@
     { k: "cake", nm: "Chocolate Cake", wt: "500 g", pr: "₹384" },
   ];
   S.app = function (cv) {
-    const st = stage(cv, { bg: C.cream, hemi: 0.6, key: 2.0, keyPos: [2.5, 4, 5.5], fov: 30, shadowSize: 2.6 });
+    const st = stage(cv, { bg: C.cream, hemi: 0.6, key: 2.0, keyPos: [2.5, 4, 5.5], fov: 30, shadowSize: 2.6, dof: { maxBlur: 9 } });
+    st.dof.focus = 6.25; st.dof.range = 2.0;
     const { scene, camera } = st;
     const back = mesh(new T.PlaneGeometry(14, 14), M.clay(C.cream, 0.95), false, true); back.position.z = -1.0; scene.add(back);
     const ui = new T.Group(); scene.add(ui);
@@ -170,17 +172,18 @@
       const u = E.outC(seg(t, 2.8, 5.15));
       ui.rotation.set(lerp(-0.26, -0.08, u), lerp(0.16, 0.04, u), 0);
       ui.position.set(0, 0, lerp(-0.3, 0, u));
-      head.position.y = 1.2 + (1 - E.outBack(seg(t, 2.8, 3.15))) * 0.4;
-      bar.scale.setScalar(Math.max(0.001, E.outBack(seg(t, 2.84, 3.2))));
+      head.position.y = 1.2 + (1 - E.outExpo(seg(t, 2.8, 3.35))) * 0.35;
+      bar.scale.setScalar(lerp(0.82, 1, E.outExpo(seg(t, 2.84, 3.3))));
       const n = Math.max(0, Math.min(QUERY.length, Math.floor((t - 3.15) / 0.046) + 1));
       const caret = t < 3.15 ? 1 : t < 4.35 ? 1 : (Math.floor((t - 4.35) / 0.2) % 2 ? 1 : 0);
       bt.set(n + "|" + caret);
       cards.forEach((c, i) => {
         const a = seg(t, at[i], at[i] + 0.42);
-        c.g.scale.setScalar(Math.max(0.001, E.outBack(a, 1.4)));
-        c.g.position.z = lerp(-0.5, 0, E.outC(a));
+        c.g.visible = t >= at[i];
+        c.g.scale.setScalar(lerp(0.7, 1, E.outExpo(a)));
+        c.g.position.z = lerp(-1.4, 0, E.outExpo(a));
         c.prod.rotation.y = -0.5 + (t - at[i]) * 0.7;
-        c.prod.position.z = 0.16 + 0.05 * E.outBack(seg(t, at[i] + 0.1, at[i] + 0.5));
+        c.prod.position.z = 0.16 + 0.05 * E.outC(seg(t, at[i] + 0.1, at[i] + 0.6));
         c.tx.set(t >= 4.45 + i * 0.1);
       });
       st.render();
@@ -189,7 +192,8 @@
 
   // ============ B4 · products drop into the bag (5.0–7.0) ============
   S.cart = function (cv) {
-    const st = stage(cv, { bg: "#fbefcc", hemi: 0.6, key: 2.2, keyPos: [2.2, 5.5, 4.5], fov: 32, shadowSize: 3 });
+    const st = stage(cv, { bg: "#fbefcc", hemi: 0.6, key: 2.2, keyPos: [2.2, 5.5, 4.5], fov: 32, shadowSize: 3, dof: { maxBlur: 10 } });
+    st.dof.focus = 5.6; st.dof.range = 2.4;
     const { scene, camera } = st;
     const floor = mesh(new T.PlaneGeometry(20, 20), M.clay("#fbefcc", 0.95), false, true); floor.rotation.x = -Math.PI / 2; scene.add(floor);
     const b = BK.bag(1.05, 1.0, 0.7); scene.add(b);
@@ -208,16 +212,17 @@
       camera.position.set(lerp(-0.45, 0.25, o), 3.3, 5.0); camera.lookAt(0, 0.62, 0.25);
       let squash = 0;
       items.forEach((m, i) => {
-        const t0 = 5.2 + i * 0.25, a = seg(t, t0, t0 + 0.42), r = rest[i];
-        m.position.set(r[0], lerp(3.4, r[1], E.outBounce(a)), r[2]);
-        m.rotation.set(0.2 * (1 - a), r[3] + (1 - a) * 3.5 * (i % 2 ? 1 : -1), r[3] * 0.5);
+        const t0 = 5.2 + i * 0.25, ff = seg(t, t0, t0 + 0.32), a = E.outC(seg(t, t0, t0 + 0.7)), r = rest[i];
+        // gravity fall, then a small damped settle (no cartoon bounce)
+        m.position.set(r[0], r[1] + (3.4 - r[1]) * (1 - ff * ff) + wob(t, t0 + 0.32, 16, 0.035, 24), r[2]);
+        m.rotation.set(0.2 * (1 - a), r[3] + (1 - a) * 2.2 * (i % 2 ? 1 : -1), r[3] * 0.5);
         m.visible = t >= t0;
-        squash = Math.max(squash, wob(t, t0 + 0.26, 12, 0.05, 30) * (t > t0 + 0.26 ? 1 : 0));
+        squash = Math.max(squash, wob(t, t0 + 0.32, 14, 0.03, 26) * (t > t0 + 0.32 ? 1 : 0));
       });
       b.scale.set(1 + squash * 0.6, 1 - Math.abs(squash), 1 + squash * 0.6);
-      b.position.y = 0; b.rotation.y = lerp(-0.15, 0.1, o);
-      const bi = E.outBack(seg(t, 5.0, 5.4));
-      b.scale.multiplyScalar(Math.max(0.001, bi));
+      b.rotation.y = lerp(-0.15, 0.1, o);
+      b.scale.multiplyScalar(lerp(0.86, 1, E.outExpo(seg(t, 4.95, 5.5))));
+      b.position.y = -(1 - E.outExpo(seg(t, 4.95, 5.5))) * 0.6;
       btn.position.y = 0.25 - (1 - E.outExpo(seg(t, 5.15, 5.6))) * 1.4;
       const press = seg(t, 6.5, 6.57) - seg(t, 6.58, 6.75);
       btn.scale.setScalar(1 - press * 0.05);
@@ -231,7 +236,8 @@
 
   // ============ B5 · clay-3D city, scooter on the route (7.0–10.0) ============
   S.map = function (cv) {
-    const st = stage(cv, { bg: "#f1e7cb", ground: "#e8dcb8", hemi: 0.62, key: 2.3, keyPos: [3, 7, 2.5], fov: 34, shadowSize: 4.5, shadowRadius: 6 });
+    const st = stage(cv, { bg: "#f1e7cb", ground: "#e8dcb8", hemi: 0.62, key: 2.3, keyPos: [3, 7, 2.5], fov: 34, shadowSize: 4.5, shadowRadius: 6, dof: { maxBlur: 16 } });
+    st.dof.range = 1.6;
     const { scene, camera, key } = st;
     key.shadow.mapSize.set(2048, 2048);
     const ground = mesh(new T.PlaneGeometry(30, 30), M.clay("#efe4c4", 0.95), false, true); ground.rotation.x = -Math.PI / 2; scene.add(ground);
@@ -241,6 +247,25 @@
     ZL.forEach((z) => { const r = mesh(new T.PlaneGeometry(30, 0.34), roadM, false, true); r.rotation.x = -Math.PI / 2; r.position.set(0, 0.005, z); scene.add(r); });
     const R = rng(77), bM = [M.clay("#f8f4ea", 0.85), M.clay("#f3ecdc", 0.85), M.clay("#fbf3df", 0.85)], parkM = M.clay("#bfdcb3", 0.9);
     const treeM = M.clay("#7fbf6a", 0.7), trunkM = M.clay("#c9b28a", 0.8), winM = M.clay("#e2d6bb", 0.8);
+    const winTex = (() => { const c = document.createElement("canvas"); c.width = c.height = 64; const x = c.getContext("2d");
+      x.fillStyle = "#f8f3e6"; x.fillRect(0, 0, 64, 64); x.fillStyle = "#cfc3a3"; x.fillRect(16, 14, 32, 30); x.fillStyle = "#e9dfc6"; x.fillRect(16, 44, 32, 5);
+      const tx = new T.CanvasTexture(c); tx.wrapS = tx.wrapT = T.RepeatWrapping; tx.colorSpace = T.SRGBColorSpace; tx.anisotropy = 8; return tx; })();
+    const winWall = new T.MeshStandardMaterial({ map: winTex, roughness: 0.85, envMapIntensity: 0.45 });
+    const dashM = M.clay("#e3d7b6", 0.9), zebraM = M.clay("#ffffff", 0.8);
+    XL.forEach((x) => { for (let z = -6.4; z < 5.2; z += 0.3) { const dsh = mesh(new T.PlaneGeometry(0.018, 0.12), dashM, false, true); dsh.rotation.x = -Math.PI / 2; dsh.position.set(x, 0.006, z); scene.add(dsh); } });
+    ZL.forEach((z) => { for (let x = -4.8; x < 5.0; x += 0.3) { const dsh = mesh(new T.PlaneGeometry(0.12, 0.018), dashM, false, true); dsh.rotation.x = -Math.PI / 2; dsh.position.set(x, 0.007, z); scene.add(dsh); } });
+    XL.forEach((x) => ZL.forEach((z) => { for (let k = -2; k <= 2; k++) { const zb = mesh(new T.PlaneGeometry(0.035, 0.12), zebraM, false, true); zb.rotation.x = -Math.PI / 2; zb.position.set(x + k * 0.06, 0.008, z + 0.27); scene.add(zb); } }));
+    const carCols = ["#ffffff", "#cfe3f5", "#1c1a12", "#e9d9a8", "#ffffff", "#9fb8cf"], RC = rng(31);
+    for (let k = 0; k < 46; k++) {
+      const alongX = RC() < 0.5, line = alongX ? ZL[Math.floor(RC() * ZL.length)] : XL[Math.floor(RC() * XL.length)];
+      const pos = -4.5 + RC() * 9.5, side = RC() < 0.5 ? -0.09 : 0.09;
+      const car = new T.Group();
+      car.add(mesh(rbox(0.16, 0.06, 0.08, 0.02, 0.012), M.plastic(carCols[k % carCols.length], 0.35, 0.8)).translateY(0.035));
+      car.add(mesh(rbox(0.08, 0.04, 0.07, 0.015, 0.01), M.glass("#3a4656", 0.85)).translateY(0.07));
+      if (alongX) car.position.set(pos, 0, line + side); else { car.position.set(line + side, 0, pos); car.rotation.y = Math.PI / 2; }
+      if (Math.hypot(car.position.x - 1.2, car.position.z + 2.2) < 0.5) continue;
+      scene.add(car);
+    }
     const tree = (x, z, s) => { const tr = mesh(new T.CylinderGeometry(0.02 * s, 0.025 * s, 0.12 * s, 8), trunkM); tr.position.set(x, 0.06 * s, z); scene.add(tr);
       const cr = mesh(new T.SphereGeometry(0.11 * s, 16, 12), treeM); cr.position.set(x, 0.18 * s, z); scene.add(cr); };
     for (let i = 0; i < XL.length - 1; i++) for (let j = 0; j < ZL.length - 1; j++) {
@@ -253,7 +278,11 @@
       const nx = x1 - x0 > 1.0 ? 2 : 1, nz = z1 - z0 > 1.0 ? 2 : 1;
       for (let a = 0; a < nx; a++) for (let c = 0; c < nz; c++) {
         const w = (x1 - x0) / nx - 0.08, d = (z1 - z0) / nz - 0.08, h = 0.18 + R() * 0.5;
-        const bx = mesh(rbox(w, h, d, 0.03, 0.02), bM[Math.floor(R() * 3)]);
+        const bg = new T.BoxGeometry(w, h, d), uv = bg.attributes.uv;
+        for (let f = 0; f < 6; f++) { if (f === 2 || f === 3) continue; const sx = (f < 2 ? d : w) / 0.09, sy = h / 0.09;
+          for (let k = 0; k < 4; k++) { const q = f * 4 + k; uv.setXY(q, uv.getX(q) * sx, uv.getY(q) * sy); } }
+        const bm = bM[Math.floor(R() * 3)];
+        const bx = mesh(bg, [winWall, winWall, bm, bm, winWall, winWall]);
         bx.rotation.x = 0; bx.position.set(x0 + (a + 0.5) * (x1 - x0) / nx, h / 2, z0 + (c + 0.5) * (z1 - z0) / nz); scene.add(bx);
         const roofTop = mesh(new T.BoxGeometry(w * 0.4, 0.05, d * 0.3), winM); roofTop.position.set(bx.position.x + w * 0.15, h + 0.025, bx.position.z); scene.add(roofTop);
       }
@@ -276,14 +305,14 @@
     return function (t) {
       const g = E.outC(seg(t, 6.95, 7.45));
       tube.geometry.setDrawRange(0, Math.floor(g * TUB) * RAD * 6);
-      store.scale.setScalar(Math.max(0.001, E.outBack(seg(t, 7.0, 7.3))));
-      const hp = seg(t, 7.1, 7.5);
-      home.position.y = (1 - E.outBounce(hp)) * 0.8 + 0.03 * Math.sin(t * 5);
+      store.scale.setScalar(Math.max(0.001, E.outExpo(seg(t, 7.0, 7.45))));
+      const hp = seg(t, 7.05, 7.5);
+      home.position.y = (1 - E.outC(hp)) * 0.8 + wob(t, 7.5, 9, 0.03, 18) + 0.02 * Math.sin(t * 3);
       const u = E.inOutS(seg(t, 7.3, 9.7));
       path.getPointAt(u, p); path.getTangentAt(Math.min(0.999, u + 0.001), tg);
       sc.position.copy(p).setY(0.02);
       sc.rotation.y = Math.atan2(-tg.z, tg.x);
-      sc.scale.setScalar(1.6 * Math.max(0.001, E.outBack(seg(t, 7.15, 7.4))));
+      sc.scale.setScalar(1.6 * Math.max(0.001, E.outExpo(seg(t, 7.1, 7.5))));
       // camera: overview → chase → dive to the home pin
       const ov = V(-0.5, 6.0, 6.2), chase = V(p.x + 1.1, 2.7, p.z + 2.9), dive = V(1.35, 0.9, -1.35);
       const toChase = E.inOutS(seg(t, 7.0, 7.9)), toDive = E.inC(seg(t, 9.65, 10.15));
@@ -291,13 +320,15 @@
       look.set(lerp(-0.6, p.x, toChase), 0, lerp(1.2, p.z - 0.7, toChase));
       look.lerp(V(1.2, 0.4, -2.2), toDive);
       camera.position.copy(camP); camera.lookAt(look);
+      st.dof.focus = camP.distanceTo(p);   // tilt-shift: sharp on the scooter, city falls off
       st.render();
     };
   };
 
   // ============ B6 · front door (10.0–11.5) ============
   S.door = function (cv) {
-    const st = stage(cv, { bg: "#f6e8c4", hemi: 0.55, key: 1.9, keyPos: [-2.5, 4, 5], fov: 34, shadowSize: 3 });
+    const st = stage(cv, { bg: "#f6e8c4", hemi: 0.55, key: 1.9, keyPos: [-2.5, 4, 5], fov: 34, shadowSize: 3, dof: { maxBlur: 8 } });
+    st.dof.focus = 5.8; st.dof.range = 2.0;
     const { scene, camera } = st;
     const wallM = M.clay("#f6e8c4", 0.9), trimM = M.plastic(C.ink, 0.5, 0.2);
     const wall = (w, h, x, y) => { const m = mesh(new T.BoxGeometry(w, h, 0.2), wallM); m.position.set(x, y, 0); scene.add(m); };
@@ -326,7 +357,7 @@
       hinge.rotation.y = lerp(0, -1.25, E.inOutC(seg(t, 10.12, 10.65)));
       rings.forEach((r, i) => { const a = seg(t, 10.0 + i * 0.45, 10.45 + i * 0.45); r.scale.setScalar(1 + a * 2.2); r.material.opacity = a > 0 && a < 1 ? 0.9 * (1 - a) : 0; });
       btn.position.z = 0.165 - 0.012 * (seg(t, 9.95, 10.0) - seg(t, 10.05, 10.15));
-      const hand_in = E.outBack(seg(t, 10.4, 10.9), 1.2);
+      const hand_in = E.outC(seg(t, 10.35, 10.95));
       rider.position.set(lerp(1.6, 0.18, hand_in), -0.1 + 0.02 * Math.sin(t * 6), -0.55);
       rider.rotation.z = lerp(0.12, 0, hand_in);
       st.render();
@@ -379,16 +410,18 @@
 
   // ============ B9 · the glossy 3D app icon lands (14.5–17.0) ============
   S.logo = function (cv) {
-    const st = stage(cv, { bg: C.cream, hemi: 0.6, key: 2.2, keyPos: [-2, 4, 5], fov: 30, shadowSize: 2 });
+    const st = stage(cv, { bg: C.cream, hemi: 0.6, key: 2.2, keyPos: [-2, 4, 5], fov: 30, shadowSize: 2, dof: { maxBlur: 10 } });
+    st.dof.focus = 5.4; st.dof.range = 1.6;
     const { scene, camera } = st;
     const back = mesh(new T.PlaneGeometry(14, 14), M.clay(C.cream, 0.95), false, true); back.position.z = -0.45; scene.add(back);
     const icon = BK.appIcon(1.0, 0.24); scene.add(icon);
     camera.position.set(0, 0, 5.4); camera.lookAt(0, 0.05, 0);
     return function (t) {
-      const a = seg(t, 14.45, 15.0);
-      icon.rotation.set(lerp(0.5, 0, E.outC(a)), lerp(-2.6, 0, E.outBack(a, 1.2)), 0);
-      icon.position.set(0, lerp(-0.6, 0.38, E.outBack(a, 1.3)), lerp(-1.5, 0, E.outC(a)));
-      icon.scale.setScalar(Math.max(0.001, lerp(0.2, 0.9, E.outBack(a, 1.5))));
+      const a = seg(t, 14.4, 15.1);
+      const e = E.outExpo(a);
+      icon.rotation.set(lerp(0.5, 0, e), lerp(-2.2, 0, e), 0);
+      icon.position.set(0, lerp(-0.4, 0.38, e), lerp(-2.2, 0, e));
+      icon.scale.setScalar(lerp(0.5, 0.9, e));
       st.render();
     };
   };
