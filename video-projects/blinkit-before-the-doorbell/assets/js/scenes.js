@@ -125,7 +125,7 @@
   S.app = function (cv) {
     const st = stage(cv, { bg: C.cream, hemi: 0.6, key: 2.0, keyPos: [2.5, 4, 5.5], fov: 30, shadowSize: 2.6 });
     const { scene, camera } = st;
-    const back = mesh(new T.PlaneGeometry(14, 14), M.clay(C.cream, 0.95), false, true); back.position.z = -0.42; scene.add(back);
+    const back = mesh(new T.PlaneGeometry(14, 14), M.clay(C.cream, 0.95), false, true); back.position.z = -1.0; scene.add(back);
     const ui = new T.Group(); scene.add(ui);
     const head = mesh(rbox(1.62, 0.66, 0.08, 0.08), M.plastic(C.yellow, 0.55, 0.08)); head.position.set(0, 1.2, 0); ui.add(head);
     const ht = canvasTex(1024, 418, (x) => {
