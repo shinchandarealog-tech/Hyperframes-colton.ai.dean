@@ -1,0 +1,116 @@
+[
+ {
+  "name": "s01-office-sign",
+  "start": 0.0,
+  "dur": 3.15,
+  "file_dur": 3.167
+ },
+ {
+  "name": "s02-office-desks",
+  "start": 2.65,
+  "dur": 2.4,
+  "file_dur": 2.4
+ },
+ {
+  "name": "s03-office-logo",
+  "start": 4.55,
+  "dur": 2.4,
+  "file_dur": 2.4
+ },
+ {
+  "name": "s04-dream",
+  "start": 6.45,
+  "dur": 4.7,
+  "file_dur": 4.7
+ },
+ {
+  "name": "s05-dubai",
+  "start": 10.65,
+  "dur": 4.7,
+  "file_dur": 4.7
+ },
+ {
+  "name": "s06-urgent",
+  "start": 14.85,
+  "dur": 4.2,
+  "file_dur": 4.2
+ },
+ {
+  "name": "s07-trades1",
+  "start": 18.55,
+  "dur": 3.66,
+  "file_dur": 3.633
+ },
+ {
+  "name": "s08-trades2",
+  "start": 21.71,
+  "dur": 3.58,
+  "file_dur": 3.567
+ },
+ {
+  "name": "s09-trades3",
+  "start": 24.79,
+  "dur": 4.46,
+  "file_dur": 4.467
+ },
+ {
+  "name": "s10-civil",
+  "start": 28.75,
+  "dur": 5.9,
+  "file_dur": 5.9
+ },
+ {
+  "name": "s11-visa",
+  "start": 34.15,
+  "dur": 8.7,
+  "file_dur": 8.7
+ },
+ {
+  "name": "s12-benefits",
+  "start": 42.35,
+  "dur": 4.3,
+  "file_dur": 4.333
+ },
+ {
+  "name": "s13-medical",
+  "start": 46.15,
+  "dur": 3.3,
+  "file_dur": 3.3
+ },
+ {
+  "name": "s14-interview",
+  "start": 48.95,
+  "dur": 4.2,
+  "file_dur": 4.2
+ },
+ {
+  "name": "s15-contact-cta",
+  "start": 52.65,
+  "dur": 6.6,
+  "file_dur": 6.6
+ },
+ {
+  "name": "s16-contact-card",
+  "start": 58.75,
+  "dur": 5.9,
+  "file_dur": 5.9
+ },
+ {
+  "name": "s17-office-entry",
+  "start": 64.15,
+  "dur": 3.4,
+  "file_dur": 3.4
+ },
+ {
+  "name": "s18-future",
+  "start": 67.05,
+  "dur": 3.6,
+  "file_dur": 3.6
+ },
+ {
+  "name": "s19-outro",
+  "start": 70.15,
+  "dur": 4.25,
+  "file_dur": 4.267
+ }
+]

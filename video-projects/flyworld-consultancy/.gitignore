@@ -1,0 +1,4 @@
+# Cut media (regenerated from the uploaded clips via edit-data/cut-shots.py; too large for git)
+assets/*.mp4
+assets/voiceover.mp3
+.hyperframes/

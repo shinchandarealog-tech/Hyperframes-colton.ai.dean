@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      .shot { position: absolute; inset: 0; overflow: hidden; }
+      .shot video { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #flash { position: absolute; inset: 0; background: #fff8e6; opacity: 0; z-index: 90; pointer-events: none; }
+      #vignette { position: absolute; inset: 0; z-index: 80; pointer-events: none;
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%); }
+      #logo { position: absolute; z-index: 100; top: 44px; right: 36px; width: 210px;
+        padding: 8px; background: #fff; border-radius: 20px;
+        box-shadow: 0 6px 22px rgba(0,0,0,0.35); }
+      #logo img { display: block; width: 100%; height: auto; border-radius: 12px; }
+      .chip { position: absolute; z-index: 95; left: 50%; bottom: 330px; transform: translateX(-50%);
+        display: flex; align-items: center; gap: 16px; white-space: nowrap;
+        padding: 20px 36px; border-radius: 999px; background: rgba(12,30,92,0.88);
+        border: 3px solid #d4a63a; color: #fff; font-family: Inter, Arial, sans-serif;
+        font-weight: 800; font-size: 44px; letter-spacing: 0.04em; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+      .chip .pin { width: 26px; height: 26px; border-radius: 50% 50% 50% 0; background: #d4a63a;
+        transform: rotate(-45deg); flex: none; }
+      .chip .gold { color: #f2c75c; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="74.4" data-width="1080" data-height="1920">
+      <div id="w0" class="shot" style="z-index:10">
+        <video id="v0" src="assets/s01-office-sign.mp4" muted playsinline data-start="0.0" data-duration="3.15" data-track-index="20"></video>
+      </div>
+      <div id="w1" class="shot" style="z-index:11">
+        <video id="v1" src="assets/s02-office-desks.mp4" muted playsinline data-start="2.65" data-duration="2.4" data-track-index="21"></video>
+      </div>
+      <div id="w2" class="shot" style="z-index:12">
+        <video id="v2" src="assets/s03-office-logo.mp4" muted playsinline data-start="4.55" data-duration="2.4" data-track-index="20"></video>
+      </div>
+      <div id="w3" class="shot" style="z-index:13">
+        <video id="v3" src="assets/s04-dream.mp4" muted playsinline data-start="6.45" data-duration="4.7" data-track-index="21"></video>
+      </div>
+      <div id="w4" class="shot" style="z-index:14">
+        <video id="v4" src="assets/s05-dubai.mp4" muted playsinline data-start="10.65" data-duration="4.7" data-track-index="20"></video>
+      </div>
+      <div id="w5" class="shot" style="z-index:15">
+        <video id="v5" src="assets/s06-urgent.mp4" muted playsinline data-start="14.85" data-duration="4.2" data-track-index="21"></video>
+      </div>
+      <div id="w6" class="shot" style="z-index:16">
+        <video id="v6" src="assets/s07-trades1.mp4" muted playsinline data-start="18.55" data-duration="3.66" data-track-index="20"></video>
+      </div>
+      <div id="w7" class="shot" style="z-index:17">
+        <video id="v7" src="assets/s08-trades2.mp4" muted playsinline data-start="21.71" data-duration="3.58" data-track-index="21"></video>
+      </div>
+      <div id="w8" class="shot" style="z-index:18">
+        <video id="v8" src="assets/s09-trades3.mp4" muted playsinline data-start="24.79" data-duration="4.46" data-track-index="20"></video>
+      </div>
+      <div id="w9" class="shot" style="z-index:19">
+        <video id="v9" src="assets/s10-civil.mp4" muted playsinline data-start="28.75" data-duration="5.9" data-track-index="21"></video>
+      </div>
+      <div id="w10" class="shot" style="z-index:20">
+        <video id="v10" src="assets/s11-visa.mp4" muted playsinline data-start="34.15" data-duration="8.7" data-track-index="20"></video>
+      </div>
+      <div id="w11" class="shot" style="z-index:21">
+        <video id="v11" src="assets/s12-benefits.mp4" muted playsinline data-start="42.35" data-duration="4.3" data-track-index="21"></video>
+      </div>
+      <div id="w12" class="shot" style="z-index:22">
+        <video id="v12" src="assets/s13-medical.mp4" muted playsinline data-start="46.15" data-duration="3.3" data-track-index="20"></video>
+      </div>
+      <div id="w13" class="shot" style="z-index:23">
+        <video id="v13" src="assets/s14-interview.mp4" muted playsinline data-start="48.95" data-duration="4.2" data-track-index="21"></video>
+      </div>
+      <div id="w14" class="shot" style="z-index:24">
+        <video id="v14" src="assets/s15-contact-cta.mp4" muted playsinline data-start="52.65" data-duration="6.6" data-track-index="20"></video>
+      </div>
+      <div id="w15" class="shot" style="z-index:25">
+        <video id="v15" src="assets/s16-contact-card.mp4" muted playsinline data-start="58.75" data-duration="5.9" data-track-index="21"></video>
+      </div>
+      <div id="w16" class="shot" style="z-index:26">
+        <video id="v16" src="assets/s17-office-entry.mp4" muted playsinline data-start="64.15" data-duration="3.4" data-track-index="20"></video>
+      </div>
+      <div id="w17" class="shot" style="z-index:27">
+        <video id="v17" src="assets/s18-future.mp4" muted playsinline data-start="67.05" data-duration="3.6" data-track-index="21"></video>
+      </div>
+      <div id="w18" class="shot" style="z-index:28">
+        <video id="v18" src="assets/s19-outro.mp4" muted playsinline data-start="70.15" data-duration="4.25" data-track-index="20"></video>
+      </div>
+      <div id="vignette" class="clip" data-start="0" data-duration="74.4" data-track-index="5"></div>
+      <div id="flash" class="clip" data-start="0" data-duration="74.4" data-track-index="6"></div>
+      <div id="chip1" class="chip clip" data-start="0.5" data-duration="5.9" data-track-index="7"><span class="pin"></span>OUR OFFICE <span class="gold">· NAWADA, BIHAR</span></div>
+      <div id="chip2" class="chip clip" data-start="64.6" data-duration="2.6" data-track-index="8"><span class="pin"></span>NAWADA, <span class="gold">BIHAR</span></div>
+      <div id="logo" class="clip" data-start="0" data-duration="74.4" data-track-index="9"><img src="assets/logo.png" alt="Fly World Consultancy" /></div>
+      <audio id="vo" src="assets/voiceover.mp3" data-start="0" data-duration="72.91" data-track-index="30" data-volume="1"></audio>
+      <audio id="sfx1" src="assets/whoosh.mp3" data-start="2.6" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx2" src="assets/whoosh.mp3" data-start="4.5" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx3" src="assets/whoosh.mp3" data-start="6.4" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx4" src="assets/whoosh.mp3" data-start="10.6" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx5" src="assets/whoosh.mp3" data-start="14.8" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx6" src="assets/whoosh.mp3" data-start="18.5" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx7" src="assets/whoosh.mp3" data-start="21.66" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx8" src="assets/whoosh.mp3" data-start="24.74" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx9" src="assets/whoosh.mp3" data-start="28.7" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx10" src="assets/whoosh.mp3" data-start="34.1" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx11" src="assets/whoosh.mp3" data-start="42.3" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx12" src="assets/whoosh.mp3" data-start="46.1" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx13" src="assets/whoosh.mp3" data-start="48.9" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx14" src="assets/whoosh.mp3" data-start="52.6" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx15" src="assets/whoosh.mp3" data-start="58.7" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx16" src="assets/whoosh.mp3" data-start="64.1" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+      <audio id="sfx17" src="assets/whoosh.mp3" data-start="67.0" data-duration="0.57" data-track-index="41" data-volume="0.18"></audio>
+      <audio id="sfx18" src="assets/whoosh.mp3" data-start="70.1" data-duration="0.57" data-track-index="40" data-volume="0.18"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#logo", { scale: 0.6, opacity: 0, duration: 0.6, ease: "back.out(1.7)" }, 0.15);
+      tl.from("#chip1", { y: 60, opacity: 0, duration: 0.5, ease: "power3.out" }, 0.5);
+      tl.to("#chip1", { y: 40, opacity: 0, duration: 0.3, ease: "power2.in" }, 6.1);
+      tl.from("#chip2", { y: 60, opacity: 0, duration: 0.5, ease: "power3.out" }, 64.6);
+      tl.to("#chip2", { opacity: 0, duration: 0.25 }, 66.95);
+      tl.fromTo("#v0",{scale:1.0},{scale:1.07,ease:"none",duration:3.15},0.0);
+      tl.fromTo("#v1",{scale:1.0},{scale:1.07,ease:"none",duration:2.4},2.65);
+      tl.from("#w1",{scale:1.35,opacity:0,filter:"blur(24px)",duration:0.5,ease:"power3.out"},2.65);
+      tl.to("#w0",{scale:1.2,filter:"blur(14px)",duration:0.5,ease:"power2.in"},2.65);
+      tl.fromTo("#v2",{scale:1.0},{scale:1.07,ease:"none",duration:2.4},4.55);
+      tl.from("#w2",{xPercent:100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},4.55);
+      tl.to("#w1",{xPercent:-100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},4.55);
+      tl.fromTo("#v3",{scale:1.0},{scale:1.07,ease:"none",duration:4.7},6.45);
+      tl.from("#w3",{opacity:0,duration:0.3,ease:"power1.out"},6.5);
+      tl.to("#flash",{opacity:0.9,duration:0.15,ease:"power2.in"},6.45);
+      tl.to("#flash",{opacity:0,duration:0.35,ease:"power2.out"},6.6000000000000005);
+      tl.fromTo("#v4",{scale:1.0},{scale:1.07,ease:"none",duration:4.7},10.65);
+      tl.from("#w4",{yPercent:100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},10.65);
+      tl.to("#w3",{yPercent:-100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},10.65);
+      tl.fromTo("#v5",{scale:1.0},{scale:1.07,ease:"none",duration:4.2},14.85);
+      tl.from("#w5",{scale:1.35,opacity:0,filter:"blur(24px)",duration:0.5,ease:"power3.out"},14.85);
+      tl.to("#w4",{scale:1.2,filter:"blur(14px)",duration:0.5,ease:"power2.in"},14.85);
+      tl.fromTo("#v6",{scale:1.0},{scale:1.07,ease:"none",duration:3.66},18.55);
+      tl.from("#w6",{xPercent:-100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},18.55);
+      tl.to("#w5",{xPercent:100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},18.55);
+      tl.fromTo("#v7",{scale:1.0},{scale:1.07,ease:"none",duration:3.58},21.71);
+      tl.from("#w7",{opacity:0,duration:0.3,ease:"power1.out"},21.76);
+      tl.to("#flash",{opacity:0.9,duration:0.15,ease:"power2.in"},21.71);
+      tl.to("#flash",{opacity:0,duration:0.35,ease:"power2.out"},21.86);
+      tl.fromTo("#v8",{scale:1.0},{scale:1.07,ease:"none",duration:4.46},24.79);
+      tl.from("#w8",{xPercent:100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},24.79);
+      tl.to("#w7",{xPercent:-100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},24.79);
+      tl.fromTo("#v9",{scale:1.0},{scale:1.07,ease:"none",duration:5.9},28.75);
+      tl.from("#w9",{scale:1.35,opacity:0,filter:"blur(24px)",duration:0.5,ease:"power3.out"},28.75);
+      tl.to("#w8",{scale:1.2,filter:"blur(14px)",duration:0.5,ease:"power2.in"},28.75);
+      tl.fromTo("#v10",{scale:1.0},{scale:1.07,ease:"none",duration:8.7},34.15);
+      tl.from("#w10",{yPercent:100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},34.15);
+      tl.to("#w9",{yPercent:-100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},34.15);
+      tl.fromTo("#v11",{scale:1.0},{scale:1.07,ease:"none",duration:4.3},42.35);
+      tl.from("#w11",{opacity:0,duration:0.3,ease:"power1.out"},42.4);
+      tl.to("#flash",{opacity:0.9,duration:0.15,ease:"power2.in"},42.35);
+      tl.to("#flash",{opacity:0,duration:0.35,ease:"power2.out"},42.5);
+      tl.fromTo("#v12",{scale:1.0},{scale:1.07,ease:"none",duration:3.3},46.15);
+      tl.from("#w12",{xPercent:-100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},46.15);
+      tl.to("#w11",{xPercent:100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},46.15);
+      tl.fromTo("#v13",{scale:1.0},{scale:1.07,ease:"none",duration:4.2},48.95);
+      tl.from("#w13",{scale:1.35,opacity:0,filter:"blur(24px)",duration:0.5,ease:"power3.out"},48.95);
+      tl.to("#w12",{scale:1.2,filter:"blur(14px)",duration:0.5,ease:"power2.in"},48.95);
+      tl.fromTo("#v14",{scale:1.0},{scale:1.07,ease:"none",duration:6.6},52.65);
+      tl.from("#w14",{xPercent:100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},52.65);
+      tl.to("#w13",{xPercent:-100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},52.65);
+      tl.fromTo("#v15",{scale:1.0},{scale:1.07,ease:"none",duration:5.9},58.75);
+      tl.from("#w15",{opacity:0,duration:0.3,ease:"power1.out"},58.8);
+      tl.to("#flash",{opacity:0.9,duration:0.15,ease:"power2.in"},58.75);
+      tl.to("#flash",{opacity:0,duration:0.35,ease:"power2.out"},58.9);
+      tl.fromTo("#v16",{scale:1.0},{scale:1.07,ease:"none",duration:3.4},64.15);
+      tl.from("#w16",{scale:1.35,opacity:0,filter:"blur(24px)",duration:0.5,ease:"power3.out"},64.15);
+      tl.to("#w15",{scale:1.2,filter:"blur(14px)",duration:0.5,ease:"power2.in"},64.15);
+      tl.fromTo("#v17",{scale:1.0},{scale:1.07,ease:"none",duration:3.6},67.05);
+      tl.from("#w17",{yPercent:100,filter:"blur(30px)",duration:0.45,ease:"expo.out"},67.05);
+      tl.to("#w16",{yPercent:-100,filter:"blur(20px)",duration:0.45,ease:"expo.out"},67.05);
+      tl.fromTo("#v18",{scale:1.0},{scale:1.07,ease:"none",duration:4.25},70.15);
+      tl.from("#w18",{opacity:0,duration:0.3,ease:"power1.out"},70.2);
+      tl.to("#flash",{opacity:0.9,duration:0.15,ease:"power2.in"},70.15);
+      tl.to("#flash",{opacity:0,duration:0.35,ease:"power2.out"},70.30000000000001);
+      tl.set({}, {}, 74.4);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
