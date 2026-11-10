@@ -50,7 +50,7 @@
     [0.75, -0.6].forEach((y) => { const b = mesh(rbox(1.6, 0.36, 0.3, 0.05), M.glass("#eaf3fb", 0.7)); b.position.set(1.03, y, -0.22); hinge.add(b); });
     const handle = mesh(rbox(0.07, 0.9, 0.08, 0.035), M.plastic("#c9d6e2", 0.3)); handle.position.set(1.85, 0, 0.12); hinge.add(handle);
     return function (t) {
-      hinge.rotation.y = lerp(-0.72, -1.95, E.inOutC(seg(t, 0.06, 0.62)));
+      hinge.rotation.y = lerp(-1.3, -1.95, E.outC(seg(t, 0.0, 0.45)));
       const tip = wob(t, 0.45, 5, 0.12, 14);
       carton.rotation.set(0, 0.35, -Math.PI / 2 + 0.06 + tip);
       carton.position.set(0.12, -0.25 + 0.017 + 0.155, -0.15);
@@ -105,7 +105,8 @@
       // icon: sits in the dock, squashes on press, then flies to fill the frame
       tmp.copy(iconLocal); tmp.z -= press * 0.02; phone.localToWorld(tmp);
       phone.getWorldQuaternion(q0);
-      const f = E.inC(seg(t, 2.36, 2.86));
+      const f = E.inC(seg(t, 2.36, 2.78));
+      icon.userData.face.material.opacity = 1 - seg(t, 2.46, 2.6);
       const pop = 1 - 0.1 * press + 0.08 * E.outBack(seg(t, 2.16, 2.36)) * (1 - f);
       icon.position.set(lerp(tmp.x, 0, f), lerp(tmp.y, -0.15, f), lerp(tmp.z, 4.96, f));
       icon.quaternion.copy(q0).slerp(q1, E.outC(seg(t, 2.36, 2.7)));
@@ -126,7 +127,7 @@
     const { scene, camera } = st;
     const back = mesh(new T.PlaneGeometry(14, 14), M.clay(C.cream, 0.95), false, true); back.position.z = -0.42; scene.add(back);
     const ui = new T.Group(); scene.add(ui);
-    const head = mesh(rbox(1.62, 0.66, 0.08, 0.08), M.plastic(C.yellow, 0.35, 0.5)); head.position.set(0, 1.2, 0); ui.add(head);
+    const head = mesh(rbox(1.62, 0.66, 0.08, 0.08), M.plastic(C.yellow, 0.55, 0.08)); head.position.set(0, 1.2, 0); ui.add(head);
     const ht = canvasTex(1024, 418, (x) => {
       x.fillStyle = C.ink; x.textBaseline = "alphabetic"; x.textAlign = "left";
       x.font = '700 50px "Plus Jakarta Sans", sans-serif'; x.fillText("Delivery in", 60, 110);
@@ -169,8 +170,8 @@
       const u = E.outC(seg(t, 2.8, 5.15));
       ui.rotation.set(lerp(-0.26, -0.08, u), lerp(0.16, 0.04, u), 0);
       ui.position.set(0, 0, lerp(-0.3, 0, u));
-      head.position.y = 1.2 + (1 - E.outBack(seg(t, 2.88, 3.25))) * 0.4;
-      bar.scale.setScalar(Math.max(0.001, E.outBack(seg(t, 2.95, 3.3))));
+      head.position.y = 1.2 + (1 - E.outBack(seg(t, 2.8, 3.15))) * 0.4;
+      bar.scale.setScalar(Math.max(0.001, E.outBack(seg(t, 2.84, 3.2))));
       const n = Math.max(0, Math.min(QUERY.length, Math.floor((t - 3.15) / 0.046) + 1));
       const caret = t < 3.15 ? 1 : t < 4.35 ? 1 : (Math.floor((t - 4.35) / 0.2) % 2 ? 1 : 0);
       bt.set(n + "|" + caret);
@@ -284,10 +285,10 @@
       sc.rotation.y = Math.atan2(-tg.z, tg.x);
       sc.scale.setScalar(1.6 * Math.max(0.001, E.outBack(seg(t, 7.15, 7.4))));
       // camera: overview → chase → dive to the home pin
-      const ov = V(0.2, 6.2, 5.6), chase = V(p.x + 1.1, 2.7, p.z + 2.9), dive = V(1.35, 0.9, -1.35);
+      const ov = V(-0.5, 6.0, 6.2), chase = V(p.x + 1.1, 2.7, p.z + 2.9), dive = V(1.35, 0.9, -1.35);
       const toChase = E.inOutS(seg(t, 7.0, 7.9)), toDive = E.inC(seg(t, 9.65, 10.15));
       camP.copy(ov).lerp(chase, toChase).lerp(dive, toDive);
-      look.set(lerp(0, p.x, toChase), 0, lerp(0.4, p.z - 0.7, toChase));
+      look.set(lerp(-0.6, p.x, toChase), 0, lerp(1.2, p.z - 0.7, toChase));
       look.lerp(V(1.2, 0.4, -2.2), toDive);
       camera.position.copy(camP); camera.lookAt(look);
       st.render();

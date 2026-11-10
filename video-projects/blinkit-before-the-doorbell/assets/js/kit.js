@@ -274,7 +274,7 @@
     const g = new T.Group();
     const body = mesh(rbox(size, size, depth, size * 0.24), M.gloss(C.yellow)); g.add(body);
     const tx = canvasTex(512, 512, (x) => { wordmark(x, 256, 262, 150); });
-    const f = face(size * 0.94, size * 0.94, tx.tex, depth / 2 + 0.002, 0.3); f.material.transparent = true; g.add(f);
+    const f = face(size * 0.94, size * 0.94, tx.tex, depth / 2 + 0.002, 0.3); f.material.transparent = true; g.add(f); g.userData.face = f;
     return g;
   }
 

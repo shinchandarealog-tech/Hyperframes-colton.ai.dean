@@ -80,7 +80,7 @@
         </div>
       </section>
 
-      <section id="s2" class="clip scene" data-start="1.4" data-duration="1.65" data-track-index="2">
+      <section id="s2" class="clip scene" data-start="1.4" data-duration="1.85" data-track-index="2">
         <div class="cam abs" style="inset: 0"><canvas id="gl2" class="gl" width="1080" height="1920"></canvas></div>
       </section>
 
@@ -166,7 +166,7 @@
 
         // 3D beats: one WebGL stage per beat, driven by a proxy tween over its clip window
         const BEATS = [
-          ["gl1", "fridge", 0, 1.75], ["gl2", "phone", 1.4, 3.05], ["gl3", "app", 2.8, 5.15], ["gl4", "cart", 4.9, 7.15],
+          ["gl1", "fridge", 0, 1.75], ["gl2", "phone", 1.4, 3.25], ["gl3", "app", 2.8, 5.15], ["gl4", "cart", 4.9, 7.15],
           ["gl5", "map", 6.85, 10.15], ["gl6", "door", 9.8, 11.65], ["gl7", "float", 11.35, 13.15], ["gl8", "burst", 12.85, 14.75], ["gl9", "logo", 14.45, 17.0],
         ];
         BEATS.forEach(([id, name, a, b]) => {
@@ -190,7 +190,7 @@
         // B2 whip in
         tl.fromTo("#s2 .cam", { x: 900, filter: "blur(30px)" }, { x: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, 1.42);
         // B3 iris out of the icon
-        tl.fromTo("#s3", { clipPath: "circle(0px at 540px 960px)" }, { clipPath: "circle(1200px at 540px 960px)", duration: 0.4, ease: "power3.out" }, 2.8);
+        tl.fromTo("#s3", { clipPath: "circle(0px at 540px 960px)" }, { clipPath: "circle(1200px at 540px 960px)", duration: 0.32, ease: "power3.out" }, 2.92);
         // B4 push up + counter
         tl.fromTo("#s4", { y: 1920 }, { y: 0, duration: 0.38, ease: "power3.out" }, 4.9);
         tl.from("#s4-total .lbl", { y: 30, opacity: 0, duration: 0.3, ease: "power2.out" }, 5.1);
