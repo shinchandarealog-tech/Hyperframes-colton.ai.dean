@@ -314,14 +314,11 @@
       sc.rotation.y = Math.atan2(-tg.z, tg.x);
       sc.scale.setScalar(1.6 * Math.max(0.001, E.outExpo(seg(t, 7.1, 7.5))));
       // camera: overview → chase → dive to the home pin
-      // camera follows a smoothed version of the route (no whip at corners), from higher up
-      const sm = new T.Vector3(), q = new T.Vector3();
-      for (let k = -6; k <= 6; k++) { path.getPointAt(clamp(u + k * 0.035, 0, 1), q); sm.add(q); }
-      sm.multiplyScalar(1 / 13);
-      const ov = V(-0.5, 6.0, 6.2), chase = V(sm.x + 1.4, 3.5, sm.z + 3.7), dive = V(1.45, 1.2, -1.1);
-      const toChase = E.inOutS(seg(t, 7.0, 8.1)), toDive = E.inOutS(seg(t, 9.4, 10.15));
-      camP.copy(ov).lerp(chase, toChase).lerp(dive, toDive);
-      look.set(lerp(-0.6, sm.x, toChase), 0, lerp(1.2, sm.z - 0.5, toChase));
+      // one slow, near-static 3/4 view of the whole route (like the Maps reference); the scooter moves through frame
+      const ov = V(-0.6, 9.2, 7.6), wide = V(0.9, 7.6, 5.4), dive = V(1.45, 1.2, -1.1);
+      const toWide = E.inOutS(seg(t, 6.9, 9.5)), toDive = E.inOutS(seg(t, 9.35, 10.15));
+      camP.copy(ov).lerp(wide, toWide).lerp(dive, toDive);
+      look.set(lerp(-0.1, 0.35, toWide), 0, lerp(-0.1, -0.7, toWide));
       look.lerp(V(1.2, 0.4, -2.2), toDive);
       camera.position.copy(camP); camera.lookAt(look);
       st.dof.focus = camP.distanceTo(p);   // tilt-shift: sharp on the scooter, city falls off
