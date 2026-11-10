@@ -1,0 +1,608 @@
+[
+  {
+    "text": "1919",
+    "start": 0.51,
+    "end": 1.71,
+    "id": "w0"
+  },
+  {
+    "text": "Me,",
+    "start": 1.71,
+    "end": 2.1,
+    "id": "w1"
+  },
+  {
+    "text": "1919",
+    "start": 2.1,
+    "end": 2.73,
+    "id": "w2"
+  },
+  {
+    "text": "Me",
+    "start": 2.74,
+    "end": 2.84,
+    "id": "w3"
+  },
+  {
+    "text": "germani",
+    "start": 2.84,
+    "end": 3.16,
+    "id": "w4"
+  },
+  {
+    "text": "mek",
+    "start": 3.28,
+    "end": 3.35,
+    "id": "w5"
+  },
+  {
+    "text": "schu",
+    "start": 3.35,
+    "end": 3.56,
+    "id": "w6"
+  },
+  {
+    "text": "zhadwatha",
+    "start": 3.56,
+    "end": 4.03,
+    "id": "w7"
+  },
+  {
+    "text": "bauhaus.",
+    "start": 4.03,
+    "end": 4.86,
+    "id": "w8"
+  },
+  {
+    "text": "The",
+    "start": 4.88,
+    "end": 5.06,
+    "id": "w9"
+  },
+  {
+    "text": "idea",
+    "start": 5.06,
+    "end": 5.37,
+    "id": "w10"
+  },
+  {
+    "text": "was",
+    "start": 5.37,
+    "end": 5.52,
+    "id": "w11"
+  },
+  {
+    "text": "simple,",
+    "start": 5.52,
+    "end": 6.05,
+    "id": "w12"
+  },
+  {
+    "text": "art",
+    "start": 6.05,
+    "end": 6.25,
+    "id": "w13"
+  },
+  {
+    "text": "or",
+    "start": 6.25,
+    "end": 6.3,
+    "id": "w14"
+  },
+  {
+    "text": "design",
+    "start": 6.55,
+    "end": 6.78,
+    "id": "w15"
+  },
+  {
+    "text": "ke",
+    "start": 6.82,
+    "end": 6.91,
+    "id": "w16"
+  },
+  {
+    "text": "bichi",
+    "start": 6.91,
+    "end": 7.5,
+    "id": "w17"
+  },
+  {
+    "text": "line",
+    "start": 7.5,
+    "end": 7.92,
+    "id": "w18"
+  },
+  {
+    "text": "hata",
+    "start": 8.01,
+    "end": 8.5,
+    "id": "w19"
+  },
+  {
+    "text": "do,",
+    "start": 8.51,
+    "end": 8.94,
+    "id": "w20"
+  },
+  {
+    "text": "bauhaus",
+    "start": 8.94,
+    "end": 9.27,
+    "id": "w21"
+  },
+  {
+    "text": "ne",
+    "start": 9.27,
+    "end": 9.69,
+    "id": "w22"
+  },
+  {
+    "text": "curves,",
+    "start": 9.69,
+    "end": 10.15,
+    "id": "w23"
+  },
+  {
+    "text": "detail",
+    "start": 10.16,
+    "end": 10.53,
+    "id": "w24"
+  },
+  {
+    "text": "or",
+    "start": 10.53,
+    "end": 11.32,
+    "id": "w25"
+  },
+  {
+    "text": "decoration",
+    "start": 11.32,
+    "end": 11.57,
+    "id": "w26"
+  },
+  {
+    "text": "hata",
+    "start": 11.57,
+    "end": 11.86,
+    "id": "w27"
+  },
+  {
+    "text": "ke,",
+    "start": 11.86,
+    "end": 12.16,
+    "id": "w28"
+  },
+  {
+    "text": "bauhaus",
+    "start": 12.16,
+    "end": 12.68,
+    "id": "w29"
+  },
+  {
+    "text": "ne",
+    "start": 12.68,
+    "end": 12.83,
+    "id": "w30"
+  },
+  {
+    "text": "curves,",
+    "start": 12.83,
+    "end": 13.43,
+    "id": "w31"
+  },
+  {
+    "text": "detail",
+    "start": 13.43,
+    "end": 13.88,
+    "id": "w32"
+  },
+  {
+    "text": "or",
+    "start": 13.88,
+    "end": 13.94,
+    "id": "w33"
+  },
+  {
+    "text": "decoration",
+    "start": 14.1,
+    "end": 14.78,
+    "id": "w34"
+  },
+  {
+    "text": "hata",
+    "start": 14.78,
+    "end": 15.07,
+    "id": "w35"
+  },
+  {
+    "text": "ke,",
+    "start": 15.07,
+    "end": 15.25,
+    "id": "w36"
+  },
+  {
+    "text": "clean",
+    "start": 15.61,
+    "end": 15.74,
+    "id": "w37"
+  },
+  {
+    "text": "shapes",
+    "start": 15.74,
+    "end": 16.11,
+    "id": "w38"
+  },
+  {
+    "text": "or",
+    "start": 16.2,
+    "end": 16.31,
+    "id": "w39"
+  },
+  {
+    "text": "function",
+    "start": 16.34,
+    "end": 17.02,
+    "id": "w40"
+  },
+  {
+    "text": "pe",
+    "start": 17.04,
+    "end": 17.27,
+    "id": "w41"
+  },
+  {
+    "text": "focus",
+    "start": 17.53,
+    "end": 17.91,
+    "id": "w42"
+  },
+  {
+    "text": "kiya.",
+    "start": 17.91,
+    "end": 18.82,
+    "id": "w43"
+  },
+  {
+    "text": "It",
+    "start": 18.84,
+    "end": 18.93,
+    "id": "w44"
+  },
+  {
+    "text": "was",
+    "start": 18.93,
+    "end": 19.1,
+    "id": "w45"
+  },
+  {
+    "text": "heavily",
+    "start": 19.32,
+    "end": 19.51,
+    "id": "w46"
+  },
+  {
+    "text": "influenced",
+    "start": 19.51,
+    "end": 20.1,
+    "id": "w47"
+  },
+  {
+    "text": "by",
+    "start": 20.1,
+    "end": 20.21,
+    "id": "w48"
+  },
+  {
+    "text": "modernism,",
+    "start": 20.21,
+    "end": 20.84,
+    "id": "w49"
+  },
+  {
+    "text": "appreciated",
+    "start": 20.84,
+    "end": 21.49,
+    "id": "w50"
+  },
+  {
+    "text": "for",
+    "start": 21.49,
+    "end": 21.66,
+    "id": "w51"
+  },
+  {
+    "text": "its",
+    "start": 21.66,
+    "end": 21.83,
+    "id": "w52"
+  },
+  {
+    "text": "simplicity",
+    "start": 21.83,
+    "end": 22.42,
+    "id": "w53"
+  },
+  {
+    "text": "but",
+    "start": 22.42,
+    "end": 22.59,
+    "id": "w54"
+  },
+  {
+    "text": "criticized",
+    "start": 22.59,
+    "end": 23.18,
+    "id": "w55"
+  },
+  {
+    "text": "for",
+    "start": 23.18,
+    "end": 23.23,
+    "id": "w56"
+  },
+  {
+    "text": "erasing",
+    "start": 23.33,
+    "end": 23.9,
+    "id": "w57"
+  },
+  {
+    "text": "craftsmanship.",
+    "start": 23.95,
+    "end": 24.9,
+    "id": "w58"
+  },
+  {
+    "text": "Schu",
+    "start": 25.41,
+    "end": 26.33,
+    "id": "w59"
+  },
+  {
+    "text": "zadassal",
+    "start": 26.42,
+    "end": 26.74,
+    "id": "w60"
+  },
+  {
+    "text": "chalane",
+    "start": 26.74,
+    "end": 27.06,
+    "id": "w61"
+  },
+  {
+    "text": "batoos",
+    "start": 27.06,
+    "end": 27.33,
+    "id": "w62"
+  },
+  {
+    "text": "ka",
+    "start": 27.33,
+    "end": 27.42,
+    "id": "w63"
+  },
+  {
+    "text": "impact",
+    "start": 27.42,
+    "end": 27.71,
+    "id": "w64"
+  },
+  {
+    "text": "aj",
+    "start": 27.71,
+    "end": 27.79,
+    "id": "w65"
+  },
+  {
+    "text": "bhi",
+    "start": 27.79,
+    "end": 27.92,
+    "id": "w66"
+  },
+  {
+    "text": "hai,",
+    "start": 27.92,
+    "end": 28.06,
+    "id": "w67"
+  },
+  {
+    "text": "schu",
+    "start": 28.18,
+    "end": 28.32,
+    "id": "w68"
+  },
+  {
+    "text": "zadassal",
+    "start": 28.32,
+    "end": 28.68,
+    "id": "w69"
+  },
+  {
+    "text": "chalane",
+    "start": 28.68,
+    "end": 29,
+    "id": "w70"
+  },
+  {
+    "text": "batoos",
+    "start": 29,
+    "end": 29.27,
+    "id": "w71"
+  },
+  {
+    "text": "ka",
+    "start": 29.27,
+    "end": 29.33,
+    "id": "w72"
+  },
+  {
+    "text": "impact",
+    "start": 29.7,
+    "end": 30.3,
+    "id": "w73"
+  },
+  {
+    "text": "aj",
+    "start": 30.32,
+    "end": 30.39,
+    "id": "w74"
+  },
+  {
+    "text": "bhi",
+    "start": 30.39,
+    "end": 30.53,
+    "id": "w75"
+  },
+  {
+    "text": "hai,",
+    "start": 30.53,
+    "end": 30.75,
+    "id": "w76"
+  },
+  {
+    "text": "aj",
+    "start": 30.8,
+    "end": 30.84,
+    "id": "w77"
+  },
+  {
+    "text": "aap",
+    "start": 30.84,
+    "end": 30.98,
+    "id": "w78"
+  },
+  {
+    "text": "clean",
+    "start": 30.98,
+    "end": 31.22,
+    "id": "w79"
+  },
+  {
+    "text": "layouts,",
+    "start": 31.22,
+    "end": 31.65,
+    "id": "w80"
+  },
+  {
+    "text": "simple",
+    "start": 31.65,
+    "end": 31.74,
+    "id": "w81"
+  },
+  {
+    "text": "logos",
+    "start": 31.99,
+    "end": 32.18,
+    "id": "w82"
+  },
+  {
+    "text": "or",
+    "start": 32.18,
+    "end": 32.27,
+    "id": "w83"
+  },
+  {
+    "text": "minimal",
+    "start": 32.27,
+    "end": 32.56,
+    "id": "w84"
+  },
+  {
+    "text": "building",
+    "start": 32.61,
+    "end": 33,
+    "id": "w85"
+  },
+  {
+    "text": "zikto,",
+    "start": 33,
+    "end": 34.26,
+    "id": "w86"
+  },
+  {
+    "text": "they",
+    "start": 34.26,
+    "end": 34.71,
+    "id": "w87"
+  },
+  {
+    "text": "are",
+    "start": 35.1,
+    "end": 35.58,
+    "id": "w88"
+  },
+  {
+    "text": "all",
+    "start": 35.58,
+    "end": 35.71,
+    "id": "w89"
+  },
+  {
+    "text": "products",
+    "start": 35.71,
+    "end": 35.97,
+    "id": "w90"
+  },
+  {
+    "text": "of",
+    "start": 36.08,
+    "end": 36.23,
+    "id": "w91"
+  },
+  {
+    "text": "modernism,",
+    "start": 36.56,
+    "end": 37.13,
+    "id": "w92"
+  },
+  {
+    "text": "where",
+    "start": 37.17,
+    "end": 37.49,
+    "id": "w93"
+  },
+  {
+    "text": "simplicity,",
+    "start": 37.75,
+    "end": 38.6,
+    "id": "w94"
+  },
+  {
+    "text": "where",
+    "start": 38.6,
+    "end": 39.02,
+    "id": "w95"
+  },
+  {
+    "text": "efficiency",
+    "start": 39.02,
+    "end": 39.87,
+    "id": "w96"
+  },
+  {
+    "text": "often",
+    "start": 39.87,
+    "end": 40.29,
+    "id": "w97"
+  },
+  {
+    "text": "wins",
+    "start": 40.29,
+    "end": 40.47,
+    "id": "w98"
+  },
+  {
+    "text": "over",
+    "start": 40.85,
+    "end": 40.97,
+    "id": "w99"
+  },
+  {
+    "text": "detail.",
+    "start": 40.97,
+    "end": 41.54,
+    "id": "w100"
+  }
+]
