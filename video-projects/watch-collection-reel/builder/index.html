@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@500;600;800&display=swap">
 <style>
-/* Layout: an editing-bay split — the 9:16 monitor on the left (sticky on top on phones), the inspector on the right. */
+/* Layout: an editing bay. Monitor top-left (sticky on phones), inspector right, timeline across the bottom. */
 :root {
   --ink: #0d0e11;
   --panel: #15171c;
@@ -12,6 +12,7 @@
   --fg: #ecebe6;
   --muted: #8f929c;
   --tally: #ff5a47;
+  --cue: #ffc84a;
   --ok: #4fd18b;
   --f-ui: "IBM Plex Sans", system-ui, sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
@@ -21,88 +22,153 @@
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body { background: var(--ink); color: var(--fg); font: 14px/1.45 var(--f-ui); }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
-button, input, select { font: inherit; color: inherit; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 20; background: var(--ink); }
+button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--tally); outline-offset: 2px; }
 
-.app { display: grid; grid-template-columns: minmax(300px, 440px) minmax(0, 1fr); gap: 28px; max-width: 1240px; margin: 0 auto;
-  padding-block: 20px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.app { display: grid; grid-template-columns: minmax(300px, 420px) minmax(0, 1fr); grid-template-areas: "mon insp" "tl tl"; gap: 20px 28px;
+  max-width: 1320px; margin: 0 auto; padding-block: 18px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
 /* ---------- monitor ---------- */
-.monitor { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); align-self: start; display: flex; flex-direction: column; gap: 12px; }
-.head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.mark { font: italic 30px/1 var(--f-mark); letter-spacing: -.01em; margin: 0; }
-.mark span { font-style: normal; color: var(--muted); font: 500 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; margin-left: 8px; vertical-align: middle; }
+.monitor { grid-area: mon; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); align-self: start; display: flex; flex-direction: column; gap: 10px; z-index: 5; }
+.head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.mark { font: italic 28px/1 var(--f-mark); letter-spacing: -.01em; margin: 0; }
 .tally { display: inline-flex; align-items: center; gap: 6px; font: 500 11px/1 var(--f-mono); letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
 .tally i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
 .tally.live i { background: var(--tally); box-shadow: 0 0 10px var(--tally); }
 
-.screen-wrap { position: relative; width: 100%; aspect-ratio: 9 / 16; max-width: 100%; border-radius: 18px; overflow: hidden; background: #000;
-  box-shadow: 0 0 0 1px var(--line), 0 30px 60px rgba(0,0,0,.5); }
+.device { position: relative; width: 100%; margin: 0 auto; }
+.device.phone { padding: 11px; border-radius: 48px; background: #050506; box-shadow: 0 0 0 1.5px #3a3d45, 0 0 0 4px #121318, 0 40px 80px rgba(0,0,0,.6); }
+.device.phone::before { content: ""; position: absolute; left: 50%; top: 20px; width: 28%; height: 22px; transform: translateX(-50%); border-radius: 12px; background: #000; z-index: 4; }
+.screen-wrap { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 16px; overflow: hidden; background: #000;
+  box-shadow: 0 0 0 1px var(--line); container-type: inline-size; touch-action: none; cursor: default; user-select: none; -webkit-user-select: none; }
+.device.phone .screen-wrap { border-radius: 38px; box-shadow: none; }
 .screen-wrap .re-stage { position: absolute; left: 0; top: 0; }
-.guides { position: absolute; inset: 0; pointer-events: none; display: none; }
+.screen-wrap .re-w, .screen-wrap .re-call { pointer-events: auto; cursor: pointer; }
+.tool-camera .screen-wrap, .tool-camera .screen-wrap .re-w, .tool-camera .screen-wrap .re-call { cursor: move; }
+.tool-path .screen-wrap, .tool-path .screen-wrap .re-w, .tool-path .screen-wrap .re-call { cursor: crosshair; }
+#overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; }
+.bigplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 68px; height: 68px; border-radius: 50%; z-index: 3;
+  background: rgba(0,0,0,.55); border: 1.5px solid rgba(255,255,255,.4); display: grid; place-items: center; pointer-events: none; transition: opacity .2s; }
+.bigplay svg { width: 24px; height: 24px; fill: #fff; margin-left: 4px; }
+.played .bigplay { opacity: 0; }
+
+/* phone chrome (preview only, never rendered) */
+.reels-ui { position: absolute; inset: 0; pointer-events: none; display: none; color: #fff; font: 3.3cqw/1.3 -apple-system, "Segoe UI", Roboto, sans-serif; z-index: 2; }
+.phone .reels-ui { display: block; }
+.reels-ui .bar { position: absolute; left: 5cqw; right: 5cqw; top: 9cqw; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 5cqw; text-shadow: 0 1px 6px rgba(0,0,0,.5); }
+.reels-ui .rail { position: absolute; right: 3.5cqw; bottom: 22cqw; display: flex; flex-direction: column; align-items: center; gap: 4.5cqw; font-size: 2.9cqw; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.reels-ui .rail div { display: flex; flex-direction: column; align-items: center; gap: .8cqw; }
+.reels-ui svg { width: 7cqw; height: 7cqw; fill: none; stroke: #fff; stroke-width: 1.8; filter: drop-shadow(0 1px 3px rgba(0,0,0,.5)); }
+.reels-ui .info { position: absolute; left: 4cqw; right: 18cqw; bottom: 6cqw; display: flex; flex-direction: column; gap: 1.8cqw; text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+.reels-ui .acct { display: flex; align-items: center; gap: 2cqw; font-weight: 600; }
+.reels-ui .acct i { width: 7cqw; height: 7cqw; border-radius: 50%; background: linear-gradient(135deg, #888, #444); border: 1px solid #fff; }
+.reels-ui .acct b { border: 1px solid rgba(255,255,255,.8); border-radius: 1.5cqw; padding: .3cqw 2cqw; font-weight: 600; font-size: 2.8cqw; }
+.reels-ui .cap { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.reels-ui .aud { font-size: 2.9cqw; opacity: .9; }
+.guides { position: absolute; inset: 0; pointer-events: none; display: none; z-index: 2; }
 .guides.on { display: block; }
 .guides .zone { position: absolute; background: rgba(255, 90, 71, .16); border: 1px dashed rgba(255, 90, 71, .7); }
-.guides .lbl { position: absolute; font: 500 10px/1 var(--f-mono); color: #ffd0ca; letter-spacing: .08em; text-transform: uppercase; padding: 4px; }
-.tap { position: absolute; inset: 0; background: none; border: 0; }
-.bigplay { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; border-radius: 50%;
-  background: rgba(0,0,0,.55); border: 1.5px solid rgba(255,255,255,.4); display: grid; place-items: center; pointer-events: none; transition: opacity .2s; }
-.bigplay svg { width: 26px; height: 26px; fill: #fff; margin-left: 4px; }
-.playing .bigplay, .played .bigplay { opacity: 0; }
 
-.transport { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 10px; }
-.btn-icon { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); display: grid; place-items: center; }
-.btn-icon svg { width: 16px; height: 16px; fill: var(--fg); }
-.tc { font: 500 13px/1 var(--f-mono); font-variant-numeric: tabular-nums; color: var(--fg); min-width: 92px; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.tool-hint { font-size: 12px; color: var(--muted); min-height: 1.4em; }
+.transport { display: grid; grid-template-columns: auto auto auto auto 1fr; align-items: center; gap: 8px; }
+.btn-icon { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--line); background: var(--panel); display: grid; place-items: center; }
+.btn-icon svg { width: 15px; height: 15px; fill: var(--fg); }
+.tc { font: 500 13px/1.2 var(--f-mono); font-variant-numeric: tabular-nums; text-align: right; }
 .tc small { color: var(--muted); font-size: 11px; }
-.scrub { position: relative; height: 38px; }
-.scrub input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; margin: 0; cursor: pointer; }
-.track { position: absolute; left: 0; right: 0; top: 50%; height: 26px; transform: translateY(-50%); border-radius: 6px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
-.track .shot { position: absolute; top: 0; bottom: 0; border-right: 1px solid var(--ink); }
-.track .shot.front { background: #1c2230; }
-.track .shot.side { background: #252032; }
-.track .call { position: absolute; top: 3px; height: 5px; border-radius: 3px; background: var(--tally); opacity: .85; }
-.track .ck { position: absolute; bottom: 3px; width: 2px; height: 6px; background: var(--muted); opacity: .6; }
-.track .ck.key { background: #fff; height: 9px; opacity: .9; }
-.head-pos { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--tally); box-shadow: 0 0 8px var(--tally); }
-.legend { display: flex; flex-wrap: wrap; gap: 12px; font: 11px/1 var(--f-mono); color: var(--muted); }
-.legend b { display: inline-block; width: 10px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: 5px; }
+.tc .rate { display: block; font-size: 11px; color: var(--cue); }
+
+.seg { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--raise); border: 1px solid var(--line); gap: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: none; padding: 5px 11px; border-radius: 7px; color: var(--muted); font-size: 13px; }
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--ink); }
+
+/* ---------- timeline ---------- */
+.tl { grid-area: tl; display: flex; flex-direction: column; gap: 10px; padding: 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; min-width: 0; }
+.tl-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.tl-head h2 { margin: 0; font: 600 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.tl-head .sp { flex: 1; }
+.tl-head label { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+.tl-head input[type="range"] { width: 110px; }
+.tl-body { display: grid; grid-template-columns: 78px minmax(0, 1fr); }
+.tl-labels div { height: 30px; display: flex; align-items: center; font: 500 11px var(--f-mono); color: var(--muted); letter-spacing: .04em; }
+.tl-labels div:first-child { height: 22px; }
+.tl-scroll { overflow-x: auto; overflow-y: hidden; position: relative; scrollbar-color: var(--line) transparent; }
+.tl-inner { position: relative; }
+.tl-ruler { height: 22px; position: relative; border-bottom: 1px solid var(--line); cursor: ew-resize; }
+.tl-ruler span { position: absolute; top: 0; font: 10px var(--f-mono); color: var(--muted); transform: translateX(3px); }
+.tl-ruler i { position: absolute; bottom: 0; width: 1px; height: 6px; background: var(--line); }
+.tl-ruler i.big { height: 12px; background: var(--muted); }
+.track { position: relative; height: 30px; border-bottom: 1px solid #1f2229; cursor: ew-resize; }
+.blk { position: absolute; top: 4px; bottom: 4px; border-radius: 5px; font-size: 11px; line-height: 22px; padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.blk.shot { background: #1c2230; color: #9fb0d4; border: 1px solid #263048; }
+.blk.shot.side { background: #251f32; color: #c2a9e6; border-color: #33294a; }
+.blk.chunk { background: #22252d; color: var(--muted); border: 1px solid #2c3039; }
+.blk.chunk b { color: var(--fg); font-weight: 600; }
+.blk.call { background: color-mix(in srgb, var(--tally) 30%, var(--raise)); color: #ffd8d2; border: 1px solid var(--tally); cursor: grab; padding: 0 10px; }
+.blk.call.off { opacity: .4; }
+.blk.call .hd { position: absolute; top: 0; bottom: 0; width: 8px; cursor: ew-resize; }
+.blk.call .hd.l { left: 0; } .blk.call .hd.r { right: 0; }
+.blk.call .hd::after { content: ""; position: absolute; top: 6px; bottom: 6px; left: 3px; width: 2px; border-radius: 1px; background: #ffd8d2; opacity: .7; }
+.blk.sel { box-shadow: 0 0 0 2px var(--fg); }
+.kf { position: absolute; top: 8px; width: 13px; height: 13px; margin-left: -6.5px; transform: rotate(45deg); background: var(--cue); border: 1.5px solid #6b4f00; cursor: grab; border-radius: 2px; }
+.kf.sel { background: #fff; box-shadow: 0 0 0 2px var(--cue); }
+.punch { position: absolute; top: 12px; height: 6px; border-radius: 3px; background: #3a3f4b; }
+.speed-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.playhead { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--tally); box-shadow: 0 0 8px var(--tally); pointer-events: none; z-index: 3; }
+.playhead::before { content: ""; position: absolute; top: 0; left: -5px; border: 6px solid transparent; border-top-color: var(--tally); }
 
 /* ---------- inspector ---------- */
-.inspector { min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.inspector { grid-area: insp; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
 .tabs { display: flex; gap: 4px; overflow-x: auto; padding: 4px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; scrollbar-width: none; }
-.tabs button { flex: 0 0 auto; padding: 8px 14px; border-radius: 8px; border: 0; background: none; color: var(--muted); font-weight: 500; }
+.tabs button { flex: 0 0 auto; padding: 7px 12px; border-radius: 8px; border: 0; background: none; color: var(--muted); font-weight: 500; }
 .tabs button[aria-selected="true"] { background: var(--raise); color: var(--fg); box-shadow: inset 0 0 0 1px var(--line); }
-.pane { display: none; flex-direction: column; gap: 18px; }
+.pane { display: none; flex-direction: column; gap: 14px; }
 .pane.on { display: flex; }
-.sec { display: flex; flex-direction: column; gap: 12px; padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+.sec { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; min-width: 0; }
 .sec h2 { margin: 0; font: 600 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.sec p.hint { margin: 0; color: var(--muted); font-size: 13px; max-width: 62ch; }
+.sec h3 { margin: 0; font-size: 16px; font-weight: 600; text-wrap: balance; }
+.hint { margin: 0; color: var(--muted); font-size: 13px; max-width: 64ch; }
+.warn { margin: 0; font-size: 13px; color: #ffd9a0; background: #2b2213; border: 1px solid #4d3a17; border-radius: 10px; padding: 10px 12px; }
+
+/* selection card */
+.selcard { border-color: #3a3f4b; background: linear-gradient(180deg, #1a1d24, var(--panel)); }
+.selcard .kind { font: 500 11px var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--cue); }
+.why { display: flex; gap: 10px; padding: 12px; border-radius: 10px; background: var(--raise); border: 1px solid var(--line); font-size: 13px; line-height: 1.5; }
+.why b { font: 600 11px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cue); flex: 0 0 auto; padding-top: 2px; }
+.ask { display: flex; flex-direction: column; gap: 8px; }
+.ask textarea { width: 100%; min-height: 62px; resize: vertical; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--raise); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { border: 1px solid var(--line); background: none; border-radius: 999px; padding: 4px 10px; font-size: 12px; color: var(--muted); }
+.answer { font-size: 13px; padding: 10px 12px; border-radius: 10px; border-left: 3px solid var(--ok); background: #13201a; white-space: pre-wrap; }
+.answer.err { border-left-color: var(--tally); background: #24161a; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 .presets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .preset { text-align: left; padding: 0; border-radius: 12px; border: 1px solid var(--line); background: var(--raise); overflow: hidden; display: flex; flex-direction: column; }
 .preset[aria-pressed="true"] { border-color: var(--fg); box-shadow: 0 0 0 1px var(--fg); }
-.swatch { height: 92px; display: grid; place-items: center; padding: 8px; text-align: center; line-height: 1; }
+.swatch { height: 86px; display: grid; place-items: center; padding: 8px; text-align: center; line-height: 1; }
 .sw-ed { background: #0c0c0f; }
 .sw-ed small { display: block; font: 400 13px 'Inter', sans-serif; color: #fff; margin-bottom: 4px; }
-.sw-ed em { font: italic 34px 'Instrument Serif', serif; color: #6d60ff; }
+.sw-ed em { font: italic 32px 'Instrument Serif', serif; color: #6d60ff; }
 .sw-go { background: radial-gradient(circle at 50% 60%, #3a2410, #0b0806); }
 .sw-go small { display: block; font: 600 12px 'Poppins', sans-serif; color: #fff; margin-bottom: 2px; }
-.sw-go b { font: 800 30px 'Poppins', sans-serif; background: linear-gradient(#ffe48a, #ffb81c 60%, #d07000); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 10px rgba(255,184,28,.6)); }
+.sw-go b { font: 800 28px 'Poppins', sans-serif; background: linear-gradient(#ffe48a, #ffb81c 60%, #d07000); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .sw-ka { background: #10141c; }
-.sw-ka b { font: 900 21px 'Montserrat', sans-serif; color: #fff; text-shadow: 2px 2px 0 #000, -2px 2px 0 #000; }
+.sw-ka b { font: 900 19px 'Montserrat', sans-serif; color: #fff; text-shadow: 2px 2px 0 #000, -2px 2px 0 #000; }
 .sw-ka b span { color: #3b82f6; }
 .preset .meta { padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
 .preset .meta strong { font-weight: 600; }
 .preset .meta span { font: 11px/1.3 var(--f-mono); color: var(--muted); }
 
-.row { display: grid; grid-template-columns: 140px minmax(0, 1fr) 56px; align-items: center; gap: 12px; }
-.row label { color: var(--fg); }
+.row { display: grid; grid-template-columns: 130px minmax(0, 1fr) 54px; align-items: center; gap: 10px; }
 .row output { font: 12px var(--f-mono); color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
-.row.two { grid-template-columns: 140px minmax(0, 1fr); }
+.row.two { grid-template-columns: 130px minmax(0, 1fr); }
+.row .sub { grid-column: 1 / -1; margin-top: -6px; font-size: 12px; color: var(--muted); }
 input[type="range"] { width: 100%; accent-color: var(--tally); }
-select, input[type="text"], input[type="number"] { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--raise); min-width: 0; }
+select, input[type="text"], input[type="number"] { width: 100%; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--raise); min-width: 0; }
 .toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .switch { position: relative; width: 40px; height: 24px; flex: 0 0 auto; }
 .switch input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
@@ -111,67 +177,62 @@ select, input[type="text"], input[type="number"] { width: 100%; padding: 8px 10p
 .switch input:checked + span { background: var(--tally); }
 .switch input:checked + span::after { transform: translateX(16px); }
 .switch input:focus-visible + span { outline: 2px solid var(--tally); outline-offset: 2px; }
-
 .colors { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.chip-c { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.chip-c { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--ink); box-shadow: 0 0 0 1px var(--line); }
 .chip-c[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--fg); }
-input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); border-radius: 8px; background: var(--raise); padding: 2px; }
+input[type="color"] { width: 44px; height: 32px; border: 1px solid var(--line); border-radius: 8px; background: var(--raise); padding: 2px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.grid2 label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
 
-.seg { display: inline-flex; padding: 3px; border-radius: 10px; background: var(--raise); border: 1px solid var(--line); gap: 2px; flex-wrap: wrap; }
-.seg button { border: 0; background: none; padding: 6px 12px; border-radius: 7px; color: var(--muted); }
-.seg button[aria-pressed="true"] { background: var(--fg); color: var(--ink); }
+.list { display: flex; flex-direction: column; gap: 6px; }
+.item { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--raise); text-align: left; width: 100%; }
+.item .t { font: 12px var(--f-mono); color: var(--muted); padding-top: 1px; font-variant-numeric: tabular-nums; }
+.item .b { font-weight: 600; }
+.item .w { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.item .tag { font: 500 10px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cue); border: 1px solid #4d3a17; border-radius: 4px; padding: 2px 5px; }
 
-/* shots */
-.shots { display: flex; flex-direction: column; gap: 10px; }
-.shotcard { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--raise); }
-.shotcard.cur { border-color: var(--tally); }
-.shotcard .thumb { width: 64px; aspect-ratio: 9 / 16; border-radius: 6px; background: #000; overflow: hidden; position: relative; border: 0; padding: 0; }
-.shotcard .thumb span { position: absolute; inset: auto 0 4px; font: 500 9px var(--f-mono); text-align: center; color: #fff; }
-.shotcard .ctrls { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.shotcard .ctrls .row { grid-template-columns: 70px minmax(0, 1fr) 44px; }
-.shotcard h3 { margin: 0; font: 500 12px var(--f-mono); color: var(--muted); }
-.shotcard h3 b { color: var(--fg); font-weight: 500; }
-
-/* words */
-.chunks { display: flex; flex-direction: column; gap: 6px; max-height: 520px; overflow-y: auto; padding-right: 4px; }
-.chunk { display: grid; grid-template-columns: 58px minmax(0, 1fr); gap: 10px; align-items: start; padding: 6px 4px; border-radius: 8px; }
+.chunks { display: flex; flex-direction: column; gap: 4px; max-height: 480px; overflow-y: auto; padding-right: 4px; }
+.chunk { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 10px; align-items: start; padding: 5px 4px; border-radius: 8px; }
 .chunk.cur { background: var(--raise); }
-.chunk .ts { font: 11px var(--f-mono); color: var(--muted); background: none; border: 0; padding: 5px 0; text-align: left; font-variant-numeric: tabular-nums; }
+.chunk .ts { font: 11px var(--f-mono); color: var(--muted); background: none; border: 0; padding: 5px 0; text-align: left; }
 .chunk .ws { display: flex; flex-wrap: wrap; gap: 4px; }
 .wd { border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 3px 7px; font-size: 13px; }
 .wd.key { background: var(--fg); color: var(--ink); border-color: var(--fg); font-weight: 600; }
 .wd.never { text-decoration: line-through; color: var(--muted); }
 .wd.edited { border-style: dashed; border-color: var(--tally); }
-.wd input { width: 9ch; padding: 0; border: 0; background: none; }
 
-/* callouts */
-.calls { display: flex; flex-direction: column; gap: 10px; }
-.callcard { display: flex; flex-direction: column; gap: 10px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--raise); }
-.callcard .top { display: flex; align-items: center; gap: 10px; justify-content: space-between; flex-wrap: wrap; }
-.callcard .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.callcard .grid label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
-.btn { padding: 9px 14px; border-radius: 9px; border: 1px solid var(--line); background: var(--raise); font-weight: 500; }
+#curve { width: 100%; height: 190px; display: block; border-radius: 10px; background: var(--raise); border: 1px solid var(--line); touch-action: none; cursor: crosshair; }
+
+.btn { padding: 8px 13px; border-radius: 9px; border: 1px solid var(--line); background: var(--raise); font-weight: 500; }
 .btn.primary { background: var(--tally); border-color: var(--tally); color: #fff; }
 .btn.ghost { background: none; }
-.btn.small { padding: 5px 10px; font-size: 12px; }
+.btn.small { padding: 4px 10px; font-size: 12px; }
+.btn[disabled] { opacity: .5; cursor: default; }
 
-/* save bar */
-.savebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+.savebar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
 .savebar .status { flex: 1 1 200px; color: var(--muted); font-size: 13px; min-width: 0; }
 .savebar .status b { color: var(--ok); font-weight: 500; }
 
-@media (max-width: 820px) {
-  .app { grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 10px 40px; }
-  .monitor { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); padding-block: 8px 10px; margin-inline: -4px; padding-inline: 4px; }
-  .screen-wrap { width: auto; height: min(46vh, 520px); margin: 0 auto; }
+.inline-edit { position: absolute; z-index: 6; padding: 6px 8px; border-radius: 8px; border: 2px solid var(--cue); background: #000; color: #fff; font-size: 15px; min-width: 120px; }
+
+@media (max-width: 860px) {
+  .app { grid-template-columns: minmax(0, 1fr); grid-template-areas: "mon" "tl" "insp"; gap: 14px; padding-block: 8px 40px; }
+  .monitor { top: env(safe-area-inset-top, 0px); background: var(--ink); padding-block: 6px 8px; }
+  .device { width: auto; height: min(40vh, 480px); aspect-ratio: auto; display: flex; justify-content: center; }
+  .tool-hint { display: none; }
+  .monitor { gap: 8px; }
+  .transport { gap: 6px; }
+  .device .screen-wrap { height: 100%; width: auto; }
+  .device.phone { width: fit-content; padding: 7px; border-radius: 34px; }
+  .device.phone::before { top: 13px; height: 14px; }
+  .device.phone .screen-wrap { border-radius: 28px; }
+  .mark { font-size: 22px; }
   .head .tally { display: none; }
-  .mark { font-size: 24px; }
-  .legend { display: none; }
   .presets { grid-template-columns: minmax(0, 1fr); }
   .preset { flex-direction: row; }
-  .swatch { width: 120px; height: auto; min-height: 72px; flex: 0 0 auto; }
-  .row { grid-template-columns: 110px minmax(0, 1fr) 48px; }
-  .row.two { grid-template-columns: 110px minmax(0, 1fr); }
+  .swatch { width: 116px; height: auto; min-height: 68px; flex: 0 0 auto; }
+  .row { grid-template-columns: 104px minmax(0, 1fr) 46px; }
+  .row.two { grid-template-columns: 104px minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -179,45 +240,114 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
 <div class="app" id="app">
   <section class="monitor" aria-label="Preview">
     <div class="head">
-      <h1 class="mark">Reel Builder <span>watch collection · 35s</span></h1>
+      <h1 class="mark">Reel Builder</h1>
+      <div class="seg" id="viewSeg" aria-label="Preview view"><button data-view="clean" aria-pressed="false">Clean</button><button data-view="phone" aria-pressed="true">Phone</button></div>
       <div class="tally" id="tally"><i></i><span id="tallyTxt">Paused</span></div>
     </div>
-    <div class="screen-wrap" id="screen">
-      <div id="stage"></div>
-      <div class="guides" id="guides">
-        <div class="zone" style="left:0;right:0;bottom:0;height:20%"><div class="lbl">Reels caption + buttons</div></div>
-        <div class="zone" style="right:0;width:12%;top:48%;bottom:20%"><div class="lbl" style="writing-mode:vertical-rl">Action rail</div></div>
-        <div class="zone" style="left:0;right:0;top:0;height:7%"><div class="lbl">Top bar</div></div>
+    <div class="device phone" id="device">
+      <div class="screen-wrap" id="screen">
+        <div id="stage"></div>
+        <svg id="overlay" viewBox="0 0 1080 1920" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="reels-ui" aria-hidden="true">
+          <div class="bar"><span>Reels</span><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="3"/><circle cx="12" cy="12.5" r="3.4"/><path d="M8 6l1.5-2h5L16 6"/></svg></div>
+          <div class="rail">
+            <div><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></svg>12.4K</div>
+            <div><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 01-11.6 7.1L4 20l1-4.2A8 8 0 1120 12z"/></svg>318</div>
+            <div><svg viewBox="0 0 24 24"><path d="M21 4L3 11l7 2.5L12.5 21z M10 13.5L21 4"/></svg>1,204</div>
+            <div><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-6-4-6 4z"/></svg></div>
+            <div><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3" fill="#fff"/><circle cx="12" cy="12" r="1.3" fill="#fff"/><circle cx="19" cy="12" r="1.3" fill="#fff"/></svg></div>
+          </div>
+          <div class="info">
+            <div class="acct"><i></i><span>your account</span><b>Follow</b></div>
+            <div class="cap">From a £15 Timex to the grail: my watch collection, start to finish</div>
+            <div class="aud">♪ Original audio</div>
+          </div>
+        </div>
+        <div class="guides" id="guides">
+          <div class="zone" style="left:0;right:0;bottom:0;height:20%"></div>
+          <div class="zone" style="right:0;width:13%;top:46%;bottom:20%"></div>
+          <div class="zone" style="left:0;right:0;top:0;height:8%"></div>
+        </div>
+        <div class="bigplay" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></div>
       </div>
-      <button class="tap" id="tap" aria-label="Play or pause"></button>
-      <div class="bigplay" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></div>
     </div>
+    <div class="toolbar">
+      <div class="seg" id="toolSeg" aria-label="Preview tool">
+        <button data-tool="select" aria-pressed="true">Select</button>
+        <button data-tool="camera" aria-pressed="false">Camera</button>
+        <button data-tool="path" aria-pressed="false">Draw path</button>
+      </div>
+      <button class="btn small ghost" id="undoBtn" disabled>Undo</button>
+    </div>
+    <div class="tool-hint" id="toolHint"></div>
     <div class="transport">
       <button class="btn-icon" id="playBtn" aria-label="Play"><svg viewBox="0 0 24 24" id="playIco"><path d="M6 4l15 8-15 8z"/></svg></button>
+      <button class="btn-icon" id="backBtn" aria-label="Back one frame"><svg viewBox="0 0 24 24"><path d="M18 5v14L8 12zM6 5h2v14H6z"/></svg></button>
+      <button class="btn-icon" id="fwdBtn" aria-label="Forward one frame"><svg viewBox="0 0 24 24"><path d="M6 5v14l10-7zM16 5h2v14h-2z"/></svg></button>
       <button class="btn-icon" id="muteBtn" aria-label="Mute"><svg viewBox="0 0 24 24" id="muteIco"><path d="M4 9h4l5-4v14l-5-4H4z M16 8.5a5 5 0 010 7l-1.2-1.2a3.3 3.3 0 000-4.6z"/></svg></button>
-      <div class="scrub">
-        <div class="track" id="track"><div class="head-pos" id="headPos"></div></div>
-        <input type="range" id="scrub" min="0" max="35.3" step="0.0333" value="0" aria-label="Scrub timeline">
-      </div>
       <div class="tc" id="tc">00:00<small>:00</small></div>
     </div>
-    <div class="legend"><span><b style="background:#1c2230"></b>Front cam</span><span><b style="background:#252032"></b>Side cam</span><span><b style="background:var(--tally)"></b>Callout</span><span><b style="background:#fff"></b>Key word</span></div>
+  </section>
+
+  <section class="tl" aria-label="Timeline">
+    <div class="tl-head">
+      <h2>Timeline</h2>
+      <span class="hint" style="font-size:12px">Drag the playhead, slide or trim callouts, drag camera keyframes.</span>
+      <span class="sp"></span>
+      <label for="snapOn"><span class="switch"><input type="checkbox" id="snapOn" checked><span></span></span>Snap to words</label>
+      <label for="tlZoom">Zoom <input type="range" id="tlZoom" min="14" max="160" step="1" value="40"></label>
+      <button class="btn small" id="addKeyTl">+ Camera key</button>
+      <button class="btn small" id="addCallTl">+ Callout</button>
+    </div>
+    <div class="tl-body">
+      <div class="tl-labels"><div></div><div>Shots</div><div>Captions</div><div>Callouts</div><div>Camera</div><div>Speed</div></div>
+      <div class="tl-scroll" id="tlScroll"><div class="tl-inner" id="tlInner">
+        <div class="tl-ruler" id="tlRuler"></div>
+        <div class="track" id="trShots"></div>
+        <div class="track" id="trCaps"></div>
+        <div class="track" id="trCalls"></div>
+        <div class="track" id="trCam"></div>
+        <div class="track" id="trSpeed"></div>
+        <div class="playhead" id="playhead"></div>
+      </div></div>
+    </div>
   </section>
 
   <section class="inspector">
+    <div class="sec selcard" id="selCard">
+      <div class="kind" id="selKind">Nothing selected</div>
+      <h3 id="selTitle">Tap anything in the preview or timeline</h3>
+      <div id="selBody" style="display:flex;flex-direction:column;gap:12px"></div>
+      <div class="why" id="selWhy"><b>Why</b><span id="selWhyTxt"></span></div>
+      <div class="ask">
+        <textarea id="askTxt" placeholder="Ask Claude about this, or tell it what to change…" aria-label="Ask Claude"></textarea>
+        <div class="chips" id="askChips">
+          <button data-q="Why did you do it this way?">Why this?</button>
+          <button data-q="Make this punchier and more energetic.">Punchier</button>
+          <button data-q="Make this calmer and more premium.">Calmer</button>
+          <button data-q="Suggest better wording.">Better wording</button>
+        </div>
+        <div class="actions"><button class="btn" id="askBtn">Ask Claude</button><span class="hint" id="askNote" style="font-size:12px"></span></div>
+        <div class="answer" id="askOut" hidden></div>
+      </div>
+    </div>
+
     <div class="tabs" role="tablist" id="tabs">
       <button role="tab" aria-selected="true" data-tab="style">Style</button>
       <button role="tab" aria-selected="false" data-tab="captions">Captions</button>
       <button role="tab" aria-selected="false" data-tab="words">Words</button>
       <button role="tab" aria-selected="false" data-tab="callouts">Callouts</button>
-      <button role="tab" aria-selected="false" data-tab="framing">Framing</button>
+      <button role="tab" aria-selected="false" data-tab="motion">Motion</button>
+      <button role="tab" aria-selected="false" data-tab="camera">Camera</button>
+      <button role="tab" aria-selected="false" data-tab="speed">Speed</button>
       <button role="tab" aria-selected="false" data-tab="look">Look</button>
+      <button role="tab" aria-selected="false" data-tab="beats">Beats</button>
     </div>
 
     <div class="pane on" data-pane="style">
       <div class="sec">
         <h2>Style preset</h2>
-        <p class="hint">Each preset comes from a reel you studied. Switching keeps your framing, word edits and callouts.</p>
+        <p class="hint">Each preset comes from a reel you studied. Switching keeps your framing, words, callouts, camera and speed edits.</p>
         <div class="presets" id="presets">
           <button class="preset" data-preset="editorial" aria-pressed="false"><div class="swatch sw-ed"><div><small>it's in posting</small><em>the video</em></div></div><div class="meta"><strong>Editorial</strong><span>from @simar-visuals</span></div></button>
           <button class="preset" data-preset="gold" aria-pressed="false"><div class="swatch sw-go"><div><small>discipline is the</small><b>Secret</b></div></div><div class="meta"><strong>Gold Hero</strong><span>from @vyron-media</span></div></button>
@@ -235,7 +365,7 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
       <div class="sec">
         <h2>Captions</h2>
         <div class="toggle"><label for="capOn">Show captions</label><span class="switch"><input type="checkbox" id="capOn" data-path="captions.on"><span></span></span></div>
-        <div class="row"><label for="capY">Height on screen</label><input type="range" id="capY" min="25" max="80" step="1" data-path="captions.y"><output data-for="capY" data-unit="%"></output></div>
+        <div class="row"><label for="capY">Height on screen</label><input type="range" id="capY" min="20" max="82" step="1" data-path="captions.y"><output data-for="capY" data-unit="%"></output></div>
         <div class="row"><label for="capScale">Size</label><input type="range" id="capScale" min="0.6" max="1.6" step="0.05" data-path="captions.scale"><output data-for="capScale" data-unit="×"></output></div>
         <div class="row"><label for="capMax">Words per line</label><input type="range" id="capMax" min="2" max="8" step="1" data-path="captions.maxWords"><output data-for="capMax"></output></div>
         <div class="toggle"><label for="capUpper">ALL CAPS</label><span class="switch"><input type="checkbox" id="capUpper" data-path="captions.uppercase"><span></span></span></div>
@@ -243,7 +373,6 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
       </div>
       <div class="sec">
         <h2>Key words</h2>
-        <p class="hint">One word per line gets the hero treatment. Pick which words in the Words tab.</p>
         <div class="toggle"><label for="capAuto">Pick key words automatically</label><span class="switch"><input type="checkbox" id="capAuto" data-path="captions.autoKey"><span></span></span></div>
         <div class="row two"><label for="keyStyle">Treatment</label><select id="keyStyle" data-path="captions.keyStyle"><option value="serif">Big italic serif</option><option value="block">Highlight block</option><option value="glow">Glow slam</option><option value="color">Color pop</option></select></div>
         <div class="toggle"><label for="keyLine">Key word on its own line</label><span class="switch"><input type="checkbox" id="keyLine" data-path="captions.keyLine"><span></span></span></div>
@@ -262,8 +391,7 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
     <div class="pane" data-pane="words">
       <div class="sec">
         <h2>Words</h2>
-        <div class="seg" id="wordMode"><button data-mode="key" aria-pressed="true">Pick key words</button><button data-mode="fix" aria-pressed="false">Fix spelling</button></div>
-        <p class="hint" id="wordHint">Tap a word to cycle: auto → <b>key</b> → never key. Tap a timestamp to jump there.</p>
+        <p class="hint">Tap a word to select it. In the preview, double-tap a word to retype it. Edited words get a dashed outline.</p>
         <div class="chunks" id="chunks"></div>
       </div>
     </div>
@@ -271,23 +399,68 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
     <div class="pane" data-pane="callouts">
       <div class="sec">
         <h2>Callouts</h2>
-        <p class="hint">Pop-up cards for the moments that matter. Times are in seconds. Number titles like “50+” count up.</p>
+        <p class="hint">Drag a card in the preview to move it, or pick Draw path to make it travel. Number titles like “50+” count up when the type is Big number.</p>
         <div class="row two"><label for="callStyle">Card style</label><select id="callStyle" data-path="calloutStyle"><option value="glass">Glass</option><option value="editorial">Paper card</option></select></div>
-        <div class="calls" id="calls"></div>
+        <div class="list" id="callList"></div>
         <div><button class="btn" id="addCall">Add callout at playhead</button></div>
       </div>
     </div>
 
-    <div class="pane" data-pane="framing">
+    <div class="pane" data-pane="motion">
       <div class="sec">
-        <h2>Framing per shot</h2>
-        <p class="hint">Your footage is 16:9, so each camera angle gets its own 9:16 crop. Slide to keep your face and the watch in frame.</p>
-        <div class="shots" id="shots"></div>
+        <h2>Caption motion</h2>
+        <div class="row"><label for="mCapIn">Word fade-in</label><input type="range" id="mCapIn" min="0.05" max="0.6" step="0.01" data-path="motion.capIn"><output data-for="mCapIn" data-unit="s"></output><div class="sub">How long each word takes to appear.</div></div>
+        <div class="row"><label for="mCapRise">Word rise</label><input type="range" id="mCapRise" min="0" max="60" step="1" data-path="motion.capRise"><output data-for="mCapRise" data-unit="px"></output><div class="sub">How far words slide up as they arrive.</div></div>
+        <div class="row"><label for="mCapBlur">Word blur</label><input type="range" id="mCapBlur" min="0" max="16" step="0.5" data-path="motion.capBlur"><output data-for="mCapBlur" data-unit="px"></output><div class="sub">Soft focus that sharpens as the word lands.</div></div>
       </div>
       <div class="sec">
-        <h2>Camera moves</h2>
-        <div class="toggle"><label for="punch">Punch-in on key words</label><span class="switch"><input type="checkbox" id="punch" data-path="look.punch"><span></span></span></div>
-        <div class="toggle"><label for="kb">Slow push-in on each shot</label><span class="switch"><input type="checkbox" id="kb" data-path="look.kenBurns"><span></span></span></div>
+        <h2>Key word slam</h2>
+        <div class="row"><label for="mKeyIn">Slam speed</label><input type="range" id="mKeyIn" min="0.08" max="0.8" step="0.01" data-path="motion.keyIn"><output data-for="mKeyIn" data-unit="s"></output><div class="sub">Shorter hits harder.</div></div>
+        <div class="row"><label for="mKeyScale">Slam size</label><input type="range" id="mKeyScale" min="1" max="2" step="0.02" data-path="motion.keyScale"><output data-for="mKeyScale" data-unit="×"></output><div class="sub">How big the key word starts before settling.</div></div>
+      </div>
+      <div class="sec">
+        <h2>Callouts and camera</h2>
+        <div class="row"><label for="mCallIn">Card pop-in</label><input type="range" id="mCallIn" min="0.15" max="0.9" step="0.01" data-path="motion.callIn"><output data-for="mCallIn" data-unit="s"></output></div>
+        <div class="row"><label for="mBounce">Card bounce</label><input type="range" id="mBounce" min="0" max="3" step="0.1" data-path="motion.callBounce"><output data-for="mBounce"></output><div class="sub">0 is a clean stop, higher overshoots more.</div></div>
+        <div class="row"><label for="mPunch">Punch-in amount</label><input type="range" id="mPunch" min="0" max="0.25" step="0.005" data-path="motion.punch"><output data-for="mPunch"></output><div class="sub">Jump zoom on every other key line.</div></div>
+        <div class="row"><label for="mPush">Slow push-in</label><input type="range" id="mPush" min="0" max="0.12" step="0.005" data-path="motion.push"><output data-for="mPush"></output><div class="sub">Gentle zoom across each shot.</div></div>
+        <div class="toggle"><label for="punch">Punch-ins on</label><span class="switch"><input type="checkbox" id="punch" data-path="look.punch"><span></span></span></div>
+        <div class="toggle"><label for="kb">Slow push-ins on</label><span class="switch"><input type="checkbox" id="kb" data-path="look.kenBurns"><span></span></span></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="camera">
+      <div class="sec">
+        <h2>Virtual camera</h2>
+        <p class="hint">Pick the Camera tool, then drag the preview to pan and scroll (or use Zoom below) to zoom. Each change sets a keyframe at the playhead, and the camera eases between keyframes.</p>
+        <div class="row"><label for="camX">Pan left/right</label><input type="range" id="camX" min="-0.3" max="0.3" step="0.005"><output id="camXo"></output></div>
+        <div class="row"><label for="camY">Pan up/down</label><input type="range" id="camY" min="-0.3" max="0.3" step="0.005"><output id="camYo"></output></div>
+        <div class="row"><label for="camZ">Zoom</label><input type="range" id="camZ" min="1" max="2.5" step="0.01"><output id="camZo"></output></div>
+        <div class="row"><label for="camR">Tilt</label><input type="range" id="camR" min="-12" max="12" step="0.1"><output id="camRo"></output></div>
+        <div class="row"><label for="camShake">Handheld shake</label><input type="range" id="camShake" min="0" max="3" step="0.05" data-path="camera.shake"><output data-for="camShake"></output></div>
+        <div class="actions"><button class="btn" id="addKey">Add keyframe here</button><button class="btn ghost" id="clearKeys">Remove all keyframes</button></div>
+        <div class="list" id="keyList"></div>
+      </div>
+      <div class="sec">
+        <h2>Base framing per shot</h2>
+        <p class="hint">Your footage is 16:9, so each camera angle gets its own 9:16 crop. The virtual camera moves on top of this.</p>
+        <div class="list" id="shotList"></div>
+      </div>
+    </div>
+
+    <div class="pane" data-pane="speed">
+      <div class="sec">
+        <h2>Speed ramp</h2>
+        <div class="toggle"><label for="spOn">Speed ramp on</label><span class="switch"><input type="checkbox" id="spOn" data-path="speed.on"><span></span></span></div>
+        <canvas id="curve" width="800" height="190" aria-label="Speed curve editor"></canvas>
+        <p class="hint">Tap the curve to add a point, drag points to shape it, double-tap a point to remove it. Up is faster, down is slow motion.</p>
+        <div class="actions" id="spPresets">
+          <button class="btn small" data-sp="flat">Flat 1×</button>
+          <button class="btn small" data-sp="grail">Slow-mo on the Patek</button>
+          <button class="btn small" data-sp="rush">Rush into “50 plus”</button>
+        </div>
+        <div class="hint" id="spInfo"></div>
+        <p class="warn">Speed changes also change your voice timing, and your profile says to keep your audio as recorded. Best on silent moments or close-ups of a watch. In the final render the audio is sped up or slowed to match, with the pitch kept.</p>
       </div>
     </div>
 
@@ -306,8 +479,16 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
       </div>
     </div>
 
+    <div class="pane" data-pane="beats">
+      <div class="sec">
+        <h2>Every beat, and why</h2>
+        <p class="hint">Each moment the edit does something, with the reason behind it. Tap one to jump there and select it.</p>
+        <div class="list" id="beatList"></div>
+      </div>
+    </div>
+
     <div class="savebar">
-      <div class="status" id="status">Changes show up live. When it looks right, save it and tell Claude “render it”.</div>
+      <div class="status" id="status"></div>
       <button class="btn ghost" id="resetBtn">Reset</button>
       <button class="btn" id="copyBtn">Copy settings</button>
       <button class="btn primary" id="saveBtn">Save for render</button>
@@ -320,114 +501,116 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
 <script>
 (function () {
   "use strict";
-  var D = window.REEL_DATA, E = window.ReelEngine, FPS = 30;
+  var D = window.REEL_DATA, E = window.ReelEngine, FPS = 30, DUR = D.duration;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var LS_KEY = "reel-builder-draft-v1";
+  var LS_KEY = "reel-builder-draft-v2", LS_UI = "reel-builder-ui";
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function r2(v) { return Math.round(v * 100) / 100; }
+  function fmtT(t) { return t.toFixed(1) + "s"; }
 
   var cfg = E.defaultConfig("editorial", D);
-  try { var d = JSON.parse(localStorage.getItem(LS_KEY) || "null"); if (d && d.config && d.config.version === 1) cfg = d.config; } catch (e) {}
+  try {
+    var d = JSON.parse(localStorage.getItem(LS_KEY) || "null") || JSON.parse(localStorage.getItem("reel-builder-draft-v1") || "null");
+    if (d && d.config) cfg = E.migrate(d.config, D);
+  } catch (e) {}
 
   /* ---------- stage ---------- */
   var video = document.createElement("video");
-  video.src = "footage-preview.mp4"; video.playsInline = true; video.preload = "auto";
-  video.setAttribute("playsinline", "");
-  var stage = $("#stage"), screen = $("#screen");
+  video.src = "footage-preview.mp4"; video.playsInline = true; video.preload = "auto"; video.setAttribute("playsinline", "");
+  var stage = $("#stage"), screen = $("#screen"), overlay = $("#overlay");
   var engine = E.create(stage, D, cfg, { video: video });
-
-  function fit() {
-    var w = screen.clientWidth;
-    stage.style.transform = "scale(" + (w / E.STAGE_W) + ")";
-  }
+  var SM = E.speedMap(cfg, DUR);
+  var scale = 1;
+  function fit() { scale = screen.clientWidth / E.STAGE_W; stage.style.transform = "scale(" + scale + ")"; }
   new ResizeObserver(fit).observe(screen); fit();
 
-  var lastChunk = -1, lastShot = -1;
+  /* ---------- state ---------- */
+  var sel = null;          // {type:'word'|'chunk'|'callout'|'key'|'shot', i}
+  var tool = "select";
+  var pathDraft = null;    // points while drawing
+
+  function now() { return video.currentTime || 0; }
+  function shotIndexAt(t) { for (var i = 0; i < D.shots.length; i++) if (t < D.shots[i].e) return i; return D.shots.length - 1; }
+  function chunkIndexAt(t) { var ch = engine.chunks(); for (var i = 0; i < ch.length; i++) if (t >= ch[i].s - 0.08 && t < ch[i].show) return i; return -1; }
+  function chunkOfWord(i) { var ch = engine.chunks(); for (var k = 0; k < ch.length; k++) if (ch[k].idx.indexOf(i) >= 0) return k; return -1; }
+
+  /* ---------- playback ---------- */
+  var raf = 0, lastChunk = -2;
   function frame() {
-    var t = video.currentTime || 0;
+    var t = now();
     engine.render(t);
-    $("#scrub").value = t;
-    $("#headPos").style.left = (t / D.duration * 100) + "%";
+    if (!video.paused && cfg.speed.on) { var r = SM.rateAt(t); if (Math.abs(video.playbackRate - r) > 0.01) video.playbackRate = r; }
     var s = Math.floor(t), f = Math.floor((t - s) * FPS);
-    $("#tc").innerHTML = pad(Math.floor(s / 60)) + ":" + pad(s % 60) + "<small>:" + pad(f) + "</small>";
+    var outT = SM.on ? SM.outAt(t) : t;
+    $("#tc").innerHTML = pad(Math.floor(s / 60)) + ":" + pad(s % 60) + "<small>:" + pad(f) + "</small>" +
+      (SM.on ? '<span class="rate">' + SM.rateAt(t).toFixed(2) + "× · out " + outT.toFixed(1) + "s</span>" : "");
+    $("#playhead").style.left = t * pps + "px";
+    if (!video.paused) keepPlayheadVisible(t);
     var ci = chunkIndexAt(t);
     if (ci !== lastChunk) { lastChunk = ci; $$(".chunk").forEach(function (el, i) { el.classList.toggle("cur", i === ci); }); }
-    var si = shotIndexAt(t);
-    if (si !== lastShot) { lastShot = si; $$(".shotcard").forEach(function (el, i) { el.classList.toggle("cur", i === si); }); }
+    drawOverlay();
+    syncCamSliders();
   }
   function pad(n) { return (n < 10 ? "0" : "") + n; }
-  function chunkIndexAt(t) { var ch = engine.chunks(); for (var i = 0; i < ch.length; i++) if (t >= ch[i].s - 0.08 && t < ch[i].show) return i; return -1; }
-  function shotIndexAt(t) { for (var i = 0; i < D.shots.length; i++) if (t < D.shots[i].e) return i; return D.shots.length - 1; }
-
-  var raf = 0;
   function loop() { frame(); if (!video.paused) raf = requestAnimationFrame(loop); }
   function setPlaying(p) {
     if (p) $("#app").classList.add("played");
-    $("#app").classList.toggle("playing", p);
     $("#tally").classList.toggle("live", p);
     $("#tallyTxt").textContent = p ? "Playing" : "Paused";
     $("#playIco").innerHTML = p ? '<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>' : '<path d="M6 4l15 8-15 8z"/>';
     $("#playBtn").setAttribute("aria-label", p ? "Pause" : "Play");
   }
-  function toggle() {
-    if (video.paused) { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); } else video.pause();
-  }
+  function play() { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); }
+  function toggle() { if (video.paused) play(); else video.pause(); }
+  function seek(t) { video.currentTime = clamp(t, 0, DUR - 0.02); frame(); }
   video.addEventListener("play", function () { setPlaying(true); cancelAnimationFrame(raf); loop(); });
-  video.addEventListener("pause", function () { setPlaying(false); frame(); });
+  video.addEventListener("pause", function () { setPlaying(false); video.playbackRate = 1; frame(); });
   video.addEventListener("seeked", frame);
   video.addEventListener("loadeddata", frame);
   video.addEventListener("ended", function () { setPlaying(false); });
-  $("#tap").addEventListener("click", toggle);
   $("#playBtn").addEventListener("click", toggle);
+  $("#backBtn").addEventListener("click", function () { video.pause(); seek(now() - 1 / FPS); });
+  $("#fwdBtn").addEventListener("click", function () { video.pause(); seek(now() + 1 / FPS); });
   $("#muteBtn").addEventListener("click", function () {
     video.muted = !video.muted;
-    $("#muteIco").innerHTML = video.muted ? '<path d="M4 9h4l5-4v14l-5-4H4z M16 9l5 6M21 9l-5 6" stroke="#ecebe6" stroke-width="1.8" fill="#ecebe6"/>' : '<path d="M4 9h4l5-4v14l-5-4H4z M16 8.5a5 5 0 010 7l-1.2-1.2a3.3 3.3 0 000-4.6z"/>';
+    $("#muteIco").innerHTML = video.muted ? '<path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9l5 6M21 9l-5 6" stroke="#ecebe6" stroke-width="1.8"/>' : '<path d="M4 9h4l5-4v14l-5-4H4z M16 8.5a5 5 0 010 7l-1.2-1.2a3.3 3.3 0 000-4.6z"/>';
     $("#muteBtn").setAttribute("aria-label", video.muted ? "Unmute" : "Mute");
   });
-  $("#scrub").addEventListener("input", function (e) { seek(+e.target.value); });
-  function seek(t) { video.currentTime = Math.max(0, Math.min(D.duration - 0.05, t)); frame(); }
-  document.addEventListener("keydown", function (e) {
-    if (e.target.matches("input,select,textarea")) return;
-    if (e.code === "Space") { e.preventDefault(); toggle(); }
-    if (e.key === "ArrowLeft") seek(video.currentTime - 1 / FPS * (e.shiftKey ? 30 : 1));
-    if (e.key === "ArrowRight") seek(video.currentTime + 1 / FPS * (e.shiftKey ? 30 : 1));
-  });
+  function replay(from) { seek(Math.max(0, from - 0.4)); play(); }
 
-  /* ---------- timeline track ---------- */
-  function drawTrack() {
-    var tr = $("#track"), head = $("#headPos");
-    tr.textContent = "";
-    D.shots.forEach(function (s) {
-      var el = document.createElement("div"); el.className = "shot " + s.angle;
-      el.style.left = (s.s / D.duration * 100) + "%"; el.style.width = ((s.e - s.s) / D.duration * 100) + "%"; tr.appendChild(el);
-    });
-    engine.chunks().forEach(function (c) {
-      var el = document.createElement("div"); el.className = "ck" + (c.key.size ? " key" : "");
-      el.style.left = (c.s / D.duration * 100) + "%"; tr.appendChild(el);
-    });
-    cfg.callouts.forEach(function (c) {
-      if (!c.on) return;
-      var el = document.createElement("div"); el.className = "call";
-      el.style.left = (c.start / D.duration * 100) + "%"; el.style.width = (c.dur / D.duration * 100) + "%"; tr.appendChild(el);
-    });
-    tr.appendChild(head);
-  }
-
-  /* ---------- config plumbing ---------- */
+  /* ---------- config plumbing + undo ---------- */
   function getPath(o, p) { return p.split(".").reduce(function (a, k) { return a == null ? a : a[k]; }, o); }
   function setPath(o, p, v) { var ks = p.split("."), last = ks.pop(); ks.reduce(function (a, k) { return a[k]; }, o)[last] = v; }
-
-  var saveTimer = 0;
+  var undoStack = [], lastSnap = JSON.stringify(cfg), lastPush = 0, saveTimer = 0;
   function commit(opts) {
+    opts = opts || {};
+    var snap = JSON.stringify(cfg);
+    if (snap !== lastSnap) {
+      var tnow = performance.now();
+      if (tnow - lastPush > 500) { undoStack.push(lastSnap); if (undoStack.length > 60) undoStack.shift(); lastPush = tnow; }
+      lastSnap = snap;
+    }
+    $("#undoBtn").disabled = !undoStack.length;
     engine.setConfig(cfg);
+    SM = E.speedMap(cfg, DUR);
+    if (sel && !selValid()) sel = null;
     frame();
-    drawTrack();
-    if (!opts || !opts.keepWords) renderWords();
+    drawTimeline();
+    if (!opts.light) { renderWords(); renderCalls(); renderKeys(); renderShots(); renderBeats(); drawCurve(); }
+    renderSel();
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(function () {
-      try { localStorage.setItem(LS_KEY, JSON.stringify({ config: cfg })); } catch (e) {}
-    }, 300);
-    setStatus("Unsaved changes. Save for render when you're happy.");
+    saveTimer = setTimeout(function () { try { localStorage.setItem(LS_KEY, JSON.stringify({ config: cfg })); } catch (e) {} }, 300);
+    setStatus("Unsaved changes. Tap <b style='color:var(--fg)'>Save for render</b> when you're happy.");
   }
+  function undo() {
+    if (!undoStack.length) return;
+    cfg = E.migrate(JSON.parse(undoStack.pop()), D);
+    lastSnap = JSON.stringify(cfg); lastPush = 0;
+    syncControls(); commit();
+  }
+  $("#undoBtn").addEventListener("click", undo);
 
   function syncControls() {
     $$("[data-path]").forEach(function (el) {
@@ -438,91 +621,458 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
     $$(".preset").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.preset === cfg.preset)); });
     drawColors();
   }
-  function fmt(v) { var n = +v; return Math.abs(n) < 10 && n % 1 ? n.toFixed(2).replace(/0$/, "") : String(n); }
-
+  function fmt(v) { var n = +v; if (isNaN(n)) return v; return n % 1 ? String(+n.toFixed(3)) : String(n); }
   $$("[data-path]").forEach(function (el) {
     el.addEventListener("input", function () {
       var v = el.type === "checkbox" ? el.checked : (el.type === "range" || el.type === "number") ? +el.value : el.value;
       setPath(cfg, el.dataset.path, v);
       var o = $('output[data-for="' + el.id + '"]'); if (o) o.textContent = fmt(el.value) + (o.dataset.unit || "");
-      commit();
+      commit({ light: el.type === "range" });
     });
+    if (el.type === "range") el.addEventListener("change", function () { commit(); });
   });
+  E.FONTS.forEach(function (f) { ["#bodyFont", "#keyFont"].forEach(function (s) { var o = document.createElement("option"); o.value = f; o.textContent = f; $(s).appendChild(o); }); });
+  $$(".preset").forEach(function (b) { b.addEventListener("click", function () { cfg = E.applyPreset(cfg, b.dataset.preset); syncControls(); commit(); }); });
 
-  /* fonts */
-  E.FONTS.forEach(function (f) {
-    ["#bodyFont", "#keyFont"].forEach(function (s) { var o = document.createElement("option"); o.value = f; o.textContent = f; $(s).appendChild(o); });
-  });
-
-  /* presets */
-  $$(".preset").forEach(function (b) {
-    b.addEventListener("click", function () { cfg = E.applyPreset(cfg, b.dataset.preset); syncControls(); commit(); renderCalls(); });
-  });
-
-  /* accent colors */
   var SWATCHES = ["#4b3cf0", "#3b82f6", "#ffb81c", "#ff5a47", "#4fd18b", "#e0399b", "#ffffff"];
   function drawColors() {
     var box = $("#colors"); box.textContent = "";
     SWATCHES.forEach(function (c) {
       var b = document.createElement("button"); b.className = "chip-c"; b.style.background = c;
       b.setAttribute("aria-label", "Accent " + c); b.setAttribute("aria-pressed", String(cfg.accent.toLowerCase() === c));
-      b.addEventListener("click", function () { cfg.accent = c; drawColors(); $("#accentPick").value = c; commit({ keepWords: true }); });
+      b.addEventListener("click", function () { cfg.accent = c; drawColors(); commit({ light: true }); });
       box.appendChild(b);
     });
     var pick = document.createElement("input"); pick.type = "color"; pick.id = "accentPick"; pick.value = cfg.accent; pick.setAttribute("aria-label", "Custom accent color");
-    pick.addEventListener("input", function () { cfg.accent = pick.value; $$(".chip-c").forEach(function (x) { x.setAttribute("aria-pressed", "false"); }); commit({ keepWords: true }); });
+    pick.addEventListener("input", function () { cfg.accent = pick.value; commit({ light: true }); });
     box.appendChild(pick);
   }
 
   /* tabs */
-  $$("#tabs button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      $$("#tabs button").forEach(function (x) { x.setAttribute("aria-selected", String(x === b)); });
-      $$(".pane").forEach(function (p) { p.classList.toggle("on", p.dataset.pane === b.dataset.tab); });
-    });
+  function showTab(name) {
+    $$("#tabs button").forEach(function (x) { x.setAttribute("aria-selected", String(x.dataset.tab === name)); });
+    $$(".pane").forEach(function (p) { p.classList.toggle("on", p.dataset.pane === name); });
+    if (name === "speed") drawCurve();
+    try { localStorage.setItem(LS_UI, JSON.stringify({ tab: name, view: view })); } catch (e) {}
+  }
+  $$("#tabs button").forEach(function (b) { b.addEventListener("click", function () { showTab(b.dataset.tab); }); });
+
+  /* view: clean / phone */
+  var view = "phone";
+  function setView(v) {
+    view = v; $("#device").classList.toggle("phone", v === "phone");
+    $$("#viewSeg button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.view === v)); });
+    requestAnimationFrame(fit);
+  }
+  $$("#viewSeg button").forEach(function (b) { b.addEventListener("click", function () { setView(b.dataset.view); }); });
+  $("#guidesOn").addEventListener("input", function (e) { $("#guides").classList.toggle("on", e.target.checked); });
+
+  /* tools */
+  var HINTS = {
+    select: "Tap a word or card to select it. Double-tap to retype. Drag a card to move it, drag captions to raise or lower them. Tap empty space to play or pause.",
+    camera: "Drag to pan, scroll to zoom. Every move sets a camera keyframe at the playhead.",
+    path: "Select a callout, then draw the route it should travel across the screen."
+  };
+  function setTool(tl) {
+    tool = tl;
+    $("#app").classList.remove("tool-select", "tool-camera", "tool-path");
+    $("#app").classList.add("tool-" + tl);
+    $$("#toolSeg button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.tool === tl)); });
+    $("#toolHint").textContent = HINTS[tl] + (tl === "path" && !(sel && sel.type === "callout") ? " No callout is selected yet." : "");
+    if (tl === "camera") { video.pause(); }
+    drawOverlay();
+  }
+  $$("#toolSeg button").forEach(function (b) { b.addEventListener("click", function () { setTool(b.dataset.tool); }); });
+
+  /* ---------- selection ---------- */
+  function selValid() {
+    if (!sel) return false;
+    if (sel.type === "word") return sel.i >= 0 && sel.i < D.words.length;
+    if (sel.type === "chunk") return sel.i >= 0 && sel.i < engine.chunks().length;
+    if (sel.type === "callout") return !!cfg.callouts[sel.i];
+    if (sel.type === "key") return !!cfg.camera.keys[sel.i];
+    if (sel.type === "shot") return !!D.shots[sel.i];
+    return false;
+  }
+  function select(s, opts) {
+    sel = s; $("#askOut").hidden = true;
+    if (s && opts && opts.seek) {
+      if (s.type === "word") seek(D.words[s.i].s + 0.05);
+      if (s.type === "chunk") seek(engine.chunks()[s.i].s + 0.2);
+      if (s.type === "callout") seek(cfg.callouts[s.i].start + Math.min(0.6, cfg.callouts[s.i].dur / 2));
+      if (s.type === "key") seek(cfg.camera.keys[s.i].t);
+      if (s.type === "shot") seek(D.shots[s.i].s + 0.5);
+    }
+    if (tool === "path") setTool("path");
+    renderSel(); drawTimeline(); drawOverlay(); renderKeys();
+  }
+
+  function renderSel() {
+    var kind = $("#selKind"), title = $("#selTitle"), body = $("#selBody");
+    body.textContent = "";
+    $("#selWhyTxt").textContent = whyFor(sel);
+    if (!sel) {
+      kind.textContent = "Whole reel"; title.textContent = "Tap anything in the preview or timeline to select it";
+      $("#askTxt").placeholder = "Ask Claude about the whole reel, e.g. “make the captions feel more premium”";
+      return;
+    }
+    $("#askTxt").placeholder = "Ask Claude about this, or tell it what to change…";
+    var b = function (html) { var d = document.createElement("div"); d.innerHTML = html; body.appendChild(d.firstElementChild || d); return body.lastElementChild; };
+    if (sel.type === "word") {
+      var i = sel.i, f = cfg.keyWords[i];
+      kind.textContent = "Word · " + fmtT(D.words[i].s);
+      title.textContent = "“" + E.wordText(cfg, D.words, i) + "”";
+      var r = b('<div class="row two"><label for="selWordTxt">Text</label><input type="text" id="selWordTxt"></div>');
+      $("#selWordTxt").value = E.wordText(cfg, D.words, i);
+      $("#selWordTxt").addEventListener("change", function (e) { setWordText(i, e.target.value); });
+      var sg = b('<div class="seg" aria-label="Key word"><button data-k="auto">Auto</button><button data-k="key">Key word</button><button data-k="never">Never key</button></div>');
+      $$("button", sg).forEach(function (x) {
+        x.setAttribute("aria-pressed", String(x.dataset.k === (f === true ? "key" : f === false ? "never" : "auto")));
+        x.addEventListener("click", function () {
+          if (x.dataset.k === "auto") delete cfg.keyWords[i]; else cfg.keyWords[i] = x.dataset.k === "key";
+          commit();
+        });
+      });
+      actionsRow([["Replay", function () { replay(D.words[i].s); }]]);
+    } else if (sel.type === "chunk") {
+      var ch = engine.chunks()[sel.i];
+      kind.textContent = "Caption line · " + fmtT(ch.s);
+      title.textContent = ch.idx.map(function (k) { return E.wordText(cfg, D.words, k); }).join(" ");
+      var p = b('<p class="hint">Tap the word that should be the key word.</p>');
+      var ws = b('<div class="chunk" style="padding:0"><div class="ws"></div></div>').querySelector(".ws");
+      ch.idx.forEach(function (k) {
+        var w = document.createElement("button"); w.className = "wd" + (ch.key.has(k) ? " key" : "");
+        w.textContent = E.wordText(cfg, D.words, k);
+        w.addEventListener("click", function () { ch.idx.forEach(function (o) { if (cfg.keyWords[o] === true) delete cfg.keyWords[o]; }); cfg.keyWords[k] = true; commit(); });
+        ws.appendChild(w);
+      });
+      actionsRow([["Replay", function () { replay(ch.s); }]]);
+    } else if (sel.type === "callout") {
+      var co = cfg.callouts[sel.i], k = sel.i;
+      kind.textContent = "Callout · " + fmtT(co.start) + "–" + fmtT(co.start + co.dur);
+      title.textContent = co.title || "Callout";
+      var g = b('<div class="grid2">' +
+        '<label>Label<input type="text" data-f="label"></label><label>Title<input type="text" data-f="title"></label>' +
+        '<label>Starts at (s)<input type="number" step="0.1" min="0" max="35" data-f="start"></label><label>Length (s)<input type="number" step="0.1" min="0.5" max="10" data-f="dur"></label>' +
+        '<label>Type<select data-f="kind"><option value="card">Card</option><option value="stat">Big number</option></select></label>' +
+        '<label>Show<select data-f="on"><option value="true">Shown</option><option value="false">Hidden</option></select></label></div>');
+      $$("[data-f]", g).forEach(function (el) {
+        var key = el.dataset.f; el.value = String(co[key]);
+        el.addEventListener("change", function () {
+          co[key] = key === "on" ? el.value === "true" : el.type === "number" ? clamp(+el.value, key === "dur" ? 0.5 : 0, key === "dur" ? 10 : DUR - 0.5) : el.value;
+          commit();
+        });
+      });
+      actionsRow([
+        ["Replay", function () { replay(co.start); }],
+        [co.path ? "Redraw path" : "Draw path", function () { setTool("path"); }],
+        co.path ? ["Clear path", function () { co.path = null; commit(); }] : null,
+        ["Delete", function () { cfg.callouts.splice(k, 1); sel = null; commit(); }]
+      ]);
+    } else if (sel.type === "key") {
+      var kf = cfg.camera.keys[sel.i], ki = sel.i;
+      kind.textContent = "Camera keyframe · " + fmtT(kf.t);
+      title.textContent = describeKey(kf);
+      var g2 = b('<div class="grid2"><label>Time (s)<input type="number" step="0.033" min="0" max="35.3" data-f="t"></label>' +
+        '<label>Ease into it<select data-f="ease">' + E.EASES.map(function (e) { return '<option value="' + e + '">' + easeName(e) + "</option>"; }).join("") + "</select></label></div>");
+      $$("[data-f]", g2).forEach(function (el) {
+        el.value = kf[el.dataset.f];
+        el.addEventListener("change", function () { kf[el.dataset.f] = el.dataset.f === "t" ? clamp(+el.value, 0, DUR) : el.value; commit(); });
+      });
+      actionsRow([["Go to", function () { seek(kf.t); }], ["Delete", function () { cfg.camera.keys.splice(ki, 1); sel = null; commit(); }]]);
+    } else if (sel.type === "shot") {
+      var s = D.shots[sel.i];
+      kind.textContent = "Shot " + (sel.i + 1) + " · " + fmtT(s.s) + "–" + fmtT(s.e);
+      title.textContent = s.angle === "side" ? "Side camera" : "Front camera";
+      b('<p class="hint">Adjust its crop in the Camera tab, under Base framing.</p>');
+      actionsRow([["Edit framing", function () { showTab("camera"); }]]);
+    }
+    function actionsRow(list) {
+      var row = document.createElement("div"); row.className = "actions";
+      list.forEach(function (a) { if (!a) return; var bt = document.createElement("button"); bt.className = "btn small"; bt.textContent = a[0]; bt.addEventListener("click", a[1]); row.appendChild(bt); });
+      body.appendChild(row);
+    }
+  }
+  function easeName(e) { return { smooth: "Smooth", linear: "Linear", in: "Slow start", out: "Slow finish", snap: "Snap" }[e] || e; }
+  function describeKey(k) {
+    var parts = [];
+    if (k.zoom > 1.02) parts.push("zoom " + k.zoom.toFixed(2) + "×");
+    if (Math.abs(k.x) > 0.005) parts.push("pan " + (k.x > 0 ? "right " : "left ") + Math.round(Math.abs(k.x) * 100) + "%");
+    if (Math.abs(k.y) > 0.005) parts.push("pan " + (k.y > 0 ? "down " : "up ") + Math.round(Math.abs(k.y) * 100) + "%");
+    if (Math.abs(k.rot) > 0.05) parts.push("tilt " + k.rot.toFixed(1) + "°");
+    return parts.length ? parts.join(", ") : "Neutral framing";
+  }
+  function setWordText(i, v) {
+    v = String(v || "").trim();
+    if (v && v !== D.words[i].t) cfg.textEdits[i] = v; else delete cfg.textEdits[i];
+    commit();
+  }
+
+  /* ---------- why this ---------- */
+  var PRESET_WHY = {
+    serif: "Big italic serif on one word is @simar-visuals' two-voice caption move: the filler stays tiny so the one word that matters reads first.",
+    glow: "The glowing gold slam on the stressed word is @vyron-media's hero-word move. It lands exactly when you say it.",
+    block: "A highlight block wiping in behind the word reads like a marker pen, a quieter version of @simar-visuals' blue highlight.",
+    color: "Color pop on the spoken word is the workspace karaoke default: the eye follows your voice word by word."
+  };
+  function whyFor(s) {
+    if (!s) return "The edit follows your voice: captions land on each word as you say it, one key word per line carries the meaning, and callouts mark the three turning points of the story (first watch, first Rolex, the grail), plus the 50+ number.";
+    if (s.type === "word" || s.type === "chunk") {
+      var ci = s.type === "chunk" ? s.i : chunkOfWord(s.i), ch = engine.chunks()[ci];
+      if (!ch) return "";
+      var keyI = Array.from(ch.key)[0];
+      if (s.type === "word" && keyI !== s.i) {
+        return cfg.keyWords[s.i] === false ? "You marked this word as never key, so it stays small." :
+          "A supporting word: it stays small so the key word in this line" + (keyI != null ? " (“" + E.wordText(cfg, D.words, keyI) + "”)" : "") + " stands out. Tap Key word to swap them.";
+      }
+      if (keyI == null) return "No key word here: every word in this line is filler (" + ch.idx.map(function (k) { return E.wordText(cfg, D.words, k); }).join(" ") + "), so a big word would shout about nothing.";
+      var w = E.wordText(cfg, D.words, keyI), r = ch.keyReason;
+      var base = r === "forced" ? "You picked “" + w + "” as the key word." :
+        r === "number" ? "“" + w + "” is a number. Numbers are the most concrete thing in a line, and viewers remember them." :
+        r === "name" ? "“" + w + "” is a name. It's the word a watch fan would search for, so it gets the spotlight." :
+        "“" + w + "” is the longest meaningful word in the line, so it carries the meaning while the rest is filler.";
+      var punch = ch.punch && cfg.look.punch ? " This line also gets a jump zoom (every other key line), so the face cam never sits still for long." : "";
+      return base + " " + PRESET_WHY[cfg.captions.keyStyle] + punch;
+    }
+    if (s.type === "callout") {
+      var co = cfg.callouts[s.i]; if (!co) return "";
+      var spoken = nearestWords(co.start, 3);
+      var sync = spoken ? "It appears as you say “" + spoken + "”, never before, so the card confirms what the viewer just heard." : "";
+      var kindWhy = co.kind === "stat" ? " The number counts up because a growing count makes the claim feel earned (@simar-visuals' stat counters)." :
+        /#00\d/.test(co.label || "") ? " The #00N numbering turns your story into a sequence: three beats, first watch, first Rolex, the grail." : "";
+      var path = co.path ? " It travels the path you drew, which adds motion without a cut." : "";
+      return sync + kindWhy + path;
+    }
+    if (s.type === "key") {
+      var k = cfg.camera.keys[s.i]; if (!k) return "";
+      var said = nearestWords(k.t, 3);
+      return "A virtual camera move (" + describeKey(k).toLowerCase() + ")" + (said ? " landing on “" + said + "”" : "") + ". Camera moves keep a single-angle talking head alive, and easing (" + easeName(k.ease || "smooth").toLowerCase() + ") makes them feel like a real operator rather than a digital zoom.";
+    }
+    if (s.type === "shot") {
+      var sh = D.shots[s.i];
+      return sh.angle === "side" ? "Your side-angle shot. It's cropped a little right of center so your eyeline has space in front of it." :
+        "Your front-angle shot. It's centered on your face, with headroom kept for the captions and cards.";
+    }
+    return "";
+  }
+  function nearestWords(t, n) {
+    var i = 0; while (i < D.words.length - 1 && D.words[i + 1].s <= t + 0.05) i++;
+    var from = Math.max(0, i - n + 2), out = [];
+    for (var k = from; k < Math.min(D.words.length, from + n); k++) out.push(E.wordText(cfg, D.words, k));
+    return out.join(" ").replace(/[.,]$/, "");
+  }
+
+  /* ---------- overlay (selection box, path, camera guides) ---------- */
+  function stageRectOf(el) {
+    var sr = screen.getBoundingClientRect(), r = el.getBoundingClientRect();
+    return { x: (r.left - sr.left) / scale, y: (r.top - sr.top) / scale, w: r.width / scale, h: r.height / scale };
+  }
+  function drawOverlay() {
+    var h = "";
+    if (tool === "camera") {
+      h += '<g stroke="rgba(255,200,74,.55)" stroke-width="2" fill="none"><path d="M360 0V1920M720 0V1920M0 640H1080M0 1280H1080"/></g>' +
+        '<g stroke="#ffc84a" stroke-width="4"><path d="M500 960H580M540 920V1000"/></g>';
+    }
+    var el = null;
+    if (sel && sel.type === "word") el = stage.querySelector('[data-word="' + sel.i + '"]');
+    if (sel && sel.type === "chunk") el = stage.querySelector('[data-chunk="' + sel.i + '"]');
+    if (sel && sel.type === "callout") el = stage.querySelector('[data-callout="' + sel.i + '"]');
+    if (el && el.style.visibility !== "hidden" && (!el.closest(".re-cap") || el.closest(".re-cap").style.visibility !== "hidden")) {
+      var r = stageRectOf(el);
+      h += '<rect x="' + (r.x - 10) + '" y="' + (r.y - 10) + '" width="' + (r.w + 20) + '" height="' + (r.h + 20) + '" rx="12" fill="none" stroke="#ffc84a" stroke-width="5" stroke-dasharray="18 10"/>';
+    }
+    var path = pathDraft || (sel && sel.type === "callout" && cfg.callouts[sel.i] && cfg.callouts[sel.i].path);
+    if (path && path.length > 1) {
+      var pts = path.map(function (p) { return (p[0] * 1080).toFixed(1) + "," + (p[1] * 1920).toFixed(1); }).join(" ");
+      h += '<polyline points="' + pts + '" fill="none" stroke="#ffc84a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 16"/>';
+      var a = path[0], z = path[path.length - 1];
+      h += '<circle cx="' + a[0] * 1080 + '" cy="' + a[1] * 1920 + '" r="16" fill="#ffc84a"/><circle cx="' + z[0] * 1080 + '" cy="' + z[1] * 1920 + '" r="16" fill="none" stroke="#ffc84a" stroke-width="6"/>';
+    }
+    overlay.innerHTML = h;
+  }
+
+  /* ---------- preview pointer: select, drag, inline edit, camera, path ---------- */
+  function toStage(e) { var r = screen.getBoundingClientRect(); return { x: (e.clientX - r.left) / scale, y: (e.clientY - r.top) / scale }; }
+  var drag = null, lastTap = { t: 0, key: "" };
+  screen.addEventListener("pointerdown", function (e) {
+    if (e.button && e.button !== 0) return;
+    var p = toStage(e);
+    screen.setPointerCapture(e.pointerId);
+    if (tool === "camera") {
+      video.pause();
+      var k = keyAtPlayhead(true);
+      drag = { mode: "cam", sx: e.clientX, sy: e.clientY, k: k, x0: k.x, y0: k.y };
+      return;
+    }
+    if (tool === "path") {
+      if (!(sel && sel.type === "callout")) { setStatus("Select a callout first, then draw its path."); drag = null; return; }
+      video.pause();
+      pathDraft = [[p.x / 1080, p.y / 1920]];
+      drag = { mode: "path" };
+      return;
+    }
+    var hit = document.elementsFromPoint(e.clientX, e.clientY);
+    var callEl = null, wordEl = null;
+    for (var i = 0; i < hit.length; i++) {
+      if (!callEl && hit[i].closest && hit[i].closest("[data-callout]")) callEl = hit[i].closest("[data-callout]");
+      if (!wordEl && hit[i].closest && hit[i].closest("[data-word]")) wordEl = hit[i].closest("[data-word]");
+    }
+    var tapKey = callEl ? "c" + callEl.dataset.callout : wordEl ? "w" + wordEl.dataset.word : "";
+    var dbl = tapKey && lastTap.key === tapKey && performance.now() - lastTap.t < 380;
+    lastTap = { t: performance.now(), key: tapKey };
+    if (callEl) {
+      var ci = +callEl.dataset.callout, co = cfg.callouts[ci];
+      video.pause(); select({ type: "callout", i: ci });
+      if (dbl) { drag = { mode: "edit", open: function () { var el = stage.querySelector('[data-callout="' + ci + '"] .re-ct'); if (el) inlineEdit(el, co.title, function (v) { co.title = v; commit(); }); } }; return; }
+      drag = { mode: "callout", co: co, sx: p.x, sy: p.y, x0: co.x != null ? co.x : 0.5, y0: co.y, path0: co.path ? co.path.map(function (q) { return q.slice(); }) : null, moved: false };
+      return;
+    }
+    if (wordEl) {
+      var wi = +wordEl.dataset.word;
+      video.pause(); select({ type: "word", i: wi });
+      if (dbl) { drag = { mode: "edit", open: function () { var el = stage.querySelector('[data-word="' + wi + '"]'); if (el) inlineEdit(el, E.wordText(cfg, D.words, wi), function (v) { setWordText(wi, v); }); } }; return; }
+      drag = { mode: "caps", sy: p.y, y0: cfg.captions.y, moved: false };
+      return;
+    }
+    drag = { mode: "tap", sx: e.clientX, sy: e.clientY };
   });
+  screen.addEventListener("pointermove", function (e) {
+    if (!drag) return;
+    var p = toStage(e);
+    if (drag.mode === "cam") {
+      var fr = cfg.framing[shotIndexAt(now())] || { zoom: 1 };
+      var sW = 1920 * (1920 / 1080) * fr.zoom * drag.k.zoom;   // scaled footage width on stage
+      var dx = (e.clientX - drag.sx) / scale, dy = (e.clientY - drag.sy) / scale;
+      drag.k.x = Math.round(clamp(drag.x0 - dx / sW, -0.3, 0.3) * 1000) / 1000;
+      drag.k.y = Math.round(clamp(drag.y0 - dy / (sW * 0.5625), -0.3, 0.3) * 1000) / 1000;
+      commit({ light: true });
+    } else if (drag.mode === "path") {
+      var last = pathDraft[pathDraft.length - 1], q = [p.x / 1080, p.y / 1920];
+      if (Math.hypot((q[0] - last[0]) * 1080, (q[1] - last[1]) * 1920) > 14) { pathDraft.push(q); drawOverlay(); }
+    } else if (drag.mode === "callout") {
+      var dxs = (p.x - drag.sx) / 1080, dys = (p.y - drag.sy) / 1920;
+      if (Math.abs(dxs) + Math.abs(dys) > 0.004) drag.moved = true;
+      if (!drag.moved) return;
+      if (drag.path0) drag.co.path = drag.path0.map(function (q) { return [clamp(q[0] + dxs, 0, 1), clamp(q[1] + dys, 0, 1)]; });
+      else { drag.co.x = r2(clamp(drag.x0 + dxs, 0.15, 0.85)); drag.co.y = Math.round(clamp(drag.y0 + dys * 100, 3, 85)); }
+      commit({ light: true });
+    } else if (drag.mode === "caps") {
+      var dyc = (p.y - drag.sy) / 1920 * 100;
+      if (Math.abs(dyc) > 0.6) drag.moved = true;
+      if (!drag.moved) return;
+      cfg.captions.y = Math.round(clamp(drag.y0 + dyc, 20, 82));
+      $("#capY").value = cfg.captions.y; commit({ light: true });
+    }
+  });
+  screen.addEventListener("pointerup", function (e) {
+    if (!drag) return;
+    if (drag.mode === "edit") { var op = drag.open; drag = null; setTimeout(op, 0); return; }
+    if (drag.mode === "tap" && Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy) < 8) { select(null); toggle(); }
+    if (drag.mode === "path") {
+      var co = sel && sel.type === "callout" && cfg.callouts[sel.i];
+      if (co && pathDraft && pathDraft.length > 1) { co.path = pathDraft.map(function (q) { return [Math.round(q[0] * 1000) / 1000, Math.round(q[1] * 1000) / 1000]; }); setStatus("Path saved. Press Replay on the callout to watch it travel."); }
+      pathDraft = null; setTool("select"); commit();
+    }
+    if (drag.mode === "cam" || drag.mode === "callout" || drag.mode === "caps") commit();
+    drag = null; drawOverlay();
+  });
+  screen.addEventListener("wheel", function (e) {
+    if (tool !== "camera") return;
+    e.preventDefault(); video.pause();
+    var k = keyAtPlayhead(true);
+    k.zoom = r2(clamp(k.zoom * (e.deltaY < 0 ? 1.04 : 1 / 1.04), 1, 2.5));
+    commit({ light: true });
+  }, { passive: false });
+
+  function inlineEdit(target, value, done) {
+    var sr = screen.getBoundingClientRect(), r = target.getBoundingClientRect();
+    var inp = document.createElement("input"); inp.type = "text"; inp.className = "inline-edit"; inp.value = value; inp.setAttribute("aria-label", "Edit text");
+    inp.style.left = Math.max(4, r.left - sr.left) + "px"; inp.style.top = Math.max(4, r.top - sr.top + r.height / 2 - 18) + "px";
+    inp.style.width = Math.min(sr.width - 8, Math.max(140, r.width + 30)) + "px";
+    screen.appendChild(inp); inp.focus(); inp.select();
+    var closed = false;
+    function close(save) { if (closed) return; closed = true; var v = inp.value; inp.remove(); if (save) done(v); }
+    inp.addEventListener("keydown", function (e) { e.stopPropagation(); if (e.key === "Enter") close(true); if (e.key === "Escape") close(false); });
+    inp.addEventListener("blur", function () { close(true); });
+    inp.addEventListener("pointerdown", function (e) { e.stopPropagation(); });
+  }
+
+  /* ---------- camera keyframes ---------- */
+  function keyAtPlayhead(create) {
+    var t = Math.round(now() * FPS) / FPS, keys = cfg.camera.keys;
+    for (var i = 0; i < keys.length; i++) if (Math.abs(keys[i].t - t) < 0.5 / FPS) { if (!sel || sel.type !== "key" || sel.i !== i) { sel = { type: "key", i: i }; renderSel(); } return keys[i]; }
+    if (!create) return null;
+    var cur = E.cameraAt({ camera: { keys: keys, shake: 0 } }, t);
+    var k = { t: Math.round(t * 1000) / 1000, x: Math.round(cur.x * 1000) / 1000, y: Math.round(cur.y * 1000) / 1000, zoom: r2(cur.zoom), rot: r2(cur.rot), ease: "smooth" };
+    keys.push(k); keys.sort(function (a, b) { return a.t - b.t; });
+    sel = { type: "key", i: keys.indexOf(k) };
+    return k;
+  }
+  var camInputs = [["#camX", "x", "#camXo", function (v) { return Math.round(v * 100) + "%"; }], ["#camY", "y", "#camYo", function (v) { return Math.round(v * 100) + "%"; }],
+    ["#camZ", "zoom", "#camZo", function (v) { return (+v).toFixed(2) + "×"; }], ["#camR", "rot", "#camRo", function (v) { return (+v).toFixed(1) + "°"; }]];
+  camInputs.forEach(function (c) {
+    $(c[0]).addEventListener("input", function (e) { video.pause(); var k = keyAtPlayhead(true); k[c[1]] = +e.target.value; commit({ light: true }); });
+    $(c[0]).addEventListener("change", function () { commit(); });
+  });
+  function syncCamSliders() {
+    var cur = E.cameraAt({ camera: { keys: cfg.camera.keys, shake: 0 } }, now());
+    camInputs.forEach(function (c) {
+      var el = $(c[0]); if (document.activeElement !== el) el.value = cur[c[1]];
+      $(c[2]).textContent = c[3](cur[c[1]]);
+    });
+  }
+  $("#addKey").addEventListener("click", function () { video.pause(); keyAtPlayhead(true); commit(); });
+  $("#addKeyTl").addEventListener("click", function () { video.pause(); keyAtPlayhead(true); commit(); showTab("camera"); });
+  var clearArmed = false;
+  $("#clearKeys").addEventListener("click", function () {
+    if (!cfg.camera.keys.length) return;
+    if (!clearArmed) { clearArmed = true; $("#clearKeys").textContent = "Tap again to remove all"; setTimeout(function () { clearArmed = false; $("#clearKeys").textContent = "Remove all keyframes"; }, 3000); return; }
+    clearArmed = false; $("#clearKeys").textContent = "Remove all keyframes";
+    cfg.camera.keys = []; if (sel && sel.type === "key") sel = null; commit();
+  });
+  function renderKeys() {
+    var box = $("#keyList"); box.textContent = "";
+    if (!cfg.camera.keys.length) { box.innerHTML = '<p class="hint">No keyframes yet. The camera follows the base framing below.</p>'; return; }
+    cfg.camera.keys.forEach(function (k, i) {
+      var it = document.createElement("button"); it.className = "item";
+      if (sel && sel.type === "key" && sel.i === i) it.style.borderColor = "var(--cue)";
+      it.innerHTML = '<span class="t">' + k.t.toFixed(2) + 's</span><span><div class="b">' + esc(describeKey(k)) + '</div><div class="w">Ease: ' + easeName(k.ease) + '</div></span><span class="tag">Key</span>';
+      it.addEventListener("click", function () { select({ type: "key", i: i }, { seek: true }); });
+      box.appendChild(it);
+    });
+  }
+  function renderShots() {
+    var box = $("#shotList"); box.textContent = "";
+    D.shots.forEach(function (s, i) {
+      var fr = cfg.framing[i];
+      var card = document.createElement("div"); card.className = "sec"; card.style.padding = "12px"; card.style.background = "var(--raise)";
+      card.innerHTML = '<div class="actions" style="justify-content:space-between"><b style="font-weight:600">Shot ' + (i + 1) + ' · ' + (s.angle === "side" ? "Side cam" : "Front cam") + '</b><button class="btn small" data-go>' + s.s.toFixed(1) + "–" + s.e.toFixed(1) + "s</button></div>" +
+        '<div class="row"><label for="fx-' + i + '">Left/right</label><input type="range" id="fx-' + i + '" min="0.32" max="0.68" step="0.005"><output></output></div>' +
+        '<div class="row"><label for="fz-' + i + '">Zoom</label><input type="range" id="fz-' + i + '" min="1" max="1.8" step="0.01"><output></output></div>';
+      var fx = $("#fx-" + i, card), fz = $("#fz-" + i, card), outs = $$("output", card);
+      fx.value = fr.x; fz.value = fr.zoom; outs[0].textContent = Math.round(fr.x * 100) + "%"; outs[1].textContent = (+fr.zoom).toFixed(2) + "×";
+      function inShot() { var t = now(); return t >= s.s && t < s.e; }
+      fx.addEventListener("input", function () { fr.x = +fx.value; outs[0].textContent = Math.round(fr.x * 100) + "%"; if (!inShot()) seek((s.s + s.e) / 2); commit({ light: true }); });
+      fz.addEventListener("input", function () { fr.zoom = +fz.value; outs[1].textContent = fr.zoom.toFixed(2) + "×"; if (!inShot()) seek((s.s + s.e) / 2); commit({ light: true }); });
+      $("[data-go]", card).addEventListener("click", function () { select({ type: "shot", i: i }, { seek: true }); });
+      box.appendChild(card);
+    });
+  }
 
   /* ---------- words ---------- */
-  var wordMode = "key";
-  $$("#wordMode button").forEach(function (b) {
-    b.addEventListener("click", function () {
-      wordMode = b.dataset.mode;
-      $$("#wordMode button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
-      $("#wordHint").innerHTML = wordMode === "key"
-        ? "Tap a word to cycle: auto → <b>key</b> → never key. Tap a timestamp to jump there."
-        : "Tap a word to retype it, then press Enter. Edited words get a dashed outline.";
-    });
-  });
   function renderWords() {
     var box = $("#chunks"), st = box.scrollTop; box.textContent = "";
     engine.chunks().forEach(function (c, ci) {
       var row = document.createElement("div"); row.className = "chunk" + (ci === lastChunk ? " cur" : "");
       var ts = document.createElement("button"); ts.className = "ts"; ts.textContent = c.s.toFixed(1) + "s";
-      ts.addEventListener("click", function () { seek(c.s); });
+      ts.addEventListener("click", function () { select({ type: "chunk", i: ci }, { seek: true }); });
       var ws = document.createElement("div"); ws.className = "ws";
       c.idx.forEach(function (i) {
         var b = document.createElement("button"), forced = cfg.keyWords[i];
         b.className = "wd" + (c.key.has(i) ? " key" : "") + (forced === false ? " never" : "") + (cfg.textEdits[i] != null ? " edited" : "");
+        if (sel && sel.type === "word" && sel.i === i) b.style.outline = "2px solid var(--cue)";
         b.textContent = E.wordText(cfg, D.words, i);
-        b.title = forced === true ? "Always key" : forced === false ? "Never key" : "Auto";
-        b.addEventListener("click", function () {
-          if (wordMode === "key") {
-            var cur = cfg.keyWords[i];
-            if (cur === undefined) cfg.keyWords[i] = true; else if (cur === true) cfg.keyWords[i] = false; else delete cfg.keyWords[i];
-            commit(); seek(D.words[i].s);
-          } else {
-            var orig = b.textContent; var inp = document.createElement("input"); inp.type = "text"; inp.value = orig; inp.setAttribute("aria-label", "Edit word");
-            b.textContent = ""; b.appendChild(inp); inp.focus(); inp.select();
-            var done = function () {
-              var v = inp.value.trim();
-              if (v && v !== D.words[i].t) cfg.textEdits[i] = v; else delete cfg.textEdits[i];
-              commit();
-            };
-            inp.addEventListener("keydown", function (e) { if (e.key === "Enter") inp.blur(); if (e.key === "Escape") { inp.value = orig; inp.blur(); } });
-            inp.addEventListener("blur", done, { once: true });
-            inp.addEventListener("click", function (e) { e.stopPropagation(); });
-          }
-        });
+        b.addEventListener("click", function () { video.pause(); select({ type: "word", i: i }, { seek: true }); renderWords(); });
         ws.appendChild(b);
       });
       row.appendChild(ts); row.appendChild(ws); box.appendChild(row);
@@ -530,114 +1080,374 @@ input[type="color"] { width: 44px; height: 34px; border: 1px solid var(--line); 
     box.scrollTop = st;
   }
 
-  /* ---------- callouts ---------- */
+  /* ---------- callouts list ---------- */
   function renderCalls() {
-    var box = $("#calls"); box.textContent = "";
+    var box = $("#callList"); box.textContent = "";
     cfg.callouts.forEach(function (co, k) {
-      var card = document.createElement("div"); card.className = "callcard";
-      card.innerHTML =
-        '<div class="top"><span class="toggle" style="gap:10px"><span class="switch"><input type="checkbox" id="co-on-' + k + '"><span></span></span><label for="co-on-' + k + '">Show</label></span>' +
-        '<span style="display:flex;gap:6px"><button class="btn small" data-act="jump">Preview</button><button class="btn small ghost" data-act="del">Delete</button></span></div>' +
-        '<div class="grid">' +
-        '<label>Label<input type="text" id="co-label-' + k + '"></label>' +
-        '<label>Title<input type="text" id="co-title-' + k + '"></label>' +
-        '<label>Starts at (s)<input type="number" step="0.1" min="0" max="35" id="co-start-' + k + '"></label>' +
-        '<label>Length (s)<input type="number" step="0.1" min="0.5" max="8" id="co-dur-' + k + '"></label>' +
-        '<label>Type<select id="co-kind-' + k + '"><option value="card">Card</option><option value="stat">Big number</option></select></label>' +
-        '<label>Height (%)<input type="number" step="1" min="5" max="85" id="co-y-' + k + '"></label>' +
-        '</div>';
-      var map = { on: "co-on-", label: "co-label-", title: "co-title-", start: "co-start-", dur: "co-dur-", kind: "co-kind-", y: "co-y-" };
-      Object.keys(map).forEach(function (key) {
-        var el = $("#" + map[key] + k, card);
-        if (el.type === "checkbox") el.checked = co[key]; else el.value = co[key];
-        el.addEventListener("input", function () {
-          co[key] = el.type === "checkbox" ? el.checked : el.type === "number" ? +el.value : el.value;
-          commit({ keepWords: true });
-        });
-      });
-      $('[data-act="jump"]', card).addEventListener("click", function () { seek(co.start - 0.3); var p = video.play(); if (p && p.catch) p.catch(function () {}); });
-      $('[data-act="del"]', card).addEventListener("click", function () { cfg.callouts.splice(k, 1); renderCalls(); commit({ keepWords: true }); });
-      box.appendChild(card);
+      var it = document.createElement("button"); it.className = "item";
+      if (sel && sel.type === "callout" && sel.i === k) it.style.borderColor = "var(--cue)";
+      it.innerHTML = '<span class="t">' + co.start.toFixed(1) + 's</span><span><div class="b">' + esc(co.title || "Untitled") + '</div><div class="w">' + esc(co.label || "") + (co.path ? " · travels a path" : "") + (co.on ? "" : " · hidden") + '</div></span><span class="tag">' + (co.kind === "stat" ? "Number" : "Card") + "</span>";
+      it.addEventListener("click", function () { video.pause(); select({ type: "callout", i: k }, { seek: true }); });
+      box.appendChild(it);
     });
   }
-  $("#addCall").addEventListener("click", function () {
-    cfg.callouts.push({ on: true, kind: "card", start: +(video.currentTime || 0).toFixed(1), dur: 2.2, label: "#00" + (cfg.callouts.length + 1), title: "New callout", y: 41 });
-    renderCalls(); commit({ keepWords: true });
+  function addCallout() {
+    cfg.callouts.push({ on: true, kind: "card", start: r2(Math.min(now(), DUR - 1)), dur: 2.2, label: "#00" + (cfg.callouts.length + 1), title: "New callout", x: 0.5, y: 41, path: null });
+    sel = { type: "callout", i: cfg.callouts.length - 1 }; commit();
+  }
+  $("#addCall").addEventListener("click", addCallout);
+  $("#addCallTl").addEventListener("click", function () { addCallout(); showTab("callouts"); });
+
+  /* ---------- beats ---------- */
+  function allBeats() {
+    var beats = [];
+    D.shots.forEach(function (s, i) { if (i > 0) beats.push({ t: s.s, tag: "Cut", title: "Cut to " + (s.angle === "side" ? "side" : "front") + " camera", sel: { type: "shot", i: i } }); });
+    engine.chunks().forEach(function (c, ci) {
+      if (!c.key.size) return;
+      var k = Array.from(c.key)[0];
+      beats.push({ t: D.words[k].s, tag: "Key word", title: "“" + E.wordText(cfg, D.words, k) + "”" + (c.punch && cfg.look.punch ? " + jump zoom" : ""), sel: { type: "chunk", i: ci } });
+    });
+    cfg.callouts.forEach(function (co, i) { if (co.on) beats.push({ t: co.start, tag: co.kind === "stat" ? "Number" : "Callout", title: co.title, sel: { type: "callout", i: i } }); });
+    cfg.camera.keys.forEach(function (k, i) { beats.push({ t: k.t, tag: "Camera", title: describeKey(k), sel: { type: "key", i: i } }); });
+    if (SM.on) beats.push({ t: 0, tag: "Speed", title: "Speed ramp on: " + DUR.toFixed(1) + "s becomes " + SM.outDuration.toFixed(1) + "s", sel: null,
+      why: "Slow motion stretches a moment so the viewer can take in detail, like the dial of a watch. Speeding up skips past a setup the viewer already understands. Keep ramps off your key lines so your voice stays natural." });
+    return beats.sort(function (a, b) { return a.t - b.t; });
+  }
+  function renderBeats() {
+    var box = $("#beatList"); box.textContent = "";
+    allBeats().forEach(function (bt) {
+      var it = document.createElement("button"); it.className = "item";
+      it.innerHTML = '<span class="t">' + bt.t.toFixed(1) + 's</span><span><div class="b">' + esc(bt.title) + '</div><div class="w">' + esc(bt.why || whyFor(bt.sel)) + '</div></span><span class="tag">' + bt.tag + "</span>";
+      it.addEventListener("click", function () { video.pause(); if (bt.sel) select(bt.sel, { seek: true }); else seek(bt.t); });
+      box.appendChild(it);
+    });
+  }
+
+  /* ---------- timeline ---------- */
+  var pps = 40;
+  function fitTimeline() { var w = $("#tlScroll").clientWidth; pps = clamp(Math.floor((w - 12) / DUR), 14, 160); $("#tlZoom").value = pps; }
+  $("#tlZoom").addEventListener("input", function (e) { pps = +e.target.value; drawTimeline(); frame(); });
+  function keepPlayheadVisible(t) {
+    var sc = $("#tlScroll"), x = t * pps;
+    if (x < sc.scrollLeft + 20 || x > sc.scrollLeft + sc.clientWidth - 40) sc.scrollLeft = Math.max(0, x - sc.clientWidth * 0.3);
+  }
+  function drawTimeline() {
+    var W = Math.ceil(DUR * pps) + 12;
+    $("#tlInner").style.width = W + "px";
+    var ru = $("#tlRuler"), h = "", step = pps > 70 ? 1 : pps > 30 ? 2 : 5;
+    for (var s = 0; s <= DUR; s += 1) {
+      var big = s % step === 0;
+      h += '<i class="' + (big ? "big" : "") + '" style="left:' + s * pps + 'px"></i>';
+      if (big) h += '<span style="left:' + s * pps + 'px">' + s + "s</span>";
+    }
+    ru.innerHTML = h;
+    var tr = $("#trShots"); tr.textContent = "";
+    D.shots.forEach(function (s, i) {
+      var b = blk("shot " + s.angle + (sel && sel.type === "shot" && sel.i === i ? " sel" : ""), s.s, s.e - s.s, s.angle === "side" ? "Side" : "Front");
+      b.addEventListener("pointerdown", function (e) { e.stopPropagation(); select({ type: "shot", i: i }, { seek: true }); });
+      tr.appendChild(b);
+    });
+    var tc = $("#trCaps"); tc.textContent = "";
+    engine.chunks().forEach(function (c, ci) {
+      var label = c.idx.map(function (k) { var w = esc(E.wordText(cfg, D.words, k)); return c.key.has(k) ? "<b>" + w + "</b>" : w; }).join(" ");
+      var b = blk("chunk" + (sel && sel.type === "chunk" && sel.i === ci ? " sel" : ""), c.s, Math.max(0.1, c.show - c.s), "");
+      b.innerHTML = label; b.title = b.textContent;
+      b.addEventListener("pointerdown", function (e) { e.stopPropagation(); video.pause(); select({ type: "chunk", i: ci }, { seek: true }); });
+      tc.appendChild(b);
+    });
+    var tk = $("#trCalls"); tk.textContent = "";
+    cfg.callouts.forEach(function (co, k) {
+      var b = blk("call" + (co.on ? "" : " off") + (sel && sel.type === "callout" && sel.i === k ? " sel" : ""), co.start, co.dur, "");
+      b.innerHTML = '<span class="hd l"></span>' + esc(co.title || "Callout") + '<span class="hd r"></span>';
+      b.addEventListener("pointerdown", function (e) {
+        e.stopPropagation(); video.pause();
+        var mode = e.target.classList.contains("l") ? "l" : e.target.classList.contains("r") ? "r" : "m";
+        tlDrag = { kind: "call", mode: mode, co: co, x0: e.clientX, s0: co.start, d0: co.dur, moved: false };
+        select({ type: "callout", i: k });
+      });
+      tk.appendChild(b);
+    });
+    var tcm = $("#trCam"); tcm.textContent = "";
+    cfg.camera.keys.forEach(function (kf, i) {
+      var d = document.createElement("div"); d.className = "kf" + (sel && sel.type === "key" && sel.i === i ? " sel" : "");
+      d.style.left = kf.t * pps + "px"; d.title = kf.t.toFixed(2) + "s · " + describeKey(kf);
+      d.addEventListener("pointerdown", function (e) {
+        e.stopPropagation(); video.pause();
+        tlDrag = { kind: "key", k: kf, x0: e.clientX, t0: kf.t, moved: false };
+        select({ type: "key", i: i });
+      });
+      tcm.appendChild(d);
+    });
+    var tsp = $("#trSpeed");
+    var pts = [], n = 120;
+    for (var j = 0; j <= n; j++) { var t = DUR * j / n, v = SM.on ? SM.rateAt(t) : 1; pts.push((t * pps).toFixed(1) + "," + (15 - Math.log2(v) * 6).toFixed(1)); }
+    tsp.innerHTML = '<svg class="speed-svg" viewBox="0 0 ' + W + ' 30" preserveAspectRatio="none"><line x1="0" x2="' + W + '" y1="15" y2="15" stroke="#2a2e37" stroke-dasharray="3 4"/><polyline points="' + pts.join(" ") + '" fill="none" stroke="' + (SM.on ? "#ffc84a" : "#3a3f4b") + '" stroke-width="2"/></svg>';
+    $("#tlInner").appendChild($("#playhead"));
+  }
+  function blk(cls, s, d, txt) {
+    var b = document.createElement("div"); b.className = "blk " + cls;
+    b.style.left = s * pps + "px"; b.style.width = Math.max(4, d * pps - 2) + "px"; b.textContent = txt; return b;
+  }
+  function snapT(t) {
+    if (!$("#snapOn").checked) return Math.round(t * FPS) / FPS;
+    var best = t, bd = 0.12;
+    D.words.forEach(function (w) { var dd = Math.abs(w.s - t); if (dd < bd) { bd = dd; best = w.s; } });
+    D.shots.forEach(function (s) { var dd = Math.abs(s.s - t); if (dd < bd) { bd = dd; best = s.s; } });
+    return Math.round(best * 100) / 100;
+  }
+  var tlDrag = null;
+  document.addEventListener("pointermove", function (e) {
+    if (!tlDrag) return;
+    var dt = (e.clientX - tlDrag.x0) / pps;
+    if (Math.abs(e.clientX - tlDrag.x0) > 3) tlDrag.moved = true;
+    if (!tlDrag.moved) return;
+    if (tlDrag.kind === "call") {
+      var co = tlDrag.co;
+      if (tlDrag.mode === "m") co.start = clamp(snapT(tlDrag.s0 + dt), 0, DUR - co.dur);
+      if (tlDrag.mode === "l") { var ns = clamp(snapT(tlDrag.s0 + dt), 0, tlDrag.s0 + tlDrag.d0 - 0.5); co.dur = r2(tlDrag.s0 + tlDrag.d0 - ns); co.start = ns; }
+      if (tlDrag.mode === "r") co.dur = r2(clamp(snapT(tlDrag.s0 + tlDrag.d0 + dt) - tlDrag.s0, 0.5, DUR - tlDrag.s0));
+      seek(tlDrag.mode === "r" ? co.start + co.dur - 0.05 : co.start + 0.3);
+    } else if (tlDrag.kind === "key") {
+      tlDrag.k.t = clamp(Math.round((tlDrag.t0 + dt) * FPS) / FPS, 0, DUR);
+      cfg.camera.keys.sort(function (a, b) { return a.t - b.t; });
+      sel = { type: "key", i: cfg.camera.keys.indexOf(tlDrag.k) };
+      seek(tlDrag.k.t);
+    } else if (tlDrag.kind === "scrub") {
+      seek(scrubT(e));
+      return;
+    }
+    commit({ light: true });
+  });
+  document.addEventListener("pointerup", function () { if (tlDrag) { var was = tlDrag; tlDrag = null; if (was.kind !== "scrub" && was.moved) commit(); } });
+  function scrubT(e) { var r = $("#tlInner").getBoundingClientRect(); return clamp((e.clientX - r.left) / pps, 0, DUR); }
+  ["#tlRuler", "#trShots", "#trCaps", "#trCalls", "#trCam", "#trSpeed"].forEach(function (s) {
+    $(s).addEventListener("pointerdown", function (e) {
+      if (e.target.closest(".blk,.kf")) return;
+      video.pause(); seek(scrubT(e));
+      tlDrag = { kind: "scrub", x0: e.clientX, moved: true };
+    });
   });
 
-  /* ---------- framing ---------- */
-  function renderShots() {
-    var box = $("#shots"); box.textContent = "";
-    D.shots.forEach(function (s, i) {
-      var fr = cfg.framing[i];
-      var card = document.createElement("div"); card.className = "shotcard";
-      card.innerHTML =
-        '<button class="thumb" aria-label="Jump to shot ' + (i + 1) + '"><span>' + s.s.toFixed(1) + 's</span></button>' +
-        '<div class="ctrls"><h3><b>Shot ' + (i + 1) + '</b> · ' + (s.angle === "side" ? "Side cam" : "Front cam") + ' · ' + s.s.toFixed(1) + '–' + s.e.toFixed(1) + 's</h3>' +
-        '<div class="row"><label for="fx-' + i + '">Left/right</label><input type="range" id="fx-' + i + '" min="0.32" max="0.68" step="0.005"><output></output></div>' +
-        '<div class="row"><label for="fz-' + i + '">Zoom</label><input type="range" id="fz-' + i + '" min="1" max="1.8" step="0.01"><output></output></div></div>';
-      var fx = $("#fx-" + i, card), fz = $("#fz-" + i, card), outs = $$("output", card);
-      fx.value = fr.x; fz.value = fr.zoom; outs[0].textContent = Math.round(fr.x * 100) + "%"; outs[1].textContent = (+fr.zoom).toFixed(2) + "×";
-      fx.addEventListener("input", function () { fr.x = +fx.value; outs[0].textContent = Math.round(fr.x * 100) + "%"; if (!inShot(i)) seek((s.s + s.e) / 2); commit({ keepWords: true }); });
-      fz.addEventListener("input", function () { fr.zoom = +fz.value; outs[1].textContent = fr.zoom.toFixed(2) + "×"; if (!inShot(i)) seek((s.s + s.e) / 2); commit({ keepWords: true }); });
-      $(".thumb", card).addEventListener("click", function () { seek(s.s + 0.5); });
-      box.appendChild(card);
+  /* ---------- speed curve editor ---------- */
+  var cv = $("#curve"), cx2 = cv.getContext("2d"), cdrag = -1, lastCTap = { t: 0, i: -1 };
+  var VMIN = 0.25, VMAX = 4;
+  function cvSize() { var r = cv.getBoundingClientRect(); var dpr = window.devicePixelRatio || 1; if (r.width && (cv.width !== Math.round(r.width * dpr))) { cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); } return { w: cv.width, h: cv.height, dpr: dpr }; }
+  function vToY(v, h) { return (1 - (Math.log2(v) - Math.log2(VMIN)) / (Math.log2(VMAX) - Math.log2(VMIN))) * (h - 20) + 10; }
+  function yToV(y, h) { var f = 1 - (y - 10) / (h - 20); return clamp(Math.pow(2, Math.log2(VMIN) + f * (Math.log2(VMAX) - Math.log2(VMIN))), VMIN, VMAX); }
+  function tToX(t, w) { return 10 + t / DUR * (w - 20); }
+  function xToT(x, w) { return clamp((x - 10) / (w - 20) * DUR, 0, DUR); }
+  function drawCurve() {
+    if (!cv.offsetParent) return;
+    var z = cvSize(), w = z.w, h = z.h, g = cx2;
+    g.clearRect(0, 0, w, h);
+    g.font = (11 * z.dpr) + "px IBM Plex Mono, monospace"; g.fillStyle = "#8f929c";
+    [0.25, 0.5, 1, 2, 4].forEach(function (v) {
+      var y = vToY(v, h); g.strokeStyle = v === 1 ? "#4a4f5c" : "#262a33"; g.lineWidth = z.dpr; g.beginPath(); g.moveTo(10, y); g.lineTo(w - 10, y); g.stroke();
+      g.fillText(v + "×", 14, y - 4 * z.dpr);
+    });
+    D.shots.forEach(function (s) { var x = tToX(s.s, w); g.strokeStyle = "#262a33"; g.beginPath(); g.moveTo(x, 10); g.lineTo(x, h - 10); g.stroke(); });
+    var on = cfg.speed.on && cfg.speed.points.length;
+    g.strokeStyle = on ? "#ffc84a" : "#6b6f7a"; g.lineWidth = 2.5 * z.dpr; g.beginPath();
+    for (var i = 0; i <= 200; i++) { var t = DUR * i / 200, v = cfg.speed.points.length ? E.rateAt({ speed: { on: true, points: cfg.speed.points } }, t) : 1; var x = tToX(t, w), y = vToY(clamp(v, VMIN, VMAX), h); if (i) g.lineTo(x, y); else g.moveTo(x, y); }
+    g.stroke();
+    cfg.speed.points.forEach(function (p) { g.fillStyle = "#ffc84a"; g.beginPath(); g.arc(tToX(p.t, w), vToY(p.v, h), 6 * z.dpr, 0, 7); g.fill(); });
+    var ph = tToX(now(), w); g.strokeStyle = "#ff5a47"; g.lineWidth = 1.5 * z.dpr; g.beginPath(); g.moveTo(ph, 6); g.lineTo(ph, h - 6); g.stroke();
+    $("#spInfo").textContent = on ? "Reel length: " + DUR.toFixed(1) + "s of footage plays in " + SM.outDuration.toFixed(1) + "s." : "Speed ramp is off, so the reel plays at normal speed (" + DUR.toFixed(1) + "s).";
+  }
+  function cvPos(e) { var r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1; return { x: (e.clientX - r.left) * dpr, y: (e.clientY - r.top) * dpr }; }
+  function nearestPt(p) { var z = cvSize(), best = -1, bd = 16 * z.dpr; cfg.speed.points.forEach(function (q, i) { var d = Math.hypot(tToX(q.t, z.w) - p.x, vToY(q.v, z.h) - p.y); if (d < bd) { bd = d; best = i; } }); return best; }
+  cv.addEventListener("pointerdown", function (e) {
+    var p = cvPos(e), z = cvSize(), i = nearestPt(p);
+    cv.setPointerCapture(e.pointerId);
+    if (i >= 0 && lastCTap.i === i && performance.now() - lastCTap.t < 380) { cfg.speed.points.splice(i, 1); lastCTap = { t: 0, i: -1 }; commit(); return; }
+    lastCTap = { t: performance.now(), i: i };
+    if (i < 0) {
+      if (!cfg.speed.points.length) cfg.speed.points.push({ t: 0, v: 1 }, { t: DUR, v: 1 });
+      var np = { t: r2(xToT(p.x, z.w)), v: r2(yToV(p.y, z.h)) };
+      cfg.speed.points.push(np); cfg.speed.points.sort(function (a, b) { return a.t - b.t; });
+      i = cfg.speed.points.indexOf(np); cfg.speed.on = true; $("#spOn").checked = true;
+    }
+    cdrag = i; commit({ light: true }); drawCurve();
+  });
+  cv.addEventListener("pointermove", function (e) {
+    if (cdrag < 0) return;
+    var p = cvPos(e), z = cvSize(), q = cfg.speed.points[cdrag];
+    q.t = r2(xToT(p.x, z.w)); q.v = r2(yToV(p.y, z.h));
+    cfg.speed.points.sort(function (a, b) { return a.t - b.t; }); cdrag = cfg.speed.points.indexOf(q);
+    seek(q.t); commit({ light: true }); drawCurve();
+  });
+  cv.addEventListener("pointerup", function () { if (cdrag >= 0) { cdrag = -1; commit(); } });
+  $$("#spPresets button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var P = {
+        flat: [],
+        grail: [{ t: 0, v: 1 }, { t: 28.6, v: 1 }, { t: 29.4, v: 0.5 }, { t: 31.8, v: 0.5 }, { t: 32.4, v: 1 }, { t: DUR, v: 1 }],
+        rush: [{ t: 0, v: 1 }, { t: 23.3, v: 1 }, { t: 24.3, v: 1.6 }, { t: 24.9, v: 1 }, { t: DUR, v: 1 }]
+      }[b.dataset.sp];
+      cfg.speed.points = P.map(function (q) { return Object.assign({}, q); }); cfg.speed.on = P.length > 0; $("#spOn").checked = cfg.speed.on;
+      commit();
+    });
+  });
+  window.addEventListener("resize", function () { drawCurve(); });
+
+  /* ---------- ask Claude about the selection ---------- */
+  var sampleP = window.claude && window.claude.use ? window.claude.use("sample") : Promise.resolve(null);
+  sampleP.then(function (s) { if (!s) $("#askNote").textContent = "Asking Claude isn't available in this view. You can still ask in your chat."; });
+  $$("#askChips button").forEach(function (b) { b.addEventListener("click", function () { $("#askTxt").value = b.dataset.q; ask(); }); });
+  $("#askBtn").addEventListener("click", ask);
+  $("#askTxt").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) ask(); });
+
+  var LIMITS = {
+    captions: { y: [20, 82], scale: [0.6, 1.6], maxWords: [2, 8], keySize: [60, 200], bodySize: [28, 110], bodyWeight: [300, 900], keyStyle: ["serif", "block", "glow", "color"], reveal: ["word", "chunk"], uppercase: "bool", keyLine: "bool", keyItalic: "bool", autoKey: "bool", bodyFont: E.FONTS, keyFont: E.FONTS },
+    motion: { capIn: [0.05, 0.6], capRise: [0, 60], capBlur: [0, 16], keyIn: [0.08, 0.8], keyScale: [1, 2], callIn: [0.15, 0.9], callBounce: [0, 3], punch: [0, 0.25], push: [0, 0.12] },
+    look: { grade: ["neutral", "warm", "cool", "mono", "none"], vignette: [0, 1], bottomFade: [0, 1], grain: [0, 0.25], punch: "bool", kenBurns: "bool", progress: "bool" },
+    callout: { label: "str", title: "str", start: [0, DUR - 0.5], dur: [0.5, 10], kind: ["card", "stat"], x: [0.15, 0.85], y: [3, 85], on: "bool" },
+    key: { t: [0, DUR], x: [-0.3, 0.3], y: [-0.3, 0.3], zoom: [1, 2.5], rot: [-12, 12], ease: E.EASES },
+    shot: { x: [0.32, 0.68], zoom: [1, 1.8] }
+  };
+  function applyFields(target, patch, lim) {
+    var changed = [];
+    Object.keys(patch || {}).forEach(function (k) {
+      var L = lim[k], v = patch[k]; if (L == null) return;
+      if (L === "bool") { if (typeof v === "boolean") { target[k] = v; changed.push(k); } }
+      else if (L === "str") { if (typeof v === "string" && v.length <= 80) { target[k] = v; changed.push(k); } }
+      else if (typeof L[0] === "number") { if (typeof v === "number" && isFinite(v)) { target[k] = clamp(v, L[0], L[1]); changed.push(k); } }
+      else if (L.indexOf(v) >= 0) { target[k] = v; changed.push(k); }
+    });
+    return changed;
+  }
+  function selectionContext() {
+    var line = function (c) { return c.idx.map(function (k) { return E.wordText(cfg, D.words, k); }).join(" "); };
+    if (!sel) return { type: "reel", data: { preset: cfg.preset, accent: cfg.accent, captions: cfg.captions, motion: cfg.motion, look: cfg.look },
+      patch: '{"preset"?: "editorial"|"gold"|"karaoke", "accent"?: "#rrggbb", "captions"?: {...}, "motion"?: {...}, "look"?: {...}} using only keys already present in the data' };
+    if (sel.type === "word") { var ch = engine.chunks()[chunkOfWord(sel.i)]; return { type: "caption word", data: { word: E.wordText(cfg, D.words, sel.i), spokenAt: D.words[sel.i].s, line: ch ? line(ch) : "", isKeyWord: ch ? ch.key.has(sel.i) : false },
+      patch: '{"text"?: string (fix the spelling or wording of this one word), "key"?: true|false|null (true = make it the line\'s key word, false = never, null = automatic)}' }; }
+    if (sel.type === "chunk") { var c = engine.chunks()[sel.i]; return { type: "caption line", data: { line: line(c), start: c.s, words: c.idx.map(function (k) { return { index: k, word: E.wordText(cfg, D.words, k) }; }), keyWordIndex: Array.from(c.key)[0] },
+      patch: '{"keyWordIndex"?: one of the word indexes listed}' }; }
+    if (sel.type === "callout") return { type: "callout card", data: cfg.callouts[sel.i], patch: '{"label"?, "title"?, "start"?, "dur"?, "kind"?: "card"|"stat", "x"?: 0.15-0.85, "y"?: 3-85 (percent from top), "on"?}' };
+    if (sel.type === "key") return { type: "camera keyframe", data: cfg.camera.keys[sel.i], patch: '{"t"?, "x"?: -0.3..0.3 pan, "y"?: -0.3..0.3 pan, "zoom"?: 1..2.5, "rot"?: -12..12 degrees, "ease"?: "smooth"|"linear"|"in"|"out"|"snap"}' };
+    if (sel.type === "shot") return { type: "shot framing", data: Object.assign({ angle: D.shots[sel.i].angle, start: D.shots[sel.i].s, end: D.shots[sel.i].e }, cfg.framing[sel.i]), patch: '{"x"?: 0.32..0.68 horizontal crop center, "zoom"?: 1..1.8}' };
+  }
+  function applyPatch(patch) {
+    if (!patch || typeof patch !== "object") return [];
+    var ch = [];
+    if (!sel) {
+      if (patch.preset && E.PRESETS[patch.preset] && patch.preset !== cfg.preset) { cfg = E.applyPreset(cfg, patch.preset); ch.push("preset"); }
+      if (typeof patch.accent === "string" && /^#[0-9a-f]{6}$/i.test(patch.accent)) { cfg.accent = patch.accent; ch.push("accent"); }
+      ["captions", "motion", "look"].forEach(function (k) { if (patch[k]) ch = ch.concat(applyFields(cfg[k], patch[k], LIMITS[k])); });
+    } else if (sel.type === "word") {
+      if (typeof patch.text === "string" && patch.text.trim() && patch.text.length < 40) { setWordText(sel.i, patch.text); ch.push("text"); }
+      if (patch.key === true || patch.key === false) { cfg.keyWords[sel.i] = patch.key; ch.push("key word"); }
+      if (patch.key === null) { delete cfg.keyWords[sel.i]; ch.push("key word"); }
+    } else if (sel.type === "chunk") {
+      var c = engine.chunks()[sel.i];
+      if (c && c.idx.indexOf(patch.keyWordIndex) >= 0) { c.idx.forEach(function (o) { if (cfg.keyWords[o] === true) delete cfg.keyWords[o]; }); cfg.keyWords[patch.keyWordIndex] = true; ch.push("key word"); }
+    } else if (sel.type === "callout") ch = applyFields(cfg.callouts[sel.i], patch, LIMITS.callout);
+    else if (sel.type === "key") ch = applyFields(cfg.camera.keys[sel.i], patch, LIMITS.key);
+    else if (sel.type === "shot") ch = applyFields(cfg.framing[sel.i], patch, LIMITS.shot);
+    return ch;
+  }
+  function ask() {
+    var q = $("#askTxt").value.trim(); if (!q) { $("#askTxt").focus(); return; }
+    var out = $("#askOut"), btn = $("#askBtn");
+    sampleP.then(function (sample) {
+      if (!sample) { out.hidden = false; out.className = "answer err"; out.textContent = "Asking Claude isn't available in this view. Copy your question into your chat instead."; return; }
+      var ctx = selectionContext();
+      var transcript = D.words.map(function (w, i) { return E.wordText(cfg, D.words, i); }).join(" ");
+      var prompt = "You are a senior short-form video editor helping a creator tune an Instagram Reel (9:16, 35s talking head about their watch collection, two camera angles) in a live style builder.\n" +
+        "Style references: @simar-visuals (editorial: tiny filler words plus one big italic serif key word, blue-violet accent, stat counters, numbered cards) and @vyron-media (gold glowing hero word slammed on the stressed syllable, warm grade). The creator never wants their spoken audio cut or retimed.\n\n" +
+        "Transcript: \"" + transcript + "\"\n\n" +
+        "Selected: " + ctx.type + "\n" + JSON.stringify(ctx.data) + "\n\n" +
+        "Creator's message: \"" + q + "\"\n\n" +
+        "Reply with ONLY a JSON object: {\"reply\": string, \"patch\": object}. \"reply\" is 1-3 short, plain sentences that answer directly (explain the editing reason if they asked why). " +
+        "\"patch\" holds changes to apply to the selection, shaped as " + ctx.patch + ". Use {} when no change is needed. Never invent other keys.";
+      btn.disabled = true; btn.textContent = "Thinking…"; out.hidden = false; out.className = "answer"; out.textContent = "Thinking…";
+      return sample.json(prompt, { modelTier: "default" }).then(function (res) {
+        var changed = applyPatch(res && res.patch);
+        if (changed.length) commit();
+        out.className = "answer";
+        out.textContent = String(res && res.reply || "Done.") + (changed.length ? "\n\nChanged: " + changed.join(", ") + ". Tap Undo to revert." : "");
+      }).catch(function (e) {
+        out.className = "answer err";
+        out.textContent = e && e.code === "not_granted" ? "Claude wasn't allowed to answer here. Allow it in the page's permissions to use this." :
+          e && e.code === "rate_limited" ? "Too many questions at once. Wait a moment and try again." : "Claude couldn't answer that one. Try rephrasing it.";
+      }).then(function () { btn.disabled = false; btn.textContent = "Ask Claude"; });
     });
   }
-  function inShot(i) { var t = video.currentTime, s = D.shots[i]; return t >= s.s && t < s.e; }
 
-  /* guides */
-  $("#guidesOn").addEventListener("input", function (e) { $("#guides").classList.toggle("on", e.target.checked); });
+  /* ---------- keyboard ---------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.target.matches("input,select,textarea")) return;
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z") { e.preventDefault(); undo(); return; }
+    if (e.code === "Space") { e.preventDefault(); toggle(); }
+    if (e.key === "ArrowLeft") { video.pause(); seek(now() - (e.shiftKey ? 1 : 1 / FPS)); }
+    if (e.key === "ArrowRight") { video.pause(); seek(now() + (e.shiftKey ? 1 : 1 / FPS)); }
+    if (e.key.toLowerCase() === "k") { video.pause(); keyAtPlayhead(true); commit(); }
+    if (e.key.toLowerCase() === "v") setTool("select");
+    if (e.key.toLowerCase() === "c") setTool("camera");
+    if (e.key.toLowerCase() === "p") setTool("path");
+    if ((e.key === "Delete" || e.key === "Backspace") && sel) {
+      if (sel.type === "callout") { cfg.callouts.splice(sel.i, 1); sel = null; commit(); }
+      else if (sel.type === "key") { cfg.camera.keys.splice(sel.i, 1); sel = null; commit(); }
+    }
+    if (e.key === "Escape") select(null);
+  });
 
   /* ---------- save / copy / reset ---------- */
   function setStatus(html) { $("#status").innerHTML = html; }
   var dbP = window.claude && window.claude.use ? window.claude.use("db") : Promise.resolve(null);
   dbP.then(function (db) {
     if (!db) return;
+    var timer = setTimeout(function () {}, 10000);
     return db.doc("reel/config").get().then(function (snap) {
-      var data = snap && (typeof snap.data === "function" ? snap.data() : snap.data);
-      if (data && data.config && data.config.version === 1) {
-        var local = null; try { local = JSON.parse(localStorage.getItem(LS_KEY) || "null"); } catch (e) {}
-        if (!local) { cfg = data.config; syncControls(); commit(); renderCalls(); renderShots(); setStatus("Loaded your saved style from " + new Date(data.savedAt).toLocaleString() + "."); }
+      clearTimeout(timer);
+      var data = snap && snap.exists ? snap.data() : null;
+      var local = null; try { local = localStorage.getItem(LS_KEY); } catch (e) {}
+      if (data && data.config && !local) {
+        cfg = E.migrate(data.config, D); lastSnap = JSON.stringify(cfg);
+        syncControls(); commit();
+        setStatus("Loaded your saved style from " + new Date(data.savedAt).toLocaleString() + ".");
       }
     });
   }).catch(function () {});
-
   $("#saveBtn").addEventListener("click", function () {
     var btn = $("#saveBtn"); btn.disabled = true; btn.textContent = "Saving…";
     dbP.then(function (db) {
       if (!db) throw { code: "unavailable" };
-      return db.doc("reel/config").set({ config: cfg, savedAt: new Date().toISOString() });
-    }).then(function () {
-      setStatus("<b>Saved.</b> Go back to Claude and say “render it”.");
-    }).catch(function () {
-      setStatus("Saving isn't available in this view. Use Copy settings and paste them to Claude instead.");
-    }).then(function () { btn.disabled = false; btn.textContent = "Save for render"; });
+      return db.doc("reel/config").set({ config: JSON.parse(JSON.stringify(cfg)), savedAt: new Date().toISOString() });
+    }).then(function () { setStatus("<b>Saved.</b> Go back to Claude and say “render it”."); })
+      .catch(function () { setStatus("Saving isn't available in this view. Use Copy settings and paste them to Claude instead."); })
+      .then(function () { btn.disabled = false; btn.textContent = "Save for render"; });
   });
   $("#copyBtn").addEventListener("click", function () {
     var txt = JSON.stringify(cfg);
     var ok = function () { setStatus("<b>Copied.</b> Paste the settings into your chat with Claude."); };
-    try {
-      navigator.clipboard.writeText(txt).then(ok, fallback);
-    } catch (e) { fallback(); }
     function fallback() {
       var ta = document.createElement("textarea"); ta.value = txt; ta.style.cssText = "position:fixed;left:-9999px"; document.body.appendChild(ta);
       ta.select(); var done = false; try { done = document.execCommand("copy"); } catch (e) {}
       document.body.removeChild(ta);
       setStatus(done ? "<b>Copied.</b> Paste the settings into your chat with Claude." : "Copy was blocked here. Use Save for render instead.");
     }
+    try { navigator.clipboard.writeText(txt).then(ok, fallback); } catch (e) { fallback(); }
   });
   var resetArmed = false;
   $("#resetBtn").addEventListener("click", function () {
     if (!resetArmed) { resetArmed = true; $("#resetBtn").textContent = "Tap again to reset"; setTimeout(function () { resetArmed = false; $("#resetBtn").textContent = "Reset"; }, 3000); return; }
     resetArmed = false; $("#resetBtn").textContent = "Reset";
-    cfg = E.defaultConfig(cfg.preset, D); syncControls(); commit(); renderCalls(); renderShots();
-    setStatus("Reset to the " + E.PRESETS[cfg.preset].name + " defaults.");
+    cfg = E.defaultConfig(cfg.preset, D); sel = null; syncControls(); commit();
+    setStatus("Reset to the " + E.PRESETS[cfg.preset].name + " defaults. Undo brings your edits back.");
   });
 
-  /* boot */
-  syncControls(); renderCalls(); renderShots(); drawTrack(); renderWords(); frame();
-  setStatus("Changes show up live. When it looks right, tap <b>Save for render</b> and tell Claude “render it”.");
+  window.__reelConfig = function () { return JSON.parse(JSON.stringify(cfg)); };
+
+  /* ---------- boot ---------- */
+  try { var ui = JSON.parse(localStorage.getItem(LS_UI) || "null"); if (ui) { if (ui.view) setView(ui.view); if (ui.tab) showTab(ui.tab); } } catch (e) {}
+  setTool("select");
+  fitTimeline();
+  syncControls();
+  engine.setConfig(cfg);
+  drawTimeline(); renderWords(); renderCalls(); renderKeys(); renderShots(); renderBeats(); renderSel(); frame();
+  setStatus("Changes show up live. When it looks right, tap <b style='color:var(--fg)'>Save for render</b> and tell Claude “render it”.");
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(frame);
 })();
 </script>
