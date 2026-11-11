@@ -12,4 +12,4 @@ Rebuild media (not in git):
 Kinetic text (VO-timed, original VO time ÷ 1.2): hook CRICKET 🏏 / OR STUDIES 📚? → WHY NOT BOTH?,
 PROFESSIONAL COACHING + BAT•BOWL•FIELD•FITNESS, TRAIN/IMPROVE/PERFORM, YOUR EDUCATION/CRICKET/FUTURE.
 Scenes 2 and 5 text is already burned into the client's clips, so not duplicated.
-End card: AI's wrong number blanked, real number 6200 985 144.
+End card: AI's wrong number blanked, real number 62020 26634.
