@@ -18,3 +18,9 @@ Files:
 - `builder/designs.js` — the design engine (designs, accents, motions, transitions). Shared by builder + render.
 - `edit-data/beats.json` — the edit (source of truth).
 - `scripts/build_index.cjs` — beats.json → index.html (also run by Save).
+
+## Artifact version (claude.ai)
+Published at https://claude.ai/artifact/NKTtsCnpRS5f3ey6WvpiJQ — same engine, proxy footage (≤540px).
+Its **Save** writes the edit to the artifact database (`edits/current`); Claude pulls it into
+`edit-data/beats.json` and regenerates `index.html`. Rebuild the page: `node scripts/build_artifact.cjs <outDir>`
+(proxies must be in `<outDir>/assets/`).
