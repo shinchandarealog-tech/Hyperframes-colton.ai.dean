@@ -1,0 +1,7 @@
+# media is large — kept out of git (sources: client upload + Drive folder)
+assets/clips/
+assets/real/
+assets/seg/
+assets/*.mp4
+renders/
+.hyperframes/
