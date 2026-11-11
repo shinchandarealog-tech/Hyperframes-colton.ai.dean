@@ -140,7 +140,8 @@ hyperframes/
 │   ├── brand-tokens.css                      ← your brand colors / fonts — set during /setup
 │   ├── sfx/                                   ← royalty-free sound-effects library (see MANIFEST.md)
 │   ├── transitions/                           ← creator's transition overlay pack (film burns, light leaks, glitch — see MANIFEST.md)
-│   └── music/                                 ← royalty-free music bed
+│   ├── music/                                 ← royalty-free music bed
+│   └── luts/                                  ← 127 .cube color-grading LUTs (see luts/README.md)
 ├── video-projects/                           ← YOUR active projects, one folder each
 └── _reference/
     ├── creator-library/                      ← style fingerprints from creators you study (/study-creator)
@@ -298,6 +299,10 @@ The `assets/sfx/` and `assets/music/` folders ship with a royalty-free sound lib
 ## Transitions — overlay library
 
 `assets/transitions/` holds the creator's own transition overlay pack: 10 clips (film burns, light leak, sparks, speed streaks, spinning reticle, old-film texture, glitch), 1080×1920 light-on-black. **Read `assets/transitions/MANIFEST.md` before picking a transition**. It lists each clip's length, energy level, and peak frame, plus the `mix-blend-mode: screen` wiring. Prefer these over generic CSS transitions when a video calls for a film-burn / flash / glitch cut. Line each clip's peak up with the scene cut, and copy the clip (plus its `.mp3`, if it has one) into the project's `assets/`.
+
+## Color grading — LUT library
+
+`assets/luts/` holds 127 `.cube` LUTs: log→Rec.709 conversions per camera brand, Sony S-Log looks, and creative looks for Rec.709 footage. When the user asks to color grade footage, read `assets/luts/README.md` first (order of operations, ffmpeg recipes, tested picks). Workflow: grade 3 representative test stills with candidate LUTs → user picks → grade the full clip with `lut3d` (audio copied untouched) → review frames before delivering.
 
 ## Asset Prep
 
