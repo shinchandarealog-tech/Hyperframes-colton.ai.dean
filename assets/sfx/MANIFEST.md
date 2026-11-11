@@ -39,6 +39,8 @@ All paths below are **relative to `assets/`** so they match `<audio src="...">` 
 | Darker tech drone bed | tech-drone *(short — repeat or crossfade)* | `sfx/ambient/tech-drone.mp3` | 10.03s |
 | Music bed under a full video | cinematic-tech | `music/music-bed-cinematic-tech.mp3` | 122.91s |
 
+> **More music:** a saved library of 20 copyrighted tracks (not royalty-free; see licensing notes) is indexed in `music/library/MANIFEST.md`.
+
 ## Usage notes + gotchas
 
 - **`hard-cut.mp3` was trimmed** from the original 8s (which had 7.8s of dead air tail) down to 0.2s with the snap hitting at ~23ms. Drop it in with `data-duration="0.2"` and it'll fire cleanly on the beat. The untrimmed source is kept alongside as `hard-cut.original.mp3` in case you ever want to re-trim differently.
