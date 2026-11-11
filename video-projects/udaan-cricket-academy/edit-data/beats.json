@@ -413,7 +413,7 @@
    "design": "none",
    "fit": {
     "x": 50,
-    "y": 50,
+    "y": 28,
     "zoom": 1
    },
    "fit2": {
@@ -563,10 +563,10 @@
    "patch": {
     "color": "#EFEBE3",
     "from": 1.45,
-    "h": 60,
+    "h": 62,
     "w": 582,
     "x": 250,
-    "y": 1302
+    "y": 1300
    },
    "scene": 7,
    "src": "assets/clips/05-whatsapp-cta.mp4",
