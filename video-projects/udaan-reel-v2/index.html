@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>Udaan Reel v2 — 1.2x + kinetic type</title>
+<script src="assets/gsap.min.js"></script>
+<style>
+  @font-face{font-family:"Barlow Condensed";font-weight:700;src:url("assets/fonts/barlow-condensed-latin-700-normal.woff2") format("woff2");}
+  @font-face{font-family:"Barlow Condensed";font-weight:800;src:url("assets/fonts/barlow-condensed-latin-800-normal.woff2") format("woff2");}
+  html,body{margin:0;padding:0;background:#14213D;}
+  #root{position:relative;width:1080px;height:1920px;overflow:hidden;background:#14213D;font-family:"Barlow Condensed",sans-serif;}
+  #root *{box-sizing:border-box;}
+  #base{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .ov{position:absolute;inset:0;z-index:20;pointer-events:none;}
+  /* text zone: y 1040–1520, clear of faces (upper half), logo (top-right) and Reels UI (bottom 380px) */
+  .zone{position:absolute;left:60px;right:60px;top:1040px;height:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;}
+  .blk{display:inline-block;color:#fff;font-weight:800;line-height:1;text-transform:uppercase;padding:16px 30px 12px;box-shadow:0 12px 34px rgba(0,0,0,.45);}
+  .navy{background:#14213D;} .red{background:#D7192A;}
+  .emo{height:.78em;width:auto;vertical-align:-.04em;margin-left:.14em;}
+  .big{color:#fff;font-weight:800;line-height:.9;text-transform:uppercase;text-shadow:0 10px 0 #14213D,0 20px 46px rgba(0,0,0,.6);}
+  .big.hot{color:#fff;text-shadow:0 10px 0 #D7192A,0 20px 46px rgba(0,0,0,.6);}
+  .row{display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:nowrap;margin-top:8px;}
+  .chip{background:#fff;color:#14213D;font-weight:800;font-size:70px;line-height:1;padding:11px 18px 8px;white-space:nowrap;text-transform:uppercase;box-shadow:0 10px 26px rgba(0,0,0,.45);}
+  .dot{width:16px;height:16px;border-radius:50%;background:#D7192A;box-shadow:0 2px 10px rgba(0,0,0,.5);}
+  .ch{display:inline-block;white-space:pre;}
+  .ring{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;border-radius:50%;border:16px solid #fff;opacity:0;}
+  .rays{position:absolute;left:50%;top:50%;width:0;height:0;}
+  .rays i{position:absolute;left:0;top:0;width:0;height:0;}
+  .rays b{position:absolute;left:-7px;top:-430px;width:14px;height:200px;border-radius:7px;background:#fff;transform-origin:50% 100%;}
+  .rays b.r{background:#D7192A;}
+  .line{display:flex;gap:20px;align-items:baseline;justify-content:center;}
+  .line .y{font-size:94px;color:#fff;font-weight:700;text-shadow:0 6px 20px rgba(0,0,0,.6);}
+  .line .w{font-size:156px;display:inline-block;}
+  #num-patch{position:absolute;left:250px;top:1300px;width:582px;height:62px;background:#EFEBE3;z-index:15;}
+  #num{position:absolute;left:250px;top:1300px;width:582px;height:62px;display:flex;align-items:center;justify-content:center;z-index:16;color:#14213D;font-weight:800;font-size:58px;letter-spacing:2px;font-variant-numeric:tabular-nums;}
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="udaan-reel-v2" data-start="0" data-duration="50.367" data-width="1080" data-height="1920">
+
+  <video id="base" src="assets/base.mp4" data-start="0" data-duration="50.367" data-track-index="0" muted playsinline></video>
+
+  <!-- Scene 1 hook: CRICKET 🏏 OR STUDIES 📚?  (VO "cricket karunga… toh padhai") -->
+  <div id="s1a" class="ov clip" data-start="4.40" data-duration="2.336" data-track-index="10">
+    <div class="zone">
+      <div class="blk navy" id="s1a-1" style="font-size:150px">Cricket<img class="emo" src="assets/emoji-cricket.png" alt=""></div>
+      <div class="blk red" id="s1a-2" style="font-size:132px">or Studies<img class="emo" src="assets/emoji-books.png" alt="">?</div>
+    </div>
+  </div>
+
+  <!-- WHY NOT BOTH?  (on the cut + music drop, VO "ab is tension…") -->
+  <div id="s1b" class="ov clip" data-start="6.736" data-duration="1.70" data-track-index="11">
+    <div class="rays" id="s1b-rays" style="top:1260px">
+      <i style="transform:rotate(0deg)"><b></b></i><i style="transform:rotate(30deg)"><b class="r"></b></i><i style="transform:rotate(60deg)"><b></b></i><i style="transform:rotate(90deg)"><b class="r"></b></i><i style="transform:rotate(120deg)"><b></b></i><i style="transform:rotate(150deg)"><b class="r"></b></i><i style="transform:rotate(180deg)"><b></b></i><i style="transform:rotate(210deg)"><b class="r"></b></i><i style="transform:rotate(240deg)"><b></b></i><i style="transform:rotate(270deg)"><b class="r"></b></i><i style="transform:rotate(300deg)"><b></b></i><i style="transform:rotate(330deg)"><b class="r"></b></i>
+    </div>
+    <div class="zone" style="gap:0">
+      <div class="big" id="w-why" style="font-size:190px">Why</div>
+      <div class="big" id="w-not" style="font-size:190px">Not</div>
+      <div class="big hot" id="w-both" style="font-size:230px">Both?</div>
+    </div>
+  </div>
+
+  <!-- Scene 3: PROFESSIONAL COACHING + BAT • BOWL • FIELD • FITNESS (each on its VO word) -->
+  <div id="s3" class="ov clip" data-start="13.50" data-duration="4.87" data-track-index="10">
+    <div class="zone">
+      <div class="blk navy" id="s3-h" style="font-size:124px"><span class="split">Professional</span></div>
+      <div class="blk red" id="s3-h2" style="font-size:124px;margin-top:-6px"><span class="split">Coaching</span></div>
+      <div class="row">
+        <div class="chip" id="c-bat">Bat</div><div class="dot" id="d1"></div>
+        <div class="chip" id="c-bowl">Bowl</div><div class="dot" id="d2"></div>
+        <div class="chip" id="c-field">Field</div><div class="dot" id="d3"></div>
+        <div class="chip" id="c-fit">Fitness</div>
+      </div>
+    </div>
+    <div class="ring" id="s3-ring" style="top:1420px"></div>
+  </div>
+
+  <!-- Scene 4: TRAIN • IMPROVE • PERFORM -->
+  <div id="s4" class="ov clip" data-start="21.95" data-duration="2.45" data-track-index="11">
+    <div class="zone" style="gap:14px">
+      <div class="blk navy" id="t-train" style="font-size:150px">Train</div>
+      <div class="blk red" id="t-improve" style="font-size:150px">Improve</div>
+      <div class="blk navy" id="t-perform" style="font-size:150px">Perform</div>
+    </div>
+  </div>
+
+  <!-- Scene 6: YOUR EDUCATION. YOUR CRICKET. YOUR FUTURE. (spoken in the VO) -->
+  <div id="s6" class="ov clip" data-start="32.45" data-duration="3.58" data-track-index="10">
+    <div class="zone" style="gap:6px">
+      <div class="line" id="y-edu"><span class="y">YOUR</span><span class="big w">Education.</span></div>
+      <div class="line" id="y-cri"><span class="y">YOUR</span><span class="big w">Cricket.</span></div>
+      <div class="line" id="y-fut"><span class="y">YOUR</span><span class="big hot w" style="font-size:176px">Future.</span></div>
+    </div>
+  </div>
+
+  <!-- End card: blank the AI's wrong number, show the real one -->
+  <div id="num-patch" class="clip" data-start="46.967" data-duration="3.40" data-track-index="12"></div>
+  <div id="num" class="clip" data-start="47.55" data-duration="2.817" data-track-index="13">6200 985 144</div>
+
+  <audio id="mix" src="assets/mix.wav" data-start="0" data-duration="50.367" data-track-index="30" data-volume="1"></audio>
+</div>
+
+<script>
+  // split headline words into letters for a kinetic letter cascade
+  document.querySelectorAll(".split").forEach((el) => {
+    el.innerHTML = [...el.textContent].map((c) => `<span class="ch">${c}</span>`).join("");
+  });
+
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+
+  // Scene 1a — CRICKET 🏏 / OR STUDIES 📚?
+  tl.from("#s1a-1", { xPercent: -130, skewX: -18, duration: 0.32, ease: "expo.out" }, 4.47);
+  tl.from("#s1a-2", { xPercent: 130, skewX: 18, duration: 0.32, ease: "power3.out" }, 5.48);
+  tl.fromTo("#s1a-2", { scale: 1 }, { keyframes: [{ scale: 1.06 }, { scale: 1 }], duration: 0.3, ease: "none" }, 6.30);
+
+  // Scene 1b — WHY / NOT / BOTH? slam on the drop
+  tl.from("#w-why", { scale: 2.6, opacity: 0, duration: 0.16, ease: "power4.in" }, 6.76);
+  tl.from("#w-not", { scale: 2.6, opacity: 0, duration: 0.16, ease: "power4.in" }, 6.98);
+  tl.from("#w-both", { scale: 3, opacity: 0, duration: 0.18, ease: "power4.in" }, 7.20);
+  tl.fromTo("#s1b .zone", { x: 0, y: 0 }, { keyframes: [{ x: -18, y: 8 }, { x: 14, y: -8 }, { x: -6, y: 4 }, { x: 0, y: 0 }], duration: 0.24, ease: "none" }, 7.38);
+  tl.fromTo("#s1b-rays b", { scaleY: 0, y: 0, opacity: 1 }, { scaleY: 1, y: -50, duration: 0.18, ease: "expo.out" }, 7.38);
+  tl.to("#s1b-rays b", { y: -260, opacity: 0, duration: 0.25, ease: "power2.in" }, 7.56);
+
+  // Scene 3 — letter cascade headline, then chips on each VO word
+  tl.from("#s3-h", { scaleX: 0, duration: 0.3, ease: "expo.out", transformOrigin: "50% 50%" }, 13.52);
+  tl.from("#s3-h .ch", { yPercent: 110, opacity: 0, duration: 0.3, ease: "back.out(2.4)", stagger: 0.025 }, 13.62);
+  tl.from("#s3-h2", { scaleX: 0, duration: 0.3, ease: "expo.out" }, 13.80);
+  tl.from("#s3-h2 .ch", { yPercent: 110, opacity: 0, duration: 0.3, ease: "back.out(2.4)", stagger: 0.03 }, 13.90);
+  [["#c-bat", 15.31], ["#d1", 15.55], ["#c-bowl", 15.73], ["#d2", 15.95], ["#c-field", 16.10], ["#d3", 16.65], ["#c-fit", 16.85]].forEach(([s, t], i) => {
+    tl.from(s, { scale: s.startsWith("#d") ? 0 : 2.4, opacity: 0, duration: 0.2, ease: s.startsWith("#d") ? "back.out(3)" : "power4.in" }, t);
+    if (!s.startsWith("#d")) tl.fromTo("#s3-ring", { scale: 0.3, opacity: 0.9 }, { scale: 2.2, opacity: 0, duration: 0.35, ease: "power2.out", immediateRender: false }, t + 0.18);
+  });
+
+  // Scene 4 — TRAIN / IMPROVE / PERFORM
+  tl.from("#t-train", { y: 160, opacity: 0, duration: 0.3, ease: "expo.out" }, 22.00);
+  tl.from("#t-improve", { x: 1300, skewX: 20, duration: 0.3, ease: "power3.out" }, 23.30);
+  tl.from("#t-perform", { scale: 2.4, opacity: 0, duration: 0.2, ease: "power4.in" }, 23.75);
+  tl.fromTo("#s4 .zone", { x: 0 }, { keyframes: [{ x: -12 }, { x: 10 }, { x: 0 }], duration: 0.18, ease: "none" }, 23.95);
+
+  // Scene 6 — YOUR EDUCATION. / YOUR CRICKET. / YOUR FUTURE.
+  tl.from("#y-edu", { yPercent: 80, opacity: 0, duration: 0.32, ease: "expo.out" }, 32.50);
+  tl.from("#y-cri", { yPercent: 80, opacity: 0, duration: 0.32, ease: "expo.out" }, 33.57);
+  tl.from("#y-fut", { scale: 1.8, opacity: 0, duration: 0.24, ease: "power4.in" }, 34.47);
+  tl.fromTo("#y-fut .w", { scale: 1 }, { keyframes: [{ scale: 1.08 }, { scale: 1 }], duration: 0.35, ease: "none" }, 34.72);
+
+  // End card number
+  tl.from("#num", { scale: 0.6, opacity: 0, duration: 0.3, ease: "back.out(2.2)" }, 47.55);
+
+  window.__timelines["udaan-reel-v2"] = tl;
+</script>
+</body>
+</html>
