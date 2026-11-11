@@ -139,6 +139,7 @@ hyperframes/
 ├── assets/                                   ← shared assets (brand-tokens.css + SFX/music library)
 │   ├── brand-tokens.css                      ← your brand colors / fonts — set during /setup
 │   ├── sfx/                                   ← royalty-free sound-effects library (see MANIFEST.md)
+│   ├── transitions/                           ← creator's transition overlay pack (film burns, light leaks, glitch — see MANIFEST.md)
 │   └── music/                                 ← royalty-free music bed
 ├── video-projects/                           ← YOUR active projects, one folder each
 └── _reference/
@@ -293,6 +294,10 @@ The render is the ground truth. "The code looks correct" doesn't clear the bar.
 ## Audio — SFX + music library
 
 The `assets/sfx/` and `assets/music/` folders ship with a royalty-free sound library (free for commercial use, including monetized TikTok + Instagram). See `assets/sfx/MANIFEST.md` for a purpose-indexed list (whoosh, click, pop, notification, impact, ambient, cinematic, transitions). To use a sound in a project, copy it into the project's `assets/` and reference it from an `<audio>` element per the render contract. Keep SFX subtle — they punctuate beats, they don't carry the video.
+
+## Transitions — overlay library
+
+`assets/transitions/` holds the creator's own transition overlay pack: 10 clips (film burns, light leak, sparks, speed streaks, spinning reticle, old-film texture, glitch), 1080×1920 light-on-black. **Read `assets/transitions/MANIFEST.md` before picking a transition**. It lists each clip's length, energy level, and peak frame, plus the `mix-blend-mode: screen` wiring. Prefer these over generic CSS transitions when a video calls for a film-burn / flash / glitch cut. Line each clip's peak up with the scene cut, and copy the clip (plus its `.mp3`, if it has one) into the project's `assets/`.
 
 ## Asset Prep
 
