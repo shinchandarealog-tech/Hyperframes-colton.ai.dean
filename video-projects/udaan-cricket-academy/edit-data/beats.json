@@ -1,0 +1,648 @@
+{
+ "meta": {
+  "title": "Udaan Cricket Academy With School — admissions reel",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "duration": 57.3,
+  "vo": "assets/vo.mp3",
+  "voDuration": 55.72,
+  "logo": "assets/logo.png"
+ },
+ "beats": [
+  {
+   "id": "b01",
+   "start": 0.0,
+   "scene": 1,
+   "vo": "Kya aap bhi cricket mein",
+   "src": "assets/clips/06-study-window.mp4",
+   "in": 0.5,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "corners",
+   "motion": "pull",
+   "trans": "cut"
+  },
+  {
+   "id": "b02",
+   "start": 1.15,
+   "scene": 1,
+   "vo": "apna career banana chahte hain?",
+   "src": "assets/real/WA0023.mp4",
+   "in": 5.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "speedlines",
+   "motion": "punch",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b03",
+   "start": 2.3,
+   "scene": 1,
+   "vo": "Lekin ek sawaal…",
+   "src": "assets/clips/11-topdown-bat-notebook.mp4",
+   "in": 0.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "slashes",
+   "motion": "punch",
+   "trans": "flash"
+  },
+  {
+   "id": "b04",
+   "start": 3.6,
+   "scene": 1,
+   "vo": "aapko bhi pareshan karta hai —",
+   "src": "assets/clips/06-study-window.mp4",
+   "in": 2.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "shine",
+   "motion": "push",
+   "trans": "zoom"
+  },
+  {
+   "id": "b05",
+   "start": 5.2,
+   "scene": 1,
+   "vo": "'Cricket karunga… toh padhai ka kya hoga?'",
+   "src": "assets/clips/07-hook-why-not-both.mp4",
+   "in": 2.8,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "corners",
+   "motion": "push",
+   "trans": "whip",
+   "burned": true
+  },
+  {
+   "id": "b06",
+   "start": 8.15,
+   "scene": 1,
+   "vo": "Ab is tension ki bilkul zarurat nahi…",
+   "src": "assets/clips/07-hook-why-not-both.mp4",
+   "in": 5.75,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "burst",
+   "motion": "shake",
+   "trans": "flash",
+   "burned": true
+  },
+  {
+   "id": "b07",
+   "start": 10.2,
+   "scene": 2,
+   "vo": "kyunki Udaan Cricket Academy With School",
+   "src": "assets/clips/12-morph-cricketer.mp4",
+   "in": 1.5,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "shine",
+   "motion": "punch",
+   "trans": "redwipe"
+  },
+  {
+   "id": "b08",
+   "start": 11.2,
+   "scene": 2,
+   "vo": "lekar aaya hai —",
+   "src": "assets/real/WA0025.mp4",
+   "in": 18.5,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "speedlines",
+   "motion": "drift",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b09",
+   "start": 12.2,
+   "scene": 2,
+   "vo": "Cricket aur padhai…",
+   "src": "assets/clips/03-under-one-roof.mp4",
+   "in": 2.45,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "none",
+   "motion": "push",
+   "trans": "zoom",
+   "burned": true
+  },
+  {
+   "id": "b10",
+   "start": 13.25,
+   "scene": 2,
+   "vo": "…ek hi campus mein!",
+   "src": "assets/clips/03-under-one-roof.mp4",
+   "in": 3.5,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "corners",
+   "motion": "punch",
+   "trans": "cut",
+   "burned": true
+  },
+  {
+   "id": "b11",
+   "start": 15.75,
+   "scene": 3,
+   "vo": "Yahan professional coaches ke",
+   "src": "assets/real/WA0041.mp4",
+   "in": 9.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "stack",
+   "text": [
+    "PROFESSIONAL",
+    "COACHING"
+   ],
+   "accent": "slashes",
+   "motion": "punch",
+   "trans": "redwipe",
+   "grade": true
+  },
+  {
+   "id": "b12",
+   "start": 16.95,
+   "scene": 3,
+   "vo": "guidance mein milegi",
+   "src": "assets/real/WA0036.mp4",
+   "in": 4.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "balltrail",
+   "motion": "drift",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b13",
+   "start": 18.35,
+   "scene": 3,
+   "vo": "Batting,",
+   "src": "assets/real/WA0036.mp4",
+   "in": 25.8,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "slam",
+   "text": [
+    "BAT"
+   ],
+   "accent": "burst",
+   "motion": "shake",
+   "trans": "flash",
+   "grade": true
+  },
+  {
+   "id": "b14",
+   "start": 18.87,
+   "scene": 3,
+   "vo": "Bowling,",
+   "src": "assets/real/WA0029.mp4",
+   "in": 7.6,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "slam",
+   "text": [
+    "BOWL"
+   ],
+   "accent": "speedlines",
+   "motion": "shake",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b15",
+   "start": 19.32,
+   "scene": 3,
+   "vo": "Fielding",
+   "src": "assets/real/WA0040.mp4",
+   "in": 0.5,
+   "fit": {
+    "x": 76,
+    "y": 62,
+    "zoom": 1.6
+   },
+   "design": "slam",
+   "text": [
+    "FIELD"
+   ],
+   "accent": "burst",
+   "motion": "punch",
+   "trans": "flash",
+   "grade": true
+  },
+  {
+   "id": "b16",
+   "start": 20.2,
+   "scene": 3,
+   "vo": "aur Fitness ki complete training",
+   "src": "assets/real/WA0028.mp4",
+   "in": 18.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "slam",
+   "text": [
+    "FITNESS"
+   ],
+   "accent": "pulse",
+   "motion": "shake",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b17",
+   "start": 22.0,
+   "scene": 3,
+   "vo": "Saath hi milenge One-to-One Sessions,",
+   "src": "assets/real/WA0043.mp4",
+   "in": 1.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "corners",
+   "motion": "pull",
+   "trans": "redwipe",
+   "grade": true
+  },
+  {
+   "id": "b18",
+   "start": 23.55,
+   "scene": 3,
+   "vo": "Regular Practice",
+   "src": "assets/real/WA0017.mp4",
+   "in": 4.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "speedlines",
+   "motion": "punch",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b19",
+   "start": 24.9,
+   "scene": 3,
+   "vo": "aur Competitive Matches",
+   "src": "assets/real/WA0021.mp4",
+   "in": 2.0,
+   "fit": {
+    "x": 69,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "slashes",
+   "motion": "drift",
+   "trans": "zoom",
+   "grade": true
+  },
+  {
+   "id": "b20",
+   "start": 26.4,
+   "scene": 4,
+   "vo": "Taaki aapki skills",
+   "src": "assets/real/WA0043.mp4",
+   "in": 17.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "slam",
+   "text": [
+    "TRAIN"
+   ],
+   "accent": "burst",
+   "motion": "punch",
+   "trans": "flash",
+   "grade": true
+  },
+  {
+   "id": "b21",
+   "start": 27.65,
+   "scene": 4,
+   "vo": "har din improve hon",
+   "src": "assets/real/WA0025.mp4",
+   "in": 31.5,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "kinetic",
+   "text": [
+    "IMPROVE",
+    "PERFORM"
+   ],
+   "accent": "speedlines",
+   "motion": "push",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b22",
+   "start": 28.9,
+   "scene": 5,
+   "vo": "Aur sirf cricket hi nahi,",
+   "src": "assets/clips/02-classroom-nocompromise.mp4",
+   "in": 1.7,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "shine",
+   "motion": "pull",
+   "trans": "flash"
+  },
+  {
+   "id": "b23",
+   "start": 30.4,
+   "scene": 5,
+   "vo": "professional teachers ke through",
+   "src": "assets/clips/02-classroom-nocompromise.mp4",
+   "in": 3.2,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "corners",
+   "motion": "punch",
+   "trans": "cut"
+  },
+  {
+   "id": "b24",
+   "start": 31.9,
+   "scene": 5,
+   "vo": "aapki padhai par bhi diya jata hai poora focus",
+   "src": "assets/clips/02-classroom-nocompromise.mp4",
+   "in": 4.7,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "none",
+   "motion": "push",
+   "trans": "zoom",
+   "burned": true
+  },
+  {
+   "id": "b25",
+   "start": 35.2,
+   "scene": 6,
+   "vo": "Yaani na padhai mein koi compromise… aur na cricket ke sapne mein!",
+   "src": "assets/clips/06-study-window.mp4",
+   "in": 0.2,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "none",
+   "motion": "push",
+   "trans": "redwipe",
+   "layout": "split",
+   "src2": "assets/real/WA0026.mp4",
+   "in2": 38.5,
+   "delay2": 1.65,
+   "grade2": true,
+   "fit2": {
+    "x": 50,
+    "y": 40,
+    "zoom": 1
+   }
+  },
+  {
+   "id": "b26",
+   "start": 39.0,
+   "scene": 6,
+   "vo": "Your education, your cricket, your future.",
+   "src": "assets/clips/10-split-your-future.mp4",
+   "in": 4.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "corners",
+   "motion": "push",
+   "trans": "flash",
+   "burned": true
+  },
+  {
+   "id": "b27",
+   "start": 43.0,
+   "scene": 7,
+   "vo": "Agar aap bhi",
+   "src": "assets/real/WA0029.mp4",
+   "in": 17.6,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "burst",
+   "motion": "shake",
+   "trans": "whip",
+   "grade": true
+  },
+  {
+   "id": "b28",
+   "start": 43.9,
+   "scene": 7,
+   "vo": "cricketer banne ke sapne ko sach karna chahte hain,",
+   "src": "assets/clips/08-gloves-walkout.mp4",
+   "in": 2.4,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "speedlines",
+   "motion": "push",
+   "trans": "zoom",
+   "burned": true
+  },
+  {
+   "id": "b29",
+   "start": 46.45,
+   "scene": 7,
+   "vo": "toh aaj hi Udaan Cricket Academy",
+   "src": "assets/real/WA0041.mp4",
+   "in": 20.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "balltrail",
+   "motion": "punch",
+   "trans": "redwipe",
+   "grade": true
+  },
+  {
+   "id": "b30",
+   "start": 48.0,
+   "scene": 7,
+   "vo": "With School join karein. Limited Seats Available!",
+   "src": "assets/clips/01-cta-walk.mp4",
+   "in": 2.7,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "none",
+   "motion": "push",
+   "trans": "flash",
+   "burned": true
+  },
+  {
+   "id": "b31",
+   "start": 51.3,
+   "scene": 7,
+   "vo": "Admission ki jankari ke liye abhi WhatsApp ya Call karein",
+   "src": "assets/clips/05-whatsapp-cta.mp4",
+   "in": 2.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "none",
+   "motion": "pull",
+   "trans": "whip"
+  },
+  {
+   "id": "b32",
+   "start": 53.3,
+   "scene": 7,
+   "vo": "aur apni seat book karein.",
+   "src": "assets/clips/05-whatsapp-cta.mp4",
+   "in": 4.0,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "shine",
+   "motion": "none",
+   "trans": "cut",
+   "burned": true,
+   "patch": {
+    "x": 250,
+    "y": 1302,
+    "w": 582,
+    "h": 60,
+    "color": "#EFEBE3",
+    "from": 1.45
+   }
+  }
+ ]
+}

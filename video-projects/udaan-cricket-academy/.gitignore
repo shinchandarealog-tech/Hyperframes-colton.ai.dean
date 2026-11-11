@@ -5,3 +5,4 @@ assets/seg/
 assets/*.mp4
 renders/
 .hyperframes/
+edit-data/history/

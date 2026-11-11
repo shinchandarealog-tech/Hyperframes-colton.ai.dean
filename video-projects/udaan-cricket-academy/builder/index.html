@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Udaan Reel Builder</title>
+<script src="/assets/gsap.min.js"></script>
+<script src="/builder/designs.js"></script>
+<style id="engine-css"></style>
+<style>
+  :root{--bg:#0d1220;--panel:#151c2e;--panel2:#1c2540;--line:#2a3555;--txt:#e9edf7;--mute:#93a0bf;--red:#D7192A;--navy:#14213D;--ok:#2fbf71;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--txt);font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+  button,select,input,textarea{font:inherit;color:inherit}
+  header{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5;flex-wrap:wrap}
+  header h1{font-size:16px;margin:0 10px 0 0;font-weight:700;letter-spacing:.3px}
+  header h1 b{color:var(--red)}
+  .btn{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;white-space:nowrap}
+  .btn:hover{border-color:#4a5a88}
+  .btn.primary{background:var(--red);border-color:var(--red);font-weight:700}
+  .btn.on{background:#2b3a66;border-color:#6c82c4}
+  .time{font-variant-numeric:tabular-nums;color:var(--mute);min-width:120px}
+  .status{margin-left:auto;color:var(--mute);font-size:13px}
+  .status.dirty{color:#ffb347} .status.ok{color:var(--ok)}
+  main{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:16px;align-items:start}
+  @media (max-width:900px){main{grid-template-columns:1fr}}
+  .stagecol{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .stage{position:relative;background:#000;border-radius:14px;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+  .stage #root{position:absolute;left:0;top:0;transform-origin:0 0}
+  .beatinfo{color:var(--mute);font-size:13px;text-align:center;max-width:420px}
+  .beatinfo b{color:var(--txt)}
+  .timeline{grid-column:1/-1;position:relative;height:74px;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer}
+  .timeline .bk{position:absolute;top:8px;height:42px;border-right:2px solid var(--bg);padding:3px 4px;font-size:11px;overflow:hidden;white-space:nowrap;color:#fff}
+  .timeline .bk.sel{outline:2px solid #fff;outline-offset:-2px;z-index:2}
+  .timeline .bk small{display:block;opacity:.75;font-size:10px}
+  .timeline .sc{position:absolute;bottom:4px;font-size:10px;color:var(--mute)}
+  .timeline .ph{position:absolute;top:0;bottom:0;width:2px;background:#fff;box-shadow:0 0 6px #fff;pointer-events:none;z-index:3}
+  aside{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;min-width:0}
+  aside h2{margin:0 0 4px;font-size:15px}
+  aside .vo{color:var(--mute);font-style:italic;margin-bottom:10px}
+  .sec{border-top:1px solid var(--line);padding:12px 0 6px}
+  .sec>label,.lbl{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--mute);margin-bottom:8px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:9px 10px;cursor:pointer;text-align:left}
+  .card b{display:block;font-size:13px;margin-bottom:2px}
+  .card span{font-size:11.5px;color:var(--mute)}
+  .card.sel{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset;background:#2a1d2a}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  .row>*{flex:1 1 140px}
+  select,input[type=number],textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 9px}
+  textarea{min-height:58px;resize:vertical;text-transform:uppercase}
+  input[type=range]{width:100%}
+  .mini{font-size:12px;color:var(--mute)}
+  .chk{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+  .kbd{font-size:11px;color:var(--mute);margin-top:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1><b>UDAAN</b> Reel Builder</h1>
+  <button class="btn" id="play">▶ Play</button>
+  <button class="btn" id="restart">⏮</button>
+  <button class="btn" id="prev">◀ Beat</button>
+  <button class="btn" id="next">Beat ▶</button>
+  <button class="btn" id="loop" title="Loop the selected beat">⟳ Loop beat</button>
+  <span class="time" id="time">0.00 / 0.00</span>
+  <button class="btn" id="undo">↶ Undo</button>
+  <span class="status" id="status">Loaded</span>
+  <button class="btn primary" id="save">💾 Save &amp; update render</button>
+</header>
+<main>
+  <div class="stagecol">
+    <div class="stage" id="stage"><div id="root"></div></div>
+    <div class="beatinfo" id="beatinfo"></div>
+  </div>
+  <aside id="insp"></aside>
+  <div class="timeline" id="tlbar"><div class="ph" id="ph"></div></div>
+</main>
+<audio id="vo" preload="auto"></audio>
+
+<script>
+const D = window.UdaanDesigns;
+document.getElementById("engine-css").textContent = D.css("/");
+const $ = (s) => document.querySelector(s);
+const rootEl = $("#root"), audio = $("#vo");
+let P, B, tl, sources = [], sel = 0, playing = false, loop = false, t = 0, clock = null, dirty = false;
+const undo = [];
+const SCENE_COL = ["#555", "#7b3fa0", "#2b6cb0", "#c0392b", "#d35400", "#16a085", "#8e44ad", "#b7950b"];
+const SCENE_NAME = ["", "Hook", "Under one roof", "Coaching", "Improve", "Education", "Both", "CTA"];
+
+// ---------- stage sizing ----------
+function sizeStage() {
+  const narrow = innerWidth <= 900;
+  const h = Math.max(360, Math.min(innerHeight - 240, narrow ? innerHeight * 0.7 : 900));
+  const w = Math.min(h * 9 / 16, narrow ? innerWidth - 32 : 9999);
+  const k = w / 1080;
+  const st = $("#stage"); st.style.width = w + "px"; st.style.height = 1920 * k + "px";
+  rootEl.style.transform = `scale(${k})`;
+}
+addEventListener("resize", sizeStage);
+
+// ---------- build ----------
+function rebuild(keepT = true) {
+  B = D.withDur(P);
+  const old = {};
+  rootEl.querySelectorAll("video").forEach((v) => (old[v.id] = v));
+  rootEl.innerHTML = D.markup(P, "/");
+  rootEl.querySelectorAll("video").forEach((v) => {
+    const o = old[v.id];
+    if (o && o.getAttribute("src") === v.getAttribute("src")) {
+      for (const a of v.attributes) o.setAttribute(a.name, a.value);
+      v.replaceWith(o);
+    }
+  });
+  rootEl.querySelectorAll("video").forEach((v) => { v.muted = true; v._primed = false; });
+  if (tl) tl.kill();
+  tl = gsap.timeline({ paused: true });
+  D.buildTimeline(tl, P);
+  drawTimeline();
+  render(keepT ? t : 0, true);
+}
+
+// ---------- playback ----------
+function render(time, force) {
+  t = Math.max(0, Math.min(P.meta.duration - 0.001, time));
+  tl.seek(t, false);
+  rootEl.querySelectorAll("[data-start]").forEach((el) => {
+    const s = +el.dataset.start, d = +el.dataset.duration, on = t >= s && t < s + d;
+    el.style.visibility = on ? "visible" : "hidden";
+    if (el.tagName !== "VIDEO") return;
+    const target = +(el.dataset.mediaStart || 0) + (t - s);
+    if (on) {
+      el._primed = false;
+      if (playing) { if (el.paused) { el.currentTime = target; el.play().catch(() => {}); } else if (Math.abs(el.currentTime - target) > 0.25) el.currentTime = target; }
+      else { if (!el.paused) el.pause(); if (force || Math.abs(el.currentTime - target) > 0.04) el.currentTime = target; }
+    } else {
+      if (!el.paused) el.pause();
+      if (s > t && s - t < 1.2 && !el._primed) { el.currentTime = +(el.dataset.mediaStart || 0); el._primed = true; }
+    }
+  });
+  $("#ph").style.left = (t / P.meta.duration) * 100 + "%";
+  $("#time").textContent = `${t.toFixed(2)} / ${P.meta.duration.toFixed(2)}`;
+  const cur = B.findIndex((b) => t >= b.start && t < b.start + b.dur);
+  if (playing && cur >= 0 && cur !== sel && !loop) { sel = cur; drawInspector(); markSel(); }
+}
+function tick() {
+  if (!playing) return;
+  let now = clock.t0 + (performance.now() - clock.p0) / 1000;
+  const b = B[sel];
+  if (loop && now >= b.start + b.dur) { seekTo(b.start); clock = { t0: b.start, p0: performance.now() }; now = b.start; }
+  if (now >= P.meta.duration) { pause(); render(P.meta.duration - 0.01); return; }
+  if (now < P.meta.voDuration) { if (audio.paused) { audio.currentTime = now; audio.play().catch(() => {}); } else if (Math.abs(audio.currentTime - now) > 0.12) audio.currentTime = now; }
+  else if (!audio.paused) audio.pause();
+  render(now);
+  requestAnimationFrame(tick);
+}
+function play() { if (playing) return; playing = true; clock = { t0: t >= P.meta.duration - 0.05 ? 0 : t, p0: performance.now() }; $("#play").textContent = "⏸ Pause"; requestAnimationFrame(tick); }
+function pause() { playing = false; audio.pause(); rootEl.querySelectorAll("video").forEach((v) => v.pause()); $("#play").textContent = "▶ Play"; }
+function seekTo(time) { if (playing) { clock = { t0: time, p0: performance.now() }; audio.currentTime = Math.min(time, P.meta.voDuration); } render(time, true); }
+function playBeat(i) { select(i); pause(); seekTo(B[i].start); play(); }
+
+// ---------- timeline ----------
+function drawTimeline() {
+  const bar = $("#tlbar"); bar.querySelectorAll(".bk,.sc").forEach((e) => e.remove());
+  const T = P.meta.duration; let lastScene = 0;
+  B.forEach((b, i) => {
+    const e = document.createElement("div"); e.className = "bk" + (i === sel ? " sel" : "");
+    e.style.left = (b.start / T) * 100 + "%"; e.style.width = (b.dur / T) * 100 + "%";
+    e.style.background = SCENE_COL[b.scene] || "#444";
+    const lbl = (D.lines(b)[0]) || (D.DESIGNS[b.design] && b.design !== "none" ? D.DESIGNS[b.design].name : (D.ACCENTS[b.accent] || {}).name || "");
+    e.innerHTML = `${b.id.slice(1)}<small>${lbl || ""}</small>`; e.title = `${b.id} · ${b.start.toFixed(2)}s · ${b.dur.toFixed(2)}s\n${b.vo}`;
+    e.onclick = (ev) => { ev.stopPropagation(); select(i); seekTo(b.start); };
+    bar.appendChild(e);
+    if (b.scene !== lastScene) { const s = document.createElement("div"); s.className = "sc"; s.style.left = `calc(${(b.start / T) * 100}% + 3px)`; s.textContent = `${b.scene}·${SCENE_NAME[b.scene] || ""}`; bar.appendChild(s); lastScene = b.scene; }
+  });
+  bar.onclick = (ev) => { const r = bar.getBoundingClientRect(); seekTo(((ev.clientX - r.left) / r.width) * T); };
+}
+function markSel() { document.querySelectorAll("#tlbar .bk").forEach((e, i) => e.classList.toggle("sel", i === sel)); }
+function select(i) { sel = Math.max(0, Math.min(B.length - 1, i)); markSel(); drawInspector(); }
+
+// ---------- edits ----------
+function beat() { return P.beats.find((x) => x.id === B[sel].id); }
+function change(fn, opts = {}) {
+  undo.push(JSON.stringify(P)); if (undo.length > 80) undo.shift();
+  fn(beat()); dirty = true; setStatus("Unsaved changes", "dirty");
+  rebuild(); if (!opts.noInspector) drawInspector();
+  if (opts.replay) playBeat(sel);
+}
+function setStatus(s, cls) { const e = $("#status"); e.textContent = s; e.className = "status " + (cls || ""); }
+
+const opt = (v, label, cur) => `<option value="${v}"${v === cur ? " selected" : ""}>${label}</option>`;
+function cards(kind, catalog, ids, cur) {
+  return `<div class="cards">${ids.map((id) => `<button class="card${id === cur ? " sel" : ""}" data-kind="${kind}" data-id="${id}"><b>${catalog[id].name}</b><span>${catalog[id].desc}</span></button>`).join("")}</div>`;
+}
+function srcOptions(cur) {
+  const g = (k, lab) => `<optgroup label="${lab}">${sources.filter((s) => s.kind === k).map((s) => opt(s.src, `${s.src.split("/").pop()} (${s.dur}s)`, cur)).join("")}</optgroup>`;
+  return g("real", "Real footage") + g("ai", "AI clips");
+}
+
+function drawInspector() {
+  const b = B[sel], raw = beat(); const sg = D.suggest(raw);
+  const dIds = [...new Set([...sg.designs, raw.design])].filter((x) => D.DESIGNS[x]);
+  const aIds = [...new Set([...sg.accents, raw.accent])].filter((x) => D.ACCENTS[x]);
+  const f = raw.fit || { x: 50, y: 50, zoom: 1 };
+  $("#beatinfo").innerHTML = `<b>${b.id}</b> · ${b.start.toFixed(2)}–${(b.start + b.dur).toFixed(2)}s (${b.dur.toFixed(2)}s) · Scene ${b.scene} ${SCENE_NAME[b.scene] || ""}`;
+  $("#insp").innerHTML = `
+    <h2>Beat ${b.id.slice(1)} — ${b.dur.toFixed(2)}s</h2>
+    <div class="vo">🎙️ “${b.vo}”</div>
+    <div class="row"><button class="btn" id="replay">▶ Play this beat</button><button class="btn" id="cycle" title="Apply the next suggested design and replay">🎲 Try next design</button></div>
+
+    <div class="sec"><label>Headline design — ${dIds.length} options</label>${cards("design", D.DESIGNS, dIds, raw.design)}
+      <div class="row" style="margin-top:8px"><div><span class="lbl">All designs</span><select id="designAll">${Object.keys(D.DESIGNS).map((k) => opt(k, D.DESIGNS[k].name, raw.design)).join("")}</select></div></div>
+      <span class="lbl">Headline text (one line per row)</span><textarea id="text" placeholder="Leave empty for no text">${(raw.text || []).join("\n")}</textarea>
+      <div class="row" style="margin-top:6px"><label class="chk"><input type="checkbox" id="burned"${raw.burned ? " checked" : ""}> This clip already has burned-in text</label></div>
+    </div>
+
+    <div class="sec"><label>Motion graphic accent — ${aIds.length} options</label>${cards("accent", D.ACCENTS, aIds, raw.accent)}</div>
+
+    <div class="sec"><label>Shot motion &amp; transition in</label>
+      <div class="row"><div><span class="lbl">Shot motion</span><select id="motion">${Object.keys(D.MOTIONS).map((k) => opt(k, D.MOTIONS[k].name, raw.motion)).join("")}</select></div>
+      <div><span class="lbl">Transition into this beat</span><select id="trans">${Object.keys(D.TRANSITIONS).map((k) => opt(k, D.TRANSITIONS[k].name, raw.trans)).join("")}</select></div></div>
+    </div>
+
+    <div class="sec"><label>Footage${raw.layout === "split" ? " — top half" : ""}</label>
+      <div class="row"><div style="flex:3 1 220px"><select id="src">${srcOptions(raw.src)}</select></div>
+      <div><span class="lbl">Clip in-point (s)</span><input type="number" id="in" step="0.1" min="0" value="${raw.in}"></div></div>
+      <div class="row"><div><span class="lbl">Frame X ${f.x}%</span><input type="range" id="fx" min="0" max="100" value="${f.x}"></div>
+      <div><span class="lbl">Frame Y ${f.y}%</span><input type="range" id="fy" min="0" max="100" value="${f.y}"></div>
+      <div><span class="lbl">Zoom ${(+f.zoom).toFixed(2)}×</span><input type="range" id="fz" min="1" max="2.5" step="0.05" value="${f.zoom}"></div></div>
+      <div class="row"><label class="chk"><input type="checkbox" id="grade"${raw.grade ? " checked" : ""}> Punch up colour (real footage)</label></div>
+      ${raw.layout === "split" ? `<span class="lbl">Bottom half</span><div class="row"><div style="flex:3 1 220px"><select id="src2">${srcOptions(raw.src2)}</select></div><div><span class="lbl">In-point</span><input type="number" id="in2" step="0.1" value="${raw.in2 || 0}"></div><div><span class="lbl">Appears after (s)</span><input type="number" id="delay2" step="0.05" min="0" value="${raw.delay2 || 0}"></div></div>` : ""}
+    </div>
+
+    <div class="sec"><label>Timing &amp; pacing</label>
+      <div class="row"><div><span class="lbl">Cut in at (s)</span><input type="number" id="start" step="0.05" value="${raw.start}"${sel === 0 ? " disabled" : ""}></div>
+      <div><span class="lbl">Layout</span><select id="layout">${opt("full", "Full screen", raw.layout || "full")}${opt("split", "Split screen", raw.layout || "full")}</select></div></div>
+      <div class="row"><button class="btn" id="splitHere" title="Cut this beat in two at the playhead — faster pacing">✂ Split at playhead</button><button class="btn" id="merge">⇥ Merge with next</button></div>
+      <div class="kbd">Shortcuts: Space play/pause · ← → previous/next beat · L loop beat · Ctrl+Z undo</div>
+    </div>`;
+
+  const I = (id) => $("#" + id);
+  I("replay").onclick = () => playBeat(sel);
+  I("cycle").onclick = () => { const i = dIds.indexOf(raw.design); change((x) => (x.design = dIds[(i + 1) % dIds.length]), { replay: true }); };
+  document.querySelectorAll(".card").forEach((c) => (c.onclick = () => change((x) => (x[c.dataset.kind] = c.dataset.id), { replay: true })));
+  I("designAll").onchange = (e) => change((x) => (x.design = e.target.value), { replay: true });
+  I("text").onchange = (e) => change((x) => (x.text = e.target.value.split("\n").map((s) => s.trim().toUpperCase()).filter(Boolean)), { replay: true });
+  I("burned").onchange = (e) => change((x) => (x.burned = e.target.checked));
+  I("motion").onchange = (e) => change((x) => (x.motion = e.target.value), { replay: true });
+  I("trans").onchange = (e) => change((x) => (x.trans = e.target.value), { replay: true });
+  I("src").onchange = (e) => change((x) => { x.src = e.target.value; x.grade = e.target.value.includes("/real/"); }, { replay: true });
+  I("in").onchange = (e) => change((x) => (x.in = Math.max(0, +e.target.value)), { replay: true });
+  const fitCh = () => change((x) => (x.fit = { x: +I("fx").value, y: +I("fy").value, zoom: +I("fz").value }));
+  ["fx", "fy", "fz"].forEach((k) => (I(k).onchange = fitCh));
+  I("grade").onchange = (e) => change((x) => (x.grade = e.target.checked));
+  if (I("src2")) {
+    I("src2").onchange = (e) => change((x) => (x.src2 = e.target.value), { replay: true });
+    I("in2").onchange = (e) => change((x) => (x.in2 = +e.target.value), { replay: true });
+    I("delay2").onchange = (e) => change((x) => (x.delay2 = Math.max(0, +e.target.value)), { replay: true });
+  }
+  I("layout").onchange = (e) => change((x) => { if (e.target.value === "split") { x.layout = "split"; x.src2 = x.src2 || sources.find((s) => s.kind === "real").src; x.in2 = x.in2 || 0; x.delay2 = x.delay2 == null ? 0.5 : x.delay2; } else delete x.layout; }, { replay: true });
+  I("start").onchange = (e) => {
+    const prev = B[sel - 1], next = B[sel + 1];
+    const lo = prev ? prev.start + 0.2 : 0, hi = next ? next.start - 0.2 : P.meta.duration - 0.2;
+    const v = Math.max(lo, Math.min(hi, +e.target.value));
+    change((x) => (x.start = +v.toFixed(3)), { replay: true });
+  };
+  I("splitHere").onclick = () => {
+    const b = B[sel];
+    if (!(t > b.start + 0.2 && t < b.start + b.dur - 0.2)) { setStatus("Move the playhead inside this beat (≥0.2s from its edges) to split", "dirty"); return; }
+    undo.push(JSON.stringify(P));
+    const src = beat(), nb = JSON.parse(JSON.stringify(src));
+    let n = 1; while (P.beats.some((x) => x.id === src.id + String.fromCharCode(96 + n))) n++;
+    nb.id = src.id + String.fromCharCode(96 + n); nb.start = +t.toFixed(3); nb.in = +(src.in + (t - src.start)).toFixed(3);
+    nb.trans = "flash"; nb.motion = "punch"; nb.text = []; nb.design = "none"; delete nb.patch;
+    if (src.patch) { const pf = src.start + (src.patch.from || 0); if (pf >= t) { nb.patch = Object.assign({}, src.patch, { from: +(pf - t).toFixed(3) }); delete src.patch; } else nb.patch = Object.assign({}, src.patch, { from: 0 }); }
+    P.beats.push(nb); P.beats.sort((a, b) => a.start - b.start);
+    dirty = true; setStatus("Unsaved changes", "dirty"); rebuild(); select(B.findIndex((x) => x.id === nb.id));
+  };
+  I("merge").onclick = () => {
+    if (sel >= B.length - 1) return;
+    const nid = B[sel + 1].id;
+    change((x) => { const nx = P.beats.find((y) => y.id === nid); if (nx.patch && !x.patch) x.patch = Object.assign({}, nx.patch, { from: +((nx.start - x.start) + (nx.patch.from || 0)).toFixed(3) }); P.beats = P.beats.filter((y) => y.id !== nid); });
+  };
+}
+
+// ---------- header ----------
+$("#play").onclick = () => (playing ? pause() : play());
+$("#restart").onclick = () => { seekTo(0); select(0); };
+$("#prev").onclick = () => { select(sel - 1); seekTo(B[sel].start); };
+$("#next").onclick = () => { select(sel + 1); seekTo(B[sel].start); };
+$("#loop").onclick = () => { loop = !loop; $("#loop").classList.toggle("on", loop); };
+$("#undo").onclick = () => { if (!undo.length) return; P = JSON.parse(undo.pop()); dirty = true; setStatus("Undone — unsaved", "dirty"); rebuild(); select(Math.min(sel, B.length - 1)); };
+$("#save").onclick = async () => {
+  setStatus("Saving…");
+  const r = await fetch("/api/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(P) }).then((r) => r.json()).catch((e) => ({ ok: false, error: e.message }));
+  if (r.ok) { dirty = false; setStatus(`Saved ✓ render updated (${r.beats} beats)`, "ok"); } else setStatus("Save failed: " + r.error, "dirty");
+};
+addEventListener("keydown", (e) => {
+  if (/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (e.code === "Space") { e.preventDefault(); playing ? pause() : play(); }
+  else if (e.key === "ArrowLeft") $("#prev").click();
+  else if (e.key === "ArrowRight") $("#next").click();
+  else if (e.key.toLowerCase() === "l") $("#loop").click();
+  else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); $("#undo").click(); }
+});
+addEventListener("beforeunload", (e) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+// ---------- boot ----------
+(async () => {
+  [P, sources] = await Promise.all([fetch("/api/project").then((r) => r.json()), fetch("/api/sources").then((r) => r.json())]);
+  audio.src = "/" + P.meta.vo;
+  sizeStage(); rebuild(false); select(0);
+  window.__builder = { get t() { return t; }, render, seekTo, select, play, pause, get P() { return P; } };
+})();
+</script>
+</body>
+</html>
