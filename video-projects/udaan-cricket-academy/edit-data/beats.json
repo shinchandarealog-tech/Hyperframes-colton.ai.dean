@@ -39,7 +39,7 @@
     "zoom": 1
    },
    "id": "b03",
-   "in": 0,
+   "in": 0.1,
    "motion": "punch",
    "scene": 1,
    "src": "assets/clips/11-topdown-bat-notebook.mp4",
@@ -47,6 +47,26 @@
    "text": [],
    "trans": "flash",
    "vo": "Lekin ek sawaal…"
+  },
+  {
+   "id": "b03a",
+   "start": 4.6,
+   "scene": 1,
+   "vo": "…pareshan karta hai",
+   "src": "assets/real/WA0023.mp4",
+   "in": 5,
+   "fit": {
+    "x": 50,
+    "y": 50,
+    "zoom": 1
+   },
+   "design": "none",
+   "text": [],
+   "accent": "none",
+   "motion": "punch",
+   "trans": "flash",
+   "grade": true,
+   "burned": false
   },
   {
    "accent": "corners",
