@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Siham overlay</title>
+<style>
+  @font-face { font-family: Inter; font-weight: 400; src: url(fonts/inter-latin-400-normal.woff2); }
+  @font-face { font-family: Inter; font-weight: 500; src: url(fonts/inter-latin-500-normal.woff2); }
+  @font-face { font-family: Inter; font-weight: 600; src: url(fonts/inter-latin-600-normal.woff2); }
+  @font-face { font-family: Inter; font-weight: 700; src: url(fonts/inter-latin-700-normal.woff2); }
+  @font-face { font-family: Inter; font-weight: 800; src: url(fonts/inter-latin-800-normal.woff2); }
+  @font-face { font-family: Script; src: url(fonts/great-vibes-latin-400-normal.woff2); }
+  @font-face { font-family: Anton; src: url(fonts/anton-latin-400-normal.woff2); }
+  @font-face { font-family: Serif; font-weight: 400; src: url(fonts/playfair-display-latin-400-normal.woff2); }
+  @font-face { font-family: Serif; font-weight: 700; src: url(fonts/playfair-display-latin-700-normal.woff2); }
+  :root { --yellow: #F6E6A0; --yg: #DCEC84; --white: #fff; }
+  html, body { margin: 0; width: 1080px; height: 1920px; background: transparent; overflow: hidden; }
+  #stage { position: absolute; inset: 0; }
+  .abs { position: absolute; }
+  .cap { position: absolute; z-index: 2; left: 100px; width: 840px; text-align: center; font: 700 50px/1.16 Inter, sans-serif;
+         color: var(--white); text-shadow: 0 2px 14px rgba(0,0,0,.6), 0 0 2px rgba(0,0,0,.4); opacity: 0; letter-spacing: -0.005em; }
+  .cap span { display: inline-block; }
+  .script { font-family: Script, cursive; font-weight: 400; color: var(--yellow); letter-spacing: 0;
+            text-shadow: 0 4px 24px rgba(0,0,0,.45); }
+  .build { font: 800 58px/1.14 Inter, sans-serif; }
+  .stackline { position: absolute; left: 0; width: 100%; text-align: center; }
+  .namecard { left: 96px; top: 1318px; padding: 20px 30px 22px; border: 2px solid rgba(255,255,255,.8); border-radius: 22px;
+              background: rgba(8,8,8,.32); color: #fff; opacity: 0; }
+  .namecard .n { font: 800 54px/1 Inter, sans-serif; letter-spacing: -0.01em; }
+  .namecard .t { font: 500 28px/1.2 Inter, sans-serif; margin-top: 10px; opacity: .88; letter-spacing: .01em; }
+  .bigclip { position: absolute; left: 72px; width: 872px; top: 900px; height: 500px; overflow: hidden; }
+  .bigword { position: absolute; left: 0; width: 872px; top: 1040px; text-align: center; font-family: Anton, sans-serif;
+             color: #fff; text-transform: uppercase; line-height: 1; opacity: 0; white-space: nowrap;
+             text-shadow: 0 8px 40px rgba(0,0,0,.6); letter-spacing: .01em; }
+  .callout { position: absolute; color: #fff; opacity: 0; }
+  .callout .s, .callout .big { display: inline-block; background: rgba(12,12,12,.62); border-radius: 18px; padding: 10px 22px 12px; }
+  .callout .big { margin-top: 8px; padding: 6px 24px 16px; }
+  .callout .s { font: 600 46px/1.15 Inter, sans-serif; }
+  .callout .big { font: 700 108px/1.02 Serif, serif; color: #fff; letter-spacing: -0.01em; }
+  svg.lead { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+  .card { position: absolute; left: 380px; width: 550px; height: 102px; border-radius: 22px; background: var(--yellow);
+          color: #0b0b0b; display: flex; align-items: center; gap: 16px; padding: 0 22px 0 18px; box-sizing: border-box;
+          box-shadow: 0 10px 30px rgba(0,0,0,.35); opacity: 0; font: 700 37px/1.08 Inter, sans-serif; letter-spacing: -0.01em; }
+  .card .ic { flex: 0 0 58px; height: 58px; border-radius: 50%; border: 3px solid #0b0b0b; box-sizing: border-box;
+              display: flex; align-items: center; justify-content: center; }
+  .paper { position: absolute; z-index: 0; width: 440px; height: 560px; background: #f4f1ea; border-radius: 6px; opacity: 0;
+           background-image: repeating-linear-gradient(180deg, transparent 0 46px, rgba(70,90,130,.28) 46px 48px);
+           box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+  .polaroid { position: absolute; left: 270px; top: 790px; width: 500px; height: 590px; background: #f7f5f0; border-radius: 6px;
+              box-shadow: 0 30px 70px rgba(0,0,0,.55); opacity: 0; }
+  .polaroid img { position: absolute; left: 26px; top: 26px; width: 448px; height: 478px; object-fit: cover; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script src="gsap.min.js"></script>
+<script src="timeline.js"></script>
+<script>
+Promise.all(['50px Inter','800 50px Inter','700 50px Inter','600 50px Inter','500 50px Inter','50px Script','50px Anton','700 50px Serif'].map(f => document.fonts.load(f))).then(() => {
+  const TL = window.TL;            // {duration, words:[{w,t,e}], segments:[...]}
+  const stage = document.getElementById('stage');
+  const tl = gsap.timeline({ paused: true });
+  const SFX = [];                  // audio cues exported to the mixer
+  const seg = id => TL.segments.find(s => s.id === id);
+  let cur = 0;
+  const norm = s => s.replace(/[^\w']/g, '').toLowerCase();
+  // take the next words of the transcript, verifying the expected text (on-screen spelling = transcript)
+  function take(text) {
+    const want = text.split(/\s+/); const out = [];
+    for (const w of want) {
+      const got = TL.words[cur++];
+      if (!got || norm(got.w) !== norm(w)) throw new Error(`transcript mismatch: want "${w}" got "${got && got.w}" @${cur - 1}`);
+      out.push({ ...got, w });
+    }
+    return out;
+  }
+  function el(tag, cls, parent = stage, html = '') { const e = document.createElement(tag); if (cls) e.className = cls; e.innerHTML = html; parent.appendChild(e); return e; }
+  function wordSpans(parent, words, cls = '') {
+    return words.map((w, i) => { const s = el('span', cls, parent, w.w); if (i < words.length - 1) parent.appendChild(document.createTextNode(' ')); return s; });
+  }
+  const show = (e, t) => tl.set(e, { opacity: 1 }, t);
+  const hide = (e, t) => tl.set(e, { opacity: 0 }, t);
+  const smallIn = (s, t) => tl.fromTo(s, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.16, ease: 'power2.out' }, t);
+  const scriptIn = (s, t) => { tl.fromTo(s, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.32, ease: 'power2.out' }, t); SFX.push({ t, k: 'pop' }); };
+  const qc = (e, group) => { e.classList.add('qc'); e.dataset.group = group; return e; };
+
+  // ---- small 1–2 word captions, each chunk replaced by the next; every word fades up on its own word
+  function chunks(list, end, top = 1165) {
+    const cs = list.map(txt => take(txt));
+    cs.forEach((words, i) => {
+      const box = qc(el('div', 'cap'), 'caption'); box.style.top = top + 'px';
+      const spans = wordSpans(box, words);
+      const t0 = words[0].t, t1 = i < cs.length - 1 ? cs[i + 1][0].t : end;
+      show(box, t0); spans.forEach((s, j) => smallIn(s, words[j].t)); hide(box, t1);
+    });
+  }
+
+  // ---- 3-tier title stack: small / big script / small (script overlaps the small lines)
+  function stack(top, a, b, c, end, scriptSize = 230) {
+    const box = qc(el('div', 'cap'), 'caption'); box.style.top = top + 'px'; box.style.height = (scriptSize * 1.02 + 62) + 'px';
+    const l1 = el('div', 'stackline', box); l1.style.top = '0px';
+    const l2 = el('div', 'stackline script', box); l2.style.top = (scriptSize * 0.2) + 'px'; l2.style.fontSize = scriptSize + 'px'; l2.style.lineHeight = '1';
+    const l3 = el('div', 'stackline', box); l3.style.top = (scriptSize * 1.02) + 'px';
+    const s1 = wordSpans(l1, a), s2 = wordSpans(l2, b), s3 = wordSpans(l3, c);
+    l2.style.transformOrigin = '50% 60%';
+    show(box, a[0].t);
+    s1.forEach((s, j) => smallIn(s, a[j].t));
+    s2.forEach((s, j) => scriptIn(s, b[j].t));
+    s3.forEach((s, j) => smallIn(s, c[j].t));
+    hide(box, end);
+    return box;
+  }
+
+  // =============== 1. HOOK
+  stack(1150, take('How I learned to'), take('sell'), take('anything.'), seg('A').out_out);
+
+  // =============== 2. B-ROLL build, spoken word in yellow-green
+  function build(words, end, top) {
+    const box = qc(el('div', 'cap build'), 'caption'); box.style.top = top + 'px';
+    const spans = wordSpans(box, words);
+    show(box, words[0].t);
+    spans.forEach((s, j) => {
+      tl.fromTo(s, { opacity: 0, y: 10, color: '#DCEC84' }, { opacity: 1, y: 0, duration: 0.12, ease: 'power2.out' }, words[j].t);
+      const next = j < words.length - 1 ? words[j + 1].t : end;
+      tl.to(s, { color: '#ffffff', duration: 0.08 }, next);
+    });
+    hide(box, end);
+  }
+  const b1 = take('Most sales representatives panic when they hear,');
+  const b2 = take('Not interested.');
+  build(b1, seg('C').out_in, 1270);
+  build(b2, seg('C').out_out, 1300);
+
+  // =============== 3. "But the great salespeople?"
+  chunks(['But the', 'great salespeople?'], seg('D').out_out);
+
+  // =============== 4. "They know, it's just the beginning."
+  chunks(['They know,'], seg('E').out_out, 1180);
+  {
+    const a = take("it's just the"), b = take('beginning.');
+    const box1 = qc(el('div', 'cap'), 'caption'); box1.style.top = '1215px';
+    const sp = wordSpans(box1, a); show(box1, a[0].t); sp.forEach((s, j) => smallIn(s, a[j].t)); hide(box1, b[0].t);
+    const box2 = qc(el('div', 'cap script'), 'caption'); box2.style.top = '1185px'; box2.style.fontSize = '190px'; box2.style.lineHeight = '1.1';
+    const s2 = wordSpans(box2, b); show(box2, b[0].t); scriptIn(s2[0], b[0].t); hide(box2, seg('F').out_out);
+  }
+
+  // =============== 5. NAME CARD (the card is the caption for "Hi, I'm Siham.")
+  {
+    const hi = take("Hi, I'm Siham.");
+    const card = qc(el('div', 'abs namecard'), 'namecard');
+    el('div', 'n', card, 'Siham');
+    el('div', 't', card, 'Sales Manager · Fintech · SaaS · Real Estate');
+    const t0 = hi[0].t, t1 = 12.55;
+    tl.fromTo(card, { opacity: 0, x: -24, filter: 'blur(12px)' }, { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.34, ease: 'expo.out' }, t0);
+    tl.to(card, { opacity: 0, x: -20, filter: 'blur(8px)', duration: 0.08, ease: 'power2.in' }, t1);
+    SFX.push({ t: t0, k: 'pop' });
+  }
+  chunks(["I've worked", 'as a', 'sales manager', 'in'], 12.63, 1170);
+
+  // =============== 6. COLLAGE — one huge condensed word per industry
+  {
+    const groups = [take('fintech,'), take('POS machines,'), take('SaaS,'), take('cosmetics,'), (take('and'), take('real estate.'))];
+    const labels = ['FINTECH', 'POS MACHINES', 'SAAS', 'COSMETICS', 'REAL ESTATE'];
+    const end = seg('I').out_out;
+    const clip = el('div', 'bigclip');
+    groups.forEach((g, i) => {
+      const w = el('div', 'bigword', clip); const inner = qc(el('span', '', w, labels[i]), 'caption');
+      // fit to the safe width
+      let fs = 300; w.style.fontSize = fs + 'px';
+      while (inner.getBoundingClientRect().width > 850 && fs > 80) { fs -= 4; w.style.fontSize = fs + 'px'; }
+      w.style.top = (250 - fs * 0.5) + 'px';
+      const t0 = g[0].t, t1 = i < groups.length - 1 ? groups[i + 1][0].t : end;
+      tl.fromTo(w, { opacity: 0, x: 520, filter: 'blur(14px)' }, { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.16, ease: 'power3.out' }, t0);
+      if (i < groups.length - 1) tl.to(w, { x: -520, filter: 'blur(14px)', duration: 0.08, ease: 'power2.in' }, t1 - 0.08);
+      hide(w, t1);
+      SFX.push({ t: t0, k: 'swish' });
+    });
+  }
+
+  // =============== 7. "And here's what I've learned:"
+  chunks(["And here's", "what I've", 'learned:'], seg('J').out_out, 1205);
+
+  // =============== 8. CALLOUTS on the notebook close shot
+  {
+    const a = take('If you master the'), f = take('fundamental,'), b = take('you can sell any industry.');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('class', 'lead'); stage.appendChild(svg);
+    function leader(x1, y1, x2, y2, t, end) {
+      const g = document.createElementNS(svg.namespaceURI, 'g'); svg.appendChild(g); g.style.opacity = 0;
+      const p = document.createElementNS(svg.namespaceURI, 'path');
+      const mx = x1, my = y2 - (y2 - y1) * 0.0;
+      p.setAttribute('d', `M${x1},${y1} L${x1},${(y1 + y2) / 2} L${x2},${y2}`);
+      p.setAttribute('fill', 'none'); p.setAttribute('stroke', '#fff'); p.setAttribute('stroke-width', '3'); p.setAttribute('stroke-linecap', 'round');
+      p.style.filter = 'drop-shadow(0 0 6px rgba(0,0,0,.6))';
+      const len = Math.hypot(0, (y2 - y1) / 2) + Math.hypot(x2 - x1, (y2 - y1) / 2);
+      p.setAttribute('stroke-dasharray', len); p.setAttribute('stroke-dashoffset', len);
+      const c = document.createElementNS(svg.namespaceURI, 'circle'); c.setAttribute('cx', x2); c.setAttribute('cy', y2); c.setAttribute('r', 11);
+      c.setAttribute('fill', '#F6E6A0'); c.setAttribute('stroke', '#0b0b0b'); c.setAttribute('stroke-width', '3');
+      g.appendChild(p); g.appendChild(c);
+      show(g, t);
+      tl.to(p, { attr: { 'stroke-dashoffset': 0 }, duration: 0.3, ease: 'power2.out' }, t);
+      tl.fromTo(c, { attr: { r: 0 } }, { attr: { r: 11 }, duration: 0.18, ease: 'back.out(3)' }, t + 0.26);
+      hide(g, end);
+    }
+    const c1 = qc(el('div', 'callout'), 'caption'); c1.style.left = '80px'; c1.style.top = '300px';
+    const l1 = el('div', 's', c1); el('br', '', c1); const l2 = el('div', 'big', c1); l2.style.opacity = 0;
+    const s1 = wordSpans(l1, a), s2 = wordSpans(l2, f);
+    show(c1, a[0].t);
+    tl.fromTo(c1, { scale: 0.92, transformOrigin: '0% 100%' }, { scale: 1, duration: 0.25, ease: 'back.out(2)' }, a[0].t);
+    s1.forEach((s, j) => smallIn(s, a[j].t));
+    tl.fromTo(l2, { opacity: 0, scale: 0.8, transformOrigin: '0% 70%' }, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' }, f[0].t);
+    SFX.push({ t: a[0].t, k: 'pop' }); SFX.push({ t: f[0].t, k: 'pop' });
+    leader(170, 582, 470, 830, a[0].t + 0.05, b[0].t);
+    hide(c1, b[0].t);
+
+    const c2 = qc(el('div', 'callout'), 'caption'); c2.style.right = '140px'; c2.style.top = '1230px'; c2.style.textAlign = 'right';
+    const m1 = el('div', 's', c2); m1.style.fontSize = '50px'; m1.style.fontWeight = '700';
+    el('br', '', c2);
+    const m2 = el('div', 's', c2); m2.style.fontSize = '50px'; m2.style.fontWeight = '700'; m2.style.marginTop = '8px'; m2.style.opacity = 0;
+    const sp = [...wordSpans(m1, b.slice(0, 3)), ...wordSpans(m2, b.slice(3))];
+    show(c2, b[0].t);
+    tl.fromTo(c2, { scale: 0.92, transformOrigin: '100% 0%' }, { scale: 1, duration: 0.25, ease: 'back.out(2)' }, b[0].t);
+    tl.fromTo(m2, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.16 }, b[3].t);
+    sp.forEach((s, j) => smallIn(s, b[j].t));
+    leader(830, 1228, 870, 900, b[0].t + 0.05, seg('K').out_out);
+    hide(c2, seg('K').out_out);
+    SFX.push({ t: b[0].t, k: 'pop' });
+  }
+
+  // =============== 9. "Here's / three / rules that never fail:"
+  stack(1155, take("Here's"), take('three'), take('rules that never fail:'), seg('L').out_out, 220);
+
+  // =============== 10. LIST — rule cards are the captions
+  {
+    const icons = [
+      '<svg width="30" height="30" viewBox="0 0 30 30"><text x="15" y="24" text-anchor="middle" font-family="Inter" font-weight="800" font-size="26" fill="#0b0b0b">?</text></svg>',
+      '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#0b0b0b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,22 12,14 17,18 26,8"/><polyline points="19,8 26,8 26,15"/></svg>',
+      '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="#0b0b0b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="15" x2="25" y2="15"/><polyline points="17,7 25,15 17,23"/></svg>',
+    ];
+    const rules = [take('Ask before you pitch.'), take('Turn features into income.'), take("Rejection isn't the end.")];
+    const end = seg('O').out_out;
+    rules.forEach((r, i) => {
+      const c = qc(el('div', 'card'), 'card'); c.style.top = (1142 + i * 116) + 'px';
+      el('div', 'ic', c, icons[i]); el('div', '', c, r.map(w => w.w).join(' '));
+      const t0 = r[0].t;
+      if (i < 2) tl.fromTo(c, { opacity: 0, scale: 0.6, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.4)' }, t0);
+      else {
+        tl.fromTo(c, { opacity: 0, scale: 0.4, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1.05, duration: 0.22, ease: 'power3.out' }, t0);
+        tl.to(c, { scale: 1, duration: 0.25, ease: 'back.out(2)' }, t0 + 0.22);
+      }
+      hide(c, end);
+      SFX.push({ t: t0, k: i === 2 ? 'popbig' : 'pop' });
+    });
+  }
+
+  // =============== 11. CLOSE — papers, polaroid, last line
+  chunks(['Follow the', 'series,', 'take notes,'], seg('Q').out_out);
+  {
+    const notes = TL.words[cur - 2];           // "take"
+    const tp = notes.t;
+    for (let i = 0; i < 6; i++) {
+      const p = el('div', 'paper');
+      const x0 = -820 + i * 50, y0 = 470 - i * 25, x1 = 1250 + i * 30, y1 = -780 + i * 50;
+      tl.fromTo(p, { x: x0, y: y0, rotation: -20 + i * 9, scale: 1.2, opacity: 1, filter: 'blur(9px)' },
+                   { x: x1, y: y1, rotation: 10 + i * 9, duration: 0.42, ease: 'none', immediateRender: false }, tp + i * 0.055);
+      tl.set(p, { opacity: 0 }, tp + i * 0.055 + 0.42);
+    }
+    SFX.push({ t: tp, k: 'paper' });
+    const pol = qc(el('div', 'polaroid'), 'card');
+    const img = el('img', '', pol); img.src = 'polaroid.jpg';
+    const tl0 = seg('R').out_in;
+    tl.fromTo(pol, { opacity: 0, y: 1200, rotation: 18, scale: 1.2 }, { opacity: 1, y: 0, rotation: -4, scale: 1, duration: 0.38, ease: 'power3.out', immediateRender: false }, tl0);
+    SFX.push({ t: tl0, k: 'pop' });
+
+    const a = take("let's level your"), b = take('sales together.');
+    const box = qc(el('div', 'cap'), 'caption'); box.style.top = '470px'; box.style.height = '236px';
+    const l1 = el('div', 'stackline', box); l1.style.top = '0px';
+    const l2 = el('div', 'stackline script', box); l2.style.top = '30px'; l2.style.fontSize = '150px'; l2.style.lineHeight = '1.2';
+    const s1 = wordSpans(l1, a), s2 = wordSpans(l2, b);
+    show(box, a[0].t);
+    s1.forEach((s, j) => smallIn(s, a[j].t));
+    s2.forEach((s, j) => scriptIn(s, b[j].t));
+  }
+  if (cur !== TL.words.length) throw new Error(`unused transcript words from ${cur}: ${TL.words.slice(cur).map(w => w.w).join(' ')}`);
+
+  tl.set({}, {}, TL.duration);
+  window.__tl = tl;
+  window.__sfx = SFX;
+  window.__seek = t => { tl.seek(t, false); };
+  window.__qc = () => [...document.querySelectorAll('.qc')].filter(e => {
+    for (let n = e; n && n !== document.body; n = n.parentElement) if (parseFloat(getComputedStyle(n).opacity) < 0.02) return false;
+    return true;
+  }).map(e => { const r = e.getBoundingClientRect(); let x0 = r.left, y0 = r.top, x1 = r.right, y1 = r.bottom;
+    for (let n = e.parentElement; n && n !== document.body; n = n.parentElement) if (getComputedStyle(n).overflow === 'hidden') {
+      const c = n.getBoundingClientRect(); x0 = Math.max(x0, c.left); y0 = Math.max(y0, c.top); x1 = Math.min(x1, c.right); y1 = Math.min(y1, c.bottom); }
+    return { g: e.dataset.group, x0, y0, x1: Math.max(x1, x0), y1: Math.max(y1, y0), txt: e.textContent.trim().slice(0, 40) }; });
+  window.__ready = true;
+});
+</script>
+</body>
+</html>
