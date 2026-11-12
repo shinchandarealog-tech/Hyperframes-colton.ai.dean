@@ -391,7 +391,7 @@ def build(n):
         tile = lambda id, cx, cy, rot: (f'<div id="{id}" class="abs tile" style="left:{cx-62.5}px;top:{cy-62.5}px;width:125px;height:125px;transform:rotate({rot}deg)">'
                                         '<svg width="125" height="125" style="position:absolute;left:0;top:0"><rect x="55" y="28" width="15" height="50" rx="7.5" fill="#DD3C37"/><rect x="55" y="86" width="15" height="13" rx="6.5" fill="#DD3C37"/></svg></div>')
         bi = b["ink"]
-        t.gfx(tile("tL", bi[0] + 32, 1025, -12) + span("w1", a["w1"], I, 600, "#FBF5EE", "It’s") + rect("dot", 546, 1028, 562, 1043, "#E8DCC8", 8)
+        t.gfx(tile("tL", bi[0] + 32, 1025, -12) + span("w1", a["w1"], I, 600, "#FBF5EE", "It’s") + rect("dot", (a["w1"]["ink"][2]+a["w2"]["ink"][0])/2-8, 1028, (a["w1"]["ink"][2]+a["w2"]["ink"][0])/2+8, 1043, "#E8DCC8", 8)
               + span("w2", a["w2"], I, 600, "#F9F7F9", "really") + span("b", b, I, 500, "#E1D1BB", "frustrating") + tile("tR", bi[2] - 30, 1068, 12))
         v0, v1, v2 = 0, t.v(44), t.v(45)
         t.JS.append(f'TILE("#tL",{v0},-12); TILE("#tR",{v2},12); ON("#dot",{v2});')

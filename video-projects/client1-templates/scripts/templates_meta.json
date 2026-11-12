@@ -38,5 +38,165 @@
   "frames": 71,
   "seconds": 2.37,
   "speaker": "A"
+ },
+ "5": {
+  "kind": "broll",
+  "src": [
+   15.48,
+   18.2
+  ],
+  "frames": 73,
+  "seconds": 2.43,
+  "speaker": "B"
+ },
+ "6": {
+  "kind": "broll",
+  "src": [
+   13.93,
+   16.37
+  ],
+  "frames": 73,
+  "seconds": 2.43,
+  "speaker": "B"
+ },
+ "7": {
+  "kind": "split",
+  "src": [
+   9.17,
+   11.74
+  ],
+  "frames": 77,
+  "seconds": 2.57,
+  "speaker": "A"
+ },
+ "8": {
+  "kind": "split",
+  "src": [
+   13.93,
+   16.37
+  ],
+  "frames": 73,
+  "seconds": 2.43,
+  "speaker": "B"
+ },
+ "9": {
+  "kind": "split",
+  "src": [
+   8.01,
+   10.37
+  ],
+  "frames": 71,
+  "seconds": 2.37,
+  "speaker": "A"
+ },
+ "10": {
+  "kind": "face",
+  "src": [
+   11.8,
+   13.95
+  ],
+  "frames": 64,
+  "seconds": 2.13,
+  "speaker": "B"
+ },
+ "11": {
+  "kind": "face",
+  "src": [
+   1.2,
+   3.8
+  ],
+  "frames": 78,
+  "seconds": 2.6,
+  "speaker": "A"
+ },
+ "12": {
+  "kind": "face",
+  "src": [
+   8.01,
+   10.37
+  ],
+  "frames": 71,
+  "seconds": 2.37,
+  "speaker": "A"
+ },
+ "13": {
+  "kind": "face",
+  "src": [
+   17.02,
+   19.08
+  ],
+  "frames": 62,
+  "seconds": 2.07,
+  "speaker": "B"
+ },
+ "14": {
+  "kind": "broll",
+  "src": [
+   13.93,
+   18.2
+  ],
+  "frames": 119,
+  "seconds": 3.97,
+  "speaker": "B"
+ },
+ "15": {
+  "kind": "broll",
+  "src": [
+   0.22,
+   3.8
+  ],
+  "frames": 107,
+  "seconds": 3.57,
+  "speaker": "A"
+ },
+ "16": {
+  "kind": "face",
+  "src": [
+   5.43,
+   8.06
+  ],
+  "frames": 71,
+  "seconds": 2.37,
+  "speaker": "A"
+ },
+ "17": {
+  "kind": "face",
+  "src": [
+   8.62,
+   10.96
+  ],
+  "frames": 70,
+  "seconds": 2.33,
+  "speaker": "A"
+ },
+ "18": {
+  "kind": "face",
+  "src": [
+   9.78,
+   11.74
+  ],
+  "frames": 59,
+  "seconds": 1.97,
+  "speaker": "A"
+ },
+ "19": {
+  "kind": "face",
+  "src": [
+   1.1,
+   3.8
+  ],
+  "frames": 81,
+  "seconds": 2.7,
+  "speaker": "A"
+ },
+ "20": {
+  "kind": "face",
+  "src": [
+   11.8,
+   13.95
+  ],
+  "frames": 64,
+  "seconds": 2.13,
+  "speaker": "B"
  }
 }
