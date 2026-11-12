@@ -1,0 +1,8 @@
+renders/
+scripts/__pycache__/
+assets/broll/
+assets/client_raw.mp4
+assets/t[0-9][0-9]_*
+index.html
+scripts/_lay_*.json
+scripts/holdmap.json

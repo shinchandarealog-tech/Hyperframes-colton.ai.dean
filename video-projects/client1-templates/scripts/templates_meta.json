@@ -1,0 +1,42 @@
+{
+ "2": {
+  "kind": "hook",
+  "src": [
+   11.8,
+   14.67
+  ],
+  "frames": 86,
+  "seconds": 2.87,
+  "speaker": "B"
+ },
+ "3": {
+  "kind": "broll",
+  "src": [
+   3.86,
+   5.92
+  ],
+  "frames": 62,
+  "seconds": 2.07,
+  "speaker": "A"
+ },
+ "1": {
+  "kind": "hook",
+  "src": [
+   0.0,
+   3.8
+  ],
+  "frames": 114,
+  "seconds": 3.8,
+  "speaker": "A"
+ },
+ "4": {
+  "kind": "broll",
+  "src": [
+   5.43,
+   8.06
+  ],
+  "frames": 71,
+  "seconds": 2.37,
+  "speaker": "A"
+ }
+}
