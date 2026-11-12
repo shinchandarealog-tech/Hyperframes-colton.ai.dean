@@ -1,3 +1,5 @@
 ref/
 assets/raw.mp4
 renders/
+assets/broll/
+scripts/__pycache__/
