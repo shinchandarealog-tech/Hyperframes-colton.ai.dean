@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="assets/gsap.min.js"></script>
+<style>
+  @font-face { font-family: 'Inter'; src: url('assets/fonts/Inter-var-latin.woff2') format('woff2'); font-weight: 100 900; }
+  @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-latin.woff2') format('woff2'); }
+  html, body { margin: 0; background: #000; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  #root * { box-sizing: border-box; }
+  .abs { position: absolute; }
+  .txt { position: absolute; line-height: 1; white-space: pre; font-optical-sizing: auto; font-kerning: normal; margin: 0; }
+  .inter { font-family: 'Inter'; }
+  .bebas { font-family: 'Bebas Neue'; }
+  #plate { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: fill; }
+
+  /* Speaker bottom gradient (S01 measured alpha vs y) — above footage, below graphics */
+  .grad-speaker { position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 920px, rgba(0,0,0,.043) 1080px, rgba(0,0,0,.118) 1200px, rgba(0,0,0,.20) 1280px,
+      rgba(0,0,0,.31) 1360px, rgba(0,0,0,.44) 1440px, rgba(0,0,0,.50) 1480px, rgba(0,0,0,.57) 1520px, rgba(0,0,0,.71) 1600px,
+      rgba(0,0,0,.82) 1680px, rgba(0,0,0,.90) 1760px, rgba(0,0,0,.96) 1840px, rgba(0,0,0,.98) 1920px); }
+
+  /* Name tag 319x88 @ (117,1201), r10, black 68% */
+  .tag { position: absolute; left: 115.62px; top: 1200.03px; width: 319px; height: 88px; border-radius: 10px; background: rgba(0,0,0,.68); }
+  .tag .badge { position: absolute; left: 265px; top: 17px; width: 34px; height: 32px; }
+
+  .pill { position: absolute; border-radius: 999px; }
+  .bar { position: absolute; transform-origin: 0% 50%; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="sedate-us" data-start="0" data-duration="2.3333" data-width="1080" data-height="1920">
+
+  <!-- ===== S01 (frames 0–69) ===== -->
+  <video id="plate" data-start="0" data-duration="2.3333" data-track-index="0" src="assets/plate_s01.mp4" muted playsinline></video>
+  <audio id="voice" data-start="0" data-duration="2.3333" data-track-index="10" src="assets/raw.mp4" data-volume="0.88"></audio>
+  <audio id="bed" data-start="0" data-duration="2.3333" data-track-index="11" src="assets/bed.mp3" data-volume="0.124"></audio>
+  <audio id="sfx-glitch" data-start="0.03" data-duration="0.32" data-track-index="12" src="assets/sfx-glitch.wav" data-volume="0.1"></audio>
+
+  <div id="s01" class="clip abs" data-start="0" data-duration="2.3333" data-track-index="1" style="inset:0">
+    <div class="grad-speaker"></div>
+
+    <!-- name tag: text positions = calibrated frame px minus box origin (117,1201) -->
+    <div id="s01-tag" class="tag">
+      <span class="txt inter" style="left:17px;top:17.7px;font-size:31.68px;font-weight:600;letter-spacing:-0.0103em;color:#F7F3EF">Rachelle Robinett</span>
+      <svg class="badge" viewBox="-1 -1 36 34" preserveAspectRatio="none"><path fill="#10B3E2" d="M33.60,16.00 L33.39,17.07 L32.80,18.08 L31.98,18.98 L31.11,19.78 L30.37,20.54 L29.88,21.34 L29.67,22.25 L29.65,23.30 L29.70,24.48 L29.64,25.70 L29.35,26.83 L28.74,27.74 L27.83,28.35 L26.70,28.64 L25.48,28.70 L24.30,28.65 L23.25,28.67 L22.34,28.88 L21.54,29.37 L20.78,30.11 L19.98,30.98 L19.08,31.80 L18.07,32.39 L17.00,32.60 L15.93,32.39 L14.92,31.80 L14.02,30.98 L13.22,30.11 L12.46,29.37 L11.66,28.88 L10.75,28.67 L9.70,28.65 L8.52,28.70 L7.30,28.64 L6.17,28.35 L5.26,27.74 L4.65,26.83 L4.36,25.70 L4.30,24.48 L4.35,23.30 L4.33,22.25 L4.12,21.34 L3.63,20.54 L2.89,19.78 L2.02,18.98 L1.20,18.08 L0.61,17.07 L0.40,16.00 L0.61,14.93 L1.20,13.92 L2.02,13.02 L2.89,12.22 L3.63,11.46 L4.12,10.66 L4.33,9.75 L4.35,8.70 L4.30,7.52 L4.36,6.30 L4.65,5.17 L5.26,4.26 L6.17,3.65 L7.30,3.36 L8.52,3.30 L9.70,3.35 L10.75,3.33 L11.66,3.12 L12.46,2.63 L13.22,1.89 L14.02,1.02 L14.92,0.20 L15.93,-0.39 L17.00,-0.60 L18.07,-0.39 L19.08,0.20 L19.98,1.02 L20.78,1.89 L21.54,2.63 L22.34,3.12 L23.25,3.33 L24.30,3.35 L25.48,3.30 L26.70,3.36 L27.83,3.65 L28.74,4.26 L29.35,5.17 L29.64,6.30 L29.70,7.52 L29.65,8.70 L29.67,9.75 L29.88,10.66 L30.37,11.46 L31.11,12.22 L31.98,13.02 L32.80,13.92 L33.39,14.93Z"/><path d="M10.5 16.4 L15 20.6 L23.5 11.8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="txt inter" style="left:18px;top:48.5px;font-size:25px;font-weight:400;letter-spacing:-0.025em;color:#F3EAE5">Herbalist</span>
+    </div>
+
+    <!-- Page 1 (frames 2–35): "I think / right now / [wellness]" -->
+    <div id="s01-p1" class="abs" style="inset:0">
+      <span id="w-I" class="txt inter" style="left:508.13px;top:944.58px;font-size:83.57px;font-weight:400;letter-spacing:-0.06em;color:#FAF9F4">I</span>
+      <span id="w-think" class="txt inter" style="left:549.01px;top:943.64px;font-size:84px;font-weight:400;letter-spacing:-0.0689em;color:#F9F8F8">think</span>
+      <span id="w-right" class="txt inter" style="left:255.34px;top:971.47px;font-size:149.87px;font-weight:500;letter-spacing:-0.05em;color:#ECA572">right</span>
+      <span id="w-now" class="txt inter" style="left:532.24px;top:968.07px;font-size:153.85px;font-weight:500;letter-spacing:-0.0792em;color:#E8A472">now</span>
+      <div id="pill-wellness" class="pill" style="left:405.04px;top:1091.69px;width:271px;height:65.2px;background:#A24A26">
+        <span class="txt inter" style="left:41.5px;top:3.1px;font-size:55px;font-weight:600;letter-spacing:-0.069em;color:#FFF8ED">wellness</span>
+      </div>
+    </div>
+
+    <!-- Page 2 (frames 36–69): "is in a really / INTERESTING" on rust bar -->
+    <div id="s01-p2" class="abs" style="inset:0">
+      <span id="w-is" class="txt inter" style="left:357.23px;top:945.64px;font-size:80.04px;font-weight:600;letter-spacing:-0.05em;color:#FAF7F1">is</span>
+      <span id="w-in" class="txt inter" style="left:421.94px;top:944.03px;font-size:81.4px;font-weight:600;letter-spacing:-0.0742em;color:#FCF8F3">in</span>
+      <span id="w-a" class="txt inter" style="left:489.60px;top:945.82px;font-size:80.04px;font-weight:600;letter-spacing:-0.05em;color:#FBF6EF">a</span>
+      <span id="w-really" class="txt inter" style="left:542.27px;top:948.63px;font-size:78.92px;font-weight:600;letter-spacing:-0.0505em;color:#F6F4F5">really</span>
+      <div id="bar-interesting" class="bar" style="left:231.97px;top:1028.91px;width:614px;height:140px;background:#A24B26"></div>
+      <span id="w-INTERESTING" class="txt bebas" style="left:251.97px;top:1024.74px;font-size:168.47px;letter-spacing:-0.0453em;color:#F9F5EF">INTERESTING</span>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const F = f => f / 30;                       // spec frames -> seconds
+    // measured opacity recovery of the word preset: 1 - 0.17*0.90^tau (tau = frames since visible)
+    const WORD_OP = p => (1 - Math.pow(0.9, p * 40)) / (1 - Math.pow(0.9, 40));
+    // word preset: x from D -> 0 circ.out over dur frames starting at t0; hidden until `vis`; opacity 0.83 -> 1
+    function word(sel, { D = 29, t0, dur = 33.7, vis, op0 = 0.83, opEase = WORD_OP, opDur = 40, opTo = 1 }) {
+      gsap.set(sel, { autoAlpha: 0, x: D });
+      // tweens that began before frame 0 (t0 < 0) start at 0 already part-way along the same circ.out curve
+      const start = Math.max(t0, 0), rem = t0 + dur - start;
+      const circ = u => Math.sqrt(1 - Math.pow(Math.min(Math.max(u, 0), 1) - 1, 2));
+      const ease = p => circ((start - t0 + p * rem) / dur);
+      tl.fromTo(sel, { x: D * (1 - ease(0)) }, { x: 0, duration: F(rem), ease, immediateRender: false }, F(start));
+      tl.set(sel, { autoAlpha: op0 }, F(vis));
+      tl.fromTo(sel, { opacity: op0 }, { opacity: opTo, duration: F(opDur), ease: opEase, immediateRender: false }, F(vis));
+    }
+
+    // bar width wipe driven by a measured frame->right-edge table (linear between frames, holds at both ends)
+    function barTable(sel, x0, w, table) {
+      const fs = Object.keys(table).map(Number).sort((a, b) => a - b), f0 = fs[0], f1 = fs[fs.length - 1];
+      const val = f => { if (f <= f0) return table[f0]; if (f >= f1) return table[f1];
+        const i = Math.floor(f), j = i + 1; return table[i] + (table[j] - table[i]) * (f - i); };
+      gsap.set(sel, { scaleX: (table[f0] - x0) / w });
+      tl.fromTo(sel, { scaleX: (table[f0] - x0) / w }, { scaleX: 1, duration: F(f1 - f0), immediateRender: false,
+        ease: p => ((val(f0 + p * (f1 - f0)) - x0) / w - (table[f0] - x0) / w) / (1 - (table[f0] - x0) / w) }, F(f0));
+    }
+
+    // Name tag: slide from the left, x = rest - 141.7*(1-circ.out(f/41.2)), no fade, from frame 0
+    tl.fromTo("#s01-tag", { x: -141.7 }, { x: 0, duration: F(41.2), ease: "circ.out" }, 0);
+
+    // ---- Page 1 (frames 2–35) ----
+    word("#w-I",     { D: 24.4, t0: -2.5, dur: 33.0, vis: 2 });
+    word("#w-think", { D: 28.4, t0: -0.2, dur: 33.7, vis: 4 });
+    word("#w-right", { D: 29,   t0: 1.4,  dur: 33.7, vis: 7 });      // pixels: first visible f7 (f6 has no "right")
+    word("#w-now",   { D: 40.4, t0: 3.85, dur: 32.7, vis: 12 });
+    // pill: rises from below +27.3 px, back.out(2.7), t0 22.6, 13.6 f; opacity 0.86 @22 -> 1 @26
+    gsap.set("#pill-wellness", { autoAlpha: 0, y: 27.3 });
+    tl.set("#pill-wellness", { autoAlpha: 0.86 }, F(22));
+    tl.fromTo("#pill-wellness", { y: 27.3 }, { y: 0, duration: F(13.6), ease: "back.out(2.7)", immediateRender: false }, F(22.6));
+    tl.to("#pill-wellness", { opacity: 1, duration: F(4), ease: "none" }, F(22));
+    tl.set("#s01-p1", { autoAlpha: 0 }, F(36));        // hard page swap 35/36
+
+    // ---- Page 2 (frames 36–69) ----
+    gsap.set("#s01-p2", { autoAlpha: 0 });
+    tl.set("#s01-p2", { autoAlpha: 1 }, F(36));
+    // is / in / a: own tweens started before the page; revealed at 36 already mid-slide (dx 2.0 / 8.4 / 24.7 @36)
+    word("#w-is", { D: 29,   t0: 14.6, dur: 33.7, vis: 19.2 });
+    word("#w-in", { D: 22.7, t0: 29.1, dur: 31,   vis: 33.7 });
+    word("#w-a",  { D: 38,   t0: 33.8, dur: 35.6, vis: 36 });
+    // "really": emphasis slide +60.6 circ.out 31.1 f from 40.4; opacity measured 0.31 @40 -> 0.81 @69 (circ.out)
+    word("#w-really", { D: 60.6, t0: 40.4, dur: 31.1, vis: 40, op0: 0.36, opTo: 1, opEase: "circ.out", opDur: 30.8 });
+    // bar: width wipe from the left, expo.inOut, t0 36.1, 41 f
+    // measured right edge per frame (ref pixels, rows 1162-1166); expo.inOut fits only to 5.6 px rms, so drive it from the table
+    barTable("#bar-interesting", 232, 614, {45:232,46:242,47:248,48:254,49:263,50:274,51:285,52:304,53:326,54:360,55:408,56:482,57:592,58:672,59:720,60:752,61:772,62:792,63:804,64:816,65:824,66:830,67:836,68:840,69:844,70:846});
+    // INTERESTING: slide circ.out from +60, started 41.6, held invisible until 54, full opacity
+    word("#w-INTERESTING", { D: 60, t0: 41.6, dur: 31, vis: 54, op0: 1, opTo: 1, opDur: 1 });
+
+    window.__timelines["sedate-us"] = tl;
+  </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[
+ {"id":"w-I","t":"I","fam":"Inter","wt":400,"ls":-0.06,"ink":[516,956,523,1017],"size0":84,"fitw":false},
+ {"id":"w-think","t":"think","fam":"Inter","wt":400,"ls":-0.06,"ink":[550,956,704,1017],"size0":84},
+ {"id":"w-right","t":"right","fam":"Inter","wt":500,"ls":-0.05,"ink":[265,990,526,1131],"size0":152},
+ {"id":"w-now","t":"now","fam":"Inter","wt":500,"ls":-0.05,"ink":[541,1019,794,1102],"size0":152},
+ {"id":"w-wellness","t":"wellness","fam":"Inter","wt":600,"ls":-0.03,"ink":[448,1098,635,1139],"size0":55},
+ {"id":"w-is","t":"is","fam":"Inter","wt":600,"ls":-0.05,"ink":[362,957,412,1017],"size0":80},
+ {"id":"w-in","t":"in","fam":"Inter","wt":600,"ls":-0.05,"ink":[426,957,478,1017],"size0":80,"fith":"bottom"},
+ {"id":"w-a","t":"a","fam":"Inter","wt":600,"ls":-0.05,"ink":[492,973,530,1017],"size0":80,"fitw":false,"sizeFrom":"w-is"},
+ {"id":"w-really","t":"really","fam":"Inter","wt":600,"ls":-0.053,"ink":[547,958,716,1031],"size0":80},
+ {"id":"w-INTERESTING","t":"INTERESTING","fam":"Bebas Neue","wt":400,"ls":-0.053,"ink":[259,1038,821,1160],"size0":172},
+ {"id":"tag-name","t":"Rachelle Robinett","fam":"Inter","wt":600,"ls":-0.03,"ink":[136,1223,378,1247],"size0":33,"capfit":true},
+ {"id":"tag-sub","t":"Herbalist","fam":"Inter","wt":400,"ls":-0.03,"ink":[137,1253,230,1271],"size0":25,"capfit":true}
+]
