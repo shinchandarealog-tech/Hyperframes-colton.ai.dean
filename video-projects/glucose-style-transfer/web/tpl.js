@@ -164,7 +164,7 @@ T('B-roll engraved word, card shrink, carousel', 77, 82, 'broll', c => {
     return d;
   });
   const lab0 = H('div', `position:absolute;left:540px;top:${cy - ch / 2 - 118}px;transform:translateX(-50%);white-space:nowrap;z-index:3;${fontCss({ serif: 1, ital: 1, size: 84, color: COL.rust })}`, C.par, 'GOD');
-  const steps = [shrinkAt + 12, shrinkAt + 24, shrinkAt + 36];   // one card per 12 f (reference: ~14 f), power3.inOut 8 f
+  const steps = [shrinkAt + 12, shrinkAt + 24, shrinkAt + 36].filter(t => t + 8 < c.N);   // only slides that finish before the cut   // one card per 12 f (reference: ~14 f), power3.inOut 8 f
   U(f => {
     const p = P(f, shrinkAt, 4, EZ.p3io); const sc = LERP(1, cw / 1080, p);
     pageEl.style.transform = `scale(${sc})`; pageEl.style.borderRadius = p > 0 ? `${6 / sc}px` : '0';
@@ -289,7 +289,7 @@ T('NEW - end card: IG profile + follow pill', 102, 108, 'speaker', c => {
     const sub = { el: w, V: 1e9 }; Words(sub, ['a', 'great', 'support', 'system'], [c.v(105), c.v(106), c.v(107), c.v(108)], { serif: 1, size: 70, color: COL.rust, ls: -0.03 });
     l.V = sub.V; Underline(w, { V: c.v(108), color: COL.rust, th: 3, bot: -10 });
     const pill = Line(s, { mt: 22 });
-    const a = Accent(pill, 'Follow for more', c.v(108) + 6, { size: 54, wt: 400, color: '#fbe9d6', mode: 'none', grow: false, wrapCss: 'padding:6px 30px 14px;' });
+    const a = Accent(pill, 'Follow for more', c.v(107), { size: 54, wt: 400, color: '#fbe9d6', mode: 'none', grow: false, wrapCss: 'padding:6px 30px 14px;' });
     BoxBehind(a, { color: COL.rust, r: 14, px: 0, py: 0, top: 0, bottom: 0, mode: 'growC', dur: 8 });
   });
 }, { pre: 0.3, post: 0.9 });

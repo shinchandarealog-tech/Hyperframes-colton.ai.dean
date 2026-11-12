@@ -34,7 +34,7 @@ function H(tag, css, parent, html) {
 const U = fn => C.ups.push(fn);
 const EV = (f, t) => C.ev.push([Math.round(f), t]);
 const pad4 = n => String(n).padStart(4, '0');
-function e2o(k) { for (const [e0, o0, n] of EDL) if (k >= e0 && k < e0 + n) return o0 + k - e0; const l = EDL[EDL.length - 1]; return l[1] + l[2] - 1; }
+function e2o(k) { for (const [e0, o0, n] of EDL) if (k >= e0 && k < e0 + n) return o0 + k - e0; const l = EDL[EDL.length - 1]; return Math.min(window.RAW_F - 1, l[1] + (k - l[0])); }   // past the end: the raw tail runs on
 function setSrc(img, src) { if (img.dataset.s === src) return Promise.resolve(); img.dataset.s = src; img.src = src; return img.decode().catch(() => {}); }
 
 // word helpers (1-based word index into WORDS = edit-time words)
@@ -51,7 +51,7 @@ function Stage() {
 function Aroll(c, o = {}) {
   const wrap = H('div', 'position:absolute;inset:0;overflow:hidden');
   const img = H('img', `position:absolute;left:0;top:0;width:${CW}px;height:${CH}px;transform-origin:${c.camO[0]}px ${c.camO[1]}px`, wrap);
-  c.loads.push(f => setSrc(img, `../aroll/f/a_${pad4(e2o(c.E0 + f) + 1)}.jpg`));
+  c.loads.push(f => setSrc(img, `${window.AROLL_DIR || '../aroll/f'}/a_${pad4(e2o(c.E0 + f) + 1)}.jpg`));
   U(f => { img.style.transform = `scale(${c.cam(f)})`; });
   return wrap;
 }
@@ -104,7 +104,8 @@ function Line(st, o = {}) {
 }
 function fontCss(o) {
   return `font-family:${o.serif ? SERIF : SANS};font-weight:${o.wt ?? (o.serif ? 400 : 300)};font-style:${o.ital ? 'italic' : 'normal'};` +
-    `font-size:${o.size}px;line-height:${o.lh ?? 1.0};letter-spacing:${o.ls ?? (o.serif ? -0.04 : -0.06)}em;color:${o.color || COL.white};`;
+    `font-size:${o.size}px;line-height:${o.lh ?? 1.0};letter-spacing:${o.ls ?? (o.serif ? -0.04 : -0.06)}em;color:${o.color || COL.white};` +
+    (o.color === '#3e3e3e' ? 'text-shadow:0 0 14px rgba(255,248,238,.85),0 0 4px rgba(255,248,238,.7);' : '');   // charcoal on her white top: soft cream halo so it also reads over skin
 }
 // sans word(s): wordBlur (blur 10->0 + opacity, 4 f power2.out) + width grow circ.out 8 f (line re-centres)
 function Words(ln, words, Vs, o) {
