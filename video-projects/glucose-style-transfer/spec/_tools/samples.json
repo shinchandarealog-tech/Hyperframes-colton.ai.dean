@@ -1,0 +1,68 @@
+{
+ "sans_basically": {
+  "frame": 390,
+  "bbox": [
+   187,
+   403,
+   895,
+   479
+  ],
+  "text": "basically contain glucose",
+  "ink": "#f9f1e5"
+ },
+ "sans_andyouhave": {
+  "frame": 415,
+  "bbox": [
+   343,
+   305,
+   737,
+   379
+  ],
+  "text": "and you have",
+  "ink": "#f9f1e4"
+ },
+ "serif_blood": {
+  "frame": 700,
+  "bbox": [
+   56,
+   163,
+   1024,
+   364
+  ],
+  "text": "BLOOD",
+  "ink": "#8f2f20"
+ },
+ "serif_give": {
+  "frame": 300,
+  "bbox": [
+   132,
+   353,
+   946,
+   439
+  ],
+  "text": "GIVE YOUR BODY",
+  "ink": "#8e2e1f"
+ },
+ "serif_sweet": {
+  "frame": 545,
+  "bbox": [
+   302,
+   225,
+   777,
+   365
+  ],
+  "text": "sweet",
+  "ink": "#3e3f3e"
+ },
+ "serif_sugars": {
+  "frame": 520,
+  "bbox": [
+   279,
+   502,
+   790,
+   649
+  ],
+  "text": "sugars.",
+  "ink": "#3d3e3e"
+ }
+}

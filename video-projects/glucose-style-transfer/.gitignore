@@ -1,0 +1,15 @@
+src/
+ref/f/
+ref/c/
+ref/*.wav
+aroll/f/
+aroll/c/
+aroll/*.wav
+tpl/
+an/
+audio/
+broll/*.mp4
+broll/stills/
+broll/thumbs/
+web/matte/
+Templates/00 ALL TEMPLATES.mp4

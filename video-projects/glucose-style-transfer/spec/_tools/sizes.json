@@ -1,0 +1,427 @@
+[
+ {
+  "el": "hook \"the word\"",
+  "frame": 30,
+  "bbox": [
+   413,
+   1254,
+   700,
+   1312
+  ],
+  "w": 287,
+  "h": 58,
+  "cx": 556.5,
+  "font": "sans",
+  "size_px": 81.7,
+  "size_pctW": 7.56,
+  "ink": "#fffaf6"
+ },
+ {
+  "el": "hook GLUCOSE",
+  "frame": 30,
+  "bbox": [
+   335,
+   1336,
+   746,
+   1408
+  ],
+  "w": 411,
+  "h": 72,
+  "cx": 540.5,
+  "font": "serifi",
+  "size_px": 109.1,
+  "size_pctW": 10.1,
+  "ink": "#fffcf5"
+ },
+ {
+  "el": "hook \"to me is\"",
+  "frame": 55,
+  "bbox": [
+   432,
+   1240,
+   760,
+   1304
+  ],
+  "w": 328,
+  "h": 64,
+  "cx": 596.0,
+  "font": "sans",
+  "size_px": 90.1,
+  "size_pctW": 8.34,
+  "ink": "#e3d9dc"
+ },
+ {
+  "el": "hook OVERWHELMING",
+  "frame": 55,
+  "bbox": [
+   214,
+   1318,
+   865,
+   1378
+  ],
+  "w": 651,
+  "h": 60,
+  "cx": 539.5,
+  "font": "serif",
+  "size_px": 90.9,
+  "size_pctW": 8.42,
+  "ink": "#ec9133"
+ },
+ {
+  "el": "S02 \"so glucose is\"",
+  "frame": 95,
+  "bbox": [
+   103,
+   700,
+   421,
+   760
+  ],
+  "w": 318,
+  "h": 60,
+  "cx": 262.0,
+  "font": "sans",
+  "size_px": 84.5,
+  "size_pctW": 7.82,
+  "ink": "#f7eee2"
+ },
+ {
+  "el": "S03 \"all of our\"",
+  "frame": 125,
+  "bbox": [
+   348,
+   334,
+   703,
+   418
+  ],
+  "w": 355,
+  "h": 84,
+  "cx": 525.5,
+  "font": "sans",
+  "size_px": 118.3,
+  "size_pctW": 10.95,
+  "ink": "#fbf2d7"
+ },
+ {
+  "el": "S03 BRAINS",
+  "frame": 125,
+  "bbox": [
+   240,
+   430,
+   900,
+   590
+  ],
+  "w": 660,
+  "h": 160,
+  "cx": 570.0,
+  "font": "serifi",
+  "size_px": 242.4,
+  "size_pctW": 22.44,
+  "ink": "#825d54"
+ },
+ {
+  "el": "S06 \"so it's\"",
+  "frame": 225,
+  "bbox": [
+   392,
+   950,
+   673,
+   1022
+  ],
+  "w": 281,
+  "h": 72,
+  "cx": 532.5,
+  "font": "sans",
+  "size_px": 101.4,
+  "size_pctW": 9.39,
+  "ink": "#f7ebe7"
+ },
+ {
+  "el": "S06 \"the energy\"",
+  "frame": 225,
+  "bbox": [
+   173,
+   1030,
+   910,
+   1200
+  ],
+  "w": 737,
+  "h": 170,
+  "cx": 541.5,
+  "font": "serifi",
+  "size_px": 182.8,
+  "size_pctW": 16.93,
+  "ink": "#f19428"
+ },
+ {
+  "el": "S07 \"to do everything\"",
+  "frame": 260,
+  "bbox": [
+   233,
+   957,
+   856,
+   1080
+  ],
+  "w": 623,
+  "h": 123,
+  "cx": 544.5,
+  "font": "serif",
+  "size_px": 131.6,
+  "size_pctW": 12.19,
+  "ink": "#f9e6c0"
+ },
+ {
+  "el": "S08 \"and how do you\"",
+  "frame": 300,
+  "bbox": [
+   306,
+   280,
+   772,
+   350
+  ],
+  "w": 466,
+  "h": 70,
+  "cx": 539.0,
+  "font": "sans",
+  "size_px": 98.6,
+  "size_pctW": 9.13,
+  "ink": "#7e2019"
+ },
+ {
+  "el": "S08 GIVE YOUR BODY",
+  "frame": 300,
+  "bbox": [
+   132,
+   353,
+   947,
+   440
+  ],
+  "w": 815,
+  "h": 87,
+  "cx": 539.5,
+  "font": "serif",
+  "size_px": 131.8,
+  "size_pctW": 12.2,
+  "ink": "#8e2e1f"
+ },
+ {
+  "el": "S08 \"this energy\" pill",
+  "frame": 300,
+  "bbox": [
+   560,
+   420,
+   931,
+   535
+  ],
+  "w": 371,
+  "h": 115,
+  "cx": 745.5,
+  "font": "sans",
+  "size_px": null,
+  "size_pctW": null,
+  "ink": "#8f2e1e"
+ },
+ {
+  "el": "S10 carbs",
+  "frame": 390,
+  "bbox": [
+   330,
+   232,
+   746,
+   392
+  ],
+  "w": 416,
+  "h": 160,
+  "cx": 538.0,
+  "font": "serifi",
+  "size_px": 228.6,
+  "size_pctW": 21.17,
+  "ink": "#fdf6eb"
+ },
+ {
+  "el": "S10 bar",
+  "frame": 390,
+  "bbox": [
+   283,
+   323,
+   797,
+   381
+  ],
+  "w": 514,
+  "h": 58,
+  "cx": 540.0,
+  "font": "-",
+  "size_px": null,
+  "size_pctW": null,
+  "ink": "#8f2e1e"
+ },
+ {
+  "el": "S10 basically",
+  "frame": 390,
+  "bbox": [
+   187,
+   403,
+   896,
+   480
+  ],
+  "w": 709,
+  "h": 77,
+  "cx": 541.5,
+  "font": "sans",
+  "size_px": 84.6,
+  "size_pctW": 7.83,
+  "ink": "#f8f1e4"
+ },
+ {
+  "el": "S11 pill",
+  "frame": 415,
+  "bbox": [
+   370,
+   392,
+   893,
+   490
+  ],
+  "w": 523,
+  "h": 98,
+  "cx": 631.5,
+  "font": "-",
+  "size_px": null,
+  "size_pctW": null,
+  "ink": "#fcedda"
+ },
+ {
+  "el": "S16 starches pill",
+  "frame": 590,
+  "bbox": [
+   120,
+   1060,
+   1040,
+   1240
+  ],
+  "w": 920,
+  "h": 180,
+  "cx": 580.0,
+  "font": "-",
+  "size_px": null,
+  "size_pctW": null,
+  "ink": "#441611"
+ },
+ {
+  "el": "S16 \"starches or sugars\"",
+  "frame": 590,
+  "bbox": [
+   216,
+   1104,
+   859,
+   1203
+  ],
+  "w": 643,
+  "h": 99,
+  "cx": 537.5,
+  "font": "serifi",
+  "size_px": 141.4,
+  "size_pctW": 13.09,
+  "ink": "#fefaf2"
+ },
+ {
+  "el": "S17 GLUCOSE MOLECULES",
+  "frame": 650,
+  "bbox": [
+   149,
+   222,
+   931,
+   295
+  ],
+  "w": 782,
+  "h": 73,
+  "cx": 540.0,
+  "font": "serifi",
+  "size_px": 110.6,
+  "size_pctW": 10.24,
+  "ink": "#88291d"
+ },
+ {
+  "el": "S17 GO FROM THE FOOD",
+  "frame": 650,
+  "bbox": [
+   303,
+   283,
+   777,
+   325
+  ],
+  "w": 474,
+  "h": 42,
+  "cx": 540.0,
+  "font": "sans",
+  "size_px": 60.9,
+  "size_pctW": 5.64,
+  "ink": "#721d15"
+ },
+ {
+  "el": "S17 stomach box",
+  "frame": 650,
+  "bbox": [
+   26,
+   506,
+   460,
+   700
+  ],
+  "w": 434,
+  "h": 194,
+  "cx": 243.0,
+  "font": "-",
+  "size_px": null,
+  "size_pctW": null,
+  "ink": "#8f2f1f"
+ },
+ {
+  "el": "S18 BLOOD",
+  "frame": 705,
+  "bbox": [
+   49,
+   151,
+   1032,
+   359
+  ],
+  "w": 983,
+  "h": 208,
+  "cx": 540.5,
+  "font": "serif",
+  "size_px": 315.2,
+  "size_pctW": 29.19,
+  "ink": "#8f2f1f"
+ },
+ {
+  "el": "S19 \"gets brought\"",
+  "frame": 785,
+  "bbox": [
+   130,
+   632,
+   423,
+   700
+  ],
+  "w": 293,
+  "h": 68,
+  "cx": 276.5,
+  "font": "sans",
+  "size_px": 74.7,
+  "size_pctW": 6.92,
+  "ink": "#faf4e9"
+ },
+ {
+  "el": "S19 cells",
+  "frame": 785,
+  "bbox": [
+   170,
+   760,
+   568,
+   930
+  ],
+  "w": 398,
+  "h": 170,
+  "cx": 369.0,
+  "font": "serifi",
+  "size_px": 242.9,
+  "size_pctW": 22.49,
+  "ink": "#e9cba5"
+ }
+]

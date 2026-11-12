@@ -1,0 +1,345 @@
+[
+ {
+  "t": 0.75,
+  "frame": 18.0,
+  "strength": 1001.5,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 2.876,
+  "frame": 68.9,
+  "strength": 804.2,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 3.063,
+  "frame": 73.4,
+  "strength": 597.0,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 4.001,
+  "frame": 95.9,
+  "strength": 508.1,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 6.231,
+  "frame": 149.4,
+  "strength": 761.3,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 6.627,
+  "frame": 158.9,
+  "strength": 618.0,
+  "dominant": "high",
+  "in_speech": false,
+  "near": [
+   "cut"
+  ]
+ },
+ {
+  "t": 7.044,
+  "frame": 168.9,
+  "strength": 520.3,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 7.919,
+  "frame": 189.9,
+  "strength": 918.7,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 8.502,
+  "frame": 203.9,
+  "strength": 474.1,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 9.107,
+  "frame": 218.3,
+  "strength": 508.0,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 9.357,
+  "frame": 224.3,
+  "strength": 470.8,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 9.982,
+  "frame": 239.3,
+  "strength": 773.3,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 10.399,
+  "frame": 249.3,
+  "strength": 685.6,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 11.732,
+  "frame": 281.3,
+  "strength": 531.1,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 13.045,
+  "frame": 312.8,
+  "strength": 487.2,
+  "dominant": "high",
+  "in_speech": true,
+  "near": [
+   "cut"
+  ]
+ },
+ {
+  "t": 13.379,
+  "frame": 320.8,
+  "strength": 596.7,
+  "dominant": "high",
+  "in_speech": true,
+  "near": [
+   "circle"
+  ]
+ },
+ {
+  "t": 14.421,
+  "frame": 345.7,
+  "strength": 521.5,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 15.296,
+  "frame": 366.7,
+  "strength": 452.8,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 15.671,
+  "frame": 375.7,
+  "strength": 632.0,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 15.817,
+  "frame": 379.2,
+  "strength": 768.6,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 16.9,
+  "frame": 405.2,
+  "strength": 762.2,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 17.067,
+  "frame": 409.2,
+  "strength": 506.5,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 17.984,
+  "frame": 431.2,
+  "strength": 822.0,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 18.963,
+  "frame": 454.7,
+  "strength": 552.3,
+  "dominant": "high",
+  "in_speech": false,
+  "near": []
+ },
+ {
+  "t": 19.297,
+  "frame": 462.7,
+  "strength": 730.9,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 20.256,
+  "frame": 485.6,
+  "strength": 478.6,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 20.756,
+  "frame": 497.6,
+  "strength": 951.3,
+  "dominant": "high",
+  "in_speech": false,
+  "near": [
+   "cut"
+  ]
+ },
+ {
+  "t": 21.735,
+  "frame": 521.1,
+  "strength": 520.6,
+  "dominant": "high",
+  "in_speech": false,
+  "near": []
+ },
+ {
+  "t": 21.964,
+  "frame": 526.6,
+  "strength": 712.5,
+  "dominant": "high",
+  "in_speech": true,
+  "near": [
+   "cut",
+   "sweet grid"
+  ]
+ },
+ {
+  "t": 22.319,
+  "frame": 535.1,
+  "strength": 645.3,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 23.402,
+  "frame": 561.1,
+  "strength": 1036.5,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 23.631,
+  "frame": 566.6,
+  "strength": 697.7,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 23.819,
+  "frame": 571.1,
+  "strength": 782.0,
+  "dominant": "high",
+  "in_speech": true,
+  "near": [
+   "starches pill"
+  ]
+ },
+ {
+  "t": 23.944,
+  "frame": 574.1,
+  "strength": 634.7,
+  "dominant": "high",
+  "in_speech": true,
+  "near": [
+   "starches pill"
+  ]
+ },
+ {
+  "t": 24.34,
+  "frame": 583.6,
+  "strength": 656.0,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 27.591,
+  "frame": 661.5,
+  "strength": 462.5,
+  "dominant": "high",
+  "in_speech": false,
+  "near": []
+ },
+ {
+  "t": 28.237,
+  "frame": 677.0,
+  "strength": 448.5,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 30.05,
+  "frame": 720.5,
+  "strength": 446.9,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 30.904,
+  "frame": 741.0,
+  "strength": 567.6,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 31.571,
+  "frame": 756.9,
+  "strength": 574.0,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ },
+ {
+  "t": 32.28,
+  "frame": 773.9,
+  "strength": 480.7,
+  "dominant": "high",
+  "in_speech": true,
+  "near": []
+ }
+]
