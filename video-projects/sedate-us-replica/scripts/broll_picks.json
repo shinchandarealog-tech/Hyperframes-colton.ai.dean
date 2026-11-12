@@ -1,0 +1,170 @@
+{
+ "S02a": {
+  "id": 25438,
+  "in": 6.5,
+  "pos": 55,
+  "license": "restricted"
+ },
+ "S02b": {
+  "id": 26097,
+  "in": 5.5,
+  "pos": 50,
+  "license": "free"
+ },
+ "S03a": {
+  "id": 5765,
+  "in": 9.0,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S03b": {
+  "id": 16420,
+  "in": 10.4,
+  "pos": 45,
+  "license": "restricted"
+ },
+ "S03c": {
+  "id": 20509,
+  "in": 14.5,
+  "pos": 60,
+  "license": "restricted"
+ },
+ "S05a": {
+  "id": 16075,
+  "in": 2.4,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S05b": {
+  "id": 35881,
+  "in": 5.2,
+  "pos": 45,
+  "license": "restricted"
+ },
+ "S05c": {
+  "id": 16533,
+  "in": 27.8,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S05d": {
+  "id": 35913,
+  "in": 7.4,
+  "pos": 55,
+  "license": "restricted"
+ },
+ "S07a": {
+  "id": 16018,
+  "in": 10.0,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S07b": {
+  "id": 566,
+  "in": 7.7,
+  "pos": 30,
+  "license": "free"
+ },
+ "S07c": {
+  "id": 34701,
+  "in": 4.6,
+  "pos": 45,
+  "license": "restricted"
+ },
+ "S07d": {
+  "id": 1187,
+  "in": 11.6,
+  "pos": 50,
+  "license": "free"
+ },
+ "S07e": {
+  "id": 18310,
+  "in": 3.0,
+  "pos": 70,
+  "license": "free"
+ },
+ "S07f": {
+  "id": 17806,
+  "in": 12.6,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S07g": {
+  "id": 3718,
+  "in": 5.7,
+  "pos": 50,
+  "license": "free"
+ },
+ "S09a": {
+  "id": 32024,
+  "in": 8.9,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S09b": {
+  "id": 49353,
+  "in": 1.0,
+  "pos": 30,
+  "license": "restricted"
+ },
+ "S09c": {
+  "id": 32306,
+  "in": 1.0,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S10a": {
+  "id": 19185,
+  "in": 16.0,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S10b": {
+  "id": 47086,
+  "in": 3.0,
+  "pos": 40,
+  "license": "restricted"
+ },
+ "S10c": {
+  "id": 22268,
+  "in": 6.0,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S10d": {
+  "id": 25377,
+  "in": 1.0,
+  "pos": 45,
+  "license": "restricted"
+ },
+ "S14": {
+  "id": 22898,
+  "in": 8.6,
+  "pos": 55,
+  "license": "restricted"
+ },
+ "S16a": {
+  "id": 3237,
+  "in": 9.0,
+  "pos": 50,
+  "license": "free"
+ },
+ "S16b": {
+  "id": 15554,
+  "in": 5.0,
+  "pos": 50,
+  "license": "restricted"
+ },
+ "S16c": {
+  "id": 47163,
+  "in": 6.8,
+  "pos": 62,
+  "license": "restricted"
+ },
+ "S16d": {
+  "id": 10089,
+  "in": 21.0,
+  "pos": 60,
+  "license": "restricted"
+ }
+}

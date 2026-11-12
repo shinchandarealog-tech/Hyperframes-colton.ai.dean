@@ -166,6 +166,7 @@ def pan_extent(shot):
 
 def broll_html(shot, x0, y0, w, h, z):
     sid, f0, f1, kind, area, pan, desc = shot
+    PICKS = json.load(open(os.path.join(HERE, "broll_picks.json"))); op = f"object-position:{PICKS[sid]['pos']}% 50%"
     L, R = pan_extent(shot); sel = f"#pan-{sid}"
     ext = "mp4" if kind == "video" else "jpg"
     src = f"assets/broll/{sid}.{ext}"
@@ -173,9 +174,9 @@ def broll_html(shot, x0, y0, w, h, z):
     pan_js(sel, shot)
     if kind == "still":
         return (f'<div id="clip-{sid}" class="clip abs" data-start="{F(f0)}" data-duration="{F(f1-f0+1)}" data-track-index="2" style="inset:0;z-index:{z}">'
-                f'<div id="pan-{sid}" class="abs" style="{box}"><img src="{src}" style="width:100%;height:100%;object-fit:cover;display:block"></div></div>')
+                f'<div id="pan-{sid}" class="abs" style="{box}"><img src="{src}" style="width:100%;height:100%;object-fit:cover;{op};display:block"></div></div>')
     return (f'<div id="pan-{sid}" class="abs" style="{box};z-index:{z};transform-origin:50% 50%"><video id="v-{sid}" data-start="{F(f0)}" data-duration="{F(f1-f0+1)}" data-track-index="3" '
-            f'src="{src}" muted playsinline style="width:100%;height:100%;object-fit:cover;display:block"></video></div>')
+            f'src="{src}" muted playsinline style="width:100%;height:100%;object-fit:cover;{op};display:block"></video></div>')
 
 def plate_html(name, f0, f1, z):
     return (f'<video id="pl-{name}" data-start="{F(f0)}" data-duration="{F(f1-f0+1)}" data-track-index="1" src="assets/plate_{name}.mp4" muted playsinline '
