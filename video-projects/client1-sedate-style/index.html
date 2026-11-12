@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="assets/gsap.min.js"></script>
+<style>
+  @font-face { font-family: 'Inter'; src: url('assets/fonts/Inter-var-latin.woff2') format('woff2'); font-weight: 100 900; }
+  @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-latin.woff2') format('woff2'); }
+  html, body { margin: 0; background: #000; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  #root * { box-sizing: border-box; }
+  .abs { position: absolute; }
+  .layer { left: 0; top: 0; width: 1080px; height: 1920px; }
+  .txt { position: absolute; line-height: 1; white-space: pre; font-optical-sizing: auto; font-kerning: normal; margin: 0; }
+  .inter { font-family: 'Inter'; }
+  .pt { display: inline-block; }
+  .bebas { font-family: 'Bebas Neue'; font-weight: 400; }
+  .tile { border-radius: 22px; border: 1.5px solid #F0DCC8; background: rgba(255,255,255,.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="sedate-us" data-start="0" data-duration="3.8" data-width="1080" data-height="1920">
+
+<video id="plate" data-start="0" data-duration="3.8" data-track-index="0" src="assets/plate_S01.mp4" muted playsinline style="position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:1"></video>
+<div id="gs0" class="abs layer" style="z-index:5;background:linear-gradient(to bottom, rgba(0,0,0,0) 920px, rgba(0,0,0,.043) 1080px, rgba(0,0,0,.118) 1200px, rgba(0,0,0,.20) 1280px, rgba(0,0,0,.31) 1360px, rgba(0,0,0,.44) 1440px, rgba(0,0,0,.50) 1480px, rgba(0,0,0,.57) 1520px, rgba(0,0,0,.71) 1600px, rgba(0,0,0,.82) 1680px, rgba(0,0,0,.90) 1760px, rgba(0,0,0,.96) 1840px, rgba(0,0,0,.98) 1920px)"></div>
+<div id="g-tag" class="abs layer" style="z-index:10"><div id="tagu" class="abs layer">
+  <div class="abs" style="left:117px;top:1201px;width:231.0px;height:88px;border-radius:10px;background:rgba(0,0,0,.68)"></div>
+  <span class="txt inter" style="left:135px;top:1218.66px;font-size:32.67px;font-weight:600;letter-spacing:-0.025em;color:#F7F3EF">Your Name</span>
+  <svg class="abs" style="left:294.0px;top:1218px;width:34px;height:32px" viewBox="-1 -1 36 34" preserveAspectRatio="none"><path fill="#10B3E2" d="M33.60,16.00 L33.39,17.07 L32.80,18.08 L31.98,18.98 L31.11,19.78 L30.37,20.54 L29.88,21.34 L29.67,22.25 L29.65,23.30 L29.70,24.48 L29.64,25.70 L29.35,26.83 L28.74,27.74 L27.83,28.35 L26.70,28.64 L25.48,28.70 L24.30,28.65 L23.25,28.67 L22.34,28.88 L21.54,29.37 L20.78,30.11 L19.98,30.98 L19.08,31.80 L18.07,32.39 L17.00,32.60 L15.93,32.39 L14.92,31.80 L14.02,30.98 L13.22,30.11 L12.46,29.37 L11.66,28.88 L10.75,28.67 L9.70,28.65 L8.52,28.70 L7.30,28.64 L6.17,28.35 L5.26,27.74 L4.65,26.83 L4.36,25.70 L4.30,24.48 L4.35,23.30 L4.33,22.25 L4.12,21.34 L3.63,20.54 L2.89,19.78 L2.02,18.98 L1.20,18.08 L0.61,17.07 L0.40,16.00 L0.61,14.93 L1.20,13.92 L2.02,13.02 L2.89,12.22 L3.63,11.46 L4.12,10.66 L4.33,9.75 L4.35,8.70 L4.30,7.52 L4.36,6.30 L4.65,5.17 L5.26,4.26 L6.17,3.65 L7.30,3.36 L8.52,3.30 L9.70,3.35 L10.75,3.33 L11.66,3.12 L12.46,2.63 L13.22,1.89 L14.02,1.02 L14.92,0.20 L15.93,-0.39 L17.00,-0.60 L18.07,-0.39 L19.08,0.20 L19.98,1.02 L20.78,1.89 L21.54,2.63 L22.34,3.12 L23.25,3.33 L24.30,3.35 L25.48,3.30 L26.70,3.36 L27.83,3.65 L28.74,4.26 L29.35,5.17 L29.64,6.30 L29.70,7.52 L29.65,8.70 L29.67,9.75 L29.88,10.66 L30.37,11.46 L31.11,12.22 L31.98,13.02 L32.80,13.92 L33.39,14.93Z"/><path d="M10.5 16.4 L15 20.6 L23.5 11.8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span class="txt inter" style="left:136px;top:1249.61px;font-size:24.78px;font-weight:400;letter-spacing:-0.02em;color:#F3EAE5">Creator</span>
+</div></div>
+<div id="p1" class="abs layer" style="z-index:10">
+  <span id="h-small1" class="txt inter" style="left:263px;top:944.8px;font-size:83.4px;font-weight:400;letter-spacing:-0.063em;color:#F9F8F8"><span id="w-I" class="pt">I</span> <span id="w-think" class="pt">think</span> <span id="w-the" class="pt">the</span> <span id="w-biggest" class="pt">biggest</span></span>
+  <span id="w-challenge" class="txt inter" style="left:242.5px;top:969.5px;font-size:151px;font-weight:500;letter-spacing:-0.06em;color:#ECA572">challenge</span>
+  <div id="pill" class="abs layer"><div class="abs" style="left:299.0px;top:1091.7px;width:483.0px;height:65.2px;border-radius:32.6px;background:#A24A26"></div>
+  <span id="pill-t" class="txt inter" style="left:341.5px;top:1095.98px;font-size:54.63px;font-weight:600;letter-spacing:-0.067em;color:#FFF8ED">for Aussie creators</span></div>
+</div>
+<div id="p2" class="abs layer" style="z-index:10">
+  <span id="h-small2" class="txt inter" style="left:392.5px;top:946.15px;font-size:80.7px;font-weight:600;letter-spacing:-0.05em;color:#FAF7F1"><span id="w-is" class="pt">is</span> <span id="w-finding" class="pt">finding</span></span>
+  <div id="bar" class="abs" style="left:239.5px;top:1031.4px;width:597.0px;height:140.0px;background:#A24B26;transform-origin:0% 50%"></div>
+  <span id="w-COMMUNITY" class="txt bebas" style="left:260.5px;top:1026.78px;font-size:168.25px;font-weight:400;letter-spacing:-0.045em;color:#F9F5EF">COMMUNITY</span>
+</div>
+<audio id="voice" data-start="0" data-duration="3.8" data-track-index="20" src="assets/voice_S01.wav" data-volume="1"></audio>
+<audio id="bed" data-start="0" data-duration="3.8" data-track-index="21" src="assets/bed.mp3" data-volume="0.124"></audio>
+<audio id="glitch" data-start="0.03" data-duration="0.32" data-track-index="22" src="assets/sfx-glitch.wav" data-volume="0.1"></audio>
+<script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const F = f => f / 30;
+    const cl = u => Math.min(Math.max(u, 0), 1);
+    const circ = u => Math.sqrt(1 - Math.pow(cl(u) - 1, 2));
+    const p4out = u => 1 - Math.pow(1 - cl(u), 4);
+    const sineOut = u => Math.sin(cl(u) * Math.PI / 2);
+    const expoOut = u => cl(u) >= 1 ? 1 : 1 - Math.pow(2, -10 * cl(u));
+    const backOut = (u, s) => { u = cl(u); return 1 + (s + 1) * Math.pow(u - 1, 3) + s * Math.pow(u - 1, 2); };
+    // FN: drive a property from a function of the (reference) frame number between f0 and f1. Before f0 -> fn(f0), after f1 -> fn(f1).
+    function FN(sel, prop, f0, f1, fn, init = true) {
+      const a = Math.max(f0, 0); const v0 = fn(a + 1e-6);
+      if (init) gsap.set(sel, { [prop]: v0 });
+      tl.fromTo(sel, { [prop]: v0 }, { [prop]: v0 + 1, duration: F(f1 - a), immediateRender: false,
+        ease: p => fn(a + p * (f1 - a) + 1e-6) - v0 }, F(a));
+    }
+    // TAB: piecewise-linear table {frame: value}
+    function TAB(sel, prop, table) {
+      const ks = Object.keys(table).map(Number).sort((x, y) => x - y);
+      const val = f => { if (f <= ks[0]) return table[ks[0]]; if (f >= ks[ks.length - 1]) return table[ks[ks.length - 1]];
+        for (let i = 0; i < ks.length - 1; i++) if (f <= ks[i + 1]) return table[ks[i]] + (table[ks[i + 1]] - table[ks[i]]) * (f - ks[i]) / (ks[i + 1] - ks[i]); };
+      FN(sel, prop, ks[0], ks[ks.length - 1], val);
+    }
+    // group / element visibility (opacity steps)
+    function GRP(sel, show, hide) {
+      if (show > 0) { gsap.set(sel, { opacity: 0 }); tl.set(sel, { opacity: 1 }, F(show) - 0.0005); }
+      tl.set(sel, { opacity: 0 }, F(hide + 1) - 0.0005);
+    }
+    function ON(sel, vis, op = 1) { gsap.set(sel, { opacity: 0 }); tl.set(sel, { opacity: op }, F(vis) - 0.0005); }
+    function OP(sel, f0, f1, a, b) { FN(sel, "opacity", f0, f1, f => a + (b - a) * cl((f - f0) / (f1 - f0)), false); }
+    // word slide: x D -> 0 circ.out over dur from t0; invisible until vis; opacity op0 -> 1 (measured 1-0.17*0.9^tau, or circ.out for emphasis words)
+    function W(sel, { D, t0, dur, vis, op0 = 0.83, opCirc = false, opDur = 40 }) {
+      FN(sel, "x", t0, t0 + dur, f => D * (1 - circ((f - t0) / dur)));
+      ON(sel, vis, op0);
+      if (op0 < 1) FN(sel, "opacity", vis, vis + opDur, f => f < vis ? 0 :
+        (opCirc ? op0 + (1 - op0) * circ((f - vis) / opDur) : 1 - (1 - op0) * Math.pow(0.9, f - vis)), false);
+    }
+    function FADE(sel, vis, op0, dur) { ON(sel, vis, op0); FN(sel, "opacity", vis, vis + dur, f => f < vis ? 0 : op0 + (1 - op0) * circ((f - vis) / dur), false); }
+    // icon circle pop 0.55 -> 1 back.out(2.5) ~13 f, glyph stroke drawn over 6 f
+    function POPICON(sel, f0) {
+      ON(sel, Math.floor(f0));
+      FN(sel, "scale", f0, f0 + 14, f => 0.55 + 0.45 * backOut((f - f0) / 13.2, 2.5));
+      const p = document.querySelector(sel + " .draw"); if (p) { const full = p.style.strokeDasharray.split(" ").length > 1 ? 0.25 : 1;
+        FN(sel + " .draw", "strokeDashoffset", f0 + 0.5, f0 + 6.5, f => full * (1 - cl((f - f0 - 0.5) / 6))); }
+    }
+    function TILE(sel, vis, rot) {
+      ON(sel, vis);
+      FN(sel, "scale", vis, vis + 16, f => 1 + 0.06 * Math.exp(-(f - vis) / 5) * Math.cos((f - vis) * 0.55 + Math.PI));
+      FN(sel, "x", vis, vis + 16, f => 11.4 * (1 - circ((f - vis) / 16)));
+      gsap.set(sel, { rotation: rot });
+    }
+    FN("#tagu","x",0,41.2,f=>-141.7*(1-circ(f/41.2)));
+    GRP("#p1",2,59); GRP("#p2",60,113);
+    W("#w-I",{D:24.4,t0:-2.5,dur:33,vis:2}); W("#w-think",{D:28.4,t0:-0.6,dur:33.7,vis:4});
+    W("#w-the",{D:29,t0:1.4,dur:33.7,vis:6}); W("#w-biggest",{D:29,t0:3.4,dur:33.7,vis:8});
+    W("#w-challenge",{D:40.4,t0:7.85,dur:32.7,vis:16});
+    ON("#pill",30,0.86); FN("#pill","y",30,44.2,f=>f<30.6?27.3:27.3*(1-backOut((f-30.6)/13.6,2.7))); OP("#pill",30,34,0.86,1);
+    W("#w-is",{D:29,t0:55.4,dur:33.7,vis:60});
+    W("#w-finding",{D:60.6,t0:68.4,dur:31.1,vis:68,op0:0.36,opCirc:true,opDur:30.8});
+    const expoIO=u=>{u=cl(u);if(u===0||u===1)return u;return u<0.5?Math.pow(2,20*u-10)/2:(2-Math.pow(2,-20*u+10))/2;};
+    FN("#bar","scaleX",66,107,f=>expoIO((f-66)/41));
+    W("#w-COMMUNITY",{D:60,t0:73.6,dur:31,vis:86,op0:1});
+    window.__timelines["sedate-us"] = tl;
+</script>
+</div>
+</body>
+</html>

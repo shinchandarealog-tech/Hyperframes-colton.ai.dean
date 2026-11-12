@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="assets/gsap.min.js"></script>
+<style>
+  @font-face { font-family: 'Inter'; src: url('assets/fonts/Inter-var-latin.woff2') format('woff2'); font-weight: 100 900; }
+  @font-face { font-family: 'Bebas Neue'; src: url('assets/fonts/BebasNeue-latin.woff2') format('woff2'); }
+  html, body { margin: 0; background: #000; }
+  #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+  #root * { box-sizing: border-box; }
+  .abs { position: absolute; }
+  .layer { left: 0; top: 0; width: 1080px; height: 1920px; }
+  .txt { position: absolute; line-height: 1; white-space: pre; font-optical-sizing: auto; font-kerning: normal; margin: 0; }
+  .inter { font-family: 'Inter'; }
+  .pt { display: inline-block; }
+  .bebas { font-family: 'Bebas Neue'; font-weight: 400; }
+  .tile { border-radius: 22px; border: 1.5px solid #F0DCC8; background: rgba(255,255,255,.16); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="sedate-us" data-start="0" data-duration="51.0333" data-width="1080" data-height="1920">
+%%BODY%%
+%%AUDIO%%
+<script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    const F = f => f / 30;
+    const cl = u => Math.min(Math.max(u, 0), 1);
+    const circ = u => Math.sqrt(1 - Math.pow(cl(u) - 1, 2));
+    const p4out = u => 1 - Math.pow(1 - cl(u), 4);
+    const sineOut = u => Math.sin(cl(u) * Math.PI / 2);
+    const expoOut = u => cl(u) >= 1 ? 1 : 1 - Math.pow(2, -10 * cl(u));
+    const backOut = (u, s) => { u = cl(u); return 1 + (s + 1) * Math.pow(u - 1, 3) + s * Math.pow(u - 1, 2); };
+    // FN: drive a property from a function of the (reference) frame number between f0 and f1. Before f0 -> fn(f0), after f1 -> fn(f1).
+    function FN(sel, prop, f0, f1, fn, init = true) {
+      const a = Math.max(f0, 0); const v0 = fn(a + 1e-6);
+      if (init) gsap.set(sel, { [prop]: v0 });
+      tl.fromTo(sel, { [prop]: v0 }, { [prop]: v0 + 1, duration: F(f1 - a), immediateRender: false,
+        ease: p => fn(a + p * (f1 - a) + 1e-6) - v0 }, F(a));
+    }
+    // TAB: piecewise-linear table {frame: value}
+    function TAB(sel, prop, table) {
+      const ks = Object.keys(table).map(Number).sort((x, y) => x - y);
+      const val = f => { if (f <= ks[0]) return table[ks[0]]; if (f >= ks[ks.length - 1]) return table[ks[ks.length - 1]];
+        for (let i = 0; i < ks.length - 1; i++) if (f <= ks[i + 1]) return table[ks[i]] + (table[ks[i + 1]] - table[ks[i]]) * (f - ks[i]) / (ks[i + 1] - ks[i]); };
+      FN(sel, prop, ks[0], ks[ks.length - 1], val);
+    }
+    // group / element visibility (opacity steps)
+    function GRP(sel, show, hide) {
+      if (show > 0) { gsap.set(sel, { opacity: 0 }); tl.set(sel, { opacity: 1 }, F(show) - 0.0005); }
+      tl.set(sel, { opacity: 0 }, F(hide + 1) - 0.0005);
+    }
+    function ON(sel, vis, op = 1) { gsap.set(sel, { opacity: 0 }); tl.set(sel, { opacity: op }, F(vis) - 0.0005); }
+    function OP(sel, f0, f1, a, b) { FN(sel, "opacity", f0, f1, f => a + (b - a) * cl((f - f0) / (f1 - f0)), false); }
+    // word slide: x D -> 0 circ.out over dur from t0; invisible until vis; opacity op0 -> 1 (measured 1-0.17*0.9^tau, or circ.out for emphasis words)
+    function W(sel, { D, t0, dur, vis, op0 = 0.83, opCirc = false, opDur = 40 }) {
+      FN(sel, "x", t0, t0 + dur, f => D * (1 - circ((f - t0) / dur)));
+      ON(sel, vis, op0);
+      if (op0 < 1) FN(sel, "opacity", vis, vis + opDur, f => f < vis ? 0 :
+        (opCirc ? op0 + (1 - op0) * circ((f - vis) / opDur) : 1 - (1 - op0) * Math.pow(0.9, f - vis)), false);
+    }
+    function FADE(sel, vis, op0, dur) { ON(sel, vis, op0); FN(sel, "opacity", vis, vis + dur, f => f < vis ? 0 : op0 + (1 - op0) * circ((f - vis) / dur), false); }
+    // icon circle pop 0.55 -> 1 back.out(2.5) ~13 f, glyph stroke drawn over 6 f
+    function POPICON(sel, f0) {
+      ON(sel, Math.floor(f0));
+      FN(sel, "scale", f0, f0 + 14, f => 0.55 + 0.45 * backOut((f - f0) / 13.2, 2.5));
+      const p = document.querySelector(sel + " .draw"); if (p) { const full = p.style.strokeDasharray.split(" ").length > 1 ? 0.25 : 1;
+        FN(sel + " .draw", "strokeDashoffset", f0 + 0.5, f0 + 6.5, f => full * (1 - cl((f - f0 - 0.5) / 6))); }
+    }
+    function TILE(sel, vis, rot) {
+      ON(sel, vis);
+      FN(sel, "scale", vis, vis + 16, f => 1 + 0.06 * Math.exp(-(f - vis) / 5) * Math.cos((f - vis) * 0.55 + Math.PI));
+      FN(sel, "x", vis, vis + 16, f => 11.4 * (1 - circ((f - vis) / 16)));
+      gsap.set(sel, { rotation: rot });
+    }
+    %%JS%%
+    window.__timelines["sedate-us"] = tl;
+</script>
+</div>
+</body>
+</html>
