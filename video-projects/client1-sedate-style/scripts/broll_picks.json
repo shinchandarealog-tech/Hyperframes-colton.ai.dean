@@ -1,0 +1,92 @@
+{
+ "S02a": {
+  "id": 42734,
+  "in": 6,
+  "pos": 50,
+  "license": "free"
+ },
+ "S02b": {
+  "id": 42323,
+  "in": 4,
+  "pos": 50,
+  "license": "free"
+ },
+ "S03a": {
+  "id": 49647,
+  "in": 8,
+  "pos": 30,
+  "license": "free"
+ },
+ "S03b": {
+  "id": 34485,
+  "in": 3,
+  "pos": 25,
+  "license": "free"
+ },
+ "S03c": {
+  "id": 34477,
+  "in": 4,
+  "pos": 50,
+  "license": "free"
+ },
+ "S04t": {
+  "id": 44049,
+  "in": 3,
+  "pos": 45,
+  "license": "free"
+ },
+ "S05a": {
+  "id": 10442,
+  "in": 2,
+  "pos": 35,
+  "license": "free"
+ },
+ "S05b": {
+  "id": 52190,
+  "in": 3,
+  "pos": 40,
+  "license": "free"
+ },
+ "S05c": {
+  "id": 52176,
+  "in": 4,
+  "pos": 50,
+  "license": "free"
+ },
+ "S09a": {
+  "id": 34468,
+  "in": 3,
+  "pos": 50,
+  "license": "free"
+ },
+ "S09b": {
+  "id": 34487,
+  "in": 2,
+  "pos": 50,
+  "license": "free"
+ },
+ "S09c": {
+  "id": 42315,
+  "in": 3,
+  "pos": 50,
+  "license": "free"
+ },
+ "S14": {
+  "id": 52181,
+  "in": 4,
+  "pos": 40,
+  "license": "free"
+ },
+ "S07a": {
+  "id": 42656,
+  "in": 2,
+  "pos": 65,
+  "license": "free"
+ },
+ "S07b": {
+  "id": 44043,
+  "in": 4,
+  "pos": 50,
+  "license": "free"
+ }
+}
