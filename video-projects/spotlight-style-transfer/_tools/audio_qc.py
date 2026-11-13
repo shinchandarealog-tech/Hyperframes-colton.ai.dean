@@ -8,7 +8,7 @@ def mom(x):
     w = int(0.4 * SR); h = int(0.05 * SR); out = []
     for i in range(0, len(x) - w, h): out.append(10 * np.log10((x[i:i + w] ** 2).mean() + 1e-12) - 0.691)
     return np.array(out)
-V, S, B = mom(load('audio/voice.wav')), mom(load(f'audio/sfx_{tag}.wav')), mom(load('audio/bed_v2.wav'))
+V, S, B = mom(load('audio/voice.wav')), mom(load(f'audio/sfx_{tag}.wav')), mom(load(f'audio/bed_{tag}.wav'))
 W, H = 1800, 700; im = np.full((H, W, 3), 18, np.uint8); n = min(len(V), len(S), len(B))
 X = lambda i: int(60 + i / n * (W - 80)); Y = lambda d: int(40 + (-10 - d) / 60 * 360)
 for d in range(-10, -71, -10): cv2.line(im, (60, Y(d)), (W - 20, Y(d)), (50, 50, 50), 1); cv2.putText(im, str(d), (10, Y(d) + 5), 0, .45, (150, 150, 150), 1)
