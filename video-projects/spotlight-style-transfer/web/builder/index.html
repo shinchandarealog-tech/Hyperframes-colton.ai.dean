@@ -167,7 +167,7 @@ const D=[
  [{k:'A',l1:[17,18],sc:[19,19],sm:[20,20],big:[21,21]},{k:'B',big:[21,21],sc:[18,19],l1:[22,24]},{k:'C',l1:[17,18],sc:[19,20],big:[21,21]}],
  [{k:'A',l1:[25,29],sc:[30,30],sm:[31,31],big:[32,33]},{k:'B',big:[28,28],sc:[29,30],l1:[31,34]},{k:'C',l1:[26,30],sc:[31,31],big:[32,33]}],
  [{k:'A',sc:[35,35],big:[36,36]},{k:'B',big:[36,36],sc:[35,35]},{k:'C',sc:[35,35],big:[36,36]}]];
-function txtOf(b,d,part){const o=S.txt[b+'-'+d];if(o&&o[part]!==undefined)return o[part];const r=D[b][d][part];if(!r)return '';let s=joinW(r[0],r[1]);s=part==='big'?strip(s):s.replace(/[.,]+$/,'');return s}
+function txtOf(b,d,part){const o=S.txt[b+'-'+d];if(o&&o[part]!==undefined)return o[part].trim();const r=D[b][d][part];if(!r)return '';let s=joinW(r[0],r[1]);s=part==='big'?strip(s):s.replace(/[.,]+$/,'');return s}
 
 /* ---------- video / compositing ---------- */
 const v=$('v'), bg=$('bg'), fg=$('fg'), bctx=bg.getContext('2d'), fctx=fg.getContext('2d',{willReadFrequently:true});
@@ -177,6 +177,7 @@ const FC=[550,745]; // zoom centre = face centre (faces.json)
 const ZK=[1.10,1.08,1.00,1.12,1.02,1.12,1.08];
 function zoomAt(t){const sh=window.SHOTS;let i=sh.findIndex(s=>t<s[1]);if(i<0)i=sh.length-1;const [a,b]=sh[i];const p=E.sineIO(clamp((t-a)/(b-a)));const z=ZK[i]+(ZK[i+1]-ZK[i])*p;return 1+(z-1)*S.set.camera}
 function drawVideo(t){
+  if(window.RENDER){pageHasCard;return}
   if(v.readyState<2)return;
   const z=zoomAt(t), cx=FC[0]*2/3, cy=FC[1]*2/3;
   for(const [ctx,sx] of [[bctx,0],[fctx,0],[mctx,720]]){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,720,1280);ctx.setTransform(z,0,0,z,cx*(1-z),cy*(1-z));ctx.drawImage(v,sx,0,720,1280,0,0,720,1280)}
@@ -190,6 +191,7 @@ function drawVideo(t){
 
 /* ---------- SVG helpers ---------- */
 function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+const inkW=(()=>{const c=document.createElement('canvas').getContext('2d');return(str,size)=>{c.font=`${size}px Italianno`;const m=c.measureText(str);return m.actualBoundingBoxRight-Math.min(0,-m.actualBoundingBoxLeft)}})();
 const measure=(()=>{const t=el('text',{x:-9999,y:-9999},$('gfx'));return(str,font,size,wt,ls)=>{t.setAttribute('font-family',font);t.setAttribute('font-size',size);t.setAttribute('font-weight',wt);t.setAttribute('letter-spacing',ls);t.textContent=str;const b=t.getBBox();return{w:b.width,y:b.y,h:b.height}}})();
 const SM=()=>({f:"'Inter Tight'",s:S.set.smSize*S.set.textScale,w:S.set.smWt,ls:S.set.smTrack*S.set.smSize*S.set.textScale});
 function crossShape(parent,s){const g=el('g',{},parent);const th=s*0.29;el('rect',{x:-s/2,y:-th/2,width:s,height:th,rx:th/2,fill:S.set.yellow},g);el('rect',{x:-th/2,y:-s/2,width:th,height:s,rx:th/2,fill:S.set.yellow},g);return g}
@@ -224,7 +226,7 @@ function buildPage(b,d,cardT0){
   }
   // ---- script + small word row
   if(tsc||tsm){
-    const scW=tsc?measure(tsc,sc.f,sc.s,400,0).w:0, smW=tsm?measure(tsm,sm.f,sm.s,sm.w,sm.ls).w:0;
+    const scW=tsc?inkW(tsc,sc.s):0, smW=tsm?measure(tsm,sm.f,sm.s,sm.w,sm.ls).w:0;
     const tot=scW+(tsc&&tsm?st.scGap:0)+smW;let x=540-tot/2;
     if(tsc){const id='clip'+b+d;const cp=el('clipPath',{id},root);const rect=el('rect',{x:x-30,y:yRow-sc.s,width:0,height:sc.s*1.6},cp);
       const g=el('g',{'clip-path':`url(#${id})`},root);const t=el('text',{x,y:yRow,'font-family':sc.f,'font-size':sc.s,fill:st.scriptYellow},g);t.textContent=tsc;
@@ -233,16 +235,18 @@ function buildPage(b,d,cardT0){
     boxes.push(['text',540-tot/2,yRow-sc.s*0.55,540+tot/2,yRow+sc.s*0.35]);
   }
   // ---- big word + yellow dot
-  let bb=null;
+  let bb=null, bigT0=null;
   if(tbig){
-    let s=bg_.s, m=measure(tbig,bg_.f,s,bg_.w,st.bigTrack*s);
-    if(m.w>st.bigMax){s*=st.bigMax/m.w;m=measure(tbig,bg_.f,s,bg_.w,st.bigTrack*s)}
+    const ws=s0=>0.16*s0, mB=s0=>{const r=measure(tbig.replace(/ /g,'\u2002'),bg_.f,s0,bg_.w,st.bigTrack*s0);return r};
+    let s=bg_.s, m=mB(s);
+    if(m.w>st.bigMax){s*=st.bigMax/m.w;m=mB(s)}
     const dotR=12*s/203.6, gap=11*s/203.6, tot=m.w+gap+2*dotR, x0=540-tot/2;
-    const g=el('g',{},root);const t=el('text',{x:x0,y:yBig,'font-family':bg_.f,'font-size':s,'font-weight':bg_.w,'letter-spacing':st.bigTrack*s,fill:'url(#bigGrad)'},g);t.textContent=tbig;
+    const g=el('g',{},root);const t=el('text',{x:x0,y:yBig,'font-family':bg_.f,'font-size':s,'font-weight':bg_.w,'letter-spacing':st.bigTrack*s,fill:'url(#bigGrad)'},g);t.textContent=tbig.replace(/ /g,'\u2002');
     const cx=x0+tot/2, cy=yBig-s*0.27;
-    els.push({g,kind:'pop',t0:T(R.big),cx,cy});
+    const bigT=(!tl1&&!tsc&&!tsm)?wt(BEATS[b].w[0])-lead:T(R.big);
+    els.push({g,kind:'pop',t0:bigT,cx,cy});bigT0=bigT;
     const dg=el('g',{},root);el('circle',{cx:0,cy:0,r:dotR,fill:st.yellow},dg);
-    els.push({g:dg,kind:'dotpop',t0:T(R.big)+.22,x:x0+m.w+gap+dotR,y:yBig-dotR});
+    els.push({g:dg,kind:'dotpop',t0:bigT+.22,x:x0+m.w+gap+dotR,y:yBig-dotR});
     bb=[x0,yBig-s*0.74,x0+tot,yBig+s*0.21];boxes.push(['text',...bb]);
   }
   // ---- glass card + notch (behind the speaker)
@@ -264,13 +268,13 @@ function buildPage(b,d,cardT0){
     const tb=boxes.filter(q=>q[0]==='text');
     P.forEach(([x,y,s],i)=>{s*=cs;let ys=L.crosses==='burst'?y:y+dy;const xx=clamp(x,84+s*.55,900-s*.55);
       for(let k=0;k<4;k++){const h=tb.find(q=>xx+s*.55>q[1]&&xx-s*.55<q[3]&&ys+s*.55>q[2]&&ys-s*.55<q[4]);if(!h)break;ys=h[2]-s*.6-8;if(ys<120)ys=h[4]+s*.6+8} /* never on top of text */const g=el('g',{},root);crossShape(g,s);
-      const t0=L.crosses==='burst'?T(R.big)+.08+i*.07:pS+.12+i*st.stagger*1.5/FPS;els.push({g,kind:'xpop',t0,x:xx,y:ys});boxes.push(['deco',xx-s*.6,ys-s*.6,xx+s*.6,ys+s*.6])});
+      const t0=L.crosses==='burst'?(bigT0??T(R.big))+.08+i*.07:pS+.12+i*st.stagger*1.5/FPS;els.push({g,kind:'xpop',t0,x:xx,y:ys});boxes.push(['deco',xx-s*.6,ys-s*.6,xx+s*.6,ys+s*.6])});
   }
   // ---- cursor
   if(st.cursor&&L.cursor){
     const g=el('g',{},root);cursorShape(g);
     if(L.cursor==='park'){els.push({g,kind:'cursorIn',t0:pS+.3,x:845,y:205+dy});boxes.push(['deco',845,205+dy,893,249+dy])}
-    else{const B=bb||[400,500,700,620];const tx=B[2]-60,ty=B[3]-20;els.push({g,kind:'cursorClick',t0:T(R.big)+.25,x:tx,y:ty,bigEl:els.find(e=>e.kind==='pop')});boxes.push(['deco',tx,ty,tx+48,ty+44])}
+    else{const B=bb||[400,500,700,620];const tx=B[2]-60,ty=B[3]-20;els.push({g,kind:'cursorClick',t0:(bigT0??T(R.big))+.25,x:tx,y:ty,bigEl:els.find(e=>e.kind==='pop')});boxes.push(['deco',tx,ty,tx+48,ty+44])}
   }
   pageHasCard=hasCard;
   return{els,boxes,b,d};
@@ -395,6 +399,20 @@ const fmt=x=>typeof x==='number'?(Math.abs(x)<1&&x!==0?x.toFixed(3):(+x.toFixed(
 function toast(s){$('toast').textContent=s;setTimeout(()=>{if($('toast'))$('toast').textContent=''},2200)}
 function bump(){ver++;pageKey='';const g=$('gfx');$('gS0').setAttribute('stop-color',S.set.bigTop);$('gS1').setAttribute('stop-color',S.set.bigMid);$('gS2').setAttribute('stop-color',S.set.bigBot);if(!playing)frame(v.currentTime||0)}
 let rs=0;function renderRackSoft(){clearTimeout(rs);rs=setTimeout(()=>{const f=document.activeElement&&document.activeElement.id;renderRack();if(f&&$(f))$(f).focus()},400)}
+
+/* ---------- render hook (used by _tools/render_edit.js; not part of the UI) ---------- */
+window.__rb={
+  load(cfg){S={set:Object.assign({},DEF,cfg.style||{}),pick:cfg.pickIdx||S.pick,txt:cfg.text||{}};solo=null;bump()},
+  frame(t){window.RENDER=true;frame(t)},
+  // graphic events of the full edit, for sound design (skill ch.9: SFX sit on EV frames)
+  events(){const ev=[];const sv=solo;solo=null;
+    BEATS.forEach((bt,b)=>{const d=S.pick[b],L=LAY[D[b][d].k],cs=cardStartFor(b),pg=buildPage(b,d,cs);
+      if(b>0)ev.push({t:beatStart(b),type:'group',b});
+      if(st_card(L)&&cs===beatStart(b))ev.push({t:cs+0.1,type:'card',b});
+      pg.els.forEach(e=>{if(e.kind==='pop')ev.push({t:e.t0+0.08,type:'big',b});else if(e.kind==='cursorClick')ev.push({t:e.t0,type:'click',b});else if(e.kind==='write')ev.push({t:e.t0+0.1,type:'script',b})})});
+    solo=sv;pageKey='';return ev.sort((a,b)=>a.t-b.t)}
+};
+function st_card(L){return S.set.card&&L.card}
 
 /* ---------- boot ---------- */
 Promise.all([document.fonts.load("300 66px 'Inter Tight'"),document.fonts.load("600 204px 'Inter Tight'"),document.fonts.load("127px Italianno")]).catch(()=>{}).then(()=>{
