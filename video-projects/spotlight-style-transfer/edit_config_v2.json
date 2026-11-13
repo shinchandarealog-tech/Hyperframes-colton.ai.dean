@@ -1,0 +1,75 @@
+{
+ "style": {
+  "layoutY": -110,
+  "textScale": 1,
+  "smSize": 65.8,
+  "smTrack": -0.08,
+  "smWt": 300,
+  "scSize": 127,
+  "scGap": 13,
+  "bigSize": 203.6,
+  "bigTrack": -0.06,
+  "bigWt": 600,
+  "bigMax": 740,
+  "b1": 480,
+  "b2": 553,
+  "b3": 720,
+  "yellow": "#f7f64e",
+  "scriptYellow": "#f2f24e",
+  "white": "#e3e3e2",
+  "bigTop": "#ffffff",
+  "bigMid": "#ededed",
+  "bigBot": "#a0a0a0",
+  "card": true,
+  "notch": true,
+  "crosses": true,
+  "cursor": true,
+  "cardFill": 6,
+  "cardRim": 10,
+  "crossScale": 1,
+  "lead": 5,
+  "speed": 1,
+  "over": 1,
+  "stagger": 2,
+  "camera": 1,
+  "gSafe": true,
+  "gFace": false,
+  "gRef": 0
+ },
+ "picks": [
+  "Hook: A · Reference 1:1",
+  "Beat 2: C · Word build + click",
+  "Beat 3: B · Big word first",
+  "Beat 4: A · Reference 1:1",
+  "Beat 5 · CTA: C · Word build + click"
+ ],
+ "pickIdx": [
+  0,
+  2,
+  1,
+  0,
+  2
+ ],
+ "text": {
+  "0-0": {
+   "sc": "i am",
+   "sm": "from",
+   "big": "A.R.S STUDIO"
+  },
+  "1-2": {
+   "l1": "We create ",
+   "big": "Brands",
+   "sc": "high quality videos ",
+   "sm": "for"
+  },
+  "2-1": {
+   "l1": "",
+   "sc": "",
+   "big": "Feels premium"
+  },
+  "3-0": {
+   "sm": " on",
+   "sc": "see your brand "
+  }
+ }
+}
