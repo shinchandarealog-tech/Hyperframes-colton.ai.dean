@@ -1,0 +1,7 @@
+# Source: alpaca video (VID-20261113-WA0018) 0-25.7s -> assets/talking-head.mp4 (scaled to 1080x1920 @30fps)
+# CTA audio: CTA video (VID-20261113-WA0017) 34.6s-end, +2.5dB, 0.5s tail -> assets/cta.m4a
+# id|library clip|source in (s)|start|end
+c1|nov5-creator/showing each product.mov|3.0|25.7|28.0
+c2|nov5-creator/cat in house - filler video.mov|0.3|28.0|29.65
+c3|pacagen-main/ALL SPRAY B-ROLL/bottle (1cEUimjhb_PQ5EJliMYmeZnaFWXgzPt_w)|13.8|29.65|31.35
+c4|nov5-creator/back side of package supplement.mov|0.0|31.35|32.6

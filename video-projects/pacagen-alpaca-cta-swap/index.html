@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #face,
+      .broll {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+      }
+      #face {
+        z-index: 1;
+      }
+      .broll {
+        z-index: 2;
+      }
+      /* Captions: single color, Meta safe area (x 65–1015, y 270–1250) */
+      .cap {
+        position: absolute;
+        z-index: 3;
+        left: 65px;
+        width: 950px;
+        top: 1012px;
+        text-align: center;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 600;
+        font-size: 54px;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        text-shadow:
+          0 2px 4px rgba(0, 0, 0, 0.7),
+          0 0 12px rgba(0, 0, 0, 0.45),
+          0 0 2px rgba(0, 0, 0, 0.6);
+      }
+    
+      /* Hook title: cream, tight geometric lowercase, static, above her head (inside Meta safe area) */
+      #hook {
+        position: absolute;
+        z-index: 4;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      #hook .title {
+        position: absolute;
+        left: 65px;
+        width: 950px;
+        top: 818px;
+        text-align: center;
+        font-family: "Poppins", Inter, sans-serif;
+        font-weight: 700;
+        font-size: 60px;
+        line-height: 0.98;
+        letter-spacing: -0.065em;
+        color: #f7f2b8;
+        text-shadow:
+          0 2px 6px rgba(0, 0, 0, 0.45),
+          0 0 16px rgba(0, 0, 0, 0.3),
+          0 0 2px rgba(0, 0, 0, 0.5);
+      }
+      #hook .ln {
+        display: block;
+        white-space: nowrap;
+      }
+      #hook .star {
+        position: absolute;
+      }
+      #hook .star svg {
+        width: 100%;
+        height: 100%;
+        fill: #f7f2b8;
+        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.45));
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="32.6" data-width="1080" data-height="1920">
+      <!-- Original alpaca edit (captions burned in) up to "...breaks down the allergen." -->
+      <video id="face" data-start="0" data-duration="25.7" data-track-index="0" src="assets/talking-head.mp4" muted playsinline></video>
+      <audio id="voice" data-start="0" data-duration="25.9" data-track-index="3" src="assets/talking-head.mp4" data-volume="1"></audio>
+      <!-- New CTA: last CTA from the CTA video (34.6s-end), +2.5dB to match -->
+      <audio id="cta" data-start="25.9" data-duration="6.7" data-track-index="4" src="assets/cta.m4a" data-volume="1"></audio>
+      <video id="c1" class="broll" data-start="25.7" data-duration="2.3" data-track-index="1" src="assets/broll/c1.mp4" muted playsinline></video>
+      <video id="c2" class="broll" data-start="28.0" data-duration="1.65" data-track-index="1" src="assets/broll/c2.mp4" muted playsinline></video>
+      <video id="c3" class="broll" data-start="29.65" data-duration="1.7" data-track-index="1" src="assets/broll/c3.mp4" muted playsinline></video>
+      <video id="c4" class="broll" data-start="31.35" data-duration="1.25" data-track-index="1" src="assets/broll/c4.mp4" muted playsinline></video>
+      <div id="cap-00" class="clip cap" data-start="25.7" data-duration="0.2" data-track-index="2">down the allergen.</div>
+      <div id="cap-01" class="clip cap" data-start="25.9" data-duration="1.23" data-track-index="2">If you&#x27;re wondering</div>
+      <div id="cap-02" class="clip cap" data-start="27.13" data-duration="1.33" data-track-index="2">which one makes sense</div>
+      <div id="cap-03" class="clip cap" data-start="28.46" data-duration="1.22" data-track-index="2">for your home,</div>
+      <div id="cap-04" class="clip cap" data-start="29.68" data-duration="1.0" data-track-index="2">take a look at</div>
+      <div id="cap-05" class="clip cap" data-start="30.68" data-duration="0.71" data-track-index="2">Pacagen Spray</div>
+      <div id="cap-06" class="clip cap" data-start="31.39" data-duration="1.21" data-track-index="2">and Supplement.</div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.set({}, {}, 32.6);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
