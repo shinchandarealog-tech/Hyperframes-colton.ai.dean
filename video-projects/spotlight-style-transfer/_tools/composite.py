@@ -1,7 +1,7 @@
 # Composite the edit: A-roll (camera move) -> card layer -> speaker (matte, same camera) -> graphics layer.
 # Writes vid/comp/f_%04d.png. Camera = builder zoomAt() (same numbers).
 import cv2, numpy as np, json, os, sys
-FPS = 24; N = 216; FC = (550, 745)
+FPS = 24; N = 216; FC = (550, 745); SRC = os.environ.get('AROLL', 'aroll/f')  # aroll/fc = watermark-cleaned
 ZK = [1.10, 1.08, 1.00, 1.12, 1.02, 1.12, 1.08]
 cam = json.load(open(sys.argv[1]))['style'].get('camera', 1) if len(sys.argv) > 1 else 1
 edl = json.load(open('aroll/edl.json'))['edl']
@@ -19,7 +19,7 @@ def over(base, rgba):
 os.makedirs('vid/comp', exist_ok=True)
 for f in range(1, N + 1):
     t = (f - 1) / FPS; z = zoom(t)
-    A = warp(cv2.imread(f'aroll/f/a_{f:04d}.jpg'), z).astype(np.float32)
+    A = warp(cv2.imread(f'{SRC}/a_{f:04d}.jpg'), z).astype(np.float32)
     M = warp(cv2.imread(f'aroll/m/m_{f:04d}.png', 0), z).astype(np.float32)[..., None] / 255
     C = cv2.imread(f'vid/card/c_{f:04d}.png', cv2.IMREAD_UNCHANGED)
     G = cv2.imread(f'vid/gfx/g_{f:04d}.png', cv2.IMREAD_UNCHANGED)
