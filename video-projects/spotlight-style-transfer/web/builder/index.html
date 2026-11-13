@@ -1,0 +1,404 @@
+<title>Spotlight Reel Builder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Italianno&family=JetBrains+Mono:wght@400;500&display=block">
+<style>
+/* Layout: a three-pane editing desk — 9:16 monitor, beat/design rack, inspector. Committed dark (video-suite) look. */
+:root{
+  --bg:#0c0c0b; --panel:#151513; --panel2:#1c1c19; --line:#2a2a26; --fg:#ecebe6; --muted:#8f8d84;
+  --accent:#f7f64e; --accent-ink:#141400; --warn:#ff8a5c; --ok:#7fd99a;
+  --ui:'Inter Tight',ui-sans-serif,system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg);color:var(--fg)}
+body{font-family:var(--ui);font-size:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 40px}
+button,input,select{font:inherit;color:inherit}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-bottom:14px}
+h1{font-size:19px;font-weight:600;letter-spacing:-.02em;margin:0}
+h1 i{font-family:'Italianno',cursive;font-style:normal;font-weight:400;font-size:30px;color:var(--accent);letter-spacing:0;margin-left:2px}
+.sub{color:var(--muted);font-size:12.5px}
+.desk{display:grid;grid-template-columns:minmax(260px,400px) minmax(0,1fr) 300px;gap:16px;align-items:start}
+@media (max-width:1180px){.desk{grid-template-columns:minmax(260px,380px) minmax(0,1fr)}.insp{grid-column:1/-1}}
+@media (max-width:760px){.desk{grid-template-columns:minmax(0,1fr)}}
+.monitor{position:sticky;top:max(10px,env(safe-area-inset-top,0px))}
+.stage{position:relative;width:100%;aspect-ratio:9/16;max-width:100%;background:#000;border-radius:10px;overflow:hidden;outline:1px solid var(--line)}
+.stage>*{position:absolute;inset:0;width:100%;height:100%}
+#refImg{object-fit:cover;opacity:0;pointer-events:none;mix-blend-mode:normal}
+#v{position:absolute;width:2px;height:2px;opacity:0;pointer-events:none;inset:auto}
+.transport{display:flex;align-items:center;gap:10px;margin-top:10px}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 12px;cursor:pointer;font-weight:500}
+.btn:hover{border-color:#4a4a42}
+.btn:focus-visible,.tile:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.tc{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:96px}
+.scrub{position:relative;margin-top:10px}
+.scrub input{width:100%;accent-color:var(--accent)}
+.beatsbar{display:flex;height:20px;margin-top:4px;gap:2px}
+.beatsbar div{background:var(--panel2);border-radius:3px;font-size:10px;color:var(--muted);display:flex;align-items:center;justify-content:center;font-family:var(--mono);overflow:hidden;white-space:nowrap}
+.beatsbar div.on{background:#3a3a1c;color:var(--accent)}
+.mode{font-size:12px;color:var(--muted);margin-top:8px;min-height:18px}
+.mode b{color:var(--fg);font-weight:600}
+.checks{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{font-size:11.5px;border-radius:99px;padding:3px 9px;border:1px solid var(--line);color:var(--muted)}
+.chip.ok{color:var(--ok);border-color:#2f5a3c}.chip.bad{color:var(--warn);border-color:#6a3a28}
+.rack{display:flex;flex-direction:column;gap:12px;min-width:0}
+.beat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+.beat-h{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.beat-h b{font-size:13px}
+.beat-h span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.said{color:var(--muted);font-size:13px;margin:4px 0 10px;text-wrap:balance}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.tiles{grid-template-columns:minmax(0,1fr)}}
+.tile{background:#0a0a09;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px;cursor:pointer;text-align:center;min-width:0;display:flex;flex-direction:column;gap:6px}
+.tile:hover{border-color:#4a4a42}
+.tile.sel{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.tile .lab{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;text-align:left}
+.mini{min-height:86px;display:flex;flex-direction:column;justify-content:center;align-items:center;line-height:1;overflow:hidden}
+.mini .s{font-weight:300;font-size:13px;letter-spacing:-.06em;color:#e3e3e2}
+.mini .c{font-family:'Italianno',cursive;font-size:25px;color:var(--accent);line-height:.8}
+.mini .c em{font-family:var(--ui);font-style:normal;font-weight:300;font-size:13px;color:#e3e3e2;letter-spacing:-.06em;margin-left:3px}
+.mini .g{font-weight:600;font-size:30px;letter-spacing:-.06em;background:linear-gradient(#fff,#ededed 45%,#a0a0a0);-webkit-background-clip:text;background-clip:text;color:transparent;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mini .g::after{content:'.';color:var(--accent);-webkit-text-fill-color:var(--accent)}
+.use{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--muted);justify-content:center}
+.use input{accent-color:var(--accent)}
+.insp{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 12px 12px;min-width:0}
+details{border-bottom:1px solid var(--line);padding:8px 0}
+details:last-of-type{border-bottom:0}
+summary{cursor:pointer;font-weight:600;font-size:13px;padding:2px 0;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:'+';color:var(--muted)}details[open]>summary::after{content:'–'}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 120px 46px;gap:8px;align-items:center;margin-top:8px;font-size:12.5px}
+.row label{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row input[type=range]{width:100%;accent-color:var(--accent)}
+.row output{font-family:var(--mono);font-size:11px;text-align:right;font-variant-numeric:tabular-nums}
+.row.col{grid-template-columns:minmax(0,1fr) 46px 120px}
+.row input[type=color]{width:46px;height:24px;border:1px solid var(--line);border-radius:6px;background:none;padding:0}
+.row.tog{grid-template-columns:minmax(0,1fr) auto}
+.row.txt{grid-template-columns:62px minmax(0,1fr)}
+.row.txt input{background:#0a0a09;border:1px solid var(--line);border-radius:6px;padding:5px 8px;width:100%;min-width:0}
+.note{font-size:11.5px;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.note b{color:var(--fg);font-weight:500}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.toast{font-size:12px;color:var(--ok);min-height:16px;margin-top:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header>
+  <h1>Spotlight Reel <i>builder</i></h1>
+  <span class="sub">Client A-roll · 9.00 s rough cut · reference style "You're not competing on price." · 1080×1920</span>
+</header>
+
+<div class="desk">
+  <section class="monitor" aria-label="Preview">
+    <div class="stage" id="stage">
+      <canvas id="bg" width="720" height="1280"></canvas>
+      <svg id="cardSvg" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+      <canvas id="fg" width="720" height="1280"></canvas>
+      <svg id="gfx" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="bigGrad" x1="0" y1="0" x2="0" y2="1"><stop id="gS0" offset="0" stop-color="#ffffff"/><stop id="gS1" offset=".45" stop-color="#ededed"/><stop id="gS2" offset="1" stop-color="#a0a0a0"/></linearGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <g id="page"></g>
+      </svg>
+      <svg id="guides" viewBox="0 0 1080 1920" preserveAspectRatio="xMidYMid slice"></svg>
+      <img id="refImg" src="ref.jpg" alt="">
+    </div>
+    <video id="v" src="stack.mp4" preload="auto" playsinline></video>
+    <div class="transport">
+      <button class="btn primary" id="play">Play</button>
+      <button class="btn" id="full">Play full edit</button>
+      <span class="tc" id="tc">0.00 / 9.00 s</span>
+    </div>
+    <div class="scrub"><input type="range" id="scrub" min="0" max="9" step="0.01" value="1.3" aria-label="Scrub"><div class="beatsbar" id="beatsbar"></div></div>
+    <div class="mode" id="mode"></div>
+    <div class="checks" id="checks"></div>
+  </section>
+
+  <section class="rack" id="rack" aria-label="Beats and designs"></section>
+
+  <aside class="insp" id="insp" aria-label="Inspector"></aside>
+</div>
+
+<script src="data.js"></script>
+<script>
+(()=>{
+const FPS=24, DUR=9.0, NS='http://www.w3.org/2000/svg';
+const $=id=>document.getElementById(id);
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const E={p3o:p=>1-Math.pow(1-p,3),expoO:p=>p>=1?1:1-Math.pow(2,-10*p),backO:(p,s)=>{const c=s+1;return 1+c*Math.pow(p-1,3)+s*Math.pow(p-1,2)},sineIO:p=>-(Math.cos(Math.PI*p)-1)/2,p2io:p=>p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2};
+
+/* ---------- MEASURED reference numbers (spec/STYLE.md); motion = estimated defaults ---------- */
+const DEF={
+  layoutY:-110, textScale:1,
+  smSize:65.8, smTrack:-0.08, smWt:300,
+  scSize:127, scGap:13,
+  bigSize:203.6, bigTrack:-0.06, bigWt:600, bigMax:740,
+  b1:480, b2:553, b3:720,
+  yellow:'#f7f64e', scriptYellow:'#f2f24e', white:'#e3e3e2', bigTop:'#ffffff', bigMid:'#ededed', bigBot:'#a0a0a0',
+  card:true, notch:true, crosses:true, cursor:true, cardFill:6, cardRim:10, crossScale:1,
+  lead:5, speed:1, over:1, stagger:2, camera:1,
+  gSafe:true, gFace:false, gRef:0
+};
+const KEY='spotlight-builder-v1';
+let S=load();
+function load(){try{const j=JSON.parse(localStorage.getItem(KEY)||'null');if(j)return{set:Object.assign({},DEF,j.set||{}),pick:j.pick||[0,2,1,0,2],txt:j.txt||{}}}catch(e){}return{set:Object.assign({},DEF),pick:[0,2,1,0,2],txt:{}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* ---------- words / beats ---------- */
+const W=window.WORDS;
+const wt=i=>W[i][1];
+function joinW(a,b){let s='';for(let i=a;i<=b;i++){const w=W[i][0];s+=(i>a&&!w.startsWith('.')?' ':'')+w}return s}
+const strip=s=>s.replace(/[.,!?]+$/,'');
+const BEATS=[
+ {name:'Hook',w:[0,7]},{name:'Beat 2',w:[8,16]},{name:'Beat 3',w:[17,24]},{name:'Beat 4',w:[25,34]},{name:'Beat 5 · CTA',w:[35,36]}];
+const leadS=()=>S.set.lead/FPS;
+function beatStart(b){return b===0?0:Math.max(0,wt(BEATS[b].w[0])-leadS())}
+function beatEnd(b){return b===BEATS.length-1?DUR:beatStart(b+1)}
+// Designs: A = reference 1:1, B = big word first, C = word-by-word build + cursor click. Ranges are the client's word indices.
+const LAY={A:{layout:'ref',card:1,cursor:'park',crosses:'ref',build:0,label:'A · Reference 1:1'},
+           B:{layout:'bigTop',card:1,cursor:0,crosses:'mirror',build:0,label:'B · Big word first'},
+           C:{layout:'ref',card:0,cursor:'click',crosses:'burst',build:1,label:'C · Word build + click'}};
+// Rule: the big word must land >= ~0.6 s before the page swaps, so it holds on screen (skill rule 6).
+const D=[
+ [{k:'A',l1:[0,0],sc:[1,2],big:[3,5]},{k:'B',big:[0,0],sc:[1,2],l1:[3,7]},{k:'C',l1:[0,2],big:[3,5]}],
+ [{k:'A',l1:[8,10],sc:[11,11],big:[12,12]},{k:'B',big:[12,12],sc:[11,11],l1:[13,16]},{k:'C',l1:[8,10],sc:[11,12],big:[13,13]}],
+ [{k:'A',l1:[17,18],sc:[19,19],sm:[20,20],big:[21,21]},{k:'B',big:[21,21],sc:[18,19],l1:[22,24]},{k:'C',l1:[17,18],sc:[19,20],big:[21,21]}],
+ [{k:'A',l1:[25,29],sc:[30,30],sm:[31,31],big:[32,33]},{k:'B',big:[28,28],sc:[29,30],l1:[31,34]},{k:'C',l1:[26,30],sc:[31,31],big:[32,33]}],
+ [{k:'A',sc:[35,35],big:[36,36]},{k:'B',big:[36,36],sc:[35,35]},{k:'C',sc:[35,35],big:[36,36]}]];
+function txtOf(b,d,part){const o=S.txt[b+'-'+d];if(o&&o[part]!==undefined)return o[part];const r=D[b][d][part];if(!r)return '';let s=joinW(r[0],r[1]);s=part==='big'?strip(s):s.replace(/[.,]+$/,'');return s}
+
+/* ---------- video / compositing ---------- */
+const v=$('v'), bg=$('bg'), fg=$('fg'), bctx=bg.getContext('2d'), fctx=fg.getContext('2d',{willReadFrequently:true});
+const mc=document.createElement('canvas');mc.width=720;mc.height=1280;const mctx=mc.getContext('2d',{willReadFrequently:true});
+const FC=[550,745]; // zoom centre = face centre (faces.json)
+// one eased move per shot, alternating, each shot starts where the previous stopped (skill 8.2). Shots 0+1 = the hook zoom-out.
+const ZK=[1.10,1.08,1.00,1.12,1.02,1.12,1.08];
+function zoomAt(t){const sh=window.SHOTS;let i=sh.findIndex(s=>t<s[1]);if(i<0)i=sh.length-1;const [a,b]=sh[i];const p=E.sineIO(clamp((t-a)/(b-a)));const z=ZK[i]+(ZK[i+1]-ZK[i])*p;return 1+(z-1)*S.set.camera}
+function drawVideo(t){
+  if(v.readyState<2)return;
+  const z=zoomAt(t), cx=FC[0]*2/3, cy=FC[1]*2/3;
+  for(const [ctx,sx] of [[bctx,0],[fctx,0],[mctx,720]]){ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,720,1280);ctx.setTransform(z,0,0,z,cx*(1-z),cy*(1-z));ctx.drawImage(v,sx,0,720,1280,0,0,720,1280)}
+  const showFg=pageHasCard;
+  fg.style.visibility=showFg?'visible':'hidden';
+  if(!showFg)return;
+  const f=fctx.getImageData(0,0,720,1280), m=mctx.getImageData(0,0,720,1280), fd=f.data, md=m.data;
+  for(let i=3;i<fd.length;i+=4)fd[i]=md[i-3];
+  fctx.putImageData(f,0,0);
+}
+
+/* ---------- SVG helpers ---------- */
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+const measure=(()=>{const t=el('text',{x:-9999,y:-9999},$('gfx'));return(str,font,size,wt,ls)=>{t.setAttribute('font-family',font);t.setAttribute('font-size',size);t.setAttribute('font-weight',wt);t.setAttribute('letter-spacing',ls);t.textContent=str;const b=t.getBBox();return{w:b.width,y:b.y,h:b.height}}})();
+const SM=()=>({f:"'Inter Tight'",s:S.set.smSize*S.set.textScale,w:S.set.smWt,ls:S.set.smTrack*S.set.smSize*S.set.textScale});
+function crossShape(parent,s){const g=el('g',{},parent);const th=s*0.29;el('rect',{x:-s/2,y:-th/2,width:s,height:th,rx:th/2,fill:S.set.yellow},g);el('rect',{x:-th/2,y:-s/2,width:th,height:s,rx:th/2,fill:S.set.yellow},g);return g}
+function cursorShape(parent){const g=el('g',{},parent);el('path',{d:'M0 0 L46 17 Q31 22 26 41 Z',fill:'#fff',stroke:'#fff','stroke-width':7,'stroke-linejoin':'round',filter:'url(#glow)'},g);return g}
+
+/* ---------- page build ---------- */
+let page=null, pageKey='', pageHasCard=false;
+function buildPage(b,d,cardT0){
+  const st=S.set, root=$('page'), card=$('cardSvg');root.innerHTML='';card.innerHTML='';
+  const L=LAY[D[b][d].k], R=D[b][d], dy=st.layoutY, els=[], lead=leadS(), pS=beatStart(b);
+  const T=(r)=>r?wt(r[0])-lead:pS;
+  const sm=SM(), sc={f:'Italianno',s:st.scSize*st.textScale}, bg_={f:"'Inter Tight'",s:st.bigSize*st.textScale,w:st.bigWt};
+  const tl1=txtOf(b,d,'l1'), tsc=txtOf(b,d,'sc'), tsm=txtOf(b,d,'sm'), tbig=txtOf(b,d,'big');
+  // baselines (reference space) by layout
+  let yL1,yRow,yBig;
+  if(L.layout==='ref'){yL1=st.b1;yRow=st.b2;yBig=st.b3}else{yBig=st.b3-145;yRow=st.b3-70;yL1=st.b3} // B: same block height as the reference, rows reversed
+  yL1+=dy;yRow+=dy;yBig+=dy;
+  if(L.layout==='ref'&&!tl1){} // keep rows where the reference has them
+  const boxes=[];
+  // ---- small line (word by word)
+  if(tl1){
+    const ws=tl1.split(' '), sp=measure('x x',sm.f,sm.s,sm.w,sm.ls).w-2*measure('x',sm.f,sm.s,sm.w,sm.ls).w;
+    const wd=ws.map(w=>measure(w,sm.f,sm.s,sm.w,sm.ls).w);let tot=wd.reduce((a,c)=>a+c,0)+sp*(ws.length-1);
+    let k=1;const maxW=760;if(tot>maxW)k=maxW/tot;
+    let x=540-tot*k/2;
+    const idx=R.l1?R.l1:[null,null];
+    ws.forEach((w,i)=>{const g=el('g',{},root);const t=el('text',{x:0,y:0,'font-family':sm.f,'font-size':sm.s*k,'font-weight':sm.w,'letter-spacing':sm.ls*k,fill:st.white},g);t.textContent=w;
+      const wi=idx[0]!=null?Math.min(idx[0]+i,idx[1]):null;
+      const t0=L.build&&wi!=null?wt(wi)-lead:T(R.l1)+i*st.stagger/FPS;
+      els.push({g,kind:'rise',t0,x,y:yL1});x+=(wd[i]+sp)*k});
+    boxes.push(['text',540-tot*k/2,yL1-sm.s*k*0.75,540+tot*k/2,yL1+sm.s*k*0.2]);
+  }
+  // ---- script + small word row
+  if(tsc||tsm){
+    const scW=tsc?measure(tsc,sc.f,sc.s,400,0).w:0, smW=tsm?measure(tsm,sm.f,sm.s,sm.w,sm.ls).w:0;
+    const tot=scW+(tsc&&tsm?st.scGap:0)+smW;let x=540-tot/2;
+    if(tsc){const id='clip'+b+d;const cp=el('clipPath',{id},root);const rect=el('rect',{x:x-30,y:yRow-sc.s,width:0,height:sc.s*1.6},cp);
+      const g=el('g',{'clip-path':`url(#${id})`},root);const t=el('text',{x,y:yRow,'font-family':sc.f,'font-size':sc.s,fill:st.scriptYellow},g);t.textContent=tsc;
+      els.push({g,rect,kind:'write',t0:T(R.sc),w:scW+60});x+=scW+(tsm?st.scGap:0)}
+    if(tsm){const g=el('g',{},root);const t=el('text',{x:0,y:0,'font-family':sm.f,'font-size':sm.s,'font-weight':sm.w,'letter-spacing':sm.ls,fill:st.white},g);t.textContent=tsm;els.push({g,kind:'rise',t0:R.sm?T(R.sm):T(R.sc)+.15,x,y:yRow})}
+    boxes.push(['text',540-tot/2,yRow-sc.s*0.55,540+tot/2,yRow+sc.s*0.35]);
+  }
+  // ---- big word + yellow dot
+  let bb=null;
+  if(tbig){
+    let s=bg_.s, m=measure(tbig,bg_.f,s,bg_.w,st.bigTrack*s);
+    if(m.w>st.bigMax){s*=st.bigMax/m.w;m=measure(tbig,bg_.f,s,bg_.w,st.bigTrack*s)}
+    const dotR=12*s/203.6, gap=11*s/203.6, tot=m.w+gap+2*dotR, x0=540-tot/2;
+    const g=el('g',{},root);const t=el('text',{x:x0,y:yBig,'font-family':bg_.f,'font-size':s,'font-weight':bg_.w,'letter-spacing':st.bigTrack*s,fill:'url(#bigGrad)'},g);t.textContent=tbig;
+    const cx=x0+tot/2, cy=yBig-s*0.27;
+    els.push({g,kind:'pop',t0:T(R.big),cx,cy});
+    const dg=el('g',{},root);el('circle',{cx:0,cy:0,r:dotR,fill:st.yellow},dg);
+    els.push({g:dg,kind:'dotpop',t0:T(R.big)+.22,x:x0+m.w+gap+dotR,y:yBig-dotR});
+    bb=[x0,yBig-s*0.74,x0+tot,yBig+s*0.21];boxes.push(['text',...bb]);
+  }
+  // ---- glass card + notch (behind the speaker)
+  const hasCard=st.card&&L.card;
+  if(hasCard){
+    const g=el('g',{},card);
+    el('rect',{x:229,y:223+dy,width:623,height:940,rx:98,fill:`rgba(255,255,255,${st.cardFill/100})`,stroke:`rgba(255,255,255,${st.cardRim/100})`,'stroke-width':1.5},g);
+    const lip=el('rect',{x:240,y:1163+dy-26,width:601,height:22,rx:11,fill:`rgba(255,255,255,${st.cardFill/100*0.9})`,filter:'url(#glow)'},g);
+    els.push({g,kind:'cardIn',t0:cardT0,cx:540,cy:693+dy});
+    if(st.notch){const n=el('g',{},card);el('rect',{x:-67.5,y:-15.5,width:135,height:31,rx:15.5,fill:'#fff'},n);els.push({g:n,kind:'notch',t0:cardT0+.12,x:539.5,y:273.5+dy})}
+    boxes.push(['deco',229,223+dy,852,1163+dy]);
+  }
+  // ---- crosses
+  if(st.crosses){
+    let P;const cs=st.crossScale;
+    if(L.crosses==='ref')P=[[840,628,100],[232,428,48],[323,841,22]];
+    else if(L.crosses==='mirror')P=[[240,600,100],[850,420,48],[760,830,22]];
+    else{const B=bb||[340,500,740,620];P=[[B[2]+62,B[1]+6,90],[B[0]-34,B[1]-80,44],[B[0]+22,B[3]+70,22]]}
+    const tb=boxes.filter(q=>q[0]==='text');
+    P.forEach(([x,y,s],i)=>{s*=cs;let ys=L.crosses==='burst'?y:y+dy;const xx=clamp(x,84+s*.55,900-s*.55);
+      for(let k=0;k<4;k++){const h=tb.find(q=>xx+s*.55>q[1]&&xx-s*.55<q[3]&&ys+s*.55>q[2]&&ys-s*.55<q[4]);if(!h)break;ys=h[2]-s*.6-8;if(ys<120)ys=h[4]+s*.6+8} /* never on top of text */const g=el('g',{},root);crossShape(g,s);
+      const t0=L.crosses==='burst'?T(R.big)+.08+i*.07:pS+.12+i*st.stagger*1.5/FPS;els.push({g,kind:'xpop',t0,x:xx,y:ys});boxes.push(['deco',xx-s*.6,ys-s*.6,xx+s*.6,ys+s*.6])});
+  }
+  // ---- cursor
+  if(st.cursor&&L.cursor){
+    const g=el('g',{},root);cursorShape(g);
+    if(L.cursor==='park'){els.push({g,kind:'cursorIn',t0:pS+.3,x:845,y:205+dy});boxes.push(['deco',845,205+dy,893,249+dy])}
+    else{const B=bb||[400,500,700,620];const tx=B[2]-60,ty=B[3]-20;els.push({g,kind:'cursorClick',t0:T(R.big)+.25,x:tx,y:ty,bigEl:els.find(e=>e.kind==='pop')});boxes.push(['deco',tx,ty,tx+48,ty+44])}
+  }
+  pageHasCard=hasCard;
+  return{els,boxes,b,d};
+}
+
+/* ---------- per-frame motion ---------- */
+function apply(t){
+  if(!page)return;const sp=S.set.speed, ov=S.set.over;
+  for(const e of page.els){
+    const dt=t-e.t0, g=e.g;
+    const P=d=>clamp(dt/(d*sp));
+    if(dt<0&&e.kind!=='cursorClick'){g.setAttribute('opacity',0);if(e.rect)e.rect.setAttribute('width',0);continue}
+    switch(e.kind){
+      case 'rise':{const p=P(.5);g.setAttribute('opacity',clamp(p*3));g.setAttribute('transform',`translate(${e.x} ${e.y+28*(1-E.p3o(p))})`);break}
+      case 'write':{const p=P(.65);g.setAttribute('opacity',1);e.rect.setAttribute('width',e.w*E.p2io(p));break}
+      case 'pop':{const p=P(.55);let s=1.18+(1-1.18)*E.backO(p,1.6*ov);if(e.press!=null)s*=e.press;g.setAttribute('opacity',clamp(p*4));g.setAttribute('transform',`translate(${e.cx} ${e.cy}) scale(${s}) translate(${-e.cx} ${-e.cy})`);break}
+      case 'dotpop':{const p=P(.35);g.setAttribute('opacity',p>0?1:0);g.setAttribute('transform',`translate(${e.x} ${e.y}) scale(${Math.max(0,E.backO(p,3*ov))})`);break}
+      case 'xpop':{const p=P(.5);g.setAttribute('opacity',p>0?1:0);g.setAttribute('transform',`translate(${e.x} ${e.y}) rotate(${-110+88*E.p3o(p)}) scale(${Math.max(0,E.backO(p,2*ov))})`);break}
+      case 'cursorIn':{const p=P(.6),k=1-E.p3o(p);g.setAttribute('opacity',clamp(p*3));g.setAttribute('transform',`translate(${e.x+80*k} ${e.y+80*k})`);break}
+      case 'cursorClick':{const tr=.5*sp, a=e.t0-tr;const p=clamp((t-a)/tr), k=1-E.p3o(p);const c=clamp((t-e.t0)/(.22*sp));const sq=t>=e.t0?1-.18*Math.sin(Math.PI*c):1;
+        g.setAttribute('opacity',t<a?0:clamp(p*3));g.setAttribute('transform',`translate(${e.x+260*k} ${e.y+300*k}) scale(${sq})`);
+        if(e.bigEl)e.bigEl.press=t>=e.t0&&c<1?1-.03*Math.sin(Math.PI*c):null;break}
+      case 'cardIn':{const p=P(.7);const s=.92+.08*E.backO(p,1.4*ov);g.setAttribute('opacity',clamp(p*2.5));g.setAttribute('transform',`translate(${e.cx} ${e.cy}) scale(${s}) translate(${-e.cx} ${-e.cy})`);break}
+      case 'notch':{const p=P(.5);g.setAttribute('opacity',p>0?1:0);g.setAttribute('transform',`translate(${e.x} ${e.y}) scale(${.4+.6*E.expoO(p)} 1)`);break}
+    }
+  }
+}
+
+/* ---------- timeline ---------- */
+let solo={b:0,d:S.pick[0]};
+const beatAt=t=>{for(let b=BEATS.length-1;b>=0;b--)if(t>=beatStart(b))return b;return 0};
+function designFor(b){return solo&&solo.b===b?solo.d:S.pick[b]}
+function cardStartFor(b){let s=b;if(!solo){while(s>0&&LAY[D[s-1][S.pick[s-1]].k].card&&LAY[D[s][S.pick[s]].k].card)s--}return beatStart(s)}
+let ver=0;
+function frame(t){
+  const b=solo?solo.b:beatAt(t), d=designFor(b), key=b+'-'+d+'-'+ver+'-'+(solo?'s':'f');
+  if(key!==pageKey){page=buildPage(b,d,cardStartFor(b));pageKey=key;qc()}
+  apply(t);drawVideo(t);guides(t);
+  $('tc').textContent=t.toFixed(2)+' / 9.00 s';$('scrub').value=t;
+  [...$('beatsbar').children].forEach((c,i)=>c.classList.toggle('on',i===b));
+}
+function guides(t){
+  const g=$('guides');g.innerHTML='';
+  if(S.set.gSafe){el('path',{d:'M0 0H1080V1920H0Z M84 0V1520H900V0Z','fill-rule':'evenodd',fill:'rgba(255,60,60,.05)'},g);el('rect',{x:84,y:0,width:816,height:1520,fill:'none',stroke:'rgba(255,90,90,.45)','stroke-dasharray':'10 8','stroke-width':2},g)}
+  if(S.set.gFace){const f=window.FACES[clamp(Math.floor(t*FPS),0,window.FACES.length-1)];const z=zoomAt(t),tr=v=>[FC[0]+z*(v[0]-FC[0]),FC[1]+z*(v[1]-FC[1])];const a=tr([f[2],f[0]]),c=tr([f[3],f[1]]);
+    el('rect',{x:a[0],y:a[1],width:c[0]-a[0],height:c[1]-a[1],fill:'none',stroke:'#7fd99a','stroke-width':3},g)}
+  const r=$('refImg');r.style.opacity=S.set.gRef/100;r.style.transform=`translateY(${S.set.layoutY/19.2}%)`;
+}
+function qc(){
+  if(!page)return;let face=[9999,9999,0,0];
+  const a=Math.floor(beatStart(page.b)*FPS),z=Math.min(window.FACES.length-1,Math.ceil(beatEnd(page.b)*FPS));
+  for(let i=a;i<=z;i++){const f=window.FACES[i];face=[Math.min(face[0],f[2]),Math.min(face[1],f[0]-40),Math.max(face[2],f[3]),Math.max(face[3],f[1])]} // hair ≈ 40px above detected face top
+  const hit=page.boxes.some(([k,x0,y0,x1,y1])=>k==='text'&&x0<face[2]&&x1>face[0]&&y0<face[3]&&y1>face[1]);
+  const out=page.boxes.some(([k,x0,y0,x1,y1])=>x0<83||x1>901||y1>1520);
+  $('checks').innerHTML=`<span class="chip ${hit?'bad':'ok'}">${hit?'Text touches face/hair':'Face clear'}</span><span class="chip ${out?'bad':'ok'}">${out?'Outside IG safe zone':'Inside IG safe zone'}</span><span class="chip">Lead ${S.set.lead} f @24</span>`;
+  const L=LAY[D[page.b][page.d].k];
+  $('mode').innerHTML=solo?`Looping <b>${BEATS[page.b].name} · ${L.label}</b>. Press “Play full edit” to hear the whole reel with your picks.`:`Full edit · now on <b>${BEATS[page.b].name} · ${L.label}</b>`;
+}
+
+let playing=false;
+function tick(){let t=v.currentTime;
+  if(solo){const a=beatStart(solo.b),e=beatEnd(solo.b);if(t>=e-0.02||t<a-0.05){v.currentTime=a;t=a}}
+  else if(t>=DUR-0.03){v.currentTime=0;t=0}
+  frame(t);if(playing)requestAnimationFrame(tick)}
+function setPlay(p){playing=p;$('play').textContent=p?'Pause':'Play';if(p){v.play().catch(()=>{playing=false;$('play').textContent='Play'});requestAnimationFrame(tick)}else v.pause()}
+$('play').onclick=()=>setPlay(!playing);
+$('full').onclick=()=>{solo=null;markTiles();pageKey='';v.currentTime=0;setPlay(true)};
+$('scrub').oninput=e=>{const t=+e.target.value;if(solo&&(t<beatStart(solo.b)||t>=beatEnd(solo.b)))solo=null,markTiles();v.currentTime=t;frame(t)};
+v.addEventListener('seeked',()=>{if(!playing)frame(v.currentTime)});
+v.addEventListener('loadeddata',()=>frame(v.currentTime));
+
+/* ---------- rack ---------- */
+function renderRack(){
+  const r=$('rack');r.innerHTML='';
+  BEATS.forEach((bt,b)=>{
+    const sec=document.createElement('div');sec.className='beat';
+    sec.innerHTML=`<div class="beat-h"><b>${bt.name}</b><span>${beatStart(b).toFixed(2)}–${beatEnd(b).toFixed(2)} s</span></div><p class="said">“${joinW(bt.w[0],bt.w[1])}”</p><div class="tiles"></div>`;
+    const tiles=sec.querySelector('.tiles');
+    D[b].forEach((dz,d)=>{const L=LAY[dz.k];const t=document.createElement('div');t.className='tile';t.tabIndex=0;t.dataset.b=b;t.dataset.d=d;
+      const l1=txtOf(b,d,'l1'),sc=txtOf(b,d,'sc'),sm=txtOf(b,d,'sm'),big=txtOf(b,d,'big');
+      const row=sc||sm?`<div class="c">${esc(sc)}${sm?`<em>${esc(sm)}</em>`:''}</div>`:'';
+      const s1=l1?`<div class="s">${esc(l1)}</div>`:'', g=big?`<div class="g">${esc(big)}</div>`:'';
+      t.innerHTML=`<div class="lab">${L.label}</div><div class="mini">${L.layout==='bigTop'?g+row+s1:s1+row+g}</div><label class="use"><input type="radio" name="pick${b}" ${S.pick[b]===d?'checked':''}> Use in edit</label>`;
+      t.onclick=e=>{if(e.target.tagName==='INPUT'){S.pick[b]=d;save();pageKey='';}solo={b,d};markTiles();renderInsp();const a=beatStart(b);v.currentTime=a;frame(a);if(!playing)setPlay(true)};
+      t.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t.click()}};
+      tiles.appendChild(t)});
+    r.appendChild(sec)});
+  const bar=$('beatsbar');bar.innerHTML='';BEATS.forEach((bt,b)=>{const c=document.createElement('div');c.style.flex=beatEnd(b)-beatStart(b);c.textContent=b+1;bar.appendChild(c)});
+  markTiles();
+}
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function markTiles(){document.querySelectorAll('.tile').forEach(t=>t.classList.toggle('sel',!!solo&&+t.dataset.b===solo.b&&+t.dataset.d===solo.d))}
+
+/* ---------- inspector ---------- */
+const CTRLS=[
+ ['Layout',[['layoutY','Layout Y (px)',-260,80,1],['textScale','Text scale',.7,1.3,.01],['b1','Line 1 baseline',380,560,1],['b2','Script row baseline',460,640,1],['b3','Big word baseline',620,800,1]],'Reference baselines 480 / 553 / 720. Layout Y −110 lifts the block above this speaker’s head (his hair is 65 px higher than the reference speaker’s).'],
+ ['Type',[['smSize','Small line size',40,100,.1],['smTrack','Small tracking (em)',-.14,0,.001],['smWt','Small weight',300,500,100],['scSize','Script size',80,180,1],['scGap','Script → small gap',0,40,1],['bigSize','Big word size',120,260,.1],['bigTrack','Big tracking (em)',-.12,0,.001],['bigWt','Big weight',500,700,100],['bigMax','Big max width',400,816,1]],'Measured: Inter Tight 300 · 65.8 px · −0.08 em; Italianno 127 px; Inter Tight 600 · 203.6 px · −0.06 em. Long big words shrink to the max width.'],
+ ['Colour',[['yellow','Accent yellow','c'],['scriptYellow','Script yellow','c'],['white','Small line','c'],['bigTop','Big word top','c'],['bigMid','Big word middle','c'],['bigBot','Big word bottom','c'],['cardFill','Card fill %',0,20,.5],['cardRim','Card rim %',0,30,.5]],'Yellow #F5F652 to #FAFA47 measured on the crosses; big word darkens from white to about #A0A0A0 at the baseline.'],
+ ['Elements',[['card','Glass card','t'],['notch','Card notch','t'],['crosses','Yellow crosses','t'],['cursor','Cursor','t'],['crossScale','Cross size',.5,1.6,.01]],'Card, notch and cursor apply only to designs that use them (A and B use the card, C uses the click cursor).'],
+ ['Motion',[['lead','Text lead (frames)',0,12,1],['speed','Duration ×',.5,2,.05],['over','Overshoot ×',0,2,.05],['stagger','Word stagger (frames)',0,6,1],['camera','Camera move ×',0,2,.05]],'<b>Estimated, not measured:</b> only a still of the reference was supplied. Send the reference video and these become measured curves.'],
+ ['Guides',[['gSafe','IG safe zone','t'],['gFace','Face box','t'],['gRef','Reference overlay %',0,100,1]],'The overlay lays the reference frame over the stage, shifted by Layout Y, for a 1:1 check.']];
+function renderInsp(){
+  const p=$('insp');const openSet=new Set([...p.querySelectorAll('details[open]')].map(d=>d.dataset.k));const first=!p.children.length;p.innerHTML='';
+  const tb=solo?solo:{b:beatAt(v.currentTime||0),d:S.pick[beatAt(v.currentTime||0)]};
+  const td=document.createElement('details');td.dataset.k='Text';td.open=first||openSet.has('Text');
+  td.innerHTML=`<summary>Text · ${BEATS[tb.b].name} ${LAY[D[tb.b][tb.d].k].label.split(' · ')[0]}</summary>`+['l1:Line 1','sc:Script','sm:Small','big:Big word'].map(x=>{const[k,l]=x.split(':');return`<div class="row txt"><label for="tx-${k}">${l}</label><input id="tx-${k}" data-k="${k}" value="${esc(txtOf(tb.b,tb.d,k))}"></div>`}).join('')+`<p class="note">Defaults are the speaker’s own words for this beat. Leave a field empty to hide that element.</p><div class="actions"><button class="btn" id="txReset">Reset text</button></div>`;
+  p.appendChild(td);
+  td.querySelectorAll('input').forEach(i=>i.oninput=()=>{const key=tb.b+'-'+tb.d;S.txt[key]=S.txt[key]||{};S.txt[key][i.dataset.k]=i.value;save();bump();renderRackSoft()});
+  td.querySelector('#txReset').onclick=()=>{delete S.txt[tb.b+'-'+tb.d];save();bump();renderRack();renderInsp()};
+  CTRLS.forEach(([name,list,note])=>{const d=document.createElement('details');d.dataset.k=name;d.open=openSet.has(name)||(first&&name==='Layout');
+    d.innerHTML=`<summary>${name}</summary>`+list.map(([k,l,a,b,s])=>{
+      if(a==='c')return`<div class="row col"><label for="c-${k}">${l}</label><input type="color" id="c-${k}" data-k="${k}" value="${S.set[k]}"><output>${S.set[k]}</output></div>`;
+      if(a==='t')return`<div class="row tog"><label for="c-${k}">${l}</label><input type="checkbox" id="c-${k}" data-k="${k}" ${S.set[k]?'checked':''}></div>`;
+      return`<div class="row"><label for="c-${k}">${l}</label><input type="range" id="c-${k}" data-k="${k}" min="${a}" max="${b}" step="${s}" value="${S.set[k]}"><output>${fmt(S.set[k])}</output></div>`}).join('')+`<p class="note">${note}</p>`;
+    d.querySelectorAll('input').forEach(i=>i.oninput=()=>{const k=i.dataset.k;S.set[k]=i.type==='checkbox'?i.checked:i.type==='color'?i.value:+i.value;const o=i.parentNode.querySelector('output');if(o)o.textContent=i.type==='color'?i.value:fmt(S.set[k]);save();bump()});
+    p.appendChild(d)});
+  const act=document.createElement('div');act.innerHTML=`<div class="actions"><button class="btn primary" id="copy">Copy config</button><button class="btn" id="resetAll">Reset all</button></div><div class="toast" id="toast" role="status"></div><p class="note">Copy config and paste it to Claude to render this exact version as an MP4.</p>`;p.appendChild(act);
+  $('copy').onclick=async()=>{const j=JSON.stringify({style:S.set,picks:S.pick.map((d,b)=>BEATS[b].name+': '+LAY[D[b][d].k].label),pickIdx:S.pick,text:S.txt},null,1);try{await navigator.clipboard.writeText(j);toast('Config copied')}catch(e){const ta=document.createElement('textarea');ta.value=j;ta.style.cssText='width:100%;height:120px;margin-top:8px';act.appendChild(ta);ta.select();toast('Select and copy the text below')}};
+  $('resetAll').onclick=()=>{S={set:Object.assign({},DEF),pick:[0,2,1,0,2],txt:{}};save();bump();renderRack();renderInsp();toast('Reset to measured defaults')};
+}
+const fmt=x=>typeof x==='number'?(Math.abs(x)<1&&x!==0?x.toFixed(3):(+x.toFixed(2)).toString()):x;
+function toast(s){$('toast').textContent=s;setTimeout(()=>{if($('toast'))$('toast').textContent=''},2200)}
+function bump(){ver++;pageKey='';const g=$('gfx');$('gS0').setAttribute('stop-color',S.set.bigTop);$('gS1').setAttribute('stop-color',S.set.bigMid);$('gS2').setAttribute('stop-color',S.set.bigBot);if(!playing)frame(v.currentTime||0)}
+let rs=0;function renderRackSoft(){clearTimeout(rs);rs=setTimeout(()=>{const f=document.activeElement&&document.activeElement.id;renderRack();if(f&&$(f))$(f).focus()},400)}
+
+/* ---------- boot ---------- */
+Promise.all([document.fonts.load("300 66px 'Inter Tight'"),document.fonts.load("600 204px 'Inter Tight'"),document.fonts.load("127px Italianno")]).catch(()=>{}).then(()=>{
+  renderRack();renderInsp();bump();v.currentTime=1.3;
+});
+})();
+</script>

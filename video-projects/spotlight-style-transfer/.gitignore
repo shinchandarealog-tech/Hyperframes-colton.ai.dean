@@ -1,0 +1,6 @@
+# Regenerable working media (rebuild with _tools/*.py)
+aroll/f/
+aroll/m/
+aroll/*.wav
+an/
+web/builder/stack.mp4
